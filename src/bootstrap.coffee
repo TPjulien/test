@@ -12,6 +12,7 @@ tableau = angular.module 'tableauApp', [
   'angular-md5'
   'ngFileUpload'
   'ui.router'
+  'ngDialog'
 ]
 
 tableau

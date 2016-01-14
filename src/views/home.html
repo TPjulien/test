@@ -1,5 +1,38 @@
-<h1>bienvenu au home :)</h1>
+<md-toolbar  class="animate-show" style="background-color:#2196f3;">
+  <div class="md-toolbar-tools">
+    <md-button class="md-icon-button" aria-label="Settings" ng-click="toggleLeft()">
+      <md-icon  md-svg-icon="img/icons/menu.svg"></md-icon>
+    </md-button>
+    <span flex></span>
+    <h1>Travel Tableau</h1>
+    <span flex></span>
+    <md-button class="md-icon-button" aria-label="logout" ng-click="logOut()">
+      <md-icon  md-svg-icon="img/icons/logout.svg"></md-icon>
+    </md-button>
+  </div>
+</md-toolbar>
+<md-sidenav class="md-sidenav-left md-whiteframe-z1" md-component-id="left" style="position:fixed;">
+<md-toolbar class=""  style="background-image: url('https://eeloyloy.files.wordpress.com/2014/09/google_material_promotion.jpg'); padding-bottom: 180px;">
+    <div>
+        <img id="imgSidenav" src="{{userAccount.imgUrl}}"/>
+    </div>
+    <span flex></span>
+    <div padding="" style="text-align:center">
+        <a ui-sref=".test" class="md-title">test !</a>
+    </div>
+</md-toolbar>
+<!-- menu liste -->
+    <md-list>
+      <md-content flex="" =layout-padding="">
+          <md-list-item class="md-1-line" role="link" md-ink-ripple ng-repeat="data in fakeData">
+            <md-icon md-svg-icon="img/icons/{{data.svg}}" aria-label="{{data.onglet}}"></md-icon>
+            <div class="md-list-item-text" ng-click="checkAction(data.onglet)">
+              <span style="color:#757575" class="md-subhead">Test</span>
+            </div>
+            <span flex></span>
+          </md-list-item>
+      </md-content>
+  </md-list>
+</md-sidenav>
 
-<a ui-sref=".test" class="btn btn-primary">List</a>
-
-<div ui-view></div>
+<div class="container" ui-view></div>
