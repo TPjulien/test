@@ -1,0 +1,42 @@
+{
+  "name": "client_base",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "mahefa <nmahefa@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/nmahefa/Client_base",
+  "moduleType": [],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.3.0",
+    "angular-route": "~1.4.7",
+    "angular-sanitize": "~1.4.7",
+    "angular-material": "~0.11.4",
+    "ngSweetAlert": "angular-sweetalert#~1.1.0",
+    "sweetalert": "~1.1.3",
+    "angular-cookies": "~1.4.7",
+    "angularjs-datepicker": "~0.2.12",
+    "mdPickers": "~0.3.2",
+    "angular-material-data-table": "~0.8.14",
+    "angular-md5": "~0.1.8",
+    "js-xlsx": "~0.8.0",
+    "ng-file-upload": "~9.1.2",
+    "d3": "~3.4.13",
+    "fastclick": "~1.0.6",
+    "foundation": "zurb/bower-foundation#~5.4.7",
+    "angular-ui-router": "~0.2.15"
+  },
+  "resolutions": {
+    "angular": "~1.4.7",
+    "angular-material": "~0.11.4"
+  }
+}
