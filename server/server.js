@@ -1,6 +1,8 @@
 var mysql      = require('mysql');
+var cors       = require('cors');
 var express    = require('express');
 var bodyParser = require('body-parser');
+var jwt        = require('jsonwebtoken');
 var app        = express();
 
 
@@ -19,13 +21,14 @@ connection.connect(function(err) {
         console.log("connection etablished !");
 });
 
-app.use(function(req, res, next) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type');
-  res.setHeader('Access-Control-Allow-Credentials', true);
-  next();
-});
+app.use(cors());
+// app.use(function(req, res, next) {
+//   res.setHeader('Access-Control-Allow-Origin', '*');
+//   res.setHeader('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+//   res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type');
+//   // res.setHeader('Access-Control-Allow-Credentials', true);
+//   next();
+// });
 
 app.use(bodyParser.json({ extended: true }));
 app.use(bodyParser.json());
@@ -33,8 +36,36 @@ app.use(bodyParser.json());
 var port   = process.env.PORT || 3000;
 var router = express.Router();
 
-// require des routes
+
+// debut des routes  ----------------------------------------------------------------------------------
+// on n'a pas besoin de proteger la route d'authentification
 require('./app/routes/loginRoute')(router, connection);
+
+// on verifie le token auth pour les autres routes
+router.use(function(req, res, next) {
+    // check header url if token exist
+    var token = req.body.token || req.query.token || req.headers['x-access-token'];
+    // decoding the token
+    if (token) {
+        jwt.verify(token, 'travelSecret', function(err, decoded) {
+            if (err) {
+                return res.json({ success: false, message: 'Failed to authenticate token.' });
+            } else {
+                req.decoded = decoded;
+                next();
+            }
+        });
+    } else {
+        // if no token has been send, show an error
+        return res.status(403).send({
+            success: false,
+            message: 'No token provided.'
+        });
+    }
+});
+
+// require des routes nécesittant un token valide
+
 
 // starting API
 app.use('/api', router);

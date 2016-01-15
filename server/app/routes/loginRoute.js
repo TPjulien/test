@@ -1,4 +1,5 @@
 var mysql = require('mysql');
+var jwt   = require('jsonwebtoken');
 
 module.exports = function(router, connection) {
     var table_password = "password";
@@ -35,6 +36,7 @@ module.exports = function(router, connection) {
 
     router.route('/login')
         .post (function (req, res) {
+            console.log(req.body.username)
             getPassUser(req.body.username, function(err, data) {
                 if (err) {
                     res.sendStatus(404, "user not found !");
@@ -42,7 +44,15 @@ module.exports = function(router, connection) {
                     if (data.length > 0) {
                         checkPwUser(req.body.username, req.body.password, function(err, data) {
                             if (data != null) {
-                                res.json(data);
+                                var token = jwt.sign(data, 'travelSecret', {
+                                    expiresIn: 1440
+                                });
+                                // utilisation du jwt pour l'auth
+                                res.json({
+                                    success: true,
+                                    message: 'realm',
+                                    token:   token
+                                });
                             } else {
                                 res.sendStatus(404, "User not found")
                             }

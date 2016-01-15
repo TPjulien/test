@@ -13,12 +13,16 @@ tableau = angular.module 'tableauApp', [
   'ngFileUpload'
   'ui.router'
   'ngDialog'
+  'angular-jwt'
 ]
 
-tableau
-.config ($stateProvider, $urlRouterProvider) ->
-    $urlRouterProvider.otherwise '/login'
+options = {}
+options.api = {}
+options.api.base_url = "http://127.0.0.1:3000/api"
 
+tableau
+.config ($stateProvider, $urlRouterProvider, $httpProvider) ->
+    $urlRouterProvider.otherwise '/login'
     $stateProvider
         .state 'login',
             url:         '/login',
@@ -32,3 +36,7 @@ tableau
             url:          '/test',
             templateUrl:  'templates/test.html',
             controller:   'testCtrl'
+    # $httpProvider.defaults.headers.common = {}
+    # $httpProvider.defaults.headers.post   = {}
+    # $httpProvider.defaults.headers.put    = {}
+    # $httpProvider.defaults.headers.patch  = {}

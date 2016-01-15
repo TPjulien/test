@@ -1,7 +1,7 @@
 <div class="login-card">
   <form name="loginForm">
     <h1>Connexion</h1><br>
-    <input type="text" name="user" ng-model="project.name" placeholder="Nom d'utilisateur" required="true">
+    <input type="text" name="user" ng-model="project.username" placeholder="Nom d'utilisateur" required="true">
     <input type="password" name="pass" ng-model="project.password" placeholder="Mot de passe" required="true">
     <input type="submit" ng-disabled="loginForm.$invalid" name="login" class="login login-submit" value="Connexion" ng-click="login(project)">
   </form>
