@@ -22,14 +22,6 @@ connection.connect(function(err) {
 });
 
 app.use(cors());
-// app.use(function(req, res, next) {
-//   res.setHeader('Access-Control-Allow-Origin', '*');
-//   res.setHeader('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-//   res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type');
-//   // res.setHeader('Access-Control-Allow-Credentials', true);
-//   next();
-// });
-
 app.use(bodyParser.json({ extended: true }));
 app.use(bodyParser.json());
 
@@ -44,10 +36,11 @@ require('./app/routes/loginRoute')(router, connection);
 // on verifie le token auth pour les autres routes
 router.use(function(req, res, next) {
     // check header url if token exist
-    var token = req.body.token || req.query.token || req.headers['x-access-token'];
+    var token = req.body.token || req.query.token || req.headers['x-access-token'] || req.headers.authorization;
+    var removed_bearer = token.replace("Bearer ", '')
     // decoding the token
     if (token) {
-        jwt.verify(token, 'travelSecret', function(err, decoded) {
+        jwt.verify(removed_bearer, 'travelSecret', function(err, decoded) {
             if (err) {
                 return res.json({ success: false, message: 'Failed to authenticate token.' });
             } else {
@@ -59,13 +52,13 @@ router.use(function(req, res, next) {
         // if no token has been send, show an error
         return res.status(403).send({
             success: false,
-            message: 'No token provided.'
+            message: "wrong realm :'("
         });
     }
 });
 
 // require des routes nécesittant un token valide
-
+require('./app/routes/testRoute')(router, connection);
 
 // starting API
 app.use('/api', router);

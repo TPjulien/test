@@ -21,6 +21,7 @@
     "multer": "^1.1.0",
     "mysql": "^2.9.0",
     "mysql-promise": "^1.4.0",
+    "node-rsa": "^0.2.30",
     "password-hash-and-salt": "^0.1.2",
     "xlsx-json": "^0.1.0",
     "xlsx-to-json": "^0.2.4"

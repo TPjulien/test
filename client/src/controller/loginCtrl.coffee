@@ -1,9 +1,7 @@
 tableau
-.controller 'loginCtrl', ($scope, $location, $http, jwtHelper) ->
+.controller 'loginCtrl', ($scope, $http, jwtHelper, store, auth, $location, SweetAlert, alertFct) ->
 
     $scope.login = (user) ->
-        # console.log user
-        # $location.path "/home"
         $http
             method: 'POST'
             url:    options.api.base_url + '/login'
@@ -12,9 +10,7 @@ tableau
                 password: user.password
             }
         .success (data) ->
-            token = data.token
-            tokenPayload = jwtHelper.decodeToken(token)
-            console.log tokenPayload
+            store.set('JWT', data.token)
+            $location.path "/home/test"
         .error (err) ->
-            console.log err
-        # console.log "Bonjour, la page de login !"
+            alertFct.loginError()

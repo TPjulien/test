@@ -1,12 +1,12 @@
-var mysql = require('mysql');
-var jwt   = require('jsonwebtoken');
+var mysql   = require('mysql');
+var jwt     = require('jsonwebtoken');
+var NodeRSA = require('node-rsa');
+var key     = new NodeRSA({b: 512});
 
 module.exports = function(router, connection) {
     var table_password = "password";
     var table_username = "username";
     var table_login    = "login";
-
-
 
     function getPassUser(loginUser, callback) {
         var query = "SELECT ?? FROM ?? WHERE ?? = ?";
@@ -14,6 +14,7 @@ module.exports = function(router, connection) {
         query     = mysql.format(query, table);
         connection.query(query, function(err, rows) {
             if (err) {
+                console.log("hello !")
                 callback(err, 404);
             } else {
                 callback(null, rows);
@@ -36,22 +37,27 @@ module.exports = function(router, connection) {
 
     router.route('/login')
         .post (function (req, res) {
-            console.log(req.body.username)
             getPassUser(req.body.username, function(err, data) {
                 if (err) {
                     res.sendStatus(404, "user not found !");
                 } else {
-                    if (data.length > 0) {
+                    if (typeof data != "undefined" && data != null && data.length > 0) {
                         checkPwUser(req.body.username, req.body.password, function(err, data) {
-                            if (data != null) {
-                                var token = jwt.sign(data, 'travelSecret', {
-                                    expiresIn: 1440
+                            if (data) {
+                              console.log(data.length);
+                            } else {
+                              console.log("data dont exist");
+                            }
+                            if (data.length != 0) {
+                              var preToken = [{
+                                    "username": data[0].username,
+                                    "site":     data[0].site }];
+                                var token = jwt.sign(preToken, 'travelSecret', {
+                                    expiresIn: 1400
                                 });
                                 // utilisation du jwt pour l'auth
                                 res.json({
-                                    success: true,
-                                    message: 'realm',
-                                    token:   token
+                                    token: token
                                 });
                             } else {
                                 res.sendStatus(404, "User not found")

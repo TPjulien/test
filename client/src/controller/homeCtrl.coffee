@@ -1,12 +1,9 @@
 tableau
-.controller 'homeCtrl', ($scope, $mdSidenav, $timeout, ngDialog) ->
+.controller 'homeCtrl', ($scope, $mdSidenav, $timeout, logoutFct) ->
 
     $scope.logOut = () ->
-        ngDialog.open {
-            template:   'modals/logout.html',
-            controller: 'logOutCtrl'
-        }
-    # console.log "Bonjour, voici le home !"
+        logoutFct.logOut()
+
     debounce = (func, wait, context) ->
       timer = undefined
 
