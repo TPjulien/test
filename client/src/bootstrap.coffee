@@ -54,7 +54,7 @@ tableau
                 alertFct.alertExpiration()
                 $location.path '/login'
         else
-            if $location.path() == '/login'
+            if $location.path() == '/login' or $location.path() == ''
                 console.log("on est dans login !")
             else
                 alertFct.tokenNotFound()

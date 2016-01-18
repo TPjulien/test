@@ -1,12 +1,26 @@
 tableau
-.controller 'homeCtrl', ($scope, $mdSidenav, $timeout, logoutFct) ->
+.controller 'homeCtrl', ($scope, $mdSidenav, $timeout, logoutFct, jwtHelper, store, $http) ->
 
     $scope.logOut = () ->
         logoutFct.logOut()
 
+    # console.log "hello !"
+    token  = store.get('JWT')
+    decode = jwtHelper.decodeToken(token)
+    console.log decode[0].username
+    console.log decode[0].site
+    url = 'http://data.travelplanet.fr/trusted&username=' + decode[0].username + '&target_site=' + decode[0].site
+    $http
+        method: 'GET'
+        url:    url
+    .success (data) ->
+        console.log data
+    .error (err) ->
+        console.log err
+
+
     debounce = (func, wait, context) ->
       timer = undefined
-
       debounced = () ->
         context = $scope
         args    = Array.prototype.slice.call arguments

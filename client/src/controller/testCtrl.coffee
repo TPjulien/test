@@ -7,7 +7,5 @@ tableau
         console.log data
     .error (err) ->
         console.log err
-
-    console.log "melangé avec home !"
     # $http,
     #   METHOD: 'POST'
