@@ -22,19 +22,6 @@ tableau
         console.log data
     .error (err) ->
         console.log err
-    # console.log url
-    # $http.post url
-    # .then (response) ->
-    #     console.log response
-
-    # $http
-    #     method: 'POST'
-    #     url:    url
-    # .success (data) ->
-    #     console.log data
-    # .error (err) ->
-    #     console.log err
-
 
     debounce = (func, wait, context) ->
       timer = undefined
