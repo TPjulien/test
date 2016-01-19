@@ -9,14 +9,31 @@ tableau
     decode = jwtHelper.decodeToken(token)
     console.log decode[0].username
     console.log decode[0].site
-    url = 'http://data.travelplanet.fr/trusted&username=' + decode[0].username + '&target_site=' + decode[0].site
+    url = 'http://data.travelplanet.fr/trusted'
     $http
-        method: 'GET'
+        method: 'POST'
         url:    url
+        params:
+            username:    decode[0].username
+            target_size: decode[0].site
+        headers:
+            'Content-Type': 'application/x-www-form-urlencoded'
     .success (data) ->
         console.log data
     .error (err) ->
         console.log err
+    # console.log url
+    # $http.post url
+    # .then (response) ->
+    #     console.log response
+
+    # $http
+    #     method: 'POST'
+    #     url:    url
+    # .success (data) ->
+    #     console.log data
+    # .error (err) ->
+    #     console.log err
 
 
     debounce = (func, wait, context) ->
