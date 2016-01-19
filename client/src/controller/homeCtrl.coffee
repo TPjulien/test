@@ -22,6 +22,7 @@ tableau
             site:     decode[0].site
     .success (data) ->
         ticket = data
+        $location.path '/home/test/' + ticket
     .error (err) ->
         console.log err
 
