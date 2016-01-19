@@ -1,7 +1,7 @@
 var mysql       = require('mysql');
 var PythonShell = require('python-shell');
 var http        = require('http');
-var http-post   = require('http-post');
+var http_post   = require('http-post');
 
 module.exports = function(router, connection) {
     function getArgs(site, client) {
@@ -13,11 +13,12 @@ module.exports = function(router, connection) {
     };
 
     router.route('/getTicket')
-        .post(function(req, res) {
-            http.post('http://data.travelplanet.fr/trusted', { username: 'GuillaumeNaturel', target_site: 'anses'}, function(res) {
-                response.setEncoding('utf8');
+        .post(function(req, result) {
+            http_post('http://data.travelplanet.fr/trusted', { username: req.body.username, target_site: req.body.site }, function(res) {
+                res.setEncoding('utf8');
                 res.on('data', function(chunk) {
-                  console.log(chunk);
+                  result.json(chunk);
+                  // console.log(chunk);
                 })
             })
             // PythonShell.run('ticket.py', getArgs(req.body.site, req.body.username), function(err, results) {
