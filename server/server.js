@@ -7,10 +7,10 @@ var app        = express();
 
 
 var connection = mysql.createConnection({
-    host:     'localhost',
-    user:     'root',
-    password: 'root',
-    database: 'tableau',
+    host:     '192.168.1.119',
+    user:     'mahefa',
+    password: '7umAban73EAZjKXt',
+    database: 'portail_tableau',
     debug:    true
 });
 
