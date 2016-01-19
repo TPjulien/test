@@ -12,7 +12,7 @@ module.exports = function(router, connection) {
 
     router.route('/getTicket')
         .post(function(req, res) {
-            PythonSell.run('ticket.py', getArgs(req.body.site, req.body.username), function(err, results) {
+            PythonShell.run('ticket.py', getArgs(req.body.site, req.body.username), function(err, results) {
                 if (err)
                     res.sendStatus(404, "unable to execute query");
                 else

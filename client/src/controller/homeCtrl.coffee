@@ -1,25 +1,27 @@
 tableau
-.controller 'homeCtrl', ($scope, $mdSidenav, $timeout, logoutFct, jwtHelper, store, $http) ->
+.controller 'homeCtrl', ($scope, $mdSidenav, $timeout, logoutFct, jwtHelper, store, $http, $stateParams, $location) ->
 
+    ticket = []
     $scope.logOut = () ->
         logoutFct.logOut()
 
+    $scope.goToTest = () ->
+        $location.path '/home/test/' + ticket
     # console.log "hello !"
     token  = store.get('JWT')
     decode = jwtHelper.decodeToken(token)
     console.log decode[0].username
     console.log decode[0].site
-    url = 'http://data.travelplanet.fr/trusted'
+
+    url = options.api.base_url + '/getTicket'
     $http
         method: 'POST'
         url:    url
-        params:
-            username:    decode[0].username
-            target_size: decode[0].site
-        headers:
-            'Content-Type': 'application/x-www-form-urlencoded'
+        data:
+            username: decode[0].username
+            site:     decode[0].site
     .success (data) ->
-        console.log data
+        ticket = data
     .error (err) ->
         console.log err
 

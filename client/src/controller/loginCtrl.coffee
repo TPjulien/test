@@ -11,6 +11,6 @@ tableau
             }
         .success (data) ->
             store.set('JWT', data.token)
-            $location.path "/home/test"
+            $location.path "/home"
         .error (err) ->
             alertFct.loginError()
