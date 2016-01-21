@@ -11,6 +11,7 @@ var connection = mysql.createConnection({
     user:     'mahefa',
     password: '7umAban73EAZjKXt',
     database: 'portail_tableau',
+    port:     '3333',
     debug:    true
 });
 
