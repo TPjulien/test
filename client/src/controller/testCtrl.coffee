@@ -1,15 +1,16 @@
 tableau
 .controller 'testCtrl', ($scope, $http, $stateParams, $sce) ->
+    $scope.view    = $stateParams.client
     $scope.ticket  = $stateParams.ticket
-    $scope.url     = "http://data.travelplanet.fr/trusted/" + $scope.ticket + "/t/anses/views/Book_map_live/Dashboard1?:embed=yes"
-    $scope.trusted = $sce.trustAsResourceUrl($scope.url)
-    #http://data.travelplanet.fr/trusted/{{ticket}}/views/Book_map_live/Dashboard1?:embed=yes
-    # $http
-    #     method: 'GET'
-    #     url:    options.api.base_url + '/test'
-    # .success (data) ->
-    #     console.log data
-    # .error (err) ->
-    #     console.log err
-    # $http,
-    #   METHOD: 'POST'
+
+    $http
+        method: 'POST'
+        url :   options.api.base_url + '/route'
+        data:
+            user: $scope.view
+    .success (data) ->
+        $scope.url     = "http://data.travelplanet.fr/trusted/" + $scope.ticket + data[1].path
+        $scope.trusted = $sce.trustAsResourceUrl($scope.url)
+        console.log data
+    .error (err) ->
+        console.log err

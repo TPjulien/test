@@ -1,17 +1,30 @@
 tableau
 .controller 'homeCtrl', ($scope, $mdSidenav, $timeout, logoutFct, jwtHelper, store, $http, $stateParams, $location) ->
+    token  = store.get('JWT')
+    decode = jwtHelper.decodeToken(token)
+    console.log decode[0].username
+    console.log decode[0].site
 
     ticket = []
     $scope.logOut = () ->
         logoutFct.logOut()
 
-    $scope.goToTest = () ->
-        $location.path '/home/test/' + ticket
+    $scope.view = null
+
+    $http
+        method: 'POST'
+        url :   options.api.base_url + '/route'
+        data:
+            user: decode[0].username
+    .success (data) ->
+        $scope.view = data
+        console.log data
+    .error (err) ->
+        console.log err
+
+    $scope.goToView = (id) ->
+        $location.path '/home/test/' + ticket + '/' + 'GuillaumeNaturel'
     # console.log "hello !"
-    token  = store.get('JWT')
-    decode = jwtHelper.decodeToken(token)
-    console.log decode[0].username
-    console.log decode[0].site
 
     url = options.api.base_url + '/getTicket'
     $http
@@ -22,7 +35,7 @@ tableau
             site:     decode[0].site
     .success (data) ->
         ticket = data
-        $location.path '/home/test/' + ticket
+        $location.path '/home/test/' + ticket + '/' + decode[0].username
     .error (err) ->
         console.log err
 
