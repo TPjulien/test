@@ -61,7 +61,7 @@ router.use(function(req, res, next) {
 // require des routes nécesittant un token valide
 require('./app/routes/testRoute')(router, connection);
 require('./app/routes/tokenTableauRoute')(router, connection);
-require('./app/routes/tmplateRoute')(router, connection);
+require('./app/routes/templateRoute')(router, connection);
 
 // starting API
 app.use('/api', router);
