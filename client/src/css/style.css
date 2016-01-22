@@ -1,12 +1,28 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto:400,100);
 
 html {
-  background-color: #eee;
+  background-color: #ECF0F5;
 }
 
 body {
-  background-color: #eee;
+  background-color: #ECF0F5;
 }
+
+.tab-toolbar-container {
+  display: none !important;
+}
+
+h1 {
+  color: #ECF0F5;
+  font: 'Roboto';
+}
+
+
+@font-face {
+    font-family: 'Roboto'; /*a name to be used later*/
+    src: url('/img/font/roboto.ttf'); /*URL to font*/
+}
+
 
 #imgSidenav {
 

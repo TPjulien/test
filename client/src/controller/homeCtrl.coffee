@@ -12,32 +12,17 @@ tableau
     $scope.view = null
 
     $http
-        method: 'POST'
-        url :   options.api.base_url + '/route'
-        data:
-            user: decode[0].username
+        method: 'GET'
+        url :   options.api.base_url + '/view/' + decode[0].username
     .success (data) ->
         $scope.view = data
-        console.log data
+        $location.path '/home/test/' + decode[0].username + '/' + data[0].id
     .error (err) ->
         console.log err
 
     $scope.goToView = (id) ->
-        $location.path '/home/test/' + ticket + '/' + 'GuillaumeNaturel'
+        $location.path '/home/test/' + decode[0].username + '/' + id
     # console.log "hello !"
-
-    url = options.api.base_url + '/getTicket'
-    $http
-        method: 'POST'
-        url:    url
-        data:
-            username: decode[0].username
-            site:     decode[0].site
-    .success (data) ->
-        ticket = data
-        $location.path '/home/test/' + ticket + '/' + decode[0].username
-    .error (err) ->
-        console.log err
 
     debounce = (func, wait, context) ->
       timer = undefined

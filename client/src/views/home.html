@@ -1,10 +1,10 @@
-<md-toolbar  class="animate-show" style="background-color:#2196f3;">
+<md-toolbar  class="animate-show" style="background-color:#212121;">
   <div class="md-toolbar-tools">
     <md-button class="md-icon-button" aria-label="Settings" ng-click="toggleLeft()">
       <md-icon  md-svg-icon="img/icons/menu.svg"></md-icon>
     </md-button>
     <span flex></span>
-    <h1>Travel Tableau</h1>
+    <h1>Travel Planet - Data Visualisation</h1>
     <span flex></span>
     <md-button class="md-icon-button" aria-label="logout" ng-click="logOut()">
       <md-icon  md-svg-icon="img/icons/logout.svg"></md-icon>
@@ -13,14 +13,14 @@
 </md-toolbar>
 <section layout="row">
 <md-sidenav class="md-sidenav-left md-whiteframe-z1" md-component-id="left" style="position:fixed;">
-<md-toolbar class=""  style="background-color:#03A9F4; padding-bottom: 30px;">
+<md-toolbar class=""  style="background-color:#212121; padding-bottom: 30px;">
     <div>
-        <img id="imgSidenav" src="https://remixcv-cache.s3-eu-west-1.amazonaws.com/user_thumbnail/1443187502-61c43c1d43b0cf3a881a79dc903475be.jpeg"/>
+        <img id="imgSidenav" src="https://homepages.loria.fr/IMG/UL.jpg"/>
     </div>
     <span flex></span>
     <div padding="" style="text-align:center">
         <div class="md-title">Guillaume Naturel</div>
-        <div class="md-body-1">Utilisateur</div>
+        <div class="md-body-1">Univ Lorraine</div>
     </div>
 </md-toolbar>
 <!-- menu liste -->
@@ -37,4 +37,4 @@
 </md-list>
 </md-sidenav>
 
-<div class="container" ui-view></div>
+<div ui-view class="container-fuild" flex ></div>
