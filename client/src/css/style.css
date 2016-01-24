@@ -4,6 +4,21 @@ html {
   background-color: #ECF0F5;
 }
 
+#img{
+    top: 50%;
+    left: 50%;
+    /*position:absolute;*/
+    background:url("https://media.licdn.com/mpr/mpr/shrink_200_200/AAEAAQAAAAAAAAUIAAAAJDBjMWM3NDAwLWUxMjAtNDBiMy04YWM3LWFjZWY4Y2ExOWRjYg.png") center no-repeat;
+		background-size: cover;
+    height: 12em;
+		width: 12em;
+		border-radius: 50%;
+		margin-left: 100px;
+    margin-bottom: 35px;
+		/*border: 1px solid #ebebeb;*/
+		/*box-shadow: 0 4px 6px 1px rgba(50, 50, 50, 0.14);*/
+}
+
 body {
   background-color: #ECF0F5;
 }

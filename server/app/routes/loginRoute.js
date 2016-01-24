@@ -65,6 +65,7 @@ module.exports = function(router, connection) {
                                           "favorite_color": info_result[0].favorite_color,
                                           "logo":           info_result[0].logo
                                       }];
+                                      console.log("hello ! ");
                                       var token = jwt.sign(preToken, 'travelSecret', {
                                           expiresIn: 1400
                                       });

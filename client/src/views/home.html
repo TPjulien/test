@@ -1,4 +1,4 @@
-<md-toolbar  class="animate-show" style="background-color:#212121;">
+<md-toolbar  class="animate-show" ng-style="favorite_color ? {'background-color': favorite_color } : { 'background-color': '#2196F3' }">
   <div class="md-toolbar-tools">
     <md-button class="md-icon-button" aria-label="Settings" ng-click="toggleLeft()">
       <md-icon  md-svg-icon="img/icons/menu.svg"></md-icon>
@@ -13,14 +13,14 @@
 </md-toolbar>
 <section layout="row">
 <md-sidenav class="md-sidenav-left md-whiteframe-z1" md-component-id="left" style="position:fixed;">
-<md-toolbar class=""  style="background-color:#212121; padding-bottom: 30px;">
+<md-toolbar class="" ng-style="favorite_color ? {'background-color': favorite_color } : { 'background-color': '#2196F3' };" style=" padding-bottom': '30px;">
     <div>
-        <img id="imgSidenav" src="https://homepages.loria.fr/IMG/UL.jpg"/>
+        <img id="imgSidenav" ng-src="{{logo}}"/>
     </div>
     <span flex></span>
     <div padding="" style="text-align:center">
-        <div class="md-title">Guillaume Naturel</div>
-        <div class="md-body-1">Univ Lorraine</div>
+        <div class="md-title">{{firstname}} {{lastname}}</div>
+        <div class="md-body-1">{{company}}</div>
     </div>
 </md-toolbar>
 <!-- menu liste -->
