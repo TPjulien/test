@@ -49,16 +49,40 @@ module.exports = function(router, connection) {
                               console.log("data dont exist");
                             }
                             if (data.length != 0) {
-                              var preToken = [{
-                                    "username": data[0].username,
-                                    "site":     data[0].site }];
-                                var token = jwt.sign(preToken, 'travelSecret', {
-                                    expiresIn: 1400
-                                });
-                                // utilisation du jwt pour l'auth
-                                res.json({
-                                    token: token
-                                });
+                              var query = 'SELECT * from ?? where ?? = ?';
+                              var table = ['user_info', 'username', data[0].username];
+                              query     = mysql.format(query, table);
+                              connection.query(query, function(error, info_result) {
+                                  if (err) {
+                                      res.sendStatus(404, "user not found");
+                                  } else {
+                                      var preToken = [{
+                                          "username":       data[0].username,
+                                          "site":           data[0].site,
+                                          "firstname":      info_result[0].firstname,
+                                          "lastname":       info_result[0].lastname,
+                                          "company":        info_result[0].company,
+                                          "favorite_color": info_result[0].favorite_color,
+                                          "logo":           info_result[0].logo
+                                      }];
+                                      var tokn = jwt.sign(preToken, 'travelSecret', {
+                                          expiresIn: 1400
+                                      });
+                                      res.json({
+                                        token: token
+                                      });
+                                  }
+                              })
+                              // var preToken = [{
+                              //       "username": data[0].username,
+                              //       "site":     data[0].site }];
+                              //   var token = jwt.sign(preToken, 'travelSecret', {
+                              //       expiresIn: 1400
+                              //   });
+                              //   // utilisation du jwt pour l'auth
+                              //   res.json({
+                              //       token: token
+                              //   });
                             } else {
                                 res.sendStatus(404, "User not found")
                             }
