@@ -3,28 +3,15 @@ var http_post = require('http-post');
 
 module.exports = function(router, connection) {
 
-    function getToken(user, site, length, callback) {
-      for (i=0; i < (length - 1); i++) {
-        http_post('http://data.travelplanet.fr/trusted', { username: user, target_site: site }, function(result) {
-          console.log(result);
-          // result.setEncoding('utf8');
-          // result.on('data', function(chunk) {
-          //         element.path  = chunk;
-          //         element.info   = rows[i].path;
-          //         element.length = "null";
-          //         element.height = "null";
-          //         element.width  = "null";
-          //         element.name   = rows[i].name;
-          //         final_object.push(element);
-          //     })
-          })
-          callback(result, 200);
-      }
-    }
+    var element            = {};
+    var final_object       = [];
+    // function getToken(user, site, rows, callback) {
+    // }
 
 
     router.route('/view/:user/:site')
         .get (function(req, res) {
+            var completed_requests = 0;
             var element      = {};
             var final_object = [];
             var query = "SELECT * FROM ?? WHERE ?? = ?";
@@ -34,9 +21,23 @@ module.exports = function(router, connection) {
                 if (err) {
                     res.json({ message: 'error !'})
                 } else {
-                  getToken(req.params.user, req.params.site, function(err, data) {
-                      console.log(data);
-                  })
+                  for (items in rows) {
+                    http_post('http://data.travelplanet.fr/trusted', { username: req.params.user, target_site: req.params.site }, function(result) {
+                      result.setEncoding('utf8');
+                      result.on('data', function(chunk) {
+                          element.path  = chunk;
+                          element.info   = rows[i].path;
+                          element.length = "null";
+                          element.height = "null";
+                          element.width  = "null";
+                          element.name   = rows[i].name;
+                          final_object.push(element);
+                          completed_requests++;
+                          if (completed_requests == rows.length);
+                              res.json(final_object);
+                          })
+                      })
+                  }
               }
             })
         })
