@@ -1,4 +1,5 @@
 var mysql = require('mysql');
+var http_post = require('http-post');
 
 module.exports = function(router, connection) {
 
@@ -27,22 +28,27 @@ module.exports = function(router, connection) {
                 if (err) {
                     res.json({ message: 'error !'})
                 } else {
-                    for (i=0; i <= rows.length; i++) {
+		    //console.log(rows.length);
+                    for (i=0; i < (rows.length - 1); i++) {
                       http_post('http://data.travelplanet.fr/trusted', { username: req.params.user, target_site: req.params.site }, function(result) {
+			//console.log(i);
                         result.setEncoding('utf8');
                         result.on('data', function(chunk) {
-                                element.token  = chunk;
-                                element.path   = rows[0].path;
+			        console.log(rows);
+                                element.path  = chunk;
+                                element.info   = rows[i].path;
                                 element.length = "null";
                                 element.height = "null";
                                 element.width  = "null";
-                                element.name   = rows[0].name;
+                                element.name   = rows[i].name;
                                 final_object.push(element);
                           // result.json(chunk);
                         })
-                        res.json(final_object);
+			console.log(final_object);
+                        //res.json(final_object);
                     })
-                    // res.json(rows);
+			//console.log(final_object);
+                    //res.json(final_object);
                 }
               }
             })
