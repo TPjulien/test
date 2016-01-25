@@ -1,5 +1,6 @@
 var mysql = require('mysql');
 var http_post = require('http-post');
+var http      = require('http');
 
 module.exports = function(router, connection) {
 
@@ -16,25 +17,24 @@ module.exports = function(router, connection) {
                     res.json({ message: 'error !'})
                 } else {
                   for (i = 0; i <= rows.length; i++) {
-                    if (i == rows.length) {
-                        console.log ("c'est fait !");
-                    } else {
-                      http_post('http://data.travelplanet.fr/trusted', { username: req.params.user, target_site: req.params.site }, function(result) {
-                      result.setEncoding('utf8');
-                      result.on('data', function(chunk) {
-                          element.token  = chunk;
-                          element.info   = item.path;
-                          element.length = "null";
-                          element.height = "null";
-                          element.width  = "null";
-                          element.name   = item.name;
-                          final_object.push(element);
-                          // completed_requests++;
-                          })
-                      })
+                      http.post('http://data.travelplanet.fr/trusted', { username: req.params.user, target_site: req.params.site }, function(res) {
+                          console.log(res.body);
+                      });
+                      // http_post('http://data.travelplanet.fr/trusted', { username: req.params.user, target_site: req.params.site }, function(result) {
+                      // result.setEncoding('utf8');
+                      // result.on('data', function(chunk) {
+                      //     element.token  = chunk;
+                      //     element.info   = item.path;
+                      //     element.length = "null";
+                      //     element.height = "null";
+                      //     element.width  = "null";
+                      //     element.name   = item.name;
+                      //     final_object.push(element);
+                      //     // completed_requests++;
+                      //     })
+                      // })
                     }
                   }
-              }
             })
         })
 
