@@ -18,14 +18,7 @@ module.exports = function(router, connection) {
                 res.setEncoding('utf8');
                 res.on('data', function(chunk) {
                   result.json(chunk);
-                  // console.log(chunk);
                 })
             })
-            // PythonShell.run('ticket.py', getArgs(req.body.site, req.body.username), function(err, results) {
-            //     if (err)
-            //         res.sendStatus(404, "unable to execute query");
-            //     else
-            //         res.json(results);
-            // });
         })
 }

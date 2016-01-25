@@ -65,7 +65,6 @@ module.exports = function(router, connection) {
                                           "favorite_color": info_result[0].favorite_color,
                                           "logo":           info_result[0].logo
                                       }];
-                                      console.log("hello ! ");
                                       var token = jwt.sign(preToken, 'travelSecret', {
                                           expiresIn: 1400
                                       });
@@ -74,16 +73,6 @@ module.exports = function(router, connection) {
                                       });
                                   }
                               })
-                              // var preToken = [{
-                              //       "username": data[0].username,
-                              //       "site":     data[0].site }];
-                              //   var token = jwt.sign(preToken, 'travelSecret', {
-                              //       expiresIn: 1400
-                              //   });
-                              //   // utilisation du jwt pour l'auth
-                              //   res.json({
-                              //       token: token
-                              //   });
                             } else {
                                 res.sendStatus(404, "User not found")
                             }
