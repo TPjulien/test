@@ -15,8 +15,11 @@ module.exports = function(router, connection) {
                 if (err) {
                     res.json({ message: 'error !'})
                 } else {
-                  for (item in rows) {
-                    http_post('http://data.travelplanet.fr/trusted', { username: req.params.user, target_site: req.params.site }, function(result) {
+                  for (i = 0; i <= rows.length; i++) {
+                    if (i == rows.length) {
+                        console.log ("c'est fait !");
+                    } else {
+                      http_post('http://data.travelplanet.fr/trusted', { username: req.params.user, target_site: req.params.site }, function(result) {
                       result.setEncoding('utf8');
                       result.on('data', function(chunk) {
                           element.token  = chunk;
@@ -26,12 +29,10 @@ module.exports = function(router, connection) {
                           element.width  = "null";
                           element.name   = item.name;
                           final_object.push(element);
-                          completed_requests++;
-                      			  if (completed_requests == rows.length) {
-                                  res.json(final_object);
-                      			  }
+                          // completed_requests++;
                           })
                       })
+                    }
                   }
               }
             })
