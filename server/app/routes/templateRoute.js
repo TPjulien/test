@@ -34,7 +34,7 @@ module.exports = function(router, connection) {
 			//console.log(i);
                         result.setEncoding('utf8');
                         result.on('data', function(chunk) {
-			        console.log(rows);
+			        // console.log(rows);
                                 element.path  = chunk;
                                 element.info   = rows[i].path;
                                 element.length = "null";
@@ -44,7 +44,7 @@ module.exports = function(router, connection) {
                                 final_object.push(element);
                           // result.json(chunk);
                         })
-			console.log(final_object);
+                  			res.json(final_object);
                         //res.json(final_object);
                     })
 			//console.log(final_object);
