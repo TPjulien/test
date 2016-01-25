@@ -1,4 +1,6 @@
 <script type='text/javascript' src='http://data.travelplanet.fr/javascripts/api/viz_v1.js'></script>
-<div ng-repeat="(key, link) in url" class="{{url.getLength[key]}}"  style="height:400px; text-align:center; margin-bottom: 7px; margin-top: 10px;">
-    <iframe ng-src='{{link}}' class="col-md-12 md-whiteframe-1dp" style="height:400px; border:white; background-color: white;"></iframe>
+
+<div ng-repeat="view in getAllView" class="{{view.width}}"  style="height:400px; text-align:center; margin-bottom: 7px; margin-top: 10px;">
+    <!-- <p>{{view.token}}</p> -->
+    <iframe ng-src='{{trustHtml(view.token, view.info)}}' class="col-md-12 md-whiteframe-1dp" style="height:400px; border:white; background-color: white;"></iframe> -->
 </div>

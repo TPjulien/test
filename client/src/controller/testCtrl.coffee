@@ -15,14 +15,19 @@ tableau
     # url = options.api.base_url + '/getTicket'
 
     # getViews = () ->
-    #     console.log decode[0].site
-    #     $http
-    #           method: 'GET'
-    #           url :   options.api.base_url + '/view/' + decode[0].username + '/' + decode[0].site
-    #     .success (result) ->
-    #           console.log result
-    #           $scope.getAllView = result
-    #
+        # console.log decode[0].site
+    $http
+          method: 'GET'
+          url :   options.api.base_url + '/view/' + decode[0].username + '/' + decode[0].site
+    .success (result) ->
+          console.log result
+          $scope.getAllView = result
+    .error (err) ->
+          console.log err
+
+    $scope.trustHtml = (token, link) ->
+        return $sce.trustAsResourceUrl("http://data.travelplanet.fr/trusted/" + token + '/' + link + '&:toolbar=no' )
+
     # getViews()
 
     # getViews().success (data) ->
