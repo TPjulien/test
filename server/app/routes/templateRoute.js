@@ -1,6 +1,6 @@
 var mysql = require('mysql');
 var http_post = require('http-post');
-var http      = require('http');
+var request   = require('request');
 
 module.exports = function(router, connection) {
 
@@ -16,10 +16,14 @@ module.exports = function(router, connection) {
                 if (err) {
                     res.json({ message: 'error !'})
                 } else {
+
                   for (i = 0; i <= rows.length; i++) {
-                      http.post('http://data.travelplanet.fr/trusted', { username: req.params.user, target_site: req.params.site }, function(res) {
-                          console.log(res.body);
+                      request.post({url: 'http://data.travelplanet.fr/trusted', { use,rname: req.params.user, target_site: req.params.site }}, function(err, body) {
+                          console.log(body);
                       });
+                      // http.post('http://data.travelplanet.fr/trusted', { use,rname: req.params.user, target_site: req.params.site }, function(res) {
+                      //     console.log(res.body);
+                      // });
                       // http_post('http://data.travelplanet.fr/trusted', { username: req.params.user, target_site: req.params.site }, function(result) {
                       // result.setEncoding('utf8');
                       // result.on('data', function(chunk) {
