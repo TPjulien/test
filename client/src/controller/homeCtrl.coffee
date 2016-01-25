@@ -19,8 +19,9 @@ tableau
 
     $http
         method: 'GET'
-        url :   options.api.base_url + '/view/' + decode[0].username
+        url :   options.api.base_url + '/view/' + decode[0].username + '/' + decode[0].site
     .success (data) ->
+        console.log data
         $scope.view = data
         $location.path '/home/test/' + decode[0].username + '/' + data[0].id
     .error (err) ->

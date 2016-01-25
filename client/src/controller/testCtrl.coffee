@@ -12,35 +12,37 @@ tableau
     $scope.url = []
     $scope.url.getLength = []
 
-    url = options.api.base_url + '/getTicket'
+    # url = options.api.base_url + '/getTicket'
 
-    getViews = () ->
-        return $http
-                method: 'GET'
-                url :   options.api.base_url + '/view/' + decode[0].username
-          .success (result) ->
-                # console.log $scope.getAllView
-                $scope.getAllView = result
+    # getViews = () ->
+    #     console.log decode[0].site
+    #     $http
+    #           method: 'GET'
+    #           url :   options.api.base_url + '/view/' + decode[0].username + '/' + decode[0].site
+    #     .success (result) ->
+    #           console.log result
+    #           $scope.getAllView = result
+    #
+    # getViews()
 
-
-    getViews().success (data) ->
-        length  = ['col-md-4', 'col-md-8', 'col-md-12', 'col-md-12']
-        angular.forEach data, (values, key) ->
-            promise = ticketGeneratorFactory.getTicket(url, decode[0].username, decode[0].site)
-            promise.then (res) ->
-                $scope.url.push $sce.trustAsResourceUrl("http://data.travelplanet.fr/trusted/" + res + '/' + values.path + '&:toolbar=no')
-                $scope.url.getLength.push length[key]
-
-
-    .error (err) ->
-        console.log err
-
-    storeTicket = (ticket, index) ->
-        return ticket
-
-
-    getTicket = (url, username, site) ->
-        test = []
-        promise = ticketGeneratorFactory.getTicket(url, username, site)
-        promise.then (data) ->
-            data
+    # getViews().success (data) ->
+    #     length  = ['col-md-4', 'col-md-8', 'col-md-12', 'col-md-12']
+    #     angular.forEach data, (values, key) ->
+    #         promise = ticketGeneratorFactory.getTicket(url, decode[0].username, decode[0].site)
+    #         promise.then (res) ->
+    #             $scope.url.push $sce.trustAsResourceUrl("http://data.travelplanet.fr/trusted/" + res + '/' + values.path + '&:toolbar=no')
+    #             $scope.url.getLength.push length[key]
+    #
+    #
+    # .error (err) ->
+    #     console.log err
+    #
+    # storeTicket = (ticket, index) ->
+    #     return ticket
+    #
+    #
+    # getTicket = (url, username, site) ->
+    #     test = []
+    #     promise = ticketGeneratorFactory.getTicket(url, username, site)
+    #     promise.then (data) ->
+    #         data

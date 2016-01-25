@@ -17,9 +17,9 @@ module.exports = function(router, connection) {
 
 
     router.route('/view/:user/:site')
-        var element      = {};
-        var final_object = [];
         .get (function(req, res) {
+            var element      = {};
+            var final_object = [];
             var query = "SELECT * FROM ?? WHERE ?? = ?";
             var table = ['template_path', 'user', req.params.user];
             query     = mysql.format(query, table);
@@ -27,10 +27,10 @@ module.exports = function(router, connection) {
                 if (err) {
                     res.json({ message: 'error !'})
                 } else {
-                    http_post('http://data.travelplanet.fr/trusted', { username: req.params.user, target_site: req.params.site }, function(res) {
-                        res.setEncoding('utf8');
-                        res.on('data', function(chunk) {
-                            for (i=0; i <= rows.length; i++) {
+                    for (i=0; i <= rows.length; i++) {
+                      http_post('http://data.travelplanet.fr/trusted', { username: req.params.user, target_site: req.params.site }, function(result) {
+                        result.setEncoding('utf8');
+                        result.on('data', function(chunk) {
                                 element.token  = chunk;
                                 element.path   = rows[0].path;
                                 element.length = "null";
@@ -38,13 +38,13 @@ module.exports = function(router, connection) {
                                 element.width  = "null";
                                 element.name   = rows[0].name;
                                 final_object.push(element);
-                            }
-                            res.json(final_object);
                           // result.json(chunk);
                         })
+                        res.json(final_object);
                     })
                     // res.json(rows);
                 }
+              }
             })
         })
 
