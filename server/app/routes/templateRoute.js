@@ -21,20 +21,21 @@ module.exports = function(router, connection) {
                 if (err) {
                     res.json({ message: 'error !'})
                 } else {
-                  for (items in rows) {
+                  for (i = 0; i<= (rows.length -1); i++) {
                     http_post('http://data.travelplanet.fr/trusted', { username: req.params.user, target_site: req.params.site }, function(result) {
                       result.setEncoding('utf8');
                       result.on('data', function(chunk) {
-                          element.path  = chunk;
-                          element.info   = rows[i].path;
+                          element.token  = chunk;
+                          element.info   = rows[0].path;
                           element.length = "null";
                           element.height = "null";
                           element.width  = "null";
-                          element.name   = rows[i].name;
+                          element.name   = rows[0].name;
                           final_object.push(element);
                           completed_requests++;
-                          if (completed_requests == rows.length);
+			  if (completed_requests == rows.length) {
                               res.json(final_object);
+			  }
                           })
                       })
                   }
