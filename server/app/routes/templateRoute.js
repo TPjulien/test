@@ -18,7 +18,7 @@ module.exports = function(router, connection) {
                     element.name   = rows[i].name;
                     final_object.push(element);
                 })
-            }
+            })
         }
         callback(final_object, 404);
         // var query = "SELECT ?? FROM ?? WHERE ?? = ?";
