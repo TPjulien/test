@@ -4,6 +4,12 @@ html {
   background-color: #ECF0F5;
 }
 
+.separator {
+  text-align:center;
+  margin-bottom: 7px;
+  margin-top: 10px;
+}
+
 #img{
     top: 50%;
     left: 50%;

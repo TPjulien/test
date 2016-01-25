@@ -1,6 +1,6 @@
 <script type='text/javascript' src='http://data.travelplanet.fr/javascripts/api/viz_v1.js'></script>
 
-<div ng-repeat="(key, view) in getAllView.info" class="{{getAllView.width[key]}}" ng-style="{{'height':'getAllView.height[key]'}}; text-align:center; margin-bottom: 7px; margin-top: 10px;">
+<div ng-repeat="(key, view) in getAllView.info" class="{{getAllView.width[key]}} separator" ng-style="set_height(getAllView.height[key])">
     <!-- <p>{{getAllView.info[key]}}</p> -->
     <iframe ng-src='{{trustHtml(getAllView.token[key], getAllView.info[key])}}' class="col-md-12 md-whiteframe-1dp" style="height:400px; border:white; background-color: white;"></iframe>
 </div>

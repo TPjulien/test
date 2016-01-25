@@ -26,6 +26,12 @@ tableau
     .error (err) ->
           console.log err
 
+    $scope.set_height = (height) ->
+        if height
+            return { height : height }
+        else
+            height = { height : "500px" }
+
     $scope.trustHtml = (token, link) ->
         return $sce.trustAsResourceUrl("http://data.travelplanet.fr/trusted/" + token + '/' + link + '&:toolbar=no' )
 
