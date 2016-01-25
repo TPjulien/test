@@ -20,8 +20,9 @@ tableau
           method: 'GET'
           url :   options.api.base_url + '/view/' + decode[0].username + '/' + decode[0].site
     .success (result) ->
-          console.log result
           $scope.getAllView = result
+          console.log result
+          # console.log $scope.getAllView.info[0]
     .error (err) ->
           console.log err
 
