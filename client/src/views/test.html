@@ -5,6 +5,8 @@
     </md-select>
 
     <div ng-repeat="(key, view) in getAllView.info" class="{{dimension[key].height}} separator" style="height:{{dimension[key].width}}">
+
       <iframe ng-src='{{trustHtml(getAllView.token[key], getAllView.info[key])}}' class="col-md-12" style="height:{{dimension[key].width}}; border:white; background-color: white;"></iframe>
+      <!-- <div ng-if="getAllView.content_type != 'Tableau'">div de test</div> -->
     </div>
 <!-- </div> -->
