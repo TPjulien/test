@@ -1,13 +1,56 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto:400,100);
 
 html {
-  background-color: #ECF0F5;
+  background-image: url('https://wallpaperscraft.com/image/spots_background_light_blur_68629_1920x1080.jpg');
+  background-attachment:fixed;
+  /*background-color: #E9F0F5;*/
+
 }
+
+.index {
+  z-index: 0 !important;
+}
+/*body {
+}*/
 
 .separator {
   text-align:center;
   margin-bottom: 7px;
   margin-top: 10px;
+}
+
+.fixed {
+        position: fixed;
+        width: 25%;
+}
+.scrollit {
+        float: left;
+        width: 71%
+}
+
+.blureffect {
+  /*position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 1;
+
+  display: block;*/
+  /*background-color: blue !important;*/
+  /*width: 1200px;*/
+  /*height: 800px;*/
+
+  /*-webkit-filter: blur(2px);
+  -moz-filter: blur(2px);
+  -o-filter: blur(2px);
+  -ms-filter: blur(2px);
+  filter: blur(2px);*/
+}
+
+.menu {
+  position:fixed;
+  height: 100%;
+  margin: 0px;
+  padding: 0px;
 }
 
 #img{
@@ -26,7 +69,8 @@ html {
 }
 
 body {
-  background-color: #ECF0F5;
+
+  background-color: transparent;
 }
 
 .tab-toolbar-container {
@@ -45,20 +89,33 @@ h1 {
 }
 
 
+.hrdesign {
+  margin: 15px auto;
+  width: 80%;
+}
+
 #imgSidenav {
 
     /*background: url("https://travelplanet.fr/images/logo/logo.png") center no-repeat;*/
 		/*background: url("http://www.univ-lorraine.fr/sites/www.univ-lorraine.fr/files/node_files/publics/users/martin38/2013/10/isotype_ul.jpg") center no-repeat;*/
 
     background-size: contain;
+    height: 50%;
+    width: 50%;
+    border-radius: 50%;
+    margin-left: 25%;
+    margin-top: 50px;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 6px 1px rgba(50, 50, 50, 0.14);
+    /*background-size: contain;
     height: 5em;
     width: 5em;
     border-radius: 50%;
     margin-left: 95px;
-		margin-top: 20px;
+		margin-top: 20px;*/
 		/*margin-bottom: -20px;
     border: 1px solid #ebebeb;*/
-    box-shadow: 0 4px 6px 1px rgba(50, 50, 50, 0.14);
+    /*box-shadow: 0 4px 6px 1px rgba(50, 50, 50, 0.14);*/
 }
 
 .login-card {

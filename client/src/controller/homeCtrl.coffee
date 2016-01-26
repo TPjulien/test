@@ -1,10 +1,7 @@
 tableau
-.controller 'homeCtrl', ($scope, $mdSidenav, $timeout, logoutFct, jwtHelper, store, $http, $stateParams, $location) ->
+.controller 'homeCtrl', ($scope, $mdSidenav, $timeout, logoutFct, jwtHelper, store, $http, $stateParams, $location, $interval) ->
     token  = store.get('JWT')
     decode = jwtHelper.decodeToken(token)
-    console.log decode
-    # console.log decode[0].username
-    # console.log decode[0].site
     $scope.firstname      = decode[0].firstname
     $scope.lastname       = decode[0].lastname
     $scope.favorite_color = decode[0].favorite_color
@@ -17,7 +14,19 @@ tableau
 
     $scope.view = null
 
-    $location.path '/home/test/' + decode[0].username + '/0' 
+    $location.path '/home/test/' + decode[0].username + '/default'
+
+    $scope.menu = [{
+        id:           1
+        name:         "Vue_1"
+        templateName: "template de test 1"
+    }]
+
+    tick = () ->
+        $scope.clock = Date.now()
+
+    tick()
+    $interval(tick, 1000)
 
     # $http
     #     method: 'GET'

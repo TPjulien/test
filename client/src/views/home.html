@@ -1,19 +1,41 @@
-<md-toolbar  class="animate-show" ng-style="favorite_color ? {'background-color': favorite_color } : { 'background-color': '#2196F3' }">
+<div hide-md hide-sm show-gt-md class="col-xs-2 menu blureffect" style="background-color:rgba(6, 1, 1, 0.4)">
+  <md-toolbar class="" style="background-color:transparent;" style=" padding-bottom: 30px;">
+      <div>
+          <img id="imgSidenav" ng-src="{{logo}}"/>
+      </div>
+      <span flex></span>
+      <div padding="" style="text-align:center">
+          <div class="md-title">{{firstname}} {{lastname}}</div>
+          <div class="md-body-1">{{company}}</div>
+          <!-- <div class="md-body-1">{{ clock | date:'HH:mm:ss' }}</div> -->
+      </div>
+      <hr class="hrdesign">
+  </md-toolbar>
+  <div class="tile-wide" data-role="tile" style="background-color: red"></div>
+  <!-- <div class="tile" data-role="tilesmall" style="background-color: blue"></div> -->
+  <!-- <div class="tile-sqyare-y tile-small-y" data-role="tile-small" style="background-color: black"></div>
+  <div class="tile-sqyare-y tile-small-y" data-role="tile-small" style="background-color: blue"></div> -->
+  <!-- <div class="tile-wide" data-role="tile-small" style="background-color: green"></div> -->
+</div>
+<md-toolbar  class="animate-show index" style="background-color:transparent;" >
   <div class="md-toolbar-tools">
-    <md-button class="md-icon-button" aria-label="Settings" ng-click="toggleLeft()">
+    <md-button ng-hide="true" class="md-icon-button" aria-label="Settings" ng-click="toggleLeft()">
       <md-icon  md-svg-icon="img/icons/menu.svg"></md-icon>
     </md-button>
     <span flex></span>
-    <h1>Travel Planet - Data Visualisation</h1>
+    <!-- <h1>Travel Planet - Data Visualisation</h1> -->
     <span flex></span>
-    <md-button class="md-icon-button" aria-label="logout" ng-click="logOut()">
+    <md-icon  md-svg-icon="img/icons/time.svg"></md-icon>
+    <h1>{{ clock | date:' HH:mm' }}</h1>
+
+    <!-- <md-button class="md-icon-button" aria-label="logout" ng-click="logOut()">
       <md-icon  md-svg-icon="img/icons/logout.svg"></md-icon>
-    </md-button>
+    </md-button> -->
   </div>
 </md-toolbar>
-<section layout="row">
-<md-sidenav class="md-sidenav-left md-whiteframe-z1" md-component-id="left" style="position:fixed;">
-<md-toolbar class="" ng-style="favorite_color ? {'background-color': favorite_color } : { 'background-color': '#2196F3' };" style=" padding-bottom': '30px;">
+<!-- <section layout="row"> -->
+<!-- <md-sidenav class="md-sidenav-left md-whiteframe-z1" md-component-id="left" style="position:fixed;"> -->
+<!-- <md-toolbar class="" ng-style="favorite_color ? {'background-color': favorite_color } : { 'background-color': '#2196F3' };" style=" padding-bottom': '30px;">
     <div>
         <img id="imgSidenav" ng-src="{{logo}}"/>
     </div>
@@ -22,19 +44,26 @@
         <div class="md-title">{{firstname}} {{lastname}}</div>
         <div class="md-body-1">{{company}}</div>
     </div>
-</md-toolbar>
+</md-toolbar> -->
 <!-- menu liste -->
-<md-list>
-  <md-content flex="" =layout-padding="">
-      <md-list-item class="md-1-line" role="link" md-ink-ripple ng-repeat="data in view">
-        <md-icon md-svg-icon="img/icons/{{data.svg}}" aria-label="{{data.onglet}}"></md-icon>
-        <div class="md-list-item-text" ng-click="goToView(data.id)">
-          <span style="color:#757575" class="md-subhead">{{data.name}}</span>
+<!-- <md-list>
+  <md-content flex="" layout-padding="">
+      <md-list-item class="md-1-line" role="link" md-ink-ripple ng-repeat="data in menu">
+        <md-icon md-svg-icon="img/icons/{{data.svg}}" aria-label="{{data.name}}"></md-icon>
+        <div class="md-list-item-text" ng-click="goToView(data.name)">
+          <span style="color:#757575" class="md-subhead">{{data.templateName}}</span>
         </div>
         <span flex></span>
       </md-list-item>
   </md-content>
 </md-list>
 </md-sidenav>
+</section> -->
+<div layout="row">
 
-<div ui-view class="container-fuild" flex ></div>
+  <div ui-view class="col-md-12 col-xs-offset-2"></div>
+</div>
+<!-- <div layout="row">
+  <div class="col-md-2" style="background-color:blue;"></div>
+  <div ui-view class="col-md-12"></div>
+</div> -->
