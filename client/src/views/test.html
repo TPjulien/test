@@ -1,12 +1,40 @@
-<!-- <div > -->
+<hr>
+<h1 class="md-title" style="text-align:center">DASHBOARD</h1>
+<hr>
+<div class="col-md-12">
+  <div class="tile image-container image-format-fill" data-role="tile" style="background-color: rgba(6, 1, 1, 0.4); width: 100px; height: 100px;">
+    <!-- <div class=""> -->
+        <img src="http://cache4.asset-cache.net/xc/490403078.jpg?v=2&c=IWSAsset&k=2&d=UC9I_QH_29abG8uOsUT0VWfiZAoH-tOFMQbtw7cEHvj9D9SF9kqH-gILdq2KOFJj0">
+        <div class="image-overlay op-blue">
+          <h1 class="md-subhead">Factures</h1>
+        </div>
+    <!-- </div> -->
+  </div>
+  <div class="tile image-container image-format-fill" data-role="tile" style="background-color:#F44336; width: 100px; height: 100px;">
+    <!-- <div class=""> -->
+        <img src="http://www.clipartbest.com/cliparts/jix/oBa/jixoBao7T.png">
+        <div class="image-overlay op-red">
+          <h1 class="md-subhead">Commande</h1>
+        </div>
+    <!-- </div> -->
+  </div>
+  <!-- <div class="tile-small image-container image-format-square" data-role="tile" style="background-color: rgba(6, 1, 1, 0.4);">
+    <h1 class="md-title">http://www.clipartbest.com/cliparts/jix/oBa/jixoBao7T.png</h1>
+  </div>
+  <div class="tile-small image-container image-format-square" data-role="tile" style="background-color: rgba(6, 1, 1, 0.4);">
+    <h1 class="md-title">Tile Travel 03</h1>
+  </div> -->
+</div>
 
-    <md-select ng-model="actualTemplate.selectUser" ng-change="changeTemplate()">
-      <md-option ng-value="template" ng-repeat="template in menu">{{template.templateName}}</md-option>
-    </md-select>
+<!-- <hr class="hrdesign"> -->
 
-    <div ng-repeat="(key, view) in getAllView.info" class="{{dimension[key].height}} separator" style="height:{{dimension[key].width}}">
+<!-- <div class="col-md-12">
+  <md-select ng-model="actualTemplate.selectUser" ng-change="changeTemplate()">
+    <md-option ng-value="template" ng-repeat="template in menu">{{template.templateName}}</md-option>
+  </md-select>
+</div> -->
+<div ng-repeat="(key, view) in getAllView.info" class="{{dimension[key].height}} separator" style="height:{{dimension[key].width}}">
 
-      <iframe ng-src='{{trustHtml(getAllView.token[key], getAllView.info[key])}}' class="col-md-12" style="height:{{dimension[key].width}}; border:white; background-color: white;"></iframe>
-      <!-- <div ng-if="getAllView.content_type != 'Tableau'">div de test</div> -->
-    </div>
-<!-- </div> -->
+  <iframe ng-src='{{trustHtml(getAllView.token[key], getAllView.info[key])}}' class="col-md-12" style="height:{{dimension[key].width}}; border:white; background-color: white;"></iframe>
+  <!-- <div ng-if="getAllView.content_type != 'Tableau'">div de test</div> -->
+</div>
