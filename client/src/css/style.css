@@ -16,11 +16,12 @@ html {
 }
 
 .use_blur:not(.tile-small) {
-    filter: blur(5px);
+    opacity: 0;
+    /*filter: blur(5px);
     -webkit-filter: blur(5px);
     -moz-filter: blur(5px);
     -o-filter: blur(5px);
-    -ms-filter: blur(5px);
+    -ms-filter: blur(5px);*/
 }
 
 .blur_effect {
@@ -102,7 +103,7 @@ html {
     height: 12em;
 		width: 12em;
 		border-radius: 50%;
-		margin-left: 100px;
+		margin-left: 90px;
     margin-bottom: 35px;
 		/*border: 1px solid #ebebeb;*/
 		/*box-shadow: 0 4px 6px 1px rgba(50, 50, 50, 0.14);*/
@@ -161,7 +162,7 @@ h1 {
 .login-card {
   padding: 40px;
   width: 450px;
-  background-color: #F7F7F7;
+  background-color: rgba(6, 1, 1, 0.5);
   margin: 4px auto 10px;
   border-radius: 2px;
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);

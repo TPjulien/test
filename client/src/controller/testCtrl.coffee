@@ -41,9 +41,13 @@ tableau
         hoverEl
         .css({'-webkit-filter': 'blur(5px)'
         })
+        # hoverEl
+        # .css({
+        #   'opacity': '0'
+        # })
 
         $(this).css({'-webkit-filter': 'blur(0px)'})
-
+        # $(this).css({'opacity': '1'})
         # $('.tile-small', this).css("-webkit-filter': 'blur(5px)")
         # hoverEl.not(this)
     )
@@ -54,6 +58,10 @@ tableau
         hoverEl
         .css({'-webkit-filter': 'blur(0px)'
         })
+        # hoverEl
+        # .css({
+        #   'opacity': '1'
+        # })
         # hoverEl.css({
         #   '-webkit-filter': 'blur(0px)'
         # })
