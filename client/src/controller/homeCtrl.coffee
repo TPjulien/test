@@ -28,19 +28,8 @@ tableau
     tick()
     $interval(tick, 1000)
 
-    # $http
-    #     method: 'GET'
-    #     url :   options.api.base_url + '/view/' + decode[0].username + '/' + decode[0].site
-    # .success (data) ->
-    #     console.log data
-    #     $scope.view = data
-    #     $location.path '/home/test/' + decode[0].username + '/' + data[0].id
-    # .error (err) ->
-    #     console.log err
-
     $scope.goToView = (id) ->
         $location.path '/home/test/' + decode[0].username + '/' + id
-    # console.log "hello !"
 
     debounce = (func, wait, context) ->
       timer = undefined

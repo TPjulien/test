@@ -7,18 +7,11 @@
       <div padding="" style="text-align:center">
           <div class="md-title">{{firstname}} {{lastname}}</div>
           <div class="md-body-1">{{company}}</div>
-          <!-- <div class="md-body-1">{{ clock | date:'HH:mm:ss' }}</div> -->
       </div>
-      <!-- <hr class="hrdesign"> -->
-      <div>
+      <div layout-padding="">
         <h1 class="md-title">Calendar</h1>
       </div>
   </md-toolbar>
-  <!-- <div class="tile-wide" data-role="tile" style="background-color: rgba(6, 1, 1, 0.4)"></div> -->
-  <!-- <div class="tile" data-role="tilesmall" style="background-color: blue"></div> -->
-  <!-- <div class="tile-sqyare-y tile-small-y" data-role="tile-small" style="background-color: black"></div>
-  <div class="tile-sqyare-y tile-small-y" data-role="tile-small" style="background-color: blue"></div> -->
-  <!-- <div class="tile-wide" data-role="tile-small" style="background-color: green"></div> -->
 </div>
 <md-toolbar  class="animate-show index" style="background-color:transparent;" >
   <div class="md-toolbar-tools">
@@ -26,9 +19,7 @@
       <md-icon  md-svg-icon="img/icons/menu.svg"></md-icon>
     </md-button>
     <span flex></span>
-    <!-- <h1>Travel Planet - Data Visualisation</h1> -->
     <span flex></span>
-    <!-- <md-icon style="margin-right: 10px;" md-svg-icon="img/icons/time.svg"></md-icon> -->
     <h1>{{ clock | date:' HH:mm:ss' }}</h1>
     <span flex="33"></span>
     <md-button class="md-icon-button" aria-label="logout" ng-click="logOut()">
@@ -36,37 +27,7 @@
     </md-button>
   </div>
 </md-toolbar>
-<!-- <section layout="row"> -->
-<!-- <md-sidenav class="md-sidenav-left md-whiteframe-z1" md-component-id="left" style="position:fixed;"> -->
-<!-- <md-toolbar class="" ng-style="favorite_color ? {'background-color': favorite_color } : { 'background-color': '#2196F3' };" style=" padding-bottom': '30px;">
-    <div>
-        <img id="imgSidenav" ng-src="{{logo}}"/>
-    </div>
-    <span flex></span>
-    <div padding="" style="text-align:center">
-        <div class="md-title">{{firstname}} {{lastname}}</div>
-        <div class="md-body-1">{{company}}</div>
-    </div>
-</md-toolbar> -->
-<!-- menu liste -->
-<!-- <md-list>
-  <md-content flex="" layout-padding="">
-      <md-list-item class="md-1-line" role="link" md-ink-ripple ng-repeat="data in menu">
-        <md-icon md-svg-icon="img/icons/{{data.svg}}" aria-label="{{data.name}}"></md-icon>
-        <div class="md-list-item-text" ng-click="goToView(data.name)">
-          <span style="color:#757575" class="md-subhead">{{data.templateName}}</span>
-        </div>
-        <span flex></span>
-      </md-list-item>
-  </md-content>
-</md-list>
-</md-sidenav>
-</section> -->
-<div layout="row">
 
+<div layout="row">
   <div ui-view class="col-md-12 col-xs-offset-2"></div>
 </div>
-<!-- <div layout="row">
-  <div class="col-md-2" style="background-color:blue;"></div>
-  <div ui-view class="col-md-12"></div>
-</div> -->
