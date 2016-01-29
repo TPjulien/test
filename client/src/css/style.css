@@ -7,6 +7,46 @@ html {
 
 }
 
+#blur {
+    filter: blur(0);
+    -webkit-filter: blur(0);
+    -moz-filter: blur(0);
+    -o-filter: blur(0);
+    -ms-filter: blur(0);
+}
+
+.use_blur:not(.tile-small) {
+    filter: blur(5px);
+    -webkit-filter: blur(5px);
+    -moz-filter: blur(5px);
+    -o-filter: blur(5px);
+    -ms-filter: blur(5px);
+}
+
+.blur_effect {
+    transition: 0.5s;
+}
+
+.remove_blur {
+  -webkit-filter: blur(0px);
+  -moz-filter: blur(0px);
+  -o-filter: blur(0px);
+  -ms-filter: blur(0px);
+}
+/*.tile-small:hover:after{
+    background: transparent;
+}*/
+
+.tile-small:hover + #blur {
+  filter: blur(5px);
+  -webkit-filter: blur(5px);
+  -moz-filter: blur(5px);
+  -o-filter: blur(5px);
+  -ms-filter: blur(5px);
+}
+/*.effect_blur div:hover + #blur {
+  }*/
+
 .index {
   z-index: 0 !important;
 }

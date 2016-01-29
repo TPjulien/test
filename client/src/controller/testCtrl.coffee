@@ -28,7 +28,34 @@ tableau
         getDimension($scope.actualTemplate.selectUser.name)
 
 
-    # url = options.api.base_url + '/getTicket'
+
+    hoverEl  = $('.tile-small')
+    targetEl = $('.blur_effect')
+
+    hoverEl.on('mouseenter', () ->
+        targetEl.addClass("use_blur")
+        hoverEl.addClass("use_blur")
+        hoverEl
+        .css({'-webkit-filter': 'blur(5px)'
+        })
+
+        $(this).css({'-webkit-filter': 'blur(0px)'})
+
+        # $('.tile-small', this).css("-webkit-filter': 'blur(5px)")
+        # hoverEl.not(this)
+    )
+
+    hoverEl.on('mouseleave', () ->
+        targetEl.removeClass("use_blur")
+        hoverEl.removeClass("use_blur")
+        hoverEl
+        .css({'-webkit-filter': 'blur(0px)'
+        })
+        # hoverEl.css({
+        #   '-webkit-filter': 'blur(0px)'
+        # })
+    )
+
     getDimension = (type) ->
         $http
             method : 'GET'

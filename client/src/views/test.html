@@ -1,8 +1,8 @@
-<hr>
-<h1 class="md-title" style="text-align:center">DASHBOARD</h1>
-<hr>
+<hr class="blur_effect">
+<h1 class="md-title blur_effect" style="text-align:center">DASHBOARD</h1>
+<hr class="blur_effect">
 <div class="col-md-12 live">
-  <div class="tile-small" data-role="tile" data-effect="slideLeft" style="width:120px; height: 100px; opacity: 1; transform: scale(1); transition: 0.3s;">
+  <div class="tile-small blur_effect" data-role="tile" data-effect="slideLeft" style="width:120px; height: 100px; opacity: 1; transform: scale(1); transition: 0.3s;">
       <div class="tile-content">
         <div class="image-container image-format-fill live-slide" style="whidth: 100%; height: 100%; background-color:#F44336">
             <img src="http://www.clipartbest.com/cliparts/jix/oBa/jixoBao7T.png">
@@ -12,7 +12,7 @@
         </div>
       </div>
   </div>
-  <div class="tile-small" data-role="tile" data-effect="slideUpDown" style="width:120px; height: 100px; opacity: 1; transform: scale(1); transition: 0.5s;">
+  <div class="tile-small blur_effect" data-role="tile" data-effect="slideUpDown" style="width:120px; height: 100px; opacity: 1; transform: scale(1); transition: 0.5s;">
       <div class="tile-content">
         <div class="image-container image-format-fill live-slide" style="whidth: 100%; height: 100%; background-color:#5DC7DD">
             <img src="http://cache4.asset-cache.net/xc/490403078.jpg?v=2&c=IWSAsset&k=2&d=UC9I_QH_29abG8uOsUT0VWfiZAoH-tOFMQbtw7cEHvj9D9SF9kqH-gILdq2KOFJj0">
@@ -22,24 +22,6 @@
         </div>
       </div>
   </div>
-  <!-- <div class="tile image-container image-format-fill live-slide" data-effect="slideLeft" data-role="tile" style="background-color: rgba(6, 1, 1, 0.4); width: 100px; height: 100px;">
-        <img src="http://cache4.asset-cache.net/xc/490403078.jpg?v=2&c=IWSAsset&k=2&d=UC9I_QH_29abG8uOsUT0VWfiZAoH-tOFMQbtw7cEHvj9D9SF9kqH-gILdq2KOFJj0">
-        <div class="image-overlay op-blue">
-          <h1 class="md-subhead">Factures</h1>
-        </div>
-  </div>
-  <div class="tile image-container image-format-fill" data-role="tile" style="background-color:#F44336; width: 100px; height: 100px;">
-        <img src="http://www.clipartbest.com/cliparts/jix/oBa/jixoBao7T.png">
-        <div class="image-overlay op-red">
-          <h1 class="md-subhead">Commande</h1>
-        </div>
-  </div> -->
-  <!-- <div class="tile-small image-container image-format-square" data-role="tile" style="background-color: rgba(6, 1, 1, 0.4);">
-    <h1 class="md-title">http://www.clipartbest.com/cliparts/jix/oBa/jixoBao7T.png</h1>
-  </div>
-  <div class="tile-small image-container image-format-square" data-role="tile" style="background-color: rgba(6, 1, 1, 0.4);">
-    <h1 class="md-title">Tile Travel 03</h1>
-  </div> -->
 </div>
 
 <!-- <hr class="hrdesign"> -->
@@ -49,8 +31,8 @@
     <md-option ng-value="template" ng-repeat="template in menu">{{template.templateName}}</md-option>
   </md-select>
 </div> -->
-<div ng-repeat="(key, view) in getAllView.info" class="{{dimension[key].height}} separator" style="height:{{dimension[key].width}}">
-
-  <iframe ng-src='{{trustHtml(getAllView.token[key], getAllView.info[key])}}' class="col-md-12" style="height:{{dimension[key].width}}; border:transparent; background-color: transparent;"></iframe>
-  <!-- <div ng-if="getAllView.content_type != 'Tableau'">div de test</div> -->
+<div class="blur_effect">
+  <div ng-repeat="(key, view) in getAllView.info" class="{{dimension[key].height}} separator blur_effect" style="height:{{dimension[key].width}}">
+    <iframe ng-src='{{trustHtml(getAllView.token[key], getAllView.info[key])}}' class="col-md-12" style="height:{{dimension[key].width}}; border:transparent; background-color: transparent;"></iframe>
+  </div>
 </div>
