@@ -38,7 +38,8 @@
     "foundation": "zurb/bower-foundation#~5.4.7",
     "angular-ui-router": "~0.2.15",
     "ng-dialog": "~0.5.6",
-    "metro": "~3.0.13"
+    "metro": "~3.0.13",
+    "metrojs": "~0.9.77"
   },
   "resolutions": {
     "angular": "~1.4.7",

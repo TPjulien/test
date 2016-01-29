@@ -29,6 +29,9 @@ tableau
 
 
 
+
+    tiles    = $(".live-tile")
+    tiles.liveTile()
     hoverEl  = $('.tile-small')
     targetEl = $('.blur_effect')
 
