@@ -30,6 +30,26 @@ tableau
 
     tiles.liveTile()
 
+
+    $scope.getFacture = () ->
+        $http
+            method      : "GET"
+            url         : options.api.base_url + '/pdfUser'
+            responseType: 'arraybuffer'
+        .success (result) ->
+            # console.log result[0].blob
+            # myblob = new Blob([result[0].blob], { type: 'application/pdf' })
+            # blobURL = ( window.URL || window.webkitURL).createObjectURL(myblob)
+            # anchor = document.createElement("a")
+            # anchor.download = "test.pdf"
+            # anchor.href = blobURL
+            # anchor.click()
+            console.log(result)
+            file = new Blob([result], { type: 'application/pdf'});
+            fileUrl = URL.createObjectURL(file)
+            $scope.content = $sce.trustAsResourceUrl(fileUrl)
+
+
     hoverEl.on('mouseenter', () ->
         targetEl.addClass("use_blur")
         hoverEl.addClass("use_blur")
