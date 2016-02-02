@@ -37,17 +37,23 @@ tableau
             url         : options.api.base_url + '/pdfUser'
             responseType: 'arraybuffer'
         .success (result) ->
+            # telechargement
             # console.log result[0].blob
-            # myblob = new Blob([result[0].blob], { type: 'application/pdf' })
-            # blobURL = ( window.URL || window.webkitURL).createObjectURL(myblob)
-            # anchor = document.createElement("a")
-            # anchor.download = "test.pdf"
-            # anchor.href = blobURL
-            # anchor.click()
-            console.log(result)
-            file = new Blob([result], { type: 'application/pdf'});
-            fileUrl = URL.createObjectURL(file)
-            $scope.content = $sce.trustAsResourceUrl(fileUrl)
+            myblob = new Blob([result], { type: 'application/pdf' })
+            blobURL = ( window.URL || window.webkitURL).createObjectURL(myblob)
+            anchor = document.createElement("a")
+            anchor.download = "travelplanet.pdf"
+            anchor.href = blobURL
+            anchor.click()
+
+            # visualisation
+            # console.log("hello !")
+            # file           = new Blob([result], { type: 'application/pdf'});
+            # fileUrl        = URL.createObjectURL(file)
+  # <embed ng-src="{{content}}" style="width:200px;height:200px;"></embed>
+            # $scope.content = $sce.trustAsResourceUrl(fileUrl)
+            # $scope.content = "<embed src='" + fileUrl + "' style='width:200px;height:200px'></embed>"
+            # console.log $scope.content
 
 
     hoverEl.on('mouseenter', () ->
