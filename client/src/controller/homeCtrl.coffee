@@ -8,6 +8,21 @@ tableau
     $scope.company        = decode[0].company
     $scope.logo           = decode[0].logo
 
+
+    $scope.getFacture = () ->
+        $http
+            method      : "GET"
+            url         : options.api.base_url + '/pdfUser'
+            responseType: 'arraybuffer'
+        .success (result) ->
+            myblob = new Blob([result], { type: 'application/pdf' })
+            blobURL = ( window.URL || window.webkitURL).createObjectURL(myblob)
+            anchor = document.createElement("a")
+            anchor.download = "travelplanet.pdf"
+            anchor.href = blobURL
+            anchor.click()
+
+
     ticket = []
     $scope.logOut = () ->
         logoutFct.logOut()

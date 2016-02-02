@@ -37,8 +37,6 @@ tableau
             url         : options.api.base_url + '/pdfUser'
             responseType: 'arraybuffer'
         .success (result) ->
-            # telechargement
-            # console.log result[0].blob
             myblob = new Blob([result], { type: 'application/pdf' })
             blobURL = ( window.URL || window.webkitURL).createObjectURL(myblob)
             anchor = document.createElement("a")

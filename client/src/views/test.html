@@ -1,4 +1,4 @@
-<div class="col-md-12 live">
+<div class="col-md-12 live" show-md show-sm hide-gt-md>
   <!-- tile 2 -->
   <div class="live-tile blue tile-small" style="background-color:transparent; width:120px; height: 120px; opacity: 1; transform: scale(1); transition: 0.5s; box-shadow: none;" data-direction="horizontal" data-mode="carousel" data-delay="5500" data-speed="1200">
       <div class="image-container image-format-fill live-slide" style="whidth: 100%; height: 100%; background-color:#2196F">
@@ -21,7 +21,6 @@
   </div>
 
   <!-- <embed ng-src="{{content}}" style="width:200px;height:200px;"></embed> -->
-  <!-- <div ng-bind-html="content" style="width:200px; height:200px;"></div> -->
 
   <!-- tile 4 -->
   <div class="live-tile tile-small" style="background-color:transparent; width:120px; height: 120px; opacity: 1; transform: scale(1); transition: 0.5s; box-shadow: none;" data-mode="flip" data-delay="7000" data-speed="1200">
@@ -35,12 +34,6 @@
     </div>
 </div>
 
-<!-- <div class="col-md-12">
-  <md-select ng-model="actualTemplate.selectUser" ng-change="changeTemplate()">
-    <md-option ng-value="template" ng-repeat="template in menu">{{template.templateName}}</md-option>
-  </md-select>
-</div> -->
-<!-- end of up menu -->
 <div>
   <div ng-repeat="(key, view) in getAllView.info" class="{{dimension[key].height}} separator" style="height:{{dimension[key].width}}">
     <iframe ng-src='{{trustHtml(getAllView.token[key], getAllView.info[key])}}' class="col-md-12" style="height:{{dimension[key].width}}; border:transparent; background-color: transparent;"></iframe>
