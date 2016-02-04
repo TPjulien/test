@@ -3,6 +3,11 @@
 html {
   /*background-image: url('https://wallpaperscraft.com/image/spots_background_light_blur_68629_1920x1080.jpg');*/
   background-attachment:fixed;
+  transition: background 1s linear;
+  -moz-transition: background 1s linear; /* Firefox 4 */
+  -webkit-transition: background 1s linear; /* Safari and Chrome */
+  -o-transition: background 1s linear; /* Opera */
+  -ms-transition: background 1s linear; /* Explorer 10 */
   /*background-color: #E9F0F5;*/
 
 }

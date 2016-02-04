@@ -1,8 +1,14 @@
 tableau
 .controller 'homeCtrl', ($scope, $mdSidenav, $timeout, logoutFct, jwtHelper, store, $http, $stateParams, $location, $interval, $rootScope) ->
-    $rootScope.wallpaper = "none"
     token  = store.get('JWT')
     decode = jwtHelper.decodeToken(token)
+    if decode[0].favorite_background
+        $rootScope.wallpaper  = "url('" + decode[0].favorite_background + "')"
+    else
+        $rootScope.wallpaper = "url('http://www.travelimg.org/wp-content/uploads/2015/02/full_hd_travel_wallpapers_21.jpg')"
+
+    # "url('https://wallpaperscraft.com/image/spots_background_light_blur_68629_1920x1080.jpg')"
+    console.log $rootScope.wallpaper
     $scope.firstname      = decode[0].firstname
     $scope.lastname       = decode[0].lastname
     $scope.favorite_color = decode[0].favorite_color
@@ -10,7 +16,7 @@ tableau
     $scope.logo           = decode[0].logo
 
     console.log decode
-    console.log "hello"
+    console.log "nigga!"
 
 
     $scope.getFacture = () ->
