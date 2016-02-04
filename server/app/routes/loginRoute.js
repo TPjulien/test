@@ -4,9 +4,9 @@ var NodeRSA = require('node-rsa');
 var key     = new NodeRSA({b: 512});
 
 module.exports = function(router, connection) {
-    var table_password = "password";
+    var table_password = "user_password";
     var table_username = "username";
-    var table_login    = "login";
+    var table_login    = "user_info";
 
     function getPassUser(loginUser, callback) {
         var query = "SELECT ?? FROM ?? WHERE ?? = ?";
@@ -14,7 +14,7 @@ module.exports = function(router, connection) {
         query     = mysql.format(query, table);
         connection.query(query, function(err, rows) {
             if (err) {
-                console.log("hello !")
+                // console.log("hello !")
                 callback(err, 404);
             } else {
                 callback(null, rows);
