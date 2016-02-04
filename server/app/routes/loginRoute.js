@@ -50,7 +50,7 @@ module.exports = function(router, connection) {
                             }
                             if (data.length != 0) {
                               var query = 'SELECT * from ?? where ?? = ?';
-                              var table = ['user_info', 'username', data[0].username];
+                              var table = ['site_info', 'customer_id', data[0].customer_id];
                               query     = mysql.format(query, table);
                               connection.query(query, function(error, info_result) {
                                   if (err) {
@@ -58,12 +58,13 @@ module.exports = function(router, connection) {
                                   } else {
                                       var preToken = [{
                                           "username":       data[0].username,
-                                          "site":           data[0].site,
-                                          "firstname":      info_result[0].firstname,
-                                          "lastname":       info_result[0].lastname,
-                                          "company":        info_result[0].company,
-                                          "favorite_color": info_result[0].favorite_color,
-                                          "logo":           info_result[0].logo
+                                          "site":           "Universite_lorraine",
+                                          "logo":           info_result[0].site_logo,
+                                          "firstname":      data[0].user_first_name,
+                                          "lastname":       data[0}.user_last_tame,
+                                          "company":        info_result[0].site_label,
+                                          "favorite_color": info_result[0].site_color_theme,
+                                          "favorite_background"; info_result[0].site_background_theme
                                       }];
                                       var token = jwt.sign(preToken, 'travelSecret', {
                                           expiresIn: 1400

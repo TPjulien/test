@@ -8,6 +8,9 @@ tableau
     $scope.company        = decode[0].company
     $scope.logo           = decode[0].logo
 
+    console.log decode
+    console.log "hello"
+
 
     $scope.getFacture = () ->
         $http
