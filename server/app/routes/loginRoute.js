@@ -58,7 +58,7 @@ module.exports = function(router, connection) {
                                   } else {
                                       var preToken = [{
                                           "username":            data[0].username,
-                                          "site":                data[0].site_tableau_libelle,
+                                          "site":                info_result[0].site_tableau_libelle,
                                           "logo":                info_result[0].site_logo,
                                           "firstname":           data[0].user_first_name,
                                           "lastname":            data[0].user_last_name,
