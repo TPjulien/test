@@ -57,14 +57,14 @@ module.exports = function(router, connection) {
                                       res.sendStatus(404, "user not found");
                                   } else {
                                       var preToken = [{
-                                          "username":       data[0].username,
-                                          "site":           "Universite_lorraine",
-                                          "logo":           info_result[0].site_logo,
-                                          "firstname":      data[0].user_first_name,
-                                          "lastname":       data[0}.user_last_tame,
-                                          "company":        info_result[0].site_label,
-                                          "favorite_color": info_result[0].site_color_theme,
-                                          "favorite_background"; info_result[0].site_background_theme
+                                          "username":            data[0].username,
+                                          "site":                data[0].site_tableau_libelle,
+                                          "logo":                info_result[0].site_logo,
+                                          "firstname":           data[0].user_first_name,
+                                          "lastname":            data[0].user_last_name,
+                                          "company":             info_result[0].site_label,
+                                          "favorite_color":      info_result[0].site_color_theme,
+                                          "favorite_background": info_result[0].site_background_theme
                                       }];
                                       var token = jwt.sign(preToken, 'travelSecret', {
                                           expiresIn: 1400

@@ -1,5 +1,6 @@
 tableau
-.controller 'homeCtrl', ($scope, $mdSidenav, $timeout, logoutFct, jwtHelper, store, $http, $stateParams, $location, $interval) ->
+.controller 'homeCtrl', ($scope, $mdSidenav, $timeout, logoutFct, jwtHelper, store, $http, $stateParams, $location, $interval, $rootScope) ->
+    $rootScope.wallpaper = "none"
     token  = store.get('JWT')
     decode = jwtHelper.decodeToken(token)
     $scope.firstname      = decode[0].firstname
