@@ -53,14 +53,15 @@ module.exports = function(router, connection) {
                                            ??, ??, \
                                            ??, ??, \
                                            ??, ??  \
-                                           FROM  ?, ? \
+                                           FROM  ?? ??, ?? ?? \
                                            WHERE ?? = ? \
                                            AND ?? = ??';
                               var table = ['si.site_id'         , 'si.customer_id',
                                            'si.site_logo'       , 'si.site_tableau_libelle',
                                            'si.site_label'      , 'si.site_color_theme',
                                            'ti.tableau_user_id' , 'si.site_background_theme',
-                                           'tableau_info ti'    , 'site_info si',
+                                           'tableau_info'       , 'ti',
+                                           ,'site_info'         , 'si',
                                            'si.customer_id'     , data[0].customer_id,
                                            'si.site_id'         , 'ti.site_id'];
                               query     = mysql.format(query, table);
