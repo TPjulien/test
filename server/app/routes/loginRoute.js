@@ -60,6 +60,8 @@ module.exports = function(router, connection) {
                                           "username":            data[0].username,
                                           "site":                info_result[0].site_tableau_libelle,
                                           "logo":                info_result[0].site_logo,
+                                          "customer_id":         info_result[0].customer_id,
+                                          "site_id":             info_result[0].site_id,
                                           "firstname":           data[0].user_first_name,
                                           "lastname":            data[0].user_last_name,
                                           "company":             info_result[0].site_label,

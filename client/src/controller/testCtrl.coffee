@@ -30,7 +30,7 @@ tableau
 
     $http
         method: 'GET'
-        url:    options.api.base_url + '/currentView/Claude.bastien@univ-lorraine.fr/Univ_lorainne/3/1'
+        url:    options.api.base_url + '/currentView/Claude.bastien@univ-lorraine.fr/Universite_lorraine/3/2'
     .success (result) ->
         console.log result
         console.log "ceci est un test"
