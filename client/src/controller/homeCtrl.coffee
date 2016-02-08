@@ -25,11 +25,11 @@ tableau
             url         : options.api.base_url + '/pdfUser'
             responseType: 'arraybuffer'
         .success (result) ->
-            myblob = new Blob([result], { type: 'application/pdf' })
-            blobURL = ( window.URL || window.webkitURL).createObjectURL(myblob)
-            anchor = document.createElement("a")
+            myblob          = new Blob([result], { type: 'application/pdf' })
+            blobURL         = (window.URL || window.webkitURL).createObjectURL(myblob)
+            anchor          = document.createElement("a")
             anchor.download = "travelplanet.pdf"
-            anchor.href = blobURL
+            anchor.href     = blobURL
             anchor.click()
 
 
@@ -62,7 +62,7 @@ tableau
         context = $scope
         args    = Array.prototype.slice.call arguments
         $timeout.cancel timer
-        timer = $timeout(( ->
+        timer   = $timeout(( ->
           timer = 0
           func.apply context, args
         ),wait || 10)
