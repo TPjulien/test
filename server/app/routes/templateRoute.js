@@ -103,7 +103,7 @@ module.exports = function(router, connection) {
             			  if (completed_requests == rows.length) {
             			      var afterResult = {};
             			      var object_parsed = [];
-            			      for (getinfo in info) {
+            			      for (getinfo in path_to_view) {
               				  // element.info   = info[getinfo];
                         element.site_id                = site_id[getinfo];
                         element.view_id                = view_id[getinfo];

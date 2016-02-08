@@ -24,6 +24,20 @@ tableau
         templateName: "template par défaut"
     }]
 
+    # /currentView/:site/:customer/:view
+
+    console.log "bonjour un test"
+
+    $http
+        method: 'GET'
+        url:    options.api.base_url + '/currentView/Univ_lorainne/3/1'
+    .success (result) ->
+        console.log result
+        console.log "ceci est un test"
+    .error (err) ->
+        console.log err
+
+
     $scope.changeTemplate = () ->
         getDimension($scope.actualTemplate.selectUser.name)
 
