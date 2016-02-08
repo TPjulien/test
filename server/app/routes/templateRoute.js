@@ -54,7 +54,7 @@ module.exports = function(router, connection) {
             })
         })
 
-    router.route('/currentView/:site/:customer/:view')
+    router.route('/currentView/:user/:site/:customer/:view')
         .get (function(req, res) {
             var completed_requests = 0;
 	          var second_requests    = 0;
