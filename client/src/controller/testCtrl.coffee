@@ -24,22 +24,28 @@ tableau
         templateName: "template par défaut"
     }]
 
-    # /currentView/:site/:customer/:view
-
-    console.log "bonjour un test"
-
     $http
         method: 'GET'
-        url:    options.api.base_url + '/currentView/Claude.bastien@univ-lorraine.fr/Universite_lorraine/3/2'
+        url:    options.api.base_url + '/getViewSite' + decode[0].site_id
     .success (result) ->
         console.log result
-        console.log "ceci est un test"
     .error (err) ->
         console.log err
 
+    # /currentView/:site/:customer/:view
 
-    $scope.changeTemplate = () ->
-        getDimension($scope.actualTemplate.selectUser.name)
+    # $http
+    #     method: 'GET'
+    #     url:    options.api.base_url + '/currentView/Claude.bastien@univ-lorraine.fr/Universite_lorraine/3/2'
+    # .success (result) ->
+    #     console.log result
+    #     console.log "ceci est un test"
+    # .error (err) ->
+    #     console.log err
+
+
+    # $scope.changeTemplate = () ->
+    #     getDimension($scope.actualTemplate.selectUser.name)
 
     tiles.liveTile()
 
@@ -84,27 +90,38 @@ tableau
         })
     )
 
-    getDimension = (type) ->
-        $http
-            method : 'GET'
-            url    :  options.api.base_url + '/getOneDimension/' + decode[0].username + '/' + type
-        .success (result) ->
-            $scope.dimension = result
-        .error (err) ->
-            console.log err
+    # getDimension = (type) ->
+    #     $http
+    #         method : 'GET'
+    #         url    :  options.api.base_url + '/getOneDimension/' + decode[0].username + '/' + type
+    #     .success (result) ->
+    #         $scope.dimension = result
+    #     .error (err) ->
+    #         console.log err
 
     getTemplate = () ->
         $http
-              method: 'GET'
-              url :   options.api.base_url + '/view/' + decode[0].username + '/' + decode[0].site
+            method: 'GET'
+            url:    options.api.base_url + '/currentView/Claude.bastien@univ-lorraine.fr/Universite_lorraine/3/1'
         .success (result) ->
-              $scope.getAllView = result
+            console.log result
+            $scope.getAllView = result
+            console.log $scope.getAllView.embed_background_color
         .error (err) ->
-              console.log err
+            console.log err
+        # $http
+        #       method: 'GET'
+        #       url :   options.api.base_url + '/view/' + decode[0].username + '/' + decode[0].site
+        # .success (result) ->
+        #       $scope.getAllView = result
+        # .error (err) ->
+        #       console.log err
+
+    getTemplate()
 
     if $stateParams.id == 'default'
         getTemplate()
-        getDimension("Vue_default")
+        # getDimension("Vue_default")
     else
         getTemplate()
 
@@ -115,4 +132,7 @@ tableau
             height = { height : "500px" }
 
     $scope.trustHtml = (token, link) ->
-        return $sce.trustAsResourceUrl("http://data.travelplanet.fr/trusted/" + token + '/' + link + '&:toolbar=no' )
+        # console.log token
+        # console.log link
+        # console.log ("http://data.travelplanet.fr/trusted/" + token + link + '&:toolbar=no' )
+        return $sce.trustAsResourceUrl("http://data.travelplanet.fr/trusted/" + token + link + '&:toolbar=no' )

@@ -26,5 +26,19 @@ module.exports = function(router, connection) {
                     res.json(rows);
                 }
             });
-        });
+        })
+    router.route('/getViewSite/:site')
+        .get(function(req, res) {
+            var query = "SELECT * from ?? WHERE ?? = ?";
+            var table = ['view_info', 'site_id', req.params.site];
+            query     = mysql.format(query, table);
+            connection.query(query, function(err, rows) {
+                if (err) {
+                    res.json({ message: "error"})
+                } else {
+                    res.json(rows);
+                }
+            })
+
+        })
 }

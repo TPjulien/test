@@ -35,7 +35,7 @@
 </div>
 
 <div>
-  <div ng-repeat="(key, view) in getAllView.info" class="{{dimension[key].height}} separator" style="height:{{dimension[key].width}}">
-    <iframe ng-src='{{trustHtml(getAllView.token[key], getAllView.info[key])}}' class="col-md-12" style="height:{{dimension[key].width}}; border:transparent; background-color: transparent;"></iframe>
+  <div ng-repeat="(key, view) in getAllView.path_to_view" class="{{getAllView.embed_width[key]}} separator" style="height:{{getAllView.embed_height[key]}}">
+    <iframe ng-src='{{trustHtml(getAllView.token[key], getAllView.path_to_view[key])}}' class="col-md-12" style="height:{{getAllView.embed_height[key]}}; border:transparent; background-color: transparent;"></iframe>
   </div>
 </div>
