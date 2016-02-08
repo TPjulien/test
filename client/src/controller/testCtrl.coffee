@@ -3,6 +3,7 @@ tableau
     token                 = store.get('JWT')
     decode                = jwtHelper.decodeToken(token)
     $scope.actualTemplate = []
+    $scope.viewMenu       = []
     $scope.view           = $stateParams.client
     $scope.getAllView     = null
     $scope.id             = $stateParams.id
@@ -24,10 +25,16 @@ tableau
         templateName: "template par défaut"
     }]
 
+    $scope.getColor = (color) ->
+      css = 'background-color:' + color
+      return css
+
     $http
         method: 'GET'
-        url:    options.api.base_url + '/getViewSite' + decode[0].site_id
+        url:    options.api.base_url + '/getViewSite/' + decode[0].site_id
     .success (result) ->
+        $scope.viewMenu = result
+        console.log("hello nggah !")
         console.log result
     .error (err) ->
         console.log err
@@ -99,31 +106,31 @@ tableau
     #     .error (err) ->
     #         console.log err
 
-    getTemplate = () ->
+    getTemplate = (site_id, view_id) ->
         $http
             method: 'GET'
-            url:    options.api.base_url + '/currentView/Claude.bastien@univ-lorraine.fr/Universite_lorraine/3/1'
+            url:    options.api.base_url + '/currentView/' +  decode[0].username + '/' + decode[0].site + '/' + site_id + '/' + view_id
         .success (result) ->
             console.log result
             $scope.getAllView = result
             console.log $scope.getAllView.embed_background_color
         .error (err) ->
             console.log err
-        # $http
-        #       method: 'GET'
-        #       url :   options.api.base_url + '/view/' + decode[0].username + '/' + decode[0].site
-        # .success (result) ->
-        #       $scope.getAllView = result
-        # .error (err) ->
-        #       console.log err
+    # $http
+    #       method: 'GET'
+    #       url :   options.api.base_url + '/view/' + decode[0].username + '/' + decode[0].site
+    # .success (result) ->
+    #       console.log("result")
+    # .error (err) ->
+    #       console.log err
 
-    getTemplate()
+    # getTemplate(3/1)
 
     if $stateParams.id == 'default'
-        getTemplate()
+        getTemplate(3, 1)
         # getDimension("Vue_default")
     else
-        getTemplate()
+        getTemplate($scope.view, $scope.id)
 
     $scope.set_height = (height) ->
         if height

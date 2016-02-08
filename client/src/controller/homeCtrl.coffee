@@ -19,6 +19,15 @@ tableau
     console.log "nigga!"
 
 
+    $scope.goTO = (id, view) ->
+      $location.path '/home/dashboard/' + id + '/' + view
+      console.log id
+      console.log view
+
+    $scope.getColor = (color) ->
+      css = 'background-color:' + color
+      return css
+
     $scope.getFacture = () ->
         $http
             method      : "GET"
@@ -33,13 +42,21 @@ tableau
             anchor.click()
 
 
+    $http
+        method: 'GET'
+        url:    options.api.base_url + '/getViewSite' + '/' + decode[0].site_id
+    .success (result) ->
+        $scope.viewMenu = result
+    .error (err) ->
+        console.log err
+
     ticket = []
     $scope.logOut = () ->
         logoutFct.logOut()
 
     $scope.view = null
 
-    $location.path '/home/test/' + decode[0].username + '/default'
+    $location.path '/home/dashboard/' + decode[0].site_id + '/default'
 
     $scope.menu = [{
         id:           1
@@ -53,8 +70,12 @@ tableau
     tick()
     $interval(tick, 1000)
 
+    $scope.getImage = (src) ->
+        url = "img/" + src
+        return url
+
     $scope.goToView = (id) ->
-        $location.path '/home/test/' + decode[0].username + '/' + id
+        $location.path '/home/dashboard/' + decode[0].username + '/' + id
 
     debounce = (func, wait, context) ->
       timer = undefined

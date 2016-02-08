@@ -35,7 +35,7 @@ tableau
             templateUrl: 'templates/home.html',
             controller:  'homeCtrl'
         .state 'home.test',
-            url:          '/test/:client/:id',
+            url:          '/dashboard/:client/:id',
             templateUrl:  'templates/test.html',
             controller:   'testCtrl'
     jwtInterceptorProvider.tokenGetter = [
