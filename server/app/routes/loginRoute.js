@@ -53,7 +53,7 @@ module.exports = function(router, connection) {
                                            ??, ??, \
                                            ??, ??, \
                                            ??, ??  \
-                                           FROM  ??, ?? \
+                                           FROM  ?, ? \
                                            WHERE ?? = ? \
                                            AND ?? = ??';
                               var table = ['si.site_id'         , 'si.customer_id',
