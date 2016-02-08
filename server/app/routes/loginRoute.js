@@ -49,8 +49,20 @@ module.exports = function(router, connection) {
                               console.log("data dont exist");
                             }
                             if (data.length != 0) {
-                              var query = 'SELECT * from ?? where ?? = ?';
-                              var table = ['site_info', 'customer_id', data[0].customer_id];
+                              var query = 'SELECT ??, ??, \
+                                           ??, ??, \
+                                           ??, ??, \
+                                           ??, ??  \
+                                           FROM  ??, ?? \
+                                           WHERE ?? = ? \
+                                           AND ?? = ??';
+                              var table = ['si.site_id'         , 'si.customer_id',
+                                           'si.site_logo'       , 'si.site_tableau_libelle',
+                                           'si.site_label'      , 'si.site_color_theme',
+                                           'ti.tableau_user_id' , 'si.site_background_theme',
+                                           'tableau_info ti'    , 'site_info si',
+                                           'si.customer_id'     , data[0].customer_id,
+                                           'si.site_id'         , 'ti.site_id'];
                               query     = mysql.format(query, table);
                               connection.query(query, function(error, info_result) {
                                   if (err) {
@@ -58,6 +70,7 @@ module.exports = function(router, connection) {
                                   } else {
                                       var preToken = [{
                                           "username":            data[0].username,
+                                          "tableau_user_id":     info_result[0].tableau_user_id,
                                           "site":                info_result[0].site_tableau_libelle,
                                           "logo":                info_result[0].site_logo,
                                           "customer_id":         info_result[0].customer_id,
