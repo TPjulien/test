@@ -16,7 +16,7 @@
     <iframe ng-src='{{trustHtml(view, getAllView.path_to_view[key])}}' class="col-md-12" style="height:{{getAllView.embed_height[key]}}; border:transparent; background-color: transparent;"></iframe>
   </div>
 </div>
-<md-card class="col-md-12">
+<div style="background-color:white" class="col-md-12">
   <md-data-table-toolbar ng-show="!selected.length">
       <h2 class="md-title">Mes Factures</h2>
       <!-- <div flex></div> -->
@@ -53,4 +53,4 @@
       </table>
     </md-data-table-container>
     <md-data-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{query.count}}" md-trigger="onpagechange"></md-data-table-pagination>
-</md-card>
+</div>

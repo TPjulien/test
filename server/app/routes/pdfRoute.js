@@ -18,5 +18,18 @@ module.exports = function(router, connection) {
                     // res.json(rows);
                 }
             })
-        });
+        })
+      router.route('/getPDF')
+          .get (function(req, res) {
+              var query = "select ?? from ??";
+              var table = [''];
+              query     = mysql.format(query, table);
+              connection.query(query, function(err, rows) {
+                  if (err) {
+                      res.json({ message: 'error'})
+                  } else {
+                      res.json(rows);
+                  }
+              }
+          })
 }
