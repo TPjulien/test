@@ -72,7 +72,7 @@ tableau
             myblob = new Blob([result], { type: 'application/pdf' })
             blobURL = ( window.URL || window.webkitURL).createObjectURL(myblob)
             anchor = document.createElement("a")
-            anchor.download = "travelplanet.pdf"
+            anchor.download = id + '.pdf'
             anchor.href = blobURL
             anchor.click()
 
