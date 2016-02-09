@@ -21,8 +21,8 @@ module.exports = function(router, connection) {
         })
       router.route('/getPDF')
           .get (function(req, res) {
-              var query = "select ?? from ??";
-              var table = [''];
+              var query = "select ?? from ?? LIMIT 50";
+              var table = ['NUM_INVOICE', 'accelya.pdf'];
               query     = mysql.format(query, table);
               connection.query(query, function(err, rows) {
                   if (err) {
