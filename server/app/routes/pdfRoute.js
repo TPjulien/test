@@ -30,6 +30,6 @@ module.exports = function(router, connection) {
                   } else {
                       res.json(rows);
                   }
-              }
-          })
+              })
+          });
 }
