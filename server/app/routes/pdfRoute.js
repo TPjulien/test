@@ -5,10 +5,10 @@ var request   = require('request');
 module.exports = function(router, connection) {
 
     // get blob pdf
-    router.route('/pdfUser')
+    router.route('/downloadPDF/:id_item')
         .get (function(req, res) {
-            var query = "SELECT * from ??";
-            var table = ['tpo.blob'];
+            var query = "SELECT ?? from ?? WHERE ?? = ?";
+            var table = ['blob', 'accelya.pdf', 'NUM_INVOICE', req.params.id_item];
             query     = mysql.format(query, table);
             connection.query(query, function(err, rows) {
                 if (err) {

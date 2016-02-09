@@ -34,21 +34,27 @@ tableau
         url:    options.api.base_url + '/getViewSite/' + decode[0].site_id
     .success (result) ->
         $scope.viewMenu = result
-        console.log("hello nggah !")
-        console.log result
+        # console.log("hello nggah !")
+        # console.log result
     .error (err) ->
         console.log err
 
+
     # /currentView/:site/:customer/:view
 
-    # $http
-    #     method: 'GET'
-    #     url:    options.api.base_url + '/currentView/Claude.bastien@univ-lorraine.fr/Universite_lorraine/3/2'
-    # .success (result) ->
-    #     console.log result
-    #     console.log "ceci est un test"
-    # .error (err) ->
-    #     console.log err
+
+    $http
+        method: 'GET'
+        url:    options.api.base_url + '/getPDF'
+    .success (result) ->
+        $scope.query =
+            limit: 5
+            page:  1
+            count: result.length
+        $scope.factureData = result
+        console.log result
+    .error (err) ->
+        console.log err
 
 
     # $scope.changeTemplate = () ->
@@ -56,10 +62,11 @@ tableau
     tiles.liveTile()
 
 
-    $scope.download = () ->
+    $scope.download = (selected) ->
+        id = selected[0].NUM_INVOICE
         $http
             method      : "GET"
-            url         : options.api.base_url + '/pdfUser'
+            url         : options.api.base_url + '/downloadPDF/' + id
             responseType: 'arraybuffer'
         .success (result) ->
             myblob = new Blob([result], { type: 'application/pdf' })
@@ -70,13 +77,13 @@ tableau
             anchor.click()
 
 
-    $scope.factureData = [{
-        number: "123456"
-        date: "15-10-1992"
-      }, {
-        number: "78901"
-        date: "15-10-1992"
-      }]
+    # $scope.factureData = [{
+    #     number: "123456"
+    #     date: "15-10-1992"
+    #   }, {
+    #     number: "78901"
+    #     date: "15-10-1992"
+    #   }]
             # visualisation
             # console.log("hello !")
             # file           = new Blob([result], { type: 'application/pdf'});
