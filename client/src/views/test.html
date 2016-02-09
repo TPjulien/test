@@ -13,7 +13,44 @@
 
 <div>
   <div ng-repeat="(key, view) in getAllView.token" class="{{getAllView.embed_width[key]}} separator" style="height:{{getAllView.embed_height[key]}}">
-    <!-- <h1>{{view}}</h1> -->
     <iframe ng-src='{{trustHtml(view, getAllView.path_to_view[key])}}' class="col-md-12" style="height:{{getAllView.embed_height[key]}}; border:transparent; background-color: transparent;"></iframe>
   </div>
 </div>
+<md-card class="col-md-12">
+  <md-data-table-toolbar ng-show="!selected.length">
+      <h2 class="md-title">Mes Factures</h2>
+      <!-- <div flex></div> -->
+      <!-- <md-button ng-hide="role" class="md-icon-button" aria-label="addFacture" ng-click="addFacture($event, user.clientCode)">
+        <md-icon md-svg-icon="img/icons/add_factures.svg"></md-icon>
+      </md-button> -->
+    </md-data-table-toolbar>
+
+    <md-data-table-toolbar class="alternate" ng-show="selected.length">
+        <h2 class="md-title">{{selected.length}} {{selected.length > 1 ? 'items' : 'item'}} </h2>
+        <div flex></div>
+        <!-- <md-button ng-hide="role" class="md-icon-button" aria-label="EditFacture" ng-click="modifyFacture($event, selected)" ng-hide="selected.length > 1">
+          <md-icon md-svg-icon="img/icons/editFacture.svg"></md-icon>
+        </md-button> -->
+        <md-button ng-hide="role" class="md-icon-button" aria-label="deleteFacture" ng-click="download(selected)">
+          <md-icon md-svg-icon="img/icons/download.svg"></md-icon>
+        </md-button>
+    </md-data-table-toolbar>
+
+    <md-data-table-container>
+      <table md-data-table md-row-select="selected" md-progress="deferred">
+        <thead md-order="query.order" md-trigger="onOrderChange">
+          <tr>
+            <th name="Numéro de Facture"></th>
+            <th name="Date"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr md-auto-select ng-repeat="facture in factureData | orderBy: query.order | limitTo: query.limit: (query.page - 1) * query.limit">
+            <td>{{facture.number}}</td>
+            <td>{{facture.date}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </md-data-table-container>
+    <md-data-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{query.count}}" md-trigger="onpagechange"></md-data-table-pagination>
+</md-card>

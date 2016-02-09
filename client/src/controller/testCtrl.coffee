@@ -53,11 +53,10 @@ tableau
 
     # $scope.changeTemplate = () ->
     #     getDimension($scope.actualTemplate.selectUser.name)
-
     tiles.liveTile()
 
 
-    $scope.getFacture = () ->
+    $scope.download = () ->
         $http
             method      : "GET"
             url         : options.api.base_url + '/pdfUser'
@@ -70,6 +69,14 @@ tableau
             anchor.href = blobURL
             anchor.click()
 
+
+    $scope.factureData = [{
+        number: "123456"
+        date: "15-10-1992"
+      }, {
+        number: "78901"
+        date: "15-10-1992"
+      }]
             # visualisation
             # console.log("hello !")
             # file           = new Blob([result], { type: 'application/pdf'});
