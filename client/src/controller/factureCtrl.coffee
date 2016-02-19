@@ -28,28 +28,18 @@ tableau
     #           "name": "balboa"
     #         }
     #       ]
+    $http
+        method: 'GET'
+        url:    options.api.base_url + '/getPDF/0/1'
+    .success (result) ->
+        $scope.users = result
+    .error (err) ->
+        console.log err
+    $scope.data = $scope.users.slice 0, 5
 
-    # $http
-    #     method: 'GET'
-    #     url:    options.api.base_url + '/getPDF'
-    # .success (result) ->
-    #     $scope.users = result
-    # .error (err) ->
-    #     console.log err
-    # $scope.data = $scope.users.slice 0, 5
-    $scope.getMoreData = ->
-        min = 0
-        max = 5
-        $http
-            method: 'GET'
-            url:    options.api.base_url + '/getPDF/' + min + '/' + max
-        .success (result) ->
-            console.log min
-            $scope.users = result
-            $scope.data  = $scope.users.slice min, $scope.data.length + 5
-            max = min + max
-        .error (err) ->
-            console.log err
+    # $scope.getMoreData = ->
+        # console.log $scope.data.length
+        # $scope.data = $scope.users.slice 0, $scope.data.length + 5
     #  $scope.images = [1, 2, 3, 4, 5, 6, 7, 8
     #  ]
      #

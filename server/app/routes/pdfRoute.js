@@ -3,7 +3,6 @@ var http_post = require('http-post');
 var request   = require('request');
 
 module.exports = function(router, connection) {
-
     // get blob pdf
     router.route('/downloadPDF/:id_item')
         .get (function(req, res) {
@@ -21,15 +20,21 @@ module.exports = function(router, connection) {
         })
       router.route('/getPDF/:limitMin/:limitMax')
           .get (function(req, res) {
-              var query = "select ?? from ?? LIMIT ?, ?";
-              var table = ['NUM_INVOICE', 'accelya.pdf', req.params.limitMin, req.params.limitMax];
-              query     = mysql.format(query, table);
-              connection.query(query, function(err, rows) {
-                  if (err) {
-                      res.json({ message: 'error'})
-                  } else {
-                      res.json(rows);
-                  }
-              })
+              var min = req.params.limitMin
+              var max = req.params.limitMax
+              if (!Number.isInteger(min) || !Number.isInteger(max)) {
+                res.json({ message: 'not a valid request'});
+              } else {
+                var query = "select ?? from ?? LIMIT" + req.params.limitMin + "," + req.params.limitMax;
+                var table = ['NUM_INVOICE', 'accelya.pdf'];
+                query     = mysql.format(query, table);
+                connection.query(query, function(err, rows) {
+                    if (err) {
+                        res.json({ message: 'error'})
+                    } else {
+                        res.json(rows);
+                    }
+                })
+              }
           });
 }
