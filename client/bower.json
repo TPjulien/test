@@ -39,7 +39,8 @@
     "angular-ui-router": "~0.2.15",
     "ng-dialog": "~0.5.6",
     "metro": "~3.0.13",
-    "metrojs": "~0.9.77"
+    "metrojs": "~0.9.77",
+    "ngInfiniteScroll": "~1.2.2"
   },
   "resolutions": {
     "angular": "~1.4.7",

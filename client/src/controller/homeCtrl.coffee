@@ -56,7 +56,7 @@ tableau
 
     $scope.view = null
 
-    $location.path '/home/dashboard/' + decode[0].site_id + '/1'
+    $location.path '/home/dashboard/' + decode[0].site_id + '/1/Factures'
 
     $scope.menu = [{
         id:           1

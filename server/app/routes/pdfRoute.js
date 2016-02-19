@@ -19,10 +19,10 @@ module.exports = function(router, connection) {
                 }
             })
         })
-      router.route('/getPDF')
+      router.route('/getPDF/:limitMin/:limitMax')
           .get (function(req, res) {
-              var query = "select ?? from ?? LIMIT 50";
-              var table = ['NUM_INVOICE', 'accelya.pdf'];
+              var query = "select ?? from ?? LIMIT ?, ?";
+              var table = ['NUM_INVOICE', 'accelya.pdf', req.params.limitMin, req.params.limitMax];
               query     = mysql.format(query, table);
               connection.query(query, function(err, rows) {
                   if (err) {

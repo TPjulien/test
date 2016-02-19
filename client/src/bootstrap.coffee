@@ -16,6 +16,7 @@ tableau = angular.module 'tableauApp', [
   'angular-jwt'
   'angular-storage'
   'auth0'
+  'infinite-scroll'
 ]
 
 options = {}
@@ -38,6 +39,10 @@ tableau
             url:          '/dashboard/:client/:id',
             templateUrl:  'templates/test.html',
             controller:   'testCtrl'
+        .state 'home.test.facture',
+            url:          '/Factures',
+            templateUrl:  'templates/facture.html',
+            controller:   'factureCtrl'
     jwtInterceptorProvider.tokenGetter = [
       'store'
       '$http'

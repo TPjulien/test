@@ -12,6 +12,10 @@ html {
 
 }
 
+
+.wallpaperStyle {
+  padding: 105px;
+}
 #blur {
     filter: blur(0);
     -webkit-filter: blur(0);

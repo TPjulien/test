@@ -43,20 +43,6 @@ tableau
     # /currentView/:site/:customer/:view
 
 
-    $http
-        method: 'GET'
-        url:    options.api.base_url + '/getPDF'
-    .success (result) ->
-        $scope.query =
-            limit: 5
-            page:  1
-            count: result.length
-        $scope.factureData = result
-        console.log result
-    .error (err) ->
-        console.log err
-
-
     # $scope.changeTemplate = () ->
     #     getDimension($scope.actualTemplate.selectUser.name)
     tiles.liveTile()
@@ -111,38 +97,17 @@ tableau
         })
     )
 
-    # getDimension = (type) ->
-    #     $http
-    #         method : 'GET'
-    #         url    :  options.api.base_url + '/getOneDimension/' + decode[0].username + '/' + type
-    #     .success (result) ->
-    #         $scope.dimension = result
-    #     .error (err) ->
-    #         console.log err
-
     getTemplate = (site_id, view_id) ->
         $http
             method: 'GET'
             url:    options.api.base_url + '/currentView/' +  decode[0].tableau_user_id + '/' + decode[0].site + '/' + site_id + '/' + view_id
         .success (result) ->
-            console.log result
             $scope.getAllView = result
-            console.log $scope.getAllView.embed_background_color
         .error (err) ->
             console.log err
-    # $http
-    #       method: 'GET'
-    #       url :   options.api.base_url + '/view/' + decode[0].username + '/' + decode[0].site
-    # .success (result) ->
-    #       console.log("result")
-    # .error (err) ->
-    #       console.log err
-
-    # getTemplate(3/1)
 
     if $stateParams.id == 'default'
         getTemplate(3, 1)
-        # getDimension("Vue_default")
     else
         getTemplate($scope.view, $scope.id)
 
@@ -153,7 +118,4 @@ tableau
             height = { height : "500px" }
 
     $scope.trustHtml = (token, link) ->
-        # console.log token
-        # console.log link
-        # console.log ("http://data.travelplanet.fr/trusted/" + token + link + '&:toolbar=no' )
         return $sce.trustAsResourceUrl("http://data.travelplanet.fr/trusted/" + token + link + '&:toolbar=no' )

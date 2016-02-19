@@ -1,0 +1,10 @@
+<!-- <p ng-repeat="facture in factureData">{{facture.NUM_INVOICE}}</p> -->
+<!-- <div infinite-scroll='loadMore()' infinite-scroll-distance='2'>
+    <img ng-repeat='image in images' ng-src='http://placehold.it/225x250&text={{image}}'>
+</div> -->
+
+<div infinite-scroll="getMoreData()">
+  <div ng-repeat="user in data">
+    <p>{{user.NUM_INVOICE}}</p>
+  </div>
+</div>

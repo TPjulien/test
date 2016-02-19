@@ -1,5 +1,8 @@
-<div hide-md hide-sm show-gt-md class="col-xs-2 menu blureffect" style="background-color:rgba(6, 1, 1, 0.4)">
-  <md-toolbar style="background-color:transparent;" style=" padding-bottom: 30px;">
+<div hide-md hide-sm show-gt-md class="col-xs-2 menu blureffect" style="background-color:#2C343F; z-index:2">
+  <div style="padding: 19px; background-color:#3C434D">
+    <p>TravelPlanet</p>
+  </div>
+  <md-toolbar style="background-color:transparent; padding-top: 30px;" style=" padding-bottom: 30px;">
       <div>
           <img id="imgSidenav" ng-src="{{logo}}"/>
       </div>
@@ -22,7 +25,7 @@
       </div>
   </md-toolbar>
 </div>
-<md-toolbar  class="animate-show index" style="background-color:transparent;" >
+<md-toolbar  class="animate-show index" style="background-color:rgba(6, 1, 1, 0.6); position:fixed; z-index:1 !important" >
   <div class="md-toolbar-tools">
     <md-button ng-hide="true" class="md-icon-button" aria-label="Settings" ng-click="toggleLeft()">
       <md-icon  md-svg-icon="img/icons/menu.svg"></md-icon>
@@ -32,11 +35,20 @@
     <h1>{{ clock | date:' HH:mm:ss' }}</h1>
     <span flex="33"></span>
     <md-button class="md-icon-button" aria-label="logout" ng-click="logOut()">
-      <md-icon  md-svg-icon="img/icons/logout.svg"></md-icon>
+      <md-icon md-svg-icon="img/icons/logout.svg"></md-icon>
     </md-button>
   </div>
 </md-toolbar>
 
+<div class="wallpaperStyle" ng-style="{ 'background-image' : wallpaper }">
+  <div>
+    <h1>Test !</h1>
+  </div>
+</div>
+
 <div layout="row">
-  <div ui-view class="col-md-12 col-xs-offset-2"></div>
+  <div ui-view class="col-md-12 col-xs-offset-2">
+    <md-card  style="background-color: #eee">
+    </md-card>
+  </div>
 </div>
