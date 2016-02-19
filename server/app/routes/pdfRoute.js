@@ -22,10 +22,10 @@ module.exports = function(router, connection) {
           .get (function(req, res) {
               var min = req.params.limitMin
               var max = req.params.limitMax
-              if (!Number.isInteger(min) || !Number.isInteger(max)) {
+              if (isNaN(min) || isNaN(max)) {
                 res.json({ message: 'not a valid request'});
               } else {
-                var query = "select ?? from ?? LIMIT" + req.params.limitMin + "," + req.params.limitMax;
+                var query = "select ?? from ?? LIMIT " + req.params.limitMin + "," + req.params.limitMax;
                 var table = ['NUM_INVOICE', 'accelya.pdf'];
                 query     = mysql.format(query, table);
                 connection.query(query, function(err, rows) {
