@@ -19,8 +19,13 @@ tableau
     console.log "nigga!"
 
 
-    $scope.goTO = (id, view) ->
-      $location.path '/home/dashboard/' + id + '/' + view
+    $scope.goTO = (id, view, view_label) ->
+
+      if view_label == "Factures"
+        path = 'home/dashboard/' + id + '/' + view + '/' + view_label
+      else
+        path = 'home/dashboard/' + id + '/' + view
+      $location.path path
       console.log id
       console.log view
 
@@ -56,7 +61,8 @@ tableau
 
     $scope.view = null
 
-    $location.path '/home/dashboard/' + decode[0].site_id + '/1/Factures'
+    $location.path '/home/dashboard/' + decode[0].site_id + '/1'
+
 
     $scope.menu = [{
         id:           1
@@ -75,7 +81,7 @@ tableau
         return url
 
     $scope.goToView = (id) ->
-        $location.path '/home/dashboard/' + decode[0].username + '/' + id
+        $location.path '/home/dashboard/' + decode[0].username + '/' + id + '/Factures'
 
     debounce = (func, wait, context) ->
       timer = undefined

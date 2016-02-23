@@ -37,7 +37,7 @@ gulp.task 'components', ->
     .pipe css_filter.restore
 
 gulp.task 'coffee', ->
-	gulp.src [ "#{src}/bootstrap.coffee", "#{src}/controller/*.coffee", "#{src}/directives/*.coffee", "#{src}/factory/*.coffee"]
+	gulp.src [ "#{src}/bootstrap.coffee", "#{src}/controller/*.coffee", "#{src}/directives/*.coffee", "#{src}/factory/*.coffee", "#{src}/directive/*.coffee"]
 		.pipe changed "#{dest}/js", { extention: '.js' }
 		.pipe preprocess()
 		.pipe coffee({ bare: true }).on('error', gutil.log)

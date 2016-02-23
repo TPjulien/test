@@ -1,10 +1,8 @@
-<!-- <p ng-repeat="facture in factureData">{{facture.NUM_INVOICE}}</p> -->
-<!-- <div infinite-scroll='loadMore()' infinite-scroll-distance='2'>
-    <img ng-repeat='image in images' ng-src='http://placehold.it/225x250&text={{image}}'>
-</div> -->
-
-<div infinite-scroll="getMoreData()">
-  <div ng-repeat="user in data">
-    <p>{{user.NUM_INVOICE}}</p>
+<div infinite-scroll="loadMore()" infinite-scroll-container='".content"'>
+  <div ng-repeat="facture in data">
+    <div class="col-md-1">
+      <img src="http://icons.iconarchive.com/icons/zhoolego/material/512/Filetype-Sheets-icon.png" height="64" width="64">
+      <p>{{facture.NUM_INVOICE}}</p>
+    </div>
   </div>
 </div>

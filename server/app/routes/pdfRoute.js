@@ -23,7 +23,7 @@ module.exports = function(router, connection) {
               var min = req.params.limitMin
               var max = req.params.limitMax
               if (isNaN(min) || isNaN(max)) {
-                res.json({ message: 'not a valid request'});
+                res.status(404).send('unable to execute query');
               } else {
                 var query = "select ?? from ?? LIMIT " + req.params.limitMin + "," + req.params.limitMax;
                 var table = ['NUM_INVOICE', 'accelya.pdf'];

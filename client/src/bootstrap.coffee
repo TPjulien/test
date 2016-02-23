@@ -17,7 +17,10 @@ tableau = angular.module 'tableauApp', [
   'angular-storage'
   'auth0'
   'infinite-scroll'
+  'ui.bootstrap.contextMenu'
 ]
+
+angular.module('infinite-scroll').value('THROTTLE_MILLISECONDS', 2000)
 
 options = {}
 options.api = {}
