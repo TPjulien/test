@@ -250,6 +250,7 @@ tableau
             console.log err
         else if (tmpStr.length == 0)
           console.log "ça passe par la !"
+          counter     = 0
           $scope.data = []
           $scope.loadMore()
           # $scope.information = "Trop court !"
