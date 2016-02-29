@@ -25,7 +25,7 @@ module.exports = function(router, connection) {
               if (isNaN(min) || isNaN(max)) {
                 res.status(404).send('unable to execute query');
               } else {
-                var query = "select ??, ??, ??, ?? from ?? LIMIT" + req.params.limitMin + "," + req.params.limitMax;
+                var query = "select ??, ??, ??, ?? from ?? LIMIT " + req.params.limitMin + "," + req.params.limitMax;
                 var table = ['SUPPLIER', 'FAC_TYPE', 'CREATION_DATE', 'NUM_INVOICE', 'accelya.accelya_view_all'];
                 query     = mysql.format(query, table);
                 connection.query(query, function(err, rows) {
