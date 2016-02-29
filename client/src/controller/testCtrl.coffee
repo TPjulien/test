@@ -165,7 +165,9 @@ tableau
     $scope.data = []
     counter = 0
     $scope.loadMore = ->
-        if (counter == 0)
+        if $scope.information == null
+            console.log "ne pas utiliser des requettes"
+        else if (counter == 0)
             requestFacture($scope.data.length, $scope.data.length + 50)
             counter += 50
         else
@@ -174,7 +176,6 @@ tableau
             counter += 20
 
     # requestFacture(0, 20)
-    $scope.loadMore()
 
     $scope.menuOptions = [
       [
@@ -232,5 +233,26 @@ tableau
       console.log type
 
     $scope.$watch 'test', (tmpStr) ->
-        $scope.test = tmpStr
-        console.log(tmpStr)
+        # $scope.information = "meh !"
+        if (tmpStr.length >= 3 && !isNaN(tmpStr))
+          $http
+            method: 'GET'
+            url:    options.api.base_url + '/pdfFilter/' + tmpStr + '/0/50'
+          .success (data) ->
+            $scope.information = data
+            $scope.data        = []
+            number             = 0
+            $scope.information = data.length + " résultats trouvé"
+            while number < data.length
+              $scope.data.push ({num: data[number]})
+              number++
+          .error (err) ->
+            console.log err
+        else if (tmpStr.length == 0)
+          console.log "ça passe par la !"
+          $scope.data = []
+          $scope.loadMore()
+          # $scope.information = "Trop court !"
+          # console.log "trop court !"
+        # $scope.test = tmpStr
+        # console.log(tmpStr)
