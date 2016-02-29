@@ -12,6 +12,12 @@ html {
 
 }
 
+
+.amountStyle {
+  background-color:white;
+  font-weight: bold;
+  /*color:#2196F3;*/
+}
 .wall-fact {
   background-image: url('../img/Factures_bann.png');
 }

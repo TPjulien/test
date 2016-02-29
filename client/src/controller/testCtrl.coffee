@@ -1,5 +1,5 @@
 tableau
-.controller 'testCtrl', ($scope, $http, $stateParams, $sce, store, jwtHelper, ticketGeneratorFactory, $interval, $window) ->
+.controller 'testCtrl', ($scope, $http, $stateParams, $sce, store, jwtHelper, ticketGeneratorFactory, $interval, $window, $filter) ->
     token                 = store.get('JWT')
     decode                = jwtHelper.decodeToken(token)
     $scope.actualTemplate = []
@@ -24,7 +24,8 @@ tableau
         name:         "Vue_default"
         templateName: "template par défaut"
     }]
-    $scope.items = [];
+    $scope.items = []
+    $scope.test = []
 
     $scope.getColor = (color) ->
       css = 'background-color:' + color
@@ -190,3 +191,46 @@ tableau
           $scope.downloadPdf(facture)
       ]
     ]
+
+    $scope.convertFacType = (type) ->
+      typeTranslated = undefined
+      if type == "CommercialInvoice"
+          typeTranslated = "Facture"
+      else if type == "CreditNoteGoodsAndServices"
+          typeTranslated = "Avoir"
+      else
+          typeTranslated = "Donnée indisponible"
+
+    $scope.getColorFactureType = (type) ->
+      color = undefined
+      if type == null
+        color = "color: #F44336"
+
+    $scope.convertSupplier = (suplier) ->
+        translated = undefined
+        if suplier == null
+          translated = "Information indisponible"
+        else
+          translated = suplier
+
+    $scope.convertDate = (date) ->
+      console.log date
+      # currentDate = date
+      # currentDate = $filter('date')(date, "dd/MM/yyyy");
+      # console.log currentDate
+      # newDate = "date a corriger"
+
+    $scope.getColor = (type) ->
+      color: undefined
+      if type == "CommercialInvoice"
+          color = "color: #2196F3"
+      else
+          color = "color: #F44336"
+
+
+    $scope.getFilter = (type) ->
+      console.log type
+
+    $scope.$watch 'test', (tmpStr) ->
+        $scope.test = tmpStr
+        console.log(tmpStr)

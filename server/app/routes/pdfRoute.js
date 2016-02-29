@@ -36,5 +36,25 @@ module.exports = function(router, connection) {
                     }
                 })
               }
+          })
+      router.route('/pdfFilter/:num_invoice/:min/:max')
+          .get (function(req, res) {
+              var min = req.params.min;
+              var max = req.params.max;
+              var invoice = req.params.num_invoice;
+              if (isNaN(min)  || isNaN(max) || isNaN(invoice)) {
+                res.status(404).send('unable to execute query');
+              } else {
+                var query = "SELECT ??, ??, ??, ??, ?? FROM ?? WHERE ?? LIKE '%" + invoice + "%' LIMIT " + min + ',' + max;
+                var table = ['SUPPLIER', 'FAC_TYPE', 'CREATION_DATE', 'AMOUNT', 'NUM_INVOICE', 'accelya.accelya_view_all', "NUM_INVOICE"];
+                query = mysql.format(query, table);
+                connection.query(query, function(err, rows) {
+                    if (err) {
+                        res.json({ mesage: 'error' });
+                    } else {
+                        res.json(rows);
+                    }
+                })
+              }
           });
 }
