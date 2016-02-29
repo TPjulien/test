@@ -17,8 +17,8 @@
     </div> -->
   </div>
 <div>
-  <div class="md-whiteframe-1dp col-md-12" style="background-color:white; !important; max-height:100px; padding: 0;" >
-    <img src="img/Factures_bann.png">
+  <div class="md-whiteframe-1dp col-md-12 wall-fact" style="background-color:white; !important; height:100px; padding: 0;" >
+    <!-- <img src="img/Factures_bann.png"> -->
 
     <!-- <div class="md-toolbar-tools">
       <md-button ng-hide="true" class="md-icon-button" aria-label="Settings" ng-click="toggleLeft()">
@@ -30,25 +30,31 @@
       <!-- <span flex="33"></span>
     </div> -->
   </div>
-  <div layout-padding class="col-md-9 content md-whiteframe-1dp" style="background-color:#EEEEEE; !important;" when-scrolled="loadMore()">
+  <div layout-padding class="col-md-8 content md-whiteframe-1dp" style="background-color:#EEEEEE; !important;" when-scrolled="loadMore()">
     <!-- <ul>
       <li ng-repeat="i in items">{{i.id}}</li>
     </ul> -->
       <div ng-animate="'animate'" ng-repeat="facture in data">
-        <div  md-ink-ripple class="col-md-12 md-whiteframe-1dp" style="text-align:left; margin:1px; padding-top:10px; padding-bottom:10px; background-color:white" context-menu="menuOptions" ng-click="watchPdf(facture.num.NUM_INVOICE)">
-          <img class="col-md-1" src="http://cdn1.iconfinder.com/data/icons/finance-items/512/notebook_textbook_notepad_paper_page_spiral_book_sheet_organizer_diary_flat_design_icon-512.png" height="31" width="31">
-          <div style="text-align:center;  padding-top: 20px; color:#BCBCBC; font-weight: bold;">
-            <p class="col-md-2"class="md-subhead">{{facture.num.NUM_INVOICE}}</p>
-            <p class="col-md-2" class="md-subhead">TP750</p>
-            <p class="col-md-2" class="md-subhead">p Facture du : 24/10/1992</p>
-            <p class="col-md-2" class="md-subhead">Avoir</p>
-            <p class="col-md-2" class="md-subhead">345 Euro</p>
+        <div  md-ink-ripple class="col-md-12" style="text-align:left; margin: 0; padding: 0; height: 17px;" context-menu="menuOptions" ng-click="watchPdf(facture.num.NUM_INVOICE)">
+          <!-- <img class="col-md-1" src="http://cdn1.iconfinder.com/data/icons/finance-items/512/notebook_textbook_notepad_paper_page_spiral_book_sheet_organizer_diary_flat_design_icon-512.png" height="42" width="42" style="padding-top: 8px; width: 32px;"> -->
+          <div style="text-align:center; padding:0; margin:0">
+            <p class="col-md-2 md-whiteframe-1dp" style="background-color:white" class="md-subhead">{{facture.num.NUM_INVOICE}}</p>
+            <p class="col-md-3 md-whiteframe-1dp" style="background-color:white" class="md-subhead">24/10/1992</p>
+            <p class="col-md-2 md-whiteframe-1dp" style="background-color:white" class="md-subhead">Avoir</p>
+            <p class="col-md-3 md-whiteframe-1dp" style="background-color:white" class="md-subhead">TP750</p>
+            <p class="col-md-2 md-whiteframe-1dp" style="background-color:white; font-weight: bold; color:#2196F3" class="md-subhead">345 Euros</p>
           </div>
       </div>
       </div>
   </div>
-  <div class="col-md-3 md-whiteframe-1dp" style="background-color:white; height: 500px;">
-    <p>Hello</p>
+  <div layout-padding class="col-md-4 md-whiteframe-1dp" style="background-color:white; height: 500px;">
+    <h2 class="md-title">Filtres</h2>
+    <h2 class="md-subhead">Factures ?</h2>
+    <md-radio-group ng-model="data.group1">
+      <md-radio-button value="all" class="md-primary"> toutes </md-radio-button>
+      <md-radio-button value="only_facture"> oui </md-radio-button>
+      <md-radio-button value="not_facture"> non </md-radio-button>
+    </md-radio-group>
   </div>
 
 </div>

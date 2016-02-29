@@ -12,6 +12,9 @@ html {
 
 }
 
+.wall-fact {
+  background-image: url('../img/Factures_bann.png');
+}
 
 .wallpaperStyle {
   padding: 90px;

@@ -164,12 +164,12 @@ tableau
     counter = 0
     $scope.loadMore = ->
         if (counter == 0)
-            requestFacture($scope.data.length, $scope.data.length + 20)
-            counter += 20
+            requestFacture($scope.data.length, $scope.data.length + 50)
+            counter += 50
         else
             console.log(counter)
-            requestFacture(counter, counter + 10)
-            counter += 10
+            requestFacture(counter, counter + 20)
+            counter += 20
 
     # requestFacture(0, 20)
     $scope.loadMore()
