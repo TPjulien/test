@@ -150,6 +150,7 @@ tableau
           method: 'GET'
           url:    options.api.base_url + "/getPDF/" + min + "/" + max
       .success (result) ->
+          console.log result
           number = 0
           # console.log result
           # $scope.status = "Afficher plus de facture"
