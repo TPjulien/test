@@ -79,8 +79,8 @@ module.exports = function(router, connection) {
           })
       router.route('/pdfSearchFilter/:type/:num_invoice/:min/:max')
         .get (function (req, res) {
-            var query = "SELECT ??, ??, ??, SUM(??) AS TOTAL_AMOUNT, ?? FROM ?? ";
-  	        var table   = ["SUPPLIER", "FAC_TYPE", "CREATION_DATE", "AMOUNT", "NUM_INVOICE", "accelya.accelya_view_all"];
+            var query = "SELECT ??, ??, ??, ??, ??, ??, ??, SUM(??) AS TOTAL_AMOUNT, ?? FROM ?? ";
+  	        var table   = ["SUPPLIER", "TYPE", "ACCOUNT_NUMBER", "LINE_DESCRIPTION", "TRAVELLER", "FAC_TYPE", "CREATION_DATE", "AMOUNT", "NUM_INVOICE", "accelya.accelya_view_all"];
             if (req.params.type != "none") {
                 var query = query + " WHERE FAC_TYPE = ? ";
         		    // table.push("FAC_TYPE");

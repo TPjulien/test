@@ -28,6 +28,10 @@ tableau
     $scope.test = []
     search_num_invoice = "none"
     search_type        = "none"
+    $scope.users = []
+
+    $scope.data = []
+    counter     = 0
 
     $scope.getColor = (color) ->
       css = 'background-color:' + color
@@ -41,12 +45,6 @@ tableau
     .error (err) ->
         console.log err
 
-
-    # /currentView/:site/:customer/:view
-
-
-    # $scope.changeTemplate = () ->
-    #     getDimension($scope.actualTemplate.selectUser.name)
     tiles.liveTile()
 
     $scope.downloadPdf = (selected) ->
@@ -55,8 +53,6 @@ tableau
             url         : options.api.base_url + '/downloadPDF/' + selected
             responseType: 'arraybuffer'
         .success (result) ->
-            # console.log("niggah !")
-            # console.log(result)
             myblob  = new Blob([result], { type: 'application/pdf' })
             blobURL = ( window.URL || window.webkitURL).createObjectURL(myblob)
             anchor  = document.createElement("a")
@@ -65,8 +61,6 @@ tableau
             anchor.click()
 
     $scope.watchPdf = (selected) ->
-        # console.log selected
-        # id = selected[0].NUM_INVOICE
         $http
             method      : "GET"
             url         : options.api.base_url + '/downloadPDF/' + selected
@@ -74,32 +68,7 @@ tableau
         .success (result) ->
             file           = new Blob([result], { type: 'application/pdf'})
             fileUrl        = URL.createObjectURL(file)
-            # <embed ng-src="{{content}}" style="width:200px;height:200px;"></embed>
             $window.open(fileUrl,'C-Sharpcorner', 'width=600,height=800')
-            # $scope.content = $sce.trustAsResourceUrl(fileUrl)
-            # $scope.content = "<embed src='" + fileUrl + "' style='width:200px;height:200px'></embed>"
-            console.log $scope.content
-        #     console.log("niggah !")
-        #     console.log(result)
-        #     myblob = new Blob([result], { type: 'application/pdf' })
-        #     blobURL = ( window.URL || window.webkitURL).createObjectURL(myblob)
-        #     anchor = document.createElement("a")
-        #     anchor.download = selected + '.pdf'
-        #     anchor.href = blobURL
-        #     anchor.click()
-
-
-    # $scope.factureData = [{
-    #     number: "123456"
-    #     date: "15-10-1992"
-    #   }, {
-    #     number: "78901"
-    #     date: "15-10-1992"
-    #   }]
-            # visualisation
-            # console.log("hello !")
-
-
 
     hoverEl.on('mouseenter', () ->
         targetEl.addClass("use_blur")
@@ -140,14 +109,6 @@ tableau
 
     $scope.trustHtml = (token, link) ->
         return $sce.trustAsResourceUrl("http://data.travelplanet.fr/trusted/" + token + link + '&:toolbar=no' )
-
-
-    $scope.users = []
-
-    $scope.data = []
-    counter = 0
-    # $scope.download = (selected) ->
-    #     console.log selected
 
     $scope.testFacture = (min, max) ->
         console.log "ça passe dans la variable"
@@ -234,10 +195,6 @@ tableau
 
     $scope.convertDate = (date) ->
       console.log date
-      # currentDate = date
-      # currentDate = $filter('date')(date, "dd/MM/yyyy");
-      # console.log currentDate
-      # newDate = "date a corriger"
 
     $scope.getColor = (type) ->
       color: undefined
@@ -249,50 +206,18 @@ tableau
     $scope.getTypeFilter = (type) ->
       search_type = type
       $scope.data = []
-      $scope.testFacture(0, counter)
-      # if (type == "all")
-      #     $scope.loadMore()
-      # else
-      #   url = options.api.base_url + '/pdfTypeFilter/' + type + '/0/50'
-      #   $http
-      #     method: "GET"
-      #     url: url
-      #   .success (data) ->
-      #       number = 0
-      #       $scope.data = []
-      #       while number < data.length
-      #         $scope.data.push ({num: data[number]})
-      #         number++
-      #       console.log data
-      #   .error (err) ->
-      #       console.log err
-      # console.log type
-
-
-
-      # $scope.testFacture()
+      counter     = 0
+      $scope.testFacture(0, 50)
 
     $scope.$watch 'test', (tmpStr) ->
-        # $scope.information = "meh !"
         if (tmpStr.length >= 3 && !isNaN(tmpStr))
           search_num_invoice = tmpStr
           $scope.data        = []
-          $scope.testFacture(0, counter)
-          # $http
-          #   method: 'GET'
-          #   url:    options.api.base_url + '/pdfFilter/' + tmpStr + '/0/50'
-          # .success (data) ->
-          #   console.log data
-          #   # $scope.information = data
-          #   $scope.data        = []
-          #   number             = 0
-          #   $scope.information = data.length + " résultats trouvé"
-          #   while number < data.length
-          #     $scope.data.push ({num: data[number]})
-          #     number++
-          # .error (err) ->
-          #   console.log err
+          counter            = 0
+          $scope.testFacture(0, 50)
         else if (tmpStr.length == 0)
           search_num_invoice = "none"
-          counter            = 0
+          # counter            = 0
           $scope.data        = []
+          counter            = 0
+          $scope.testFacture(0, 50)
