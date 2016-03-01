@@ -79,14 +79,22 @@ module.exports = function(router, connection) {
           })
       router.route('/pdfSearchFilter/:type/:num_invoice/:min/:max')
         .get (function (req, res) {
-            var builder = "SELECT ??, ??, ??, SUM(??) AS TOTAL_AMOUNT, ?? FROM ?? WHERE";
+            var builder = "SELECT ??, ??, ??, SUM(??) AS TOTAL_AMOUNT, ?? FROM ?? ";
             if (req.params.type != "none") {
-                var builder = builder + "?? = ?";
+		if (req.params.num_invoice == "none") {
+		    var builder = builder + "WHERE ?? = ? ";
+		} else {
+                    var builder = builder + "?? = ? ";
+		}
             }
             if (req.params.num_invoice != "none") {
-                var builder = builder + "AND ?? =?";
+		if (req.params.type == "none") {
+		    var builder = builder + "WHERE ?? =? ";
+		} else {
+                    var builder = builder + "AND ?? =? ";
+		}
             }
-            var builder = "GROUP BY ?? LIMIT" + min + ',' + max;
+            var builder = builder + "GROUP BY ?? LIMIT " + req.params.min + ',' + req.params.max;
             res.json({"message": builder});
         })
         //     if (req.body.type) {
