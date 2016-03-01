@@ -240,7 +240,8 @@ tableau
             method: 'GET'
             url:    options.api.base_url + '/pdfFilter/' + tmpStr + '/0/50'
           .success (data) ->
-            $scope.information = data
+            console.log data
+            # $scope.information = data
             $scope.data        = []
             number             = 0
             $scope.information = data.length + " résultats trouvé"

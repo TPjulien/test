@@ -36,9 +36,9 @@
     <!-- <ul>
       <li ng-repeat="i in items">{{i.id}}</li>
     </ul> -->
+    <p class="md-subhead">{{information}}</p>
       <div ng-animate="'animate'" ng-repeat="facture in data">
         <div  md-ink-ripple class="col-md-12" style="text-align:left; margin: 0; padding: 0; height: 17px;" context-menu="menuOptions" ng-click="watchPdf(facture.num.NUM_INVOICE)">
-          <p class="md-subhead">{{information}}</p>
           <!-- <img class="col-md-1" src="http://cdn1.iconfinder.com/data/icons/finance-items/512/notebook_textbook_notepad_paper_page_spiral_book_sheet_organizer_diary_flat_design_icon-512.png" height="42" width="42" style="padding-top: 8px; width: 32px;"> -->
           <div style="text-align:center; padding:0; margin:0">
             <p class="col-md-2 md-whiteframe-1dp" style="background-color:white" class="md-subhead">{{facture.num.NUM_INVOICE}}</p>
