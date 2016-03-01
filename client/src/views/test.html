@@ -12,9 +12,9 @@
 </div>
 <!-- <md-card layout-padding style="box-shadow:0 0 0; background-color:#eee"> -->
   <div layout-padding>
-    <div ng-repeat="(key, view) in getAllView.token" class="{{getAllView.embed_width[key]}} separator" style="height:{{getAllView.embed_height[key]}}">
+    <!-- <div ng-repeat="(key, view) in getAllView.token" class="{{getAllView.embed_width[key]}} separator" style="height:{{getAllView.embed_height[key]}}">
       <iframe ng-src='{{trustHtml(view, getAllView.path_to_view[key])}}' class="col-md-12" style="height:{{getAllView.embed_height[key]}}; border:transparent; background-color: white;"></iframe>
-    </div>
+    </div> -->
   </div>
 <div>
   <div class="md-whiteframe-1dp col-md-12 wall-fact" style="background-color:white; !important; height:100px; padding: 0;" >
@@ -46,20 +46,20 @@
             <p class="col-md-3 md-whiteframe-1dp" style="background-color:white; {{getColorFactureType(facture.num.SUPPLIER)}}" class="md-subhead">{{convertSupplier(facture.num.SUPPLIER)}}</p>
             <p class="col-md-2 md-whiteframe-1dp amountStyle" style="{{getColor(facture.num.FAC_TYPE)}}" class="md-subhead">{{facture.num.AMOUNT}} Euro</p>
           </div>
-      </div>
+        </div>
       </div>
   </div>
   <div layout-padding class="col-md-4 md-whiteframe-1dp" style="background-color:white; height: 500px;">
     <h2 class="md-title">Filtres</h2>
     <h2 class="md-subhead">Recherche par numéro de facture :</h2>
     <input type="text" data-ng-model="test" ng-model-options="{debounce: 1000}">
-    <!-- <h2 class="md-subhead">Type d'affichage</h2> -->
-    <!-- <p class="md-subhead">{{information}}</p> -->
-    <!-- <md-radio-group ng-model="value" ng-change="getFilter(value)">
-      <md-radio-button value="all" class="md-primary"> toutes </md-radio-button>
-      <md-radio-button value="only_facture"> Factures seulement </md-radio-button>
-      <md-radio-button value="not_facture"> Avoir seulement </md-radio-button>
-    </md-radio-group> -->
+    <h2 class="md-subhead">Type d'affichage</h2>
+    <p class="md-subhead">{{information}}</p>
+    <md-radio-group ng-model="value" ng-change="getFilter(value)">
+    <md-radio-button value="all" class="md-primary"> toutes </md-radio-button>
+    <md-radio-button value="only_facture"> Factures seulement </md-radio-button>
+    <md-radio-button value="not_facture"> Avoir seulement </md-radio-button>
+  </md-radio-group>
   </div>
 
 </div>

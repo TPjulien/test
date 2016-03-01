@@ -165,7 +165,8 @@ tableau
     $scope.data = []
     counter = 0
     $scope.loadMore = ->
-        if $scope.information == null
+        console.log $scope.information
+        if $scope.information
             console.log "ne pas utiliser des requettes"
         else if (counter == 0)
             requestFacture($scope.data.length, $scope.data.length + 50)
