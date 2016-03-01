@@ -77,4 +77,21 @@ module.exports = function(router, connection) {
                 })
               }
           })
+      router.route('/pdfSearchFilter/:type/:num_invoice/:min/:max')
+        .get (function (req, res) {
+            var builder = "SELECT ??, ??, ??, SUM(??) AS TOTAL_AMOUNT, ?? FROM ?? WHERE";
+            if (req.params.type != "none") {
+                var builder = builder + "?? = ?";
+            }
+            if (req.params.num_invoice != "none") {
+                var builder = builder + "AND ?? =?";
+            }
+            var builder = "GROUP BY ?? LIMIT" + min + ',' + max;
+            res.json({"message": builder});
+        })
+        //     if (req.body.type) {
+        //         builder = builder + "WHERE ?? = ?";
+        //     } if ()
+        //
+        // }
 }

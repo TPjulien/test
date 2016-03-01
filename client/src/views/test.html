@@ -55,10 +55,10 @@
     <h2 class="md-subhead">Recherche par numéro de facture :</h2>
     <input type="text" data-ng-model="test" ng-model-options="{debounce: 1000}">
     <h2 class="md-subhead">Type d'affichage</h2>
-    <md-radio-group ng-model="value" ng-change="getFilter(value)">
+    <md-radio-group ng-model="value" ng-change="getTypeFilter(value)">
     <md-radio-button value="all" class="md-primary"> toutes </md-radio-button>
-    <md-radio-button value="only_facture"> Factures seulement </md-radio-button>
-    <md-radio-button value="not_facture"> Avoir seulement </md-radio-button>
+    <md-radio-button value="CommercialInvoice"> Factures seulement </md-radio-button>
+    <md-radio-button value="CreditNoteGoodsAndServices"> Avoir seulement </md-radio-button>
   </md-radio-group>
   </div>
 

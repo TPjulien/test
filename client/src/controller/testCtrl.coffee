@@ -230,8 +230,24 @@ tableau
           color = "color: #F44336"
 
 
-    $scope.getFilter = (type) ->
-      console.log type
+    $scope.getTypeFilter = (type) ->
+      if (type == "all")
+          $scope.loadMore()
+      else
+        url = options.api.base_url + '/pdfTypeFilter/' + type + '/0/50'
+        $http
+          method: "GET"
+          url: url
+        .success (data) ->
+            number = 0
+            $scope.data = []
+            while number < data.length
+              $scope.data.push ({num: data[number]})
+              number++
+            console.log data
+        .error (err) ->
+            console.log err
+      # console.log type
 
     $scope.$watch 'test', (tmpStr) ->
         # $scope.information = "meh !"
@@ -255,6 +271,8 @@ tableau
           counter     = 0
           $scope.data = []
           $scope.loadMore()
+
+
           # $scope.information = "Trop court !"
           # console.log "trop court !"
         # $scope.test = tmpStr
