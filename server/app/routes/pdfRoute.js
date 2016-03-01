@@ -79,40 +79,33 @@ module.exports = function(router, connection) {
           })
       router.route('/pdfSearchFilter/:type/:num_invoice/:min/:max')
         .get (function (req, res) {
-            var builder = "SELECT ??, ??, ??, SUM(??) AS TOTAL_AMOUNT, ?? FROM ?? ";
-	    var table   = ["SUPPLIER", "FAC_TYPE", "CREATION_DATE", "AMOUNT", "NUM_INVOICE", "accelya.accelya_view_all"];
+            var query = "SELECT ??, ??, ??, SUM(??) AS TOTAL_AMOUNT, ?? FROM ?? ";
+  	        var table   = ["SUPPLIER", "FAC_TYPE", "CREATION_DATE", "AMOUNT", "NUM_INVOICE", "accelya.accelya_view_all"];
             if (req.params.type != "none") {
-		   
-                    var builder = builder + " WHERE ?? = ? ";
-		    table.push("FAC_TYPE");
-		    table.push(req.params.type);
+                var query = query + " WHERE ?? = ? ";
+        		    table.push("FAC_TYPE");
+        		    table.push(req.params.type);
             }
             if (req.params.num_invoice != "none") {
-		if (req.params.type == "none") {
-		    var builder = builder + "WHERE ?? =? ";
-		    table.push("NUM_INVOICE");
-		    table.push(req.params.num_invoice);
-		    
-		} else {
-                    var builder = builder + "AND ?? = ? ";
-		    table.push("NUM_INVOICE");
-		    table.push(req.params.num_invoice);
-		}
+            		if (req.params.type == "none") {
+            		    var query = query + "WHERE ?? =? ";
+            		    table.push("NUM_INVOICE");
+            		    table.push(req.params.num_invoice);
+
+            		} else {
+                                var query = query + "AND ?? = ? ";
+            		    table.push("NUM_INVOICE");
+            		    table.push(req.params.num_invoice);
+            		}
             }
-            var builder = builder + "GROUP BY ?? LIMIT " + req.params.min + ',' + req.params.max;
-	    table.push("NUM_INVOICE");
-	    builder = mysql.format(builder, function(err, rows) {
-		if (err) {
-		    res.json({ 'message': 'error'});
-		} else {
-		    res.json(rows);
-		}
-	    })
-            //res.json({"message": builder, "info": table});
-        })
-        //     if (req.body.type) {
-        //         builder = builder + "WHERE ?? = ?";
-        //     } if ()
-        //
-        // }
+            var query = query + "GROUP BY ?? LIMIT " + req.params.min + ',' + req.params.max;
+	          table.push("NUM_INVOICE");
+	          query = mysql.format(query, function(err, rows) {
+            		if (err) {
+            		    res.json({ 'message': 'error'});
+            		} else {
+            		    res.json(rows);
+            		}
+      	     })
+          })
 }

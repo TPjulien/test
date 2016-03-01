@@ -249,6 +249,17 @@ tableau
             console.log err
       # console.log type
 
+      $scope.testFacture = () ->
+          $http
+            method: "GET"
+            url: options.api.base_url + '/pdfSearchFilter/avoir/112233/1/50'
+          .success (data) ->
+            console.log data
+          .error (err) ->
+            console.log err
+
+      $scope.testFacture()
+
     $scope.$watch 'test', (tmpStr) ->
         # $scope.information = "meh !"
         if (tmpStr.length >= 3 && !isNaN(tmpStr))
