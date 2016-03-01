@@ -82,8 +82,8 @@ module.exports = function(router, connection) {
             var query = "SELECT ??, ??, ??, SUM(??) AS TOTAL_AMOUNT, ?? FROM ?? ";
   	        var table   = ["SUPPLIER", "FAC_TYPE", "CREATION_DATE", "AMOUNT", "NUM_INVOICE", "accelya.accelya_view_all"];
             if (req.params.type != "none") {
-                var query = query + " WHERE ?? = ? ";
-        		    table.push("FAC_TYPE");
+                var query = query + " WHERE FAC_TYPE = ? ";
+        		    // table.push("FAC_TYPE");
         		    table.push(req.params.type);
             }
             if (req.params.num_invoice != "none") {
@@ -96,8 +96,8 @@ module.exports = function(router, connection) {
             		    table.push(req.params.num_invoice);
             		}
             }
-            var query = query + "GROUP BY ?? LIMIT " + req.params.min + ',' + req.params.max;
-	          table.push("NUM_INVOICE");
+            var query = query + "GROUP BY NUM_INVOICE LIMIT " + req.params.min + ',' + req.params.max;
+	          // table.push("NUM_INVOICE");
             query = mysql.format(query, table);
 	          connection.query(query, function(err, rows) {
             		if (err) {
