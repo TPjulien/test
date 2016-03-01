@@ -80,22 +80,35 @@ module.exports = function(router, connection) {
       router.route('/pdfSearchFilter/:type/:num_invoice/:min/:max')
         .get (function (req, res) {
             var builder = "SELECT ??, ??, ??, SUM(??) AS TOTAL_AMOUNT, ?? FROM ?? ";
+	    var table   = ["SUPPLIER", "FAC_TYPE", "CREATION_DATE", "AMOUNT", "NUM_INVOICE", "accelya.accelya_view_all"];
             if (req.params.type != "none") {
-		if (req.params.num_invoice == "none") {
-		    var builder = builder + "WHERE ?? = ? ";
-		} else {
-                    var builder = builder + "?? = ? ";
-		}
+		   
+                    var builder = builder + " WHERE ?? = ? ";
+		    table.push("FAC_TYPE");
+		    table.push(req.params.type);
             }
             if (req.params.num_invoice != "none") {
 		if (req.params.type == "none") {
 		    var builder = builder + "WHERE ?? =? ";
+		    table.push("NUM_INVOICE");
+		    table.push(req.params.num_invoice);
+		    
 		} else {
-                    var builder = builder + "AND ?? =? ";
+                    var builder = builder + "AND ?? = ? ";
+		    table.push("NUM_INVOICE");
+		    table.push(req.params.num_invoice);
 		}
             }
             var builder = builder + "GROUP BY ?? LIMIT " + req.params.min + ',' + req.params.max;
-            res.json({"message": builder});
+	    table.push("NUM_INVOICE");
+	    builder = mysql.format(builder, function(err, rows) {
+		if (err) {
+		    res.json({ 'message': 'error'});
+		} else {
+		    res.json(rows);
+		}
+	    })
+            //res.json({"message": builder, "info": table});
         })
         //     if (req.body.type) {
         //         builder = builder + "WHERE ?? = ?";
