@@ -25,7 +25,7 @@ module.exports = function(router, connection) {
               if (isNaN(min) || isNaN(max)) {
                 res.status(404).send('unable to execute query');
               } else {
-                var query = "select ??, ??, ??, SUM(??), ?? from ?? GROUP BY ?? LIMIT " + req.params.limitMin + "," + req.params.limitMax;
+                var query = "select ??, ??, ??, SUM(??) AS TOTAL_AMOUNT, ?? from ?? GROUP BY ?? LIMIT " + req.params.limitMin + "," + req.params.limitMax;
                 var table = ['SUPPLIER', 'FAC_TYPE', 'CREATION_DATE', 'AMOUNT', 'NUM_INVOICE', 'accelya.accelya_view_all', 'NUM_INVOICE'];
                 query     = mysql.format(query, table);
                 connection.query(query, function(err, rows) {
