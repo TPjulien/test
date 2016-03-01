@@ -26,6 +26,8 @@ tableau
     }]
     $scope.items = []
     $scope.test = []
+    search_num_invoice = "none"
+    search_type        = "none"
 
     $scope.getColor = (color) ->
       css = 'background-color:' + color
@@ -146,21 +148,34 @@ tableau
     # $scope.download = (selected) ->
     #     console.log selected
 
-    requestFacture = (min, max) ->
-      $http
-          method: 'GET'
-          url:    options.api.base_url + "/getPDF/" + min + "/" + max
-      .success (result) ->
-          console.log result[0].TOTAL_AMOUNT
+    $scope.testFacture = (min, max) ->
+        console.log "ça passe dans la variable"
+        $http
+          method: "GET"
+          url: options.api.base_url + '/pdfSearchFilter/' + search_type + '/' + search_num_invoice + '/' + min + '/' + max
+        .success (result) ->
+          console.log result
           number = 0
-          # console.log result
-          # $scope.status = "Afficher plus de facture"
           while number < result.length
             $scope.data.push ({num: result[number]})
             number++
-          # $scope.loadMore()
-      .error (err) ->
+          console.log $scope.data
+        .error (err) ->
           console.log err
+
+    # requestFacture = (min, max) ->
+    #   $http
+    #       method: 'GET'
+    #       url:    options.api.base_url + "/getPDF/" + min + "/" + max
+    #   .success (result) ->
+    #       console.log result[0].TOTAL_AMOUNT
+    #       number = 0
+    #       while number < result.length
+    #         $scope.data.push ({num: result[number]})
+    #         number++
+    #       # $scope.loadMore()
+    #   .error (err) ->
+    #       console.log err
 
     $scope.data = []
     counter = 0
@@ -229,62 +244,49 @@ tableau
       else
           color = "color: #F44336"
 
-
     $scope.getTypeFilter = (type) ->
-      if (type == "all")
-          $scope.loadMore()
-      else
-        url = options.api.base_url + '/pdfTypeFilter/' + type + '/0/50'
-        $http
-          method: "GET"
-          url: url
-        .success (data) ->
-            number = 0
-            $scope.data = []
-            while number < data.length
-              $scope.data.push ({num: data[number]})
-              number++
-            console.log data
-        .error (err) ->
-            console.log err
+      $scope.testFacture(0, 50)
+      # if (type == "all")
+      #     $scope.loadMore()
+      # else
+      #   url = options.api.base_url + '/pdfTypeFilter/' + type + '/0/50'
+      #   $http
+      #     method: "GET"
+      #     url: url
+      #   .success (data) ->
+      #       number = 0
+      #       $scope.data = []
+      #       while number < data.length
+      #         $scope.data.push ({num: data[number]})
+      #         number++
+      #       console.log data
+      #   .error (err) ->
+      #       console.log err
       # console.log type
 
-      $scope.testFacture = () ->
-          $http
-            method: "GET"
-            url: options.api.base_url + '/pdfSearchFilter/avoir/112233/1/50'
-          .success (data) ->
-            console.log data
-          .error (err) ->
-            console.log err
 
-      $scope.testFacture()
+
+      # $scope.testFacture()
 
     $scope.$watch 'test', (tmpStr) ->
         # $scope.information = "meh !"
         if (tmpStr.length >= 3 && !isNaN(tmpStr))
-          $http
-            method: 'GET'
-            url:    options.api.base_url + '/pdfFilter/' + tmpStr + '/0/50'
-          .success (data) ->
-            console.log data
-            # $scope.information = data
-            $scope.data        = []
-            number             = 0
-            $scope.information = data.length + " résultats trouvé"
-            while number < data.length
-              $scope.data.push ({num: data[number]})
-              number++
-          .error (err) ->
-            console.log err
+          search_num_invoice = tmpStr
+          # $http
+          #   method: 'GET'
+          #   url:    options.api.base_url + '/pdfFilter/' + tmpStr + '/0/50'
+          # .success (data) ->
+          #   console.log data
+          #   # $scope.information = data
+          #   $scope.data        = []
+          #   number             = 0
+          #   $scope.information = data.length + " résultats trouvé"
+          #   while number < data.length
+          #     $scope.data.push ({num: data[number]})
+          #     number++
+          # .error (err) ->
+          #   console.log err
         else if (tmpStr.length == 0)
-          console.log "ça passe par la !"
-          counter     = 0
-          $scope.data = []
-          $scope.loadMore()
-
-
-          # $scope.information = "Trop court !"
-          # console.log "trop court !"
-        # $scope.test = tmpStr
-        # console.log(tmpStr)
+          search_num_invoice = "none"
+          counter            = 0
+          $scope.data        = []

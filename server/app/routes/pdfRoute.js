@@ -88,12 +88,12 @@ module.exports = function(router, connection) {
             }
             if (req.params.num_invoice != "none") {
             		if (req.params.type == "none") {
-            		    var query = query + "WHERE ?? =? ";
+            		    var query = query + "WHERE ?? LIKE '%" + req.params.num_invoice + "%' ";
             		    table.push("NUM_INVOICE");
             		    table.push(req.params.num_invoice);
 
             		} else {
-                                var query = query + "AND ?? = ? ";
+                    var query = query + "WHERE ?? LIKE '%" + req.params.num_invoice + "%' ";
             		    table.push("NUM_INVOICE");
             		    table.push(req.params.num_invoice);
             		}
