@@ -100,7 +100,8 @@ module.exports = function(router, connection) {
             }
             var query = query + "GROUP BY ?? LIMIT " + req.params.min + ',' + req.params.max;
 	          table.push("NUM_INVOICE");
-	          query = mysql.format(query, function(err, rows) {
+            query = mysql.format(query, table);
+	          connection.query(query, function(err, rows) {
             		if (err) {
             		    res.json({ 'message': 'error'});
             		} else {
