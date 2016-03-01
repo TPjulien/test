@@ -77,8 +77,8 @@ module.exports = function(router, connection) {
                 })
               }
           })
-      router.route('/pdfSearchFilter/:type/:num_invoice/:min/:max')
-        .get (function (req, res) {
+      router.route('/pdfSearchFilter/:type/:num_invoice/:amount_min/:amount_max/:min/:max')
+      .get (function (req, res) {
             var query = "SELECT ??, ??, ??, ??, ??, ??, ??, SUM(??) AS TOTAL_AMOUNT, ?? FROM ?? ";
   	        var table   = ["SUPPLIER", "TYPE", "ACCOUNT_NUMBER", "LINE_DESCRIPTION", "TRAVELLER", "FAC_TYPE", "CREATION_DATE", "AMOUNT", "NUM_INVOICE", "accelya.accelya_view_all"];
             if (req.params.type != "none") {
@@ -96,7 +96,7 @@ module.exports = function(router, connection) {
             		    table.push(req.params.num_invoice);
             		}
             }
-            var query = query + "GROUP BY NUM_INVOICE LIMIT " + req.params.min + ',' + req.params.max;
+            var query = query + "GROUP BY NUM_INVOICE HAVING AMOUNT BEWTEEN " + req.params.amount_min + " AND " + req.params.amount_max + " LIMIT " + req.params.min + ',' + req.params.max;;
 	          // table.push("NUM_INVOICE");
             query = mysql.format(query, table);
 	          connection.query(query, function(err, rows) {

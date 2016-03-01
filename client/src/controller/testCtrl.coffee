@@ -33,6 +33,25 @@ tableau
     $scope.data = []
     counter     = 0
 
+    $scope.tototo = (min, max) ->
+        console.log min
+        console.log max
+
+    $scope.slider =
+        min: 0
+        max: 10000
+        options:
+            floor: 0
+            ceil: 10000
+            interval: 1000
+            translate: (value) ->
+                value + '€'
+            onEnd: () ->
+              $scope.tototo($scope.slider.min, $scope.slider.max)
+
+
+
+
     $scope.getColor = (color) ->
       css = 'background-color:' + color
       return css
@@ -221,3 +240,17 @@ tableau
           $scope.data        = []
           counter            = 0
           $scope.testFacture(0, 50)
+
+
+  #   $scope.$watch 'slider.min', _.debounce(((id) ->
+  # # This code will be invoked after 1 second from the last time 'id' has changed.
+  #     $scope.$apply ->
+  #       console.log id
+  #       # Code that does something based on $scope.id
+  #       return
+  #     return
+  #   ), 1000)
+    # $scope.$watch 'slider.min', (tmpStr) ->
+    #     console.log "Hello world !"
+  # $scope.$watch 'slider.min', (tmpValue) ->
+  #     console.log tmpValue

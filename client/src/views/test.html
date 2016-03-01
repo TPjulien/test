@@ -10,56 +10,49 @@
       </div>
   </div>
 </div>
-<!-- <md-card layout-padding style="box-shadow:0 0 0; background-color:#eee"> -->
   <div layout-padding>
     <!-- <div ng-repeat="(key, view) in getAllView.token" class="{{getAllView.embed_width[key]}} separator" style="height:{{getAllView.embed_height[key]}}">
       <iframe ng-src='{{trustHtml(view, getAllView.path_to_view[key])}}' class="col-md-12" style="height:{{getAllView.embed_height[key]}}; border:transparent; background-color: white;"></iframe>
     </div> -->
   </div>
 <div>
-  <div class="md-whiteframe-1dp col-md-12 wall-fact" style="background-color:white; !important; height:100px; padding: 0;" >
-    <!-- <img src="img/Factures_bann.png"> -->
-
-    <!-- <div class="md-toolbar-tools">
-      <md-button ng-hide="true" class="md-icon-button" aria-label="Settings" ng-click="toggleLeft()">
-        <md-icon  md-svg-icon="img/icons/menu.svg"></md-icon>
-      </md-button>
-      <span flex></span>
-      <span flex></span> -->
-      <!-- <h1>{{ clock | date:' HH:mm:ss' }}</h1> -->
-      <!-- <span flex="33"></span>
-    </div> -->
-  </div>
-  <div layout-padding class="col-md-8 content md-whiteframe-1dp" style="background-color:#EEEEEE; !important;" when-scrolled="loadMore()">
-  <!-- <div layout-padding class="col-md-8 content md-whiteframe-1dp" style="background-color:#EEEEEE; !important;"> -->
-
-    <!-- <ul>
-      <li ng-repeat="i in items">{{i.id}}</li>
-    </ul> -->
+  <div class="md-whiteframe-1dp col-md-12 wall-fact" style="background-color:white; !important; height:100px; padding: 0;" ></div>
+  <div layout-padding class="col-md-9 content md-whiteframe-1dp" style="background-color:#EEEEEE; !important;" when-scrolled="loadMore()">
     <p class="md-subhead">{{information}}</p>
       <div ng-animate="'animate'" ng-repeat="facture in data">
         <div  md-ink-ripple class="col-md-12" style="text-align:left; margin: 0; padding: 0; height: 17px;" context-menu="menuOptions" ng-click="watchPdf(facture.num.NUM_INVOICE)">
-          <!-- <img class="col-md-1" src="http://cdn1.iconfinder.com/data/icons/finance-items/512/notebook_textbook_notepad_paper_page_spiral_book_sheet_organizer_diary_flat_design_icon-512.png" height="42" width="42" style="padding-top: 8px; width: 32px;"> -->
           <div style="text-align:center; padding:0; margin:0">
-            <p class="col-md-2 md-whiteframe-1dp" style="background-color:white" class="md-subhead">{{facture.num.NUM_INVOICE}}</p>
-            <p class="col-md-3 md-whiteframe-1dp" style="background-color:white" class="md-subhead">{{facture.num.CREATION_DATE | date:'dd/MM/yyyy'}}</p>
-            <p class="col-md-2 md-whiteframe-1dp" style="background-color:white;" class="md-subhead">{{convertFacType(facture.num.FAC_TYPE)}}</p>
-            <p class="col-md-3 md-whiteframe-1dp" style="background-color:white; {{getColorFactureType(facture.num.SUPPLIER)}}" class="md-subhead">{{convertSupplier(facture.num.SUPPLIER)}}</p>
+            <p class="col-md-2 md-whiteframe-1dp" style="background-color:white"  class="md-subhead">{{facture.num.NUM_INVOICE}}</p>
+            <p class="col-md-2 md-whiteframe-1dp" style="background-color:white;" class="md-subhead">{{facture.num.TRAVELLER}}</p>
+            <p class="col-md-2 md-whiteframe-1dp" style="background-color:white"  class="md-subhead">{{facture.num.CREATION_DATE | date:'dd/MM/yyyy'}}</p>
+            <p class="col-md-1 md-whiteframe-1dp" style="background-color:white;" class="md-subhead">{{facture.num.ACCOUNT_NUMBER}}</p>
+            <p class="col-md-1 md-whiteframe-1dp" style="background-color:white;" class="md-subhead">{{convertFacType(facture.num.FAC_TYPE)}}</p>
+            <p class="col-md-2 md-whiteframe-1dp" style="background-color:white; {{getColorFactureType(facture.num.SUPPLIER)}}" class="md-subhead">{{convertSupplier(facture.num.SUPPLIER)}}</p>
             <p class="col-md-2 md-whiteframe-1dp amountStyle" style="{{getColor(facture.num.FAC_TYPE)}}" class="md-subhead">{{facture.num.TOTAL_AMOUNT}} €</p>
+            <md-tooltip>
+              {{facture.num.LINE_DESCRIPTION}}
+            </md-tooltip>
           </div>
         </div>
       </div>
   </div>
-  <div layout-padding class="col-md-4 md-whiteframe-1dp" style="background-color:white; height: 500px;">
+  <div layout-padding class="col-md-3 md-whiteframe-1dp" style="background-color:white; height: 500px;">
     <h2 class="md-title">Filtres</h2>
     <h2 class="md-subhead">Recherche par numéro de facture :</h2>
     <input type="text" data-ng-model="test" ng-model-options="{debounce: 1000}">
     <h2 class="md-subhead">Type d'affichage</h2>
     <md-radio-group ng-model="value" ng-change="getTypeFilter(value)">
-    <md-radio-button value="none" class="md-primary"> toutes </md-radio-button>
-    <md-radio-button value="CommercialInvoice"> Factures seulement </md-radio-button>
-    <md-radio-button value="CreditNoteGoodsAndServices"> Avoir seulement </md-radio-button>
-  </md-radio-group>
+      <md-radio-button value="none" class="md-primary"> toutes </md-radio-button>
+      <md-radio-button value="CommercialInvoice"> Factures seulement </md-radio-button>
+      <md-radio-button value="CreditNoteGoodsAndServices"> Avoir seulement </md-radio-button>
+    </md-radio-group>
+    <h2 class="md-subhead">Filter les prix</h2>
+    <rzslider
+      ng-model-options="{ debounce: 1000}"
+      rz-slider-model="slider.min"
+      rz-slider-high="slider.max"
+      rz-slider-options="slider.options">
+  </rzslider>
+    <!-- <md-slider flex min="0" max="255" ng-model="color.red" aria-label="red" id="red-slider" class> -->
   </div>
-
 </div>

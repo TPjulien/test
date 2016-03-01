@@ -18,6 +18,7 @@ tableau = angular.module 'tableauApp', [
   'auth0'
   'infinite-scroll'
   'ui.bootstrap.contextMenu'
+  'rzModule'
 ]
 
 angular.module('infinite-scroll').value('THROTTLE_MILLISECONDS', 2000)
