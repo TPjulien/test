@@ -96,7 +96,7 @@ module.exports = function(router, connection) {
             		    table.push(req.params.num_invoice);
             		}
             }
-            var query = query + "GROUP BY NUM_INVOICE HAVING AMOUNT BETWEEN " + req.params.amount_min + " AND " + req.params.amount_max + " LIMIT " + req.params.min + ',' + req.params.max;;
+            var query = query + "GROUP BY NUM_INVOICE HAVING TOTAL_AMOUNT BETWEEN " + req.params.amount_min + " AND " + req.params.amount_max + " LIMIT " + req.params.min + ',' + req.params.max;;
 	          // table.push("NUM_INVOICE");
             query = mysql.format(query, table);
 	          connection.query(query, function(err, rows) {

@@ -151,21 +151,6 @@ tableau
         .error (err) ->
           console.log err
 
-    # requestFacture = (min, max) ->
-    #   $http
-    #       method: 'GET'
-    #       url:    options.api.base_url + "/getPDF/" + min + "/" + max
-    #   .success (result) ->
-    #       console.log result[0].TOTAL_AMOUNT
-    #       number = 0
-    #       while number < result.length
-    #         $scope.data.push ({num: result[number]})
-    #         number++
-    #       # $scope.loadMore()
-    #   .error (err) ->
-    #       console.log err
-
-
     $scope.loadMore = ->
         console.log $scope.information
         if $scope.information
@@ -179,7 +164,6 @@ tableau
             counter += 20
 
     $scope.loadMore()
-    # requestFacture(0, 20)
 
     $scope.menuOptions = [
       [
