@@ -28,14 +28,19 @@ tableau
     $scope.test = []
     search_num_invoice = "none"
     search_type        = "none"
+    search_price_min   = 0
+    search_price_max   = 10000
     $scope.users = []
 
     $scope.data = []
     counter     = 0
 
     $scope.tototo = (min, max) ->
-        console.log min
-        console.log max
+        search_price_min = min
+        search_price_max = max
+        $scope.data        = []
+        counter            = 0
+        $scope.testFacture(0, 50)
 
     $scope.slider =
         min: 0
@@ -48,6 +53,7 @@ tableau
                 value + '€'
             onEnd: () ->
               $scope.tototo($scope.slider.min, $scope.slider.max)
+
 
 
 
@@ -133,7 +139,7 @@ tableau
         console.log "ça passe dans la variable"
         $http
           method: "GET"
-          url: options.api.base_url + '/pdfSearchFilter/' + search_type + '/' + search_num_invoice + '/' + min + '/' + max
+          url: options.api.base_url + '/pdfSearchFilter/' + search_type + '/' + search_num_invoice + '/' + search_price_min + '/' + search_price_max + '/' + min + '/' + max
         .success (result) ->
           console.log result
           number  = 0
