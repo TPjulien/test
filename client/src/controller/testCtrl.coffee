@@ -144,7 +144,8 @@ tableau
 
     $scope.users = []
 
-
+    $scope.data = []
+    counter = 0
     # $scope.download = (selected) ->
     #     console.log selected
 
@@ -155,10 +156,11 @@ tableau
           url: options.api.base_url + '/pdfSearchFilter/' + search_type + '/' + search_num_invoice + '/' + min + '/' + max
         .success (result) ->
           console.log result
-          number = 0
+          number  = 0
           while number < result.length
             $scope.data.push ({num: result[number]})
             number++
+          counter = result.length
           console.log $scope.data
         .error (err) ->
           console.log err
@@ -177,20 +179,20 @@ tableau
     #   .error (err) ->
     #       console.log err
 
-    $scope.data = []
-    counter = 0
+
     $scope.loadMore = ->
         console.log $scope.information
         if $scope.information
             console.log "ne pas utiliser des requettes"
         else if (counter == 0)
-            requestFacture($scope.data.length, $scope.data.length + 50)
+            $scope.testFacture($scope.data.length, $scope.data.length + 50)
             counter += 50
         else
             console.log(counter)
-            requestFacture(counter, counter + 20)
+            $scope.testFacture(counter, counter + 20)
             counter += 20
 
+    $scope.loadMore()
     # requestFacture(0, 20)
 
     $scope.menuOptions = [
@@ -245,7 +247,9 @@ tableau
           color = "color: #F44336"
 
     $scope.getTypeFilter = (type) ->
-      $scope.testFacture(0, 50)
+      search_type = type
+      $scope.data = []
+      $scope.testFacture(0, counter)
       # if (type == "all")
       #     $scope.loadMore()
       # else
@@ -272,6 +276,8 @@ tableau
         # $scope.information = "meh !"
         if (tmpStr.length >= 3 && !isNaN(tmpStr))
           search_num_invoice = tmpStr
+          $scope.data        = []
+          $scope.testFacture(0, counter)
           # $http
           #   method: 'GET'
           #   url:    options.api.base_url + '/pdfFilter/' + tmpStr + '/0/50'
