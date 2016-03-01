@@ -38,13 +38,14 @@
     </ul> -->
       <div ng-animate="'animate'" ng-repeat="facture in data">
         <div  md-ink-ripple class="col-md-12" style="text-align:left; margin: 0; padding: 0; height: 17px;" context-menu="menuOptions" ng-click="watchPdf(facture.num.NUM_INVOICE)">
+          <p class="md-subhead">{{information}}</p>
           <!-- <img class="col-md-1" src="http://cdn1.iconfinder.com/data/icons/finance-items/512/notebook_textbook_notepad_paper_page_spiral_book_sheet_organizer_diary_flat_design_icon-512.png" height="42" width="42" style="padding-top: 8px; width: 32px;"> -->
           <div style="text-align:center; padding:0; margin:0">
             <p class="col-md-2 md-whiteframe-1dp" style="background-color:white" class="md-subhead">{{facture.num.NUM_INVOICE}}</p>
             <p class="col-md-3 md-whiteframe-1dp" style="background-color:white" class="md-subhead">{{facture.num.CREATION_DATE | date:'dd/MM/yyyy'}}</p>
             <p class="col-md-2 md-whiteframe-1dp" style="background-color:white;" class="md-subhead">{{convertFacType(facture.num.FAC_TYPE)}}</p>
             <p class="col-md-3 md-whiteframe-1dp" style="background-color:white; {{getColorFactureType(facture.num.SUPPLIER)}}" class="md-subhead">{{convertSupplier(facture.num.SUPPLIER)}}</p>
-            <p class="col-md-2 md-whiteframe-1dp amountStyle" style="{{getColor(facture.num.FAC_TYPE)}}" class="md-subhead">{{facture.num.AMOUNT}} €</p>
+            <p class="col-md-2 md-whiteframe-1dp amountStyle" style="{{getColor(facture.num.FAC_TYPE)}}" class="md-subhead">{{facture.num.TOTAL_AMOUNT}} €</p>
           </div>
         </div>
       </div>
@@ -54,7 +55,6 @@
     <h2 class="md-subhead">Recherche par numéro de facture :</h2>
     <input type="text" data-ng-model="test" ng-model-options="{debounce: 1000}">
     <h2 class="md-subhead">Type d'affichage</h2>
-    <p class="md-subhead">{{information}}</p>
     <md-radio-group ng-model="value" ng-change="getFilter(value)">
     <md-radio-button value="all" class="md-primary"> toutes </md-radio-button>
     <md-radio-button value="only_facture"> Factures seulement </md-radio-button>

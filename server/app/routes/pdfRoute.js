@@ -45,16 +45,36 @@ module.exports = function(router, connection) {
               if (isNaN(min)  || isNaN(max) || isNaN(invoice)) {
                 res.status(404).send('unable to execute query');
               } else {
-                var query = "SELECT ??, ??, ??, ??, ?? FROM ?? WHERE ?? LIKE '%" + invoice + "%' LIMIT " + min + ',' + max;
-                var table = ['SUPPLIER', 'FAC_TYPE', 'CREATION_DATE', 'AMOUNT', 'NUM_INVOICE', 'accelya.accelya_view_all', "NUM_INVOICE"];
+                var query = "SELECT ??, ??, ??, SUM(??) AS AMOUNT_TOTAL, ?? FROM ?? WHERE ?? LIKE '%" + invoice + "%' GROUP BY ?? LIMIT " + min + ',' + max;
+                var table = ['SUPPLIER', 'FAC_TYPE', 'CREATION_DATE', 'AMOUNT', 'NUM_INVOICE', 'accelya.accelya_view_all', "NUM_INVOICE", "NUM_INVOICE"];
                 query = mysql.format(query, table);
                 connection.query(query, function(err, rows) {
                     if (err) {
-                        res.json({ mesage: 'error' });
+                        res.json({ 'message': 'error' });
                     } else {
                         res.json(rows);
                     }
                 })
               }
-          });
+          })
+      router.route('/pdfTypeFilter/:type/:min/:max')
+          .get (function(req, res) {
+              var min = req.params.min;
+              var max = req.params.max;
+              var type = req.params.type;
+              if (isNaN(min) || isNaN(max)) {
+                  res.status(404).send('unable to execute query');
+              } else {
+                var query = "SELECT ??, ??, ??, SUM(??) AS AMOUNT_TOTAL, ?? FROM ?? WHERE ?? = ? GROUP BY ?? LIMIT " + min + ',' + max;
+                var table = ['SUPPLIER', 'FAC_TYPE', 'CREATION_DATE', 'AMOUNT', 'NUM_INVOICE', 'accelya.accelya_view_all', 'FAC_TYPE', type, "NUM_INVOICE"];
+                query = mysql.format(quer, table);
+                connection.query(query, function(err, rows) {
+                    if (err) {
+                        res.json({ 'message' : 'error'})
+                    } esle {
+                        res.json(rows);
+                    }
+                })
+              }
+          })
 }
