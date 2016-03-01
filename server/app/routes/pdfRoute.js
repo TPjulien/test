@@ -67,7 +67,7 @@ module.exports = function(router, connection) {
               } else {
                 var query = "SELECT ??, ??, ??, SUM(??) AS TOTAL_AMOUNT, ?? FROM ?? WHERE ?? = ? GROUP BY ?? LIMIT " + min + ',' + max;
                 var table = ['SUPPLIER', 'FAC_TYPE', 'CREATION_DATE', 'AMOUNT', 'NUM_INVOICE', 'accelya.accelya_view_all', 'FAC_TYPE', type, "NUM_INVOICE"];
-                query = mysql.format(quer, table);
+                query = mysql.format(query, table);
                 connection.query(query, function(err, rows) {
                     if (err) {
                         res.json({ 'message' : 'error'})
