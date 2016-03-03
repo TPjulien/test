@@ -23,7 +23,7 @@
         <div  md-ink-ripple class="col-md-12" style="text-align:left; margin: 0; padding: 0; height: 17px;" context-menu="menuOptions" ng-click="watchPdf(facture.num.NUM_INVOICE)">
           <div style="text-align:center; padding:0; margin:0">
             <p class="col-md-2 md-whiteframe-1dp" style="background-color:white"  class="md-subhead">{{facture.num.NUM_INVOICE}}</p>
-            <p class="col-md-2 md-whiteframe-1dp" style="background-color:white;" class="md-subhead">{{facture.num.TRAVELLER}}</p>
+            <p class="col-md-2 md-whiteframe-1dp" style="background-color:white;" class="md-subhead">{{checkName(facture.num.TRAVELLER)}}</p>
             <p class="col-md-2 md-whiteframe-1dp" style="background-color:white"  class="md-subhead">{{facture.num.CREATION_DATE | date:'dd/MM/yyyy'}}</p>
             <p class="col-md-1 md-whiteframe-1dp" style="background-color:white;" class="md-subhead">{{facture.num.ACCOUNT_NUMBER}}</p>
             <p class="col-md-1 md-whiteframe-1dp" style="background-color:white;" class="md-subhead">{{convertFacType(facture.num.FAC_TYPE)}}</p>
@@ -48,11 +48,10 @@
     </md-radio-group>
     <h2 class="md-subhead">Filter les prix</h2>
     <rzslider
-      ng-model-options="{ debounce: 1000}"
       rz-slider-model="slider.min"
       rz-slider-high="slider.max"
       rz-slider-options="slider.options">
-  </rzslider>
+    </rzslider>
     <!-- <md-slider flex min="0" max="255" ng-model="color.red" aria-label="red" id="red-slider" class> -->
   </div>
 </div>

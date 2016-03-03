@@ -231,6 +231,11 @@ tableau
           counter            = 0
           $scope.testFacture(0, 50)
 
+    $scope.checkName = (name) ->
+      if !name
+          newName = "Information indisponible"
+      else
+          newName = name
 
   #   $scope.$watch 'slider.min', _.debounce(((id) ->
   # # This code will be invoked after 1 second from the last time 'id' has changed.
