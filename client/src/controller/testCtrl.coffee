@@ -136,30 +136,30 @@ tableau
         return $sce.trustAsResourceUrl("http://data.travelplanet.fr/trusted/" + token + link + '&:toolbar=no' )
 
     $scope.testFacture = (min, max) ->
-        console.log "ça passe dans la variable"
+        # console.log "ça passe dans la variable"
         $http
           method: "GET"
           url: options.api.base_url + '/pdfSearchFilter/' + search_type + '/' + search_num_invoice + '/' + search_price_min + '/' + search_price_max + '/' + min + '/' + max
         .success (result) ->
-          console.log result
+          # console.log result
           number  = 0
           while number < result.length
             $scope.data.push ({num: result[number]})
             number++
           counter = result.length
-          console.log $scope.data
+          # console.log $scope.data
         .error (err) ->
           console.log err
 
     $scope.loadMore = ->
-        console.log $scope.information
+        # console.log $scope.information
         if $scope.information
-            console.log "ne pas utiliser des requettes"
+            # console.log "ne pas utiliser des requettes"
         else if (counter == 0)
             $scope.testFacture($scope.data.length, $scope.data.length + 50)
             counter += 50
         else
-            console.log(counter)
+            # console.log(counter)
             $scope.testFacture(counter, counter + 20)
             counter += 20
 
