@@ -102,6 +102,8 @@ module.exports = function(router, connection) {
                   // table.push(req.params.clientName)
                 } else if(req.params.num_invoice != "none") {
                     var query = query + "AND TRAVELLER LIKE '%" + req.params.clientName + "%' ";
+                } else {
+                    var query = query + "AND TRAVELLER LIKE '%" + req.params.clientName + "%' ";
                 }
             }
             var query = query + "GROUP BY NUM_INVOICE HAVING TOTAL_AMOUNT BETWEEN " + req.params.amount_min + " AND " + req.params.amount_max + " LIMIT " + req.params.min + ',' + req.params.max;;
