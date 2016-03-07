@@ -233,16 +233,30 @@ tableau
           $scope.testFacture(0, 50)
 
     $scope.$watch 'clientName', (tmpStr) ->
-        if (tmpStr.length >= 3 && !isNan(tmpStr))
+        console.log tmpStr.length
+        if (tmpStr.length >= 3)
           search_name = tmpStr
           $scope.data = []
           counter     = 0
           $scope.testFacture(0, 50)
         else if (tmpStr.length == 0)
           search_name = "none"
+          # counter            = 0
           $scope.data = []
           counter     = 0
           $scope.testFacture(0, 50)
+    # $scope.$watch 'clientName', (tmpStr) ->
+    #     if (tmpStr.length >= 3 && !isNaN(tmpStr))
+    #       console.log "ça passe par la !"
+    #       search_name = tmpStr
+    #       $scope.data = []
+    #       counter     = 0
+    #       $scope.testFacture(0, 50)
+    #     else if (tmpStr.length == 0)
+    #       search_name = "none"
+    #       $scope.data = []
+    #       counter     = 0
+    #       $scope.testFacture(0, 50)
 
 
     $scope.checkName = (name) ->
