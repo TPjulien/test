@@ -77,7 +77,7 @@ module.exports = function(router, connection) {
                 })
               }
           })
-      router.route('/pdfSearchFilter/:type/:num_invoice/:amount_min/:amount_max/:min/:max')
+      router.route('/pdfSearchFilter/:type/:num_invoice/:amount_min/:amount_max/:min/:max/:clientName')
       .get (function (req, res) {
             var query = "SELECT ??, ??, ??, ??, ??, ??, ??, SUM(??) AS TOTAL_AMOUNT, ?? FROM ?? ";
   	        var table   = ["SUPPLIER", "TYPE", "ACCOUNT_NUMBER", "LINE_DESCRIPTION", "TRAVELLER", "FAC_TYPE", "CREATION_DATE", "AMOUNT", "NUM_INVOICE", "accelya.accelya_view_all"];
@@ -95,6 +95,14 @@ module.exports = function(router, connection) {
                     var query = query + "AND NUM_INVOICE LIKE '%" + req.params.num_invoice + "%' ";
             		    table.push(req.params.num_invoice);
             		}
+            }
+            if (req.params.clientName != "none") {
+                if (req.params.type == "none") {
+                  var query = query + "WHERE TRAVELLER LIKE '%" + req.params.clientName + "%'";
+                  // table.push(req.params.clientName)
+                } else {
+                    var query = query + "AND NUM_INVOICE LIKE '%" + req.params.clientName + "%'";
+                }
             }
             var query = query + "GROUP BY NUM_INVOICE HAVING TOTAL_AMOUNT BETWEEN " + req.params.amount_min + " AND " + req.params.amount_max + " LIMIT " + req.params.min + ',' + req.params.max;;
 	          // table.push("NUM_INVOICE");

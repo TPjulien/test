@@ -28,6 +28,7 @@ tableau
     $scope.test = []
     search_num_invoice = "none"
     search_type        = "none"
+    search_name        = "none"
     search_price_min   = 0
     search_price_max   = 10000
     $scope.users = []
@@ -139,7 +140,7 @@ tableau
         # console.log "ça passe dans la variable"
         $http
           method: "GET"
-          url: options.api.base_url + '/pdfSearchFilter/' + search_type + '/' + search_num_invoice + '/' + search_price_min + '/' + search_price_max + '/' + min + '/' + max
+          url: options.api.base_url + '/pdfSearchFilter/' + search_type + '/' + search_num_invoice + '/' + search_price_min + '/' + search_price_max + '/' + min + '/' + max + '/' + search_name
         .success (result) ->
           # console.log result
           number  = 0
@@ -230,6 +231,19 @@ tableau
           $scope.data        = []
           counter            = 0
           $scope.testFacture(0, 50)
+
+    $scope.$watch 'clientName', (tmpStr) ->
+        if (tmpStr.length >= 3 && !isNan(tmpStr))
+          search_name = tmpStr
+          $scope.data = []
+          counter     = 0
+          $scope.testFacture(0, 50)
+        else if (tmpStr.length == 0)
+          search_name = "none"
+          $scope.data = []
+          counter     = 0
+          $scope.testFacture(0, 50)
+
 
     $scope.checkName = (name) ->
       if !name
