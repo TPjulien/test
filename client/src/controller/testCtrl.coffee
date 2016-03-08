@@ -142,7 +142,7 @@ tableau
           method: "GET"
           url: options.api.base_url + '/pdfSearchFilter/' + search_type + '/' + search_num_invoice + '/' + search_price_min + '/' + search_price_max + '/' + min + '/' + max + '/' + search_name + '/' + search_date_min + '/' + search_date_max
         .success (result) ->
-          # console.log result
+          console.log result
           number  = 0
           while number < result.length
             $scope.data.push ({num: result[number]})
