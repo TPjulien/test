@@ -97,7 +97,7 @@ module.exports = function(router, connection) {
             		}
             }
             if (req.params.clientName != "none") {
-                if (req.params.type == "none" && req.params.num_invoice == "none" && req.params.date_min != "none" && req.params.date_max != "none") {
+                if (req.params.type == "none" && req.params.num_invoice == "none" && req.params.date_min == "none" && req.params.date_max == "none") {
                   var query = query + "WHERE TRAVELLER LIKE '%" + req.params.clientName + "%' ";
                   // table.push(req.params.clientName)
                 } else {
