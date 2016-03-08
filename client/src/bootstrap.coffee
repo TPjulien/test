@@ -19,6 +19,7 @@ tableau = angular.module 'tableauApp', [
   'infinite-scroll'
   'ui.bootstrap.contextMenu'
   'rzModule'
+  'daterangepicker'
 ]
 
 angular.module('infinite-scroll').value('THROTTLE_MILLISECONDS', 2000)

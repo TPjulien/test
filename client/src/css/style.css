@@ -28,7 +28,7 @@ html {
 
 .content
 {
-  height:500px;
+  height:550px;
   overflow: auto;
   /*overflow-y:scroll;*/
 }

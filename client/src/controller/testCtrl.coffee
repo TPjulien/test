@@ -24,23 +24,27 @@ tableau
         name:         "Vue_default"
         templateName: "template par défaut"
     }]
-    $scope.items = []
-    $scope.test = []
+    $scope.items       = []
+    $scope.test        = []
     search_num_invoice = "none"
     search_type        = "none"
     search_name        = "none"
     search_price_min   = 0
     search_price_max   = 10000
-    $scope.users = []
-
-    $scope.data = []
-    counter     = 0
+    search_date_min    = "none"
+    search_date_max    = "none"
+    $scope.users       = []
+    $scope.data        = []
+    counter            = 0
+    $scope.date        =
+        startDate: null
+        endDate:   null
 
     $scope.tototo = (min, max) ->
         search_price_min = min
         search_price_max = max
-        $scope.data        = []
-        counter            = 0
+        $scope.data      = []
+        counter          = 0
         $scope.testFacture(0, 50)
 
     $scope.slider =
@@ -54,10 +58,6 @@ tableau
                 value + '€'
             onEnd: () ->
               $scope.tototo($scope.slider.min, $scope.slider.max)
-
-
-
-
 
     $scope.getColor = (color) ->
       css = 'background-color:' + color
@@ -140,7 +140,7 @@ tableau
         # console.log "ça passe dans la variable"
         $http
           method: "GET"
-          url: options.api.base_url + '/pdfSearchFilter/' + search_type + '/' + search_num_invoice + '/' + search_price_min + '/' + search_price_max + '/' + min + '/' + max + '/' + search_name
+          url: options.api.base_url + '/pdfSearchFilter/' + search_type + '/' + search_num_invoice + '/' + search_price_min + '/' + search_price_max + '/' + min + '/' + max + '/' + search_name + '/' + search_date_min + '/' + search_date_max
         .success (result) ->
           # console.log result
           number  = 0
@@ -233,47 +233,31 @@ tableau
           $scope.testFacture(0, 50)
 
     $scope.$watch 'clientName', (tmpStr) ->
-        console.log tmpStr.length
-        if (tmpStr.length >= 3)
+        # console.log tmpStr.length
+        if (tmpStr && tmpStr.length >= 3)
           search_name = tmpStr
           $scope.data = []
           counter     = 0
           $scope.testFacture(0, 50)
-        else if (tmpStr.length == 0)
+        else if (tmpStr && tmpStr.length == 0)
           search_name = "none"
           # counter            = 0
           $scope.data = []
           counter     = 0
           $scope.testFacture(0, 50)
-    # $scope.$watch 'clientName', (tmpStr) ->
-    #     if (tmpStr.length >= 3 && !isNaN(tmpStr))
-    #       console.log "ça passe par la !"
-    #       search_name = tmpStr
-    #       $scope.data = []
-    #       counter     = 0
-    #       $scope.testFacture(0, 50)
-    #     else if (tmpStr.length == 0)
-    #       search_name = "none"
-    #       $scope.data = []
-    #       counter     = 0
-    #       $scope.testFacture(0, 50)
 
+    $scope.$watch 'date', (tmpStr) ->
+        if tmpStr.startDate && tmpStr.endDate
+          search_date_min = $filter('date')(tmpStr.startDate._d, "yyyy-MM-dd")
+          search_date_max = $filter('date')(tmpStr.endDate._d,   "yyyy-MM-dd")
+          $scope.testFacture(0, 50)
+          if tmpStr.startDate._d.length == 0 && tmpStr.endDate._d.length == 0
+              search_date_min = "none"
+              search_date_max = "none"
+              $scope.testFacture(0, 50)
 
     $scope.checkName = (name) ->
       if !name
           newName = "Information indisponible"
       else
           newName = name
-
-  #   $scope.$watch 'slider.min', _.debounce(((id) ->
-  # # This code will be invoked after 1 second from the last time 'id' has changed.
-  #     $scope.$apply ->
-  #       console.log id
-  #       # Code that does something based on $scope.id
-  #       return
-  #     return
-  #   ), 1000)
-    # $scope.$watch 'slider.min', (tmpStr) ->
-    #     console.log "Hello world !"
-  # $scope.$watch 'slider.min', (tmpValue) ->
-  #     console.log tmpValue

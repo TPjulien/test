@@ -36,12 +36,17 @@
         </div>
       </div>
   </div>
-  <div layout-padding class="col-md-3 md-whiteframe-1dp" style="background-color:white; height: 500px;">
+  <div layout-padding class="col-md-3 md-whiteframe-1dp" style="background-color:white; height: 550px;">
     <h2 class="md-title">Filtres</h2>
     <h2 class="md-subhead">Recherche par numéro de facture :</h2>
     <input type="text" data-ng-model="test" ng-model-options="{debounce: 1000}">
     <h2 class="md-subhead">Recherche par nom du client :</h2>
     <input type="text" data-ng-model="clientName" ng-model-options="{debounce: 1000}">
+    <h2 class="md-subhead">Filtrer par date :</h2>
+    <!-- <input date-range-picker class="form-control date-picker" type="text" ng-model="date"
+    options="{eventHandlers: {'show.daterangepicker': function(ev, picker) { console.log('arf') }}}"/> -->
+
+    <input date-range-picker class="form-control date-picker" type="text" data-ng-model="date"/>
     <h2 class="md-subhead">Type d'affichage</h2>
     <md-radio-group ng-model="value" ng-change="getTypeFilter(value)">
       <md-radio-button value="none" class="md-primary"> toutes </md-radio-button>

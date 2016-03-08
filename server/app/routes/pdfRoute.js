@@ -77,7 +77,7 @@ module.exports = function(router, connection) {
                 })
               }
           })
-      router.route('/pdfSearchFilter/:type/:num_invoice/:amount_min/:amount_max/:min/:max/:clientName')
+      router.route('/pdfSearchFilter/:type/:num_invoice/:amount_min/:amount_max/:min/:max/:clientName/:date_min/:date_max')
       .get (function (req, res) {
             var query = "SELECT ??, ??, ??, ??, ??, ??, ??, SUM(??) AS TOTAL_AMOUNT, ?? FROM ?? ";
   	        var table   = ["SUPPLIER", "TYPE", "ACCOUNT_NUMBER", "LINE_DESCRIPTION", "TRAVELLER", "FAC_TYPE", "CREATION_DATE", "AMOUNT", "NUM_INVOICE", "accelya.accelya_view_all"];
@@ -106,12 +106,23 @@ module.exports = function(router, connection) {
                     var query = query + "AND TRAVELLER LIKE '%" + req.params.clientName + "%' ";
                 }
             }
+            if(req.params.date_min != "none" && res.params.date_max != "none") {
+                if (req.params.type == "none" && req.params.num_invoice == "none" && req.params.clientName == "none") {
+                    var query = query + "WHERE DATE_CREATION BETWEEN ? AND ?";
+                    table.push(req.params.date_min);
+                    table.push(req.params.date_max);
+                } else {
+                    var query = query + "AND DATE_CREATION BETWEEN ? AND ?";
+                    table.push(req.params.date_min);
+                    table.push(req.params.date_max);
+                }
+            }
             var query = query + "GROUP BY NUM_INVOICE HAVING TOTAL_AMOUNT BETWEEN " + req.params.amount_min + " AND " + req.params.amount_max + " LIMIT " + req.params.min + ',' + req.params.max;;
 	          // table.push("NUM_INVOICE");
             query = mysql.format(query, table);
 	          connection.query(query, function(err, rows) {
             		if (err) {
-            		    res.json({ 'message': 'error'});
+                    res.status(400).send("Unable to execute request from search");
             		} else {
             		    res.json(rows);
             		}
