@@ -234,17 +234,19 @@ tableau
 
     $scope.$watch 'clientName', (tmpStr) ->
         # console.log tmpStr.length
-        if (tmpStr && tmpStr.length >= 3)
-          search_name = tmpStr
-          $scope.data = []
-          counter     = 0
-          $scope.testFacture(0, 50)
-        else if (tmpStr && tmpStr.length == 0)
-          search_name = "none"
-          # counter            = 0
-          $scope.data = []
-          counter     = 0
-          $scope.testFacture(0, 50)
+        if tmpStr
+          if (tmpStr.length >= 3)
+            search_name = tmpStr
+            $scope.data = []
+            counter     = 0
+            $scope.testFacture(0, 50)
+        else if (!tmpStr)
+            console.log "ça passe par ici"
+            search_name = "none"
+            # counter            = 0
+            $scope.data = []
+            counter     = 0
+            $scope.testFacture(0, 50)
 
     $scope.$watch 'date', (tmpStr) ->
         if tmpStr.startDate && tmpStr.endDate
