@@ -137,30 +137,24 @@ tableau
         return $sce.trustAsResourceUrl("http://data.travelplanet.fr/trusted/" + token + link + '&:toolbar=no' )
 
     $scope.testFacture = (min, max) ->
-        # console.log "ça passe dans la variable"
         $http
           method: "GET"
           url: options.api.base_url + '/pdfSearchFilter/' + search_type + '/' + search_num_invoice + '/' + search_price_min + '/' + search_price_max + '/' + min + '/' + max + '/' + search_name + '/' + search_date_min + '/' + search_date_max
         .success (result) ->
-          console.log result
           number  = 0
           while number < result.length
             $scope.data.push ({num: result[number]})
             number++
           counter = result.length
-          # console.log $scope.data
         .error (err) ->
           console.log err
 
     $scope.loadMore = ->
-        # console.log $scope.information
         if $scope.information
-            # console.log "ne pas utiliser des requettes"
         else if (counter == 0)
             $scope.testFacture($scope.data.length, $scope.data.length + 50)
             counter += 50
         else
-            # console.log(counter)
             $scope.testFacture(counter, counter + 20)
             counter += 20
 
@@ -203,9 +197,6 @@ tableau
         else
           translated = suplier
 
-    $scope.convertDate = (date) ->
-      console.log date
-
     $scope.getColor = (type) ->
       color: undefined
       if type == "CommercialInvoice"
@@ -227,13 +218,11 @@ tableau
           $scope.testFacture(0, 50)
         else if (tmpStr.length == 0)
           search_num_invoice = "none"
-          # counter            = 0
           $scope.data        = []
           counter            = 0
           $scope.testFacture(0, 50)
 
     $scope.$watch 'clientName', (tmpStr) ->
-        # console.log tmpStr.length
         if tmpStr
           if (tmpStr.length >= 3)
             search_name = tmpStr
@@ -241,9 +230,7 @@ tableau
             counter     = 0
             $scope.testFacture(0, 50)
         else if (!tmpStr)
-            console.log "ça passe par ici"
             search_name = "none"
-            # counter            = 0
             $scope.data = []
             counter     = 0
             $scope.testFacture(0, 50)

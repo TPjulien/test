@@ -7,16 +7,11 @@ tableau
     else
         $rootScope.wallpaper = "url('http://www.travelimg.org/wp-content/uploads/2015/02/full_hd_travel_wallpapers_21.jpg')"
 
-    # "url('https://wallpaperscraft.com/image/spots_background_light_blur_68629_1920x1080.jpg')"
-    console.log $rootScope.wallpaper
     $scope.firstname      = decode[0].firstname
     $scope.lastname       = decode[0].lastname
     $scope.favorite_color = decode[0].favorite_color
     $scope.company        = decode[0].company
     $scope.logo           = decode[0].logo
-
-    console.log decode
-    console.log "nigga!"
 
 
     $scope.goTO = (id, view, view_label) ->
@@ -26,8 +21,6 @@ tableau
       else
         path = 'home/dashboard/' + id + '/' + view
       $location.path path
-      console.log id
-      console.log view
 
     $scope.getColor = (color) ->
       css = 'background-color:' + color
@@ -99,7 +92,7 @@ tableau
         $mdSidenav(navID)
         .toggle()
         .then ->
-          console.log "toggle " + navID + " is done"
+          console.log "successful"
       ), 200)
 
     $scope.toggleLeft = buildDelayedToggler('left')

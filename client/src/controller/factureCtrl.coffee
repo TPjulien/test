@@ -2,10 +2,6 @@ tableau
 .controller 'factureCtrl', ($scope, $http) ->
     $scope.users = []
 
-
-    $scope.download = (selected) ->
-        console.log selected
-
     requestFacture = (min, max) ->
       $http
           method: 'GET'
@@ -19,6 +15,5 @@ tableau
     $scope.data = $scope.users.slice 0, 5
 
     $scope.loadMore = ->
-        console.log $scope.data.length
         $scope.data = $scope.users.slice 0, $scope.data.length + 20
         requestFacture($scope.data.length, $scope.data.length + 20)

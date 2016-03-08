@@ -66,7 +66,7 @@ tableau
                 $location.path '/login'
         else
             if $location.path() == '/login' or $location.path() == ''
-                console.log("on est dans login !")
+                console.log("successful !")
             else
                 alertFct.tokenNotFound()
                 $location.path '/login'
