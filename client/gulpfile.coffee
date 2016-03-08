@@ -66,6 +66,8 @@ gulp.task 'copy_other', ->
     .pipe gulp.dest "#{dest}/font/"
   gulp.src "#{src}/data/*.csv"
     .pipe gulp.dest "#{dest}/data/"
+  gulp.src "#{src}/fonts/*"
+    .pipe gulp.dest "#{dest}/fonts/"
 
 gulp.task 'compress', ['components'], ->
 	gulp.src "#{dest}/js/*.js"
