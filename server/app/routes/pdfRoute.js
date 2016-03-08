@@ -108,11 +108,11 @@ module.exports = function(router, connection) {
             }
             if(req.params.date_min != "none" && req.params.date_max != "none") {
                 if (req.params.type == "none" && req.params.num_invoice == "none" && req.params.clientName == "none") {
-                    var query = query + "WHERE DATE_CREATION BETWEEN ? AND ?";
+                    var query = query + "WHERE CREATION_DATE BETWEEN ? AND ? ";
                     table.push(req.params.date_min);
                     table.push(req.params.date_max);
                 } else {
-                    var query = query + "AND DATE_CREATION BETWEEN ? AND ?";
+                    var query = query + "AND CREATION_DATE BETWEEN ? AND ? ";
                     table.push(req.params.date_min);
                     table.push(req.params.date_max);
                 }
