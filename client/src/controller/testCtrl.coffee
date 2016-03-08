@@ -250,8 +250,12 @@ tableau
         if tmpStr.startDate && tmpStr.endDate
           search_date_min = $filter('date')(tmpStr.startDate._d, "yyyy-MM-dd")
           search_date_max = $filter('date')(tmpStr.endDate._d,   "yyyy-MM-dd")
+          $scope.data = []
+          counter     = 0
           $scope.testFacture(0, 50)
           if tmpStr.startDate._d.length == 0 && tmpStr.endDate._d.length == 0
+              $scope.data = []
+              counter     = 0
               search_date_min = "none"
               search_date_max = "none"
               $scope.testFacture(0, 50)

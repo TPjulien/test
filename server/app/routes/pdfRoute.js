@@ -80,7 +80,7 @@ module.exports = function(router, connection) {
       router.route('/pdfSearchFilter/:type/:num_invoice/:amount_min/:amount_max/:min/:max/:clientName/:date_min/:date_max')
       .get (function (req, res) {
             var query = "SELECT ??, ??, ??, ??, ??, ??, ??, SUM(??) AS TOTAL_AMOUNT, ?? FROM ?? ";
-  	        var table   = ["SUPPLIER", "TYPE", "ACCOUNT_NUMBER", "LINE_DESCRIPTION", "TRAVELLER", "FAC_TYPE", "CREATION_DATE", "AMOUNT", "NUM_INVOICE", "accelya.accelya_view_all"];
+  	        var table   = ["SUPPLIER", "TYPE", "ACCOUNT_NUMBER", "LINE_DESCRIPTION", "TRAVELLER", "FAC_TYPE", "DEPARTURE_DATE", "AMOUNT", "NUM_INVOICE", "accelya.accelya_view_all"];
             if (req.params.type != "none") {
                 var query = query + " WHERE FAC_TYPE = ? ";
         		    // table.push("FAC_TYPE");
@@ -108,11 +108,11 @@ module.exports = function(router, connection) {
             }
             if(req.params.date_min != "none" && req.params.date_max != "none") {
                 if (req.params.type == "none" && req.params.num_invoice == "none" && req.params.clientName == "none") {
-                    var query = query + "WHERE CREATION_DATE BETWEEN ? AND ? ";
+                    var query = query + "WHERE DEPARTURE_DATE BETWEEN ? AND ? ";
                     table.push(req.params.date_min);
                     table.push(req.params.date_max);
                 } else {
-                    var query = query + "AND CREATION_DATE BETWEEN ? AND ? ";
+                    var query = query + "AND DEPARTURE_DATE BETWEEN ? AND ? ";
                     table.push(req.params.date_min);
                     table.push(req.params.date_max);
                 }

@@ -18,13 +18,14 @@
 <div>
   <div class="md-whiteframe-1dp col-md-12 wall-fact" style="background-color:white; !important; height:100px; padding: 0;" ></div>
   <div layout-padding class="col-md-9 content md-whiteframe-1dp" style="background-color:#EEEEEE; !important;" when-scrolled="loadMore()">
+    <h1 class="md-title" style="color:#424242" ng-show="data.length == 0">Desolé, mais la recherche à retourné aucun résultat :'(</h1>
     <p class="md-subhead">{{information}}</p>
       <div ng-animate="'animate'" ng-repeat="facture in data">
         <div  md-ink-ripple class="col-md-12" style="text-align:left; margin: 0; padding: 0; height: 17px;" context-menu="menuOptions" ng-click="watchPdf(facture.num.NUM_INVOICE)">
           <div style="text-align:center; padding:0; margin:0">
             <p class="col-md-2 md-whiteframe-1dp" style="background-color:white"  class="md-subhead">{{facture.num.NUM_INVOICE}}</p>
             <p class="col-md-2 md-whiteframe-1dp" style="background-color:white;" class="md-subhead">{{checkName(facture.num.TRAVELLER)}}</p>
-            <p class="col-md-2 md-whiteframe-1dp" style="background-color:white"  class="md-subhead">{{facture.num.CREATION_DATE | date:'dd/MM/yyyy'}}</p>
+            <p class="col-md-2 md-whiteframe-1dp" style="background-color:white"  class="md-subhead">{{facture.num.DEPARTURE_DATE | date:'dd/MM/yyyy'}}</p>
             <p class="col-md-1 md-whiteframe-1dp" style="background-color:white;" class="md-subhead">{{facture.num.ACCOUNT_NUMBER}}</p>
             <p class="col-md-1 md-whiteframe-1dp" style="background-color:white;" class="md-subhead">{{convertFacType(facture.num.FAC_TYPE)}}</p>
             <p class="col-md-2 md-whiteframe-1dp" style="background-color:white; {{getColorFactureType(facture.num.SUPPLIER)}}" class="md-subhead">{{convertSupplier(facture.num.SUPPLIER)}}</p>
