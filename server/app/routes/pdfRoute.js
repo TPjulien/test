@@ -106,13 +106,9 @@ module.exports = function(router, connection) {
             }
             if(req.params.date_min != "none" && req.params.date_max != "none") {
                 if (req.params.type == "none" && req.params.num_invoice == "none" && req.params.clientName == "none") {
-                    var query = query + "WHERE DEPARTURE_DATE BETWEEN ? AND ? ";
-                    table.push(req.params.date_min);
-                    table.push(req.params.date_max);
+                    var query = query + "WHERE DEPARTURE_DATE BETWEEN " + mysql.escape(req.params.date_min) + " AND " + mysql.escape(req.params.date_max) + " ";
                 } else {
-                    var query = query + "AND DEPARTURE_DATE BETWEEN ? AND ? ";
-                    table.push(req.params.date_min);
-                    table.push(req.params.date_max);
+                    var query = query + "AND DEPARTURE_DATE BETWEEN " + mysql.escape(req.params.date_min) + " AND " + mysql.escape(req.params.date_max) + " ";
                 }
             }
             var query = query + "GROUP BY NUM_INVOICE HAVING TOTAL_AMOUNT BETWEEN " + req.params.amount_min + " AND " + req.params.amount_max + " LIMIT " + req.params.min + ',' + req.params.max;;
