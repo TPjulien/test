@@ -17,7 +17,7 @@ tableau
     $scope.goTO = (id, view, view_label) ->
 
       if view_label == "Factures"
-        path = 'home/dashboard/' + id + '/' + view + '/' + view_label
+        path = 'home/dashboard/' + id + '/' + view
       else
         path = 'home/dashboard/' + id + '/' + view
       $location.path path

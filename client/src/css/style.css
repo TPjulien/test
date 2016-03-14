@@ -23,7 +23,7 @@ html {
 }
 
 .wallpaperStyle {
-  padding: 90px;
+  padding: 5px;
 }
 
 .content
@@ -181,6 +181,11 @@ html {
 		/*box-shadow: 0 4px 6px 1px rgba(50, 50, 50, 0.14);*/
 }
 
+.nameTitle {
+  width: 50%;
+  padding-top: 18%;
+}
+
 body {
 
   background-color: transparent;
@@ -190,15 +195,19 @@ body {
   display: none !important;
 }
 
-h1 {
-  color: #ECF0F5;
-  font: 'Roboto';
-}
-
-
 @font-face {
     font-family: 'Roboto'; /*a name to be used later*/
     src: url('/img/font/roboto.ttf'); /*URL to font*/
+}
+
+h1 {
+  color: #ECF0F5;
+  font-family : 'Roboto';
+}
+
+.travelTitle {
+  font-family : 'Roboto' !important;
+  color : white;
 }
 
 
@@ -208,27 +217,13 @@ h1 {
 }
 
 #imgSidenav {
-
-    /*background: url("https://travelplanet.fr/images/logo/logo.png") center no-repeat;*/
-		/*background: url("http://www.univ-lorraine.fr/sites/www.univ-lorraine.fr/files/node_files/publics/users/martin38/2013/10/isotype_ul.jpg") center no-repeat;*/
-
     background-size: contain;
     height: 50%;
     width: 50%;
     border-radius: 50%;
-    margin-left: 25%;
+    margin-left: 28%;
     margin-top: 50px;
     margin-bottom: 25px;
-    /*box-shadow: 0 4px 6px 1px rgba(50, 50, 50, 0.14);*/
-    /*background-size: contain;
-    height: 5em;
-    width: 5em;
-    border-radius: 50%;
-    margin-left: 95px;
-		margin-top: 20px;*/
-		/*margin-bottom: -20px;
-    border: 1px solid #ebebeb;*/
-    /*box-shadow: 0 4px 6px 1px rgba(50, 50, 50, 0.14);*/
 }
 
 .login-card {

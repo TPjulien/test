@@ -47,15 +47,34 @@ tableau
         counter          = 0
         $scope.testFacture(0, 50)
 
+    min_slider = 0
+    max_slider = 0
+
+    value = 50
+
+    $scope.getValues = (min, max) ->
+        console.log min
+        if min < 1000 || max < 1000
+            console.log "ça passe par la"
+            $scope.slider.options.step = 50
+        else if min > 1000 && min < 3000 || max > 1000 && max < 3000
+            console.log "ça passe par ici"
+            $scope.slider.options.step = 200
+        else
+            $scope.slider.options.step = 500
+
     $scope.slider =
         min: 0
-        max: 10000
+        max: 5000
         options:
-            floor: 0
-            ceil: 10000
+            floor:    0
+            ceil:     5000
             interval: 1000
+            step:     value
             translate: (value) ->
                 value + '€'
+            onChange: () ->
+              $scope.getValues($scope.slider.min, $scope.slider.max)
             onEnd: () ->
               $scope.tototo($scope.slider.min, $scope.slider.max)
 
@@ -118,6 +137,7 @@ tableau
             method: 'GET'
             url:    options.api.base_url + '/currentView/' +  decode[0].tableau_user_id + '/' + decode[0].site + '/' + site_id + '/' + view_id
         .success (result) ->
+            console.log result
             $scope.getAllView = result
         .error (err) ->
             console.log err
@@ -239,8 +259,8 @@ tableau
         if tmpStr.startDate && tmpStr.endDate
           search_date_min = $filter('date')(tmpStr.startDate._d, "yyyy-MM-dd")
           search_date_max = $filter('date')(tmpStr.endDate._d,   "yyyy-MM-dd")
-          $scope.data = []
-          counter     = 0
+          $scope.data     = []
+          counter         = 0
           $scope.testFacture(0, 50)
           if tmpStr.startDate._d.length == 0 && tmpStr.endDate._d.length == 0
               $scope.data = []
