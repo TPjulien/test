@@ -52,6 +52,9 @@ tableau
 
     value = 50
 
+    $scope.$watch 'date', (changed) ->
+        console.log "niggeh !"
+
     $scope.getValues = (min, max) ->
         console.log min
         if min < 1000 || max < 1000
@@ -258,8 +261,19 @@ tableau
             counter     = 0
             $scope.testFacture(0, 50)
 
-    $scope.niggeh = (toto) ->
-      console.log "hello niggeh !"
+    $scope.niggeh = (start, end) ->
+      search_date_min = $filter('date')(start._d, "yyyy-MM-dd")
+      search_date_max = $filter('date')(end._d,   "yyyy-MM-dd")
+      $scope.data     = []
+      counter         = 0
+      $scope.testFacture(0, 50)
+      if start._d.length == 0 && end._d.length == 0
+          $scope.data = []
+          counter     = 0
+          search_date_min = "none"
+          search_date_max = "none"
+          $scope.testFacture(0, 50)
+
     $scope.$watch 'date', (tmpStr) ->
         console.log tmpStr
         if tmpStr.startDate && tmpStr.endDate
@@ -274,6 +288,9 @@ tableau
               search_date_min = "none"
               search_date_max = "none"
               $scope.testFacture(0, 50)
+
+    $scope.$watch 'test.date', (tmpStr) ->
+        console.log "ceci est un test de date"
 
     $scope.checkName = (name) ->
       if !name

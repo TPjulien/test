@@ -21,6 +21,7 @@ tableau = angular.module 'tableauApp', [
   'rzModule'
   'daterangepicker'
   'ngMessages'
+  'obDateRangePicker'
 ]
 
 angular.module('infinite-scroll').value('THROTTLE_MILLISECONDS', 2000)

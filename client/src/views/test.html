@@ -11,7 +11,7 @@
   </div>
 </div>
   <div layout-padding>
-    <div ng-repeat="(key, view) in getAllView.token" ng-if="getAllView.embed_content_type[key] == 'Tableau' " class="{{getAllView.embed_width[key]}} separator" style="height:{{getAllView.embed_height[key]}}">
+    <div ng-repeat="(key, view) in getAllView.token" ng-if="getAllView.embed_content_type[key] == 'Tableau'" class="{{getAllView.embed_width[key]}} separator" style="height:{{getAllView.embed_height[key]}}">
       <iframe   ng-src='{{trustHtml(view, getAllView.path_to_view[key])}}' class="col-md-12 md-whiteframe-3dp" style="height:{{getAllView.embed_height[key]}}; border:transparent; background-color: white;"></iframe>
     </div>
   </div>
@@ -67,8 +67,9 @@
         </div>
       </md-input-container> -->
       <input type="text" data-ng-model="clientName" ng-change="filterName(clientName)" ng-model-options="{debounce: 1000}">
-      <!-- <h2 class="md-subhead">Filtrer par date :</h2>
-      <input date-range-picker class="form-control date-picker" type="text" ng-model="date" ng-change="niggeh()"/> -->
+      <h2 class="md-subhead">Filtrer par date :</h2>
+      <ob-daterangepicker on-apply="niggeh(start, end)" range="vm.range"></ob-daterangepicker>
+      <!-- <input date-range-picker class="form-control date-picker" type="text" data-ng-model="date" options="{eventHandlers: {'ideCalendar.daterangepicker': niggeh() }}"/> -->
       <h2 class="md-subhead">Type d'affichage</h2>
       <md-radio-group ng-model="value" ng-change="getTypeFilter(value)">
         <md-radio-button value="none" class="md-primary"> toutes </md-radio-button>
