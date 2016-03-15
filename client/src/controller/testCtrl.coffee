@@ -52,16 +52,10 @@ tableau
 
     value = 50
 
-    $scope.$watch 'date', (changed) ->
-        console.log "niggeh !"
-
     $scope.getValues = (min, max) ->
-        console.log min
         if min < 1000 || max < 1000
-            console.log "ça passe par la"
             $scope.slider.options.step = 50
         else if min > 1000 && min < 3000 || max > 1000 && max < 3000
-            console.log "ça passe par ici"
             $scope.slider.options.step = 200
         else
             $scope.slider.options.step = 500
@@ -140,7 +134,6 @@ tableau
             method: 'GET'
             url:    options.api.base_url + '/currentView/' +  decode[0].tableau_user_id + '/' + decode[0].site + '/' + site_id + '/' + view_id
         .success (result) ->
-            console.log result
             $scope.getAllView = result
         .error (err) ->
             console.log err
@@ -234,34 +227,32 @@ tableau
       $scope.testFacture(0, 50)
 
     $scope.filterFacture = (tmpStr) ->
-        if (tmpStr.length >= 3 && !isNaN(tmpStr))
-          # search_num_invoice = 491
-          search_num_invoice = tmpStr
-          console.log search_num_invoice
-          $scope.data        = []
-          counter            = 0
-          $scope.testFacture(0, 50)
-        else if (tmpStr.length == 0)
-          search_num_invoice = "none"
-          $scope.data        = []
-          counter            = 0
-          $scope.testFacture(0, 50)
+        if tmpStr != undefined
+          if (tmpStr.length == 0)
+            search_num_invoice = "none"
+            $scope.data        = []
+            counter            = 0
+            $scope.testFacture(0, 50)
+          else
+            search_num_invoice = tmpStr
+            $scope.data        = []
+            counter            = 0
+            $scope.testFacture(0, 50)
 
     $scope.filterName = (tmpStr) ->
-        console.log tmpStr
-        if tmpStr
-          if (tmpStr.length >= 3)
-            search_name = tmpStr
-            $scope.data = []
-            counter     = 0
-            $scope.testFacture(0, 50)
-        else if (!tmpStr)
-            search_name = "none"
-            $scope.data = []
-            counter     = 0
-            $scope.testFacture(0, 50)
+        if tmpStr != undefined
+            if (tmpStr.length == 0)
+                search_name = "none"
+                $scope.data = []
+                counter     = 0
+                $scope.testFacture(0, 50)
+            else
+                search_name = tmpStr
+                $scope.data = []
+                counter     = 0
+                $scope.testFacture(0, 50)
 
-    $scope.niggeh = (start, end) ->
+    $scope.filterDate = (start, end) ->
       search_date_min = $filter('date')(start._d, "yyyy-MM-dd")
       search_date_max = $filter('date')(end._d,   "yyyy-MM-dd")
       $scope.data     = []
@@ -273,24 +264,6 @@ tableau
           search_date_min = "none"
           search_date_max = "none"
           $scope.testFacture(0, 50)
-
-    $scope.$watch 'date', (tmpStr) ->
-        console.log tmpStr
-        if tmpStr.startDate && tmpStr.endDate
-          search_date_min = $filter('date')(tmpStr.startDate._d, "yyyy-MM-dd")
-          search_date_max = $filter('date')(tmpStr.endDate._d,   "yyyy-MM-dd")
-          $scope.data     = []
-          counter         = 0
-          $scope.testFacture(0, 50)
-          if tmpStr.startDate._d.length == 0 && tmpStr.endDate._d.length == 0
-              $scope.data = []
-              counter     = 0
-              search_date_min = "none"
-              search_date_max = "none"
-              $scope.testFacture(0, 50)
-
-    $scope.$watch 'test.date', (tmpStr) ->
-        console.log "ceci est un test de date"
 
     $scope.checkName = (name) ->
       if !name

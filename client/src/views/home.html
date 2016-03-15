@@ -15,7 +15,7 @@
       <div class="col-md-12 live">
         <div ng-repeat="menu in viewMenu" ng-click="goTO(menu.site_id, menu.view_id, menu.view_label)" class="live-tile blue tile-small  md-whiteframe-3dp" style="background-color:transparent; width:120px; height: 120px; opacity: 1; transform: scale(1); transition: 0.5s; box-shadow: none;" data-direction="horizontal" data-mode="flip" data-delay="6000" data-speed="1200">
             <div class="image-container image-format-fill live-slide tiles_size" style="{{getColor(menu.view_color)}};">
-                <img src="{{getImage(menu.view_icon)}}">
+                <img ng-src="{{getImage(menu.view_icon)}}">
             </div>
             <div class="live-slide tiles_size" style="{{getColor(menu.view_color)}};" layout-padding="">
                 <br>
