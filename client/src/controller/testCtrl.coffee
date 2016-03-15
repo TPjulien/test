@@ -75,6 +75,10 @@ tableau
             onEnd: () ->
               $scope.tototo($scope.slider.min, $scope.slider.max)
 
+    $scope.convert = (number) ->
+        numberValue = number
+        numberValue.toFixed(2)
+
     $scope.getColor = (color) ->
       css = 'background-color:' + color
       return css
