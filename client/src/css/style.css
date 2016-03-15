@@ -19,7 +19,10 @@ html {
   /*color:#2196F3;*/
 }
 .wall-fact {
-  background-image: url('../img/Factures_bann.png');
+  font-family: 'Roboto';
+  /*color:       #333333;*/
+  font-weight: bold;
+  /*background-image: url('../img/Factures_bann.png');*/
 }
 
 .wallpaperStyle {

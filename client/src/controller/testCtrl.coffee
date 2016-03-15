@@ -230,9 +230,11 @@ tableau
       counter     = 0
       $scope.testFacture(0, 50)
 
-    $scope.$watch 'test', (tmpStr) ->
+    $scope.filterFacture = (tmpStr) ->
         if (tmpStr.length >= 3 && !isNaN(tmpStr))
+          # search_num_invoice = 491
           search_num_invoice = tmpStr
+          console.log search_num_invoice
           $scope.data        = []
           counter            = 0
           $scope.testFacture(0, 50)
@@ -242,7 +244,8 @@ tableau
           counter            = 0
           $scope.testFacture(0, 50)
 
-    $scope.$watch 'clientName', (tmpStr) ->
+    $scope.filterName = (tmpStr) ->
+        console.log tmpStr
         if tmpStr
           if (tmpStr.length >= 3)
             search_name = tmpStr
@@ -255,7 +258,10 @@ tableau
             counter     = 0
             $scope.testFacture(0, 50)
 
+    $scope.niggeh = (toto) ->
+      console.log "hello niggeh !"
     $scope.$watch 'date', (tmpStr) ->
+        console.log tmpStr
         if tmpStr.startDate && tmpStr.endDate
           search_date_min = $filter('date')(tmpStr.startDate._d, "yyyy-MM-dd")
           search_date_max = $filter('date')(tmpStr.endDate._d,   "yyyy-MM-dd")

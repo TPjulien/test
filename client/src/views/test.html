@@ -11,75 +11,77 @@
   </div>
 </div>
   <div layout-padding>
-    <div ng-repeat="(key, view) in getAllView.token" class="{{getAllView.embed_width[key]}} separator" style="height:{{getAllView.embed_height[key]}}">
-      <iframe ng-if="getAllView.embed_content_type[key] == 'Tableau' "  ng-src='{{trustHtml(view, getAllView.path_to_view[key])}}' class="col-md-12 md-whiteframe-3dp" style="height:{{getAllView.embed_height[key]}}; border:transparent; background-color: white;"></iframe>
-      <div ng-if="getAllView.embed_content_type[key] == 'Factures' ">
-        <div class="md-whiteframe-1dp col-md-12 wall-fact" style="background-color:white; !important; height:100px; padding: 0;" ></div>
-        <div layout-padding class="col-md-9 content md-whiteframe-1dp" style="background-color:#EEEEEE; !important;" when-scrolled="loadMore()">
-          <h1 class="md-title" style="color:#424242" ng-show="data.length == 0">Desolé, mais la recherche à retourné aucun résultat :'(</h1>
-          <p class="md-subhead">{{information}}</p>
-            <div ng-animate="'animate'" ng-repeat="facture in data">
-              <div  md-ink-ripple class="col-md-12" style="text-align:left; margin: 0; padding: 0; height: 17px;" context-menu="menuOptions" ng-click="watchPdf(facture.num.NUM_INVOICE)">
-                <div style="text-align:center; padding:0; margin:0">
-                  <p class="col-md-2 md-whiteframe-1dp" style="background-color:white"  class="md-subhead">{{facture.num.NUM_INVOICE}}</p>
-                  <p class="col-md-2 md-whiteframe-1dp" style="background-color:white;" class="md-subhead">{{checkName(facture.num.TRAVELLER)}}</p>
-                  <p class="col-md-2 md-whiteframe-1dp" style="background-color:white"  class="md-subhead">{{facture.num.DEPARTURE_DATE | date:'dd/MM/yyyy'}}</p>
-                  <p class="col-md-1 md-whiteframe-1dp" style="background-color:white;" class="md-subhead">{{facture.num.ACCOUNT_NUMBER}}</p>
-                  <p class="col-md-1 md-whiteframe-1dp" style="background-color:white;" class="md-subhead">{{convertFacType(facture.num.FAC_TYPE)}}</p>
-                  <p class="col-md-2 md-whiteframe-1dp" style="background-color:white; {{getColorFactureType(facture.num.SUPPLIER)}}" class="md-subhead">{{convertSupplier(facture.num.SUPPLIER)}}</p>
-                  <p class="col-md-2 md-whiteframe-1dp amountStyle" style="{{getColor(facture.num.FAC_TYPE)}}" class="md-subhead">{{facture.num.TOTAL_AMOUNT}} €</p>
-                  <md-tooltip>
-                    {{facture.num.LINE_DESCRIPTION}}
-                  </md-tooltip>
-                </div>
-              </div>
-            </div>
-        </div>
-        <form name="searchForm">
-        <div layout-padding class="col-md-3 md-whiteframe-1dp" style="background-color:white; height: 550px;">
-          <h2 class="md-title">Filtres</h2>
-          <h2 class="md-subhead">Recherche par numéro de facture :</h2>
-          <!-- <md-input-container>
-            <label>Numéro de facture</label>
-            <input for="numberFactureName" required ng-model="test" name="numberFactureName" ng-model-options="{debounce: 1000}" minlength="3" maxlength="10" ng-pattern="/^[0-9]+$/">
-            <div ng-messages="searchForm.numberFactureName.$error" role="alert">
-              <div ng-message-exp="['pattern', 'minlength']">
-                Recherche invalide, veuillez entrer que des chiffres (minimum 3 chiffres - maximum 10 chiffres).
-              </div>
-            </div>
-          </md-input-container> -->
-          <input type="text" data-ng-model="test" ng-model-options="{debounce: 1000}">
-          <h2 class="md-subhead">Recherche par nom du client :</h2>
-          <!-- <md-input-container>
-            <label>Nom du client</label>
-            <input for="clientName" required ng-model="clientName" name="clientName" ng-model-options="{debounce: 1000}" minlength="3" maxlength="10" ng-pattern="/^[a-zA-Z\d\-\_]+$/">
-            <div ng-messages="searchForm.clientName.$error" role="alert">
-              <div ng-message-exp="['pattern']">
-                Recherche invalide, veuillez entrer que des lettres.
-              </div>
-              <div ng-message-exp="['minlength']">
-                Recherche invalide, veuillez entrer 3 lettres ou plus.
-              </div>
-            </div>
-          </md-input-container> -->
-          <input type="text" data-ng-model="clientName" ng-model-options="{debounce: 1000}">
-          <h2 class="md-subhead">Filtrer par date :</h2>
-          <input date-range-picker class="form-control date-picker" type="text" data-ng-model="date"/>
-          <h2 class="md-subhead">Type d'affichage</h2>
-          <md-radio-group ng-model="value" ng-change="getTypeFilter(value)">
-            <md-radio-button value="none" class="md-primary"> toutes </md-radio-button>
-            <md-radio-button value="CommercialInvoice"> Factures seulement </md-radio-button>
-            <md-radio-button value="CreditNoteGoodsAndServices"> Avoir seulement </md-radio-button>
-          </md-radio-group>
-          <h2 class="md-subhead">Filter les prix</h2>
-          <rzslider
-            rz-slider-model="slider.min"
-            rz-slider-high="slider.max"
-            rz-slider-options="slider.options">
-          </rzslider>
-          <!-- <md-slider flex min="0" max="255" ng-model="color.red" aria-label="red" id="red-slider" class> -->
-        </div>
-      </form>
-      </div>
+    <div ng-repeat="(key, view) in getAllView.token" ng-if="getAllView.embed_content_type[key] == 'Tableau' " class="{{getAllView.embed_width[key]}} separator" style="height:{{getAllView.embed_height[key]}}">
+      <iframe   ng-src='{{trustHtml(view, getAllView.path_to_view[key])}}' class="col-md-12 md-whiteframe-3dp" style="height:{{getAllView.embed_height[key]}}; border:transparent; background-color: white;"></iframe>
     </div>
+  </div>
+  <div ng-repeat="(key, view) in getAllView.token" ng-if="getAllView.embed_content_type[key] == 'Factures' ">
+    <div class="md-whiteframe-1dp col-md-12 wall-fact" style="background-color:#EEEEEE; !important;height:32px; padding: 0;" >
+      <p class="md-title" style="text-align: center;">Factures Travel Planet</p>
+    </div>
+    <div layout-padding class="col-md-9 content" style="background-color:#EEEEEE; !important;" when-scrolled="loadMore()">
+      <h1 class="md-title" style="color:#424242" ng-show="data.length == 0">Desolé, mais la recherche à retourné aucun résultat :'(</h1>
+      <p class="md-subhead">{{information}}</p>
+        <div ng-animate="'animate'" ng-repeat="facture in data">
+          <div  md-ink-ripple class="col-md-12" style="text-align:left; margin: 0; padding: 0; height: 17px;" context-menu="menuOptions" ng-click="watchPdf(facture.num.NUM_INVOICE)">
+            <div style="text-align:center; padding:0; margin:0">
+              <p class="col-md-2 md-whiteframe-1dp" style="background-color:white"  class="md-subhead">{{facture.num.NUM_INVOICE}}</p>
+              <p class="col-md-2 md-whiteframe-1dp" style="background-color:white;" class="md-subhead">{{checkName(facture.num.TRAVELLER)}}</p>
+              <p class="col-md-2 md-whiteframe-1dp" style="background-color:white"  class="md-subhead">{{facture.num.DEPARTURE_DATE | date:'dd/MM/yyyy'}}</p>
+              <p class="col-md-1 md-whiteframe-1dp" style="background-color:white;" class="md-subhead">{{facture.num.ACCOUNT_NUMBER}}</p>
+              <p class="col-md-1 md-whiteframe-1dp" style="background-color:white;" class="md-subhead">{{convertFacType(facture.num.FAC_TYPE)}}</p>
+              <p class="col-md-2 md-whiteframe-1dp" style="background-color:white; {{getColorFactureType(facture.num.SUPPLIER)}}" class="md-subhead">{{convertSupplier(facture.num.SUPPLIER)}}</p>
+              <p class="col-md-2 md-whiteframe-1dp amountStyle" style="{{getColor(facture.num.FAC_TYPE)}}" class="md-subhead">{{facture.num.TOTAL_AMOUNT}} €</p>
+              <md-tooltip>
+                {{facture.num.LINE_DESCRIPTION}}
+              </md-tooltip>
+            </div>
+          </div>
+        </div>
+    </div>
+    <form name="searchForm">
+    <div layout-padding class="col-md-3" style="background-color:#EEEEEE; height: 550px;">
+      <!-- <h2 class="md-title">Filtres</h2> -->
+      <h2 class="md-subhead">Recherche par numéro de facture :</h2>
+      <!-- <md-input-container>
+        <label>Numéro de facture</label>
+        <input for="numberFactureName" required ng-model="test" name="numberFactureName" ng-model-options="{debounce: 1000}" minlength="3" maxlength="10" ng-pattern="/^[0-9]+$/">
+        <div ng-messages="searchForm.numberFactureName.$error" role="alert">
+          <div ng-message-exp="['pattern', 'minlength']">
+            Recherche invalide, veuillez entrer que des chiffres (minimum 3 chiffres - maximum 10 chiffres).
+          </div>
+        </div>
+      </md-input-container> -->
+      <input type="text" data-ng-model="test" ng-change="filterFacture(test)" ng-model-options="{debounce: 1000}">
+      <h2 class="md-subhead">Recherche par nom du client :</h2>
+      <!-- <md-input-container>
+        <label>Nom du client</label>
+        <input for="clientName" required ng-model="clientName" name="clientName" ng-model-options="{debounce: 1000}" minlength="3" maxlength="10" ng-pattern="/^[a-zA-Z\d\-\_]+$/">
+        <div ng-messages="searchForm.clientName.$error" role="alert">
+          <div ng-message-exp="['pattern']">
+            Recherche invalide, veuillez entrer que des lettres.
+          </div>
+          <div ng-message-exp="['minlength']">
+            Recherche invalide, veuillez entrer 3 lettres ou plus.
+          </div>
+        </div>
+      </md-input-container> -->
+      <input type="text" data-ng-model="clientName" ng-change="filterName(clientName)" ng-model-options="{debounce: 1000}">
+      <!-- <h2 class="md-subhead">Filtrer par date :</h2>
+      <input date-range-picker class="form-control date-picker" type="text" ng-model="date" ng-change="niggeh()"/> -->
+      <h2 class="md-subhead">Type d'affichage</h2>
+      <md-radio-group ng-model="value" ng-change="getTypeFilter(value)">
+        <md-radio-button value="none" class="md-primary"> toutes </md-radio-button>
+        <md-radio-button value="CommercialInvoice"> Factures seulement </md-radio-button>
+        <md-radio-button value="CreditNoteGoodsAndServices"> Avoir seulement </md-radio-button>
+      </md-radio-group>
+      <h2 class="md-subhead">Filter les prix</h2>
+      <rzslider
+        rz-slider-model="slider.min"
+        rz-slider-high="slider.max"
+        rz-slider-options="slider.options">
+      </rzslider>
+      <!-- <md-slider flex min="0" max="255" ng-model="color.red" aria-label="red" id="red-slider" class> -->
+    </div>
+  </form>
   </div>
