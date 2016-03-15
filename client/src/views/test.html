@@ -31,7 +31,7 @@
               <p class="col-md-1 md-whiteframe-1dp" style="background-color:white;" class="md-subhead">{{facture.num.ACCOUNT_NUMBER}}</p>
               <p class="col-md-1 md-whiteframe-1dp" style="background-color:white;" class="md-subhead">{{convertFacType(facture.num.FAC_TYPE)}}</p>
               <p class="col-md-2 md-whiteframe-1dp" style="background-color:white; {{getColorFactureType(facture.num.SUPPLIER)}}" class="md-subhead">{{convertSupplier(facture.num.SUPPLIER)}}</p>
-              <p class="col-md-2 md-whiteframe-1dp amountStyle" style="{{getColor(facture.num.FAC_TYPE)}}" class="md-subhead">{{convert(facture.num.TOTAL_AMOUNT)}} €</p>
+              <p class="col-md-2 md-whiteframe-1dp amountStyle" style="{{getColor(facture.num.FAC_TYPE)}}" class="md-subhead">{{facture.num.TOTAL_AMOUNT | number:2}} €</p>
               <md-tooltip>
                 {{facture.num.LINE_DESCRIPTION}}
               </md-tooltip>
