@@ -20,7 +20,7 @@
       <p class="md-title" style="text-align: center;">Factures Travel Planet</p>
     </div>
     <div layout-padding class="col-md-9 content" style="background-color:#EEEEEE; !important;" when-scrolled="loadMore()">
-      <h1 class="md-title" style="color:#424242" ng-show="data.length == 0">Desolé, mais la recherche à retourné aucun résultat :'(</h1>
+      <h1 class="md-title" style="color:#424242" ng-show="data.length == 0">0 Resultat(s)</h1>
       <p class="md-subhead">{{information}}</p>
         <div ng-animate="'animate'" ng-repeat="facture in data">
           <div  md-ink-ripple class="col-md-12" style="text-align:left; margin: 0; padding: 0; height: 17px;" context-menu="menuOptions" ng-click="watchPdf(facture.num.NUM_INVOICE)">
