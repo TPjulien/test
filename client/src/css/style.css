@@ -33,9 +33,13 @@ html {
   font-size: 125%;
 }
 
+ob-daterangepicker .picker-dropdown-container .picker-dropdown {
+    width: 105%;
+}
+
 .content
 {
-  height:650px;
+  height:750px;
   overflow: auto;
   /*overflow-y:scroll;*/
 }
