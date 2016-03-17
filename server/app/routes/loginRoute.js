@@ -83,7 +83,7 @@ module.exports = function(router, connection) {
                                           "favorite_background": info_result[0].site_background_theme
                                       }];
                                       var token = jwt.sign(preToken, 'travelSecret', {
-                                          expiresIn: 1400
+                                          expiresIn: 7200
                                       });
                                       res.json({
                                         token: token
