@@ -64,6 +64,7 @@ require('./app/routes/tokenTableauRoute')(router, connection);
 require('./app/routes/templateRoute')(router, connection);
 require('./app/routes/dimensionRoute')(router, connection);
 require('./app/routes/pdfRoute')(router, connection);
+require('./app/routes/rules')(router, connection);
 
 // starting API
 app.use('/api', router);
