@@ -63,7 +63,7 @@ module.exports = function(router, connection) {
             var element            = {};
             var final_object       = [];
             var query              = "SELECT * FROM ?? WHERE ?? = ? AND ?? = ? AND ?? = ?";
-            var table              = ['view_auth_embed_info', 'view_id', req.params.view, 'site_id', req.params.site_id, 'auth_user_role', req.params.customer];
+            var table              = ['view_auth_embed_info', 'view_id', req.params.view, 'site_id', req.params.customer, 'auth_user_role', req.params.auth_role];
             // var query              = "SELECT ti.site_id, \
             //                                  ti.view_id,  \
             //                                  ti.embed_id, \
