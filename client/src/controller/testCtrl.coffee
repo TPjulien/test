@@ -153,7 +153,7 @@ tableau
     getTemplate = (site_id, view_id) ->
         $http
             method: 'GET'
-            url:    options.api.base_url + '/currentView/' +  decode[0].tableau_user_id + '/' + decode[0].site + '/' + site_id + '/' + decode[0].user_auth + '/' + decode[0].user_id
+            url:    options.api.base_url + '/currentView/' +  decode[0].tableau_user_id + '/' + decode[0].site + '/' + site_id + '/' + view_id + '/' + decode[0].user_auth + '/' + decode[0].user_id
         .success (result) ->
             $scope.getAllView = result
         .error (err) ->
