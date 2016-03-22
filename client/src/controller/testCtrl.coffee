@@ -157,7 +157,7 @@ tableau
         .success (result) ->
             $scope.getAllView = result
         .error (err) ->
-            console.log err
+            console.log "ça passe dans l'erreur"
 
     if $stateParams.id == 'default'
         getTemplate(3, 1)

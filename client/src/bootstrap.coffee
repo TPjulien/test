@@ -46,6 +46,10 @@ tableau
             url:          '/dashboard/:client/:id',
             templateUrl:  'templates/test.html',
             controller:   'testCtrl'
+        .state 'home.error',
+            url:          '/error',
+            templateUrl:  'templates/error.html',
+            constroller:  'errorCtrl'
         .state 'home.test.facture',
             url:          '/Factures',
             templateUrl:  'templates/facture.html',

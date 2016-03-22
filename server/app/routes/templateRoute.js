@@ -83,9 +83,7 @@ module.exports = function(router, connection) {
                                              ti.view_id = ? \
                                              AND ?? = ?? AND \
                                              ai.user_id = ?";
-            // var query = "SELECT * FROM ?? WHERE ?? = ? AND ?? = ?";
             var table = [req.params.customer, req.params.view, auth_id, view_auth_id, req.params.user_id];
-            // var table = ['tableau_embed_view_info', 'tableau_customer_id', req.params.customer, 'view_id', req.params.view];
             query     = mysql.format(query, table);
             connection.query(query, function(err, rows) {
                 if (err) {
