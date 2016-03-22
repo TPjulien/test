@@ -15,6 +15,7 @@ tableau
     tiles                 = $(".live-tile")
     hoverEl               = $('.tile-small')
     targetEl              = $('.blur_effect')
+    console.log decode[0].user_auth
     # $scope.menu           = [{
     #     id:           1
     #     name:         "Vue_1"

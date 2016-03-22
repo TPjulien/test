@@ -10,8 +10,8 @@ tableau
                 password: user.password
             }
         .success (data) ->
-            console.log "hello !"
-            # store.set('JWT', data.token)
-            #$location.path "/home"
+            # console.log "hello !"
+            store.set('JWT', data.token)
+            $location.path "/home"
         .error (err) ->
             alertFct.loginError()
