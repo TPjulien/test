@@ -27,10 +27,25 @@ module.exports = function(router, connection) {
                 }
             });
         })
-    router.route('/getViewSite/:site')
+    router.route('/getViewSite/:site/:role_id/:customer_id')
         .get(function(req, res) {
-            var query = "SELECT * from ?? WHERE ?? = ?";
-            var table = ['view_info', 'site_id', req.params.site];
+            var auth_id      = "ai."        + role_id;
+            var view_auth_id = "aei.embed_" + role_id;
+            var query = "select vi.site_id,       \
+                                vi.view_id,       \
+                                vi.view_color,    \
+                                vi.view_icon,     \
+                                vi.view_label,    \
+                                vi.view_position  \
+                                FROM auth_info ai \
+                                LEFT JOIN auth_embed_info aei ON ai.customer_id = aei.customer_id \
+                                LEFT JOIN view_info vi        ON vi.view_id = aei.view_id         \
+                                WHERE ?? = ??      \
+                                AND ai.user_id = ? \
+                                AND vi.site_id = ?;"
+            // var query = "SELECT * from ?? WHERE ?? = ?";
+            var table = [auth_id, view_auth_id, req.params.customer_id, req.params.site];
+            // var table = ['view_info', 'site_id', req.params.site];
             query     = mysql.format(query, table);
             connection.query(query, function(err, rows) {
                 if (err) {

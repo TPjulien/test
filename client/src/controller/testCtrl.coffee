@@ -16,15 +16,6 @@ tableau
     hoverEl               = $('.tile-small')
     targetEl              = $('.blur_effect')
     console.log decode[0].user_auth
-    # $scope.menu           = [{
-    #     id:           1
-    #     name:         "Vue_1"
-    #     templateName: "template de test 1"
-    # }, {
-    #     id:           2
-    #     name:         "Vue_default"
-    #     templateName: "template par défaut"
-    # }]
     $scope.items         = []
     $scope.test          = []
     search_num_invoice   = "none"
@@ -68,7 +59,6 @@ tableau
                 $scope.userText = "Utilisateur"
             else
                 $scope.userText = "Administrateur"
-            # $scope.allow_filters = data
         .error (err) ->
             console.log err
 
