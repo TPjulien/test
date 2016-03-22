@@ -29,8 +29,8 @@ module.exports = function(router, connection) {
         })
     router.route('/getViewSite/:site/:role_id/:customer_id')
         .get(function(req, res) {
-            var auth_id      = "ai."        + role_id;
-            var view_auth_id = "aei.embed_" + role_id;
+            var auth_id      = "ai."        + req.params.role_id;
+            var view_auth_id = "aei.embed_" + req.params.role_id;
             var query = "select vi.site_id,       \
                                 vi.view_id,       \
                                 vi.view_color,    \
