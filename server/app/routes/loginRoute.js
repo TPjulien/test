@@ -80,7 +80,8 @@ module.exports = function(router, connection) {
                                           "lastname":            data[0].user_last_name,
                                           "company":             info_result[0].site_label,
                                           "favorite_color":      info_result[0].site_color_theme,
-                                          "favorite_background": info_result[0].site_background_theme
+                                          "favorite_background": info_result[0].site_background_theme,
+                                          "user_id":             data[0].user_id
                                       }];
                                       var token = jwt.sign(preToken, 'travelSecret', {
                                           expiresIn: 7200

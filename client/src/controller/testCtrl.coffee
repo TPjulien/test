@@ -15,30 +15,34 @@ tableau
     tiles                 = $(".live-tile")
     hoverEl               = $('.tile-small')
     targetEl              = $('.blur_effect')
-    $scope.menu           = [{
-        id:           1
-        name:         "Vue_1"
-        templateName: "template de test 1"
-    }, {
-        id:           2
-        name:         "Vue_default"
-        templateName: "template par défaut"
-    }]
-    $scope.items       = []
-    $scope.test        = []
-    search_num_invoice = "none"
-    search_type        = "none"
-    search_name        = "none"
-    search_price_min   = 0
-    search_price_max   = 10000
-    search_date_min    = "none"
-    search_date_max    = "none"
-    $scope.users       = []
-    $scope.data        = []
-    counter            = 0
-    $scope.date        =
+    # $scope.menu           = [{
+    #     id:           1
+    #     name:         "Vue_1"
+    #     templateName: "template de test 1"
+    # }, {
+    #     id:           2
+    #     name:         "Vue_default"
+    #     templateName: "template par défaut"
+    # }]
+    $scope.items         = []
+    $scope.test          = []
+    search_num_invoice   = "none"
+    search_type          = "none"
+    search_name          = "none"
+    search_price_min     = 0
+    search_price_max     = 10000
+    search_date_min      = "none"
+    search_date_max      = "none"
+    $scope.users         = []
+    $scope.data          = []
+    counter              = 0
+    $scope.allow_filters = []
+    $scope.userText      = null
+    $scope.date          =
         startDate: null
         endDate:   null
+
+
 
     $scope.tototo = (min, max) ->
         search_price_min = min
@@ -46,6 +50,28 @@ tableau
         $scope.data      = []
         counter          = 0
         $scope.testFacture(0, 50)
+
+    getFilter = () ->
+        $http
+            method: "GET"
+            url:    options.api.base_url + '/rules/' + decode[0].site_id
+        .success (data) ->
+            console.log data
+            $scope.allow_filters.rules_filter_canFilterDate         = Boolean(+data[0].rules_filter_canFilterDate)
+            $scope.allow_filters.rules_filter_canFilterNameClient   = Boolean(+data[0].rules_filter_canFilterNameClient)
+            $scope.allow_filters.rules_filter_canFilterNumberClient = Boolean(+data[0].rules_filter_canFilterNumberClient)
+            $scope.allow_filters.rules_filter_canFilterPRice        = Boolean(+data[0].rules_filter_canFilterPRice)
+            $scope.allow_filters.rules_filter_canFilterType         = Boolean(+data[0].rules_filter_canFilterType)
+            $scope.allow_filters.rules_isAdmin                      = Boolean(+data[0].rules_isAdmin)
+            if data[0].rules_isAdmin == 0
+                $scope.userText = "Utilisateur"
+            else
+                $scope.userText = "Administrateur"
+            # $scope.allow_filters = data
+        .error (err) ->
+            console.log err
+
+    getFilter()
 
     min_slider = 0
     max_slider = 0
