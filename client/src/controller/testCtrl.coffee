@@ -95,13 +95,13 @@ tableau
       css = 'background-color:' + color
       return css
 
-    # $http
-    #     method: 'GET'
-    #     url:    options.api.base_url + '/getViewSite' + '/' + decode[0].site_id + '/' + decode[0].user_auth
-    # .success (result) ->
-    #     $scope.viewMenu = result
-    # .error (err) ->
-    #     console.log err
+    $http
+        method: 'GET'
+        url:    options.api.base_url + '/getViewSite' + '/' + decode[0].site_id + '/' + decode[0].user_auth
+    .success (result) ->
+        $scope.viewMenu = result
+    .error (err) ->
+        console.log err
 
     tiles.liveTile()
 
@@ -148,7 +148,7 @@ tableau
     getTemplate = (site_id, view_id) ->
         $http
             method: 'GET'
-            url:    options.api.base_url + '/currentView/' +  decode[0].tableau_user_id + '/' + decode[0].site + '/' + site_id + '/' + view_id + '/' + decode[0].user_auth + '/' + decode[0].user_id
+            url:    options.api.base_url + '/currentView/' +  decode[0].tableau_user_id + '/' + decode[0].site + '/' + site_id + '/' + view_id + '/' + decode[0].user_auth + '/' + site_id
         .success (result) ->
             $scope.getAllView = result
         .error (err) ->
@@ -168,18 +168,18 @@ tableau
     $scope.trustHtml = (token, link) ->
         return $sce.trustAsResourceUrl("http://data.travelplanet.fr/trusted/" + token + link + '&:toolbar=no' )
 
-    # $scope.testFacture = (min, max) ->
-    #     $http
-    #       method: "GET"
-    #       url: options.api.base_url + '/pdfSearchFilter/' + search_type + '/' + search_num_invoice + '/' + search_price_min + '/' + search_price_max + '/' + min + '/' + max + '/' + search_name + '/' + search_date_min + '/' + search_date_max
-    #     .success (result) ->
-    #       number  = 0
-    #       while number < result.length
-    #         $scope.data.push ({num: result[number]})
-    #         number++
-    #       counter = result.length
-    #     .error (err) ->
-    #       console.log err
+    $scope.testFacture = (min, max) ->
+        $http
+          method: "GET"
+          url: options.api.base_url + '/pdfSearchFilter/' + search_type + '/' + search_num_invoice + '/' + search_price_min + '/' + search_price_max + '/' + min + '/' + max + '/' + search_name + '/' + search_date_min + '/' + search_date_max
+        .success (result) ->
+          number  = 0
+          while number < result.length
+            $scope.data.push ({num: result[number]})
+            number++
+          counter = result.length
+        .error (err) ->
+          console.log err
 
     $scope.loadMore = ->
         if $scope.information
