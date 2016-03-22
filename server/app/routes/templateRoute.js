@@ -54,7 +54,7 @@ module.exports = function(router, connection) {
             })
         })
 
-    router.route('/currentView/:user/:site/:customer/:view/:auth_role/:site_id')
+    router.route('/currentView/:user/:site/:customer/:view/:auth_role')
         .get (function(req, res) {
             // var auth_id            = "ai." + req.params.role_id;
             // var view_auth_id       = "aei.embed_" + req.params.role_id;
@@ -63,7 +63,7 @@ module.exports = function(router, connection) {
             var element            = {};
             var final_object       = [];
             var query              = "SELECT * FROM ?? WHERE ?? = ? AND ?? = ? AND ?? = ?";
-            var table              = ['view_auth_embed_info', 'view_id', req.params.view, 'site_id', req.params.site_id, 'auth_user_role', req.params.auth_role];
+            var table              = ['view_auth_embed_info', 'view_id', req.params.view, 'site_id', req.params.site_id, 'auth_user_role', req.params.customer];
             // var query              = "SELECT ti.site_id, \
             //                                  ti.view_id,  \
             //                                  ti.embed_id, \
