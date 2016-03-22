@@ -4,7 +4,7 @@ module.exports = function(router, connection) {
     router.route('/rules/:client_id/:user_id')
         .get (function(req, res) {
             var query = "SELECT * from ?? WHERE ?? = ? AND ? = ?";
-            var table = ['portail_tableau.rules_filter_info', 'client_id', req.params.client_id, 'user_id', req.params.user_id];
+            var table = ['rules_filter_info', 'client_id', req.params.client_id, 'user_id', req.params.user_id];
             query     = mysql.format(query, table);
             connection.query(query, function(err, rows) {
                 if (err) {

@@ -48,6 +48,7 @@ tableau
             method: "GET"
             url:    options.api.base_url + '/rules/' + decode[0].site_id + '/' + decode[0].user_id
         .success (data) ->
+            console.log data
             $scope.allow_filters.rules_filter_canFilterDate         = Boolean(+data[0].rules_filter_canFilterDate)
             $scope.allow_filters.rules_filter_canFilterNameClient   = Boolean(+data[0].rules_filter_canFilterNameClient)
             $scope.allow_filters.rules_filter_canFilterNumberClient = Boolean(+data[0].rules_filter_canFilterNumberClient)
