@@ -46,19 +46,13 @@ tableau
     getFilter = () ->
         $http
             method: "GET"
-            url:    options.api.base_url + '/rules/' + decode[0].site_id
+            url:    options.api.base_url + '/rules/' + decode[0].site_id + '/' + decode[0].user_id
         .success (data) ->
-            console.log data
             $scope.allow_filters.rules_filter_canFilterDate         = Boolean(+data[0].rules_filter_canFilterDate)
             $scope.allow_filters.rules_filter_canFilterNameClient   = Boolean(+data[0].rules_filter_canFilterNameClient)
             $scope.allow_filters.rules_filter_canFilterNumberClient = Boolean(+data[0].rules_filter_canFilterNumberClient)
             $scope.allow_filters.rules_filter_canFilterPRice        = Boolean(+data[0].rules_filter_canFilterPRice)
             $scope.allow_filters.rules_filter_canFilterType         = Boolean(+data[0].rules_filter_canFilterType)
-            $scope.allow_filters.rules_isAdmin                      = Boolean(+data[0].rules_isAdmin)
-            if data[0].rules_isAdmin == 0
-                $scope.userText = "Utilisateur"
-            else
-                $scope.userText = "Administrateur"
         .error (err) ->
             console.log err
 
@@ -102,7 +96,7 @@ tableau
 
     $http
         method: 'GET'
-        url:    options.api.base_url + '/getViewSite/' + decode[0].site_id + '/' + decode[0].user_auth + '/' + decode[0].user_id
+        url:    options.api.base_url + '/getViewSite' + '/' + decode[0].site_id + '/' + decode[0].user_auth
     .success (result) ->
         $scope.viewMenu = result
     .error (err) ->
