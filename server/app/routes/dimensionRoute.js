@@ -51,7 +51,7 @@ module.exports = function(router, connection) {
             query     = mysql.format(query, table);
             connection.query(query, function(err, rows) {
                 if (err) {
-                    res.json({ message: "error"})
+                    res.json({ message: err})
                 } else {
                     res.json(rows);
                 }
