@@ -54,20 +54,44 @@ module.exports = function(router, connection) {
             })
         })
 
-    router.route('/currentView/:user/:site/:customer/:view')
+    router.route('/currentView/:user/:site/:customer/:view/:role_id/:user_id')
         .get (function(req, res) {
+            var auth_id            = "ai." + req.params.role_id;
+            var view_auth_id       = "aei.embed_" + req.params.role_id;
             var completed_requests = 0;
 	          var second_requests    = 0;
             var element            = {};
             var final_object       = [];
-            var query = "SELECT * FROM ?? WHERE ?? = ? AND ?? = ?";
-            var table = ['tableau_embed_view_info', 'tableau_customer_id', req.params.customer, 'view_id', req.params.view];
+            var table = "SELECT ti.site_id, \
+                                ti.view_id,  \
+                                ti.embed_id, \
+                                ti.path_to_view, \
+                                ti.tableau_user_id, \
+                                ti.tableau_server_url, \
+                                ti.token, ti.tableau_customer_id, \
+                                ei.embed_height, \
+                                ei.embed_width, \
+                                ei.embed_height, \
+                                ei.embed_position, \
+                                ei.embed_content_type, \
+                                ei.embed_background_color \
+                                FROM tableau_info ti \
+                                LEFT JOIN auth_embed_info aei ON ti.tableau_customer_id = aei.customer_id AND ti.view_id = aei.view_id \
+                                LEFT JOIN auth_info ai ON ai.customer_id = ti.tableau_customer_id \
+                                LEFT JOIN embed_info ei ON ei.embed_id = ti.embed_id AND ei.site_id = ti.site_id AND ti.view_id = ei.view_id \
+                                WHERE ti.tableau_customer_id = ? AND \
+                                ti.view_id = ? \
+                                AND ?? = ?? AND \
+                                ai.user_id = ?";
+            // var query = "SELECT * FROM ?? WHERE ?? = ? AND ?? = ?";
+            var table = [req.params.customer, req.params.view, auth_id, view_auth_id, req.params.user_id];
+            // var table = ['tableau_embed_view_info', 'tableau_customer_id', req.params.customer, 'view_id', req.params.view];
             query     = mysql.format(query, table);
             connection.query(query, function(err, rows) {
                 if (err) {
                     res.status(400).send("Bad realm !");
                 } else if (rows.length == 0) {
-                    res.status(404).sed("Not found !");
+                    res.status(404).send("Not found !");
                 } else {
                   var site_id                = [];
                   var view_id                = [];

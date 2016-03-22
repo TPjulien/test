@@ -14,7 +14,6 @@ module.exports = function(router, connection) {
         query     = mysql.format(query, table);
         connection.query(query, function(err, rows) {
             if (err) {
-                // console.log("hello !")
                 callback(err, 404);
             } else {
                 callback(null, rows);
