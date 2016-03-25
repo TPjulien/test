@@ -15,9 +15,9 @@
             <div style="text-align:center; padding:0; margin:0">
               <p class="col-md-2 md-whiteframe-1dp" style="background-color:white"  class="md-subhead">{{facture.num.NUM_INVOICE}}</p>
               <p class="col-md-2 md-whiteframe-1dp" style="background-color:white; {{getColorFactureType(facture.num.TRAVELLER)}}" class="md-subhead">{{checkName(facture.num.TRAVELLER)}}</p>
-              <p class="col-md-2 md-whiteframe-1dp" style="background-color:white"  class="md-subhead">{{facture.num.DEPARTURE_DATE | date:'dd/MM/yyyy'}}</p>
-              <p class="col-md-1 md-whiteframe-1dp" style="background-color:white;" class="md-subhead">{{facture.num.ACCOUNT_NUMBER}}</p>
-              <p class="col-md-1 md-whiteframe-1dp" style="background-color:white;" class="md-subhead">{{convertFacType(facture.num.FAC_TYPE)}}</p>
+              <p class="col-md-2 md-whiteframe-1dp" style="background-color:white"  class="md-subhead">{{facture.num.HEADER_DEPARTURE_DATE | date:'dd/MM/yyyy'}}</p>
+              <p class="col-md-1 md-whiteframe-1dp" style="background-color:white;" class="md-subhead">{{facture.num.HEADER_ACCOUNT_NUMBER}}</p>
+              <p class="col-md-1 md-whiteframe-1dp" style="background-color:white;" class="md-subhead">{{convertFacType(facture.num.HEADER_FAC_TYPE)}}</p>
               <p class="col-md-2 md-whiteframe-1dp" style="background-color:white; {{getColorFactureType(facture.num.SUPPLIER)}}" class="md-subhead">{{convertSupplier(facture.num.SUPPLIER)}}</p>
               <p class="col-md-2 md-whiteframe-1dp amountStyle" style="{{getColor(facture.num.FAC_TYPE)}}" class="md-subhead">{{facture.num.TOTAL_AMOUNT | number:2}} €</p>
               <md-tooltip>
@@ -69,7 +69,7 @@
       <div ng-if="allow_filters.rules_filter_canFilterType">
         <h2 class="md-subhead">Type d'affichage</h2>
         <md-radio-group ng-model="value" ng-change="getTypeFilter(value)">
-          <md-radio-button value="none" class="md-primary"> toutes </md-radio-button>
+          <md-radio-button value="none"  class="md-primary"> toutes </md-radio-button>
           <md-radio-button value="CommercialInvoice"> Factures seulement </md-radio-button>
           <md-radio-button value="CreditNoteGoodsAndServices"> Avoir seulement </md-radio-button>
         </md-radio-group>
