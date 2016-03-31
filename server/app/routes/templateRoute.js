@@ -62,7 +62,7 @@ module.exports = function(router, connection) {
                       connection.query(query_three, function(err, rows_Factures) {
                           if (err) {
                               res.status(400).send("Bad Realm !");
-                          } else if (rows_other == 0) {
+                          } else if (rows_Factures == 0) {
                               res.status(400).send("404 Not Found !");
                           } else {
                             resultObject = {};

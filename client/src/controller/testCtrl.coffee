@@ -15,7 +15,7 @@ tableau
     tiles                 = $(".live-tile")
     hoverEl               = $('.tile-small')
     targetEl              = $('.blur_effect')
-    console.log decode[0].user_auth
+    console.log decode[0].user_id
     $scope.items         = []
     $scope.test          = []
     search_num_invoice   = "none"
@@ -148,7 +148,7 @@ tableau
     getTemplate = (site_id, view_id) ->
         $http
             method: 'GET'
-            url:    options.api.base_url + '/currentView/' +  decode[0].tableau_user_id + '/' + decode[0].site + '/' + site_id + '/' + view_id + '/' + decode[0].user_auth
+            url:    options.api.base_url + '/currentView/' +  decode[0].tableau_user_id + '/' + decode[0].site + '/' + site_id + '/' + view_id + '/' + decode[0].user_auth + '/' + decode[0].user_id
         .success (result) ->
             console.log result
             $scope.getAllView = result
