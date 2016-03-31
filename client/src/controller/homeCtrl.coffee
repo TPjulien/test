@@ -96,4 +96,11 @@ tableau
           console.log "successful"
       ), 200)
 
+    $scope.checked = false
+
+    $scope.expandMenu = () ->
+        $scope.checked = true
+    $scope.changeStyle = () ->
+        $scope.checked = false
+
     $scope.toggleLeft = buildDelayedToggler('left')

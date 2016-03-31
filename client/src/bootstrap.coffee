@@ -22,6 +22,8 @@ tableau = angular.module 'tableauApp', [
   'daterangepicker'
   'ngMessages'
   'obDateRangePicker'
+  'pageslide-directive'
+  'ngHamburger'
 ]
 
 angular.module('infinite-scroll').value('THROTTLE_MILLISECONDS', 2000)

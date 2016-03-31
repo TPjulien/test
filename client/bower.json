@@ -46,7 +46,10 @@
     "angularjs-slider": "^2.10.2",
     "angular-daterangepicker": "^0.2.2",
     "angular-messages": "^1.5.0",
-    "ob-daterangepicker": "^0.5.3"
+    "ob-daterangepicker": "^0.5.3",
+    "angular-pageslide-directive": "^1.1.1",
+    "ngMorph": "angular-morph#^0.1.0",
+    "angular-hamburger-toggle": "^0.2.0"
   },
   "resolutions": {
     "angular": "~1.4.7",

@@ -1,6 +1,6 @@
   <div layout-padding>
     <div ng-repeat="(key, view) in getAllView.token" ng-if="getAllView.embed_content_type[key] == 'Tableau'" class="{{getAllView.embed_width[key]}} separator" style="height:{{getAllView.embed_height[key]}}">
-      <iframe   ng-src='{{trustHtml(view, getAllView.path_to_view[key])}}' class="col-md-12 md-whiteframe-3dp" style="height:{{getAllView.embed_height[key]}}; border:transparent; background-color: white;"></iframe>
+      <iframe   ng-src='{{trustHtml(view, getAllView.path_to_view[key])}}' class="col-md-12" style="height:{{getAllView.embed_height[key]}}; border:transparent; background-color: white;"></iframe>
     </div>
   </div>
   <div ng-repeat="(key, view) in getAllView.token" ng-if="getAllView.embed_content_type[key] == 'Factures' ">
