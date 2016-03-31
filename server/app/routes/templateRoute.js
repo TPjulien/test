@@ -29,7 +29,24 @@ module.exports = function(router, connection) {
                         } else if (rows_tableau.length == 0) {
                           res.status(404).send("Not Found !");
                         } else {
-                          res.json(rows_tableau);
+                          tokenObject = {};
+                          for (var x = 0; x < rows_tableau.length; x++) {
+                              request.post('http://' + rows_tableau[x].tableau_server_url + '/trusted', {form:{ username: req.params.user, target_site: req.params.site }}, function(err, resultat, body) {
+                                  tokenObject[x] = { "site_id"             : rows_tableau[x].site_id,
+                                                     "view_id"             : rows_tableau[x].view_id,
+                                                     "embed_id"            : rows_tableau[x].embed_id,
+                                                     "path_to_view"        : rows_tableau[x].path_to_view,
+                                                     "embed_width"         : rows_tableau[x].embed_width,
+                                                     "embed_height"        : rows_tableau[x].embed_height,
+                                                     "embed_position"      : rows_tableau[x].embed_position,
+                                                     "embed_content_type"  : rows_tableau[x].embed_content_type,
+                                                     "tableau_customer_id" : rows_tableau[x].tableau_customer_id,
+                                                     "auth_user_role"      : rows_tableau[x].auth_user_role,
+                                                     "token"               : body
+                                };
+                              });
+                          }
+                          res.json(tokenObject);
                         }
                     });
                         // var site_id                = [];
