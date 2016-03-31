@@ -30,9 +30,9 @@ module.exports = function(router, connection) {
                           res.status(404).send("Not Found !");
                         } else {
                           tokenObject = {};
-                          for (var x = 0; x < rows_tableau.length; x++) {
+                          for (var x = 0; x < (rows_tableau.length - 1); x++) {
                               request.post('http://' + rows_tableau[x].tableau_server_url + '/trusted', {form:{ username: req.params.user, target_site: req.params.site }}, function(err, resultat, body) {
-                                  console.log(rows_tableau[x]);
+                                  console.log(rows_tableau[0]);
                                   tokenObject[x] = { "site_id"             : rows_tableau[x].site_id,
                                                      "view_id"             : rows_tableau[x].view_id,
                                                      "embed_id"            : rows_tableau[x].embed_id,
@@ -45,9 +45,11 @@ module.exports = function(router, connection) {
                                                      "auth_user_role"      : rows_tableau[x].auth_user_role,
                                                      "token"               : body
                                 };
+                                if (x != (rows_tableau.length - 1)) {
+                                    res.json(tokenObject);
+                                }
                               });
                           }
-                          res.json(tokenObject);
                         }
                     });
                         // var site_id                = [];
