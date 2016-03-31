@@ -32,17 +32,17 @@ module.exports = function(router, connection) {
                           tokenObject = {};
                           counter     = 0;
                           for (items in rows_tableau) {
-                              request.post('http://' + rows_tableau[x].tableau_server_url + '/trusted', {form:{ username: req.params.user, target_site: req.params.site }}, function(err, resultat, body) {
-                                  tokenObject[x] = { "site_id"             : rows_tableau[x].site_id,
-                                                     "view_id"             : rows_tableau[x].view_id,
-                                                     "embed_id"            : rows_tableau[x].embed_id,
-                                                     "path_to_view"        : rows_tableau[x].path_to_view,
-                                                     "embed_width"         : rows_tableau[x].embed_width,
-                                                     "embed_height"        : rows_tableau[x].embed_height,
-                                                     "embed_position"      : rows_tableau[x].embed_position,
-                                                     "embed_content_type"  : rows_tableau[x].embed_content_type,
-                                                     "tableau_customer_id" : rows_tableau[x].tableau_customer_id,
-                                                     "auth_user_role"      : rows_tableau[x].auth_user_role,
+                              request.post('http://' + rows_tableau[counter].tableau_server_url + '/trusted', {form:{ username: req.params.user, target_site: req.params.site }}, function(err, resultat, body) {
+                                  tokenObject[counter] = { "site_id"             : rows_tableau[counter].site_id,
+                                                     "view_id"             : rows_tableau[counter].view_id,
+                                                     "embed_id"            : rows_tableau[counter].embed_id,
+                                                     "path_to_view"        : rows_tableau[counter].path_to_view,
+                                                     "embed_width"         : rows_tableau[counter].embed_width,
+                                                     "embed_height"        : rows_tableau[counter].embed_height,
+                                                     "embed_position"      : rows_tableau[counter].embed_position,
+                                                     "embed_content_type"  : rows_tableau[counter].embed_content_type,
+                                                     "tableau_customer_id" : rows_tableau[counter].tableau_customer_id,
+                                                     "auth_user_role"      : rows_tableau[counter].auth_user_role,
                                                      "token"               : body
                                 };
                                 if (counter == (rows_tableau.length - 1)) {
