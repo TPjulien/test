@@ -32,6 +32,7 @@ module.exports = function(router, connection) {
                           tokenObject = {};
                           for (var x = 0; x < rows_tableau.length; x++) {
                               request.post('http://' + rows_tableau[x].tableau_server_url + '/trusted', {form:{ username: req.params.user, target_site: req.params.site }}, function(err, resultat, body) {
+                                  console.log(rows_tableau[x]);
                                   tokenObject[x] = { "site_id"             : rows_tableau[x].site_id,
                                                      "view_id"             : rows_tableau[x].view_id,
                                                      "embed_id"            : rows_tableau[x].embed_id,
