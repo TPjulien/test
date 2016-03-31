@@ -151,7 +151,7 @@ tableau
             url:    options.api.base_url + '/currentView/' +  decode[0].tableau_user_id + '/' + decode[0].site + '/' + site_id + '/' + view_id + '/' + decode[0].user_auth
         .success (result) ->
             console.log result
-            # $scope.getAllView = result
+            $scope.getAllView = result
         .error (err) ->
             console.log "ça passe dans l'erreur"
 
@@ -167,7 +167,8 @@ tableau
             height = { height : "500px" }
 
     $scope.trustHtml = (token, link) ->
-        return $sce.trustAsResourceUrl("http://data.travelplanet.fr/trusted/" + token + link + '&:toolbar=no' )
+        # console.log(token)
+        return $sce.trustAsResourceUrl("http://data.travelplanet.fr/trusted/" + token + '/'+ link + '&:toolbar=no' )
 
     $scope.testFacture = (min, max) ->
         $http

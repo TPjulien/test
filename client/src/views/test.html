@@ -1,9 +1,12 @@
   <div layout-padding>
-    <div ng-repeat="(key, view) in getAllView.token" ng-if="getAllView.embed_content_type[key] == 'Tableau'" class="{{getAllView.embed_width[key]}} separator" style="height:{{getAllView.embed_height[key]}}">
-      <iframe   ng-src='{{trustHtml(view, getAllView.path_to_view[key])}}' class="col-md-12" style="height:{{getAllView.embed_height[key]}}; border:transparent; background-color: white;"></iframe>
+    <div ng-repeat="frame in getAllView" ng-if="frame.embed_content_type == 'Tableau'" class="{{frame.embed_width}} separator" style="height:{{frame.embed_height}}">
+      <!-- <p>{{frame.token}}</p> -->
+      <iframe ng-src='{{trustHtml(frame.token, frame.path_to_view)}}' class="col-md-12" style="height:{{frame.embed_height}}; border:transparent; background-color: white;"></iframe>
     </div>
   </div>
-  <div ng-repeat="(key, view) in getAllView.token" ng-if="getAllView.embed_content_type[key] == 'Factures' ">
+  <!-- Fin de l'iframme -->
+  <div ng-repeat="frame in getAllView">
+
     <div hide-md hide-sm show-gt-md class="col-md-12 wall-fact" style="background-color:white; !important;height:32px; padding: 0;" >
       <p class="md-title" style="text-align: center;">Factures Travel Planet</p>
     </div>
