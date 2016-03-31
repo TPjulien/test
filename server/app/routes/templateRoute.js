@@ -101,6 +101,20 @@ module.exports = function(router, connection) {
                         //     }
                         //   });
                         // }
+                    } else {
+                        var table_name  = rows[0].embed_content_type + "_view_info";
+                        var query_three = "SELECT * FROM ?? WHERE ?? = ? AND ?? = ? AND ?? = ?";
+                        var table_three = [table_name, 'view_id', req.params.view, 'site_id', req.params.customer, 'auth_user_role', req.params.auth_role];
+                        query_three     = mysql.format(query_three, table_three);
+                        connection.query(query_three, function(err, rows_other) {
+                            if (err) {
+                              res.status(400).send("Bad Realm !");
+                            } else if (rows_other == 0) {
+                              res.status(400).send("404 Not Found !");
+                            } else {
+                              res.json(rows_other);
+                            }
+                        });
                     }
                 }
               })
