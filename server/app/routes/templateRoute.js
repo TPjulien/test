@@ -45,7 +45,7 @@ module.exports = function(router, connection) {
                                                      "auth_user_role"      : rows_tableau[x].auth_user_role,
                                                      "token"               : body
                                 };
-                                if (x != (rows_tableau.length - 1)) {
+                                if (x ==  (rows_tableau.length - 1)) {
                                     res.json(tokenObject);
                                 }
                               });
