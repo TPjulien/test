@@ -22,7 +22,7 @@ module.exports = function(router, connection) {
                   if (rows[0].embed_content_type == "Tableau") {
                     var query_two = "SELECT * FROM ?? WHERE ?? = ? AND ?? = ? AND ?? = ?";
                     var table_two = ['tableau_embed_info', 'view_id', req.params.view, 'site_id', req.params.customer, 'auth_user_role', req.params.auth_role];
-                    query = mysql.format(query_two, table_two);
+                    query_two     = mysql.format(query_two, table_two);
                     connection.query(query_two, function(err, rows_tableau) {
                         if (err) {
                           res.status(400).send("Bad Realm !");
