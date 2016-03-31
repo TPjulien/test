@@ -4,7 +4,7 @@ var request   = require('request');
 
 module.exports = function(router, connection) {
 
-    router.route('/currentView/:user/:site/:customer/:view/:auth_role')
+    router.route('/currentView/:user/:site/:customer/:view/:auth_role/:user_id')
         .get (function(req, res) {
             var completed_requests = 0;
 	          var second_requests    = 0;
@@ -55,19 +55,32 @@ module.exports = function(router, connection) {
                           }
                         }
                     });
-                    } else {
-                      // Generic request if we don't find Tableau
-                      var table_name  = rows[0].embed_content_type + "_view_info";
-                      var query_three = "SELECT * FROM ?? WHERE ?? = ? AND ?? = ? AND ?? = ?";
-                      var table_three = [table_name, 'view_id', req.params.view, 'site_id', req.params.customer, 'auth_user_role', req.params.auth_role];
+                  } else if (rows[0].embed_content_type == "Factures" ) {
+                      var query_three = "SELECT * FROM ?? WHERE ?? = ? AND ?? = ?";
+                      var table_three = ['factures_view_info', 'user_id', req.params.user_id, 'auth_user_role', req.params.auth_role,];
                       query_three     = mysql.format(query_three, table_three);
-                      connection.query(query_three, function(err, rows_other) {
+                      connection.query(query_three, function(err, rows_Factures) {
                           if (err) {
                               res.status(400).send("Bad Realm !");
                           } else if (rows_other == 0) {
-                              res.status(404).send("404 Not Found !");
+                              res.status(400).send("404 Not Found !");
                           } else {
-                              res.json(rows_other);
+                            resultObject = {};
+                            resultObject[0] = {
+                                "site_id"                            : rows[0].site_id,
+                                "view_id"                            : rows[0].view_id,
+                                "embed_id"                           : rows[0].embed_id,
+                                "embed_width"                        : rows[0].embed_width,
+                                "embed_height"                       : rows[0].embed_height,
+                                "embed_content_type"                 : rows[0].embed_content_type,
+                                "embed_position"                     : rows[0].embed_position,
+                                "rules_filter_canFilterDate"         : rows_Factures[0].rules_filter_canFilterDate,
+                                "rules_filter_canFilterType"         : rows_Factures[0].rules_filter_canFilterType,
+                                "rules_filter_canFilterNameClient"   : rows_Factures[0].rules_filter_canFilterNameClient,
+                                "rules_filter_canFilterNumberClient" : rows_Factures[0].rules_filter_canFilterNumberClient,
+                                "rules_filter_canFilterPRice"        : rows_Factures[0].rules_filter_canFilterPRice
+                            };
+                            res.json(resultObject);
                           }
                       });
                   }
