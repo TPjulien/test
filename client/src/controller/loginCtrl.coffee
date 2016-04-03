@@ -29,4 +29,5 @@ tableau
             store.set('JWT', data.token)
             $location.path "/home"
         .error (err) ->
+            $mdDialog.hide()
             alertFct.loginError()
