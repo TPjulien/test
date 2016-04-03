@@ -1,11 +1,11 @@
-  <div layout-padding>
+  <div layout-padding class="anim-fade">
     <div ng-repeat="frame in getAllView" ng-if="frame.embed_content_type == 'Tableau'" class="{{frame.embed_width}} separator" style="height:{{frame.embed_height}}">
       <!-- <p>{{frame.token}}</p> -->
-      <iframe ng-src='{{trustHtml(frame.token, frame.path_to_view)}}' class="col-md-12" style="height:{{frame.embed_height}}; border:transparent; background-color: white;"></iframe>
+      <iframe ng-onload="mahefa()" ng-src='{{trustHtml(frame.token, frame.path_to_view)}}' class="col-md-12" style="height:{{frame.embed_height}}; border:transparent; background-color: white;"></iframe>
     </div>
   </div>
   <!-- Fin de l'iframme -->
-  <div ng-repeat="frame in getAllView" ng-if="frame.embed_content_type == 'Factures'" >
+  <div ng-repeat="frame in getAllView" ng-if="frame.embed_content_type == 'Factures'" class="anim-fade" >
     <div hide-md hide-sm show-gt-md class="col-md-12 wall-fact" style="background-color:white; !important;height:32px; padding: 0;" >
       <p class="md-title" style="text-align: center;">Factures Travel Planet</p>
     </div>

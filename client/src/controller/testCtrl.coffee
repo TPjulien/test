@@ -170,18 +170,18 @@ tableau
         # console.log(token)
         return $sce.trustAsResourceUrl("http://data.travelplanet.fr/trusted/" + token + '/'+ link + '&:toolbar=no' )
 
-    $scope.testFacture = (min, max) ->
-        $http
-          method: "GET"
-          url: options.api.base_url + '/pdfSearchFilter/' + search_type + '/' + search_num_invoice + '/' + search_price_min + '/' + search_price_max + '/' + min + '/' + max + '/' + search_name + '/' + search_date_min + '/' + search_date_max
-        .success (result) ->
-          number  = 0
-          while number < result.length
-            $scope.data.push ({num: result[number]})
-            number++
-          counter = result.length
-        .error (err) ->
-          console.log err
+    # $scope.testFacture = (min, max) ->
+    #     $http
+    #       method: "GET"
+    #       url: options.api.base_url + '/pdfSearchFilter/' + search_type + '/' + search_num_invoice + '/' + search_price_min + '/' + search_price_max + '/' + min + '/' + max + '/' + search_name + '/' + search_date_min + '/' + search_date_max
+    #     .success (result) ->
+    #       number  = 0
+    #       while number < result.length
+    #         $scope.data.push ({num: result[number]})
+    #         number++
+    #       counter = result.length
+    #     .error (err) ->
+    #       console.log err
 
     $scope.loadMore = ->
         if $scope.information
@@ -192,7 +192,7 @@ tableau
             $scope.testFacture(counter, counter + 20)
             counter += 20
 
-    $scope.loadMore()
+    # $scope.loadMore()
 
     $scope.menuOptions = [
       [
@@ -288,3 +288,6 @@ tableau
           newName = "Information indisponible"
       else
           newName = name
+
+    $scope.mahefa = () ->
+      console.log("hello !")

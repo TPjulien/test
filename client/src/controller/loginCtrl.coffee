@@ -1,7 +1,22 @@
 tableau
-.controller 'loginCtrl', ($scope, $http, jwtHelper, store, auth, $location, SweetAlert, alertFct) ->
+.controller 'loginCtrl', ($scope, $http, jwtHelper, store, auth, $location, SweetAlert, alertFct, $mdDialog) ->
 
-    $scope.login = (user) ->
+    $scope.test =
+      closeEl: '.close'
+      modal:
+        templateUrl: 'modals/loading.html'
+
+    $scope.showAdvanced = (ev) ->
+
+
+    $scope.login = (user, ev) ->
+        $mdDialog.show
+          controller: null
+          templateUrl: 'modals/loading.html'
+          parent:  angular.element(document.body)
+          targetEvent: ev
+          clickOutsideToClose: false
+          escapeToClose: false
         $http
             method: 'POST'
             url:    options.api.base_url + '/login'
@@ -10,7 +25,7 @@ tableau
                 password: user.password
             }
         .success (data) ->
-            # console.log "hello !"
+            $mdDialog.hide()
             store.set('JWT', data.token)
             $location.path "/home"
         .error (err) ->
