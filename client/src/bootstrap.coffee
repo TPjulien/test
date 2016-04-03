@@ -25,6 +25,7 @@ tableau = angular.module 'tableauApp', [
   'ngMorph'
   'anim-in-out'
   'ngOnload'
+  '720kb.tooltips'
 ]
 
 angular.module('infinite-scroll').value('THROTTLE_MILLISECONDS', 2000)
