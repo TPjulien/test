@@ -1,9 +1,9 @@
 <!-- page normal si jamais le slide est fermé -->
-<div hide-md hide-sm show-gt-md class="menu blureffect fadein fadeout md-whiteframe-1dp" ng-hide="checked" style="background-color:#2C343F; z-index: 1; max-width: 80px;">
+<div hide-md hide-sm show-gt-md class="menu blureffect fadein fadeout md-whiteframe-1dp" ng-hide="checked" style="background-image: url('http://logosmile.net/apricot/assets/img/bg.jpg'); z-index: 1; max-width: 80px;">
   <md-toolbar style="background-color:transparent; padding-top: 75px;">
       <span flex></span>
       <div class="col-md-12 live" style=" padding-left: 10px;">
-        <div tooltips tooltip-template="{{menu.view_label}}" tooltip-side="right" ng-repeat="menu in viewMenu" ng-click="goTO(menu.site_id, menu.view_id, menu.view_label)" class="live-tile blue tile-small  md-whiteframe-3dp" style="background-color:transparent; width:50px; height: 50px; opacity: 1; transform: scale(1); transition: 0.5s; box-shadow: none;" data-direction="horizontal" data-mode="flip" data-delay="6000" data-speed="1200">
+        <div tooltips tooltip-template="{{menu.view_label}}" tooltip-side="right" ng-repeat="(key, menu) in viewMenu" ng-click="goTO(menu.site_id, menu.view_id, menu.view_label)" class="live-tile blue tile-small  md-whiteframe-3dp" style="background-color:transparent; width:50px; height: 50px; opacity: 1; transform: scale(1); transition: 0.5s; box-shadow: none;" data-direction="horizontal" data-mode="{{menu.animation}}" data-delay="{{menu.view_position}}" data-speed="1200" alt="1">
             <div class="live-slide tiles_size" style="{{getColor(menu.view_color)}};" layout-padding="">
                 <img ng-src="{{getImage(menu.view_icon)}}">
             </div>
@@ -16,7 +16,8 @@
 </div>
 
 <!-- Fin du navBar -->
-<md-toolbar class="animate-show index md-whiteframe-1dp" style="background-color:#00BCD4; position:fixed; z-index:1 !important; min-height:55px" >
+<!-- <md-toolbar class="animate-show index md-whiteframe-1dp" style="background-color:#00BCD4; position:fixed; z-index:1 !important; min-height:55px" > -->
+<md-toolbar class="animate-show index" style="background-image: url('http://logosmile.net/apricot/assets/img/bg.jpg'); background-size: cover; position:fixed; z-index:1 !important; min-height:55px" >
   <div class="md-toolbar-tools" style="height: 65px">
     <md-button class="md-icon-button" aria-label="Settings" ng-click="toggleLeft()">
       <md-icon  md-svg-icon="img/icons/humberger.svg"></md-icon>
@@ -33,6 +34,7 @@
 
 <!-- nav de test -->
 <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" style="position:fixed; background-color:#2C343F;">
+<!-- <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" style="position:fixed; background-image: url('http://logosmile.net/apricot/assets/img/bg.jpg');"> -->
   <div style="padding: 9px; background-color:#03a9f4">
     <p class="md-title travelTitle" md-ink-ripple ng-click="changeStyle()" style="margin-top:5px">TRAVEL PLANET</p>
   </div>
@@ -43,7 +45,6 @@
       <span flex></span>
       <div padding="" style="text-align:center">
           <div class="md-title">{{firstname}} {{lastname}}</div>
-          <div class="md-body-1">{{company}}</div>
       </div>
       <div class="col-md-12 live">
         <div ng-repeat="menu in viewMenu" ng-click="goTO(menu.site_id, menu.view_id, menu.view_label)" class="live-tile blue tile-small  md-whiteframe-3dp" style="background-color:transparent; width:120px; height: 120px; opacity: 1; transform: scale(1); transition: 0.5s; box-shadow: none;" data-direction="horizontal" data-mode="flip" data-delay="6000" data-speed="1200">

@@ -66,7 +66,7 @@ tableau
     ]
     $httpProvider.interceptors.push 'jwtInterceptor'
 .run ($rootScope, jwtHelper, $location, store, alertFct) ->
-    $rootScope.wallpaper = "url('https://wallpaperscraft.com/image/spots_background_light_blur_68629_1920x1080.jpg')"
+    $rootScope.color = "#03a9f4"
     $rootScope.$on '$locationChangeStart', ->
         token = store.get('JWT')
         if token

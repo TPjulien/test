@@ -1,10 +1,18 @@
-<div class="login-card">
-  <div class="col-md-12">
-    <form name="loginForm">
-      <div id = "img"> </div>
-      <input class="col-md-12" type="text" name="user" ng-model="project.username" placeholder="Nom d'utilisateur" required="true">
-      <input class="col-md-12" type="password" name="pass" ng-model="project.password" placeholder="Mot de passe" required="true">
-      <md-button ng-click="login(project, $event)" ng-disabled="loginForm.$invalid" flex name="login" class="col-lg-12 md-primary md-raised" style="margin:0px; background-color:#0077BB;" value="Connexion">Connexion</md-button>
-    </form>
+<div style="background-color:#03a9f4; width: 100%; height:100%; position:fixed">
+  <div class="col-md-12" style="height:100%; padding-left:0px; padding-right:0px">
+  <div class="col-md-4" style="height:100%; background-color:#64B5F6" >
+    <div id = "img"> </div>
+  </div>
+    <div class="col-md-8" style="top:48%; padding-left: 140px;">
+      <div class="col-md-4">
+      <form autocomplete="off" name="loginForm" style="padding: 9px 0;">
+        <input class="col-md-12 input-travel" type="text" name="user" ng-model="project.username"     placeholder="Utilisateur" required="true">
+        <input class="col-md-12 input-travel" type="password" name="pass" ng-model="project.password" placeholder="Mot de passe" required="true">
+      </form>
+    </div>
+    <md-button ng-click="login(project, $event)" ng-disabled="loginForm.$invalid" flex name="login" class="col-md-1 md-primary md-raised travelButton" style="background-color:#FF0015; height: 125px;" value="Connexion">
+      <img src="http://www.kidsinternationalpreschool.com/images/summer/whitearrow.png" height="125" width="125">
+    </md-button>
+    </div>
   </div>
 </div>

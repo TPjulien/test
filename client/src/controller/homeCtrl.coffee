@@ -2,10 +2,7 @@ tableau
 .controller 'homeCtrl', ($scope, $mdSidenav, $timeout, logoutFct, jwtHelper, store, $http, $stateParams, $location, $interval, $rootScope) ->
     token  = store.get('JWT')
     decode = jwtHelper.decodeToken(token)
-    if decode[0].favorite_background
-        $rootScope.wallpaper  = "url('" + decode[0].favorite_background + "')"
-    else
-        $rootScope.wallpaper = "url('http://www.travelimg.org/wp-content/uploads/2015/02/full_hd_travel_wallpapers_21.jpg')"
+    $rootScope.color = "#EAEAEA"
 
     $scope.firstname      = decode[0].firstname
     $scope.lastname       = decode[0].lastname
@@ -36,13 +33,28 @@ tableau
             anchor.href     = blobURL
             anchor.click()
 
+    getRandomNumber = (number) ->
+      return Math.floor((Math.random() * 6000 ) + (number * 1000))
+
+    getRandomAnimation = () ->
+      random = Math.floor((Math.random() * 2) + 1)
+      if random == 1
+        return "flip"
+      else if random == 2
+        return "carousel"
+      else
+        return "none"
 
     $http
         method: 'GET'
         url:    options.api.base_url + '/getViewSite' + '/' + decode[0].site_id + '/' + decode[0].user_auth
     .success (result) ->
-        console.log result
         $scope.viewMenu = result
+        for values in $scope.viewMenu
+          values.view_position = getRandomNumber(1)
+          values.animation         = null
+          values.animation         = getRandomAnimation()
+        console.log result
     .error (err) ->
         console.log err
 
@@ -95,7 +107,17 @@ tableau
 
     $scope.checked = false
 
+    # $scope.getRandom = (number) ->
+    #   return getRandomNumber(number)
+      # return 6000
+      # return Math.floor((Math.random() * 6) + 1)
+
+    # $scope.normalRandom = getRandomNumber()
+      # return 1200
+      # return 1200
+
     $scope.expandMenu = () ->
+
         $scope.checked = true
     $scope.changeStyle = () ->
         $scope.checked = false
