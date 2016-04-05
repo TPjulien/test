@@ -352,11 +352,17 @@ h1 {
   -webkit-appearance: none;
   background: #fff;
   border: 1px solid #d9d9d9;
-  border-top: 1px solid #c0c0c0;*/
+  border-top: 1px solid #c0c0c0;*/*/
   /* border-radius: 2px; */
   /*padding: 0 8px;
   box-sizing: border-box;
   -moz-box-sizing: border-box;*/
+}
+
+.sweet-alert fieldset {
+    display: none;
+    border: none;
+    position: relative;
 }
 
 .login-card input[type=text]:hover, input[type=password]:hover {
@@ -505,7 +511,8 @@ fieldset {
 }
 
 iframe {
- background-image: url("https://thomas.vanhoutte.be/miniblog/wp-content/uploads/triangle_square_animation.gif");
+ /*background-image: url("https://thomas.vanhoutte.be/miniblog/wp-content/uploads/triangle_square_animation.gif");*/
+    background-image: url("https://thomas.vanhoutte.be/miniblog/wp-content/uploads/light_blue_material_design_loading.gif");
     background-repeat: no-repeat;
     background-position: 50% 50%;
 }

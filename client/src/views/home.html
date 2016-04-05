@@ -2,16 +2,27 @@
 <div hide-md hide-sm show-gt-md class="menu blureffect fadein fadeout md-whiteframe-1dp" ng-hide="checked" style="background-image: url('http://logosmile.net/apricot/assets/img/bg.jpg'); z-index: 1; max-width: 80px;">
   <md-toolbar style="background-color:transparent; padding-top: 75px;">
       <span flex></span>
-      <div class="col-md-12 live" style=" padding-left: 10px;">
-        <div tooltips tooltip-template="{{menu.view_label}}" tooltip-side="right" ng-repeat="(key, menu) in viewMenu" ng-click="goTO(menu.site_id, menu.view_id, menu.view_label)" class="live-tile blue tile-small  md-whiteframe-3dp" style="background-color:transparent; width:50px; height: 50px; opacity: 1; transform: scale(1); transition: 0.5s; box-shadow: none;" data-direction="horizontal" data-mode="{{menu.animation}}" data-delay="{{menu.view_position}}" data-speed="1200" alt="1">
-            <div class="live-slide tiles_size" style="{{getColor(menu.view_color)}};" layout-padding="">
+
+      <div ng-click="goTO(menu.site_id, menu.view_id, menu.view_label)" ng-repeat="menu in viewMenu" class="tile-small" data-role="tile" data-effect="{{menu.animation}}" style="background-color:blue">
+          <div class="tile-content">
+              <div class="live-slide tiles_size" style="{{getColor(menu.view_color)}};" layout-padding="">
+                  <img ng-src="{{getImage(menu.view_icon)}}">
+              </div>
+              <div class="live-slide tiles_size" style="{{getColor(menu.view_color)}};" layout-padding="">
+                  <img ng-src="{{getImage(menu.view_icon)}}">
+              </div>
+          </div>
+      </div>
+      <!-- <div class="col-md-12 live" style=" padding-left: 10px;">
+        <div tooltips tooltip-template="{{menu.view_label}}" tooltip-side="right" ng-repeat="(key, menu) in viewMenu" startNow="true" ng-click="goTO(menu.site_id, menu.view_id, menu.view_label)" class="live-tile blue tile-small  md-whiteframe-3dp" style="background-color:transparent; width:50px; height: 50px; opacity: 1; transform: scale(1); transition: 0.5s; box-shadow: none;" data-direction="horizontal" data-mode="{{menu.animation}}" data-delay="{{menu.view_position}}" data-speed="1200" alt="1">
+            <div class="live-tile tiles_size" style="{{getColor(menu.view_color)}};" layout-padding="">
                 <img ng-src="{{getImage(menu.view_icon)}}">
             </div>
-            <div class="live-slide tiles_size" style="{{getColor(menu.view_color)}};" layout-padding="">
+            <div class="live-tile tiles_size" style="{{getColor(menu.view_color)}};" layout-padding="">
                 <img ng-src="{{getImage(menu.view_icon)}}">
             </div>
         </div>
-      </div>
+      </div> -->
   </md-toolbar>
 </div>
 

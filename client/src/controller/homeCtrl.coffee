@@ -1,5 +1,5 @@
 tableau
-.controller 'homeCtrl', ($scope, $mdSidenav, $timeout, logoutFct, jwtHelper, store, $http, $stateParams, $location, $interval, $rootScope) ->
+.controller 'homeCtrl', ($scope, $mdSidenav, $timeout, logoutFct, jwtHelper, store, $http, $stateParams, $location, $interval, $rootScope, $sce) ->
     token  = store.get('JWT')
     decode = jwtHelper.decodeToken(token)
     $rootScope.color = "#EAEAEA"
@@ -36,14 +36,26 @@ tableau
     getRandomNumber = (number) ->
       return Math.floor((Math.random() * 6000 ) + (number * 1000))
 
+    $scope.toto = [{
+        name: "hello"
+    },{
+        name: "hello2"
+    }, {
+        name: "hello3"
+    }]
+
+
     getRandomAnimation = () ->
       random = Math.floor((Math.random() * 2) + 1)
       if random == 1
-        return "flip"
+        return "slideUpDown"
       else if random == 2
-        return "carousel"
+        return "slideLeft"
       else
         return "none"
+
+    $(document).ready ->
+        $('.live-tile').liveTile()
 
     $http
         method: 'GET'
@@ -52,8 +64,8 @@ tableau
         $scope.viewMenu = result
         for values in $scope.viewMenu
           values.view_position = getRandomNumber(1)
-          values.animation         = null
-          values.animation         = getRandomAnimation()
+          values.animation     = null
+          values.animation     = getRandomAnimation()
         console.log result
     .error (err) ->
         console.log err
@@ -65,6 +77,7 @@ tableau
     $scope.view = null
 
     $location.path '/home/dashboard/' + decode[0].site_id + '/1'
+    # $location.path '/home/dashboard/' + decode[0].site_id + '/3'
 
 
     $scope.menu = [{

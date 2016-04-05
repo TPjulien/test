@@ -38,7 +38,6 @@
     "foundation": "zurb/bower-foundation#~5.4.7",
     "angular-ui-router": "~0.2.15",
     "ng-dialog": "~0.5.6",
-    "metro": "~3.0.13",
     "metrojs": "~0.9.77",
     "ngInfiniteScroll": "~1.2.2",
     "angular-bootstrap-contextmenu": "~0.9.6",
@@ -52,7 +51,9 @@
     "angular-hamburger-toggle": "^0.2.0",
     "angular-ui-router-anim-in-out": "^1.0.2",
     "ng-onload": "^0.2.1",
-    "angular-tooltips": "^1.0.8"
+    "angular-tooltips": "^1.0.8",
+    "metro-dist": "^3.0.14",
+    "quick-ng-repeat": "quick-ngrepeat#*"
   },
   "resolutions": {
     "angular": "~1.4.7",

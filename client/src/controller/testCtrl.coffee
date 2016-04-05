@@ -35,7 +35,7 @@ tableau
         endDate:   null
 
 
-
+    console.log decode
     $scope.tototo = (min, max) ->
         search_price_min = min
         search_price_max = max
@@ -105,6 +105,7 @@ tableau
 
     tiles.liveTile()
 
+
     $scope.downloadPdf = (selected) ->
         $http
             method      : "GET"
@@ -128,24 +129,25 @@ tableau
             fileUrl        = URL.createObjectURL(file)
             $window.open(fileUrl,'C-Sharpcorner', 'width=600,height=800')
 
-    hoverEl.on('mouseenter', () ->
-        targetEl.addClass("use_blur")
-        hoverEl.addClass("use_blur")
-        hoverEl
-        .css({'-webkit-filter': 'blur(5px)'
-        })
-        $(this).css({'-webkit-filter': 'blur(0px)'})
-    )
-
-    hoverEl.on('mouseleave', () ->
-        targetEl.removeClass("use_blur")
-        hoverEl.removeClass("use_blur")
-        hoverEl
-        .css({'-webkit-filter': 'blur(0px)'
-        })
-    )
+    # hoverEl.on('mouseenter', () ->
+    #     targetEl.addClass("use_blur")
+    #     hoverEl.addClass("use_blur")
+    #     hoverEl
+    #     .css({'-webkit-filter': 'blur(5px)'
+    #     })
+    #     $(this).css({'-webkit-filter': 'blur(0px)'})
+    # )
+    #
+    # hoverEl.on('mouseleave', () ->
+    #     targetEl.removeClass("use_blur")
+    #     hoverEl.removeClass("use_blur")
+    #     hoverEl
+    #     .css({'-webkit-filter': 'blur(0px)'
+    #     })
+    # )
 
     getTemplate = (site_id, view_id) ->
+        console.log(decode[0])
         $http
             method: 'GET'
             url:    options.api.base_url + '/currentView/' +  decode[0].tableau_user_id + '/' + decode[0].site + '/' + site_id + '/' + view_id + '/' + decode[0].user_auth + '/' + decode[0].user_id
@@ -168,7 +170,7 @@ tableau
 
     $scope.trustHtml = (token, link) ->
         # console.log(token)
-        return $sce.trustAsResourceUrl("http://data.travelplanet.fr/trusted/" + token + '/'+ link + '&:toolbar=no' )
+        return $sce.trustAsResourceUrl("http://data.travelplanet.fr/trusted/" + token + link + '&:toolbar=no' )
 
     # $scope.testFacture = (min, max) ->
     #     $http
