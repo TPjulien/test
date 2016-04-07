@@ -1,7 +1,7 @@
 tableau
 .controller 'homeCtrl', ($scope, $mdSidenav, $timeout, logoutFct, jwtHelper, store, $http, $stateParams, $location, $interval, $rootScope, $sce) ->
-    token  = store.get('JWT')
-    decode = jwtHelper.decodeToken(token)
+    token            = store.get('JWT')
+    decode           = jwtHelper.decodeToken(token)
     $rootScope.color = "#EAEAEA"
 
     $scope.firstname      = decode[0].firstname
@@ -9,7 +9,6 @@ tableau
     $scope.favorite_color = decode[0].favorite_color
     $scope.company        = decode[0].company
     $scope.logo           = decode[0].logo
-
 
     $scope.goTO = (id, view, view_label) ->
       $mdSidenav('left').close()
@@ -20,6 +19,7 @@ tableau
       css = 'background-color:' + color
       return css
 
+    # a mettre dans facture
     $scope.getFacture = () ->
         $http
             method      : "GET"
@@ -36,26 +36,14 @@ tableau
     getRandomNumber = (number) ->
       return Math.floor((Math.random() * 6000 ) + (number * 1000))
 
-    $scope.toto = [{
-        name: "hello"
-    },{
-        name: "hello2"
-    }, {
-        name: "hello3"
-    }]
-
-
     getRandomAnimation = () ->
-      random = Math.floor((Math.random() * 2) + 1)
+      random = Math.floor((Math.random() * 3) + 1)
       if random == 1
         return "slideUpDown"
       else if random == 2
         return "slideLeft"
       else
-        return "none"
-
-    $(document).ready ->
-        $('.live-tile').liveTile()
+        return "slideRight"
 
     $http
         method: 'GET'
@@ -66,25 +54,14 @@ tableau
           values.view_position = getRandomNumber(1)
           values.animation     = null
           values.animation     = getRandomAnimation()
-        console.log result
+          # une fois qu'on a tous les menus, on lui demande d'aller sur la premiere page par défaut
+          $location.path '/home/dashboard/' + decode[0].site_id + '/' + $scope.viewMenu[0].view_id
+          $
     .error (err) ->
         console.log err
 
-    ticket = []
     $scope.logOut = () ->
         logoutFct.logOut()
-
-    $scope.view = null
-
-    $location.path '/home/dashboard/' + decode[0].site_id + '/1'
-    # $location.path '/home/dashboard/' + decode[0].site_id + '/3'
-
-
-    $scope.menu = [{
-        id:           1
-        name:         "Vue_1"
-        templateName: "template de test 1"
-    }]
 
     tick = () ->
         $scope.clock = Date.now()
@@ -96,9 +73,7 @@ tableau
         url = "img/" + src
         return url
 
-    $scope.goToView = (id) ->
-        $location.path '/home/dashboard/' + decode[0].username + '/' + id + '/Factures'
-
+    # The sideBar
     debounce = (func, wait, context) ->
       timer = undefined
       debounced = () ->
@@ -117,22 +92,5 @@ tableau
         .then ->
           console.log "successful"
       ), 200)
-
-    $scope.checked = false
-
-    # $scope.getRandom = (number) ->
-    #   return getRandomNumber(number)
-      # return 6000
-      # return Math.floor((Math.random() * 6) + 1)
-
-    # $scope.normalRandom = getRandomNumber()
-      # return 1200
-      # return 1200
-
-    $scope.expandMenu = () ->
-
-        $scope.checked = true
-    $scope.changeStyle = () ->
-        $scope.checked = false
 
     $scope.toggleLeft = buildDelayedToggler('left')

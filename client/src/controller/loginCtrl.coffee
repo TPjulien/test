@@ -6,17 +6,14 @@ tableau
       modal:
         templateUrl: 'modals/loading.html'
 
-    $scope.showAdvanced = (ev) ->
-
-
     $scope.login = (user, ev) ->
         $mdDialog.show
-          controller: null
-          templateUrl: 'modals/loading.html'
-          parent:  angular.element(document.body)
-          targetEvent: ev
+          controller:          null
+          templateUrl:         'modals/loading.html'
+          parent:              angular.element(document.body)
+          targetEvent:         ev
           clickOutsideToClose: false
-          escapeToClose: false
+          escapeToClose:       false
         $http
             method: 'POST'
             url:    options.api.base_url + '/login'

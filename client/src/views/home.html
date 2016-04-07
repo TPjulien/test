@@ -1,9 +1,8 @@
-<!-- page normal si jamais le slide est fermé -->
+<!-- mini nav-bar -->
 <div hide-md hide-sm show-gt-md class="menu blureffect fadein fadeout md-whiteframe-1dp" ng-hide="checked" style="background-image: url('http://logosmile.net/apricot/assets/img/bg.jpg'); z-index: 1; max-width: 80px;">
   <md-toolbar style="background-color:transparent; padding-top: 75px;">
       <span flex></span>
-
-      <div ng-click="goTO(menu.site_id, menu.view_id, menu.view_label)" ng-repeat="menu in viewMenu" class="tile-small" data-role="tile" data-effect="{{menu.animation}}" style="background-color:blue">
+      <div tooltips tooltip-template="{{menu.view_label}}" tooltip-side="right" ng-click="goTO(menu.site_id, menu.view_id, menu.view_label)" ng-repeat="menu in viewMenu" class="tile-small" data-role="tile" data-effect="{{menu.animation}}">
           <div class="tile-content">
               <div class="live-slide tiles_size" style="{{getColor(menu.view_color)}};" layout-padding="">
                   <img ng-src="{{getImage(menu.view_icon)}}">
@@ -13,21 +12,10 @@
               </div>
           </div>
       </div>
-      <!-- <div class="col-md-12 live" style=" padding-left: 10px;">
-        <div tooltips tooltip-template="{{menu.view_label}}" tooltip-side="right" ng-repeat="(key, menu) in viewMenu" startNow="true" ng-click="goTO(menu.site_id, menu.view_id, menu.view_label)" class="live-tile blue tile-small  md-whiteframe-3dp" style="background-color:transparent; width:50px; height: 50px; opacity: 1; transform: scale(1); transition: 0.5s; box-shadow: none;" data-direction="horizontal" data-mode="{{menu.animation}}" data-delay="{{menu.view_position}}" data-speed="1200" alt="1">
-            <div class="live-tile tiles_size" style="{{getColor(menu.view_color)}};" layout-padding="">
-                <img ng-src="{{getImage(menu.view_icon)}}">
-            </div>
-            <div class="live-tile tiles_size" style="{{getColor(menu.view_color)}};" layout-padding="">
-                <img ng-src="{{getImage(menu.view_icon)}}">
-            </div>
-        </div>
-      </div> -->
   </md-toolbar>
 </div>
 
-<!-- Fin du navBar -->
-<!-- <md-toolbar class="animate-show index md-whiteframe-1dp" style="background-color:#00BCD4; position:fixed; z-index:1 !important; min-height:55px" > -->
+<!-- toolbar -->
 <md-toolbar class="animate-show index" style="background-image: url('http://logosmile.net/apricot/assets/img/bg.jpg'); background-size: cover; position:fixed; z-index:1 !important; min-height:55px" >
   <div class="md-toolbar-tools" style="height: 65px">
     <md-button class="md-icon-button" aria-label="Settings" ng-click="toggleLeft()">
@@ -43,37 +31,38 @@
   </div>
 </md-toolbar>
 
-<!-- nav de test -->
+<!-- nav caché -->
 <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" style="position:fixed; background-color:#2C343F;">
-<!-- <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" style="position:fixed; background-image: url('http://logosmile.net/apricot/assets/img/bg.jpg');"> -->
   <div style="padding: 9px; background-color:#03a9f4">
-    <p class="md-title travelTitle" md-ink-ripple ng-click="changeStyle()" style="margin-top:5px">TRAVEL PLANET</p>
+    <p class="md-title travelTitle" style="margin-top:5px">TRAVEL PLANET</p>
   </div>
   <md-toolbar style="background-color:transparent;" style=" padding-bottom: 30px;">
       <div>
           <img id="imgSidenav" ng-src="{{logo}}"/>
       </div>
       <span flex></span>
-      <div padding="" style="text-align:center">
+      <div padding="" style="text-align:center; padding-bottom: 20px">
           <div class="md-title">{{firstname}} {{lastname}}</div>
       </div>
-      <div class="col-md-12 live">
-        <div ng-repeat="menu in viewMenu" ng-click="goTO(menu.site_id, menu.view_id, menu.view_label)" class="live-tile blue tile-small  md-whiteframe-3dp" style="background-color:transparent; width:120px; height: 120px; opacity: 1; transform: scale(1); transition: 0.5s; box-shadow: none;" data-direction="horizontal" data-mode="{{menu.animation}}" data-delay="{{menu.view_position}}" data-speed="1200">
-            <div class="image-container image-format-fill live-slide tiles_size" style="{{getColor(menu.view_color)}};" layout-padding="">
-                <img ng-src="{{getImage(menu.view_icon)}}">
-            </div>
-            <div class="live-slide tiles_size" style="{{getColor(menu.view_color)}};" layout-padding="">
-                <br>
-                <h1 style="text-align:center; font-weight: bold;" class="md-title">{{menu.view_label}}</h1>
+      <div flex=""></div>
+      <div class="col-md-12">
+        <div tooltips tooltip-template="{{menu.view_label}}" tooltip-side="right" ng-click="goTO(menu.site_id, menu.view_id, menu.view_label)" ng-repeat="menu in viewMenu" class="tile-square" data-role="tile" data-effect="{{menu.animation}}">
+            <div class="tile-content">
+                <div class="live-slide tiles_size" style="{{getColor(menu.view_color)}};" layout-padding="">
+                    <img ng-src="{{getImage(menu.view_icon)}}">
+                </div>
+                <div class="live-slide tiles_size" style="{{getColor(menu.view_color)}};" layout-padding="">
+                    <img ng-src="{{getImage(menu.view_icon)}}">
+                </div>
             </div>
         </div>
       </div>
   </md-toolbar>
 </md-sidenav>
 
-<div class="wallpaperStyle">
-</div>
+<div style="padding:40px"></div>
 
+<!-- state home -->
 <div layout="row">
   <div  class="col-md-12 col-xs-offset-1">
     <div ui-view class="anim-in-out">

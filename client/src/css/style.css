@@ -1,28 +1,21 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto:400,100);
 
 html {
-  /*background-image: url('https://wallpaperscraft.com/image/spots_background_light_blur_68629_1920x1080.jpg');*/
   background-attachment:fixed;
   transition: background 1s linear;
   -moz-transition: background 1s linear; /* Firefox 4 */
   -webkit-transition: background 1s linear; /* Safari and Chrome */
   -o-transition: background 1s linear; /* Opera */
   -ms-transition: background 1s linear; /* Explorer 10 */
-  /*background-color: #E9F0F5;*/
-
 }
-
 
 .amountStyle {
   background-color:white;
   font-weight: bold;
-  /*color:#2196F3;*/
 }
 .wall-fact {
   font-family: 'Roboto';
-  /*color:       #333333;*/
   font-weight: bold;
-  /*background-image: url('../img/Factures_bann.png');*/
 }
 
 .wallpaperStyle {
@@ -59,7 +52,6 @@ ob-daterangepicker .picker-dropdown-container .picker-dropdown {
 {
   height:750px;
   overflow: auto;
-  /*overflow-y:scroll;*/
 }
 
 .fadein,
@@ -132,11 +124,6 @@ ob-daterangepicker .picker-dropdown-container .picker-dropdown {
 
 .use_blur:not(.tile-small) {
     opacity: 0;
-    /*filter: blur(5px);
-    -webkit-filter: blur(5px);
-    -moz-filter: blur(5px);
-    -o-filter: blur(5px);
-    -ms-filter: blur(5px);*/
 }
 
 .blur_effect {
@@ -155,9 +142,6 @@ ob-daterangepicker .picker-dropdown-container .picker-dropdown {
   -o-filter: blur(0px);
   -ms-filter: blur(0px);
 }
-/*.tile-small:hover:after{
-    background: transparent;
-}*/
 
 .tile-small:hover + #blur {
   filter: blur(5px);
@@ -166,14 +150,10 @@ ob-daterangepicker .picker-dropdown-container .picker-dropdown {
   -o-filter: blur(5px);
   -ms-filter: blur(5px);
 }
-/*.effect_blur div:hover + #blur {
-  }*/
 
 .index {
   z-index: 0 !important;
 }
-/*body {
-}*/
 
 .separator {
   text-align:center;
@@ -188,24 +168,6 @@ ob-daterangepicker .picker-dropdown-container .picker-dropdown {
 .scrollit {
         float: left;
         width: 71%
-}
-
-.blureffect {
-  /*position: fixed;
-  left: 0;
-  right: 0;
-  z-index: 1;
-
-  display: block;*/
-  /*background-color: blue !important;*/
-  /*width: 1200px;*/
-  /*height: 800px;*/
-
-  /*-webkit-filter: blur(2px);
-  -moz-filter: blur(2px);
-  -o-filter: blur(2px);
-  -ms-filter: blur(2px);
-  filter: blur(2px);*/
 }
 
 .menu {
@@ -233,9 +195,6 @@ ob-daterangepicker .picker-dropdown-container .picker-dropdown {
   width: 17em;
   border-radius: 50%;
   margin-left: 90px;
-
-		/*border: 1px solid #ebebeb;*/
-		/*box-shadow: 0 4px 6px 1px rgba(50, 50, 50, 0.14);*/
 }
 
 ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
@@ -317,46 +276,9 @@ h1 {
     margin-bottom: 25px;
 }
 
-.login-card {
-  /*padding: 40px;
-  width: 450px;
-  background-color: white;
-  margin: 4px auto 10px;
-  border-radius: 2px;*/
-  /*box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);*/
-  /*overflow: hidden;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);*/
-}
-
-.login-card h1 {
-  /*font-weight: 100;
-  text-align: center;
-  font-size: 2.3em;*/
-}
-
-.login-card input[type=submit] {
-  /*width: 100%;
-  display: block;
-  margin-bottom: 10px;
-  position: relative;*/
-}
-
-.login-card input[type=text], input[type=password] {
-  /*height: 44px;
-  font-size: 16px;
-  width: 100%;
-  margin-bottom: 10px;
-  -webkit-appearance: none;
-  background: #fff;
-  border: 1px solid #d9d9d9;
-  border-top: 1px solid #c0c0c0;*/*/
-  /* border-radius: 2px; */
-  /*padding: 0 8px;
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;*/
+.tile-square {
+  width: 126px;
+  height: 126px;
 }
 
 .sweet-alert fieldset {
@@ -365,61 +287,8 @@ h1 {
     position: relative;
 }
 
-.login-card input[type=text]:hover, input[type=password]:hover {
-  /*border: 1px solid #b9b9b9;
-  border-top: 1px solid #a0a0a0;
-  -moz-box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
-  -webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
-  box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);*/
-}
-
-.login {
-  /*text-align: center;
-  font-size: 14px;
-  font-family: 'Arial', sans-serif;
-  font-weight: 700;
-  height: 36px;
-  padding: 0 8px;*/
-/* border-radius: 3px; */
-/* -webkit-user-select: none;
-  user-select: none; */
-}
-
-.login-submit {
-  /* border: 1px solid #3079ed; */
-  /*border: 0px;
-  color: #fff;
-  text-shadow: 0 1px rgba(0,0,0,0.1);
-  background-color: #4d90fe;*/
-  /* background-image: -webkit-gradient(linear, 0 0, 0 100%,   from(#4d90fe), to(#4787ed)); */
-}
-
-.login-submit:hover {
-  /* border: 1px solid #2f5bb7; */
-  /*border: 0px;
-  text-shadow: 0 1px rgba(0,0,0,0.3);
-  background-color: #357ae8;*/
-  /* background-image: -webkit-gradient(linear, 0 0, 0 100%,   from(#4d90fe), to(#357ae8)); */
-}
-
-.login-card a {
-  /*text-decoration: none;
-  color: #666;
-  font-weight: 400;
-  text-align: center;
-  display: inline-block;
-  opacity: 0.6;
-  transition: opacity ease 0.5s;*/
-}
-
 .login-card a:hover {
   opacity: 1;
-}
-
-/*.login-help {
-  width: 100%;
-  text-align: center;
-  font-size: 12px;*/
 }
 
 fieldset {
@@ -447,14 +316,6 @@ fieldset {
   -webkit-animation: motion 3s cubic-bezier(0.77, 0, 0.175, 1) infinite;
           animation: motion 3s cubic-bezier(0.77, 0, 0.175, 1) infinite;
 }
-
-/*p {
-  color: #fff;
-  margin-top: 5px;
-  font-family: sans-serif;
-  letter-spacing: 3px;
-  font-size: 10px;
-}*/
 
 .login-test {
   background: #0077BB;
