@@ -1,5 +1,5 @@
 tableau
-.controller 'testCtrl', ($scope, $http, $stateParams, $sce, store, jwtHelper, ticketGeneratorFactory, $interval, $window, $filter) ->
+.controller 'iterativeLayoutCtrl', ($scope, $http, $stateParams, $sce, store, jwtHelper, ticketGeneratorFactory, $interval, $window, $filter, $location) ->
     token                 = store.get('JWT')
     decode                = jwtHelper.decodeToken(token)
     $scope.actualTemplate = []
@@ -38,8 +38,7 @@ tableau
         .success (result) ->
             $scope.getAllView = result
         .error (err) ->
-            console.log err
-
+            $location.path '/home/error'
 
     getTemplate($scope.view, $scope.id)
 
@@ -48,6 +47,3 @@ tableau
             return { height : height }
         else
             height = { height : "500px" }
-
-    $scope.trustHtml = (token, link) ->
-        return $sce.trustAsResourceUrl("http://data.travelplanet.fr/trusted/" + token + link + '&:toolbar=no' )

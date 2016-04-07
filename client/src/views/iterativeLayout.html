@@ -1,7 +1,7 @@
 <!-- if we got an iframe template -->
 <div layout-padding class="anim-fade">
   <div ng-repeat="frame in getAllView" ng-if="frame.embed_content_type == 'Tableau'" class="{{frame.embed_width}} separator" style="height:{{frame.embed_height}}">
-    <div ng-include src="'templates/iframe.html'"></div>
+    <div ng-include ng-controller="tableauCtrl" src="'templates/tableau.html'"></div>
   </div>
 </div>
 

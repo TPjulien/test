@@ -48,8 +48,8 @@ tableau
             controller:  'homeCtrl'
         .state 'home.test',
             url:          '/dashboard/:client/:id',
-            templateUrl:  'templates/test.html',
-            controller:   'testCtrl'
+            templateUrl:  'templates/iterativeLayout.html',
+            controller:   'iterativeLayoutCtrl'
         .state 'home.error',
             url:          '/error',
             templateUrl:  'templates/error.html',
