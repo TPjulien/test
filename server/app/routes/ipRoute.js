@@ -4,15 +4,15 @@ var geoip = require('geoip-lite');
 
 module.exports = function(router, connection) {
     router.route('/rules/ip')
-        .get (function(req, res) {
+        .post(function(req, res) {
             var getIp    = req.connection.remoteAddress;
             var dataInfo = geoip.lookup(getIp);
             var query    = "INSERT INTO ?? \
-                            (??,??,??,??,??) \
-                            VALUES (?,?,?,?,?)"
+                            (??,??,??,??,??, ??) \
+                            VALUES (?,?,?,?,?,?)"
             var table    = ['ip_info',
-                            'ip', 'ip_country', 'ip_longitude', 'ip_latitude', 'ip_region',
-                            getIp, dataInfo.country, dataInfo.city, dataInfo.region, dataInfo.ll[1], dataInfo.ll[0]];;
+                            'ip', 'ip_country', 'ip_longitude', 'ip_latitude', 'ip_region', 'action',
+                            getIp, dataInfo.country, dataInfo.city, dataInfo.region, dataInfo.ll[1], dataInfo.ll[0], req.body.action];;
             query = mysql.format(query, table);
             connection.query(query, function(err, rows) {
                 if(err)
@@ -20,12 +20,5 @@ module.exports = function(router, connection) {
                 else
                     res.status(200).send("Ok !");
             });
-            // res.json({"ip" : getIp,
-            //           "country"   : dataInfo.country,
-            //           "city"      : dataInfo.city,
-            //           "region"    : dataInfo.region,
-            //           "longitute" : dataInfo.ll[1],
-            //           "lattitude" : dataInfo.ll[0]
-            // });
         })
 }
