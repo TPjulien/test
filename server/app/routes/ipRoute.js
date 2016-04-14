@@ -5,7 +5,6 @@ var geoip = require('geoip-lite');
 module.exports = function(router, connection) {
     router.route('/rules/ip')
         .post(function(req, res) {
-            console.log req.body;
             var getIp    = req.connection.remoteAddress;
             var dataInfo = geoip.lookup(getIp);
             var query    = "INSERT INTO ?? \
