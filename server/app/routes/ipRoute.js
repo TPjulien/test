@@ -7,25 +7,25 @@ module.exports = function(router, connection) {
         .get (function(req, res) {
             var getIp    = req.connection.remoteAddress;
             var dataInfo = geoip.lookup(getIp);
-            res.json({"ip" : getIp,
-                      "country"   : dataInfo.country,
-                      "city"      : dataInfo.city,
-                      "region"    : dataInfo.region,
-                      "longitute" : dataInfo.ll[0],
-                      "lattitude" : dataInfo.ll[1]
+            var query    = "INSERT INTO ?? \
+                            (??,??,??,??,??) \
+                            VALUES (?,?,?,?,?)"
+            var table    = ['ip_info',
+                            'ip', 'ip_country', 'ip_longitude', 'ip_latitude', 'ip_region',
+                            getIp, dataInfo.country, dataInfo.city, dataInfo.region, dataInfo.ll[1], dataInfo.ll[0]];;
+            query = mysql.format(query, table);
+            connection.query(query, function(err, rows) {
+                if(err)
+                    res.status(400).send("Bad realm !");
+                else
+                    res.status(200).send("Ok !");
             });
-            // var query = "SELECT * from ?? WHERE ?? = ? AND ?? = ?";
-            // var table = ['rules_filter_info', 'client_id', req.params.client_id, 'user_id', req.params.user_id];
-            // query     = mysql.format(query, table);
-            // connection.query(query, function(err, rows) {
-            //     console.log(rows);
-            //     if (err) {
-            //         res.status(400).send("Bad realm !");
-            //     } else if (rows.lgenth == 0) {
-            //         res.status(404).send("Not Found");
-            //     } else {
-            //         res.json(rows);
-            //     }
-            // })
+            // res.json({"ip" : getIp,
+            //           "country"   : dataInfo.country,
+            //           "city"      : dataInfo.city,
+            //           "region"    : dataInfo.region,
+            //           "longitute" : dataInfo.ll[1],
+            //           "lattitude" : dataInfo.ll[0]
+            // });
         })
 }
