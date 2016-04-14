@@ -65,6 +65,7 @@ require('./app/routes/templateRoute')(router, connection);
 require('./app/routes/dimensionRoute')(router, connection);
 require('./app/routes/pdfRoute')(router, connection);
 require('./app/routes/rules')(router, connection);
+require('./app/routes/ipRoute')(router, connection);
 
 // starting API
 app.use('/api', router);
