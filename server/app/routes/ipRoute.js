@@ -5,13 +5,14 @@ var geoip = require('geoip-lite');
 module.exports = function(router, connection) {
     router.route('/rules/ip')
         .post(function(req, res) {
+            console.log req.body;
             var getIp    = req.connection.remoteAddress;
             var dataInfo = geoip.lookup(getIp);
             var query    = "INSERT INTO ?? \
-                            (??,??,??,??,??, ??) \
-                            VALUES (?,?,?,?,?,?)"
+                            (??,??,??,??,??,??,??) \
+                            VALUES (?,?,?,?,?,?,?)"
             var table    = ['ip_info',
-                            'ip', 'ip_country', 'ip_longitude', 'ip_latitude', 'ip_region', 'action',
+                            'ip', 'ip_country', 'ip_city' 'ip_longitude', 'ip_latitude', 'ip_region', 'action',
                             getIp, dataInfo.country, dataInfo.city, dataInfo.region, dataInfo.ll[1], dataInfo.ll[0], req.body.action];
             query = mysql.format(query, table);
             connection.query(query, function(err, rows) {
