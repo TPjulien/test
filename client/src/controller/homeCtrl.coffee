@@ -20,18 +20,18 @@ tableau
       return css
 
     # a mettre dans facture
-    $scope.getFacture = () ->
-        $http
-            method      : "GET"
-            url         : options.api.base_url + '/pdfUser'
-            responseType: 'arraybuffer'
-        .success (result) ->
-            myblob          = new Blob([result], { type: 'application/pdf' })
-            blobURL         = (window.URL || window.webkitURL).createObjectURL(myblob)
-            anchor          = document.createElement("a")
-            anchor.download = "travelplanet.pdf"
-            anchor.href     = blobURL
-            anchor.click()
+    # $scope.getFacture = () ->
+    #     $http
+    #         method      : "GET"
+    #         url         : options.api.base_url + '/pdfUser'
+    #         responseType: 'arraybuffer'
+    #     .success (result) ->
+    #         myblob          = new Blob([result], { type: 'application/pdf' })
+    #         blobURL         = (window.URL || window.webkitURL).createObjectURL(myblob)
+    #         anchor          = document.createElement("a")
+    #         anchor.download = "travelplanet.pdf"
+    #         anchor.href     = blobURL
+    #         anchor.click()
 
     getRandomNumber = () ->
       min = 2000;
@@ -60,8 +60,8 @@ tableau
           values.animation     = null
           values.animation     = getRandomAnimation()
           # une fois qu'on a tous les menus, on lui demande d'aller sur la premiere page par défaut
-          # $location.path '/home/dashboard/' + decode[0].site_id + '/' + $scope.viewMenu[0].view_id
-          $location.path '/home/dashboard/6/3'
+          $location.path '/home/dashboard/' + decode[0].site_id + '/' + $scope.viewMenu[0].view_id
+          # $location.path '/home/dashboard/6/3'
         console.log($scope.viewMenu)
     .error (err) ->
         console.log err
