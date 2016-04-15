@@ -20,7 +20,7 @@ tableau
       centerY  = element[0].height / 2
       to_radiant = Math.PI/180
       init = () ->
-          ship.src = "/img/icons/plane.png"
+          ship.src = "/img/icons/plane_fixed.png"
           window.requestAnimationFrame(animate)
 
       # drawing the ship
