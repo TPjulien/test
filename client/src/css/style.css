@@ -9,6 +9,42 @@ html {
   -ms-transition: background 1s linear; /* Explorer 10 */
 }
 
+.rotation {
+  overflow-x: hidden;
+  overflow-y: hidden;
+  transform: rotate(-16deg);
+  -ms-transform: rotate(-16deg);
+  -webkit-transform: rotate(-16deg);
+  position: absolute;
+  border-radius: 50%;
+  width: 60%;
+  height: 60%;
+  left: 18%;
+  top: 5%;
+}
+
+.titleTravel {
+  font-family: 'roboto';
+  text-align: center;
+  color: white;
+  position: absolute;
+  left: 28%;
+  top: 58%;
+  font-size: 27px;
+  font-weight: bold;
+}
+
+.connectionTravel {
+  font-family: 'roboto';
+  text-align: center;
+  color: white;
+  position: absolute;
+  left: 30%;
+  top: 74%;
+  font-size: 19px;
+  font-weight: bold;
+}
+
 .amountStyle {
   background-color:white;
   font-weight: bold;
@@ -26,8 +62,110 @@ html {
   font-size: 125%;
 }
 
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  background-color: #EFEFEF;
+  position: relative;
+  font-size: 100%;
+}
+
+.canvas {
+  background-color: #FFF;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -200px 0 0 -200px;
+  box-shadow: 0 0 25px rgba(0,0,0,0.025);
+}
+
+.console {
+  width: 100%;
+  height: 3rem;
+  position: absolute;
+  bottom: 0;
+  padding: 1rem;
+  font-size: 1rem;
+  font-family: monospace;
+  border: 0 none;
+  border-top: 1px solid rgba(0,0,0,0.1);
+  background-color: rgba(255,255,255,0.75);
+  color: #333;
+  resize: none;
+}
+
+#test {
+    height: 200px;
+    width: 400px;
+    border: 2px solid black;
+    position: relative;
+}
+#test img {
+    position: absolute;
+}
+
+#friends { position: absolute; }
+
+/*.toto {
+  width: 350px;
+  height: 350px;
+}*/
+
 md-backdrop {
     position: fixed;
+}
+
+.plane {
+  overflow: hidden;
+  width: 350px;
+  height: 350px;
+  background-color: #0077BB;
+}
+.plane:before {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -2em -5em;
+  background-color: #0077BB;
+  border: solid 6px #FF0015;
+  width: 10em;
+  height: 10em;
+  border-radius: 50%;
+  transform: skewX(-55deg);
+  content: '';
+}
+
+.boo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: 1em -3.1em;
+  width: 4.4em;
+  height: 4em;
+  border-radius: 0 75% 75% 0 / 0 50% 50% 0;
+  border-radius: 50%;
+  animation: ellipse 1.5s infinite;
+}
+
+@keyframes ellipse {
+  from {
+    transform: skewX(-55deg) rotate(100deg) translateY(-4.9em) rotate(-100deg) skewX(55deg) rotate(330deg);
+  }
+  to {
+    transform: skewX(-55deg) rotate(-260deg) translateY(-4.9em) rotate(260deg) skewX(55deg) rotate(-30deg);
+  }
 }
 
 .input-travel {
@@ -39,6 +177,8 @@ md-backdrop {
   font-size: 20px !important;
   background: rgb(100, 181, 246) !important;
 }
+
+/*svg {margin: 60px;}*/
 
 .md-backdrop {
   position: fixed !important;

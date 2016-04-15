@@ -1,14 +1,15 @@
 tableau
-.controller 'loginCtrl', ($scope, $http, jwtHelper, store, auth, $location, SweetAlert, alertFct, $mdDialog) ->
+.controller 'loginCtrl', ($scope, $http, jwtHelper, store, auth, $location, SweetAlert, alertFct, $mdDialog, ipFct) ->
 
-    $scope.test =
-      closeEl: '.close'
-      modal:
-        templateUrl: 'modals/loading.html'
+    # $scope.test =
+    #   closeEl: '.close'
+    #   modal:
+    #     templateUrl: 'modals/loading.html'
+    #     controller:   'loadingCtrl'
 
     $scope.login = (user, ev) ->
         $mdDialog.show
-          controller:          null
+          controller:          'loadingCtrl'
           templateUrl:         'modals/loading.html'
           parent:              angular.element(document.body)
           targetEvent:         ev
@@ -22,6 +23,7 @@ tableau
                 password: user.password
             }
         .success (data) ->
+            ipFct.insertDataIp("login session")
             $mdDialog.hide()
             store.set('JWT', data.token)
             $location.path "/home"

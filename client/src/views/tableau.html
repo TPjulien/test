@@ -1,4 +1,5 @@
-<iframe ng-src='{{trustHtml(frame.token, frame.path_to_view)}}'
-        class="col-md-12"
-        style="height:{{frame.embed_height}}; border:transparent; background-color: white;">
-</iframe>
+<div id="tableauViz" class="{{frame.embed_width}}" style="background-color: white" layout-padding="">
+  <div ng-if="!show"  class="{{frame.embed_width}}" style="background-color:white; height:{{frame.embed_height}}; position:absolute">
+    <div style="position:absolute; left: 35%; top: 25%;" ng-include src="'modals/loadingView.html'"></div>
+  </div>
+</div>

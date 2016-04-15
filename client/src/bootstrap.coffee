@@ -36,7 +36,7 @@ options.api.base_url = "http://151.80.121.113:3000/api"
 
 tableau
 .config (authProvider, $stateProvider, $urlRouterProvider, $httpProvider, jwtInterceptorProvider) ->
-    $urlRouterProvider.otherwise '/login'
+    $urlRouterProvider.otherwise '/home/error'
     $stateProvider
         .state 'login',
             url:         '/login',
@@ -70,8 +70,7 @@ tableau
     $rootScope.$on '$locationChangeStart', ->
         token = store.get('JWT')
         if token
-            if !jwtHelper.isTokenExpired(token)
-            else
+            if jwtHelper.isTokenExpired(token)
                 alertFct.alertExpiration()
                 $location.path '/login'
         else

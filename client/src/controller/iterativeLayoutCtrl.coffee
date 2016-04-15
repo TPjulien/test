@@ -1,5 +1,5 @@
 tableau
-.controller 'iterativeLayoutCtrl', ($scope, $http, $stateParams, $sce, store, jwtHelper, ticketGeneratorFactory, $interval, $window, $filter, $location) ->
+.controller 'iterativeLayoutCtrl', ($scope, $http, $stateParams, $sce, store, jwtHelper, ticketGeneratorFactory, $interval, $window, $filter, $location, $mdDialog) ->
     token                 = store.get('JWT')
     decode                = jwtHelper.decodeToken(token)
     $scope.actualTemplate = []
@@ -22,6 +22,7 @@ tableau
     $scope.date           =
         startDate: null
         endDate:   null
+    $scope.show = false
 
     $http
         method: 'GET'
@@ -47,3 +48,35 @@ tableau
             return { height : height }
         else
             height = { height : "500px" }
+
+    trustHtml = (token, link) ->
+        # url = $sce.trustAsResourceUrl("http://data.travelplanet.fr/trusted/" + token + link + '&:toolbar=no' )
+        url = "http://data.travelplanet.fr/trusted/" + token + link + '&:toolbar=no'
+        return url
+
+    $scope.niggeh = (getTableau) ->
+        # $mdDialog.show
+        #   controller:          'loadingCtrl'
+        #   templateUrl:         'modals/loading.html'
+          # parent:              angular.element(document.body)
+          # targetEvent:         ev
+          # clickOutsideToClose: false
+          # escapeToClose:       false
+        # console.log getTableau
+        # viz.dispose()
+        # itération l'ayout
+        url = trustHtml(getTableau.token, getTableau.path_to_view)
+        # console.log url
+        placeholder = document.getElementById("tableauViz")
+        # loadingMode = document.getElementById("loadingHideOrShow")
+        url         = url
+        tableauOptions =
+            hideTabs: true
+            width:  "100%"
+            height: getTableau.embed_height
+            onFirstInteractive: () ->
+                $scope.show = true
+                # $mdDialog.hide()
+                # window.alert("meh!")
+                # console.log "meh !"
+        viz = new tableau.Viz(placeholder, url, tableauOptions)

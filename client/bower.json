@@ -53,7 +53,8 @@
     "ng-onload": "^0.2.1",
     "angular-tooltips": "^1.0.8",
     "metro-dist": "^3.0.14",
-    "quick-ng-repeat": "quick-ngrepeat#*"
+    "quick-ng-repeat": "quick-ngrepeat#*",
+    "Processing.js": "^1.4.16"
   },
   "resolutions": {
     "angular": "~1.4.7",
