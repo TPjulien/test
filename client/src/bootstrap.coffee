@@ -26,6 +26,7 @@ tableau = angular.module 'tableauApp', [
   'anim-in-out'
   'ngOnload'
   '720kb.tooltips'
+  'dibari.angular-ellipsis'
 ]
 
 angular.module('infinite-scroll').value('THROTTLE_MILLISECONDS', 2000)

@@ -511,9 +511,9 @@ fieldset {
   }
 }
 
-iframe {
+/*iframe {*/
  /*background-image: url("https://thomas.vanhoutte.be/miniblog/wp-content/uploads/triangle_square_animation.gif");*/
-    background-image: url("https://thomas.vanhoutte.be/miniblog/wp-content/uploads/light_blue_material_design_loading.gif");
+    /*background-image: url("https://thomas.vanhoutte.be/miniblog/wp-content/uploads/light_blue_material_design_loading.gif");
     background-repeat: no-repeat;
     background-position: 50% 50%;
-}
+}*/

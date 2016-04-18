@@ -2,9 +2,9 @@ tableau
 .factory 'alertFct', (SweetAlert, store) ->
       alertExpiration: ->
           SweetAlert.swal
-              title: "Session Expiré"
-              text:  "Session expiré, retour à la page de connexion"
-              type:  "warning"
+              # title: "Session Expiré"
+              # text:  "Session expiré, retour à la page de connexion"
+              # type:  "warning"
           store.remove('JWT')
       tokenNotFound: ->
           SweetAlert.swal

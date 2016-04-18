@@ -54,21 +54,17 @@ tableau
         url = "http://data.travelplanet.fr/trusted/" + token + link + '&:toolbar=no'
         return url
 
+    isMessage = (txt, msg) ->
+        txt.substring(0, msg.length) == msg
+
+    $scope.loadingText    = "Chargement de la vue en cours ..."
+    $scope.urlLoadingView = "modals/loadingView.html"
     $scope.niggeh = (getTableau) ->
-        # $mdDialog.show
-        #   controller:          'loadingCtrl'
-        #   templateUrl:         'modals/loading.html'
-          # parent:              angular.element(document.body)
-          # targetEvent:         ev
-          # clickOutsideToClose: false
-          # escapeToClose:       false
-        # console.log getTableau
-        # viz.dispose()
-        # itération l'ayout
+        LOADED_INDICATOR =   'tableau.loadIndicatorsLoaded'
+        COMPLETE_INDICATOR = 'tableau.completed'
         url = trustHtml(getTableau.token, getTableau.path_to_view)
-        # console.log url
         placeholder = document.getElementById("tableauViz")
-        # loadingMode = document.getElementById("loadingHideOrShow")
+        vizLoaded   = false
         url         = url
         tableauOptions =
             hideTabs: true
@@ -76,7 +72,14 @@ tableau
             height: getTableau.embed_height
             onFirstInteractive: () ->
                 $scope.show = true
-                # $mdDialog.hide()
-                # window.alert("meh!")
-                # console.log "meh !"
         viz = new tableau.Viz(placeholder, url, tableauOptions)
+        window.addEventListener('message', (msg) ->
+            console.log(msg)
+            if (isMessage(msg.data, LOADED_INDICATOR))
+                vizLoaded = true
+            else if isMessage(msg.data, COMPLETE_INDICATOR)
+                if vizLoaded
+                else
+                    $scope.urlLoadingView = "modals/errorLoading.html"
+                    $scope.loadingText = "Impossible de charger cette vue"
+        )
