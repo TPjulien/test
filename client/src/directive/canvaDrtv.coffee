@@ -10,7 +10,7 @@ tableau
       rangeY   = 10
       rangeTwoX = 150
       rangeTwoY = 50
-      speed    = 3
+      speed    = 2
       ctx      = element[0].getContext('2d')
       cx       = 200
       radius   = 40
