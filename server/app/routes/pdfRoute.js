@@ -149,7 +149,7 @@ module.exports = function(router, connection) {
                   if (err) {
                       res.json({ message: 'error'})
                   } else {
-                      res.send(new Buffer(rows[0].blob, 'binary'))
+                      res.send(new Buffer(rows[0].BLOB, 'binary'))
                   }
               })
           })
