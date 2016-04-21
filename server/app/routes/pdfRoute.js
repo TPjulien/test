@@ -132,9 +132,9 @@ module.exports = function(router, connection) {
               if (isNaN(min) || isNaN(max)) {
                   res.status(404).send('unable to execute query');
               } else {
-                var query = "SELECT ??,?? from ??";
+                var query = "SELECT ??,?? from ?? ";
                 if (req.params.num_invoice != 'none') {
-                  var query = query + "WHERE INVOICE_TYPE LIKE '%" + req.params.num_invoice + "%' ";
+                  var query = query + "WHERE NUM_INVOICE LIKE '%" + req.params.num_invoice + "%' ";
                 }
                 query = query + "LIMIT " + req.params.min + "," + max;
                 var table = ["NUM_INVOICE", "NUM_COMMANDE", "accelya.vue_juju"];
