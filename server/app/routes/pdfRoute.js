@@ -140,9 +140,9 @@ module.exports = function(router, connection) {
                   }
               })
           })
-      router.route('/downloadPdfOrXml/:invoice/:commande/:type')
+      router.route('/downloadPdf/:invoice/:commande/:type')
           .get (function(req, res) {
-              var query = "SELECT ?? from ?? WHERE ?? = ? AND ?? = ?";
+              var query = "SELECT ?? as BLOB from ?? WHERE ?? = ? AND ?? = ?";
               var table = [req.params.type, 'accelya.vue_juju', 'NUM_INVOICE', req.params.invoice, 'NUM_COMMANDE', req.params.commande];
               query     = mysql.format(query, table);
               connection.query(query, function(err, rows) {
@@ -150,6 +150,21 @@ module.exports = function(router, connection) {
                       res.json({ message: 'error'})
                   } else {
                       res.send(new Buffer(rows[0].BLOB, 'binary'))
+                  }
+              })
+          })
+      router.route('/downloadXml/:invoice/:commande/:type')
+          .get (function(req, res) {
+              var query = "SELECT ?? as XML from ?? WHERE ?? = ? AND ?? = ?";
+              var table = [req.params.type, 'accelya.vue_juju', 'NUM_INVOICE', req.params.invoice, 'NUM_COMMANDE', req.params.commande];
+              query     = mysql.format(query, table);
+              connection.query(query, function(err, rows) {
+                  if (err) {
+                      res.json({ message: 'error'})
+                  } else {
+                      result = new Buffer(rows[0].XML).toString('base64');
+                      res.json(result);
+                      // res.send(new Buffer(rows[0].BLOB, 'binary'))
                   }
               })
           })
