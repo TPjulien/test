@@ -129,8 +129,8 @@ module.exports = function(router, connection) {
               // var min  = req.params.min;
               // var max  = req.params.max;
               // var type = req.params.type;
-              var query = "SELECT * from ??";
-              var table = ["accelya.vue_juju"];
+              var query = "SELECT ??,?? from ??";
+              var table = ["NUM_INVOICE", "NUM_COMMANDE", "accelya.vue_juju"];
               query = mysql.format(query, table);
               connection.query(query, function(err, rows) {
                   if (err) {
