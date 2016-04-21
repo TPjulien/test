@@ -124,7 +124,7 @@ module.exports = function(router, connection) {
           })
 
       // juju route
-      router.route('/xmlandpdf/:min/:max')
+      router.route('/xmlandpdf/:min/:max/:num_invoice')
           .get (function(req, res) {
               var min  = req.params.min;
               var max  = req.params.max;
@@ -132,7 +132,11 @@ module.exports = function(router, connection) {
               if (isNaN(min) || isNaN(max)) {
                   res.status(404).send('unable to execute query');
               } else {
-                var query = "SELECT ??,?? from ?? LIMIT " + req.params.min + "," + max ;
+                var query = "SELECT ??,?? from ??";
+                if (req.params.num_invoice != 'none') {
+                  var query = query + "WHERE INVOICE_TYPE LIKE '%" + req.params.num_invoice + "%' ";
+                }
+                query = query + "LIMIT " + req.params.min + "," + max;
                 var table = ["NUM_INVOICE", "NUM_COMMANDE", "accelya.vue_juju"];
                 query = mysql.format(query, table);
                 connection.query(query, function(err, rows) {
