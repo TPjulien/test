@@ -132,15 +132,15 @@ module.exports = function(router, connection) {
               if (isNaN(min) || isNaN(max)) {
                   res.status(404).send('unable to execute query');
               } else {
-                var query = "SELECT ??,?? from ?? ";
+                var query = "SELECT ??,??,?? from ?? ";
                 if (req.params.num_invoice != 'none')
-                  var query  = query + "WHERE NUM_INVOICE LIKE '%" + req.params.num_invoice + "%' ";
+                  var query  = query + "WHERE NUM_FACTURE LIKE '%" + req.params.num_invoice + "%' ";
                 if (req.params.num_commande != "none" && req.params.num_invoice != "none")
                    var query = query + "AND NUM_COMMANDE LIKE '%" + req.params.num_commande + "%' ";
                 else if (req.params.num_commande != "none" && req.params.num_invoice == "none")
                    var query = query + "WHERE NUM_COMMANDE LIKE '%" + req.params.num_commande + "%' ";
                 query = query + "LIMIT " + req.params.min + "," + max;
-                var table = ["NUM_INVOICE", "NUM_COMMANDE", "accelya.vue_juju"];
+                var table = ["NUM_FACTURE", "NUM_COMMANDE", "COMMANDE_DEPOSITED_DATE" "accelya.vue_juju"];
                 query = mysql.format(query, table);
                 connection.query(query, function(err, rows) {
                     if (err) {
