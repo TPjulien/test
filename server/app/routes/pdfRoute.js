@@ -179,10 +179,14 @@ module.exports = function(router, connection) {
               query     = mysql.format(query, table);
               connection.query(query, function(err, rows) {
                   if (err) {
-                      res.json({ message: 'error'})
+                      res.status(400).send('bad Realm !');
                   } else {
-                      result = new Buffer(rows[0].xml).toString('base64');
-                      res.json(result);
+                      if (rows[0].xml) {
+                        result = new Buffer(rows[0].xml).toString('base64');
+                        res.json(result);
+                      } else {
+                        res.status(404).send("Not found");
+                      }
                       // res.send(new Buffer(rows[0].BLOB, 'binary'))
                   }
               })
