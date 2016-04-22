@@ -154,7 +154,7 @@ module.exports = function(router, connection) {
       router.route('/downloadPdf/:invoice/:commande/:type')
           .get (function(req, res) {
               var query = "SELECT ?? AS pdf FROM ?? WHERE ?? = ? AND ?? = ?";
-              var table = [req.params.type, 'accelya.vue_juju', 'NUM_INVOICE', req.params.invoice, 'NUM_COMMANDE', req.params.commande];
+              var table = [req.params.type, 'accelya.vue_juju', 'NUM_FACTURE', req.params.invoice, 'NUM_COMMANDE', req.params.commande];
               query     = mysql.format(query, table);
               connection.query(query, function(err, rows) {
                   if (err) {
@@ -167,7 +167,7 @@ module.exports = function(router, connection) {
       router.route('/downloadXml/:invoice/:commande/:type')
           .get (function(req, res) {
               var query = "SELECT ?? as xml from ?? WHERE ?? = ? AND ?? = ?";
-              var table = [req.params.type, 'accelya.vue_juju', 'NUM_INVOICE', req.params.invoice, 'NUM_COMMANDE', req.params.commande];
+              var table = [req.params.type, 'accelya.vue_juju', 'NUM_FACTURE', req.params.invoice, 'NUM_COMMANDE', req.params.commande];
               query     = mysql.format(query, table);
               connection.query(query, function(err, rows) {
                   if (err) {
