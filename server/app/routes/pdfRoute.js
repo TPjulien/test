@@ -137,7 +137,7 @@ module.exports = function(router, connection) {
                   var query  = query + "WHERE NUM_INVOICE LIKE '%" + req.params.num_invoice + "%' ";
                 if (req.params.num_commande != "none" && req.params.num_invoice != "none") {
                    var query = query + "AND NUM_COMMANDE LIKE '%" + req.params.num_commande + "%' ";
-                } else if (req.params.num_commande != && req.params.num_invoice == "none") {
+                } else if (req.params.num_commande != "none" && req.params.num_invoice == "none") {
                    var query = query + "WHERE NUM_INVOICE LIKE '%" + req.params.num_commande + "%' ";
                 }
                 query = query + "LIMIT " + req.params.min + "," + max;
