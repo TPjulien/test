@@ -141,11 +141,12 @@ module.exports = function(router, connection) {
                 else if (req.params.num_commande != "none" && req.params.num_invoice == "none")
                    var query = query + "WHERE NUM_COMMANDE LIKE '%" + req.params.num_commande + "%' ";
 
-                if (req.params.num_invoice == "none" && req.params.num_commande == "none")
-                     var query = query + "WHERE DEPARTURE_DATE BETWEEN " + mysql.escape(req.params.date_min) + " AND " + mysql.escape(req.params.date_max) + " ";
-                else
-                     var query = query + "AND DEPARTURE_DATE BETWEEN " + mysql.escape(req.params.date_min) + " AND " + mysql.escape(req.params.date_max) + " ";
-
+                if(req.params.date_min != "none" && req.params.date_max != "none") {
+                  if (req.params.num_invoice == "none" && req.params.num_commande == "none")
+                       var query = query + "WHERE DEPARTURE_DATE BETWEEN " + mysql.escape(req.params.date_min) + " AND " + mysql.escape(req.params.date_max) + " ";
+                  else
+                       var query = query + "AND DEPARTURE_DATE BETWEEN " + mysql.escape(req.params.date_min) + " AND " + mysql.escape(req.params.date_max) + " ";
+                }
                 query = query + "LIMIT " + req.params.min + "," + max;
                 var table = ["NUM_FACTURE", "NUM_COMMANDE", "COMMANDE_DEPOSITED_DATE", "accelya.vue_juju"];
                 query = mysql.format(query, table);
