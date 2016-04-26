@@ -1,10 +1,17 @@
-var mysql      = require('mysql');
-var cors       = require('cors');
-var express    = require('express');
-var bodyParser = require('body-parser');
-var jwt        = require('jsonwebtoken');
-var app        = express();
-
+var mysql       = require('mysql');
+var fs          = require('fs');
+var cors        = require('cors');
+var express     = require('express');
+var bodyParser  = require('body-parser');
+var jwt         = require('jsonwebtoken');
+var https       = require('https');
+var privateKey  = fs.readFileSync('/etc/ssl/portail/server.key', 'utf8');
+var certificate = fs.readFileSync('/etc/ssl/portail/portail_travelplanet_fr.crt', 'utf8');
+var credentials = {
+    key:  privateKey,
+    cert: certificate
+};
+var app         = express();
 
 var connection = mysql.createConnection({
     host:     '192.168.1.119',
@@ -67,8 +74,10 @@ require('./app/routes/pdfRoute')(router, connection);
 require('./app/routes/rules')(router, connection);
 require('./app/routes/ipRoute')(router, connection);
 
-// starting API
 app.use('/api', router);
-app.listen(port);
+var httpsServer = https.createServer(credentials, app);
+// starting API
+httpsServer.lisen(port);
+// app.listen(port);
 
 console.log('done !' + port);
