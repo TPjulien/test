@@ -9,13 +9,13 @@ var http        = require('http');
 // var privateKey  = fs.readFileSync('/etc/ssl/portail/server.key', 'utf8');
 // var certificate = fs.readFileSync('/etc/ssl/portail/portail_travelplanet_fr.crt', 'utf8');
 var credentials = {
-    key:  fs.readFileSync('key/server.key'),
-    cert: fs.readFileSync('key/server.crt'),
-    ca:   fs.readFileSync('key/ca.crt'),
-    requestCert: true,
+    key:  fs.readFileSync('/etc/ssl/portail/server.key'),
+    cert: fs.readFileSync('/etc/ssl/portail/portail_travelplanet_fr.crt'),
+    ca:   fs.readFileSync('/etc/ssl/portail/DigiCertCA.crt'),
+    requestCert:        true,
     rejectUnauthorized: false
 };
-var app         = express();
+var app = express();
 
 var connection = mysql.createConnection({
     host:     '192.168.1.119',
@@ -80,11 +80,11 @@ require('./app/routes/ipRoute')(router, connection);
 
 app.use('/api', router);
 
-var httpServer = http.createServer(app);
+var httpServer  = http.createServer(app);
 var httpsServer = https.createServer(credentials, app);
 
 httpServer.listen(3000);
-httpsServer.listen(3100);
+httpsServer.listen(3253);
 // var httpsServer = https.createServer(credentials, app);
 // starting API
 // httpsServer.lisen(port);
