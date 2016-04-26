@@ -74,7 +74,6 @@ tableau
                 $scope.show = true
         viz = new tableau.Viz(placeholder, url, tableauOptions)
         window.addEventListener('message', (msg) ->
-            console.log(msg)
             if (isMessage(msg.data, LOADED_INDICATOR))
                 vizLoaded = true
             else if isMessage(msg.data, COMPLETE_INDICATOR)

@@ -68,6 +68,8 @@ gulp.task 'copy_other', ->
     .pipe gulp.dest "#{dest}/data/"
   gulp.src "#{src}/fonts/*"
     .pipe gulp.dest "#{dest}/fonts/"
+  gulp.src "#{src}/js/*.js"
+    .pipe gulp.dest "#{dest}/js"
 
 gulp.task 'compress', ['components'], ->
 	gulp.src "#{dest}/js/*.js"
@@ -81,12 +83,6 @@ gulp.task 'minify', ['compress'], ->
   gulp.src "#{dest}/js/*.js"
     .pipe uglify()
     .pipe gulp.dest("#{dest}/js")
-  # gulp.src "#{dest}/templates/*.html"
-  #   .pipe html_minify()
-  #   .pipe gulp.dest "#{dest}/templates"
-  # gulp.src "#{dest}/modal/*.html"
-  #   .pipe html_minify()
-  #   .pipe gulp.dest "#{dest}/modal"
 
 gulp.task 'lint', ->
 	gulp.src [ "#{src}**/*.coffee", 'gulpfile.coffee' ]
