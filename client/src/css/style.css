@@ -23,6 +23,14 @@ html {
   top: 5%;
 }
 
+.vertical-center {
+  min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+  min-height: 100vh; /* These two lines are counted as one :-)       */
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
 .titleTravel {
   font-family: 'roboto';
   text-align: center;
@@ -326,15 +334,25 @@ ob-daterangepicker .picker-dropdown-container .picker-dropdown {
 }
 
 #img{
-  top: 42%;
-  left: 65%;
-  position: absolute;
-  background: url("https://media.licdn.com/mpr/mpr/shrink_200_200/AAEAAQAAAAAAAAUIAAAAJDBjMWM3NDAwLWUxMjAtNDBiMy04YWM3LWFjZWY4Y2ExOWRjYg.png") center no-repeat;
+  /*background: url("http://demo.dnnrox.com/Portals/_default/Skins/Flatna/img/icons/user@2x.png") center no-repeat;*/
+  /*background: url("https://media.licdn.com/mpr/mpr/shrink_200_200/AAEAAQAAAAAAAAUIAAAAJDBjMWM3NDAwLWUxMjAtNDBiMy04YWM3LWFjZWY4Y2ExOWRjYg.png") center no-repeat;*/
   background-size: cover;
-  height: 17em;
-  width: 17em;
+  height: 20em;
+  width: 20em;
   border-radius: 50%;
-  margin-left: 90px;
+  margin-left: auto;
+  margin-top: 80px;
+  margin-right: auto;
+  margin-bottom: auto;
+  background-color: burlywood;
+}
+
+.cssFade {
+    transition: 0.5s linear all;
+    opacity: 1;
+}
+.cssFade.ng-hide {
+    opacity: 0;
 }
 
 ::-webkit-input-placeholder { /* WebKit, Blink, Edge */

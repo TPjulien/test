@@ -1,0 +1,24 @@
+<div class="row" style="max-width: none; margin-left: 0.0rem; height: 100%;  width: 100%; margin-bottom:0px">
+  <div class="col s12 s4 l4 valign hide-on-med-and-down" style="
+      background: url('{{background_image_url}}');
+      background-size: cover;
+      height: 100%;">
+    <div class="z-depth-2" style="background: url('{{user_image_url}}') center no-repeat; background-color:burlywood" id = "img"> </div>
+  </div>
+  <div class="col s12 s8 l8 valign-wrapper" style="height: 100%;">
+    <div class="valign center" style=" width: 100%;">
+      <h2 layout-padding>Connexion</h2>
+      <form name="loginForm">
+        <md-content layout-padding>
+          <md-input-container>
+            <label style="font-size: 15px; width: 95%;">Nom d'utilisateur travel</label>
+            <input style="font-size: 20px;" ng-model="username" required="true">
+          </md-input-container>
+        </md-content>
+        <div layout-padding class="col s12 center cssFade" ng-hide="loginForm.$invalid">
+          <a style="background-color:#0077BB"  ng-click="stepVerify()" class="waves-effect waves-light btn">Etape suivante</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

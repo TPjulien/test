@@ -8,7 +8,6 @@ tableau = angular.module 'tableauApp', [
   'oitozero.ngSweetAlert'
   'ngCookies'
   'mdPickers'
-  'md.data.table'
   'angular-md5'
   'ngFileUpload'
   'ui.router'
@@ -16,7 +15,6 @@ tableau = angular.module 'tableauApp', [
   'angular-jwt'
   'angular-storage'
   'auth0'
-  'infinite-scroll'
   'ui.bootstrap.contextMenu'
   'rzModule'
   'daterangepicker'
@@ -24,12 +22,8 @@ tableau = angular.module 'tableauApp', [
   'obDateRangePicker'
   'ngMorph'
   'anim-in-out'
-  'ngOnload'
   '720kb.tooltips'
-  'dibari.angular-ellipsis'
 ]
-
-angular.module('infinite-scroll').value('THROTTLE_MILLISECONDS', 2000)
 
 options = {}
 options.api = {}
@@ -43,6 +37,14 @@ tableau
             url:         '/login',
             templateUrl: 'templates/login.html',
             controller:  'loginCtrl'
+        .state 'login.account',
+            url:         '/account',
+            templateUrl: 'templates/loginVerify.html'
+            controller:  'loginVerifyCtrl'
+        .state 'login.checkaccount',
+            url:         '/accountVerify/:username'
+            templateUrl: 'templates/accountVerify.html'
+            controller:  'accountVerifyCtrl'
         .state 'home',
             url:         '/home',
             templateUrl: 'templates/home.html',
@@ -56,7 +58,7 @@ tableau
             templateUrl:  'templates/error.html',
             constroller:  'errorCtrl'
         .state 'home.test.facture',
-            url:          '/Factures',
+            url:          '/factures',
             templateUrl:  'templates/facture.html',
             controller:   'factureCtrl'
     jwtInterceptorProvider.tokenGetter = [
@@ -68,15 +70,15 @@ tableau
     $httpProvider.interceptors.push 'jwtInterceptor'
 .run ($rootScope, jwtHelper, $location, store, alertFct) ->
     $rootScope.color = "#03a9f4"
-    $rootScope.$on '$locationChangeStart', ->
-        token = store.get('JWT')
-        if token
-            if jwtHelper.isTokenExpired(token)
-                alertFct.alertExpiration()
-                $location.path '/login'
-        else
-            if $location.path() == '/login' or $location.path() == ''
-                console.log("successful !")
-            else
-                alertFct.tokenNotFound()
-                $location.path '/login'
+    # $rootScope.$on '$locationChangeStart', ->
+    #     token = store.get('JWT')
+    #     if token
+    #         if jwtHelper.isTokenExpired(token)
+    #             alertFct.alertExpiration()
+    #             $location.path '/login/account'
+    #     else
+    #         if $location.path() == '/login' or $location.path() == ''
+    #             console.log("successful !")
+    #         else
+    #             alertFct.tokenNotFound()
+    #             $location.path '/login/account'
