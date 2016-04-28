@@ -15,8 +15,8 @@ tableau
                 if isConfirm
                   if store.get 'JWT'
                       store.remove 'JWT'
-                      $location.path '/login'
+                      $location.path '/login/account'
                       $rootScope.wallpaper = "url('https://wallpaperscraft.com/image/spots_background_light_blur_68629_1920x1080.jpg')"
                   else
-                      $location.path '/login'
+                      $location.path '/login/account'
                       $rootScope.wallpaper = "url('https://wallpaperscraft.com/image/spots_background_light_blur_68629_1920x1080.jpg')"

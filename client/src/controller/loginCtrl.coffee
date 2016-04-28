@@ -1,6 +1,6 @@
 tableau
 .controller 'loginCtrl', ($scope, $http, jwtHelper, store, auth, $location, SweetAlert, alertFct, $mdDialog, ipFct) ->
-    console.log "ça passe par login "
+    $location.path "/login/account"
     # $scope.background_image_url = 'http://cdn.wonderfulengineering.com/wp-content/uploads/2014/09/blue-wallpaper-38.jpg'
     # $scope.user_image_url       = 'https://media.licdn.com/mpr/mpr/shrink_200_200/AAEAAQAAAAAAAAUIAAAAJDBjMWM3NDAwLWUxMjAtNDBiMy04YWM3LWFjZWY4Y2ExOWRjYg.png'
     # $scope.stepVerify = () ->
@@ -13,26 +13,26 @@ tableau
     #     templateUrl: 'modals/loading.html'
     #     controller:   'loadingCtrl'
 
-    $scope.login = (user, ev) ->
-        $mdDialog.show
-          controller:          'loadingCtrl'
-          templateUrl:         'modals/loading.html'
-          parent:              angular.element(document.body)
-          targetEvent:         ev
-          clickOutsideToClose: false
-          escapeToClose:       false
-        $http
-            method: 'POST'
-            url:    options.api.base_url + '/login'
-            data: {
-                username: user.username
-                password: user.password
-            }
-        .success (data) ->
-            ipFct.insertDataIp("login session")
-            $mdDialog.hide()
-            store.set('JWT', data.token)
-            $location.path "/home"
-        .error (err) ->
-            alertFct.loginError()
-            $mdDialog.hide()
+    # $scope.login = (user, ev) ->
+    #     $mdDialog.show
+    #       controller:          'loadingCtrl'
+    #       templateUrl:         'modals/loading.html'
+    #       parent:              angular.element(document.body)
+    #       targetEvent:         ev
+    #       clickOutsideToClose: false
+    #       escapeToClose:       false
+    #     $http
+    #         method: 'POST'
+    #         url:    options.api.base_url + '/login'
+    #         data: {
+    #             username: user.username
+    #             password: user.password
+    #         }
+    #     .success (data) ->
+    #         ipFct.insertDataIp("login session")
+    #         $mdDialog.hide()
+    #         store.set('JWT', data.token)
+    #         $location.path "/home"
+    #     .error (err) ->
+    #         alertFct.loginError()
+    #         $mdDialog.hide()
