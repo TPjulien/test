@@ -101,4 +101,17 @@ module.exports = function(router, connection) {
                 }
             })
         })
+        router.route('/verify')
+          .post (function(req, res) {
+              var query = "SELECT ??,?? from ?? WHERE ?? = ?";
+              var table = ['user_last_name', 'user_first_name', 'user_info', 'username', req.body.username];
+              query     = mysql.format(query, table);
+              connection.query(query, function(err, rows) {
+                  if (err) {
+                      res.status(404).send("Not Found !");
+                  } else {
+                      res.send(new Buffer(rows[0].blob, 'binary'));
+                  }
+              })
+          })
 };
