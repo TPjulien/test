@@ -109,7 +109,7 @@ module.exports = function(router, connection) {
               connection.query(query, function(err, rows) {
                   if (err) {
                     res.status(400).send("Bad realm !");
-                  } else if (rows.lengh == 0) {
+                  } else if (rows.length == 0) {
                       res.status(404).send("Not Found !");
                   } else {
                       res.json(rows);
