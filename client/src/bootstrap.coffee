@@ -31,7 +31,7 @@ options.api.base_url = "https://portail.travelplanet.fr:3253/api"
 
 tableau
 .config (authProvider, $stateProvider, $urlRouterProvider, $httpProvider, jwtInterceptorProvider) ->
-    $urlRouterProvider.otherwise '/home/error'
+    $urlRouterProvider.otherwise '/login/account'
     $stateProvider
         .state 'login',
             url:         '/login',
@@ -42,7 +42,7 @@ tableau
             templateUrl: 'templates/loginVerify.html'
             controller:  'loginVerifyCtrl'
         .state 'login.checkaccount',
-            url:         '/accountVerify/:username'
+            url:         '/verify/:username'
             templateUrl: 'templates/accountVerify.html'
             controller:  'accountVerifyCtrl'
         .state 'home',
