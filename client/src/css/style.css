@@ -23,6 +23,12 @@ html {
   top: 5%;
 }
 
+@media (min-width: 992px) {
+  .col-md-12 {
+    width: 103%;
+  }
+}
+
 .vertical-center {
   min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
   min-height: 100vh; /* These two lines are counted as one :-)       */

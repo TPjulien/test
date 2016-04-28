@@ -1,11 +1,11 @@
 <!-- if we got an iframe template -->
 <div layout-padding class="anim-fade">
-  <div ng-repeat="frame in getAllView" ng-if="frame.embed_content_type == 'Tableau'" class="{{frame.embed_width}} separator" style="height:{{frame.embed_height}}">
+  <div ng-repeat="frame in getAllView" ng-if="frame.embed_content_type == 'Tableau'" class="{{frame.embed_width}} separator row" style="height:{{frame.embed_height}}">
     <div ng-include src="'templates/tableau.html'" onload="niggeh(frame)"></div>
   </div>
 </div>
 
 <!-- if we got a facture template -->
-<div ng-repeat="frame in getAllView" ng-if="frame.embed_content_type == 'Factures'" class="anim-fade">
+<div ng-repeat="frame in getAllView" class="row col s12" ng-if="frame.embed_content_type == 'Factures'">
   <div ng-include ng-controller="factureCtrl" src="'templates/facture.html'"></div>
 </div>

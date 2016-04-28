@@ -1,20 +1,3 @@
-<!-- mini nav-bar -->
-<div hide-md hide-sm show-gt-md class="menu blureffect fadein fadeout md-whiteframe-1dp" ng-hide="checked" style="background-image: url('http://img0.gtsstatic.com/wallpapers/2605160f1415a4db0e2aefe46aea5500_large.jpeg'); z-index: 1; max-width: 80px;">
-  <md-toolbar style="background-color:transparent; padding-top: 75px;">
-      <span flex></span>
-      <div tooltips tooltip-template="{{menu.view_label}}" tooltip-side="right" ng-click="goTO(menu.site_id, menu.view_id, menu.view_label)" ng-repeat="menu in viewMenu" class="tile-small" data-period="{{menu.view_position}}" data-duration="250" data-role="tile" data-effect="{{menu.animation}}">
-          <div class="tile-content">
-              <div class="live-slide tiles_size" style="{{getColor(menu.view_color)}};" layout-padding="">
-                  <img ng-src="{{getImage(menu.view_icon)}}">
-              </div>
-              <div class="live-slide tiles_size" style="{{getColor(menu.view_color)}};" layout-padding="">
-                  <img ng-src="{{getImage(menu.view_icon)}}">
-              </div>
-          </div>
-      </div>
-  </md-toolbar>
-</div>
-
 <!-- toolbar -->
 <md-toolbar class="animate-show index" style="background-image: url('http://img0.gtsstatic.com/wallpapers/2605160f1415a4db0e2aefe46aea5500_large.jpeg'); background-size: cover; position:fixed; z-index:1 !important; min-height:55px" >
   <div class="md-toolbar-tools" style="height: 65px">
@@ -60,11 +43,33 @@
   </md-toolbar>
 </md-sidenav>
 
+<!-- mini nav-bar -->
+<div hide-md hide-sm show-gt-md class="menu blureffect fadein fadeout md-whiteframe-1dp hide-on-med-and-down" ng-hide="checked" style="background-image: url('http://img0.gtsstatic.com/wallpapers/2605160f1415a4db0e2aefe46aea5500_large.jpeg'); z-index: 1; max-width: 80px;">
+  <md-toolbar style="background-color:transparent; padding-top: 75px;">
+      <span flex></span>
+      <div tooltips tooltip-template="{{menu.view_label}}" tooltip-side="right" ng-click="goTO(menu.site_id, menu.view_id, menu.view_label)" ng-repeat="menu in viewMenu" class="tile-small" data-period="{{menu.view_position}}" data-duration="250" data-role="tile" data-effect="{{menu.animation}}">
+          <div class="tile-content">
+              <div class="live-slide tiles_size" style="{{getColor(menu.view_color)}};" layout-padding="">
+                  <img ng-src="{{getImage(menu.view_icon)}}">
+              </div>
+              <div class="live-slide tiles_size" style="{{getColor(menu.view_color)}};" layout-padding="">
+                  <img ng-src="{{getImage(menu.view_icon)}}">
+              </div>
+          </div>
+      </div>
+  </md-toolbar>
+</div>
+
 <div style="padding:40px"></div>
 
+
+
+
+<div class="row" style="
+    margin-right: auto;
+    margin-left: auto;">
 <!-- state home -->
-<div layout="row">
-  <div  class="col-md-12 col-xs-offset-1">
+  <div  class="col s10 offset-s1">
     <div ui-view class="anim-in-out">
     </div>
   </div>
