@@ -88,11 +88,11 @@ module.exports = function(router, connection) {
             }
             if (req.params.num_invoice != "none") {
             		if (req.params.type == "none") {
-            		    var query = query + "WHERE INVOICE_TYPE LIKE '%" + req.params.num_invoice + "%' ";
+            		    var query = query + "WHERE NUM_INVOICE LIKE '%" + req.params.num_invoice + "%' ";
             		    table.push(req.params.num_invoice);
 
             		} else {
-                    var query = query + "AND INVOICE_TYPE LIKE '%" + req.params.num_invoice + "%' ";
+                    var query = query + "AND NUM_INVOICE LIKE '%" + req.params.num_invoice + "%' ";
             		    table.push(req.params.num_invoice);
             		}
             }
