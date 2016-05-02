@@ -1,5 +1,5 @@
 tableau
-.controller 'accountVerifyCtrl', ($scope, $location, $stateParams, $mdDialog, $http, ipFct, store, auth, jwtHelper) ->
+.controller 'accountVerifyCtrl', ($scope, $location, $stateParams, $mdDialog, $http, ipFct, store, auth, jwtHelper, alertFct) ->
     username    = $stateParams.username
     $scope.data = []
     $http
