@@ -10,16 +10,17 @@ html {
 }
 
 .rotation {
-  overflow-x: hidden;
-  overflow-y: hidden;
-  transform: rotate(-16deg);
-  -ms-transform: rotate(-16deg);
+  overflow-x:        hidden;
+  overflow-y:        hidden;
+  transform:         rotate(-16deg);
+  -ms-transform:     rotate(-16deg);
   -webkit-transform: rotate(-16deg);
-  position: absolute;
-  border-radius: 50%;
-  width: 60%;
-  left: 18%;
-  top: 5%;
+  position:          absolute;
+  border-radius:     50%;
+  width:             260px;
+  height:            260px;
+  left:              81px;
+  top:               9px;
 }
 
 @media (min-width: 992px) {
