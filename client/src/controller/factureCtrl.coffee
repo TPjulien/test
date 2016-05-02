@@ -208,4 +208,4 @@ tableau
       else
           typeTranslated = "Donnée indisponible"
 
-    $scope.testFacture(0, 30)
+    $scope.testFacture(0, 40)
