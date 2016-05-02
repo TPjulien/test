@@ -82,7 +82,7 @@ module.exports = function(router, connection) {
             var query = "SELECT ??, ??, ??, ??, ??, ??, ??, SUM(??) AS TOTAL_AMOUNT, ?? FROM ?? ";
   	        var table   = ["SUPPLIER", "TYPE", "ACCOUNT_NUMBER", "LINE_DESCRIPTION", "TRAVELLER", "INVOICE_TYPE", "DATE_FROM", "AMOUNT", "NUM_INVOICE", "accelya.accelya_view_all"];
             if (req.params.type != "none") {
-                var query = query + " WHERE FAC_TYPE = ? ";
+                var query = query + " WHERE INVOICE_TYPE = ? ";
         		    // table.push("FAC_TYPE");
         		    table.push(req.params.type);
             }
