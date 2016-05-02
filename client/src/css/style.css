@@ -29,6 +29,22 @@ html {
   }
 }
 
+.loginPage {
+  height: 400px;
+  background-color:white;
+  width: 97.333%;
+  margin-left: auto;
+  position:absolute;
+  margin-right: auto;
+  margin-top:20%;
+}
+
+@-moz-document url-prefix() {
+    .loginPage {
+        position:relative;
+    }
+}
+
 .vertical-center {
   min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
   min-height: 100vh; /* These two lines are counted as one :-)       */

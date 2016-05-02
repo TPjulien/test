@@ -1,21 +1,40 @@
 <!-- toolbar -->
-<md-toolbar class="animate-show index" style="background-image: url('http://img0.gtsstatic.com/wallpapers/2605160f1415a4db0e2aefe46aea5500_large.jpeg'); background-size: cover; position:fixed; z-index:1 !important; min-height:55px" >
+<!-- <md-toolbar class="animate-show index" style="background-image: url('http://img0.gtsstatic.com/wallpapers/2605160f1415a4db0e2aefe46aea5500_large.jpeg'); background-size: cover; position:fixed; z-index:1 !important; min-height:55px" >
   <div class="md-toolbar-tools" style="height: 65px">
     <md-button class="md-icon-button" aria-label="Settings" ng-click="toggleLeft()">
       <md-icon  md-svg-icon="img/icons/humberger.svg"></md-icon>
     </md-button>
     <span flex></span>
-    <h1>{{ clock | date:' HH:mm:ss' }}</h1>
+    <h1 class="brand-logo center">{{ clock | date:' HH:mm:ss' }}</h1>
     <span flex="33"></span>
     <span flex></span>
     <md-button class="md-icon-button" aria-label="logout" ng-click="logOut()">
       <md-icon md-svg-icon="/img/icons/logout.svg"></md-icon>
     </md-button>
   </div>
-</md-toolbar>
+</md-toolbar> -->
+<div class="navbar-fixed">
+  <nav>
+    <div class="nav-wrapper" style="background-image: url('http://img0.gtsstatic.com/wallpapers/2605160f1415a4db0e2aefe46aea5500_large.jpeg'); background-color: transparent">
+      <h1 class="brand-logo center">{{ clock | date: 'HH:mm:ss' }}</h1>
+      <ul id="nav-mobile">
+        <li>
+          <md-button class="md-icon-button" aria-label="Settings" ng-click="toggleLeft()">
+            <md-icon  md-svg-icon="img/icons/humberger.svg"></md-icon>
+          </md-button>
+        </li>
+        <li class="right">
+          <md-button class="md-icon-button" aria-label="logout" ng-click="logOut()">
+            <md-icon md-svg-icon="/img/icons/logout.svg"></md-icon>
+          </md-button>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</div>
 
 <!-- nav caché -->
-<md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" style="position:fixed; background-color:#2C343F;">
+<md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" style="position:fixed; z-index: 8000; background-color:#2C343F;">
   <div style="padding: 9px; background-color:#03a9f4">
     <p class="md-title travelTitle" style="margin-top:5px">TRAVEL PLANET</p>
   </div>
