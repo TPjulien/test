@@ -23,6 +23,10 @@ html {
   top:               9px;
 }
 
+.md-button.md-icon-button {
+    height: 60px;
+}
+
 @media (min-width: 992px) {
   .col-md-12 {
     width: 103%;

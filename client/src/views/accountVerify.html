@@ -9,10 +9,9 @@
     <div class="valign center" style=" width: 100%;">
       <h2 layout-padding>Bonjour {{data[0].user_last_name}}</h2>
       <h5 layout-padding>Session verouillé, pour acceder à votre dashboard, veuillez entrez votre mot de passe.</h5>
-      <form name="loginForm">
+      <form name="loginForm" ng-submit="login($event)">
         <md-content layout-padding>
           <md-input-container>
-            <!-- <md-icon md-svg-src="/img/icons/lock.svg"></md-icon> -->
             <label style="
               font-size: 15px;
               padding-left: 9px;
@@ -22,8 +21,7 @@
           </md-input-container>
         </md-content>
         <div layout-padding class="col s12 center cssFade">
-          <!-- <a style="background-color:#FF0015" ng-click="backtoLoggin()"     class="waves-effect waves-light btn">Retour</a> -->
-          <a style="background-color:#0077BB" ng-hide="loginForm.$invalid"  ng-click="login($event)" class="waves-effect waves-light btn">Connexion</a>
+          <a type="submit" style="background-color:#0077BB" ng-hide="loginForm.$invalid"  ng-click="login($event)" class="waves-effect waves-light btn">Connexion</a>
         </div>
       </form>
     </div>

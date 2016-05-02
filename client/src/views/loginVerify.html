@@ -11,7 +11,7 @@
       left: -55px;
       position: relative;"
       >Connexion</h2>
-      <form name="loginForm">
+      <form name="loginForm" ng-submit="stepVerify()">
         <md-content layout-padding>
           <md-input-container>
             <!-- <md-icon md-svg-src="/img/icons/account_user.svg"></md-icon> -->
@@ -20,7 +20,7 @@
           </md-input-container>
         </md-content>
         <div layout-padding class="col s12 center cssFade" ng-hide="loginForm.$invalid">
-          <a style="background-color:#0077BB"  ng-click="stepVerify()" class="waves-effect waves-light btn">Etape suivante</a>
+          <a type="submit" style="background-color:#0077BB"  ng-click="stepVerify()" class="waves-effect waves-light btn">Etape suivante</a>
         </div>
       </form>
     </div>
