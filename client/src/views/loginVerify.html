@@ -7,12 +7,15 @@
   </div>
   <div class="col s12 s8 l8 valign-wrapper" style="height: 100%;">
     <div class="valign center" style=" width: 100%;">
-      <h2 layout-padding>Connexion</h2>
+      <h2 layout-padding style="
+      left: -55px;
+      position: relative;"
+      >Connexion</h2>
       <form name="loginForm">
         <md-content layout-padding>
           <md-input-container>
-            <md-icon md-svg-src="/img/icons/account_user.svg"></md-icon>
-            <label style="font-size: 15px; width: 95%;">Nom d'utilisateur travel</label>
+            <!-- <md-icon md-svg-src="/img/icons/account_user.svg"></md-icon> -->
+            <label style="font-size: 15px; padding-left: 9px;">Nom d'utilisateur travel</label>
             <input style="font-size: 20px;" ng-model="username" required="true">
           </md-input-container>
         </md-content>

@@ -12,10 +12,13 @@
       <form name="loginForm">
         <md-content layout-padding>
           <md-input-container>
-            <md-icon md-svg-src="/img/icons/lock.svg"></md-icon>
-            <label style="font-size: 15px; width: 95%;">Mot de passe travel</label>
-            <input type="password" style="font-size: 20px;" ng-model="password" required="true">
-            <a ng-click="backtoLoggin()" style="cursor:pointer">Retourner a la page de login</a>
+            <!-- <md-icon md-svg-src="/img/icons/lock.svg"></md-icon> -->
+            <label style="
+              font-size: 15px;
+              padding-left: 9px;
+              ">Mot de passe travel</label>
+            <input type="password" ng-model="password" required="true">
+            <a ng-click="backtoLoggin()" class="left" style="cursor:pointer">Retourner a la page de login</a>
           </md-input-container>
         </md-content>
         <div layout-padding class="col s12 center cssFade">
