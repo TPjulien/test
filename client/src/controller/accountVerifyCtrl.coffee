@@ -1,6 +1,6 @@
 tableau
 .controller 'accountVerifyCtrl', ($scope, $location, $stateParams, $mdDialog, $http, ipFct, store, auth, jwtHelper) ->
-    username = $stateParams.username
+    username    = $stateParams.username
     $scope.data = []
     $http
       method: 'POST'
@@ -14,6 +14,7 @@ tableau
         console.log err
     $scope.name = $stateParams.username
     $scope.backtoLoggin = () ->
+        store.remove 'JWT'
         $location.path "/login/account"
 
     $scope.user_image_url       = '/img/user_account.png'

@@ -1,6 +1,7 @@
 tableau
 .controller 'loginCtrl', ($scope, $http, jwtHelper, store, auth, $location, SweetAlert, alertFct, $mdDialog, ipFct) ->
     $location.path "/login/account"
+    
     # $scope.background_image_url = 'http://cdn.wonderfulengineering.com/wp-content/uploads/2014/09/blue-wallpaper-38.jpg'
     # $scope.user_image_url       = 'https://media.licdn.com/mpr/mpr/shrink_200_200/AAEAAQAAAAAAAAUIAAAAJDBjMWM3NDAwLWUxMjAtNDBiMy04YWM3LWFjZWY4Y2ExOWRjYg.png'
     # $scope.stepVerify = () ->
