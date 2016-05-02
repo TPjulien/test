@@ -11,7 +11,10 @@ tableau
         $mdDialog.hide()
         $scope.data = data
     .error (err) ->
-        console.log err
+        alertFct.loginError()
+        $mdDialog.hide()
+        $location.path "/login/account"
+
     $scope.name = $stateParams.username
     $scope.backtoLoggin = () ->
         store.remove 'JWT'
