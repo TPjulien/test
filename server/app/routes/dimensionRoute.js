@@ -41,6 +41,5 @@ module.exports = function(router, connection) {
                     res.json(rows);
                 }
             })
-
         })
 }

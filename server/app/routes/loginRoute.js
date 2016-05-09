@@ -54,7 +54,7 @@ module.exports = function(router, connection) {
                                            ??, ??  \
                                            FROM  ?? ??, ?? ?? \
                                            WHERE ?? = ? \
-                                           AND ?? = ??';
+                                           AND ?? = ?? AND ti.tableau_user_id IS NOT NULL';
                               var table = ['si.site_id'         , 'si.customer_id',
                                            'si.site_logo'       , 'si.site_tableau_libelle',
                                            'si.site_label'      , 'si.site_color_theme',
