@@ -47,7 +47,7 @@ module.exports = function(router, connection) {
             // premiere requete pour reconnaitre les utilisateurs
             // "view_menu_user_info"
             var query_one = "SELECT ?? as result FROM ?? WHERE ?? =?";
-            var table_one = ['user_id', 'user_info', 'username', req.body.username];
+            var table_one = ['user_id', 'user_info', 'username', req.params.username];
             query_one = mysql.format(query_one, table_one);
             connection.query(query_one, function(err, rows_one) {
                 if (err)
@@ -56,7 +56,7 @@ module.exports = function(router, connection) {
                     //
                     var id_result = rows_one[0].result;
                     var query_two = "SELECT ?? as result FROM ?? WHERE ?? = ? and ?? = ?";
-                    var table_two = ['role_type', 'auth_role_info', 'user_id', req.body.id_result, 'site_id', req.body.site_id];
+                    var table_two = ['role_type', 'auth_role_info', 'user_id', req.params.id_result, 'site_id', req.body.site_id];
                     query_two     = mysql.format(query_one, table_one);
                     connection.query(query_two, function(err, rows_two) {
                         if (err)

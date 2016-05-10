@@ -24,6 +24,14 @@ tableau
         endDate:   null
     $scope.show = false
 
+    $http
+        method: 'GET'
+        url:    options.api.base_url + '/testSite/' + decode[0].site_id + '/' + decode[0].username
+    .success (result) ->
+        console.log result
+    .error (err) ->
+        console.log err
+        
     console.log decode[0].username
     $http
         method: 'GET'
