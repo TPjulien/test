@@ -57,7 +57,7 @@ module.exports = function(router, connection) {
                     var id_result = rows_one[0].result;
                     var query_two = "SELECT ?? as result FROM ?? WHERE ?? = ? and ?? = ?";
                     var table_two = ['role_type', 'auth_role_info', 'user_id', req.params.id_result, 'site_id', req.body.site_id];
-                    query_two     = mysql.format(query_one, table_one);
+                    query_two     = mysql.format(query_two, table_two);
                     connection.query(query_two, function(err, rows_two) {
                         if (err)
                             res.status(400).send("bad realm !");

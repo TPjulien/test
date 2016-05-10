@@ -31,15 +31,15 @@ tableau
         console.log result
     .error (err) ->
         console.log err
-        
-    console.log decode[0].username
-    $http
-        method: 'GET'
-        url:    options.api.base_url + '/getViewSite' + '/' + decode[0].site_id + '/' + decode[0].user_auth
-    .success (result) ->
-        $scope.viewMenu = result
-    .error (err) ->
-        console.log err
+
+    # console.log decode[0].username
+    # $http
+    #     method: 'GET'
+    #     url:    options.api.base_url + '/getViewSite' + '/' + decode[0].site_id + '/' + decode[0].user_auth
+    # .success (result) ->
+    #     $scope.viewMenu = result
+    # .error (err) ->
+    #     console.log err
 
     getTemplate = (site_id, view_id) ->
         $http
