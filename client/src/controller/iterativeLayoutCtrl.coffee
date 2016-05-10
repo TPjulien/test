@@ -24,7 +24,7 @@ tableau
         endDate:   null
     $scope.show = false
 
-    console.log decode[0].tableau_user_id
+    console.log decode[0].username
     $http
         method: 'GET'
         url:    options.api.base_url + '/getViewSite' + '/' + decode[0].site_id + '/' + decode[0].user_auth
