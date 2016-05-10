@@ -56,7 +56,7 @@ module.exports = function(router, connection) {
                     //
                     var id_result = rows_one[0].result;
                     var query_two = "SELECT ?? FROM ?? WHERE ?? = ? and ?? = ?";
-                    var table_two = ['role_type', 'auth_roles_info', 'user_id', req.params.id_result, 'site_id', req.body.site_id];
+                    var table_two = ['role_type', 'auth_roles_info', 'user_id', req.params.id_result, 'site_id', req.params.site_id];
                     query_two     = mysql.format(query_two, table_two);
                     connection.query(query_two, function(err, rows_two) {
                         if (err)
