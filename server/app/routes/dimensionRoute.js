@@ -62,8 +62,17 @@ module.exports = function(router, connection) {
                         if (err)
                             res.status(400).send("bad realm !");
                         else
+                            var query_three = "SELECT * FROM ?? WHERE ?? = ? and ?? = ?";
                             var result_roles = rows_two;
-                            res.json(result_roles);
+                            var object = {};
+                            for ( i = 0; i < result_roles.length; i++) {
+                                var table_three = ['view_menu_user_info', 'site_id', req.params.site_id, 'view_role', result_roles[i]];
+                                query_three     = mysql.format(query_three, table_three);
+                                connection.query(query_three, function(err, rows_three){
+                                    
+                                });
+                            }
+                            // res.json(result_roles);
                             // for (update)
                     })
             })

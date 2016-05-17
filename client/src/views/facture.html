@@ -1,11 +1,11 @@
 <div hide-md hide-sm show-gt-md class="col s12 wall-fact" style="background-color:white; !important;height:32px; padding: 0;" >
-  <blockquote class="md-title" style="text-align: center;">Factures Travel Planet</blockquote>
+  <blockquote class="md-title" style="text-align: center; padding-top: 2px;">Factures Travel Planet</blockquote>
 </div>
-<div class="col 10 m4 l10 content" style="background-color:#EEEEEE; !important;" when-scrolled="loadMore()">
+<div class="col 10 m4 l10 content" style="background-color:#EEEEEE; !important; height:500px" when-scrolled="loadMore()">
   <h1 class="md-title" style="color:#424242" ng-show="data.length == 0">0 Resultat(s)</h1>
   <p class="md-subhead">{{information}}</p>
     <div ng-animate="'animate'" ng-repeat="facture in data">
-      <div  md-ink-ripple class="col s12" style="text-align:left; margin: 0; padding: 0;" context-menu="menuOptions" ng-click="watchPdf(facture.num.NUM_INVOICE)">
+      <div  md-ink-ripple class="col s12" style="text-align:left; margin: 0; padding: 0; margin-bottom: -9px;" context-menu="menuOptions" ng-click="watchPdf(facture.num.NUM_INVOICE)">
         <div style="text-align:center; padding:0; margin:0">
           <p class="col s2 md-whiteframe-1dp truncate" style="background-color:white"  class="md-subhead">{{facture.num.NUM_INVOICE}}</p>
           <p class="col s2 md-whiteframe-1dp truncate" style="background-color:white; {{getColorFactureType(facture.num.TRAVELLER)}}" class="md-subhead">{{checkName(facture.num.TRAVELLER)}}</p>
@@ -13,7 +13,7 @@
           <p class="col s1 md-whiteframe-1dp truncate" style="background-color:white;" class="md-subhead">{{facture.num.ACCOUNT_NUMBER}}</p>
           <p class="col s1 md-whiteframe-1dp truncate" style="background-color:white;" class="md-subhead">{{convertFacType(facture.num.INVOICE_TYPE)}}</p>
           <p class="col s2 md-whiteframe-1dp truncate" style="background-color:white; {{getColorFactureType(facture.num.SUPPLIER)}}" class="md-subhead">{{convertSupplier(facture.num.SUPPLIER)}}</p>
-          <p class="col s2 md-whiteframe-1dp truncate amountStyle" style="{{getColor(facture.num.FAC_TYPE)}}" class="md-subhead">{{facture.num.TOTAL_AMOUNT | number:2}} €</p>
+          <p class="col s2 md-whiteframe-1dp truncate amountStyle" style="{{getColor(facture.num.INVOICE_TYPE)}}" class="md-subhead">{{facture.num.TOTAL_AMOUNT | number:2}} €</p>
           <md-tooltip>
             {{facture.num.LINE_DESCRIPTION}}
           </md-tooltip>
@@ -22,11 +22,11 @@
     </div>
 </div>
 <form name="searchForm">
-<div layout-padding class="col s12 m4 l2" style="background-color:white; height: 750px;">
+<div layout-padding class="col s12 m4 l2" style="background-color:white; height: 500px;">
   <div ng-if="allow_filters.rules_filter_canFilterNumberClient">
-    <h2 class="md-subhead">Recherche par numéro de facture :</h2>
-    <md-input-container>
-      <label class="fontSize">Numéro de facture</label>
+    <!-- <h2 class="md-subhead">Recherche par facture :</h2> -->
+    <md-input-container class="col s12">
+      <label class="fontSize">Recherche pas numéro de facture</label>
       <input for="clientName" ng-change="filterFacture(clientFacture)" ng-model="clientFacture" name="clientFacture" ng-model-options="{debounce: 1000}" minlength="3" maxlength="10" ng-pattern="/^[0-9]+$/">
       <div ng-messages="searchForm.clientFacture.$error" role="alert">
         <div ng-message-exp="['pattern']">
@@ -40,9 +40,9 @@
   </div>
   <!-- Client NAME -->
   <div ng-if="allow_filters.rules_filter_canFilterNameClient">
-    <h2 class="md-subhead">Recherche par nom du client :</h2>
-    <md-input-container>
-      <label class="fontSize">Nom du client</label>
+    <!-- <h2 class="md-subhead">Recherche par nom du client :</h2> -->
+    <md-input-container class="col s12">
+      <label class="fontSize">Recherche pas nom du client</label>
       <input for="clientName" ng-change="filterName(clientName)" ng-model="clientName" name="clientName" ng-model-options="{debounce: 1000}" minlength="3" ng-pattern="/^[a-zA-Z\s]*$/">
       <div ng-messages="searchForm.clientName.$error" role="alert">
         <div ng-message-exp="['pattern']">
@@ -57,7 +57,7 @@
   <!-- DATE -->
   <div ng-if="allow_filters.rules_filter_canFilterDate">
     <h2 class="md-subhead">Filtrer par date :</h2>
-    <ob-daterangepicker on-apply="filterDate(start, end)" range="vm.range"></ob-daterangepicker>
+    <ob-daterangepicker class="col s12" style="font-size:10px;" on-apply="filterDate(start, end)" range="vm.range"></ob-daterangepicker>
   </div>
   <!-- TYPE -->
   <div ng-if="allow_filters.rules_filter_canFilterType">

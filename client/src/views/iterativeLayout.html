@@ -6,6 +6,6 @@
 </div>
 
 <!-- if we got a facture template -->
-<div ng-repeat="frame in getAllView" class="row col s12" ng-if="frame.embed_content_type == 'Factures'">
+<div ng-repeat="frame in getAllView" class="row col s12" style="width:107%" ng-if="frame.embed_content_type == 'Factures'">
   <div ng-include ng-controller="factureCtrl" src="'templates/facture.html'"></div>
 </div>
