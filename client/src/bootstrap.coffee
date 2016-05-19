@@ -27,7 +27,7 @@ tableau = angular.module 'tableauApp', [
 
 options = {}
 options.api = {}
-options.api.base_url = "https://portail.travelplanet.fr:3253/api"
+options.api.base_url = "https://tp-control.travelplanet.fr:3253/api"
 
 tableau
 .config (authProvider, $stateProvider, $urlRouterProvider, $httpProvider, jwtInterceptorProvider) ->
