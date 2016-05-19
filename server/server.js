@@ -9,9 +9,9 @@ var http        = require('http');
 // var privateKey  = fs.readFileSync('/etc/ssl/portail/server.key', 'utf8');
 // var certificate = fs.readFileSync('/etc/ssl/portail/portail_travelplanet_fr.crt', 'utf8');
 var credentials = {
-    key:  fs.readFileSync('/etc/ssl/portail/server.key'),
-    cert: fs.readFileSync('/etc/ssl/portail/portail_travelplanet_fr.crt'),
-    ca:   fs.readFileSync('/etc/ssl/portail/DigiCertCA.crt'),
+    key:  fs.readFileSync('/etc/ssl/tp_control/ia.key'),
+    cert: fs.readFileSync('/etc/ssl/tp_control/tp-control_travelplanet_fr.crt'),
+    ca:   fs.readFileSync('/etc/ssl/tp_control/DigiCertCA.crt'),
     requestCert:        true,
     rejectUnauthorized: false
 };

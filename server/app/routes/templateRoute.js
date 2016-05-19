@@ -3,7 +3,6 @@ var http_post = require('http-post');
 var request   = require('request');
 
 module.exports = function(router, connection) {
-
     router.route('/currentView/:user/:site/:customer/:view/:auth_role/:user_id')
         .get (function(req, res) {
             var completed_requests = 0;
