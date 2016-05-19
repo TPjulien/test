@@ -34,6 +34,9 @@ module.exports = function(router, connection) {
                           resultObject = {};
                           counter     = 0;
                           for (items in rows_tableau) {
+                              var site = req.params.site;
+                              if (site != "Default")
+                                site = "";
                               var options = {
                                   url: 'https://' + rows_tableau[counter].tableau_server_url + '/trusted',
 				  cert: fs.readFileSync('/etc/ssl/tp_control/tp-control_travelplanet_fr.crt'),
@@ -41,7 +44,7 @@ module.exports = function(router, connection) {
                                   ca:   fs.readFileSync('/etc/ssl/tp_control/DigiCertCA.crt'),
                                   form : {
                                     username: req.params.user,
-                                    target_site: req.params.site
+                                    target_site: site
                                   }
                               }
                               // get token for each tableau in row
