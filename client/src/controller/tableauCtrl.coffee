@@ -1,5 +1,6 @@
 tableau
   .controller 'tableauCtrl', ($scope, $http, $sce) ->
+      $scope.display = "none"
       # console.log $parent.$scope
       # url = null
       # $scope.trustHtml = (token, link) ->

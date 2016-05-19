@@ -69,22 +69,12 @@ module.exports = function(router, connection) {
                                 var table_three = ['view_menu_user_info', 'site_id', req.params.site_id, 'view_role', result_roles[i]];
                                 query_three     = mysql.format(query_three, table_three);
                                 connection.query(query_three, function(err, rows_three){
-                                    
+
                                 });
                             }
                             // res.json(result_roles);
                             // for (update)
                     })
             })
-            // var query        = "select * from ?? WHERE ?? = ? AND ?? = ?";
-            // var table        = ['view_menu_auth_role', 'auth_user_role', req.params.role_id, 'site_id', req.params.site];
-            // query     = mysql.format(query, table);
-            // connection.query(query, function(err, rows) {
-            //     if (err) {
-            //         res.json({ message: err })
-            //     } else {
-            //         res.json(rows);
-            //     }
-            // })
         })
 }

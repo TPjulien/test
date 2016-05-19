@@ -23,6 +23,7 @@ tableau
         startDate: null
         endDate:   null
     $scope.show = false
+    $scope.display = "none"
 
     $http
         method: 'GET'
@@ -81,13 +82,17 @@ tableau
             height: getTableau.embed_height
             onFirstInteractive: () ->
                 $scope.show = true
+                $scope.display = "block"
         viz = new tableau.Viz(placeholder, url, tableauOptions)
         window.addEventListener('message', (msg) ->
             if (isMessage(msg.data, LOADED_INDICATOR))
-                vizLoaded = true
+                vizLoaded     = true
+                $scope.dsplay = false
             else if isMessage(msg.data, COMPLETE_INDICATOR)
                 if vizLoaded
+                    $scope.display = "block"
                 else
                     $scope.urlLoadingView = "modals/errorLoading.html"
                     $scope.loadingText = "Impossible de charger cette vue"
+                    $scope.display = "none"
         )
