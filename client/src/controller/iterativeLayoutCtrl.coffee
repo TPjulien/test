@@ -61,7 +61,7 @@ tableau
 
     trustHtml = (token, link) ->
         # url = $sce.trustAsResourceUrl("http://data.travelplanet.fr/trusted/" + token + link + '&:toolbar=no' )
-        url = "http://data.travelplanet.fr/trusted/" + token + link + '&:toolbar=no'
+        url = "https://data.travelplanet.fr/trusted/" + token + link + '&:toolbar=no'
         return url
 
     isMessage = (txt, msg) ->
@@ -81,18 +81,18 @@ tableau
             width:  "100%"
             height: getTableau.embed_height
             onFirstInteractive: () ->
-                $scope.show = true
+                $scope.show    = true
                 $scope.display = "block"
         viz = new tableau.Viz(placeholder, url, tableauOptions)
         window.addEventListener('message', (msg) ->
             if (isMessage(msg.data, LOADED_INDICATOR))
                 vizLoaded     = true
-                $scope.dsplay = false
+                $scope.display = "none"
             else if isMessage(msg.data, COMPLETE_INDICATOR)
                 if vizLoaded
                     $scope.display = "block"
                 else
                     $scope.urlLoadingView = "modals/errorLoading.html"
-                    $scope.loadingText = "Impossible de charger cette vue"
-                    $scope.display = "none"
+                    $scope.loadingText    = "Impossible de charger cette vue"
+                    $scope.display        = "none"
         )
