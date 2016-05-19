@@ -17,6 +17,8 @@ var credentials = {
 };
 var app = express();
 
+process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
+
 var connection = mysql.createConnection({
     host:     '192.168.1.119',
     user:     'mahefa',
