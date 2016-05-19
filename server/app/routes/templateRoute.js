@@ -34,7 +34,7 @@ module.exports = function(router, connection) {
                           counter     = 0;
                           for (items in rows_tableau) {
                               // get token for each tableau in row
-                              request.post('http://' + rows_tableau[counter].tableau_server_url + '/trusted', {form:{ username: req.params.user, target_site: req.params.site }}, function(err, resultat, body) {
+                              request.post('https://' + rows_tableau[counter].tableau_server_url + '/trusted', {form:{ username: req.params.user, target_site: req.params.site }}, function(err, resultat, body) {
                                   resultObject[counter] = {  "site_id"             : rows[counter].site_id,
                                                              "view_id"             : rows[counter].view_id,
                                                              "embed_id"            : rows[counter].embed_id,
