@@ -35,7 +35,7 @@ module.exports = function(router, connection) {
                           counter     = 0;
                           for (items in rows_tableau) {
                               var site = req.params.site;
-                              if (site != "Default")
+                              if (site == "Default")
                                 site = "";
                               var options = {
                                   url: 'https://' + rows_tableau[counter].tableau_server_url + '/trusted',
