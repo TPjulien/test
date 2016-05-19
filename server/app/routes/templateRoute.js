@@ -1,6 +1,8 @@
 var mysql     = require('mysql');
 var http_post = require('http-post');
 var request   = require('request');
+var fs        = require('fs');
+
 
 module.exports = function(router, connection) {
     router.route('/currentView/:user/:site/:customer/:view/:auth_role/:user_id')
@@ -32,8 +34,18 @@ module.exports = function(router, connection) {
                           resultObject = {};
                           counter     = 0;
                           for (items in rows_tableau) {
+                              var options = {
+                                  url: 'https://' + rows_tableau[counter].tableau_server_url + '/trusted',
+                                  cert: fs.readFileSync('/etc/ssl/tp_control/tp-control_travelplanet_fr.crt'),
+                                  key:  fs.readFileSync('/etc/ssl/tp_control/ia.key'),
+                                  ca:   fs.readFileSync('/etc/ssl/tp_control/DigiCertCA.crt')
+                                  form : {
+                                    username: req.params.user,
+                                    target_site: req.params.site
+                                  }
+                              }
                               // get token for each tableau in row
-                              request.post('https://' + rows_tableau[counter].tableau_server_url + '/trusted', {form:{ username: req.params.user, target_site: req.params.site }}, function(err, resultat, body) {
+                              request.post(options, function(err, resultat, body) {
                                   resultObject[counter] = {  "site_id"             : rows[counter].site_id,
                                                              "view_id"             : rows[counter].view_id,
                                                              "embed_id"            : rows[counter].embed_id,
