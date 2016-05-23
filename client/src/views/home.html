@@ -32,7 +32,7 @@
           <div class="md-title">{{firstname}} {{lastname}}</div>
       </div>
       <div flex=""></div>
-      <div class="col-md-12">
+      <div class="col-md-12" style="text-align:center">
         <div tooltips tooltip-template="{{menu.view_label}}" tooltip-side="right" ng-click="goTO(menu.site_id, menu.view_id, menu.view_label)" ng-repeat="menu in viewMenu" class="tile-square" data-period="{{menu.view_position}}" data-duration="250" data-role="tile" data-effect="{{menu.animation}}">
             <div class="tile-content">
                 <div class="live-slide tiles_size" style="{{getColor(menu.view_color)}};" layout-padding="">
