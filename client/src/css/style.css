@@ -14,7 +14,7 @@ html {
   overflow-y:        hidden;
   transform:         rotate(-16deg);
   -ms-transform:     rotate(-16deg);
-  -webkit-transform: rotate(-16deg);
+  -webkit-transform: rotaœte(-16deg);
   position:          absolute;
   border-radius:     50%;
   width:             260px;
@@ -337,6 +337,7 @@ ob-daterangepicker .picker-dropdown-container .picker-dropdown {
   text-align:center;
   margin-bottom: 7px;
   margin-top: 10px;
+  margin-right: 0px;
 }
 
 .fixed {
