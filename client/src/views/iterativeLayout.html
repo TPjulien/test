@@ -1,6 +1,6 @@
 <!-- if we got an iframe template -->
 <div layout-padding class="anim-fade">
-  <div ng-repeat="frame in getAllView" ng-if="frame.embed_content_type == 'Tableau'" class="{{frame.embed_width}} separator row" style="height:{{frame.embed_height}}">
+  <div id="{{frame.embed_id}}" ng-repeat="frame in getAllView" ng-if="frame.embed_content_type == 'Tableau'" class="{{frame.embed_width}} separator row" style="height:{{frame.embed_height}}">
     <div ng-include src="'templates/tableau.html'" onload="niggeh(frame)"></div>
   </div>
 </div>

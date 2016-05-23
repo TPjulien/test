@@ -40,6 +40,7 @@ tableau
         method: 'GET'
         url:    options.api.base_url + '/getViewSite' + '/' + decode[0].site_id + '/' + decode[0].user_auth
     .success (result) ->
+        console.log result
         $scope.viewMenu = result
         for values in $scope.viewMenu
           values.view_position = getRandomNumber(1)

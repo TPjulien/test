@@ -33,15 +33,6 @@ tableau
     .error (err) ->
         console.log err
 
-    # console.log decode[0].username
-    # $http
-    #     method: 'GET'
-    #     url:    options.api.base_url + '/getViewSite' + '/' + decode[0].site_id + '/' + decode[0].user_auth
-    # .success (result) ->
-    #     $scope.viewMenu = result
-    # .error (err) ->
-    #     console.log err
-
     getTemplate = (site_id, view_id) ->
         $http
             method: 'GET'
@@ -60,7 +51,6 @@ tableau
             height = { height : "500px" }
 
     trustHtml = (token, link) ->
-        # url = $sce.trustAsResourceUrl("http://data.travelplanet.fr/trusted/" + token + link + '&:toolbar=no' )
         url = "https://data.travelplanet.fr/trusted/" + token + link + '&:toolbar=no'
         return url
 
@@ -70,10 +60,10 @@ tableau
     $scope.loadingText    = "Chargement de la vue en cours ..."
     $scope.urlLoadingView = "modals/loadingView.html"
     $scope.niggeh = (getTableau) ->
+        url = trustHtml(getTableau.token, getTableau.path_to_view)
         LOADED_INDICATOR =   'tableau.loadIndicatorsLoaded'
         COMPLETE_INDICATOR = 'tableau.completed'
-        url = trustHtml(getTableau.token, getTableau.path_to_view)
-        placeholder = document.getElementById("tableauViz")
+        placeholder = document.getElementById(getTableau.embed_id)
         vizLoaded   = false
         url         = url
         tableauOptions =
@@ -90,6 +80,7 @@ tableau
                 $scope.display = "none"
             else if isMessage(msg.data, COMPLETE_INDICATOR)
                 if vizLoaded
+                    viz.dispose()
                     $scope.display = "block"
                 else
                     $scope.urlLoadingView = "modals/errorLoading.html"
