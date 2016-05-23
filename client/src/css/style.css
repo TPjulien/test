@@ -49,6 +49,10 @@ html {
     }
 }
 
+ob-daterangepicker .picker-dropdown-container .picker-dropdown:after {
+  display:none;
+}
+
 .picker-dropdown {
     font-size: 10px !important;
 }
@@ -219,7 +223,12 @@ md-backdrop {
 /*svg {margin: 60px;}*/
 
 .md-backdrop {
+  height: 100%;
   position: fixed !important;
+}
+
+md-backdrop.md-sidenav-backdrop {
+    z-index: 8000;
 }
 
 ob-daterangepicker .picker-dropdown-container .picker-dropdown {
