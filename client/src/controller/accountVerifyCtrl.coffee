@@ -40,8 +40,8 @@ tableau
                 password: $scope.password
             }
         .success (data) ->
-            $mdDialog.hide()
-            ipFct.insertDataIp("Login session")
+            # $mdDialog.hide()
+            # ipFct.insertDataIp("Login session")
             store.set('JWT', data.token)
             $location.path "/home"
         .error (err) ->
