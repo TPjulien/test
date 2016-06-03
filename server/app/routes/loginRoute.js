@@ -9,8 +9,8 @@ module.exports = function(router, connection) {
     var table_login    = "user_info";
 
     function getPassUser(loginUser, callback) {
-        var query = "SELECT ?? FROM ?? WHERE ?? = ?";
-        var table = [table_password, table_login, table_username, loginUser];
+        var query = "SELECT ?? FROM ?? WHERE ?? = ? AND ?? = ?";
+        var table = [table_password, table_login, table_username, loginUser, "isActivated", 1];
         query     = mysql.format(query, table);
         connection.query(query, function(err, rows) {
             if (err) {
