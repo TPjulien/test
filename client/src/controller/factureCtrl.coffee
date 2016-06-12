@@ -1,5 +1,5 @@
 tableau
-.controller 'factureCtrl', ($scope, $http, jwtHelper, store, $window) ->
+.controller 'factureCtrl', ($scope, $http, jwtHelper, store, $window, $filter) ->
     token              = store.get('JWT')
     search_type        = "none"
     search_num_invoice = "none"
@@ -204,7 +204,7 @@ tableau
 
     $scope.getColor = (type) ->
       color: undefined
-      if type == "CommercialInvoice"
+      if type == "Facture"
           color = "color: #2196F3"
       else
           color = "color: #F44336"

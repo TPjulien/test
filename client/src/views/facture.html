@@ -12,7 +12,7 @@
           <p class="col s2 md-whiteframe-1dp truncate" style="background-color:white"  class="md-subhead">{{facture.num.PRINTED_DATE | date:'dd/MM/yyyy'}}</p>
           <p class="col s1 md-whiteframe-1dp truncate" style="background-color:white;" class="md-subhead">{{facture.num.ACCOUNT_NUMBER}}</p>
           <p class="col s1 md-whiteframe-1dp truncate" style="background-color:white;" class="md-subhead">{{facture.num.INVOICE_TYPE}}</p>
-          <p class="col s2 md-whiteframe-1dp truncate" style="background-color:white; {{getColorFactureType(facture.num.SUPPLIER)}}" class="md-subhead">{{facture.num.TRAVELLER}}</p>
+          <p class="col s2 md-whiteframe-1dp truncate" style="background-color:white;" class="md-subhead">{{facture.num.CMD_CLIENT_NOM_USUEL}}</p>
           <p class="col s2 md-whiteframe-1dp truncate amountStyle" style="{{getColor(facture.num.INVOICE_TYPE)}}" class="md-subhead">{{facture.num.TOTAL_AMOUNT_TTC | number:2}} €</p>
           <!-- <md-tooltip>
             {{facture.num.LINE_DESCRIPTION}}
