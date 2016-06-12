@@ -94,8 +94,9 @@ tableau
     $scope.testFacture = (min, max) ->
         $http
           method: "GET"
-          url: options.api.base_url + '/pdfSearchFilter/' + search_type + '/' + search_num_invoice + '/' + search_price_min + '/' + search_price_max + '/' + min + '/' + max + '/' + search_name + '/' + search_date_min + '/' + search_date_max
+          url: options.api.base_url + '/insermPDF/' + search_type + '/' + search_num_invoice + '/' + search_price_min + '/' + search_price_max + '/' + min + '/' + max + '/' + search_name + '/' + search_date_min + '/' + search_date_max
         .success (result) ->
+          console.log result
           number  = 0
           while number < result.length
             $scope.data.push ({num: result[number]})
@@ -103,6 +104,18 @@ tableau
           counter = result.length
         .error (err) ->
           console.log err
+    # $scope.testFacture = (min, max) ->
+    #     $http
+    #       method: "GET"
+    #       url: options.api.base_url + '/pdfSearchFilter/' + search_type + '/' + search_num_invoice + '/' + search_price_min + '/' + search_price_max + '/' + min + '/' + max + '/' + search_name + '/' + search_date_min + '/' + search_date_max
+    #     .success (result) ->
+    #       number  = 0
+    #       while number < result.length
+    #         $scope.data.push ({num: result[number]})
+    #         number++
+    #       counter = result.length
+    #     .error (err) ->
+    #       console.log err
 
     $scope.loadMore = ->
         if $scope.information

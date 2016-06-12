@@ -78,50 +78,50 @@ module.exports = function(router, connection) {
               }
           })
       router.route('/pdfSearchFilter/:type/:num_invoice/:amount_min/:amount_max/:min/:max/:clientName/:date_min/:date_max')
-      .get (function (req, res) {
-            var query = "SELECT ??, ??, ??, ??, ??, ??, ??, SUM(??) AS TOTAL_AMOUNT, ?? FROM ?? ";
-  	        var table   = ["SUPPLIER", "TYPE", "ACCOUNT_NUMBER", "LINE_DESCRIPTION", "TRAVELLER", "INVOICE_TYPE", "DATE_FROM", "AMOUNT", "NUM_INVOICE", "accelya.accelya_view_all"];
-            if (req.params.type != "none") {
-                var query = query + " WHERE INVOICE_TYPE = ? ";
-        		    // table.push("FAC_TYPE");
-        		    table.push(req.params.type);
-            }
-            if (req.params.num_invoice != "none") {
-            		if (req.params.type == "none") {
-            		    var query = query + "WHERE NUM_INVOICE LIKE '%" + req.params.num_invoice + "%' ";
-            		    table.push(req.params.num_invoice);
+          .get (function (req, res) {
+                var query = "SELECT ??, ??, ??, ??, ??, ??, ??, SUM(??) AS TOTAL_AMOUNT, ?? FROM ?? ";
+      	        var table   = ["SUPPLIER", "TYPE", "ACCOUNT_NUMBER", "LINE_DESCRIPTION", "TRAVELLER", "INVOICE_TYPE", "DATE_FROM", "AMOUNT", "NUM_INVOICE", "accelya.accelya_view_all"];
+                if (req.params.type != "none") {
+                    var query = query + " WHERE INVOICE_TYPE = ? ";
+            		    // table.push("FAC_TYPE");
+            		    table.push(req.params.type);
+                }
+                if (req.params.num_invoice != "none") {
+                		if (req.params.type == "none") {
+                		    var query = query + "WHERE NUM_INVOICE LIKE '%" + req.params.num_invoice + "%' ";
+                		    table.push(req.params.num_invoice);
 
-            		} else {
-                    var query = query + "AND NUM_INVOICE LIKE '%" + req.params.num_invoice + "%' ";
-            		    table.push(req.params.num_invoice);
-            		}
-            }
-            if (req.params.clientName != "none") {
-                if (req.params.type == "none" && req.params.num_invoice == "none") {
-                  var query = query + "WHERE TRAVELLER LIKE '%" + req.params.clientName + "%' ";
-                  // table.push(req.params.clientName)
-                } else {
-                    var query = query + "AND TRAVELLER LIKE '%" + req.params.clientName + "%' ";
+                		} else {
+                        var query = query + "AND NUM_INVOICE LIKE '%" + req.params.num_invoice + "%' ";
+                		    table.push(req.params.num_invoice);
+                		}
                 }
-            }
-            if(req.params.date_min != "none" && req.params.date_max != "none") {
-                if (req.params.type == "none" && req.params.num_invoice == "none" && req.params.clientName == "none") {
-                    var query = query + "WHERE DEPARTURE_DATE BETWEEN " + mysql.escape(req.params.date_min) + " AND " + mysql.escape(req.params.date_max) + " ";
-                } else {
-                    var query = query + "AND DEPARTURE_DATE BETWEEN " + mysql.escape(req.params.date_min) + " AND " + mysql.escape(req.params.date_max) + " ";
+                if (req.params.clientName != "none") {
+                    if (req.params.type == "none" && req.params.num_invoice == "none") {
+                      var query = query + "WHERE TRAVELLER LIKE '%" + req.params.clientName + "%' ";
+                      // table.push(req.params.clientName)
+                    } else {
+                        var query = query + "AND TRAVELLER LIKE '%" + req.params.clientName + "%' ";
+                    }
                 }
-            }
-            var query = query + "GROUP BY NUM_INVOICE HAVING TOTAL_AMOUNT BETWEEN " + req.params.amount_min + " AND " + req.params.amount_max + " LIMIT " + req.params.min + ',' + req.params.max;;
-	          // table.push("NUM_INVOICE");
-            query = mysql.format(query, table);
-	          connection.query(query, function(err, rows) {
-            		if (err) {
-                    res.status(400).send("Unable to execute request from search");
-            		} else {
-            		    res.json(rows);
-            		}
-      	     })
-          })
+                if(req.params.date_min != "none" && req.params.date_max != "none") {
+                    if (req.params.type == "none" && req.params.num_invoice == "none" && req.params.clientName == "none") {
+                        var query = query + "WHERE DEPARTURE_DATE BETWEEN " + mysql.escape(req.params.date_min) + " AND " + mysql.escape(req.params.date_max) + " ";
+                    } else {
+                        var query = query + "AND DEPARTURE_DATE BETWEEN " + mysql.escape(req.params.date_min) + " AND " + mysql.escape(req.params.date_max) + " ";
+                    }
+                }
+                var query = query + "GROUP BY NUM_INVOICE HAVING TOTAL_AMOUNT BETWEEN " + req.params.amount_min + " AND " + req.params.amount_max + " LIMIT " + req.params.min + ',' + req.params.max;;
+    	          // table.push("NUM_INVOICE");
+                query = mysql.format(query, table);
+    	          connection.query(query, function(err, rows) {
+                		if (err) {
+                        res.status(400).send("Unable to execute request from search");
+                		} else {
+                		    res.json(rows);
+                		}
+          	     })
+              })
 
       // juju route
       router.route('/xmlandpdf/:min/:max/:num_invoice/:num_commande/:date_min/:date_max')
@@ -195,5 +195,49 @@ module.exports = function(router, connection) {
                   }
               })
           })
+      router.route('/insermPDF/:type/:num_invoice/:amount_min/:amount_max/:min/:max/:clientName/:date_min/:date_max')
+          .get (function (req, res) {
+                var query = "SELECT ??, ??, ??, ??, ??, ??, ?? FROM ?? ";
+      	        var table   = ["NUM_INVOICE", "CMD_CLIENT_NON_USUEL", "PRINTED_DATE", "ACCOUNT_NUMBER", "INVOICE_TYPE", "TRAVELLER", "TOTAL_AMOUNT", "accelya.vue_inserm"];
+                if (req.params.type != "none") {
+                    var query = query + " WHERE INVOICE_TYPE = ? ";
+            		    // table.push("FAC_TYPE");
+            		    table.push(req.params.type);
+                }
+                if (req.params.num_invoice != "none") {
+                		if (req.params.type == "none") {
+                		    var query = query + "WHERE NUM_INVOICE LIKE '%" + req.params.num_invoice + "%' ";
+                		    table.push(req.params.num_invoice);
 
+                		} else {
+                        var query = query + "AND NUM_INVOICE LIKE '%" + req.params.num_invoice + "%' ";
+                		    table.push(req.params.num_invoice);
+                		}
+                }
+                if (req.params.clientName != "none") {
+                    if (req.params.type == "none" && req.params.num_invoice == "none") {
+                      var query = query + "WHERE TRAVELLER LIKE '%" + req.params.clientName + "%' ";
+                      // table.push(req.params.clientName)
+                    } else {
+                        var query = query + "AND TRAVELLER LIKE '%" + req.params.clientName + "%' ";
+                    }
+                }
+                if(req.params.date_min != "none" && req.params.date_max != "none") {
+                    if (req.params.type == "none" && req.params.num_invoice == "none" && req.params.clientName == "none") {
+                        var query = query + "WHERE PRINTED_DATE BETWEEN " + mysql.escape(req.params.date_min) + " AND " + mysql.escape(req.params.date_max) + " ";
+                    } else {
+                        var query = query + "AND PRINTED_DATE BETWEEN " + mysql.escape(req.params.date_min) + " AND " + mysql.escape(req.params.date_max) + " ";
+                    }
+                }
+                var query = query + " LIMIT " + req.params.min + ',' + req.params.max;;
+    	          // table.push("NUM_INVOICE");
+                query = mysql.format(query, table);
+    	          connection.query(query, function(err, rows) {
+                		if (err) {
+                        res.status(400).send("Unable to execute request from search");
+                		} else {
+                		    res.json(rows);
+                		}
+          	     })
+              })
 }
