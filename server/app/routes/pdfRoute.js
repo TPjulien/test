@@ -241,7 +241,7 @@ module.exports = function(router, connection) {
                         var query = query + "AND PRINTED_DATE BETWEEN " + mysql.escape(req.params.date_min) + " AND " + mysql.escape(req.params.date_max) + " ";
                     }
                 }
-                var query = query + " LIMIT " + req.params.min + ',' + req.params.max;;
+                var query = query + " ORDER BY PRINTED_DATE DESC LIMIT " + req.params.min + ',' + req.params.max;;
     	          // table.push("NUM_INVOICE");
                 query = mysql.format(query, table);
     	          connection.query(query, function(err, rows) {
