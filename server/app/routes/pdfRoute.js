@@ -21,7 +21,7 @@ module.exports = function(router, connection) {
       router.route('/downloadPDFinserm/:num_invoice')
           .get (function(req, res) {
               var query = "SELECT ?? FROM ?? WHERE ?? = ?";
-              var table = ['BLOB', 'vue_inserm', 'NUM_INVOICE', req.params.num_invoice];
+              var table = ['BLOB', 'accelya.vue_inserm', 'NUM_INVOICE', req.params.num_invoice];
               query     = mysql.format(query, table);
               connection.query(query, function(err, rows) {
                   if (err)
