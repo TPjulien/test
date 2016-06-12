@@ -54,6 +54,7 @@ tableau
             url         : options.api.base_url + '/downloadPDFinserm/' + selected
             responseType: 'arraybuffer'
         .success (result) ->
+            console.log result
             file           = new Blob([result], { type: 'application/pdf'})
             fileUrl        = URL.createObjectURL(file)
             $window.open(fileUrl,'C-Sharpcorner', 'width=600,height=800')
