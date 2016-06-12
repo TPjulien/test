@@ -24,7 +24,7 @@ tableau
     $scope.downloadPdf = (selected) ->
         $http
             method      : "GET"
-            url         : options.api.base_url + '/downloadPDF/' + selected
+            url         : options.api.base_url + '/downloadPDFinserm/' + selected
             responseType: 'arraybuffer'
         .success (result) ->
             myblob  = new Blob([result], { type: 'application/pdf' })
@@ -33,6 +33,18 @@ tableau
             anchor.download = selected + '.pdf'
             anchor.href = blobURL
             anchor.click()
+    # $scope.downloadPdf = (selected) ->
+    #     $http
+    #         method      : "GET"
+    #         url         : options.api.base_url + '/downloadPDF/' + selected
+    #         responseType: 'arraybuffer'
+    #     .success (result) ->
+    #         myblob  = new Blob([result], { type: 'application/pdf' })
+    #         blobURL = ( window.URL || window.webkitURL).createObjectURL(myblob)
+    #         anchor  = document.createElement("a")
+    #         anchor.download = selected + '.pdf'
+    #         anchor.href = blobURL
+    #         anchor.click()
 
     $scope.watchPdf = (selected) ->
         $http

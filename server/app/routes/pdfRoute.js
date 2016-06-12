@@ -18,6 +18,18 @@ module.exports = function(router, connection) {
                 }
             })
         })
+      router.route('/downloadPDFinserm/:num_invoice')
+          .get (function(req, res) {
+              var query = "SELECT ?? as blob FROM ?? WHERE ?? = ?";
+              var table = ['BLOB', 'vue_inserm', 'NUM_INVOICE', req.params.num_invoice];
+              query     = mysql.format(query, table);
+              connection.query(query, function(err, rows) {
+                  if (err)
+                      res.status(400).send("Bad realm !");
+                  else
+                      res.send(new Buffer(rows[0].blob, 'binary'));
+              })
+          })
       router.route('/getPDF/:limitMin/:limitMax')
           .get (function(req, res) {
               var min = req.params.limitMin

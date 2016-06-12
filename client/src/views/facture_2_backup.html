@@ -9,14 +9,14 @@
         <div style="text-align:center; padding:0; margin:0">
           <p class="col s2 md-whiteframe-1dp truncate" style="background-color:white"  class="md-subhead">{{facture.num.NUM_INVOICE}}</p>
           <p class="col s2 md-whiteframe-1dp truncate" style="background-color:white; {{getColorFactureType(facture.num.TRAVELLER)}}" class="md-subhead">{{checkName(facture.num.TRAVELLER)}}</p>
-          <p class="col s2 md-whiteframe-1dp truncate" style="background-color:white"  class="md-subhead">{{facture.num.PRINTED_DATE | date:'dd/MM/yyyy'}}</p>
+          <p class="col s2 md-whiteframe-1dp truncate" style="background-color:white"  class="md-subhead">{{facture.num.DATE_FROM | date:'dd/MM/yyyy'}}</p>
           <p class="col s1 md-whiteframe-1dp truncate" style="background-color:white;" class="md-subhead">{{facture.num.ACCOUNT_NUMBER}}</p>
-          <p class="col s1 md-whiteframe-1dp truncate" style="background-color:white;" class="md-subhead">{{facture.num.INVOICE_TYPE}}</p>
-          <p class="col s2 md-whiteframe-1dp truncate" style="background-color:white; {{getColorFactureType(facture.num.SUPPLIER)}}" class="md-subhead">{{facture.num.TRAVELLER}}</p>
-          <p class="col s2 md-whiteframe-1dp truncate amountStyle" style="{{getColor(facture.num.INVOICE_TYPE)}}" class="md-subhead">{{facture.num.TOTAL_AMOUNT_TTC | number:2}} €</p>
-          <!-- <md-tooltip>
+          <p class="col s1 md-whiteframe-1dp truncate" style="background-color:white;" class="md-subhead">{{convertFacType(facture.num.INVOICE_TYPE)}}</p>
+          <p class="col s2 md-whiteframe-1dp truncate" style="background-color:white; {{getColorFactureType(facture.num.SUPPLIER)}}" class="md-subhead">{{convertSupplier(facture.num.SUPPLIER)}}</p>
+          <p class="col s2 md-whiteframe-1dp truncate amountStyle" style="{{getColor(facture.num.INVOICE_TYPE)}}" class="md-subhead">{{facture.num.TOTAL_AMOUNT | number:2}} €</p>
+          <md-tooltip>
             {{facture.num.LINE_DESCRIPTION}}
-          </md-tooltip> -->
+          </md-tooltip>
         </div>
       </div>
     </div>
