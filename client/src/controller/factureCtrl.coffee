@@ -45,16 +45,28 @@ tableau
     #         anchor.download = selected + '.pdf'
     #         anchor.href = blobURL
     #         anchor.click()
+    #
+
 
     $scope.watchPdf = (selected) ->
         $http
             method      : "GET"
-            url         : options.api.base_url + '/downloadPDF/' + selected
+            url         : options.api.base_url + '/downloadPDFinserm/' + selected
             responseType: 'arraybuffer'
         .success (result) ->
             file           = new Blob([result], { type: 'application/pdf'})
             fileUrl        = URL.createObjectURL(file)
             $window.open(fileUrl,'C-Sharpcorner', 'width=600,height=800')
+
+    # $scope.watchPdf = (selected) ->
+    #     $http
+    #         method      : "GET"
+    #         url         : options.api.base_url + '/downloadPDF/' + selected
+    #         responseType: 'arraybuffer'
+    #     .success (result) ->
+    #         file           = new Blob([result], { type: 'application/pdf'})
+    #         fileUrl        = URL.createObjectURL(file)
+    #         $window.open(fileUrl,'C-Sharpcorner', 'width=600,height=800')
 
     $scope.getValues = (min, max) ->
         if min < 1000 || max < 1000
