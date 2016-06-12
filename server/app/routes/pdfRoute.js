@@ -198,7 +198,7 @@ module.exports = function(router, connection) {
       router.route('/insermPDF/:type/:num_invoice/:amount_min/:amount_max/:min/:max/:clientName/:date_min/:date_max')
           .get (function (req, res) {
                 var query = "SELECT ??, ??, ??, ??, ??, ??, ?? FROM ?? ";
-      	        var table   = ["NUM_INVOICE", "CMD_CLIENT_NON_USUEL", "PRINTED_DATE", "ACCOUNT_NUMBER", "INVOICE_TYPE", "TRAVELLER", "TOTAL_AMOUNT", "accelya.vue_inserm"];
+      	        var table   = ["NUM_INVOICE", "CMD_CLIENT_NOM_USUEL", "PRINTED_DATE", "ACCOUNT_NUMBER", "INVOICE_TYPE", "TRAVELLER", "TOTAL_AMOUNT", "accelya.vue_inserm"];
                 if (req.params.type != "none") {
                     var query = query + " WHERE INVOICE_TYPE = ? ";
             		    // table.push("FAC_TYPE");
