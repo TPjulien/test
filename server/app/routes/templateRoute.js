@@ -70,8 +70,8 @@ module.exports = function(router, connection) {
                         }
                     });
                   } else if (rows[0].embed_content_type == "Factures" ) {
-                      var query_three = "SELECT * FROM ?? WHERE ?? = ? AND ?? = ?";
-                      // ne fonctionne plus
+                      // var query_three = "SELECT * FROM ?? WHERE ?? = ? AND ?? = ?";
+                      var query_three = "SELECT * FROM ?? WHERE ?? = ?";
                       // var table_three = ['factures_view_info', 'client_id', req.params.customer, 'auth_user_role', req.params.auth_role,];
                       var table_three = ['factures_view_info', 'client_id', req.params.customer];
 
