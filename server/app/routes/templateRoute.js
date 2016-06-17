@@ -12,7 +12,7 @@ module.exports = function(router, connection) {
             var element            = {};
             var final_object       = [];
             var query              = "SELECT * FROM ?? WHERE ?? = ? AND ?? = ? AND ?? = ?";
-            var table              = ['generic_embed_view_info', 'view_id', req.params.view, 'site_id', req.params.customer, 'auth_user_role', req.params.auth_role];
+            var table              = ['embed_generic_info', 'view_id', req.params.view, 'site_id', req.params.customer, 'auth_user_role', req.params.auth_role];
             query                  = mysql.format(query, table);
             connection.query(query, function(err, rows) {
                 if (err) {
@@ -49,9 +49,6 @@ module.exports = function(router, connection) {
                               }
                               // get token for each tableau in row
                               request.post(options, function(err, resultat, body) {
-				  console.log(err);
-				  console.log(resultat);
-				  console.log(body);
                                   resultObject[counter] = {  "site_id"             : rows[counter].site_id,
                                                              "view_id"             : rows[counter].view_id,
                                                              "embed_id"            : rows[counter].embed_id,
@@ -74,6 +71,7 @@ module.exports = function(router, connection) {
                     });
                   } else if (rows[0].embed_content_type == "Factures" ) {
                       var query_three = "SELECT * FROM ?? WHERE ?? = ? AND ?? = ?";
+                      // ne fonctionne plus
                       var table_three = ['factures_view_info', 'user_id', req.params.user_id, 'auth_user_role', req.params.auth_role,];
                       query_three     = mysql.format(query_three, table_three);
                       connection.query(query_three, function(err, rows_Factures) {
@@ -95,7 +93,14 @@ module.exports = function(router, connection) {
                                 "rules_filter_canFilterType"         : rows_Factures[0].rules_filter_canFilterType,
                                 "rules_filter_canFilterNameClient"   : rows_Factures[0].rules_filter_canFilterNameClient,
                                 "rules_filter_canFilterNumberClient" : rows_Factures[0].rules_filter_canFilterNumberClient,
-                                "rules_filter_canFilterPRice"        : rows_Factures[0].rules_filter_canFilterPRice
+                                "rules_filter_canFilterPRice"        : rows_Factures[0].rules_filter_canFilterPRice,
+                                "facture_column_canUseFacNum"        : rows_Factures[0].facture_column_canUseFacNum,
+                                "facture_column_canUseTraveller"     : rows_Factures[0].facture_column_canUseTraveller,
+                                "facture_column_canUseDateFrom"      : rows_Factures[0].facture_column_canUseDateFrom,
+                                "facture_column_canUseAccountNumber" : rows_Factures[0].facture_column_canUseAccountNumber,
+                                "facture_column_canUseInvoiceType"   : rows_Factures[0].facture_column_canUseInvoiceType,
+                                "facture_column_canUseSupplier"      : rows_Factures[0].facture_column_canUseSupplier,
+                                "facture_column_canUseTotalAmount"   : rows_Factures[0].facture_column_canUseTotalAmount
                             };
                             res.json(resultObject);
                           }
