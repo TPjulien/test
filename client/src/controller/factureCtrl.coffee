@@ -21,22 +21,10 @@ tableau
         counter          = 0
         $scope.testFacture(0, 50)
 
-    $scope.downloadPdf = (selected) ->
-        $http
-            method      : "GET"
-            url         : options.api.base_url + '/downloadPDFinserm/' + selected
-            responseType: 'arraybuffer'
-        .success (result) ->
-            myblob  = new Blob([result], { type: 'application/pdf' })
-            blobURL = ( window.URL || window.webkitURL).createObjectURL(myblob)
-            anchor  = document.createElement("a")
-            anchor.download = selected + '.pdf'
-            anchor.href = blobURL
-            anchor.click()
     # $scope.downloadPdf = (selected) ->
     #     $http
     #         method      : "GET"
-    #         url         : options.api.base_url + '/downloadPDF/' + selected
+    #         url         : options.api.base_url + '/downloadPDFinserm/' + selected
     #         responseType: 'arraybuffer'
     #     .success (result) ->
     #         myblob  = new Blob([result], { type: 'application/pdf' })
@@ -45,29 +33,41 @@ tableau
     #         anchor.download = selected + '.pdf'
     #         anchor.href = blobURL
     #         anchor.click()
-    #
-
-
-    $scope.watchPdf = (selected) ->
+    $scope.downloadPdf = (selected) ->
         $http
             method      : "GET"
-            url         : options.api.base_url + '/downloadPDFinserm/' + selected
+            url         : options.api.base_url + '/downloadPDF/' + selected
             responseType: 'arraybuffer'
         .success (result) ->
-            console.log result
-            file           = new Blob([result], { type: 'application/pdf'})
-            fileUrl        = URL.createObjectURL(file)
-            $window.open(fileUrl,'C-Sharpcorner', 'width=600,height=800')
+            myblob  = new Blob([result], { type: 'application/pdf' })
+            blobURL = ( window.URL || window.webkitURL).createObjectURL(myblob)
+            anchor  = document.createElement("a")
+            anchor.download = selected + '.pdf'
+            anchor.href = blobURL
+            anchor.click()
+
+
 
     # $scope.watchPdf = (selected) ->
     #     $http
     #         method      : "GET"
-    #         url         : options.api.base_url + '/downloadPDF/' + selected
+    #         url         : options.api.base_url + '/downloadPDFinserm/' + selected
     #         responseType: 'arraybuffer'
     #     .success (result) ->
+    #         console.log result
     #         file           = new Blob([result], { type: 'application/pdf'})
     #         fileUrl        = URL.createObjectURL(file)
     #         $window.open(fileUrl,'C-Sharpcorner', 'width=600,height=800')
+
+    $scope.watchPdf = (selected) ->
+        $http
+            method      : "GET"
+            url         : options.api.base_url + '/downloadPDF/' + selected
+            responseType: 'arraybuffer'
+        .success (result) ->
+            file           = new Blob([result], { type: 'application/pdf'})
+            fileUrl        = URL.createObjectURL(file)
+            $window.open(fileUrl,'C-Sharpcorner', 'width=600,height=800')
 
     $scope.getValues = (min, max) ->
         if min < 1000 || max < 1000
@@ -116,24 +116,12 @@ tableau
 
     getFilter()
 
-    $scope.testFacture = (min, max) ->
-        $http
-          method: "GET"
-          url: options.api.base_url + '/insermPDF/' + search_type + '/' + search_num_invoice + '/' + search_price_min + '/' + search_price_max + '/' + min + '/' + max + '/' + search_name + '/' + search_date_min + '/' + search_date_max
-        .success (result) ->
-          console.log result
-          number  = 0
-          while number < result.length
-            $scope.data.push ({num: result[number]})
-            number++
-          counter = result.length
-        .error (err) ->
-          console.log err
     # $scope.testFacture = (min, max) ->
     #     $http
     #       method: "GET"
-    #       url: options.api.base_url + '/pdfSearchFilter/' + search_type + '/' + search_num_invoice + '/' + search_price_min + '/' + search_price_max + '/' + min + '/' + max + '/' + search_name + '/' + search_date_min + '/' + search_date_max
+    #       url: options.api.base_url + '/insermPDF/' + search_type + '/' + search_num_invoice + '/' + search_price_min + '/' + search_price_max + '/' + min + '/' + max + '/' + search_name + '/' + search_date_min + '/' + search_date_max
     #     .success (result) ->
+    #       console.log result
     #       number  = 0
     #       while number < result.length
     #         $scope.data.push ({num: result[number]})
@@ -141,6 +129,18 @@ tableau
     #       counter = result.length
     #     .error (err) ->
     #       console.log err
+    $scope.testFacture = (min, max) ->
+        $http
+          method: "GET"
+          url: options.api.base_url + '/pdfSearchFilter/' + search_type + '/' + search_num_invoice + '/' + search_price_min + '/' + search_price_max + '/' + min + '/' + max + '/' + search_name + '/' + search_date_min + '/' + search_date_max
+        .success (result) ->
+          number  = 0
+          while number < result.length
+            $scope.data.push ({num: result[number]})
+            number++
+          counter = result.length
+        .error (err) ->
+          console.log err
 
     $scope.loadMore = ->
         if $scope.information

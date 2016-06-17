@@ -25,6 +25,9 @@ tableau
     $scope.show = false
     $scope.display = "none"
 
+    $scope.dynamic_rows = () ->
+        return 
+
     $http
         method: 'GET'
         url:    options.api.base_url + '/testSite/' + decode[0].site_id + '/' + decode[0].username
@@ -38,6 +41,7 @@ tableau
             method: 'GET'
             url:    options.api.base_url + '/currentView/' +  decode[0].tableau_user_id + '/' + decode[0].site + '/' + site_id + '/' + view_id + '/' + decode[0].user_auth + '/' + decode[0].user_id
         .success (result) ->
+            console.log result
             $scope.getAllView = result
         .error (err) ->
             $location.path '/home/error'
