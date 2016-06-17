@@ -72,7 +72,7 @@ module.exports = function(router, connection) {
                   } else if (rows[0].embed_content_type == "Factures" ) {
                       var query_three = "SELECT * FROM ?? WHERE ?? = ? AND ?? = ?";
                       // ne fonctionne plus
-                      var table_three = ['factures_view_info', 'user_id', req.params.user_id, 'auth_user_role', req.params.auth_role,];
+                      var table_three = ['factures_view_info', 'client_id', req.params.customer, 'auth_user_role', req.params.auth_role,];
                       query_three     = mysql.format(query_three, table_three);
                       connection.query(query_three, function(err, rows_Factures) {
                           if (err) {
