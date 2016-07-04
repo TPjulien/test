@@ -1,14 +1,23 @@
 <div class="navbar-fixed">
   <nav style="box-shadow: none">
     <div class="nav-wrapper" style="background-image: url('/img/nav_background_top.jpeg'); background-color: transparent">
-      <h1 class="brand-logo center">{{ clock | date: 'HH:mm:ss' }}</h1>
       <ul id="nav-mobile">
+        <li>
+          <h1 class="brand-logo center">{{ clock | date: 'HH:mm:ss' }}</h1>
+        </li>
         <li>
           <md-button style="left: 15px;" class="md-icon-button" aria-label="Settings" ng-click="toggleLeft()">
             <md-icon  md-svg-icon="img/icons/humberger.svg"></md-icon>
           </md-button>
+          <img height="48" width="48" style="border-radius: 15%; background-color: white; margin-left: 15px;" src="https://media.licdn.com/mpr/mpr/shrink_200_200/AAEAAQAAAAAAAAUIAAAAJDBjMWM3NDAwLWUxMjAtNDBiMy04YWM3LWFjZWY4Y2ExOWRjYg.png">
         </li>
         <li class="right">
+          <!-- <md-button style="right: 15px;" class="md-icon-button" aria-label="logout" ng-click="logOut()"> -->
+
+          <!-- </md-button> -->
+        </li>
+        <li class="right">
+          <img height="48" width="48" style="border-radius: 15%; background-color: white; margin-right: 15px;" src="/img/logo/poleemploi.png">
           <md-button style="right: 15px;" class="md-icon-button" aria-label="logout" ng-click="logOut()">
             <md-icon md-svg-icon="/img/icons/logout.svg"></md-icon>
           </md-button>
@@ -25,7 +34,7 @@
   </div>
   <md-toolbar style="background-color:transparent;" style=" padding-bottom: 30px;">
       <div>
-          <img id="imgSidenav" data-ng-src="data:{{site_logo_type}};base64,{{site_logo_base64}}" />
+          <img style="height:110px;" id="imgSidenav" data-ng-src="/img/logo/poleemploi.jpg" />
       </div>
       <span flex></span>
       <div padding="" style="text-align:center; padding-bottom: 20px">
