@@ -23,6 +23,8 @@ tableau = angular.module 'tableauApp', [
   'ngMorph'
   'anim-in-out'
   '720kb.tooltips'
+  'btford.markdown'
+  'textAngular'
 ]
 
 options = {}

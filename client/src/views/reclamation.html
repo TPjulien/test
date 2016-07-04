@@ -1,0 +1,33 @@
+<div layout="column" ng-cloak>
+  <h1 style="text-align:center">Nous contacter</h1>
+  <md-content style="background-color: #f7f7f7;" layout-padding>
+    <form name="emailForm">
+      <md-input-container style="background-color:#ffffff; border-radius:5px;" class="md-block">
+        <label style="font-size:15px;">De</label>
+        <md-icon md-svg-src="img/icons/mail.svg" class="name"></md-icon>
+        <input required type="email" name="clientEmail" ng-model="email.clientEmail"
+               minlength="10" maxlength="100" ng-pattern="/^.+@.+\..+$/" />
+        <div ng-messages="emailForm.clientEmail.$error" role="alert">
+          <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
+            Votre e-mail doit être compris entre 10 et 100 caractères et doit ressembler à une adresse e -mail .
+          </div>
+        </div>
+      </md-input-container>
+      <md-input-container style="background-color:#ffffff; border-radius:5px;" class="md-block">
+        <label  style="font-size:15px;">Objet</label>
+        <md-icon md-svg-src="img/icons/objet.svg" class="name"></md-icon>
+        <input required name="objet" ng-model="email.objet">
+        <div ng-messages="emailForm.objet.$error">
+          <div ng-message="required">Ce champs est obligatoire.</div>
+        </div>
+      </md-input-container>
+      <md-input-container style="background-color:#ffffff; border-radius:5px;" class="md-block">
+        <div text-angular ng-model="htmlVariable">yoooo</div>
+        <label style="font-size:15px;">Corps du mail</label>
+        <md-icon md-svg-src="img/icons/write.svg" class="name"></md-icon>
+      </md-input-container>
+      <md-button style="float:right;" class="md-raised md-primary">Envoyer</md-button>
+
+    </form>
+  </md-content>
+</div>
