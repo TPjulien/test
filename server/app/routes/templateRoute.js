@@ -105,6 +105,9 @@ module.exports = function(router, connection) {
                             res.json(resultObject);
                           }
                       });
+                  // on verifie si c'est reclamation
+                  } else if (rows[0].embed_content_type == "Reclamation") {
+                      res.status(200).send({'message': "c'est bon !"});
                   }
                 }
               })

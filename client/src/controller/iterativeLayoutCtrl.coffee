@@ -26,7 +26,7 @@ tableau
     $scope.display = "none"
 
     $scope.dynamic_rows = () ->
-        return 
+        return
 
     $http
         method: 'GET'
