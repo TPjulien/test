@@ -116,7 +116,7 @@ module.exports = function(router, connection) {
                           else
                               res.json(result);
                       })
-                  } else if (rows[0].embed_content_type == "Reclamation") {
+                  } else if (rows[0].embed_content_type == "iframe") {
                       var query_one = "SELECT * FROM ?? WHERE ?? = ? AND ?? =?";
                       var table_one = ['embed_generic_info', 'embed_content_type', 'iframe', 'auth_user_role', req.params.auth_role];
                       query_one     = mysql.format(query_one, table_one);

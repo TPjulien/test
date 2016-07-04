@@ -16,6 +16,6 @@
 </div>
 
 <!-- if we got a iframe template -->
-<div ng-repeat="frame in getAllView" class="row col s12" style="width:107%" ng-if="frame.embed_content_type == 'Iframe'">
+<div ng-repeat="frame in getAllView" class="row col s12" style="width:107%" ng-if="frame.embed_content_type == 'iframe'">
   <div ng-include ng-controller="iframeCtrl" src="'templates/Iframe.html'"></div>
 </div>
