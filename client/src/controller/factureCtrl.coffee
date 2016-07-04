@@ -134,6 +134,7 @@ tableau
           method: "GET"
           url: options.api.base_url + '/pdfSearchFilter/' + search_type + '/' + search_num_invoice + '/' + search_price_min + '/' + search_price_max + '/' + min + '/' + max + '/' + search_name + '/' + search_date_min + '/' + search_date_max
         .success (result) ->
+          console.log result
           number  = 0
           while number < result.length
             $scope.data.push ({num: result[number]})
@@ -202,9 +203,16 @@ tableau
       else
           newName = name
 
+    # $scope.getColor = (type) ->
+    #   color: undefined
+    #   if type == "Facture"
+    #       color = "color: #2196F3"
+    #   else
+    #       color = "color: #F44336"
+
     $scope.getColor = (type) ->
       color: undefined
-      if type == "Facture"
+      if type == "CommercialInvoice"
           color = "color: #2196F3"
       else
           color = "color: #F44336"
