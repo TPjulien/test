@@ -13,6 +13,7 @@ tableau
           #     text:  "Imposible d'obtenir une session, veuillez vous reconnecter"
           #     type:  "warning"
       loginError: ->
+          store.remove('JWT')
           SweetAlert.swal
               title: "Connexion refusé"
               text:  "Login ou mot de passe éroné, veuillez vous reconnecter"
