@@ -3,12 +3,12 @@ tableau
     token            = store.get('JWT')
     decode           = jwtHelper.decodeToken(token)
     $rootScope.color = "#EAEAEA"
-
     $scope.firstname      = decode[0].firstname
     $scope.lastname       = decode[0].lastname
     $scope.favorite_color = decode[0].favorite_color
     $scope.company        = decode[0].company
-    $scope.logo           = decode[0].logo
+    $scope.site_logo_type = decode[0].site_logo_type
+    $scope.site_logo_base64 = decode[0].site_logo_base64
 
     $mdDialog.hide()
 
