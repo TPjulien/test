@@ -10,7 +10,12 @@
   <div ng-include ng-controller="factureCtrl" src="'templates/facture.html'"></div>
 </div>
 
-<!-- if we got a facture template -->
+<!-- if we got a reclamation template -->
 <div ng-repeat="frame in getAllView" class="row col s12" style="width:107%" ng-if="frame.embed_content_type == 'Reclamation'">
   <div ng-include ng-controller="reclamationCtrl" src="'templates/reclamation.html'"></div>
+</div>
+
+<!-- if we got a iframe template -->
+<div ng-repeat="frame in getAllView" class="row col s12" style="width:107%" ng-if="frame.embed_content_type == 'Iframe'">
+  <div ng-include ng-controller="iframeCtrl" src="'templates/Iframe.html'"></div>
 </div>
