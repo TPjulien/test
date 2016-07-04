@@ -7,8 +7,9 @@ tableau
     $scope.lastname       = decode[0].lastname
     $scope.favorite_color = decode[0].favorite_color
     $scope.company        = decode[0].company
-    $scope.site_logo_type = decode[0].site_logo_type
-    $scope.site_logo_base64 = decode[0].site_logo_base64
+    $scope.logo           = decode[0].logo
+    console.log decode[0]
+
 
     $mdDialog.hide()
 
