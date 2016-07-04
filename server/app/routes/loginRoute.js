@@ -52,14 +52,12 @@ module.exports = function(router, connection) {
                                            ??, ??, \
                                            ??, ??, \
                                            ??, ??  \
-                                           ??, ??  \
                                            FROM  ?? ??, ?? ?? \
                                            WHERE ?? = ? \
                                            AND ?? = ?? AND ti.tableau_user_id IS NOT NULL';
                               var table = ['si.site_id'         , 'si.customer_id',
                                            'si.site_logo'       , 'si.site_tableau_libelle',
                                            'si.site_label'      , 'si.site_color_theme',
-                                           'si.site_logo_type'  , 'si.site_logo_base64',
                                            'ti.tableau_user_id' , 'si.site_background_theme',
                                            'tableau_info'       , 'ti',
                                            'site_info'          , 'si',
