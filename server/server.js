@@ -6,8 +6,7 @@ var bodyParser  = require('body-parser');
 var jwt         = require('jsonwebtoken');
 var https       = require('https');
 var http        = require('http');
-// var privateKey  = fs.readFileSync('/etc/ssl/portail/server.key', 'utf8');
-// var certificate = fs.readFileSync('/etc/ssl/portail/portail_travelplanet_fr.crt', 'utf8');
+
 var credentials = {
     key:  fs.readFileSync('/etc/ssl/tp_control/ia.key'),
     cert: fs.readFileSync('/etc/ssl/tp_control/tp-control_travelplanet_fr.crt'),
@@ -72,13 +71,12 @@ router.use(function(req, res, next) {
 });
 
 // require des routes nécesittant un token valide
-require('./app/routes/testRoute')(router, connection);
-require('./app/routes/tokenTableauRoute')(router, connection);
-require('./app/routes/templateRoute')(router, connection);
-require('./app/routes/dimensionRoute')(router, connection);
-require('./app/routes/pdfRoute')(router, connection);
-require('./app/routes/rules')(router, connection);
-require('./app/routes/ipRoute')(router, connection);
+require('./app/routes/tokenTableauRoute') (router, connection);
+require('./app/routes/templateRoute')     (router, connection);
+require('./app/routes/dimensionRoute')    (router, connection);
+require('./app/routes/pdfRoute')          (router, connection);
+require('./app/routes/rules')             (router, connection);
+require('./app/routes/ipRoute')           (router, connection);
 
 app.use('/api', router);
 
@@ -87,9 +85,5 @@ var httpsServer = https.createServer(credentials, app);
 
 httpServer.listen(3000);
 httpsServer.listen(3253);
-// var httpsServer = https.createServer(credentials, app);
-// starting API
-// httpsServer.lisen(port);
-// app.listen(port);
 
-console.log('done !' + port);
+// console.log('done !' + port);

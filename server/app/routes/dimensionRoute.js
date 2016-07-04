@@ -72,8 +72,6 @@ module.exports = function(router, connection) {
 
                                 });
                             }
-                            // res.json(result_roles);
-                            // for (update)
                     })
             })
         })

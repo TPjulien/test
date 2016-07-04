@@ -14,7 +14,6 @@ module.exports = function(router, connection) {
                     res.json({ message: 'error'})
                 } else {
                     res.send(new Buffer(rows[0].blob, 'binary'))
-                    // res.json(rows);
                 }
             })
         })

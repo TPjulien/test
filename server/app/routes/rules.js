@@ -9,9 +9,9 @@ module.exports = function(router, connection) {
             connection.query(query, function(err, rows) {
                 console.log(rows);
                 if (err) {
-                    res.status(400).send("Bad realm !");
+                    res.status(400).send(err);
                 } else if (rows.lgenth == 0) {
-                    res.status(404).send("Not Found");
+                    res.status(404).send("Not found");
                 } else {
                     res.json(rows);
                 }
