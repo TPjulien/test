@@ -16,7 +16,7 @@ module.exports = function(router, connection) {
             query                  = mysql.format(query, table);
             connection.query(query, function(err, rows) {
                 if (err) {
-                    res.status(400).send("Bad realm !");
+                    res.status(400).send(err);
                 } else if (rows.length == 0) {
                     res.status(404).send("Not found !");
                 } else {
@@ -76,11 +76,11 @@ module.exports = function(router, connection) {
                       query_three     = mysql.format(query_three, table_three);
                       connection.query(query_three, function(err, rows_Factures) {
                           if (err) {
-                              res.status(400).send("Bad Realm !");
+                              res.status(400).send(err);
                           } else if (rows_Factures == 0) {
-                              res.status(400).send("404 Not Found !");
+                              res.status(404).send("Not Found !");
                           } else {
-                            resultObject = {};
+                            resultObject    = {};
                             resultObject[0] = {
                                 "site_id"                            : rows[0].site_id,
                                 "view_id"                            : rows[0].view_id,

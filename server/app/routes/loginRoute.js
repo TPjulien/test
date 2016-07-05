@@ -108,7 +108,7 @@ module.exports = function(router, connection) {
               query     = mysql.format(query, table);
               connection.query(query, function(err, rows) {
                   if (err) {
-                    res.status(400).send("Bad realm !");
+                    res.status(400).send(err);
                   } else if (rows.length == 0) {
                       res.status(404).send("Not Found !");
                   } else {

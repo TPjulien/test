@@ -1,7 +1,6 @@
 var mysql = require('mysql');
 var geoip = require('geoip-lite');
 
-
 module.exports = function(router, connection) {
     router.route('/rules/ip')
         .post(function(req, res) {
