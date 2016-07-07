@@ -77,6 +77,7 @@ require('./app/routes/dimensionRoute')    (router, connection);
 require('./app/routes/pdfRoute')          (router, connection);
 require('./app/routes/rules')             (router, connection);
 require('./app/routes/ipRoute')           (router, connection);
+require('./app/routes/profilRoute')           (router, connection);
 
 app.use('/api', router);
 

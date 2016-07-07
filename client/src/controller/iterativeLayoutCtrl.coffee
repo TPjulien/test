@@ -1,5 +1,5 @@
 tableau
-.controller 'iterativeLayoutCtrl', ($scope, $http, $stateParams, $sce, store, jwtHelper, ticketGeneratorFactory, $interval, $window, $filter, $location, $mdDialog) ->
+.controller 'iterativeLayoutCtrl', ($scope, $http, $stateParams, $sce, store, jwtHelper, $interval, $window, $filter, $location, $mdDialog) ->
     token                 = store.get('JWT')
     decode                = jwtHelper.decodeToken(token)
     $scope.actualTemplate = []
