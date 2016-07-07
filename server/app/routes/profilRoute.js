@@ -19,10 +19,10 @@ module.exports = function(router, connection) {
                                 "cu.Customer_Gender", "Customer_BirthDate", "Customer_surName",    "Customer_NameTitle",   "Customer_MiddleName", "Customer_GivenName",
                                 "ph.PhoneUseType",    "ph.PhoneTechType",   "ph.PhoneCountryCode", "ph.PhoneAreaCityCode", "ph.PhoneNumber",
                                 "profils.email",
-                                "customer",
+                                "profils.customer",
                                     "em.site_id", "cu.site_id",
                                     "em.uid",     "cu.uid",
-                                "phone",
+                                "profils.phone",
                                     "em.site_id", "ph.site_id",
                                     "em.uid",     "ph.uid",
                                 "em.uid", req.params.id];
