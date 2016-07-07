@@ -71,13 +71,13 @@ router.use(function(req, res, next) {
 });
 
 // require des routes nécesittant un token valide
-require('./app/routes/tokenTableauRoute') (router, connection);
+// require('./app/routes/tokenTableauRoute') (router, connection);
 require('./app/routes/templateRoute')     (router, connection);
 require('./app/routes/dimensionRoute')    (router, connection);
 require('./app/routes/pdfRoute')          (router, connection);
 require('./app/routes/rules')             (router, connection);
 require('./app/routes/ipRoute')           (router, connection);
-require('./app/routes/profilRoute')           (router, connection);
+require('./app/routes/profilRoute')       (router, connection);
 
 app.use('/api', router);
 
