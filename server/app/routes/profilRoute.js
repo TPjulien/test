@@ -25,7 +25,7 @@ module.exports = function(router, connection) {
                                 "phone",
                                     "em.site_id", "ph.site_id",
                                     "em.uid",     "ph.uid",
-                                "em.uid", req.parmas.id];
+                                "em.uid", req.params.id];
             // var query_one = "SELECT \
             //                  ??, ??, ??, ??, ??, \
             //                  ??, ??, ?? \
