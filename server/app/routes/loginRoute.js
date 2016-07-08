@@ -116,4 +116,19 @@ module.exports = function(router, connection) {
                   }
               })
           })
+          router.route('/SSO')
+            .post (function(req, res) {
+                http_post('url', { LOGINNNAME:          req.body.username,
+                                   SITE:                'Q4OZQ40Z',
+                                   LANGUAGE:            'FR',
+                                   LOGIN_TYPE:          'SSO',
+                                   PASSWORD:            req.body.password,
+                                   BOOKING_FLOW_TYPE:   'MODIFY'
+                                 }, function(res) {
+                    response.setEncoding('utf8');
+                    res.on('data', function(chunk) {
+                        res.json(chunk);
+                    })
+                })
+            })
 };

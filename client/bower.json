@@ -47,7 +47,9 @@
     "angular-materialize": "^0.1.4",
     "angular-markdown-directive": "^0.3.1",
     "textAngular": "^1.5.1",
-    "components-font-awesome": "^4.6.3"
+    "components-font-awesome": "^4.6.3",
+    "ng-image-cache": "^0.3.0",
+    "angular-multi-step-form": "^1.2.9"
   },
   "resolutions": {
     "angular": "~1.4.7"

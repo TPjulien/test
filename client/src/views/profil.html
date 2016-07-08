@@ -1,0 +1,409 @@
+<div class="container" style="background-color:#FFFFFF;" >
+</br>
+<div class="row">
+  <div class="col s3">
+    <div class="card">
+      <div class="card-image">
+        <div id="wrapper" ng-switch="user.sexe">
+          <div ng-if="profils.Customer_Gender == 'H' ">
+            <img style="width:259;height:175;" src="img/Avatar-Man.jpg">
+          </div>
+          <div ng-if="profils.Customer_Gender == 'F'">
+            <img style="width:259;height:175;" src="img/Avatar-Woman.jpg">
+          </div>
+          <div ng-if="profils.Customer_Gender == null">
+            <img style="width:259;height:175;" src="img/mario.jpg">
+          </div>
+
+          <span class="card-title">Card Title</span>
+        </div>
+        <div class="card-action">
+          <div class="">
+            <ul class="">
+              <li>
+                <a href="#" class="">Modifier le profil</a>
+              </li>
+              <li>
+                <a hre="#"  class="">Photos, symbole et vidéo</a>
+              </li>
+              <li>
+                <a href="#"  class="">Confiance et vérification</a>
+              </li>
+              <li>
+                <a href="#" class="">Commentaires</a>
+              </li>
+              <li>
+                <a href="#"  class="">Recommandations</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="col s9">
+    <div class="panel">
+      <div class="panel-header">Obligatoire</div>
+      <div class="container">
+      </br>
+      <div class="row">
+        <div class="col s2">
+          <label class="right">Sexe <md-icon  md-svg-icon="img/icons/locked-padlock.svg"></md-icon></label>
+        </div>
+        <div class="col s10">
+          <input class="with-gap" name="sexe" type="radio" id="H" ng-model="profils.Customer_Gender" value="H" ng-checked="{{profils.Customer_Gender=='M'}}" />
+          <label for="H">M. </label>
+          <input class="with-gap" name="sexe" type="radio" id="F" ng-model="profils.Customer_Gender" value="F"  ng-checked="{{profils.Customer_Gender=='F'}}"/>
+          <label for="F">Mme. </label>
+          <input class="with-gap" name="sexe" type="radio" id="O" ng-model="profils.Customer_Gender" ng-checked="{{profils.Customer_Gender==null}}" />
+          <label for="O">Autre </label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s2">
+          <label  class="right">Prénom <md-icon  md-svg-icon="img/icons/locked-padlock.svg"></md-icon> </label>
+        </div>
+        <div class="col s10">
+          <input class="input_design w400px" name="prenom" ng-model="profils.Customer_GivenName" ng-minlength="1" ng-maxlength="20" type="text" class="validate" required>
+        </div>
+        <div class="col s2">
+          <label  class="right">Nom <md-icon  md-svg-icon="img/icons/locked-padlock.svg"></md-icon></label>
+        </div>
+        <div class="col s10">
+          <input class="input_design w400px" name="nom" ng-model="profils.Customer_surName"type="text" ng-minlength="1" ng-maxlength="30" class="validate" required>
+        </div>
+        <div class="col s2">
+          <label  class="right">Date de naissance <md-icon  md-svg-icon="img/icons/locked-padlock.svg"></md-icon></label>
+        </div>
+        <div class="col s10">
+          <md-input-container class="w75px">
+            <md-select  name="birth_jours" ng-model="user.birth_jours" >
+              <md-option  ng-repeat="oneJours in jours"  value="{{oneJours.name}}">{{oneJours.name}}</md-option>
+            </md-select>
+          </md-input-container>
+          <md-input-container class="birth_mois">
+            <md-select  name="birth_mois" ng-model="user.birth_mois" >
+              <md-option  ng-repeat="oneMois in mois"  value="{{oneMois.name}}">{{oneMois.name}}</md-option>
+            </md-select>
+          </md-input-container>
+          <md-input-container class="birth_annee">
+            <md-select  name="birth_annee" ng-model="user.birth_annee" >
+              <md-option  ng-repeat="oneAnnee in annee"  value="{{oneAnnee.name}}">{{oneAnnee.name}}</md-option>
+            </md-select>
+          </md-input-container>
+        </div>
+        <div class="col s2">
+          <label  class="right">Adresse Mail <md-icon  md-svg-icon="img/icons/locked-padlock.svg"></md-icon></label>
+        </div>
+        <div class="col s10">
+          <input class="input_design w400px" name="mail" ng-model="profils.Email" type="text" ng-minlength="1" ng-maxlength="30" class="validate" required>
+        </div>
+        <div class="col s2">
+          <label  class="right">Numéro de téléphone <md-icon  md-svg-icon="img/icons/locked-padlock.svg"></md-icon></label>
+        </div>
+        <div class="col s10">
+          <div ng-show='listNumTel.length == 0 && profils.PhoneNumber.length == 0'  class=" ">
+            <p>N° de téléphone manquant</p>{{profils.PhoneNumber.length}}
+          </div>
+          <div ng-show='listNumTel.length > 0 || profils.PhoneNumber.length > 0' class="no-phone-numbers">
+            <p>{{profils.PhoneNumber}}<p>
+            <p ng-repeat="num in listNumTel">{{num.code}} {{num.numero}}<p>
+          </div>
+          <div ng-show="ajouterNum" ng-click="showme()" class="add link-icon" >
+            <i class="icon icon-add"></i>
+            <span class="link-icon__text">
+              Ajouter un numéro de téléphone
+            </span>
+          </div>
+          <div class="row">
+            <form ng-submit="submitNumPhone()">
+            <div class="panel w415px" ng-show="phone">
+              <div class="col s12">
+                <label for="phone_country">Choisissez un pays:</label>
+                <md-input-container class="wPays">
+                  <md-select ng-change='getCodeNumber(user.pays_tel)' name="pays_tel" ng-model="user.pays_tel" >
+                    <md-option  ng-repeat="country in country_phone" value="{{country.nicename}}">{{country.nicename}}</md-option>
+                  </md-select>
+                </md-input-container>
+                <label for="phone_number">Ajoutez un numéro de téléphone :</label>
+              </div>
+            <div class="col s2">
+              <input class="input_design w50px" ng-disabled="user.pays_tel" type="text" ng-model="user.phoneCode">
+            </div>
+            <div class="col s10">
+              <input class="input_design w200px" name="user.numPhone" type="text" ng-model="user.numPhone" ng-minlength="1" ng-maxlength="30">
+            </div>
+            <md-button class="right md-raised" type="submit" value="Submit">Ajouter</md-button>
+            </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+
+</div>
+<div  class="row">
+  <md-input-container >
+    <input style="width: 600px;" name="prenom" ng-model="user.Customer_GivenName" ng-minlength="1" ng-maxlength="20" type="text" class="validate" required>
+    <label style="font-size: 18px">Prénom hey*</label>
+    <span class="error" ng-show="myForm.prenom.$error.minlength">Trop court!</span>
+    <span class="error" ng-show="myForm.prenom.$error.maxlength">Trop long!</span>
+  </md-input-container>
+  <md-input-container>
+    <input style="width: 600px;"name="nom" ng-model="user.Customer_surName"type="text" ng-minlength="1" ng-maxlength="30" class="validate" required>
+    <label style="font-size: 18px" >Nom*</label>
+    <span class="error" ng-show="myForm.nom.$error.minlength">Trop court!</span>
+    <span class="error" ng-show="myForm.nom.$error.maxlength">Trop long!</span>
+  </md-input-container>
+</div>
+
+<div classe="col s12">
+  <md-input-container>
+    <label style="font-size: 18px">Sexe*</label>
+    <md-select style="background-color:#A7DEF0;" name="sexe" ng-model="user.Sexe" >
+      <md-option  ng-repeat="gender in genders"  value="{{gender.name}}" >
+        {{gender.name}}
+      </md-option>
+    </md-select>
+  </md-input-container>
+</div>
+<md-input-container>
+  <label  style="font-size: 1.8rem; color: grey;" ng-model="user.birthdate" >Date de naissance*</label>
+  <datepicker date-format="dd/MM/yyyy" md-placeholder="Enter date" type="date">
+    <input type="input-phone"style="width: 600px;"  style="font-size: 14px"ng-model="user.Customer_BirthDate"  required/>
+  </datepicker>
+</md-input-container>
+<div class="col s12" ng-cloak="">
+  <md-input-container>
+    <label style="font-size: 18px; width: 300px;">Type de passager 1</label>
+    <md-select style="background-color:#A7DEF0;width: 300px;"name="typePassagé" ng-model="user.typeTraveler">
+      <md-option  ng-repeat="type in types" value="{{type.name}}"required>
+        {{type.name}}
+      </md-option>
+    </md-select>
+  </md-input-container>
+  <div>
+    <div layout="row" layout-wrap="" layout-margin="" >
+      <a class="waves-effect waves-light btn" ng-click="openChepasquoi()">
+        Responsable de voyage préferé
+      </a>
+    </div>
+  </div>
+  <md-button class="tab-btn md-raised" ng-disabled="myForm.$invalid" ng-click="changeTab()">Suivant</md-button>
+</div>
+</div>
+</form>
+</div>
+</md-content>
+</md-tab>
+
+
+<md-tab label="Contact" ng-disabled="">
+  <md-content class="md-padding">
+    <div>
+      <h1 class="md-display-2" style="color: black; text-shadow: 2px 2px 4px grey;">Contact</h1>
+      <div  style="margin-right: auto !important;
+      margin-left: auto !important; padding: 25px; ">
+    </div>
+  </div>
+  <div class="container">
+    <form name="myForm1" class="col s12" style="width: 800px;" novalidate>
+
+
+
+
+
+
+      <md-input-container>
+        <label style="font-size: 18px">Pays</label>
+        <md-select  style="background-color:#A7DEF0;" name="pays" ng-change="verifyPhone(user.pays, phone)" ng-model="user.pays" required>
+          <md-option  ng-repeat="p in pays" value="{{p.code}}">
+            {{p.name}} {{p.code}}
+          </md-option>
+        </md-select>
+      </md-input-container>
+      <md-input-container>
+        <input style="width: 600px;"name="phone"  ng-model="phone" ng-pattern="/(?:\+?1[-. ]?)?\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})/" ng-bind="phone | tel" type="text" class="validate" ng-required="required">
+        {{phone}}
+        <label style="font-size: 18px">Téléphone*</label>
+        <!-- <span class="error" ng-model="phone" ng-show="myForm1.phone.$error.pattern">Incorrect</span> -->
+      </md-input-container>
+      <div>
+        <md-input-container>
+          <label style="font-size: 18px">Pays</label>
+          <md-select  style="background-color:#A7DEF0;" name="pays" ng-change="verifyPhone1(user.pays1, phonePro)" ng-model="user.pays1" required>
+            <md-option  ng-repeat="p in pays" value="{{p.code}}">
+              {{p.name}} {{p.code}}
+            </md-option>
+          </md-select>
+        </md-input-container>
+        <md-input-container>
+          <input style="width: 600px;"name="telephonePro" ng-model="phonePro" ng-pattern="/(?:\+?1[-. ]?)?\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})/" type="text" class="validate" ng-required="required">
+          {{phonePro}}
+          <label style="font-size: 18px" >Téléphone Pro*</label>
+          <!-- <span class="error" ng-show="myForm1.telephonePro.$error.pattern">Incorrect</span> -->
+
+        </md-input-container>
+      </div>
+      <md-input-container>
+        <input style="width: 600px;" ng-model="user.Customer_Contact_EmergencyFlag"  type="text" class="validate" required>
+
+        <label for="required" style="font-size: 18px;" for="disabled">Personne à contacter en cas d'urgence*</label>
+      </md-input-container>
+
+      <md-input-container>
+        <label style="font-size: 18px">Pays</label>
+        <md-select  style="background-color:#A7DEF0;" name="pays" ng-change="verifyPhone2(user.pays2, phoneContact)" ng-model="user.pays2" required>
+          <md-option  ng-repeat="p in pays" value="{{p.code}}">
+            {{p.name}} {{p.code}}
+          </md-option>
+        </md-select>
+      </md-input-container>
+      <md-input-container>
+        <input style="width: 600px;" ng-model="phoneContact" ng-pattern="/(?:\+?1[-. ]?)?\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})/" type="text" class="validate" required>
+        {{phoneContact}}
+        <label style="font-size: 18px" for="disabled">N° de la personne à contacter en cas d'urgence*</label>
+        <!-- <span class="error" ng-show="myForm1.telephoneContact.$error.pattern">Incorrect</span> -->
+      </md-input-container>
+
+      <div class="row">
+        <div class="input-field col s12">
+          <input style="width: 600px;"ng-model="user.Email" name= "Email " ng-pattern="/^[a-z0-9._-]+@[a-z0-9._-]+\.[a-z]{2,6}$/" type="email" class="validate" required/>
+          <label style="font-size: 18px" for="email">Email</label>
+          <span class="error" ng-show="myForm1.Email.$error.pattern">Adresse invalide</span>
+        </div>
+      </div>
+
+
+      <md-button class="tab-btn md-raised" ng-disabled="myForm1.$invalid" ng-click="changeTab()">Suivant</md-button>
+    </div>
+
+
+  </form>
+
+</md-content>
+</md-tab>
+
+<md-tab label="Adresse"  ng-disabled="myForm1.$invalid">
+  <md-content class="md-padding">
+    <div>
+      <h1 class="md-display-2" style="color: black; text-shadow: 2px 2px 4px grey;">Définition d'adresses</h1>
+      <div  style="margin-right: auto !important;
+      margin-left: auto !important; padding: 25px;">
+    </div>
+  </div>
+  <div class="container">
+    <form name="myForm2"class="col s12" style="width: 800px;">
+      <div class="form-group">
+        <div class="row">
+          <md-input-container>
+            <input style="width: 600px;" ng-model="user.CompanyName" type="text" class="validate" required>
+            <label style="font-size: 18px">Nom de la société</label>
+          </md-input-container>
+        </div>
+        <div class="row">
+          <md-input-container>
+            <input style="width: 600px;" ng-model="user.AddressLine" type="text" class="validate" required>
+            <label style="font-size: 18px" for="disabled">Rue</label>
+          </md-input-container>
+        </div>
+        <div class="row">
+          <md-input-container>
+            <input style="width: 600px;"ng-model="user.CityName_PostalCode" type="text" class="validate" required>
+            <label style="font-size: 18px" for="disabled">Code postal</label>
+          </md-input-container>
+        </div>
+        <div class="row">
+          <md-input-container>
+            <input style="width: 600px;"ng-model="user.CityName" type="text" class="validate" required>
+            <label style="font-size: 18px" for="disabled">Ville</label>
+          </md-input-container>
+        </div>
+        <div class="row">
+          <md-input-container>
+            <input style="width: 600px;"ng-model="user.CountryName" type="text" class="validate" required="user.CountryName"required>
+            <label style="font-size: 18px" for="disabled">Pays</label>
+          </md-input-container>
+        </div>
+        <div class="row">
+          <md-button class="tab-btn md-raised" ng-disabled="myForm2.$invalid" ng-click="changeTab()">Suivant</md-button>
+        </div>
+      </div>
+    </form>
+  </div>
+</md-content>
+</md-tab>
+
+<md-tab label="Passeport" ng-disabled="myForm2.$invalid">
+  <md-content class="md-padding">
+    <div>
+      <h1 class="md-display-2" style="color: black; text-shadow: 2px 2px 4px grey;">Passeport</h1>
+      <div  style="margin-right: auto !important;
+      margin-left: auto !important; padding: 25px;">
+    </div>
+  </div>
+  <div class="container">
+    <form name="myForm3"class="col s12" style="width: 800px;">
+      <div class="form-group">
+        <div class="col s12" ng-cloak="">
+          <md-input-container>
+            <label style="font-size: 18px">Passeport obligatoire</label>
+            <md-select style="background-color:#A7DEF0;" name="passeport" ng-model="user.passeport" required>
+              <md-option  ng-repeat="passeport in passeports" value="{{passeport.name}}">
+                {{passeport.name}}
+              </md-option>
+            </md-select>
+          </md-input-container>
+        </div>
+        <div class="row">
+          <md-input-container>
+            <input style="width: 600px;"ng-model="user.nomCitoyen" type="text" class="validate" required>
+            <label style="font-size: 18px">Nom du citoyen</label>
+          </md-input-container>
+          <md-input-container>
+            <input style="width: 600px;"ng-model="user.numeroPasseport" type="text" class="validate" required>
+            <label style="font-size: 18px" >Numéro</label>
+          </md-input-container>
+        </div>
+        <div class="row">
+          <md-input-container>
+            <label style="font-size: 1.8rem; color: grey;">Expiration</label>
+            <datepicker date-format="dd/MM/yyyy" md-placeholder="Enter date" type="date">
+              <input style="width: 600px;"  style="font-size: 14px" ng-model="user.dateExpiration" required/>
+            </datepicker>
+
+          </md-input-container>
+
+          <div class="col s12" ng-cloak="">
+            <p></p>
+            <md-input-container>
+              <label style="font-size: 18px">Pays</label>
+              <md-select  style="background-color:#A7DEF0;" name="pays" ng-change="verifyPhone(user.pays, phone)" ng-model="user.pays" required>
+                <md-option  ng-repeat="p in pays" value="{{p.code}}">
+                  {{p.name}} {{p.code}}
+                </md-option>
+              </md-select>
+            </md-input-container>
+          </div>
+          <div>
+            <md-button ng-disabled="myForm3.$invalid" ng-click="saveProfil()"  class="md-primary md-raised" />Sauvegarder le profil</md-button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+</md-content>
+</md-tab>
+</md-tabs>
+</md-content>
+</div>

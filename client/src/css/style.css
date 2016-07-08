@@ -575,3 +575,639 @@ fieldset {
     background-repeat: no-repeat;
     background-position: 50% 50%;
 }*/
+
+table {
+ border-width:1px;
+ border-style:solid;
+ border-color:black;
+ width:50%;
+ }
+td {
+ border-width:1px;
+ border-style:solid;
+ border-color:grey;
+ width:50%;
+ }
+
+ /*Step form*/
+ .sliding-steps main,
+ .sliding-steps main .well {
+     min-height: 500px;
+     margin: 0;
+ }
+ .sliding-steps main {
+     position: relative;
+     margin-bottom: 1rem;
+     overflow: hidden;
+ }
+
+ .sliding-steps main .well {
+     position: absolute;
+     width: 100%;
+     height: 100%;
+ }
+
+ .sliding-steps .form-step.ng-enter, .sliding-steps .form-step.ng-leave {
+     -webkit-transition: transform .5s ease-in-out;
+     transition: transform .5s ease-in-out;
+ }
+ .sliding-steps .step-forward .form-step.ng-enter {
+     transform: translateX(100%);
+ }
+ .sliding-steps .step-forward .form-step.ng-enter.ng-enter-active {
+     transform: translateX(0);
+ }
+ .sliding-steps .step-forward .form-step.ng-leave {
+     /*transform: translateX(100%);*/
+ }
+ .sliding-steps .step-forward .form-step.ng-leave.ng-leave-active {
+     transform: translateX(-100%);
+ }
+
+ .sliding-steps .step-backward .form-step.ng-enter {
+     transform: translateX(-100%);
+ }
+ .sliding-steps .step-backward .form-step.ng-enter.ng-enter-active {
+     transform: translateX(0);
+ }
+ .sliding-steps .step-backward .form-step.ng-leave {
+     /*transform: translateX(100%);*/
+ }
+ .sliding-steps .step-backward .form-step.ng-leave.ng-leave-active {
+     transform: translateX(100%);
+ }
+
+ /*grad animate*/
+
+
+.degrade {
+  background-color: red;
+}
+.md-tabs-canvas  {
+  background-color: blue !important;
+}
+
+/*test du profil*/
+.tabsdemoDynamicHeight md-content {
+  @-webkit-keyframes {
+    0%{background-position:0% 78%}
+    50%{background-position:100% 23%}
+    100%{background-position:0% 78%}
+}
+@-moz-keyframes {
+    0%{background-position:0% 78%}
+    50%{background-position:100% 23%}
+    100%{background-position:0% 78%}
+}
+@-o-keyframes {
+    0%{background-position:0% 78%}
+    50%{background-position:100% 23%}
+    100%{background-position:0% 78%}
+}
+@keyframes {
+    0%{background-position:0% 78%}
+    50%{background-position:100% 23%}
+    100%{background-position:0% 78%}
+}
+}
+  .tabsdemoDynamicHeight md-content md-tabs {
+    background: blue;
+    border: 1px solid #e1e1e1;
+    }
+    .tabsdemoDynamicHeight md-content md-tabs md-tabs-wrapper {
+      /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,ddf2f9+35,a1dcef+100 */
+background: #ffffff; /* Old browsers */
+background: -moz-linear-gradient(-45deg, #ffffff 0%, #ddf2f9 35%, #a1dcef 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(-45deg, #ffffff 0%,#ddf2f9 35%,#a1dcef 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(135deg, #ffffff 0%,#ddf2f9 35%,#a1dcef 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#a1dcef',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+ }
+  .tabsdemoDynamicHeight md-content h1:first-child {
+    background: #ffffff; /* Old browsers */
+    background: -moz-linear-gradient(-45deg, #ffffff 0%, #ddf2f9 35%, #a1dcef 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(-45deg, #ffffff 0%,#ddf2f9 35%,#a1dcef 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(135deg, #ffffff 0%,#ddf2f9 35%,#a1dcef 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#a1dcef',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */}
+
+.md-padding{    background: #ffffff;
+    background: -moz-linear-gradient(-45deg, #ffffff 0%, #ddf2f9 35%, #a1dcef 100%);
+    background: -webkit-linear-gradient(-45deg, #ffffff 0%,#ddf2f9 35%,#a1dcef 100%);
+    background: linear-gradient(135deg, #ffffff 0%,#ddf2f9 35%,#a1dcef 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#a1dcef',GradientType=1 );}
+
+
+  @media(min-width: 960px){
+    .tabsdemoDynamicHeight md-padding {
+      padding: 0;
+    }
+  }
+  .tabsdemoDynamicHeight .md-padding {
+    padding: 0;
+  }
+
+.input {
+  color: black;
+}
+
+
+.datepickerdemoBasicUsage {
+      /** Demo styles for mdCalendar. */ }
+.datepickerdemoBasicUsage md-content {
+        padding-bottom: 800px; }
+.datepickerdemoBasicUsage .validation-messages {
+        font-size: 12px;
+        color: #dd2c00;
+        margin: 0px 0 0 0px; }
+
+
+
+#animate-area	{
+	background-image: url(wallpaper_account.jpg);
+	background-position: 0px 0px;
+	background-repeat: repeat-x;
+}
+
+/*Animation cloud*/
+
+
+.sky {
+  height: 480px;
+  background: #007fd5;
+  position: relative;
+  overflow: hidden;
+  -webkit-animation: sky_background 50s ease-out infinite;
+  -moz-animation: sky_background 50s ease-out infinite;
+  -o-animation: sky_background 50s ease-out infinite;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0)
+}
+
+.moon {
+  background: url("http://montanaflynn.me/lab/css-clouds/images/moon.png");
+  position: absolute;
+  left: 0;
+  height: 100%;
+  width: 300%;
+  -webkit-animation: moon 50s linear infinite;
+  -moz-animation: moon 50s linear infinite;
+  -o-animation: moon 50s linear infinite;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0)
+}
+
+.clouds_one {
+  background: url("http://montanaflynn.me/lab/css-clouds/images/cloud_one.png");
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 300%;
+  -webkit-animation: cloud_one 50s linear infinite;
+  -moz-animation: cloud_one 50s linear infinite;
+  -o-animation: cloud_one 50s linear infinite;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0)
+}
+
+.clouds_two {
+  background: url("http://montanaflynn.me/lab/css-clouds/images/cloud_two.png");
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 300%;
+  -webkit-animation: cloud_two 75s linear infinite;
+  -moz-animation: cloud_two 75s linear infinite;
+  -o-animation: cloud_two 75s linear infinite;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0)
+}
+
+.clouds_three {
+  background: url("http://montanaflynn.me/lab/css-clouds/images/cloud_three.png");
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 300%;
+  -webkit-animation: cloud_three 100s linear infinite;
+  -moz-animation: cloud_three 100s linear infinite;
+  -o-animation: cloud_three 100s linear infinite;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0)
+}
+
+@-webkit-keyframes sky_background {
+  0% {
+    background: #007fd5;
+    color: #007fd5
+  }
+  50% {
+    background: #000;
+    color: #a3d9ff
+  }
+  100% {
+    background: #007fd5;
+    color: #007fd5
+  }
+}
+
+@-webkit-keyframes moon {
+  0% {
+    opacity: 0;
+    left: -200% -moz-transform: scale(0.5);
+    -webkit-transform: scale(0.5);
+  }
+  50% {
+    opacity: 1;
+    -moz-transform: scale(1);
+    left: 0% bottom: 250px;
+    -webkit-transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    bottom: 500px;
+    -moz-transform: scale(0.5);
+    -webkit-transform: scale(0.5);
+  }
+}
+
+@-webkit-keyframes cloud_one {
+  0% {
+    left: 0
+  }
+  100% {
+    left: -200%
+  }
+}
+
+@-webkit-keyframes cloud_two {
+  0% {
+    left: 0
+  }
+  100% {
+    left: -200%
+  }
+}
+
+@-webkit-keyframes cloud_three {
+  0% {
+    left: 0
+  }
+  100% {
+    left: -200%
+  }
+}
+
+@-moz-keyframes sky_background {
+  0% {
+    background: #007fd5;
+    color: #007fd5
+  }
+  50% {
+    background: #000;
+    color: #a3d9ff
+  }
+  100% {
+    background: #007fd5;
+    color: #007fd5
+  }
+}
+
+@-moz-keyframes moon {
+  0% {
+    opacity: 0;
+    left: -200% -moz-transform: scale(0.5);
+    -webkit-transform: scale(0.5);
+  }
+  50% {
+    opacity: 1;
+    -moz-transform: scale(1);
+    left: 0% bottom: 250px;
+    -webkit-transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    bottom: 500px;
+    -moz-transform: scale(0.5);
+    -webkit-transform: scale(0.5);
+  }
+}
+
+@-moz-keyframes cloud_one {
+  0% {
+    left: 0
+  }
+  100% {
+    left: -200%
+  }
+}
+
+@-moz-keyframes cloud_two {
+  0% {
+    left: 0
+  }
+  100% {
+    left: -200%
+  }
+}
+
+@-moz-keyframes cloud_three {
+  0% {
+    left: 0
+  }
+  100% {
+    left: -200%
+  }
+}
+
+.inputdemoErrors .inputErrorsApp {
+  min-height: 48px; }
+
+.inputdemoErrors md-input-container > p {
+  font-size: 0.8em;
+  text-align: left;
+  width: 100%; }
+
+
+
+.testgradient {
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,ddf2f9+35,a1dcef+100 */
+background: #ffffff; /* Old browsers */
+background: -moz-linear-gradient(-45deg, #ffffff 0%, #ddf2f9 35%, #a1dcef 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(-45deg, #ffffff 0%,#ddf2f9 35%,#a1dcef 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(135deg, #ffffff 0%,#ddf2f9 35%,#a1dcef 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#a1dcef',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
+}
+
+/*designe des tableaux*/
+
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,500,700,300,100);
+
+body {
+  background-color: transparent;
+  font-size: 16px;
+  font-weight: 400;
+  text-rendering: optimizeLegibility;
+}
+th{
+  border-radius: 0;
+}
+
+div.table-title {
+   display: block;
+  margin: auto;
+  max-width: 600px;
+  padding:5px;
+  width: 100%;
+}
+
+.table-title h3 {
+   color: #fafafa;
+   font-size: 30px;
+   font-weight: 400;
+   font-style:normal;
+   text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
+   text-transform:uppercase;
+}
+
+
+/*** Table Styles **/
+
+.table-fill {
+  background: white;
+  border-collapse: collapse;
+  height: 320px;
+  margin: auto;
+  max-width: 600px;
+  padding:5px;
+  width: 100%;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  animation: float 5s infinite;
+  border-style: none;
+  border-color: none;
+}
+
+th {
+  color:#D5DDE5;;
+  background:#1b1e24;
+  /*border-bottom:4px solid #9ea7af;
+  border-right: 1px solid #343a45;*/
+  font-size:23px;
+  font-weight: 100;
+  padding:24px;
+  text-align:left;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  vertical-align:middle;
+}
+
+th:first-child {
+  border-top-left-radius:3px;
+}
+
+th:last-child {
+  border-top-right-radius:3px;
+  border-right:none;
+}
+
+tr {
+  /*border-top: 1px solid #C1C3D1;
+  border-bottom-: 1px solid #C1C3D1;*/
+  color:#666B85;
+  font-size:16px;
+  font-weight:normal;
+  text-shadow: 0 1px 1px rgba(256, 256, 256, 0.1);
+}
+
+tr:hover td {
+  background:#4E5066;
+  color:#FFFFFF;
+  /*border-top: 1px solid #22262e;
+  border-bottom: 1px solid #22262e;*/
+}
+
+tr:first-child {
+  border-top:none;
+}
+
+tr:last-child {
+  border-bottom:none;
+}
+
+tr:nth-child(odd)  {
+  background:#EBEBEB;
+}
+
+tr:nth-child(odd):hover td {
+  background:#4E5066;
+}
+
+tr:last-child td:first-child {
+  border-bottom-left-radius:3px;
+}
+
+tr:last-child td:last-child {
+  border-bottom-right-radius:3px;
+}
+
+td {
+  background:#FFFFFF;
+  padding:20px;
+  text-align:left;
+  vertical-align:middle;
+  font-weight:300;
+  font-size:18px;
+  text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
+  /*border-right: 1px solid #C1C3D1;*/
+}
+
+td:last-child {
+  border-right: 0px;
+}
+
+th.text-left {
+  text-align: left;
+}
+
+th.text-center {
+  text-align: center;
+}
+
+th.text-right {
+  text-align: right;
+}
+
+td.text-left {
+  text-align: left;
+}
+
+td.text-center {
+  text-align: center;
+}
+
+td.text-right {
+  text-align: right;
+}
+/*
+Copyright 2016 Google Inc. All Rights Reserved.
+Use of this source code is governed by an MIT-style license that can be in foundin the LICENSE file at http://material.angularjs.org/license.
+*/
+.wrapper{
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.info{
+  margin: 0.5em 0;
+  font-size: 1.25em;
+  color: #FFF;
+  text-shadow: 0 0 0.5em #000;
+}
+
+.input-phone{
+  display: block;
+  margin: 2em auto;
+  padding: 0.5em 0.25em;
+  border: none;
+  border-radius: 0.2em;
+  font-size: 1.5em;
+  text-align: center;
+  box-shadow: 0 0 1em 0.25em rgba(0,0,0,0.2);
+}
+.body{
+  display: table;
+}
+.panel-header{
+    background-color: #cdd7f4;
+    color: #484848;
+    font-size: 16px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #dce0e0;
+    padding: 10px;
+  }
+.panel {
+    border: 1px solid #dce0e0;
+    background-color: #fff;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 5px;
+}
+textarea.materialize-textarea:focus.valid {
+    border: 1px solid #4CAF50;
+    box-shadow: 0 1px 0 0 #4CAF50;
+}
+.input_design{
+  -webkit-border-radius: 15px !important;
+  -moz-border-radius: 15px !important;
+  border-radius: 15px !important;
+  border: 1px solid #dce0e0 !important;
+  padding-left: 15px !important;
+  font-size: 15px !important;
+}
+.input_design.valid{
+  border: 1px solid #4CAF50 !important;
+  box-shadow: 0 1px 0 0 #4CAF50 !important;
+}
+.input_design.focus{
+  border: 1px solid #FFFFFF !important;
+}
+md-icon {
+height: 15px;
+width: 15px;
+vertical-align: 0;
+}
+label{
+  font-size: 15px;
+  font-weight: none;
+}
+.right{  float: right;}
+.md-select-value{
+  border-bottom: 5px;
+}
+md-input-container {
+  margin: 0 0 15px 0;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  border-radius: 15px;
+  border: 1px solid #dce0e0;
+}
+.birth_mois{
+  width: 150px;
+}
+.w75px{
+  width: 75px;
+}
+.birth_annee{
+  width: 90px;
+}
+.card .card-action a:not(.btn):not(.btn-large):not(.btn-floating) {
+  line-height: 30px;
+  font-size: 14px;
+}
+.w400px{
+  width: 400px !important;
+}
+.w415px{
+  width: 415px;
+  padding-left: 15px;
+  padding-top: 10px;
+  height: 185px;
+}
+.wPays{
+  width: 200px;
+}
+.w50px{
+  width: 50px !important;
+}
+.w200px{
+  width: 200px !important;
+  margin-left: 5px !important;
+}

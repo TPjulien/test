@@ -1,0 +1,41 @@
+<div class="tabsdemoDynamicHeight col s2 " >
+  <md-content >
+    <md-tabs md-dynamic-height="" md-border-bottom="" style=" height: 200px;">
+      <md-tab label="Résultat">
+        <md-content class="md-padding" >
+          <h2 classe="table-title">Filtre</h2>
+          <input style="color: black;"type="text" ng-model="keySearch" placeholder="Chercher dans la liste" autofocus>
+          <div >
+              <div >
+                <table style="text-align: center;"class= 'table-title'>
+                   <thead>
+                     <tr>
+
+                         <th class="text-left"data-field="name">Prénom</th>
+                         <th class="text-left"data-field="name">Nom</th>
+                         <th class="text-left"data-field="name">PreferredApproverTravelerID</th>
+                         <th class="text-left"data-field="name">Email</th>
+
+                     </tr>
+                   </thead>
+
+                   <tbody >
+                     <tr ng-repeat='n in profils | filter:keySearch'  ng-click="">
+                       <!-- <td><input type="checkbox" ng-checked="item.checked"><button ng-click="checkItems()">Selectionner</button>{{i.RIEN}}</td> -->
+                       <td class="text-left">{{n.FirstName}}</td>
+                       <td class="text-left">{{n.LastName}}</td>
+                       <td class="text-left">{{n.PreferredApproverTravelerID}}</td>
+                       <td class="text-left">{{n.Email}}</td>
+
+                     </tr>
+                   </tbody>
+                </table>
+              </div>
+
+
+          </div>
+
+        </md-content>
+      </md-tab>
+    </md-tabs>
+  </md-content>
