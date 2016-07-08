@@ -26,23 +26,6 @@ module.exports = function(router, connection) {
                                     "em.site_id", "ph.site_id",
                                     "em.uid",     "ph.uid",
                                 "em.uid", req.params.id];
-            // var query_one = "SELECT \
-            //                  ??, ??, ??, ??, ??, \
-            //                  ??, ??, ?? \
-            //                  FROM ?? ai \
-            //                  LEFT JOIN ?? ap \
-            //                      ON  ?? = ?? \
-            //                      AND ?? = ?? \
-            //                      AND ?? = ?? \
-            //                 WHERE ?? = ?";
-            // var table_one = ["ai.site_id", "ai.uid" , "ai.deposited_date", "ai.ProgramCode", "ai.MembershipId",
-            //                  "ap.AirPrefLangID", "ap.AirPassengerType", "ap.AirTicketDistribPref",
-            //                  "profils.air_loyalty",
-            //                  "profils.air_pref",
-            //                  "ai.SITE_ID", "ap.SITE_ID",
-            //                  "ai.UID", "ap.UID",
-            //                  "ai.DEPOSITED_DATE", "ap.DEPOSITED_DATE",
-            //                  "ai.site_id", req.params.id];
             query_one = mysql.format(query_one, table_one);
             connection.query(query_one, function(err, rows) {
                 if (err)

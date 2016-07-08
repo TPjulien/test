@@ -17,37 +17,4 @@ module.exports = function(router, connection) {
                 }
             })
         })
-    // router.route('/testSite/:site_id/:username')
-    //     .get(function(req, res) {
-            // premiere requete pour reconnaitre les utilisateurs
-            // "view_menu_user_info"
-        //     var query_one = "SELECT ?? as result FROM ?? WHERE ?? =?";
-        //     var table_one = ['user_id', 'user_info', 'username', req.params.username];
-        //     query_one = mysql.format(query_one, table_one);
-        //     connection.query(query_one, function(err, rows_one) {
-        //         if (err)
-        //             res.status(400).send(err);
-        //         else
-        //             //
-        //             var id_result = rows_one[0].result;
-        //             var query_two = "SELECT ?? FROM ?? WHERE ?? = ? and ?? = ?";
-        //             var table_two = ['role_type', 'auth_roles_info', 'user_id', id_result, 'site_id', req.params.site_id];
-        //             query_two     = mysql.format(query_two, table_two);
-        //             connection.query(query_two, function(err, rows_two) {
-        //                 if (err)
-        //                     res.status(400).send("bad realm !");
-        //                 else
-        //                     var query_three = "SELECT * FROM ?? WHERE ?? = ? and ?? = ?";
-        //                     var result_roles = rows_two;
-        //                     var object = {};
-        //                     for ( i = 0; i < result_roles.length; i++) {
-        //                         var table_three = ['view_menu_user_info', 'site_id', req.params.site_id, 'view_role', result_roles[i]];
-        //                         query_three     = mysql.format(query_three, table_three);
-        //                         connection.query(query_three, function(err, rows_three){
-        //
-        //                         });
-        //                     }
-        //             })
-        //     })
-        // })
 }

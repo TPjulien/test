@@ -1,7 +1,8 @@
-var mysql   = require('mysql');
-var jwt     = require('jsonwebtoken');
-var NodeRSA = require('node-rsa');
-var key     = new NodeRSA({b: 512});
+var mysql     = require('mysql');
+var jwt       = require('jsonwebtoken');
+var NodeRSA   = require('node-rsa');
+var http_post = require('http-post');
+var key       = new NodeRSA({b: 512});
 
 module.exports = function(router, connection) {
     var table_password = "user_password";
@@ -116,19 +117,19 @@ module.exports = function(router, connection) {
                   }
               })
           })
-          router.route('/SSO')
-            .post (function(req, res) {
-                http_post('url', { LOGINNNAME:          req.body.username,
-                                   SITE:                'Q4OZQ40Z',
-                                   LANGUAGE:            'FR',
-                                   LOGIN_TYPE:          'SSO',
-                                   PASSWORD:            req.body.password,
-                                   BOOKING_FLOW_TYPE:   'MODIFY'
-                                 }, function(res) {
-                    response.setEncoding('utf8');
-                    res.on('data', function(chunk) {
-                        res.json(chunk);
-                    })
-                })
-            })
+        router.route('/SSO')
+          .post (function(req, res) {
+              http_post('url', { LOGINNNAME:          req.body.username,
+                                 SITE:                'Q4OZQ40Z',
+                                 LANGUAGE:            'FR',
+                                 LOGIN_TYPE:          'SSO',
+                                 PASSWORD:            req.body.password,
+                                 BOOKING_FLOW_TYPE:   'MODIFY'
+                               }, function(res) {
+                  response.setEncoding('utf8');
+                  res.on('data', function(chunk) {
+                      res.json(chunk);
+                  })
+              })
+          })
 };
