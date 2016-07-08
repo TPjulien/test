@@ -25,6 +25,7 @@ tableau = angular.module 'tableauApp', [
   '720kb.tooltips'
   'btford.markdown'
   'textAngular'
+  'ngImageCache'
 ]
 
 options = {}
@@ -33,7 +34,7 @@ options.api.base_url = "https://tp-control.travelplanet.fr:3253/api"
 
 tableau
 .config (authProvider, $stateProvider, $urlRouterProvider, $httpProvider, jwtInterceptorProvider) ->
-    $urlRouterProvider.otherwise '/login/account'
+    # $urlRouterProvider.otherwise '/login/account'
     $stateProvider
         .state 'login',
             url:         '/login',
@@ -63,6 +64,10 @@ tableau
             url:          '/factures',
             templateUrl:  'templates/facture.html',
             controller:   'factureCtrl'
+        .state 'home.profil',
+            url:          '/profil',
+            templateUrl:  'templates/profil.html',
+            controller:   'profilCtrl'
     jwtInterceptorProvider.tokenGetter = [
       'store'
       '$http'

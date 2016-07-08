@@ -1,0 +1,67 @@
+<form  class="col s12" style="width: 1000px;">
+  <div class="col s12" ng-cloak="">
+      <p>Titre</p>
+        <md-input-container>
+          <label></label>
+          <md-select name="myModel" ng-model="mymodel" required="">
+            <md-option >
+              {{dimitri[0].Customer_NameTitle}}
+            </md-option>
+          </md-select>
+        </md-input-container>
+    </div>
+  <div  class="row">
+    <div class="input-field col s6">
+      <input ng-model=""type="text" class="validate">
+      <label style="font-size: 18px;" >Prénom</label>
+    </div>
+    <div class="input-field col s6">
+      <input ng-model=""type="text" class="validate">
+      <label style="font-size: 18px" >Nom</label>
+
+    </div>
+    <div class="col s12" ng-cloak="">
+        <p>Sexe</p>
+          <md-input-container>
+            <label></label>
+            <md-select name="myModel1" ng-model="mymodel1" >
+              <md-option  ng-repeat="gender in genders"  value="dimitri[0].Customer_Gender">
+                {{gender.name}}
+              </md-option>
+            </md-select>
+          </md-input-container>
+      </div>
+  </div>
+<!-- date de naissance -->
+<div class="row">
+      <div>
+        <label style="font-size: 1.8rem; color: grey;" ng-model="dimitri[0].Customer_BirthDate" >Date de naissance</label>
+        <datepicker date-format="dd/MM/yyyy">
+            <input style="font-size: 14px" 1.8rem; ng-model="date" type="text"/>
+        </datepicker>
+      </div>
+</div>
+<div class="col s12" ng-cloak="">
+    <p>Type de passager 1</p>
+      <md-input-container>
+        <label></label>
+        <md-select name="myModel2" ng-model="myModel2">
+          <md-option  ng-repeat="type in types" value="{{type.name}}">
+            {{type.name}}
+          </md-option>
+        </md-select>
+      </md-input-container>
+
+  <div class="md-padding dialogdemoBasicUsage" id="popupContainer" ng-cloak="">
+
+
+    <div class="cols12" layout="row" layout-wrap="" layout-margin="" >
+
+
+      <md-button  class="md-primary md-raised" ng-click="openChepasquoi()">
+        Responsable de voyage préferé
+      </md-button>
+
+    </div>
+  </div>
+</form>

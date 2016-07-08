@@ -7,7 +7,6 @@ tableau
               type:  "warning"
           store.remove('JWT')
       tokenNotFound: ->
-          console.log "B1554"
           # SweetAlert.swal
           #     title: "Erreur de session"
           #     text:  "Imposible d'obtenir une session, veuillez vous reconnecter"
