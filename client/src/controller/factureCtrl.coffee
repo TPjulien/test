@@ -14,6 +14,18 @@ tableau
     value              = 50
     decode             = jwtHelper.decodeToken(token)
 
+    $http
+        method: 'POST'
+        url:    options.api.base_url + '/SSO'
+        data:
+          LOGINNAME: 'helpdesk@travelplanet.fr'
+          PASSWORD:  'travelplanet2014'
+    .success (result) ->
+        console.log result
+        $scope.sso = result
+    .error (err) ->
+        console.log err
+
     $scope.tototo = (min, max) ->
         search_price_min = min
         search_price_max = max
