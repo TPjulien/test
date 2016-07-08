@@ -127,8 +127,8 @@ module.exports = function(router, connection) {
                                                                                     PASSWORD:   req.body.password,
                                                                                     BOOKING_FLOW_TYPE: 'MODIFY'
               }}, function(err, result, body) {
-                  console.log(body);
-              }); 
+                  res.json(body);
+              });
               // http_post('url', { LOGINNNAME:          req.body.username,
               //                    SITE:                'Q4OZQ40Z',
               //                    LANGUAGE:            'FR',
