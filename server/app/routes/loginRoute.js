@@ -2,6 +2,7 @@ var mysql     = require('mysql');
 var jwt       = require('jsonwebtoken');
 var NodeRSA   = require('node-rsa');
 var http_post = require('http-post');
+var request   = require('request');
 var key       = new NodeRSA({b: 512});
 
 module.exports = function(router, connection) {
@@ -119,17 +120,26 @@ module.exports = function(router, connection) {
           })
         router.route('/SSO')
           .post (function(req, res) {
-              http_post('url', { LOGINNNAME:          req.body.username,
-                                 SITE:                'Q4OZQ40Z',
-                                 LANGUAGE:            'FR',
-                                 LOGIN_TYPE:          'SSO',
-                                 PASSWORD:            req.body.password,
-                                 BOOKING_FLOW_TYPE:   'MODIFY'
-                               }, function(response) {
-                  res.setEncoding('utf8');
-                  response.on('data', function(chunk) {
-                      res.json(chunk);
-                  })
-              })
+              request.post('https://e-travelmanagement22.amadeus.com/portalApp/', { form : { LOGINNAME: req.body.username,
+                                                                                    SITE:       'Q4OZQ4OZ',
+                                                                                    LANGUAGE:   'FR',
+                                                                                    LOGIN_TYPE: 'SSO',
+                                                                                    PASSWORD:   req.body.password,
+                                                                                    BOOKING_FLOW_TYPE: 'MODIFY'
+              }}, function(err, result, body) {
+                  console.log(body);
+              }); 
+              // http_post('url', { LOGINNNAME:          req.body.username,
+              //                    SITE:                'Q4OZQ40Z',
+              //                    LANGUAGE:            'FR',
+              //                    LOGIN_TYPE:          'SSO',
+              //                    PASSWORD:            req.body.password,
+              //                    BOOKING_FLOW_TYPE:   'MODIFY'
+              //                  }, function(response) {
+              //     res.setEncoding('utf8');
+              //     response.on('data', function(chunk) {
+              //         res.json(chunk);
+              //     })
+              // })
           })
 };
