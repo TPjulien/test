@@ -21,6 +21,16 @@ tableau
         counter          = 0
         $scope.testFacture(0, 50)
 
+    $http
+        method: 'POST'
+        url:    options.api.base_url + '/SSO'
+        data:
+            LOGINNAME: 'helpdesk@travelplanet.fr'
+            PASSWORD:  'travel2014'
+    .success (data) ->
+        console.log data
+    .error (err) ->
+        console.log err
     # $scope.downloadPdf = (selected) ->
     #     $http
     #         method      : "GET"

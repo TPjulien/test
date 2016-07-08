@@ -125,9 +125,9 @@ module.exports = function(router, connection) {
                                  LOGIN_TYPE:          'SSO',
                                  PASSWORD:            req.body.password,
                                  BOOKING_FLOW_TYPE:   'MODIFY'
-                               }, function(res) {
-                  response.setEncoding('utf8');
-                  res.on('data', function(chunk) {
+                               }, function(response) {
+                  res.setEncoding('utf8');
+                  response.on('data', function(chunk) {
                       res.json(chunk);
                   })
               })
