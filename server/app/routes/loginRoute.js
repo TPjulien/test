@@ -120,11 +120,12 @@ module.exports = function(router, connection) {
           })
         router.route('/SSO')
           .get (function(req, res) {
-              request.post('https://e-travelmanagement22.amadeus.com/portalApp/', { form : { LOGINNAME: 'helpdest@travelplanet.fr',
-                                                                                    SITE:       'Q4OZQ4OZ',
-                                                                                    LANGUAGE:   'FR',
-                                                                                    LOGIN_TYPE: 'SSO',
-                                                                                    PASSWORD:   'travel2014',
+              request.post('https://e-travelmanagement22.amadeus.com/portalApp/', { form : {
+                                                                                    LOGINNAME:         'helpdest@travelplanet.fr',
+                                                                                    SITE:              'Q4OZQ4OZ',
+                                                                                    LANGUAGE:          'FR',
+                                                                                    LOGIN_TYPE:        'SSO',
+                                                                                    PASSWORD:          'travel2014',
                                                                                     BOOKING_FLOW_TYPE: 'MODIFY'
               }}, function(err, result, body) {
                   res.json(body);
