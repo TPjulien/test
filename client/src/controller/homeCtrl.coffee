@@ -7,6 +7,11 @@ tableau
     $scope.lastname       = decode[0].lastname
     $scope.favorite_color = decode[0].favorite_color
     $scope.company        = decode[0].company
+    $scope.settings =
+        closeEl: '.close'
+        overlay:
+            templateUrl: 'modals/tableau_type.html'
+            scroll: true
 
     $mdDialog.hide()
 
@@ -56,7 +61,7 @@ tableau
           # $location.path '/home/dashboard/' + decode[0].site_id + '/' + $scope.viewMenu[0].view_id
     .error (err) ->
         console.log err
-        
+
     $scope.logOut = () ->
         logoutFct.logOut()
 

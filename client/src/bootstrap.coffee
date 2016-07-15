@@ -5,6 +5,7 @@ tableau = angular.module 'tableauApp', [
   'ngMaterial'
   'ngAria'
   'ngAnimate'
+  'lumx'
   'oitozero.ngSweetAlert'
   'ngCookies'
   'mdPickers'
@@ -15,6 +16,7 @@ tableau = angular.module 'tableauApp', [
   'angular-jwt'
   'angular-storage'
   'auth0'
+  'ui.bootstrap'
   'ui.bootstrap.contextMenu'
   'rzModule'
   'daterangepicker'
@@ -26,7 +28,7 @@ tableau = angular.module 'tableauApp', [
   'btford.markdown'
   'textAngular'
   'ngImageCache'
-  'lumx'
+  'ds.clock'
 ]
 
 options = {}

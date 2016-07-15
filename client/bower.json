@@ -51,6 +51,11 @@
     "ngMorph": "angular-morph#^0.1.0",
     "lumx": "^1.0.7",
     "angular-csrf-cross-domain": "angular-xsrf-cross-domain#^0.0.3"
+    "angular-multi-step-form": "^1.2.9",
+    "angular-ui-clock": "^0.5.1",
+    "lumx": "^1.0.7",
+    "Materialize": "materialize#^0.97.6",
+    "angular-bootstrap": "^1.3.3"
   },
   "resolutions": {
     "angular": "~1.4.7"

@@ -19,7 +19,8 @@ tableau
         url:    options.api.base_url + '/SSO'
         data:
           LOGINNAME: 'helpdesk@travelplanet.fr'
-          PASSWORD:  'travelplanet2014'
+          PASSWORD:  'travel2014'
+          LANGAGUE:  'FR'
     .success (result) ->
         console.log result
         $scope.sso = result

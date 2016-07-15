@@ -1,3 +1,58 @@
+/* ----------------------------TP-V2-------------------------------------------------------------------- */
+.travel-colorB{
+  background-color: #0077bb;
+  color: white;
+}
+.row .col.offset-s1 {
+    margin-left: 3.333333% !important;
+}
+.row .col.s10 {
+    width: 90.333333% !important;
+  }
+.travel-colorR{
+  background-color: #ff5e6e;
+  height:1px;
+  box-shadow: 1px 2px 10px 0px rgba(0, 0, 0, 0.2);
+}
+.img-header{
+  float:right;
+  height: 115px;
+  width: 115px;
+  border-radius: 50%;
+  background-image: url('/img/logo/poleemploi.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  background-color: white;
+  box-shadow: 1px 2px 10px 0px rgba(0, 0, 0, 0.2);
+}
+.img-header-radius{
+  border-radius: 100%;
+}
+.navbar-vertical{
+  margin-top: 5px;
+  position: absolute;
+  background-color:#0077bb;
+  float:left;
+  height: 450px;
+  width-max:100px;
+}
+.navbar-vertical-item{
+  height:70px;
+}
+.corps{
+  margin-left: 80px;
+}
+.z-depth-1, nav, .card-panel, .card, .toast, .btn, .btn-large, .btn-floating, .dropdown-content, .collapsible, .side-nav {
+    box-shadow:none;
+}
+.btn--icon.btn--black:hover {
+  box-shadow:none;
+}
+.btn:hover, .btn-large:hover {
+  background-color: none;
+}
+/* ------------------------------------------------------------------------------------------------ */
 @import url(http://fonts.googleapis.com/css?family=Roboto:400,100);
 
 html {
@@ -647,77 +702,6 @@ td {
   background-color: blue !important;
 }
 
-/*test du profil*/
-.tabsdemoDynamicHeight md-content {
-  @-webkit-keyframes {
-    0%{background-position:0% 78%}
-    50%{background-position:100% 23%}
-    100%{background-position:0% 78%}
-}
-@-moz-keyframes {
-    0%{background-position:0% 78%}
-    50%{background-position:100% 23%}
-    100%{background-position:0% 78%}
-}
-@-o-keyframes {
-    0%{background-position:0% 78%}
-    50%{background-position:100% 23%}
-    100%{background-position:0% 78%}
-}
-@keyframes {
-    0%{background-position:0% 78%}
-    50%{background-position:100% 23%}
-    100%{background-position:0% 78%}
-}
-}
-  .tabsdemoDynamicHeight md-content md-tabs {
-    background: blue;
-    border: 1px solid #e1e1e1;
-    }
-    .tabsdemoDynamicHeight md-content md-tabs md-tabs-wrapper {
-      /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,ddf2f9+35,a1dcef+100 */
-background: #ffffff; /* Old browsers */
-background: -moz-linear-gradient(-45deg, #ffffff 0%, #ddf2f9 35%, #a1dcef 100%); /* FF3.6-15 */
-background: -webkit-linear-gradient(-45deg, #ffffff 0%,#ddf2f9 35%,#a1dcef 100%); /* Chrome10-25,Safari5.1-6 */
-background: linear-gradient(135deg, #ffffff 0%,#ddf2f9 35%,#a1dcef 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#a1dcef',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
- }
-  .tabsdemoDynamicHeight md-content h1:first-child {
-    background: #ffffff; /* Old browsers */
-    background: -moz-linear-gradient(-45deg, #ffffff 0%, #ddf2f9 35%, #a1dcef 100%); /* FF3.6-15 */
-    background: -webkit-linear-gradient(-45deg, #ffffff 0%,#ddf2f9 35%,#a1dcef 100%); /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(135deg, #ffffff 0%,#ddf2f9 35%,#a1dcef 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#a1dcef',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */}
-
-.md-padding{    background: #ffffff;
-    background: -moz-linear-gradient(-45deg, #ffffff 0%, #ddf2f9 35%, #a1dcef 100%);
-    background: -webkit-linear-gradient(-45deg, #ffffff 0%,#ddf2f9 35%,#a1dcef 100%);
-    background: linear-gradient(135deg, #ffffff 0%,#ddf2f9 35%,#a1dcef 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#a1dcef',GradientType=1 );}
-
-
-  @media(min-width: 960px){
-    .tabsdemoDynamicHeight md-padding {
-      padding: 0;
-    }
-  }
-  .tabsdemoDynamicHeight .md-padding {
-    padding: 0;
-  }
-
-.input {
-  color: black;
-}
-
-
-.datepickerdemoBasicUsage {
-      /** Demo styles for mdCalendar. */ }
-.datepickerdemoBasicUsage md-content {
-        padding-bottom: 800px; }
-.datepickerdemoBasicUsage .validation-messages {
-        font-size: 12px;
-        color: #dd2c00;
-        margin: 0px 0 0 0px; }
 
 
 
@@ -1125,20 +1109,22 @@ Use of this source code is governed by an MIT-style license that can be in found
   display: table;
 }
 .panel-header{
-    background-color: #cdd7f4;
-    color: #484848;
+    background-color: #0077bb;
+    color: #FFFFFF;
+    font-weight: bold;
     font-size: 16px;
     padding-top: 12px;
     padding-bottom: 12px;
-    border-bottom: 1px solid #dce0e0;
+    border-bottom: 1px solid #bdbfbf;
     padding: 10px;
   }
 .panel {
-    border: 1px solid #dce0e0;
+    border: 1px solid #a5a5a5;
     background-color: #fff;
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
     border-radius: 5px;
+    box-shadow: 1px 2px 10px 0px rgba(0, 0, 0, 0.2);
 }
 textarea.materialize-textarea:focus.valid {
     border: 1px solid #4CAF50;
@@ -1199,7 +1185,6 @@ md-input-container {
   width: 415px;
   padding-left: 15px;
   padding-top: 10px;
-  height: 185px;
 }
 .wPays{
   width: 200px;
@@ -1210,4 +1195,15 @@ md-input-container {
 .w200px{
   width: 200px !important;
   margin-left: 5px !important;
+}
+.h185px{
+  height: 185px;
+}
+.h135px{
+  height: 135px;
+}
+.addProfil{
+  color: #0077bb;
+  font-size: 13px;
+  margin-left: 25px;
 }
