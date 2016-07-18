@@ -1,35 +1,41 @@
 <div class="navbar-fixed">
   <nav style="box-shadow: none">
-    <div class="nav-wrapper" style="background-image: url('/img/nav_background_top.jpeg'); background-color: transparent">
-      <ul id="nav-mobile">
-        <li>
-          <h1 class="brand-logo center">{{ clock | date: 'HH:mm:ss' }}</h1>
-        </li>
-        <li>
-          <md-button style="left: 15px;" class="md-icon-button" aria-label="Settings" ng-click="toggleLeft()">
-            <md-icon  md-svg-icon="img/icons/humberger.svg"></md-icon>
-          </md-button>
-          <img height="48" width="48" style="border-radius: 15%; background-color: white; margin-left: 15px;" src="https://media.licdn.com/mpr/mpr/shrink_200_200/AAEAAQAAAAAAAAUIAAAAJDBjMWM3NDAwLWUxMjAtNDBiMy04YWM3LWFjZWY4Y2ExOWRjYg.png">
-        </li>
-        <li class="right">
-          <!-- <md-button style="right: 15px;" class="md-icon-button" aria-label="logout" ng-click="logOut()"> -->
-
-          <!-- </md-button> -->
-        </li>
-        <li class="right">
-          <img height="48" width="48" style="border-radius: 15%; background-color: white; margin-right: 15px;" src="/img/logo/poleemploi.png">
-          <md-button style="right: 15px;" class="md-icon-button" aria-label="logout" ng-click="logOut()">
-            <md-icon md-svg-icon="/img/icons/logout.svg"></md-icon>
-          </md-button>
-        </li>
-      </ul>
-    </div>
-  </nav>
-</div>
+      <div flex-container="row" flex-column="12" class="navbar-fixed  travel-colorB">
+          <div flex-item="7" class="toolbar__left mr++">
+              <lx-button lx-size="l" lx-color="black" lx-type="icon"><i class="mdi mdi-menu"></i></lx-button>
+              <span class="toolbar__label fs-title">TP Control</span>
+          </div>
+          <div flex-item="4" class="toolbar__right">
+              <lx-search-filter lx-closed="true" style="margin-top:-6px;">
+                  <input type="text" ng-model="vm.toolbar">
+              </lx-search-filter>
+              <lx-dropdown lx-position="right" lx-over-toggle="true">
+                  <lx-dropdown-toggle>
+                      <lx-button lx-size="l" lx-color="black" lx-type="icon"><i class="mdi mdi-dots-vertical"></i></lx-button>
+                  </lx-dropdown-toggle>
+                  <lx-dropdown-menu>
+                      <ul>
+                          <li><a class="dropdown-link">Action</a></li>
+                          <li><a class="dropdown-link">Another action</a></li>
+                          <li><a class="dropdown-link">Something else here</a></li>
+                          <li class="dropdown-divider"></li>
+                          <li><a class="dropdown-link dropdown-link--is-header">Header</a></li>
+                          <li><a class="dropdown-link">Separated link</a></li>
+                      </ul>
+                  </lx-dropdown-menu>
+              </lx-dropdown>
+          </div>
+          <div flex-item="1" class="toolbar__right">
+            <div class="toolbar__right img-header"></div>
+          </div>
+          <div class="travel-colorR"></div>
+        </div>
+    </nav>
+  </div>
 
 <!-- nav caché -->
-<md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" style="position:fixed; z-index: 8000; background-color:#2C343F; overflow-x: hidden;">
-  <div style="padding: 9px; background-color:#03a9f4">
+<md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" style="position:fixed; z-index: 8000; background-color:#FFFFFF; overflow-x: hidden;">
+  <div style="padding: 9px; background-color:#FFFFFF">
     <p class="md-title travelTitle" style="margin-top:5px">TRAVEL PLANET</p>
   </div>
   <md-toolbar style="background-color:transparent;" style=" padding-bottom: 30px;">
@@ -57,7 +63,7 @@
 </md-sidenav>
 
 <!-- mini nav-bar -->
-<div hide-md hide-sm show-gt-md class="menu blureffect fadein fadeout md-whiteframe-1dp hide-on-med-and-down" ng-hide="checked" style="background-image: url('/img/nav_background_top.jpeg'); max-width: 80px;">
+<div hide-md hide-sm show-gt-md class="menu blureffect fadein fadeout md-whiteframe-1dp hide-on-med-and-down" ng-hide="checked" style="background-color: #FFFFFF; max-width: 80px;">
   <md-toolbar style="background-color:transparent; padding-top: 25px;">
       <span flex></span>
       <div tooltips tooltip-template="{{menu.view_label}}" tooltip-side="right" ng-click="goTO(menu.site_id, menu.view_id, menu.view_label)" ng-repeat="menu in viewMenu" class="tile-small" data-period="{{menu.view_position}}" data-duration="250" data-role="tile" data-effect="{{menu.animation}}">
@@ -70,7 +76,30 @@
               </div>
           </div>
       </div>
+      <div class="p+">
+        <lx-button ng-morph-overlay="settings" lx-type="fab"><i class="mdi mdi-plus"></i></lx-button>
+      </div>
   </md-toolbar>
+</div>
+
+<div class="p+ pt0">
+    <lx-text-field lx-label="Company" lx-allow-clear="true">
+        <input type="text" ng-model="vm.textFields.floating.company">
+    </lx-text-field>
+
+    <div flex-container="row" flex-gutter="24">
+        <div flex-item>
+            <lx-text-field lx-label="First name">
+                <input type="text" ng-model="vm.textFields.floating.firstName">
+            </lx-text-field>
+        </div>
+
+        <div flex-item>
+            <lx-text-field lx-label="Last name">
+                <input type="text" ng-model="vm.textFields.floating.lastName">
+            </lx-text-field>
+        </div>
+    </div>
 </div>
 
 <div class="row" style="
