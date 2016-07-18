@@ -7,6 +7,11 @@ tableau
     $scope.lastname       = decode[0].lastname
     $scope.favorite_color = decode[0].favorite_color
     $scope.company        = decode[0].company
+    $scope.settings =
+        closeEl: '.close'
+        overlay:
+            templateUrl: 'modals/tableau_type.html'
+            scroll: true
 
     $mdDialog.hide()
 
