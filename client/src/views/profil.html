@@ -7,6 +7,32 @@
             <h1 class="h1profil md-display-2">Modifier le profil de {{profils.Customer_surName }} {{profils.Customer_GivenName}}</h1>
             <div class="row">
               <div class="col-md-3">
+                <div class="chooseVoy row">
+                  <div class="col-md-8">
+                    <label aria-label="chooseCommunity"  class="right labelProfil">Sélectionnez une communauté </md-icon> </label>
+                  </div>
+                  <div class="col-md-12">
+                    <md-input-container class="w200px">
+                      <md-select aria-label="chooseCommunity"  name="chooseCommunity" ng-model="chooseCommunity" >
+                        <md-option value="1">1</md-option>
+                        <md-option value="2">2</md-option>
+                        <md-option value="3">3</md-option>
+                      </md-select>
+                    </md-input-container>
+                  </div>
+                  <div class="col-md-8">
+                    <label aria-label="chooseVoyageur"  class="right labelProfil">Sélectionnez un voyageur</md-icon> </label>
+                  </div>
+                  <div class="col-md-12">
+                    <md-input-container class="w200px">
+                      <md-select aria-label="chooseVoyageur"  name="chooseVoyageur" ng-model="chooseVoyageur" >
+                        <md-option value="mahefa">Mahefa</md-option>
+                        <md-option value="christophe">Christophe</md-option>
+                        <md-option value="Zack">Zack</md-option>
+                      </md-select>
+                    </md-input-container>
+                  </div>
+                </div>
                 <div class="card">
                   <div class="card-image">
                     <div id="wrapper" ng-switch="user.sexe">
@@ -803,7 +829,7 @@
                                                             <table class="tabProfil">
                                                               <tr>
                                                                 <th><label  class="labelProfil" for=""> Fournisseur </label></th>
-                                                                <th><label  class="labelProfil" for=""> Nom de de la carte </label></th>
+                                                                <th><label  class="labelProfil" for=""> Nom de la carte </label></th>
                                                                 <th><label  class="labelProfil" for=""> Numéro de de la carte </label></th>
                                                                 <th><label  class="labelProfil" for=""> Fin de validité </label></th>
                                                               </tr>

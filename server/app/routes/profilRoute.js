@@ -59,4 +59,16 @@ module.exports = function(router, connection) {
                     res.json(rows);
             })
         })
+    router.route('/community')
+        .get(function(req, res) {
+            var query_one = "SELECT DISTINCT ?? FROM ?? WHERE ?? = ?";
+            var table_one = ["HomeCommunity", "view_tpa_extensions_libelle", "SITE_ID", "Q1CNQ1CN"];
+            query_one     = mysql.format(query_one, table_one);
+            connection.query(query_one, function(err, rows) {
+                if (err)
+                    res.status(400).send(err);
+                else
+                    res.json(rows);
+            })
+        })
 }

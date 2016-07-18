@@ -988,11 +988,11 @@ th {
 }
 
 th:first-child {
-  border-top-left-radius:3px;
+  border-top-left-radius:10px;
 }
 
 th:last-child {
-  border-top-right-radius:3px;
+  border-top-right-radius:10px;
   border-right:none;
 }
 
@@ -1018,6 +1018,8 @@ tr:first-child {
 
 tr:last-child {
   border-bottom:none;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
 }
 
 tr:nth-child(odd)  {
@@ -1029,11 +1031,11 @@ tr:nth-child(odd):hover td {
 }
 
 tr:last-child td:first-child {
-  border-bottom-left-radius:3px;
+  border-bottom-left-radius:10px;
 }
 
 tr:last-child td:last-child {
-  border-bottom-right-radius:3px;
+  border-bottom-right-radius:10px;
 }
 
 td {
@@ -1169,6 +1171,9 @@ textarea.materialize-textarea:focus.valid {
 .w50px{
   width: 50px !important;
 }
+.w30px{
+  width: 30px !important;
+}
 .w90px{
   width: 90px !important;
 }
@@ -1217,24 +1222,40 @@ md-input-container {margin:0;}
   width: 60%;
 }
 .tabProfil{
-  border: none;
+  border: 1px solid white;
+  background-color: #e3f0f7;
+  border-top-left-radius:10px !important;
+  border-top-right-radius:10px !important;
+  border-bottom-right-radius:10px !important;
+  border-bottom-left-radius:10px !important;
 }
 .tabProfil th{
-  border-top-left-radius:2em;
-  border-top-right-radius:2em;
-  background: white;
+  border-top-left-radius:10px !important;
+  border-top-right-radius:10px !important;
+  border: 1px solid white;
+  background-color: #e3f0f7;
   padding: 0px;
+  padding-left: 10px;
+  padding-right: 5px;
+  padding-top: 5px;
+}
+.tabProfil tr:last-child{
+  border-bottom-left-radius:10px !important;
+  border-bottom-right-radius:10px !important;
 }
 .tabProfil tr:hover td {
-  background: white;
+  background-color: #e3f0f7;
   color: #757575;
 }
 .tabProfil td {
+    background-color: #e3f0f7;
     border-width: 0px;
+    border: 1px solid white;
     width: 0%;
     padding: 0px;
     font-size: 12px;
     color: #595959;
+    padding-left: 10px;
 }
 [type="radio"]:checked + label:after, [type="radio"].with-gap:checked + label:after {
     background-color: #0077bb;
@@ -1242,4 +1263,10 @@ md-input-container {margin:0;}
 }
 [type="radio"]:checked + label:after, [type="radio"].with-gap:checked + label:before, [type="radio"].with-gap:checked + label:after {
     border: 2px solid #0077bb;
+}
+.chooseVoy{
+  background-color: #e3f0f7;
+  border-radius: 5px 5px 5px 5px;
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
 }
