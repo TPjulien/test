@@ -1,13 +1,13 @@
 'use strict';
 var options, tableau;
 
-tableau = angular.module('tableauApp', ['ngSanitize', 'ngMaterial', 'ngAria', 'ngAnimate', 'oitozero.ngSweetAlert', 'ngCookies', 'mdPickers', 'angular-md5', 'ngFileUpload', 'ui.router', 'ngDialog', 'angular-jwt', 'angular-storage', 'auth0', 'ui.bootstrap.contextMenu', 'rzModule', 'daterangepicker', 'ngMessages', 'obDateRangePicker', 'ngMorph', 'anim-in-out', '720kb.tooltips', 'btford.markdown', 'textAngular', 'ngImageCache']);
+tableau = angular.module('tableauApp', ['ngSanitize', 'ngMaterial', 'ngAria', 'ngAnimate', 'lumx', 'oitozero.ngSweetAlert', 'ngCookies', 'mdPickers', 'angular-md5', 'ngFileUpload', 'ui.router', 'ngDialog', 'angular-jwt', 'angular-storage', 'auth0', 'ui.bootstrap', 'ui.bootstrap.contextMenu', 'rzModule', 'daterangepicker', 'ngMessages', 'obDateRangePicker', 'ngMorph', 'anim-in-out', '720kb.tooltips', 'btford.markdown', 'textAngular', 'ngImageCache', 'ds.clock', 'ngTable']);
 
 options = {};
 
 options.api = {};
 
-options.api.base_url = "https://tp-control.travelplanet.fr:3253/api";
+options.api.base_url = "http://151.80.121.123:3001/api";
 
 tableau.config(["authProvider", "$stateProvider", "$urlRouterProvider", "$httpProvider", "jwtInterceptorProvider", function(authProvider, $stateProvider, $urlRouterProvider, $httpProvider, jwtInterceptorProvider) {
   $stateProvider.state('login', {
@@ -119,6 +119,20 @@ tableau.controller('factureCtrl', ["$scope", "$http", "jwtHelper", "store", "$wi
   max_slider = 0;
   value = 50;
   decode = jwtHelper.decodeToken(token);
+  $http({
+    method: 'POST',
+    url: options.api.base_url + '/SSO',
+    data: {
+      LOGINNAME: 'helpdesk@travelplanet.fr',
+      PASSWORD: 'travel2014',
+      LANGAGUE: 'FR'
+    }
+  }).success(function(result) {
+    console.log(result);
+    return $scope.sso = result;
+  }).error(function(err) {
+    return console.log(err);
+  });
   $scope.tototo = function(min, max) {
     search_price_min = min;
     search_price_max = max;
@@ -362,7 +376,25 @@ tableau.controller('homeCtrl', ["$scope", "$mdSidenav", "$timeout", "logoutFct",
   $scope.lastname = decode[0].lastname;
   $scope.favorite_color = decode[0].favorite_color;
   $scope.company = decode[0].company;
+  $scope.settings = {
+    closeEl: '.close',
+    overlay: {
+      templateUrl: 'modals/tableau_type.html',
+      scroll: true
+    }
+  };
   $mdDialog.hide();
+  $scope.settings = {
+    closeEl: '.close',
+    modal: {
+      templateUrl: 'modals/loading.html',
+      position: {
+        top: '30%',
+        left: '20%'
+      },
+      fade: false
+    }
+  };
   $scope.goTO = function(id, view, view_label) {
     var path;
     $mdSidenav('left').close();
@@ -446,16 +478,14 @@ tableau.controller('homeCtrl', ["$scope", "$mdSidenav", "$timeout", "logoutFct",
 }]);
 
 tableau.controller('iframeCtrl', ["$scope", "$sce", "$http", function($scope, $sce, $http) {
+  console.log('meh !');
+  $scope.url = null;
   return $http({
     method: 'GET',
-    url: options.api.base_url + '/SSO',
-    data: {
-      LOGINNAME: 'helpdesk@travelplanet.fr',
-      PASSWORD: 'travel2014'
-    }
+    url: 'http://151.80.121.123:3001/api/SSO'
   }).success(function(data) {
-    console.log("c'est connecté !");
-    return console.log(data);
+    console.log(data);
+    return $scope.url = $sce.trustAsResourceUrl(data);
   }).error(function(err) {
     return console.log(err);
   });
@@ -627,13 +657,30 @@ tableau.controller('profilCreateCtrl', ["$scope", function($scope) {
   };
 }]);
 
-tableau.controller("profilCtrl", ["$scope", "$mdDialog", "$http", "$q", function($scope, $mdDialog, $http, $q) {
+tableau.controller("profilCtrl", ["$scope", "$mdDialog", "$http", "$q", "NgTableParams", function($scope, $mdDialog, $http, $q, NgTableParams) {
+  var self, tabData;
   $http({
     method: 'GET',
     url: options.api.base_url + '/profils/blyweereri'
   }).success(function(data) {
-    console.log(data);
     return $scope.profils = data[0];
+  }).error(function(err) {
+    return console.log(err);
+  });
+  $http({
+    method: 'GET',
+    url: options.api.base_url + '/community'
+  }).success(function(data) {
+    $scope.community = data;
+    return console.log(data);
+  }).error(function(err) {
+    return console.log(err);
+  });
+  $http({
+    method: 'GET',
+    url: options.api.base_url + '/getCountry'
+  }).success(function(data) {
+    return $scope.country_phone = data;
   }).error(function(err) {
     return console.log(err);
   });
@@ -647,21 +694,19 @@ tableau.controller("profilCtrl", ["$scope", "$mdDialog", "$http", "$q", function
       return console.log(err);
     });
   };
-  $scope.listNumTel = [];
-  $scope.test = [];
-  $scope.submitNumPhone = function() {
-    var phoneSub;
-    phoneSub = {
-      code: $scope.user.phoneCode,
-      numero: $scope.user.numPhone
-    };
-    if ($scope.user.numPhone && $scope.user.phoneCode) {
-      $scope.listNumTel.push(phoneSub);
-      $scope.phoneSub = {};
-      $scope.phone = false;
-      return $scope.ajouterNum = true;
+  self = this;
+  tabData = [
+    {
+      name: 'Moroni',
+      age: 50
+    }, {
+      name: 'Lucio',
+      age: 20
     }
-  };
+  ];
+  self.tableParams = new NgTableParams({}, {
+    dataset: tabData
+  });
   $scope.required = true;
   $scope.mois = [
     {
@@ -688,6 +733,24 @@ tableau.controller("profilCtrl", ["$scope", "$mdDialog", "$http", "$q", function
       name: "Novembre"
     }, {
       name: "Décembre"
+    }
+  ];
+  $scope.community_valideur = [
+    {
+      name: "poleemploi"
+    }, {
+      name: "inserm"
+    }, {
+      name: "CNTS"
+    }
+  ];
+  $scope.community_chargeVoy = [
+    {
+      name: "poleemploi"
+    }, {
+      name: "inserm"
+    }, {
+      name: "CNTS"
     }
   ];
   $scope.jours = [
@@ -992,17 +1055,221 @@ tableau.controller("profilCtrl", ["$scope", "$mdDialog", "$http", "$q", function
   ];
   $scope.ajouterNum = true;
   $scope.phone = false;
-  return $scope.showme = function() {
+  $scope.showPanelTel = function() {
     $scope.phone = true;
-    $scope.ajouterNum = false;
-    return $http({
-      method: 'GET',
-      url: options.api.base_url + '/getCountry'
-    }).success(function(data) {
-      return $scope.country_phone = data;
-    }).error(function(err) {
-      return console.log(err);
-    });
+    return $scope.ajouterNum = false;
+  };
+  $scope.hidePanelTel = function() {
+    $scope.phone = false;
+    return $scope.ajouterNum = true;
+  };
+  $scope.listNumTel = [];
+  $scope.submitNumPhone = function() {
+    var phoneSub;
+    phoneSub = {
+      code: $scope.user.phoneCode,
+      numero: $scope.user.numPhone
+    };
+    if ($scope.user.numPhone && $scope.user.phoneCode) {
+      $scope.listNumTel.push(phoneSub);
+      $scope.phoneSub = {};
+      $scope.phone = false;
+      $scope.ajouterNum = true;
+      $scope.user.phoneCode = null;
+      return $scope.user.numPhone = null;
+    }
+  };
+  $scope.ajouterMail = true;
+  $scope.mail = false;
+  $scope.showPanelMail = function() {
+    $scope.mail = true;
+    return $scope.ajouterMail = false;
+  };
+  $scope.hidePanelMail = function() {
+    $scope.mail = false;
+    return $scope.ajouterMail = true;
+  };
+  $scope.listMail = [];
+  $scope.submitMail = function() {
+    var mailSub;
+    mailSub = {
+      mail: $scope.user.mail
+    };
+    if ($scope.user.mail) {
+      $scope.listMail.push(mailSub);
+      $scope.mailSub = {};
+      $scope.mail = false;
+      $scope.ajouterMail = true;
+      return $scope.user.mail = null;
+    }
+  };
+  $scope.ajouterValideur = true;
+  $scope.valideur = false;
+  $scope.showPanelValideur = function() {
+    $scope.valideur = true;
+    return $scope.ajouterValideur = false;
+  };
+  $scope.hidePanelValideur = function() {
+    $scope.valideur = false;
+    return $scope.ajouterValideur = true;
+  };
+  $scope.listValideur = [];
+  $scope.submitValideur = function() {
+    var valideurSub;
+    valideurSub = {
+      name: $scope.user.nomValideur
+    };
+    if ($scope.user.nomValideur) {
+      $scope.listValideur.push(valideurSub);
+      $scope.valideurSub = {};
+      $scope.valideur = false;
+      $scope.ajouterValideur = true;
+      return $scope.user.nameValideur = null;
+    }
+  };
+  $scope.ajouterChargeVoy = true;
+  $scope.chargeVoy = false;
+  $scope.showPanelChargeVoy = function() {
+    $scope.chargeVoy = true;
+    return $scope.ajouterChargeVoy = false;
+  };
+  $scope.hidePanelChargeVoy = function() {
+    $scope.chargeVoy = false;
+    return $scope.ajouterChargeVoy = true;
+  };
+  $scope.listChargeVoy = [];
+  $scope.submitChargeVoy = function() {
+    var chargeVoySub;
+    chargeVoySub = {
+      name: $scope.user.nomChargeVoy
+    };
+    if ($scope.user.nomChargeVoyr) {
+      $scope.listChargeVoy.push(chargeVoySub);
+      $scope.chargeVoySub = {};
+      $scope.chargeVoy = false;
+      $scope.ajouterChargeVoy = true;
+      return $scope.user.nomChargeVoy = null;
+    }
+  };
+  $scope.ajouterResponsable = true;
+  $scope.responsable = false;
+  $scope.showPanelResponsable = function() {
+    $scope.responsable = true;
+    return $scope.ajouterResponsable = false;
+  };
+  $scope.hidePanelResponsable = function() {
+    $scope.responsable = false;
+    return $scope.ajouterResponsable = true;
+  };
+  $scope.listResponsable = [];
+  $scope.submitResponsable = function() {
+    var responsableSub;
+    responsableSub = {
+      name: $scope.user.responsable
+    };
+    if ($scope.user.responsable) {
+      $scope.listResponsable.push(responsableSub);
+      $scope.responsableSub = {};
+      $scope.responsable = false;
+      $scope.ajouterResponsable = true;
+      return $scope.user.nomResponsable = null;
+    }
+  };
+  $scope.ajouterPassport = true;
+  $scope.passport = false;
+  $scope.showPanelPassport = function() {
+    $scope.passport = true;
+    return $scope.ajouterPassport = false;
+  };
+  $scope.hidePanelPassport = function() {
+    $scope.passport = false;
+    return $scope.ajouterPassport = true;
+  };
+  $scope.listPassport = [];
+  $scope.submitPassport = function() {
+    var passportSub;
+    passportSub = {
+      name: $scope.user.passport
+    };
+    if ($scope.user.passport) {
+      $scope.listPassport.push(passportSub);
+      $scope.passportSub = {};
+      $scope.passport = false;
+      $scope.ajouterPassport = true;
+      return $scope.user.nomPassport = null;
+    }
+  };
+  $scope.ajouterFidelite = true;
+  $scope.fidelite = false;
+  $scope.showPanelFidelite = function() {
+    $scope.fidelite = true;
+    return $scope.ajouterFidelite = false;
+  };
+  $scope.hidePanelFidelite = function() {
+    $scope.fidelite = false;
+    return $scope.ajouterFidelite = true;
+  };
+  $scope.listFidelite = [];
+  $scope.submitFidelite = function() {
+    var fideliteSub;
+    fideliteSub = {
+      name: $scope.user.fidelite
+    };
+    if ($scope.user.fidelite) {
+      $scope.listFidelite.push(fideliteSub);
+      $scope.fideliteSub = {};
+      $scope.fidelite = false;
+      $scope.ajouterFidelite = true;
+      return $scope.user.nomFidelite = null;
+    }
+  };
+  $scope.ajouterCarteVoy = true;
+  $scope.carteVoy = false;
+  $scope.showPanelCarteVoy = function() {
+    $scope.carteVoy = true;
+    return $scope.ajouterCarteVoy = false;
+  };
+  $scope.hidePanelCarteVoy = function() {
+    $scope.carteVoy = false;
+    return $scope.ajouterCarteVoy = true;
+  };
+  $scope.listCarteVoy = [];
+  $scope.submitCarteVoy = function() {
+    var carteVoySub;
+    carteVoySub = {
+      name: $scope.user.carteVoy
+    };
+    if ($scope.user.carteVoy) {
+      $scope.listCarteVoy.push(carteVoySub);
+      $scope.carteVoySub = {};
+      $scope.carteVoy = false;
+      $scope.ajouterCarteVoy = true;
+      return $scope.user.nomCarteVoy = null;
+    }
+  };
+  $scope.ajouterFideliteHotel = true;
+  $scope.fideliteHotel = false;
+  $scope.showPanelFideliteHotel = function() {
+    $scope.fideliteHotel = true;
+    return $scope.ajouterFideliteHotel = false;
+  };
+  $scope.hidePanelFideliteHotel = function() {
+    $scope.fideliteHotel = false;
+    return $scope.ajouterFideliteHotel = true;
+  };
+  $scope.listFideliteHotel = [];
+  return $scope.submitFideliteHotel = function() {
+    var fideliteHotelSub;
+    fideliteHotelSub = {
+      name: $scope.user.fidelite
+    };
+    if ($scope.user.fideliteHotel) {
+      $scope.listFideliteHotel.push(fideliteHotelSub);
+      $scope.fideliteHotelSub = {};
+      $scope.fideliteHotel = false;
+      $scope.ajouterFideliteHotel = true;
+      return $scope.user.nomFideliteHotel = null;
+    }
   };
 }]);
 

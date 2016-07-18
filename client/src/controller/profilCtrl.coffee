@@ -12,8 +12,8 @@ tableau
         method: 'GET'
         url:    options.api.base_url + '/community'
     .success (data) ->
-        console.log 'sisisisisisis'
         $scope.community = data
+        console.log data
     .error (err) ->
         console.log err
 
