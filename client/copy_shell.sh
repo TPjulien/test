@@ -1,1 +1,1 @@
-sudo cp -r public/ /var/www
+sudo cp -r public_tableau/ /var/www

@@ -1,0 +1,82 @@
+<div hide-md hide-sm show-gt-md class="col s12 wall-fact" style="background-color:white; !important;height:32px; padding: 0;" >
+  <blockquote class="md-title" style="text-align: center; padding-top: 2px;">Factures Travel Planet</blockquote>
+</div>
+<div class="col 10 m4 l10 content" style="background-color:#EEEEEE; !important; height:475px" when-scrolled="loadMore()">
+  <h1 class="md-title" style="color:#424242" ng-show="data.length == 0">0 Resultat(s)</h1>
+  <p class="md-subhead">{{information}}</p>
+    <div ng-animate="'animate'" ng-repeat="facture in data">
+      <div  md-ink-ripple class="col s12" style="text-align:left; margin: 0; padding: 0; margin-bottom: -9px;" context-menu="menuOptions" ng-click="watchPdf(facture.num.NUM_INVOICE)">
+        <div style="text-align:center; padding:0; margin:0">
+          <p class="col s2 md-whiteframe-1dp truncate" style="background-color:white"  class="md-subhead">{{facture.num.NUM_INVOICE}}</p>
+          <p class="col s2 md-whiteframe-1dp truncate" style="background-color:white; {{getColorFactureType(facture.num.TRAVELLER)}}" class="md-subhead">{{checkName(facture.num.TRAVELLER)}}</p>
+          <p class="col s2 md-whiteframe-1dp truncate" style="background-color:white"  class="md-subhead">{{facture.num.PRINTED_DATE | date:'dd/MM/yyyy'}}</p>
+          <p class="col s1 md-whiteframe-1dp truncate" style="background-color:white;" class="md-subhead">{{facture.num.ACCOUNT_NUMBER}}</p>
+          <p class="col s1 md-whiteframe-1dp truncate" style="background-color:white;" class="md-subhead">{{facture.num.INVOICE_TYPE}}</p>
+          <p class="col s2 md-whiteframe-1dp truncate" style="background-color:white;" class="md-subhead">{{facture.num.CMD_CLIENT_NOM_USUEL}}</p>
+          <p class="col s2 md-whiteframe-1dp truncate amountStyle" style="{{getColor(facture.num.INVOICE_TYPE)}}" class="md-subhead">{{facture.num.TOTAL_AMOUNT_TTC | number:2}} €</p>
+          <!-- <md-tooltip>
+            {{facture.num.LINE_DESCRIPTION}}
+          </md-tooltip> -->
+        </div>
+      </div>
+    </div>
+</div>
+<form name="searchForm">
+<div layout-padding class="col s12 m4 l2" style="background-color:white; height: 475px;">
+  <div ng-if="allow_filters.rules_filter_canFilterNumberClient">
+    <!-- <h2 class="md-subhead">Recherche par facture :</h2> -->
+    <md-input-container class="col s12">
+      <label class="fontSize">Recherche par numéro de facture</label>
+      <input for="clientName" ng-change="filterFacture(clientFacture)" ng-model="clientFacture" name="clientFacture" ng-model-options="{debounce: 1000}" minlength="3" maxlength="10" ng-pattern="/^[0-9]+$/">
+      <div ng-messages="searchForm.clientFacture.$error" role="alert">
+        <div ng-message-exp="['pattern']">
+          Recherche invalide, veuillez entrer que des chiffres (minimum 3 chiffres - maximum 10 chiffres).
+        </div>
+        <div ng-message-exp="['minlength']">
+          Argument trop court (Minimum 3 chiffres - maximum 10 chiffres).
+        </div>
+      </div>
+    </md-input-container>
+  </div>
+  <!-- Client NAME -->
+  <div ng-if="allow_filters.rules_filter_canFilterNameClient">
+    <!-- <h2 class="md-subhead">Recherche par nom du client :</h2> -->
+    <md-input-container class="col s12">
+      <label class="fontSize">Recherche par nom du client</label>
+      <input for="clientName" ng-change="filterName(clientName)" ng-model="clientName" name="clientName" ng-model-options="{debounce: 1000}" minlength="3" ng-pattern="/^[a-zA-Z\s]*$/">
+      <div ng-messages="searchForm.clientName.$error" role="alert">
+        <div ng-message-exp="['pattern']">
+          Recherche invalide, veuillez entrer que des lettres.
+        </div>
+        <div ng-message-exp="['minlength']">
+          Recherche invalide, veuillez entrer 3 lettres ou plus.
+        </div>
+      </div>
+    </md-input-container>
+  </div>
+  <!-- DATE -->
+  <div ng-if="allow_filters.rules_filter_canFilterDate">
+    <h2 class="md-subhead">Filtrer par date :</h2>
+    <ob-daterangepicker class="col s12" style="font-size:10px;" on-apply="filterDate(start, end)" range="vm.range"></ob-daterangepicker>
+  </div>
+  <!-- TYPE -->
+  <div ng-if="allow_filters.rules_filter_canFilterType">
+    <h2 class="md-subhead">Type d'affichage</h2>
+    <md-radio-group ng-model="value" ng-change="getTypeFilter(value)">
+      <md-radio-button value="none"  class="md-primary"> toutes </md-radio-button>
+      <md-radio-button value="CommercialInvoice"> Factures seulement </md-radio-button>
+      <md-radio-button value="CreditNoteGoodsAndServices"> Avoir seulement </md-radio-button>
+    </md-radio-group>
+  </div>
+  <!-- PRICE -->
+  <div ng-if="allow_filters.rules_filter_canFilterPRice">
+    <h2 class="md-subhead">Filter les prix</h2>
+    <rzslider
+      rz-slider-model="slider.min"
+      rz-slider-high="slider.max"
+      rz-slider-options="slider.options">
+    </rzslider>
+  </div>
+  <p class="md-subhead">{{userText}}</p>
+</div>
+</form>

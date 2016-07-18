@@ -26,9 +26,10 @@
     "mysql-promise": "^1.4.0",
     "node-rsa": "^0.2.30",
     "password-hash-and-salt": "^0.1.2",
-    "python-shell": "^0.3.0",
+    "python-shell": "~0.3.0",
     "request": "^2.67.0",
     "xlsx-json": "^0.1.0",
-    "xlsx-to-json": "^0.2.4"
+    "xlsx-to-json": "^0.2.4",
+    "https-request": "~1.1.0"
   }
 }

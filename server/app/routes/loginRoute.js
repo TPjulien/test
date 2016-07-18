@@ -3,7 +3,15 @@ var jwt       = require('jsonwebtoken');
 var NodeRSA   = require('node-rsa');
 var http_post = require('http-post');
 var request   = require('request');
+//var request   = request.defaults({jar: true});
 var key       = new NodeRSA({b: 512});
+var httpsRequest = require('https-request');
+var pythonShell = require('python-shell');
+var pyshell = new pythonShell('test.py');
+
+
+request.defaults({jar: true});
+var j = request.jar();
 
 module.exports = function(router, connection) {
     var table_password = "user_password";
@@ -120,27 +128,13 @@ module.exports = function(router, connection) {
           })
         router.route('/SSO')
           .get (function(req, res) {
-              request.post('https://e-travelmanagement22.amadeus.com/portalApp/', { form : {
-                                                                                    LOGINNAME:         'helpdest@travelplanet.fr',
-                                                                                    SITE:              'Q4OZQ4OZ',
-                                                                                    LANGUAGE:          'FR',
-                                                                                    LOGIN_TYPE:        'SSO',
-                                                                                    PASSWORD:          'travel2014',
-                                                                                    BOOKING_FLOW_TYPE: 'MODIFY'
-              }}, function(err, result, body) {
-                  res.json(body);
-              });
-              // http_post('url', { LOGINNNAME:          req.body.username,
-              //                    SITE:                'Q4OZQ40Z',
-              //                    LANGUAGE:            'FR',
-              //                    LOGIN_TYPE:          'SSO',
-              //                    PASSWORD:            req.body.password,
-              //                    BOOKING_FLOW_TYPE:   'MODIFY'
-              //                  }, function(response) {
-              //     res.setEncoding('utf8');
-              //     response.on('data', function(chunk) {
-              //         res.json(chunk);
-              //     })
-              // })
-          })
+	      pythonShell.run('test.py', function(err, result) {
+		  if (err) 
+		      throw err;
+		  else {
+		      console.log(result[0]);
+		      res.send(result[0]);
+		  }
+	      })
+	  })
 };

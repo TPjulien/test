@@ -39,9 +39,9 @@ module.exports = function(router, connection) {
                                 site = "";
                               var options = {
                                   url: 'https://' + rows_tableau[counter].tableau_server_url + '/trusted',
-				  cert: fs.readFileSync('/etc/ssl/tp_control/tp-control_travelplanet_fr.crt'),
+				  /*cert: fs.readFileSync('/etc/ssl/tp_control/tp-control_travelplanet_fr.crt'),
                                   key:  fs.readFileSync('/etc/ssl/tp_control/ia.key'),
-                                  ca:   fs.readFileSync('/etc/ssl/tp_control/DigiCertCA.crt'),
+                                  ca:   fs.readFileSync('/etc/ssl/tp_control/DigiCertCA.crt'),*/
                                   form : {
                                     username: req.params.user,
                                     target_site: site

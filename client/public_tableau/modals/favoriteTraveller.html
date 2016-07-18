@@ -1,0 +1,47 @@
+<div layout-padding="" style="    background: #ffffff;
+  background: -moz-linear-gradient(-45deg, #ffffff 0%, #ddf2f9 35%, #a1dcef 100%);
+  background: -webkit-linear-gradient(-45deg, #ffffff 0%,#ddf2f9 35%,#a1dcef 100%);
+  background: linear-gradient(135deg, #ffffff 0%,#ddf2f9 35%,#a1dcef 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#a1dcef',GradientType=1 );">
+    <h1 class="md-display-2" style="color: #1E90FF; text-shadow: 2px 2px 4px grey;">Favorite traveler</h1>
+
+      <div class="col s11" style="width: 900px;" ng-cloak="">
+        <p>Communauté</p>
+          <md-input-container>
+            <label></label>
+            <md-select name="myModel3" ng-model="myModel3">
+              <md-option  ng-repeat="com in coms" value="{{com.name}}">
+                {{com.name}}
+              </md-option>
+            </md-select>
+          </md-input-container>
+      <
+      <div class="col s12">
+        <form name="userForm">
+        <div lc-validations-container class="input-field col s6">
+          <input ng-model='user.firstname1'type="text" class="validate">
+
+           <label for="userName"style="font-size: 18px;">Prenom</label>
+        </div>
+      </form>
+        <div class="input-field col s6">
+          <input ng-model='profils[9].email'type="text" class="validate">
+          <label style="font-size: 18px" >Nom</label>
+        </div>
+      </div>
+      <div class="col s12">
+        <div class="input-field col s6">
+          <input ng-model='user.identifiant'type="text" class="validate">
+          <label style="font-size: 18px;">Identifiant</label>
+        </div>
+        <div class="input-field col s6">
+          <input ng-model='user.email1'type="email" class="validate">
+          <label style="font-size: 18px" >Email</label>
+        </div>
+      </div>
+
+      <md-button class="md-primary md-raised" ng-click="favoriteTraveller()">
+        Rechercher
+      </md-button>
+    </div>
+</div>

@@ -19,7 +19,7 @@ js_filter  = filter '**/*.js', { restore: true }
 css_filter = filter '**/*.css', { restore: true }
 
 src  = 'src'
-dest = 'public'
+dest = 'public_tableau'
 name = 'tableau'
 
 gulp.task 'clean', ->

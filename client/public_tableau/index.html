@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<!-- <html ng-style="{ 'background-image' : wallpaper }" lang="fr" ng-app="tableauApp"> -->
+<html style="background-image: url('/img/background.png')" lang="fr" ng-app="tableauApp">
+<!-- <html style="background-color:#EAEAEA" lang="fr" ng-app="tableauApp"> -->
+    <head>
+        <meta charset="UTF-8">
+        <!-- Css du bower component -->
+        <link rel="stylesheet" type="text/css" href="css/tableau-components.css" />
+        <!-- Css perso -->
+        <link rel="stylesheet" type="text/css" href="css/tableau-styles.css" />
+        <meta name="viewport" content="initial-scale=1" />
+        <link rel="travel icon" type="image/x-icon" href="/img/icons/travelLogo.ico"/>
+        <title>Travel Planet Portal</title>
+    </head>
+<body ng-cloak>
+  <div ui-view class="anim-in-out anim-fade" data-anim-sync="true"></div>
+  <footer>
+      <script src="js/tableau-components.js"></script>
+      <script src="js/tableau.js"></script>
+      <script src="js/js_tableau_api.js"></script>
+  </footer>
+</body>

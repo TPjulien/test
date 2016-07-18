@@ -7,13 +7,6 @@ var jwt         = require('jsonwebtoken');
 var https       = require('https');
 var http        = require('http');
 
-var credentials = {
-    key:  fs.readFileSync('/etc/ssl/tp_control/ia.key'),
-    cert: fs.readFileSync('/etc/ssl/tp_control/tp-control_travelplanet_fr.crt'),
-    ca:   fs.readFileSync('/etc/ssl/tp_control/DigiCertCA.crt'),
-    requestCert:        true,
-    rejectUnauthorized: false
-};
 var app = express();
 
 process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
@@ -34,7 +27,7 @@ connection.connect(function(err) {
         console.log("connection etablished !");
 });
 
-app.use(cors());
+app.use(cors({credentials: true}));
 app.use(bodyParser.json({ extended: true }));
 app.use(bodyParser.json());
 
@@ -82,9 +75,9 @@ require('./app/routes/profilRoute')       (router, connection);
 app.use('/api', router);
 
 var httpServer  = http.createServer(app);
-var httpsServer = https.createServer(credentials, app);
+//var httpsServer = https.createServer(credentials, app);
 
-httpServer.listen(3000);
-httpsServer.listen(3253);
+httpServer.listen(3001);
+//httpsServer.listen(3254);
 
 // console.log('done !' + port);
