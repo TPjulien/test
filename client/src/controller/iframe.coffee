@@ -23,19 +23,20 @@ tableau
       #   console.log response
       #   return
 
-      $http
-          method: 'JSONP'
-          url:    'https://e-travelmanagement22.amadeus.com/portalApp/?SITE=Q4OZQ4OZ&LANGUAGE=FR&LOGIN_TYPE=SSO&LOGINNAME=helpdesk%40travelplanet.fr&PASSWORD=travel2014&BOOKING_FLOW_TYPE=MODIFY'
-      .success (data) ->
-          console.log data
-      .error (err) ->
-          console.log err
+      # $http
+      #     method: 'JSONP'
+      #     url:    'https://e-travelmanagement22.amadeus.com/portalApp/?SITE=Q4OZQ4OZ&LANGUAGE=FR&LOGIN_TYPE=SSO&LOGINNAME=helpdesk%40travelplanet.fr&PASSWORD=travel2014&BOOKING_FLOW_TYPE=MODIFY'
+      # .success (data) ->
+      #     console.log data
+      # .error (err) ->
+      #     console.log err
 
       $scope.url = null
       $http
           method: 'GET'
           url:    'http://151.80.121.123:3001/api/SSO'
       .success (data) ->
+          console.log data
           $scope.url = $sce.trustAsResourceUrl(data)
       .error (err) ->
           console.log err
