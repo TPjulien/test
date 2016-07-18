@@ -161,5 +161,4 @@ module.exports = function(router, connection) {
               //     })
               // })
           })
->>>>>>> version v2
 };
