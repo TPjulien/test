@@ -26,11 +26,12 @@ tableau = angular.module 'tableauApp', [
   'btford.markdown'
   'textAngular'
   'ngImageCache'
+  'lumx'
 ]
 
 options = {}
 options.api = {}
-options.api.base_url = "https://tp-control.travelplanet.fr:3253/api"
+options.api.base_url = "http://151.80.121.123:3001/api"
 
 tableau
 .config (authProvider, $stateProvider, $urlRouterProvider, $httpProvider, jwtInterceptorProvider) ->
@@ -75,6 +76,7 @@ tableau
         store.get('JWT')
     ]
     $httpProvider.interceptors.push 'jwtInterceptor'
+    # $httpProvider.defaults.withCredentials = true
 .run ($rootScope, jwtHelper, $location, store, alertFct) ->
     $rootScope.color = "#03a9f4"
     # $rootScope.$on '$locationChangeStart', ->

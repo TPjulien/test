@@ -10,6 +10,15 @@ tableau
 
     $mdDialog.hide()
 
+    $scope.settings =
+    closeEl: '.close'
+    modal:
+      templateUrl: 'modals/loading.html'
+      position:
+        top: '30%'
+        left: '20%'
+      fade: false
+
     $scope.goTO = (id, view, view_label) ->
       $mdSidenav('left').close()
       path = 'home/dashboard/' + id + '/' + view
