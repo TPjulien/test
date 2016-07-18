@@ -129,12 +129,20 @@ module.exports = function(router, connection) {
           })
         router.route('/SSO')
           .get (function(req, res) {
+	      var options = {
+		  host: 'https://e-travelmanagement22.amadeus.com',
+		  path: '/portalApp/',
+		  method: 'POST'
+	      };
+	      var req = http.request(options, function(res) {
+		  
+	      }
 	      pythonShell.run('test.py', function(err, result) {
 		  if (err) 
 		      throw err;
 		  else {
-		      console.log(result[0]);
-		      res.send(result[0]);
+		      console.log(result);
+		      res.send(result);
 		  }
 	      })
 	  })
