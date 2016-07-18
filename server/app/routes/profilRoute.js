@@ -62,7 +62,7 @@ module.exports = function(router, connection) {
     router.route('/community')
         .get(function(req, res) {
             var query_one = "SELECT DISTINCT ?? FROM ?? WHERE ?? = ?";
-            var table_one = ["profils.HomeCommunity", "profils.view_tpa_extensions_libelle", "SITE_ID", "Q1CNQ1CN"];
+            var table_one = ["site_libelle", "profils.view_tpa_extensions_libelle", "SITE_ID", "Q1CNQ1CN"];
             query_one     = mysql.format(query_one, table_one);
             connection.query(query_one, function(err, rows) {
                 if (err)
