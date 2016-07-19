@@ -129,15 +129,15 @@ module.exports = function(router, connection) {
           })
         router.route('/SSO')
           .get (function(req, res) {
-	      pythonShell.run('test.py', function(err, result) {
-		  if (err)
-		      throw err;
-		  else {
-		      console.log(result[0]);
-		      res.send(result[0]);
-		  }
-	      })
-	  })
+      	      pythonShell.run('test.py', function(err, result) {
+      		  if (err)
+      		      throw err;
+      		  else {
+      		      console.log(result[0]);
+      		      res.send(result[0]);
+      		  }
+      	      })
+      	  })
           .post (function(req, res) {
               request.post('https://e-travelmanagement22.amadeus.com/portalApp/', { form : { LOGINNAME: req.body.username,
                                                                                     SITE:       'Q4OZQ4OZ',
@@ -148,17 +148,18 @@ module.exports = function(router, connection) {
               }}, function(err, result, body) {
                   res.json(body);
               });
-              // http_post('url', { LOGINNNAME:          req.body.username,
-              //                    SITE:                'Q4OZsQ40Z',
-              //                    LANGUAGE:            'FR',
-              //                    LOGIN_TYPE:          'SSO',
-              //                    PASSWORD:            req.body.password,
-              //                    BOOKING_FLOW_TYPE:   'MODIFY'
-              //                  }, function(response) {
-              //     res.setEncoding('utf8');
-              //     response.on('data', function(chunk) {
-              //         res.json(chunk);
-              //     })
-              // })
+          })
+        // permet de voir les communeauté d'un utilisateur donné
+        router.route('/loginCommunity/:login/:site_di')
+          .get (function(req, res) {
+              var query = "SELECT * FROM ?? WHERE ?? = ? AND ?? = ? ORDER BY ??";
+              var table = ['profils.view_tpa_extensions_libelle', 'SITE_ID', req.params.site_id, "Login", req.params.login, 'site_libelle'];
+              query     = mysql.format(query, table);
+              connection.query(query, function(err, rows) {
+                  if (err)
+                      res.status(400).send(err);
+                  else
+                      res.json(rows);
+              })
           })
 };
