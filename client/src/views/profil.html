@@ -1,9 +1,40 @@
 <div class="container bodyProfil" style="background-color:#FFFFFF;" >
   <div ng-cloak>
     <md-content>
-      <md-tabs md-dynamic-height md-border-bottom>
-        <md-tab label="Personnel">
           <md-content class="md-padding">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="panel">
+                  <div id="admin" class="panel-header">Administrateur</div>
+                  </br>
+                  <div class="admin">
+                    <div class="form-group">
+                      <label class="col-md-3 control-label">Multiple</label>
+                      <div class="col-md-9">
+                        <ui-select multiple sortable="true" ng-model="ctrl.person.selected" theme="select2" class="form-control" title="Choose a person">
+                          <ui-select-match placeholder="Select or search a person in the list...">{{$select.selected.name}}</ui-select-match>
+                          <ui-select-choices repeat="oneCommunity in community track by $index | filter: $select.search">
+                            <div ng-bind-html="item.name | highlight: $select.search"></div>
+                            <small ng-bind-html="item.email | highlight: $select.search"></small>
+                          </ui-select-choices>
+                        </ui-select>
+                      </div>
+                      <div>
+                        <table ng-table="vm.tableParams" class="table" show-filter="true">
+                          <tr ng-repeat="userSearch in $tabData">
+                            <td title="'Nom'" filter="{ name: 'text'}" sortable="'name'">
+                              {{userSearch.name}}</td>
+                              <td title="'Prénom'" filter="{ age: 'number'}" sortable="'age'">
+                                {{userSearch.age}}</td>
+                              <td title="'Status profil'" filter="{ age: 'number'}" sortable="'age'">
+                                  {{userSearch.age}}</td>
+                              </tr>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+            </div>
             <h1 class="h1profil md-display-2">Modifier le profil de {{profils.Customer_surName }} {{profils.Customer_GivenName}}</h1>
             <div class="row">
               <div class="col-md-3">
@@ -14,9 +45,7 @@
                   <div class="col-md-12">
                     <md-input-container class="w200px">
                       <md-select aria-label="chooseCommunity"  name="chooseCommunity" ng-model="chooseCommunity" >
-                        <md-option value="1">1</md-option>
-                        <md-option value="2">2</md-option>
-                        <md-option value="3">3</md-option>
+                        <md-option ng-repeat="oneCommunity in community track by $index" value="{{oneCommunity}}">{{oneCommunity}}</md-option>
                       </md-select>
                     </md-input-container>
                   </div>
@@ -993,19 +1022,6 @@
                                                       </div>
                                                     </div>
                                                   </md-content>
-                                                </md-tab>
-                                                <md-tab label="Admin">
-                                                  <md-content class="md-padding">
-                                                    <h1 class="md-display-2">Admin</h1>
-                                                    {{community}}
-                                                  </md-tab>
-                                                  <md-tab label="three">
-                                                    <md-content class="md-padding">
-                                                      <h1 class="md-display-2">Tab Three</h1>
-                                                      <p>Integer turpis erat, porttitor vitae mi faucibus, laoreet interdum tellus. Curabitur posuere molestie dictum. Morbi eget congue risus, quis rhoncus quam. Suspendisse vitae hendrerit erat, at posuere mi. Cras eu fermentum nunc. Sed id ante eu orci commodo volutpat non ac est. Praesent ligula diam, congue eu enim scelerisque, finibus commodo lectus.</p>
-                                                    </md-content>
-                                                  </md-tab>
                                                 </md-tabs>
-                                              </md-content>
                                             </div>
                                           </br>

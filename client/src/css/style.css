@@ -84,7 +84,7 @@ html {
 
 @media (min-width: 992px) {
   .col-md-12 {
-    width: 103%;
+    width: 100%;
   }
 }
 
@@ -1126,7 +1126,6 @@ Use of this source code is governed by an MIT-style license that can be in found
     font-size: 16px;
     padding-top: 12px;
     padding-bottom: 12px;
-    margin-bottom: 10px;
     border-bottom: 1px solid #bdbfbf;
     padding: 10px;
   }
@@ -1276,4 +1275,9 @@ md-input-container {margin:0;}
   border-radius: 5px 5px 5px 5px;
   padding-top: 10px !important;
   padding-bottom: 10px !important;
+}
+.admin{
+  background-color: #e3f0f7;
+  height:150px;
+  margin-top: -23px;
 }

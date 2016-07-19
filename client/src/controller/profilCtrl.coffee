@@ -13,7 +13,16 @@ tableau
         url:    options.api.base_url + '/community'
     .success (data) ->
         $scope.community = data
-        console.log data
+        # console.log data[0].SITE_LIBELLE
+    .error (err) ->
+        console.log err
+
+    $http
+        method: 'GET'
+        url:    options.api.base_url + '/community'
+    .success (data) ->
+        $scope.community = data
+        # console.log data[0].SITE_LIBELLE
     .error (err) ->
         console.log err
 
