@@ -73,8 +73,8 @@ module.exports = function(router, connection) {
         })
     router.route('/usersCommunity/:number_community')
         .get(function(req, res) {
-            var query_one = "SELECT *  FROM ?? WHERE ?? = ?";
-            var table_one = ["profils.view_tpa_extensions_libelle", "SITE_ID", req.params.number_community];
+            var query_one = "SELECT *  FROM ?? WHERE ?? = ? GROUP BY ??";
+            var table_one = ["profils.customer", "SITE_ID", req.params.number_community, "Customer_surName"];
             query_one     = mysql.format(query_one, table_one);
             connection.query(query_one, function(err, rows) {
                 if (err)
