@@ -11,6 +11,7 @@ tableau
       $location.path '/login/verify/' + $scope.get_username
 
       # console.log $scope.firstname
+    accounts = (login) ->
 
     $scope.background_image_url = '/img/default_account_wallpaper.jpg'
     $scope.user_image_url       = '/img/travel_planet_logo.png'
@@ -21,4 +22,15 @@ tableau
           parent:              angular.element(document.body)
           clickOutsideToClose: false
           escapeToClose:       false
-        $location.path '/login/verify/' + $scope.username
+
+        $http
+            method: 'GET'
+            url:    options.api.base_url + '/login/' + login
+        .success (data) ->
+            console.log data
+            if (Object.keys(data).length == 1)
+                $location.path '/login/verify/' + $scope.username
+            else if (Object.keys(data).length > 1)
+                $location.path '/login/comunity/' + $scope.username
+        .error (err) ->
+            console.log err

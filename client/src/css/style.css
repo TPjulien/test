@@ -429,17 +429,13 @@ ob-daterangepicker .picker-dropdown-container .picker-dropdown {
 }
 
 #img{
-  /*background: url("http://demo.dnnrox.com/Portals/_default/Skins/Flatna/img/icons/user@2x.png") center no-repeat;*/
-  /*background: url("https://media.licdn.com/mpr/mpr/shrink_200_200/AAEAAQAAAAAAAAUIAAAAJDBjMWM3NDAwLWUxMjAtNDBiMy04YWM3LWFjZWY4Y2ExOWRjYg.png") center no-repeat;*/
-  background-size: cover;
-  height: 20em;
-  width: 20em;
+  height: 12em;
+  width: 12em;
   border-radius: 50%;
   margin-left: auto;
-  margin-top: 80px;
+  margin-top: 115px;
   margin-right: auto;
   margin-bottom: auto;
-  background-color: burlywood;
 }
 
 .cssFade {
