@@ -16,6 +16,7 @@ tableau
     $scope.background_image_url = '/img/default_account_wallpaper.jpg'
     $scope.user_image_url       = '/img/travel_planet_logo.png'
     $scope.stepVerify = (ev) ->
+        console.log $scope.username
         # $mdDialog.show
         #   controller:          'loadingCtrl'
         #   templateUrl:         'modals/loading.html'
