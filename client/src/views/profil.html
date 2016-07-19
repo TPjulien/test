@@ -11,23 +11,21 @@
                     <div class="form-group">
                       <label class="col-md-3 control-label">Multiple</label>
                       <div class="col-md-9">
-                        <ui-select multiple sortable="true" ng-model="ctrl.person.selected" theme="select2" class="form-control" title="Choose a person">
-                          <ui-select-match placeholder="Select or search a person in the list...">{{$select.selected.name}}</ui-select-match>
-                          <ui-select-choices repeat="oneCommunity in community track by $index | filter: $select.search">
-                            <div ng-bind-html="item.name | highlight: $select.search"></div>
-                            <small ng-bind-html="item.email | highlight: $select.search"></small>
-                          </ui-select-choices>
-                        </ui-select>
+                        <md-input-container class="w200px">
+                          <md-select ng-change='getusersCommunity(profils.site_id)'aria-label="chooseCommunity"  name="chooseCommunity" ng-model="chooseCommunity" >
+                            <md-option ng-repeat="oneCommunity in community track by $index" value="{{oneCommunity}}">{{oneCommunity.SITE_LIBELLE}}</md-option>
+                          </md-select>
+                        </md-input-container>
                       </div>
                       <div>
                         <table ng-table="vm.tableParams" class="table" show-filter="true">
-                          <tr ng-repeat="userSearch in $tabData">
+                          <tr ng-repeat="userCommunity in usersCommunity">
                             <td title="'Nom'" filter="{ name: 'text'}" sortable="'name'">
-                              {{userSearch.name}}</td>
+                              {{userCommunity.Customer_surName}}</td>
                               <td title="'Prénom'" filter="{ age: 'number'}" sortable="'age'">
-                                {{userSearch.age}}</td>
-                              <td title="'Status profil'" filter="{ age: 'number'}" sortable="'age'">
-                                  {{userSearch.age}}</td>
+                                {{userCommunity.Customer_GivenName}}</td>
+                              <td title="'Status'" filter="{ age: 'number'}" sortable="'age'">
+                                  {{userCommunity.Customer_BirthDate}}</td>
                               </tr>
                         </table>
                       </div>
@@ -40,14 +38,8 @@
               <div class="col-md-3">
                 <div class="chooseVoy row">
                   <div class="col-md-8">
-                    <label aria-label="chooseCommunity"  class="right labelProfil">Sélectionnez une communauté </md-icon> </label>
                   </div>
                   <div class="col-md-12">
-                    <md-input-container class="w200px">
-                      <md-select aria-label="chooseCommunity"  name="chooseCommunity" ng-model="chooseCommunity" >
-                        <md-option ng-repeat="oneCommunity in community track by $index" value="{{oneCommunity}}">{{oneCommunity}}</md-option>
-                      </md-select>
-                    </md-input-container>
                   </div>
                   <div class="col-md-8">
                     <label aria-label="chooseVoyageur"  class="right labelProfil">Sélectionnez un voyageur</md-icon> </label>
