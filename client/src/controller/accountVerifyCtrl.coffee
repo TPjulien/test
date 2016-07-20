@@ -1,24 +1,30 @@
 tableau
 .controller 'accountVerifyCtrl', ($scope, $location, $stateParams, $mdDialog, $http, ipFct, store, auth, jwtHelper, alertFct) ->
+
+    community   = $stateParams.community
     username    = $stateParams.username
     $scope.data = []
-    $http
-      method: 'POST'
-      url:    options.api.base_url + '/verify'
-      data:
-          username: username
-    .success (data) ->
-        $mdDialog.hide()
-        $scope.data = data
-    .error (err) ->
-        alertFct.loginError()
-        $mdDialog.hide()
-        $location.path "/login/account"
+    # $http
+    #   method: 'POST'
+    #   url:    options.api.base_url + '/verify'
+    #   data:
+    #       username: username
+    # .success (data) ->
+    #     $mdDialog.hide()
+    #     $scope.data = data
+    # .error (err) ->
+    #     alertFct.loginError()
+    #     $mdDialog.hide()
+    #     $location.path "/login/account"
+    #
+    # $scope.name = $stateParams.username
+    # $scope.backtoLoggin = () ->
+    #     store.remove 'JWT'
+    #     $location.path "/login/account"
 
-    $scope.name = $stateParams.username
-    $scope.backtoLoggin = () ->
-        store.remove 'JWT'
-        $location.path "/login/account"
+    $scope.backToCommu = () ->
+        console.log "beeeh"
+        $location.path "/login/comunity/" + username
 
     $scope.user_image_url       = '/img/user_account.png'
     # $scope.user_image_url = 'https://media.licdn.com/mpr/mpr/shrinknp_200_200/p/3/005/082/37d/3e8b4a2.jpg'

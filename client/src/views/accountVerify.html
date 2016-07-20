@@ -13,14 +13,14 @@
 
       <h5 layout-padding>Session verrouillée, pour accéder à votre dashboard, veuillez entrer votre mot de passe.</h5>
       <form name="loginForm" ng-submit="login($event)">
-        <md-content layout-padding>
+        <md-content layout-padding style="background-color: #EEE">
           <md-input-container>
             <label style="
               font-size: 15px;
               padding-left: 9px;
               ">Mot de passe travel</label>
             <input type="password" ng-model="password" required="true">
-            <a ng-click="backtoLoggin()" class="left" style="cursor:pointer">Retourner à la page de login</a>
+            <a ng-click="backToCommu()" class="left" style="cursor:pointer">Retourner à la page de selection de communeauté</a>
           </md-input-container>
         </md-content>
         <div layout-padding class="col s12 center cssFade">
