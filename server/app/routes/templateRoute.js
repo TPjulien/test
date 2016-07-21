@@ -10,7 +10,7 @@ module.exports = function(router, connection) {
     router.route('/getListTemplate/:site_id/:view_id')
         .get (function(req, res) {
             var request = "SELECT ??,??,??,?? FROM ?? WHERE ?? = ? AND ?? = ?";
-            var tableau = ["site_id", "view_id", "embed_id", "tableau_libelle", "tablea_info", "site_id", req.params.site_id, "view_id", req.params.view_id];
+            var tableau = ["site_id", "view_id", "embed_id", "tableau_libelle", "tableau_info", "site_id", req.params.site_id, "view_id", req.params.view_id];
             request     = mysql.format(request, tableau);
             connection.query(request, function(err, rows) {
                 if (err)
