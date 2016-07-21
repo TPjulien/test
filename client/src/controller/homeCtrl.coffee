@@ -8,11 +8,11 @@ tableau
     $scope.favorite_color = decode[0].favorite_color
     $scope.company        = decode[0].company
     $scope.id_number      = null
+    $scope.getListTableau = []
 
     $mdDialog.hide()
 
     $scope.goToList = () ->
-        console.log $scope.id_number.site_id
         path        = '/home/tableau/' + $scope.id_number.site_id + '/' + $scope.id_number.view + '/' + $scope.id_number.id
         $location.path path
 
@@ -23,7 +23,13 @@ tableau
             scroll:      false
 
     $scope.getNumber = (id) ->
-      console.log "ça passe par la !"
+      $http
+          method: 'GET'
+          url:    options.api.base_url + '/getListTemplate/' + id.site_id + '/' + id.view_id
+      .success (data) ->
+          console.log data
+      .error (err) ->
+          console.log err
       $scope.id_number = id
 
 
