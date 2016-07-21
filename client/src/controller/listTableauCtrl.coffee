@@ -54,7 +54,7 @@ tableau
                   onFirstInteractive: () ->
                       $scope.show    = true
                       $scope.display = "block"
-                  viz = new tableau.Viz(placeholder, url, tableauOptions)
+              viz = new tableau.Viz(placeholder, url, tableauOptions)
               window.addEventListener('message', (msg) ->
                   if (isMessage(msg.data, LOADED_INDICATOR))
                       vizLoaded     = true
