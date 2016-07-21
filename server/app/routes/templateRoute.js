@@ -47,7 +47,7 @@ module.exports = function(router, connection) {
                                                   ca:   fs.readFileSync('/etc/ssl/tp_control/DigiCertCA.crt'),*/
                                                   form : {
                                                     username: req.params.user,
-                                                    target_site: req.params.site
+                                                    target_site: site
                                                   }
                                         }
                         request.post(options, function(err, resultat, body) {
