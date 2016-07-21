@@ -64,7 +64,7 @@ tableau
             templateUrl:  'templates/iterativeLayout.html',
             controller:   'iterativeLayoutCtrl'
         .state 'home.list',
-            url:          '/tableau/:client/:id/:acronym'
+            url:          '/tableau/:site_id/:view_id/:embed_id'
             templateUrl:  'templates/toto.html',
             controller:   'listTableauCtrl'
         .state 'home.error',
