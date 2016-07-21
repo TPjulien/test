@@ -54,9 +54,6 @@ tableau
                   onFirstInteractive: () ->
                       $scope.show    = true
                       $scope.display = "block"
-              if viz
-                  viz = new tableau.Viz(placeholder, url, tableauOptions)
-              else
                   viz.dispose()
               window.addEventListener('message', (msg) ->
                   if (isMessage(msg.data, LOADED_INDICATOR))
@@ -64,6 +61,7 @@ tableau
                       $scope.display = "none"
                   else if isMessage(msg.data, COMPLETE_INDICATOR)
                       if vizLoaded
+                          console.log "viz pris en compte !"
                           viz.dispose()
                           $scope.display = "block"
                       else
