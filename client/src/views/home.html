@@ -66,18 +66,27 @@
 <div hide-md hide-sm show-gt-md class="menu blureffect fadein fadeout md-whiteframe-1dp hide-on-med-and-down" ng-hide="checked" style="background-color: #FFFFFF; max-width: 80px;">
   <md-toolbar style="background-color:transparent; padding-top: 25px;">
       <span flex></span>
-      <div tooltips tooltip-template="{{menu.view_label}}" tooltip-side="right" ng-click="goTO(menu.site_id, menu.view_id, menu.view_label)" ng-repeat="menu in viewMenu" class="tile-small" data-period="{{menu.view_position}}" data-duration="250" data-role="tile" data-effect="{{menu.animation}}">
-          <div class="tile-content">
-              <div class="live-slide tiles_size" style="{{getColor(menu.view_color)}};" layout-padding="">
-                  <img ng-src="{{getImage(menu.view_icon)}}">
-              </div>
-              <div class="live-slide tiles_size" style="{{getColor(menu.view_color)}};" layout-padding="">
-                  <img ng-src="{{getImage(menu.view_icon)}}">
-              </div>
-          </div>
-      </div>
-      <div class="p+">
-        <lx-button ng-morph-overlay="settings" lx-type="fab"><i class="mdi mdi-plus"></i></lx-button>
+      <div ng-repeat="menu in viewMenu">
+        <div ng-if="menu.view_label !='Business Intelligence'" tooltips tooltip-template="{{menu.view_label}}" tooltip-side="right" ng-click="goTO(menu.site_id, menu.view_id, menu.view_label)"  class="tile-small" data-period="{{menu.view_position}}" data-duration="250" data-role="tile" data-effect="{{menu.animation}}">
+            <div class="tile-content">
+                <div class="live-slide tiles_size" style="{{getColor(menu.view_color)}};" layout-padding="">
+                    <img ng-src="{{getImage(menu.view_icon)}}">
+                </div>
+                <div class="live-slide tiles_size" style="{{getColor(menu.view_color)}};" layout-padding="">
+                    <img ng-src="{{getImage(menu.view_icon)}}">
+                </div>
+            </div>
+        </div>
+        <div ng-if="menu.view_label =='Business Intelligence'" tooltips tooltip-template="{{menu.view_label}}" tooltip-side="right" ng-click="getNumber(menu)" ng-morph-overlay="settings" class="tile-small" data-period="{{menu.view_position}}" data-duration="250" data-role="tile" data-effect="{{menu.animation}}">
+            <div class="tile-content">
+                <div class="live-slide tiles_size" style="{{getColor(menu.view_color)}};" layout-padding="">
+                    <img ng-src="{{getImage(menu.view_icon)}}">
+                </div>
+                <div class="live-slide tiles_size" style="{{getColor(menu.view_color)}};" layout-padding="">
+                    <img ng-src="{{getImage(menu.view_icon)}}">
+                </div>
+            </div>
+        </div>
       </div>
   </md-toolbar>
 </div>

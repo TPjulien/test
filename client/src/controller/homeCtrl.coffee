@@ -1,28 +1,31 @@
 tableau
 .controller 'homeCtrl', ($scope, $mdSidenav, $timeout, logoutFct, jwtHelper, store, $http, $stateParams, $location, $interval, $rootScope, $sce, $mdDialog) ->
-    token            = store.get('JWT')
-    decode           = jwtHelper.decodeToken(token)
-    $rootScope.color = "#EAEAEA"
+    token                 = store.get('JWT')
+    decode                = jwtHelper.decodeToken(token)
+    $rootScope.color      = "#EAEAEA"
     $scope.firstname      = decode[0].firstname
     $scope.lastname       = decode[0].lastname
     $scope.favorite_color = decode[0].favorite_color
     $scope.company        = decode[0].company
+    $scope.id_number      = null
+
+    $mdDialog.hide()
+
+    $scope.goToList = () ->
+        console.log $scope.id_number.site_id
+        path        = '/home/tableau/' + $scope.id_number.site_id + '/' + $scope.id_number.view + '/' + $scope.id_number.id
+        $location.path path
+
     $scope.settings =
         closeEl: '.close'
         overlay:
             templateUrl: 'modals/tableau_type.html'
-            scroll: true
+            scroll:      false
 
-    $mdDialog.hide()
+    $scope.getNumber = (id) ->
+      console.log "ça passe par la !"
+      $scope.id_number = id
 
-    $scope.settings =
-    closeEl: '.close'
-    modal:
-      templateUrl: 'modals/loading.html'
-      position:
-        top: '30%'
-        left: '20%'
-      fade: false
 
     $scope.goTO = (id, view, view_label) ->
       $mdSidenav('left').close()

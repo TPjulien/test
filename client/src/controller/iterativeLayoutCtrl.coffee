@@ -36,13 +36,20 @@ tableau
     # .error (err) ->
     #     console.log err
 
+    $scope.url = ""
+    $scope.lengthTableau = 0
+
     getTemplate = (site_id, view_id) ->
         $http
             method: 'GET'
             url:    options.api.base_url + '/currentView/' +  decode[0].tableau_user_id + '/' + decode[0].site + '/' + site_id + '/' + view_id + '/' + decode[0].user_auth + '/' + decode[0].user_id
         .success (result) ->
             $scope.getAllView = result
-            console.log result
+            $scope.lengthTableau = Object.keys($scope.getAllView).length
+            if Object.keys($scope.getAllView).length > 2
+                $scope.url = "templates/tableau.html"
+            else
+                $scope.url = "modals/tableau_type.html"
         .error (err) ->
             $location.path '/home/error'
 

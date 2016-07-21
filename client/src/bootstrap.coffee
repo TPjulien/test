@@ -28,7 +28,6 @@ tableau = angular.module 'tableauApp', [
   'btford.markdown'
   'textAngular'
   'ngImageCache'
-  'ds.clock'
   'ngTable'
 ]
 
@@ -49,7 +48,7 @@ tableau
             templateUrl: 'templates/loginVerify.html'
             controller:  'loginVerifyCtrl'
         .state 'login.checkaccount',
-            url:         '/verify/:username/:community'
+            url:         '/verify/:username'
             templateUrl: 'templates/accountVerify.html'
             controller:  'accountVerifyCtrl'
         .state 'login.comunity',
@@ -64,6 +63,10 @@ tableau
             url:          '/dashboard/:client/:id',
             templateUrl:  'templates/iterativeLayout.html',
             controller:   'iterativeLayoutCtrl'
+        .state 'home.list',
+            url:          '/tableau/:client/:id/:acronym'
+            templateUrl:  'templates/toto.html',
+            controller:   null
         .state 'home.error',
             url:          '/error',
             templateUrl:  'templates/error.html',
