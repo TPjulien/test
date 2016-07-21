@@ -34,6 +34,7 @@ tableau
     $scope.loadingText    = "Chargement de la vue en cours ..."
     $scope.urlLoadingView = "modals/loadingView.html"
     $scope.niggeh = () ->
+          console.log viz
           $http
               method: 'GET'
               url:    options.api.base_url + '/getTemplateView/' +  decode[0].tableau_user_id + '/' + decode[0].site + '/' + $stateParams.site_id + '/' + $stateParams.view_id + '/' +  $stateParams.embed_id  + '/' + decode[0].user_auth
@@ -56,7 +57,6 @@ tableau
                       $scope.display = "block"
               viz = new tableau.Viz(placeholder, url, tableauOptions)
               window.addEventListener('message', (msg) ->
-                  console.log msg.data
                   if (msg.data.indexOf(ANOTHER_LOADING) > -1)
                       vizLoaded      = true
                       $scope.display = "none"

@@ -71,7 +71,6 @@ tableau
     $scope.loadingText    = "Chargement de la vue en cours ..."
     $scope.urlLoadingView = "modals/loadingView.html"
     $scope.niggeh = (getTableau) ->
-        console.log viz
         url = trustHtml(getTableau.token, getTableau.path_to_view)
         LOADED_INDICATOR =   'tableau.loadIndicatorsLoaded'
         COMPLETE_INDICATOR = 'tableau.completed'
