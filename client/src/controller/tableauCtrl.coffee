@@ -14,6 +14,4 @@ tableau
       # url         = "http://example.com"
       # tableauOptions =
       #     hideTabs: true,
-      #     width:  "800px",
-      #     height: "700px"
       # viz = new tableau.Viz placeholder, url, tableauOptions

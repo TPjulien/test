@@ -29,6 +29,7 @@ tableau = angular.module 'tableauApp', [
   'textAngular'
   'ngImageCache'
   'ngTable'
+  'md.data.table'
 ]
 
 options = {}
