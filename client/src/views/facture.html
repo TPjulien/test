@@ -10,10 +10,11 @@
           <p class="md-subhead col s2 md-whiteframe-1dp truncate"             style="background-color:white" >{{facture.num.NUM_INVOICE}}</p>
           <p class="md-subhead col s2 md-whiteframe-1dp truncate"             style="background-color:white; {{getColorFactureType(facture.num.TRAVELLER)}}">{{checkName(facture.num.TRAVELLER)}}</p>
           <p class="md-subhead col s2 md-whiteframe-1dp truncate"             style="background-color:white" >{{facture.num.DATE_FROM | date:'dd/MM/yyyy'}}</p>
+          <p class="md-subhead col s2 md-whiteframe-1dp truncate amountStyle" style="{{getColor(facture.num.INVOICE_TYPE)}}">{{facture.num.ZP10}}</p>
           <p class="md-subhead col s1 md-whiteframe-1dp truncate"             style="background-color:white;">{{facture.num.ACCOUNT_NUMBER}}</p>
           <p class="md-subhead col s1 md-whiteframe-1dp truncate"             style="background-color:white;">{{convertFacType(facture.num.INVOICE_TYPE)}}</p>
-          <p class="md-subhead col s2 md-whiteframe-1dp truncate"             style="background-color:white; {{getColorFactureType(facture.num.SUPPLIER)}}">{{convertSupplier(facture.num.SUPPLIER)}}</p>
-          <p class="md-subhead col s2 md-whiteframe-1dp truncate amountStyle" style="{{getColor(facture.num.INVOICE_TYPE)}}">{{facture.num.TOTAL_AMOUNT | number:2}} €</p>
+          <p class="md-subhead col s1 md-whiteframe-1dp truncate"             style="background-color:white; {{getColorFactureType(facture.num.SUPPLIER)}}">{{convertSupplier(facture.num.SUPPLIER)}}</p>
+          <p class="md-subhead col s1 md-whiteframe-1dp truncate amountStyle" style="{{getColor(facture.num.INVOICE_TYPE)}}">{{facture.num.TOTAL_AMOUNT | number:2}} €</p>
           <md-tooltip>
             {{facture.num.LINE_DESCRIPTION}}
           </md-tooltip>
@@ -24,9 +25,9 @@
 <form name="searchForm">
 <div layout-padding class="col s12 m4 l2" style="background-color:white; height: 800px;">
   <div ng-if="allow_filters.rules_filter_canFilterNumberClient">
-    <!-- <h2 class="md-subhead">Recherche par facture :</h2> -->
+    <h4>Recherche : </h4>
     <md-input-container class="col s12">
-      <label class="fontSize">Recherche par numéro de facture</label>
+      <label class="fontSize">Par numéro de facture</label>
       <input for="clientName" ng-change="filterFacture(clientFacture)" ng-model="clientFacture" name="clientFacture" ng-model-options="{debounce: 1000}" minlength="3" maxlength="10" ng-pattern="/^[0-9]+$/">
       <div ng-messages="searchForm.clientFacture.$error" role="alert">
         <div ng-message-exp="['pattern']">
@@ -42,7 +43,7 @@
   <div ng-if="allow_filters.rules_filter_canFilterNameClient">
     <!-- <h2 class="md-subhead">Recherche par nom du client :</h2> -->
     <md-input-container class="col s12">
-      <label class="fontSize">Recherche par nom du client</label>
+      <label class="fontSize">Par nom du voyageur</label>
       <input for="clientName" ng-change="filterName(clientName)" ng-model="clientName" name="clientName" ng-model-options="{debounce: 1000}" minlength="3" ng-pattern="/^[a-zA-Z\s]*$/">
       <div ng-messages="searchForm.clientName.$error" role="alert">
         <div ng-message-exp="['pattern']">
