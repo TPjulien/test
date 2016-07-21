@@ -38,7 +38,7 @@ module.exports = function(router, connection) {
                           res.status(400).send(err);
                       else {
                         var options = {
-                                                  url: 'https://' + rows_one[0].tableau_server_url + '/trusted',
+                                                  url: 'https://data.travelplanet.fr/trusted',
                           /*cert: fs.readFileSync('/etc/ssl/tp_control/tp-control_travelplanet_fr.crt'),
                                                   key:  fs.readFileSync('/etc/ssl/tp_control/ia.key'),
                                                   ca:   fs.readFileSync('/etc/ssl/tp_control/DigiCertCA.crt'),*/
@@ -48,20 +48,25 @@ module.exports = function(router, connection) {
                                                   }
                                         }
                         request.post(options, function(err, resultat, body) {
-                                console.log(body)
-                                resultObject = {           "site_id"             : rows_one[0].site_id,
-                                                           "view_id"             : rows_one[0].view_id,
-                                                           "embed_id"            : rows_one[0].embed_id,
-                                                           "path_to_view"        : rows_two[0].path_to_view,
-                                                           "embed_width"         : rows_one[0].embed_width,
-                                                           "embed_height"        : rows_one[0].embed_height,
-                                                           "embed_position"      : rows_one[0].embed_position,
-                                                           "embed_content_type"  : rows_one[0].embed_content_type,
-                                                           "tableau_customer_id" : rows_two[0].tableau_customer_id,
-                                                           "auth_user_role"      : rows_two[0].auth_user_role,
-                                                           "token"               : body
-                              };
-                              res.json(resultObject);
+                                if (err)
+                                    res.send(400).send(err)
+                                else {
+                                    resultObject = {         "site_id"             : rows_one[0].site_id,
+                                                             "view_id"             : rows_one[0].view_id,
+                                                             "embed_id"            : rows_one[0].embed_id,
+                                                             "path_to_view"        : rows_two[0].path_to_view,
+                                                             "embed_width"         : rows_one[0].embed_width,
+                                                             "embed_height"        : rows_one[0].embed_height,
+                                                             "embed_position"      : rows_one[0].embed_position,
+                                                             "embed_content_type"  : rows_one[0].embed_content_type,
+                                                             "tableau_customer_id" : rows_two[0].tableau_customer_id,
+                                                             "auth_user_role"      : rows_two[0].auth_user_role,
+                                                             "token"               : body
+                                                             "test"                : bruh
+                                                           };
+                                    res.json(resultObject);
+                                }
+
                         })
 
                       }
@@ -69,53 +74,6 @@ module.exports = function(router, connection) {
               }
           })
         })
-    // router.route('getTemplateView/:user/:site/:customer/:view/:auth_role/:user_id')
-    //     .get (function (req, res) {
-    //         var query_one = "SELECT * FROM ?? WHERE ?? = ? AND ?? = ? AND ?? = ?";
-    //         var table_one = ["embed_generic_info", "view_id", req.params.view_id, "site_id", req.params.site_id, "embed_id", req.params.embed_id];
-    //         query_one     = mysql.format(query_one, table_one);
-    //         connection.query(query, function(err, rows_one) {
-    //             if (err)
-    //                 res.status(400).send(err);
-    //             else {
-    //                 var query_two = "SELECT * FROM ?? WHERE ?? = ? AND ?? = ? AND ?? = ? AND ?? = ?";
-    //                 var table_two = ['tableau_view_info', 'view_id', req.params.view, 'site_id', req.params.customer, 'auth_user_role', req.params.auth_role, "embed_id", req.params.embed_id];
-    //                 query_two     = mysql.format(query_two, rows_two);
-    //                 connection.query(query_two, function(err, rows_two) {
-    //                     if (err)
-    //                         res.status(400).send(err)
-    //                     else {
-    //                       // option pour la requete
-    //                       var options = {
-    //                           url: 'https://' + rows_tow[0].tableau_server_url + '/trusted',
-    //   /*cert: fs.readFileSync('/etc/ssl/tp_control/tp-control_travelplanet_fr.crt'),
-    //                           key:  fs.readFileSync('/etc/ssl/tp_control/ia.key'),
-    //                           ca:   fs.readFileSync('/etc/ssl/tp_control/DigiCertCA.crt'),*/
-    //                           form : {
-    //                             username: req.params.user,
-    //                             target_site: req.params.site
-    //                           }
-    //                       }
-    //                       request.post(options, function(err, resultat, body) {
-    //                           resultObject = {           "site_id"             : rows_one[0].site_id,
-    //                                                      "view_id"             : rows_one[0].view_id,
-    //                                                      "embed_id"            : rows_one[0].embed_id,
-    //                                                      "path_to_view"        : rows_two[0].path_to_view,
-    //                                                      "embed_width"         : rows_one[0].embed_width,
-    //                                                      "embed_height"        : rows_one[0].embed_height,
-    //                                                      "embed_position"      : rows_one[0].embed_position,
-    //                                                      "embed_content_type"  : rows_one[0].embed_content_type,
-    //                                                      "tableau_customer_id" : rows_two[0].tableau_customer_id,
-    //                                                      "auth_user_role"      : rows_two[0].auth_user_role,
-    //                                                      "token"               : body
-    //                         };
-    //                         res.json(resultObject);
-    //                     })
-    //                 }
-    //             }
-    //         })
-    //     })
-    //   })
 
     router.route('/currentView/:user/:site/:customer/:view/:auth_role/:user_id')
         .get (function(req, res) {
