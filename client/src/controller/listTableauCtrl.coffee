@@ -34,6 +34,7 @@ tableau
     $scope.loadingText    = "Chargement de la vue en cours ..."
     $scope.urlLoadingView = "modals/loadingView.html"
     $scope.niggeh = () ->
+        $scope.getTheView()
         # viz.dispose()
         url = trustHtml($scope.dataEmbed.token, $scope.dataEmbed.path_to_view)
         LOADED_INDICATOR =   'tableau.loadIndicatorsLoaded'
