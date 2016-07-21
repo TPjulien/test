@@ -22,7 +22,7 @@ module.exports = function(router, connection) {
 
     // route pour avoir un seul template
     router.route('getTemplateView/:user/:site/:customer/:view/:auth_role/:user_id')
-        get (function (req, res) {
+        .get (function (req, res) {
             var query_one = "SELECT * FROM ?? WHERE ?? = ? AND ?? = ? AND ?? = ?";
             var table_one = ["embed_generic_info", "view_id", req.params.view_id, "site_id", req.params.site_id, "embed_id", req.params.embed_id];
             query_one     = mysql.format(query_one, table_one);
@@ -67,6 +67,7 @@ module.exports = function(router, connection) {
                 }
             })
         })
+      })
 
     router.route('/currentView/:user/:site/:customer/:view/:auth_role/:user_id')
         .get (function(req, res) {
