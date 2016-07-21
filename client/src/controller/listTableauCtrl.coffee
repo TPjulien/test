@@ -56,17 +56,14 @@ tableau
                       $scope.display = "block"
               viz = new tableau.Viz(placeholder, url, tableauOptions)
               window.addEventListener('message', (msg) ->
-                  console.log (msg.data)
                   if (isMessage(msg.data, LOADED_INDICATOR))
-                      console.log (msg.data)
-                      vizLoaded     = true
+                      console.log ('Bonjour à tous !')
+                      vizLoaded      = true
                       $scope.display = "none"
                   if msg.data == 'tableau.completed'
                       console.log("ça passe dans la case completé !")
                   else if isMessage(msg.data, COMPLETE_INDICATOR)
-                      console.log vizLoaded
-                      viz.dispose()
-                      console.log COMPLETE_INDICATOR
+                      # viz.dispose()
                       if vizLoaded
                           console.log "viz pris en compte !"
                           viz.dispose()
