@@ -7,7 +7,7 @@ var fs        = require('fs');
 module.exports = function(router, connection) {
 
     // route pour avoir toutes les
-    router.route('getListTemplate/:site_id/:view_id')
+    router.route('/getListTemplate/:site_id/:view_id')
         .get (function(req, res) {
             var request = "SELECT ??,??,??,?? FROM ?? WHERE ?? = ? AND ?? = ?";
             var tableau = ["site_id", "view_id", "embed_id", "tableau_libelle", "site_id", req.params.site_id, "view_id", req.params.view_id];
@@ -21,7 +21,7 @@ module.exports = function(router, connection) {
         })
 
     // route pour avoir un seul template
-    router.route('getTemplateView/:user/:site/:customer/:view/:auth_role/:user_id')
+    router.route('/getTemplateView/:user/:site/:customer/:view/:auth_role/:user_id')
         .get (function (req, res)  {
           var query_one = "SELECT * FROM ?? WHERE ?? = ? AND ?? = ? AND ?? = ?";
           var table_one = ["embed_generic_info", "view_id", req.params.view_id, "site_id", req.params.site_id, "embed_id", req.params.embed_id];
@@ -60,7 +60,7 @@ module.exports = function(router, connection) {
                                                            "auth_user_role"      : rows_two[0].auth_user_role,
                                                            "token"               : body
                               };
-                              res.json(resultObject);                  
+                              res.json(resultObject);
                         })
 
                       }
