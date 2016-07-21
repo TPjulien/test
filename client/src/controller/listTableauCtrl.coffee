@@ -21,7 +21,7 @@ tableau
         .success (result) ->
             console.log result
             $scope.dataEmbed = result
-            $scope.niggeh(result)
+            # $scope.niggeh(result)
         .error (err) ->
             # console.log(err)
             $location.path '/home/error'
@@ -33,12 +33,12 @@ tableau
 
     $scope.loadingText    = "Chargement de la vue en cours ..."
     $scope.urlLoadingView = "modals/loadingView.html"
-    $scope.niggeh = (result) ->
+    $scope.niggeh = () ->
         # viz.dispose()
-        url = trustHtml(result.token, result.path_to_view)
+        url = trustHtml(dataEmbed.token, dataEmbed.path_to_view)
         LOADED_INDICATOR =   'tableau.loadIndicatorsLoaded'
         COMPLETE_INDICATOR = 'tableau.completed'
-        placeholder = document.getElementById(result.token)
+        placeholder = document.getElementById(dataEmbed.token)
         vizLoaded   = false
         url         = url
         tableauOptions =
