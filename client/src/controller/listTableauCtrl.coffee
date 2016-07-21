@@ -1,5 +1,5 @@
 tableau
-.controller 'listTableauCtrl', ($scope, $http, store, jwtHelper, $stateParams, $location) ->
+.controller 'listTableauCtrl', ($scope, $http, store, jwtHelper, $stateParams, $location, $window) ->
     console.log("hello !")
     token                 = store.get('JWT')
     decode                = jwtHelper.decodeToken(token)
