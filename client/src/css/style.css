@@ -452,6 +452,7 @@ ob-daterangepicker .picker-dropdown-container .picker-dropdown {
 }
 
 .separator {
+  height:0px !important;
   text-align:center;
   margin-bottom: 7px;
   margin-top: 10px;
