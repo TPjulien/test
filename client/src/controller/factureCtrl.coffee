@@ -2,7 +2,7 @@ tableau
 .controller 'factureCtrl', ($scope, $http, jwtHelper, store, $window, $filter) ->
     token              = store.get('JWT')
     search_type         = "none"
-    search_num_commande = "none "
+    search_num_commande = "none"
     search_num_invoice  = "none"
     search_name         = "none"
     search_price_min    = 0
@@ -160,7 +160,7 @@ tableau
 
     $scope.filterCommande = (num_commande) ->
         if num_commande != undefined
-          if (num_commande == 0)
+          if (num_commande.length == 0)
             search_num_commande = "none"
             $scope.data         = []
             counter             = 0
