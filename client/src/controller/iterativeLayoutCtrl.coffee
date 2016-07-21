@@ -71,6 +71,7 @@ tableau
     $scope.loadingText    = "Chargement de la vue en cours ..."
     $scope.urlLoadingView = "modals/loadingView.html"
     $scope.niggeh = (getTableau) ->
+        console.log viz
         url = trustHtml(getTableau.token, getTableau.path_to_view)
         LOADED_INDICATOR =   'tableau.loadIndicatorsLoaded'
         COMPLETE_INDICATOR = 'tableau.completed'
@@ -87,7 +88,7 @@ tableau
         viz = new tableau.Viz(placeholder, url, tableauOptions)
         window.addEventListener('message', (msg) ->
             if (isMessage(msg.data, LOADED_INDICATOR))
-                vizLoaded     = true
+                vizLoaded      = true
                 $scope.display = "none"
             else if isMessage(msg.data, COMPLETE_INDICATOR)
                 if vizLoaded

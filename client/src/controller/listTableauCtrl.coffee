@@ -38,7 +38,6 @@ tableau
               method: 'GET'
               url:    options.api.base_url + '/getTemplateView/' +  decode[0].tableau_user_id + '/' + decode[0].site + '/' + $stateParams.site_id + '/' + $stateParams.view_id + '/' +  $stateParams.embed_id  + '/' + decode[0].user_auth
           .success (result) ->
-              console.log result
               $scope.dataEmbed = result
               # viz.dispose()
               url = trustHtml($scope.dataEmbed.token, $scope.dataEmbed.path_to_view)
@@ -51,7 +50,7 @@ tableau
               tableauOptions =
                   hideTabs: true
                   width:  "100%"
-                  height: "1200px"
+                  height: $scope.dataEmbed.embed_height
                   onFirstInteractive: () ->
                       $scope.show    = true
                       $scope.display = "block"
@@ -59,16 +58,13 @@ tableau
               window.addEventListener('message', (msg) ->
                   console.log msg.data
                   if (msg.data.indexOf(ANOTHER_LOADING) > -1)
-                      console.log ('Bonjour à tous !')
                       vizLoaded      = true
                       $scope.display = "none"
-                  if msg.data == 'tableau.completed'
-                      console.log("ça passe dans la case completé !")
                   else if isMessage(msg.data, COMPLETE_INDICATOR)
                       if vizLoaded
                           console.log "viz pris en compte !"
-                          viz.dispose()
                           $scope.display = "block"
+                          viz.dispose()
                       else
                           $scope.urlLoadingView = "modals/errorLoading.html"
                           $scope.loadingText    = "Impossible de charger cette vue"
