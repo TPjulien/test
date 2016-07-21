@@ -62,7 +62,7 @@ module.exports = function(router, connection) {
                                                              "tableau_customer_id" : rows_two[0].tableau_customer_id,
                                                              "auth_user_role"      : rows_two[0].auth_user_role,
                                                              "token"               : body,
-                                                             "test"                : bruh
+                                                             "test"                : 'test-token'
                                                            };
                                     res.json(resultObject);
                                 }
