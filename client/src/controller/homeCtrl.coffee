@@ -13,6 +13,7 @@ tableau
     $mdDialog.hide()
 
     $scope.goToList = (site_id, view_id, embed_id) ->
+        $window.location.reload();
         path        = '/home/tableau/' + site_id + '/' + view_id + '/' + embed_id
         $location.path path
 
