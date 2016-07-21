@@ -61,6 +61,8 @@ tableau
                       console.log (msg.data)
                       vizLoaded     = true
                       $scope.display = "none"
+                  if msg.data == 'tableau.completed'
+                      console.log("ça passe dans la case completé !")
                   else if isMessage(msg.data, COMPLETE_INDICATOR)
                       console.log COMPLETE_INDICATOR
                       if vizLoaded
