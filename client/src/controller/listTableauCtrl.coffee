@@ -38,7 +38,7 @@ tableau
         url = trustHtml(result.token, result.path_to_view)
         LOADED_INDICATOR =   'tableau.loadIndicatorsLoaded'
         COMPLETE_INDICATOR = 'tableau.completed'
-        placeholder = document.getElementById(result.embed_id)
+        placeholder = document.getElementById(result.token)
         vizLoaded   = false
         url         = url
         tableauOptions =
