@@ -2,17 +2,19 @@
   <nav style="box-shadow: none">
       <div flex-container="row" flex-column="12" class="navbar-fixed  travel-colorB">
           <div flex-item="7" class="toolbar__left mr++">
-              <lx-button lx-size="l" lx-color="black" lx-type="icon"><i class="mdi mdi-menu"></i></lx-button>
-              <span class="toolbar__label fs-title">TP Control</span>
+            <div flex-item="1">
+              <div class="img-header_tp"></div>
+              <span class="titleHome toolbar__label fs-title">TP Control</span>
+            </div>
           </div>
           <div flex-item="4" class="toolbar__right">
-              <lx-search-filter lx-closed="true" style="margin-top:-6px;">
+              <!-- <lx-search-filter lx-closed="true" style="margin-top:-6px;">
                   <input type="text" ng-model="vm.toolbar">
-              </lx-search-filter>
+              </lx-search-filter> -->
+              <div ng-click="logOut()" class="toolbar__right">
+                <md-icon style="margin-right:10px;"class="logo_lock" md-svg-icon="img/icons/power.svg"></md-icon>
+              </div>
               <lx-dropdown lx-position="right" lx-over-toggle="true">
-                  <lx-dropdown-toggle>
-                      <lx-button lx-size="l" lx-color="black" lx-type="icon"><i class="mdi mdi-dots-vertical"></i></lx-button>
-                  </lx-dropdown-toggle>
                   <lx-dropdown-menu>
                       <ul>
                           <li><a class="dropdown-link">Action</a></li>
@@ -20,47 +22,17 @@
                           <li><a class="dropdown-link">Something else here</a></li>
                           <li class="dropdown-divider"></li>
                           <li><a class="dropdown-link dropdown-link--is-header">Header</a></li>
-                          <li><a class="dropdown-link">Separated link</a></li>
                       </ul>
                   </lx-dropdown-menu>
               </lx-dropdown>
           </div>
-          <div flex-item="1" class="toolbar__right">
+          <div flex-item="1" ng-click="goProfil()" class="toolbar__right">
             <div class="toolbar__right img-header"></div>
           </div>
           <div class="travel-colorR"></div>
         </div>
     </nav>
   </div>
-
-<!-- nav caché -->
-<md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" style="position:fixed; z-index: 8000; background-color:#FFFFFF; overflow-x: hidden;">
-  <div style="padding: 9px; background-color:#FFFFFF">
-    <p class="md-title travelTitle" style="margin-top:5px">TRAVEL PLANET</p>
-  </div>
-  <md-toolbar style="background-color:transparent;" style=" padding-bottom: 30px;">
-      <div>
-          <img style="height:110px;" id="imgSidenav" data-ng-src="/img/logo/poleemploi.jpg" />
-      </div>
-      <span flex></span>
-      <div padding="" style="text-align:center; padding-bottom: 20px">
-          <div class="md-title">{{firstname}} {{lastname}}</div>
-      </div>
-      <div flex=""></div>
-      <div class="col-md-12" style="text-align:center">
-        <div tooltips tooltip-template="{{menu.view_label}}" tooltip-side="right" ng-click="goTO(menu.site_id, menu.view_id, menu.view_label)" ng-repeat="menu in viewMenu" class="tile-square" data-period="{{menu.view_position}}" data-duration="250" data-role="tile" data-effect="{{menu.animation}}">
-            <div class="tile-content">
-                <div class="live-slide tiles_size" style="{{getColor(menu.view_color)}};" layout-padding="">
-                    <img ng-src="{{getImage(menu.view_icon)}}">
-                </div>
-                <div class="live-slide tiles_size" style="{{getColor(menu.view_color)}};" layout-padding="">
-                    <img ng-src="{{getImage(menu.view_icon)}}">
-                </div>
-            </div>
-        </div>
-      </div>
-  </md-toolbar>
-</md-sidenav>
 
 <!-- mini nav-bar -->
 <div hide-md hide-sm show-gt-md class="menu blureffect fadein fadeout md-whiteframe-1dp hide-on-med-and-down" ng-hide="checked" style="background-color: #FFFFFF; max-width: 80px;">

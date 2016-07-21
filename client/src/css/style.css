@@ -1,4 +1,4 @@
-/* ----------------------------TP-V2-------------------------------------------------------------------- */
+  /* ----------------------------TP-V2-------------------------------------------------------------------- */
 .travel-colorB{
   background-color: #0077bb;
   color: white;
@@ -29,6 +29,15 @@
 .img-header-radius{
   border-radius: 100%;
 }
+.img-header_tp{
+    float: left;
+    height: 64px;
+    width: 65px;
+    background-image: url('/img/travel_planet_logo.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
 .navbar-vertical{
   margin-top: 5px;
   position: absolute;
@@ -51,6 +60,31 @@
 }
 .btn:hover, .btn-large:hover {
   background-color: none;
+}
+.search-filter__button {
+    margin-top: -8px !important;
+}
+.titleHome{
+  margin-left: 15px!important;
+  padding-top: 10px;
+  font-size: 20px;
+  font-weight: bold;
+}
+.btn--icon.btn--l .mdi {
+    color: white;
+    font-size: 20px;
+}
+.btn--icon.btn--l .mdi:hover {
+    background-color: transparent;
+}
+.search-filter--black .search-filter__clear, .search-filter--black .search-filter__input input {
+    color: #fff;
+    font-size: 15px;
+}
+.textWhite{
+  color:white;
+  font-size: 25px;
+  font-weight: bold;
 }
 /* ------------------------------------------------------------------------------------------------ */
 @import url(http://fonts.googleapis.com/css?family=Roboto:400,100);
@@ -84,7 +118,7 @@ html {
 
 @media (min-width: 992px) {
   .col-md-12 {
-    width: 103%;
+    width: 100%;
   }
 }
 
@@ -1037,11 +1071,11 @@ tr:nth-child(odd):hover td {
   background:#4E5066;
 }
 
-tr:last-child td:first-child {
+tr:last-child {
   border-bottom-left-radius:10px;
 }
 
-tr:last-child td:last-child {
+tr:last-child{
   border-bottom-right-radius:10px;
 }
 
@@ -1110,6 +1144,11 @@ Use of this source code is governed by an MIT-style license that can be in found
   text-align: center;
   box-shadow: 0 0 1em 0.25em rgba(0,0,0,0.2);
 }
+.input_design{
+  font-size: 12px !important;
+  color:black;
+  margin-top: -5px !important;
+}
 
 .body{
   display: table;
@@ -1126,9 +1165,9 @@ Use of this source code is governed by an MIT-style license that can be in found
     font-size: 16px;
     padding-top: 12px;
     padding-bottom: 12px;
-    margin-bottom: 10px;
     border-bottom: 1px solid #bdbfbf;
     padding: 10px;
+    margin-bottom: 10px;
   }
 .panel {
     border: 1px solid #a5a5a5;
@@ -1193,9 +1232,14 @@ textarea.materialize-textarea:focus.valid {
 .w200px{
   width: 200px !important;
   margin-left: 5px !important;
+  margin-top: -8px;
 }
 .w300px{
   width: 300px !important;
+  margin-left: 5px !important;
+}
+.w250px{
+  width: 250 !important;
   margin-left: 5px !important;
 }
 .w575px{
@@ -1276,4 +1320,74 @@ md-input-container {margin:0;}
   border-radius: 5px 5px 5px 5px;
   padding-top: 10px !important;
   padding-bottom: 10px !important;
+}
+.admin{
+  background-color: #e3f0f7;
+  height:150px;
+  margin-top: -23px;
+}
+md-table-container  {
+  display: -webkit-inline-box;;
+}
+.tabSearchVoyageur{
+  border: none;
+}
+.tabSearchVoyageur th{
+  background-color: #0077bb;
+  border-radius: 0;
+  color: white!important;
+}
+.tabSearchVoyageur th:first-child{
+  border-top-left-radius: 5px;
+}
+.tabSearchVoyageur th:last-child{
+  border-top-right-radius: 5px;
+}
+.tabSearchVoyageur td{
+  background-color: #e3f0f7;
+  border:1px solid white;
+  padding-left: 10px!important;
+  font-size: 12px !important;
+}
+.md-table-pagination
+{
+  background-color: #0077bb;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  margin-top: -6px;
+}
+.rondVert{
+  height:20px;
+  width: 20px;
+  border-radius: 50%;
+  background-color: #18be18;
+}
+tr:nth-child(odd):hover td {
+  background-color: #a0d4ef;
+}
+.tabSearchVoyageur tr:hover td {
+  background-color: #a0d4ef;
+}
+
+.md-select-value {
+  font-size: 12px;
+}
+.liensprofil{
+  color: #0077bb !important;
+}
+.mail.ng-enter,.telephone.ng-enter,.valideur.ng-enter,.chargeVoy.ng-enter,.responsable.ng-enter,.passport.ng-enter,.fidelite.ng-enter,.carteVoy.ng-enter,.fideliteHotel.ng-enter{
+  -webkit-animation-duration:0.7s;
+  -webkit-animation-fill-mode:both;
+  -webkit-animation-name: slideInRight;
+}
+.mail.ng-leave,.telephone.ng-leave,.valideur.ng-leave,.chargeVoy.ng-leave,.responsable.ng-leave,.passport.ng-leave,.fidelite.ng-leave,.carteVoy.ng-leave,.fideliteHotel.ng-leave{
+  -webkit-animation-duration:0s;
+}
+.addUserAnim.ng-enter{
+  -webkit-animation-duration:0.7s;
+  -webkit-animation-fill-mode:both;
+  -webkit-animation-name: slideInDown;
+}
+.addUserAnim.ng-leave{
+  -webkit-animation-duration:0s;
 }
