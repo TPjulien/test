@@ -61,7 +61,7 @@ module.exports = function(router, connection) {
                                                              "embed_content_type"  : rows_one[0].embed_content_type,
                                                              "tableau_customer_id" : rows_two[0].tableau_customer_id,
                                                              "auth_user_role"      : rows_two[0].auth_user_role,
-                                                             "token"               : body
+                                                             "token"               : body,
                                                              "test"                : bruh
                                                            };
                                     res.json(resultObject);
