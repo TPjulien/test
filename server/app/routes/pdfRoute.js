@@ -88,7 +88,7 @@ module.exports = function(router, connection) {
                 })
               }
           })
-      router.route('/pdfSearchFilter/:type/:num_invoice/:amount_min/:amount_max/:min/:max/:clientName/:date_min/:date_max')
+      router.route('/pdfSearchFilter/:type/:num_invoice/:amount_min/:amount_max/:min/:max/:clientName/:date_min/:date_max/:num_commande')
           .get (function (req, res) {
                 var query = "SELECT ??, ??, ??, ??, ??, ??, ??, ??, SUM(??) AS TOTAL_AMOUNT, ?? FROM ?? ";
       	        var table   = ["SUPPLIER", "TYPE", "ACCOUNT_NUMBER", "LINE_DESCRIPTION", "TRAVELLER", "INVOICE_TYPE", "DATE_FROM", "ZP10", "AMOUNT", "NUM_INVOICE", "accelya.accelya_view_all"];
@@ -120,6 +120,13 @@ module.exports = function(router, connection) {
                         var query = query + "WHERE DEPARTURE_DATE BETWEEN " + mysql.escape(req.params.date_min) + " AND " + mysql.escape(req.params.date_max) + " ";
                     } else {
                         var query = query + "AND DEPARTURE_DATE BETWEEN " + mysql.escape(req.params.date_min) + " AND " + mysql.escape(req.params.date_max) + " ";
+                    }
+                }
+                if (req.params.num_commande != "none") {
+                    if (req.params.type == "none" && req.params.num_invoice == "none" && req.params.clientName == "none" && req.params.date_min == "none" && req.params.date_max == "none") {
+                        var query = query + "WHERE ZP10 LIKE '%" + req.params.num_commande + "%' ";
+                    } esle {
+                        var query = query + "AND ZP10 LIKE '%" + req.params.num_commande + "%' ";
                     }
                 }
                 var query = query + "GROUP BY NUM_INVOICE HAVING TOTAL_AMOUNT BETWEEN " + req.params.amount_min + " AND " + req.params.amount_max + " LIMIT " + req.params.min + ',' + req.params.max;;

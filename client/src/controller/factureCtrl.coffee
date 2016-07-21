@@ -1,18 +1,19 @@
 tableau
 .controller 'factureCtrl', ($scope, $http, jwtHelper, store, $window, $filter) ->
     token              = store.get('JWT')
-    search_type        = "none"
-    search_num_invoice = "none"
-    search_name        = "none"
-    search_price_min   = 0
-    search_price_max   = 10000
-    search_date_min    = "none"
-    search_date_max    = "none"
-    counter            = 0
-    min_slider         = 0
-    max_slider         = 0
-    value              = 50
-    decode             = jwtHelper.decodeToken(token)
+    search_type         = "none"
+    search_num_commande = "none "
+    search_num_invoice  = "none"
+    search_name         = "none"
+    search_price_min    = 0
+    search_price_max    = 10000
+    search_date_min     = "none"
+    search_date_max     = "none"
+    counter             = 0
+    min_slider          = 0
+    max_slider          = 0
+    value               = 50
+    decode              = jwtHelper.decodeToken(token)
 
     $scope.tototo = (min, max) ->
         search_price_min = min
@@ -132,7 +133,7 @@ tableau
     $scope.testFacture = (min, max) ->
         $http
           method: "GET"
-          url: options.api.base_url + '/pdfSearchFilter/' + search_type + '/' + search_num_invoice + '/' + search_price_min + '/' + search_price_max + '/' + min + '/' + max + '/' + search_name + '/' + search_date_min + '/' + search_date_max
+          url: options.api.base_url + '/pdfSearchFilter/' + search_type + '/' + search_num_invoice + '/' + search_price_min + '/' + search_price_max + '/' + min + '/' + max + '/' + search_name + '/' + search_date_min + '/' + search_date_max + '/' + search_num_commande
         .success (result) ->
           number  = 0
           while number < result.length
@@ -156,6 +157,19 @@ tableau
         $scope.data = []
         counter     = 0
         $scope.testFacture(0, 50)
+
+    $scope.filterCommande = (num_commande) ->
+        if num_commande != undefined
+          if (num_commande == 0)
+            search_num_commande = "none"
+            $scope.data         = []
+            counter             = 0
+            $scope.testFacture(0, 50)
+          else
+            search_num_commande = num_commande
+            $scope.data = []
+            counter     = 0
+            $scope.testFacture(0, 50)
 
     $scope.filterFacture = (tmpStr) ->
         if tmpStr != undefined
