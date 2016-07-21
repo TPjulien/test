@@ -42,8 +42,8 @@ tableau
               $scope.dataEmbed = result
               # viz.dispose()
               url = trustHtml($scope.dataEmbed.token, $scope.dataEmbed.path_to_view)
-              LOADED_INDICATOR =   'tableau.loadIndicatorsLoaded'
-              COMPLETE_INDICATOR = 'tableau.completed'
+              LOADED_INDICATOR   =   'tableau.loadIndicatorsLoaded'
+              COMPLETE_INDICATOR =   'tableau.completed'
               placeholder = document.getElementById($scope.dataEmbed.token)
               vizLoaded   = false
               url         = url
@@ -56,10 +56,13 @@ tableau
                       $scope.display = "block"
               viz = new tableau.Viz(placeholder, url, tableauOptions)
               window.addEventListener('message', (msg) ->
+                  console.log (msg.data)
                   if (isMessage(msg.data, LOADED_INDICATOR))
+                      console.log (msg.data)
                       vizLoaded     = true
                       $scope.display = "none"
                   else if isMessage(msg.data, COMPLETE_INDICATOR)
+                      console.log COMPLETE_INDICATOR
                       if vizLoaded
                           console.log "viz pris en compte !"
                           viz.dispose()
