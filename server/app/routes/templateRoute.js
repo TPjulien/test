@@ -48,6 +48,7 @@ module.exports = function(router, connection) {
                                                   }
                                         }
                         request.post(options, function(err, resultat, body) {
+                                console.log(body)
                                 resultObject = {           "site_id"             : rows_one[0].site_id,
                                                            "view_id"             : rows_one[0].view_id,
                                                            "embed_id"            : rows_one[0].embed_id,
