@@ -59,15 +59,12 @@ tableau
               window.addEventListener('message', (msg) ->
                   console.log msg.data
                   if (msg.data.indexOf(ANOTHER_LOADING) > -1)
-                      console.log "je t'ai du bish"
-                  # if (isMessage(msg.data, LOADED_INDICATOR))
-                  #     console.log ('Bonjour à tous !')
-                  #     vizLoaded      = true
-                  #     $scope.display = "none"
+                      console.log ('Bonjour à tous !')
+                      vizLoaded      = true
+                      $scope.display = "none"
                   if msg.data == 'tableau.completed'
                       console.log("ça passe dans la case completé !")
                   else if isMessage(msg.data, COMPLETE_INDICATOR)
-                      # viz.dispose()
                       if vizLoaded
                           console.log "viz pris en compte !"
                           viz.dispose()
