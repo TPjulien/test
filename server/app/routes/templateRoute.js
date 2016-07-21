@@ -31,7 +31,7 @@ module.exports = function(router, connection) {
                   res.status(400).send(err);
               else {
                   var query_two = "SELECT * FROM ?? WHERE ?? = ? AND ?? = ? AND ?? = ? AND ?? = ?";
-                  var table_two = ['tableau_view_info', 'view_id', req.params.view, 'site_id', req.params.customer, 'auth_user_role', req.params.auth_role, "embed_id", req.params.embed_id];
+                  var table_two = ['tableau_view_info', 'view_id', req.params.view_id, 'site_id', req.params.site_id, 'auth_user_role', req.params.auth_role, "embed_id", req.params.embed_id];
                   query_two     = mysql.format(query_two, table_two);
                   connection.query(query_two, function(err, rows_two) {
                       if (err)
