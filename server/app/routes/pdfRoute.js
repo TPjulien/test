@@ -125,7 +125,7 @@ module.exports = function(router, connection) {
                 if (req.params.num_commande != "none") {
                     if (req.params.type == "none" && req.params.num_invoice == "none" && req.params.clientName == "none" && req.params.date_min == "none" && req.params.date_max == "none") {
                         var query = query + "WHERE ZP10 LIKE '%" + req.params.num_commande + "%' ";
-                    } esle {
+                    } else {
                         var query = query + "AND ZP10 LIKE '%" + req.params.num_commande + "%' ";
                     }
                 }
