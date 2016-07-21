@@ -37,6 +37,9 @@ module.exports = function(router, connection) {
                       if (err)
                           res.status(400).send(err);
                       else {
+                        var site = req.params.site;
+                        if (site == "Default")
+                          site = "";
                         var options = {
                                                   url: 'https://data.travelplanet.fr/trusted',
                           /*cert: fs.readFileSync('/etc/ssl/tp_control/tp-control_travelplanet_fr.crt'),

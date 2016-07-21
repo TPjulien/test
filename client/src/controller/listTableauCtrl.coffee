@@ -19,6 +19,7 @@ tableau
             method: 'GET'
             url:    options.api.base_url + '/getTemplateView/' +  decode[0].tableau_user_id + '/' + decode[0].site + '/' + $stateParams.site_id + '/' + $stateParams.view_id + '/' +  $stateParams.embed_id  + '/' + decode[0].user_auth
         .success (result) ->
+            console.log result
             $scope.dataEmbed = result
             $scope.niggeh()
         .error (err) ->
