@@ -35,10 +35,10 @@ tableau
     $scope.urlLoadingView = "modals/loadingView.html"
     $scope.niggeh = () ->
         # viz.dispose()
-        url = trustHtml(dataEmbed.token, dataEmbed.path_to_view)
+        url = trustHtml($scope.dataEmbed.token, $scope.dataEmbed.path_to_view)
         LOADED_INDICATOR =   'tableau.loadIndicatorsLoaded'
         COMPLETE_INDICATOR = 'tableau.completed'
-        placeholder = document.getElementById(dataEmbed.token)
+        placeholder = document.getElementById($scope.dataEmbed.token)
         vizLoaded   = false
         url         = url
         tableauOptions =
