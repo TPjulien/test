@@ -66,7 +66,7 @@ tableau
         .state 'home.list',
             url:          '/tableau/:client/:id/:acronym'
             templateUrl:  'templates/toto.html',
-            controller:   null
+            controller:   'listTableauCtrl'
         .state 'home.error',
             url:          '/error',
             templateUrl:  'templates/error.html',

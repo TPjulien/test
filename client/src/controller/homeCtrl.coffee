@@ -12,8 +12,8 @@ tableau
 
     $mdDialog.hide()
 
-    $scope.goToList = () ->
-        path        = '/home/tableau/' + $scope.id_number.site_id + '/' + $scope.id_number.view + '/' + $scope.id_number.id
+    $scope.goToList = (site_id, view_id, embed_id) ->
+        path        = '/home/tableau/' + site_id + '/' + view_id + '/' + embed_id
         $location.path path
 
     $scope.settings =
@@ -27,6 +27,7 @@ tableau
           method: 'GET'
           url:    options.api.base_url + '/getListTemplate/' + id.site_id + '/' + id.view_id
       .success (data) ->
+          $scope.getListTableau = data
           console.log data
       .error (err) ->
           console.log err

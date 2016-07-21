@@ -2,16 +2,17 @@
     <h1 class="center">Choisissez une catégorie</h1>
     <div class="col s12">
         <!-- general  -->
-        <div id="close" class="close col s4" ng-click="goToList()">
-          <div class="card">
-              <div class="card__img card__img--top">
-                  <img src="http://www.bluthemes.com/assets/img/blog/12/space-earth.jpg">
-                  <span class="fs-headline tc-white-1 display-block">Analyse détaillé</span>
-              </div>
+          <div class="col s4" ng-click="goToList(21, 2, 1)">
+            <div class="card">
+                <div class="card__img card__img--top">
+                    <img src="http://www.bluthemes.com/assets/img/blog/12/space-earth.jpg">
+                    <span class="fs-headline tc-white-1 display-block">{{list.tableau_libelle}}</span>
+                </div>
+            </div>
           </div>
-        </div>
+
         <!-- anaystic  -->
-        <div id="close" class="col s4">
+        <div id="close" class="close col s4" ng-click="goToList(21, 2, 2)">
           <div class="card">
               <div class="card__img card__img--top">
                   <img src="http://searchengineland.com/figz/wp-content/seloads/2015/07/confusion-analytics-performance-down-ss-1920.jpg">
@@ -20,7 +21,7 @@
           </div>
         </div>
         <!-- fer -->
-        <div id="close" class="col s4">
+        <div id="close" class="close col s4" ng-click="goToList(21, 2, 3)">
           <div class="card">
               <div class="card__img card__img--top">
                   <img src="https://i.ytimg.com/vi/ruglHPmqzVM/maxresdefault.jpg">
@@ -29,7 +30,7 @@
           </div>
         </div>
         <!-- mer ? -->
-        <div id="close" class="col s4">
+        <div id="close" class="close col s4" ng-click="goToList(21, 2, 4)">
           <div class="card">
               <div class="card__img card__img--top">
                   <img src="http://www.bluthemes.com/assets/img/blog/12/airplane.jpg">
