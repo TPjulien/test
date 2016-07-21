@@ -43,8 +43,8 @@ tableau
         url         = url
         tableauOptions =
             hideTabs: true
-            width:  "100%"
-            height: result.embed_height
+            width:  "80%"
+            height: "1200px"
             onFirstInteractive: () ->
                 $scope.show    = true
                 $scope.display = "block"
