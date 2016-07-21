@@ -1,10 +1,16 @@
 tableau
 .controller "profilCtrl",($scope,$mdDialog,$http,$q,NgTableParams) ->
+#Ajouter user
+    $scope.ajouterUser = false
+    $scope.showPanelUser = () ->
+      $scope.ajouterUser = true
+    $scope.hidePanelUser = () ->
+      $scope.ajouterUser = false
+
     $http
         method: 'GET'
         url: options.api.base_url + '/profils/blyweereri'
     .success (data) ->
-        console.log data[0]
         $scope.profils = data[0]
     .error (err) ->
         console.log err
@@ -17,6 +23,15 @@ tableau
     .error (err) ->
         console.log err
 
+    $scope.profilchange = (uid) ->
+      $http
+          method: 'GET'
+          url: options.api.base_url + '/profils/' + uid
+      .success (data) ->
+          $scope.profils = data[0]
+      .error (err) ->
+          console.log err
+          
     $scope.getusersCommunity = (number_community) ->
       $http
           method: 'GET'
@@ -24,6 +39,10 @@ tableau
       .success (data) ->
           console.log data
           $scope.usersCommunity = data
+          $scope.query =
+              order: 'name'
+              limit: 5
+              page: 1
       .error (err) ->
           console.log err
 
@@ -43,16 +62,11 @@ tableau
           $scope.user.phoneCode = '+' + data[0].phonecode
       .error (err) ->
           console.log err
-    self = this
-    tabData = [{
-      name: 'Moroni'
-      age: 50
-      },{
-      name: 'Lucio'
-      age: 20
-        }]
-    self.tableParams = new NgTableParams({}, dataset: tabData)
-
+    $scope.limitOptions = [5, 10, 15]
+    $scope.selected = []
+    $scope.config =
+      itemsPerPage: 5
+      fillLastPage: true
     $scope.required = true;
     $scope.mois = [
           {
@@ -672,27 +686,27 @@ tableau
         $scope.ajouterResponsable = true
         $scope.user.nomResponsable = null
 
-#Passport
-    $scope.ajouterPassport = true
-    $scope.passport = false
-    $scope.showPanelPassport = () ->
-      $scope.passport = true
-      $scope.ajouterPassport = false
-    $scope.hidePanelPassport = () ->
-      $scope.passport = false
-      $scope.ajouterPassport = true
+#Passeport
+    $scope.ajouterPasseport = true
+    $scope.passeport = false
+    $scope.showPanelPasseport = () ->
+      $scope.passeport = true
+      $scope.ajouterPasseport = false
+    $scope.hidePanelPasseport = () ->
+      $scope.passeport = false
+      $scope.ajouterPasseport = true
 
-    $scope.listPassport = []
-    $scope.submitPassport = ->
-      passportSub = {
-        name: $scope.user.passport
+    $scope.listPasseport = []
+    $scope.submitPasseport = ->
+      passeportSub = {
+        name: $scope.user.passeport
       }
-      if $scope.user.passport
-        $scope.listPassport.push passportSub
-        $scope.passportSub = {}
-        $scope.passport = false
-        $scope.ajouterPassport = true
-        $scope.user.nomPassport = null
+      if $scope.user.passeport
+        $scope.listPasseport.push passeportSub
+        $scope.passeportSub = {}
+        $scope.passeport = false
+        $scope.ajouterPasseport = true
+        $scope.user.nomPasseport = null
 
 #Carte de fidélité
     $scope.ajouterFidelite = true
@@ -759,3 +773,9 @@ tableau
         $scope.fideliteHotel = false
         $scope.ajouterFideliteHotel = true
         $scope.user.nomFideliteHotel = null
+#Ajouter user
+    $scope.ajouterUser = false
+    $scope.showPanelUser = () ->
+      $scope.ajouterUser = true
+    $scope.hidePanelUser = () ->
+      $scope.ajouterUser = false

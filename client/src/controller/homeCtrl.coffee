@@ -39,6 +39,10 @@ tableau
       path = 'home/dashboard/' + id + '/' + view
       $location.path path
 
+    $scope.goProfil = () ->
+      path = 'home/profil'
+      $location.path path
+
     $scope.getColor = (color) ->
       css = 'background-color:' + color
       return css
