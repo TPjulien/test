@@ -49,12 +49,15 @@ tableau
               url         = url
               tableauOptions =
                   hideTabs: true
-                  width:  "80%"
+                  width:  "100%"
                   height: "1200px"
                   onFirstInteractive: () ->
                       $scope.show    = true
                       $scope.display = "block"
-              viz = new tableau.Viz(placeholder, url, tableauOptions)
+              if viz
+                  viz = new tableau.Viz(placeholder, url, tableauOptions)
+              else
+                  viz.dispose()
               window.addEventListener('message', (msg) ->
                   if (isMessage(msg.data, LOADED_INDICATOR))
                       vizLoaded     = true
