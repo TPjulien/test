@@ -34,7 +34,7 @@ tableau
     $scope.loadingText    = "Chargement de la vue en cours ..."
     $scope.urlLoadingView = "modals/loadingView.html"
     $scope.niggeh = (result) ->
-        viz.dispose()
+        # viz.dispose()
         url = trustHtml(result.token, result.path_to_view)
         LOADED_INDICATOR =   'tableau.loadIndicatorsLoaded'
         COMPLETE_INDICATOR = 'tableau.completed'
