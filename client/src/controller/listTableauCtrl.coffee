@@ -1,5 +1,5 @@
 tableau
-.controller 'listTableauCtrl', ($scope, $http, store, jwtHelper) ->
+.controller 'listTableauCtrl', ($scope, $http, store, jwtHelper, $stateParams) ->
     console.log("hello !")
     token                 = store.get('JWT')
     decode                = jwtHelper.decodeToken(token)
@@ -8,6 +8,20 @@ tableau
     $scope.lastname       = decode[0].lastname
     $scope.favorite_color = decode[0].favorite_color
     $scope.company        = decode[0].company
+
+    $scope.getTheView = () ->
+        $http
+            method: 'GET'
+            url:    options.api.base_url + '/getTemplateView/' +  decode[0].tableau_user_id + '/' + decode[0].site + '/' + site_id + '/' + view_id + '/' +  $stateParams.embed_id  + '/' + decode[0].user_auth + '/' + decode[0].user_id
+        .success (result) ->
+            $scope.getAllView = result
+            $scope.lengthTableau = Object.keys($scope.getAllView).length
+            if Object.keys($scope.getAllView).length > 2
+                $scope.url = "templates/tableau.html"
+            else
+                $scope.url = "modals/tableau_type.html"
+        .error (err) ->
+            $location.path '/home/error'
 
     $scope.loadingText    = "Chargement de la vue en cours ..."
     $scope.urlLoadingView = "modals/loadingView.html"

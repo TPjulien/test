@@ -21,7 +21,7 @@ module.exports = function(router, connection) {
         })
 
     // route pour avoir un seul template
-    router.route('/getTemplateView/:user/:site/:customer/:view/:auth_role/:user_id')
+    router.route('/getTemplateView/:user/:site/:site_id/:view_id/:embed_id/:auth_role')
         .get (function (req, res)  {
           var query_one = "SELECT * FROM ?? WHERE ?? = ? AND ?? = ? AND ?? = ?";
           var table_one = ["embed_generic_info", "view_id", req.params.view_id, "site_id", req.params.site_id, "embed_id", req.params.embed_id];
@@ -38,7 +38,7 @@ module.exports = function(router, connection) {
                           res.status(400).send(err);
                       else {
                         var options = {
-                                                  url: 'https://' + rows_tow[0].tableau_server_url + '/trusted',
+                                                  url: 'https://' + rows_one[0].tableau_server_url + '/trusted',
                           /*cert: fs.readFileSync('/etc/ssl/tp_control/tp-control_travelplanet_fr.crt'),
                                                   key:  fs.readFileSync('/etc/ssl/tp_control/ia.key'),
                                                   ca:   fs.readFileSync('/etc/ssl/tp_control/DigiCertCA.crt'),*/
