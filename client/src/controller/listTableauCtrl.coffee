@@ -44,6 +44,7 @@ tableau
               url = trustHtml($scope.dataEmbed.token, $scope.dataEmbed.path_to_view)
               LOADED_INDICATOR   =   'tableau.loadIndicatorsLoaded'
               COMPLETE_INDICATOR =   'tableau.completed'
+              ANOTHER_LOADING   =   'api.success'
               placeholder = document.getElementById($scope.dataEmbed.token)
               vizLoaded   = false
               url         = url
@@ -57,10 +58,12 @@ tableau
               viz = new tableau.Viz(placeholder, url, tableauOptions)
               window.addEventListener('message', (msg) ->
                   console.log msg.data
-                  if (isMessage(msg.data, LOADED_INDICATOR))
-                      console.log ('Bonjour à tous !')
-                      vizLoaded      = true
-                      $scope.display = "none"
+                  if (msg.data.indexOf(ANOTHER_LOADING) > -1)
+                      console.log "je t'ai du bish"
+                  # if (isMessage(msg.data, LOADED_INDICATOR))
+                  #     console.log ('Bonjour à tous !')
+                  #     vizLoaded      = true
+                  #     $scope.display = "none"
                   if msg.data == 'tableau.completed'
                       console.log("ça passe dans la case completé !")
                   else if isMessage(msg.data, COMPLETE_INDICATOR)
