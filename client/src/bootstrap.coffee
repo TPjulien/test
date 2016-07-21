@@ -40,7 +40,7 @@ options.api = {}
 options.api.base_url = "https://tp-control.travelplanet.fr:3254/api"
 tableau
 .config (authProvider, $stateProvider, $urlRouterProvider, $httpProvider, jwtInterceptorProvider) ->
-    # $urlRouterProvider.otherwise '/login/account'
+    $urlRouterProvider.otherwise '/login/account'
     $stateProvider
         .state 'login',
             url:         '/login',

@@ -196,7 +196,7 @@
                   </div>
                   <div class="row">
                     <form ng-submit="submitMail()">
-                      <div class="mail panel w415px h150px" ng-if="mail">
+                      <div class="panel w415px h150px" ng-show="mail">
                         <div class="panel-header">Ajouter un mail</div>
                         <div class="col-md-4">
                           <label  class="labelProfil" for="mail"> Mail </label>
@@ -204,7 +204,7 @@
                         <div class="col-md-8">
                           <input class="input_design w200px" name="mail" ng-model="user.mail" type="email" ng-minlength="1" ng-maxlength="30" class="validate" required>
                         </div>
-                        <button type="submit" class="right md-raised btn btn-success" value="Submit">Ajouter</button>
+                        <md-button class="right md-raised" type="submit" value="Submit">Ajouter</md-button>
                         <button class="right md-raised btn btn-warning" ng-click="hidePanelMail()">Fermer</button>
                       </div>
                     </form>
