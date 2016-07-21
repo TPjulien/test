@@ -64,6 +64,7 @@ tableau
                   if msg.data == 'tableau.completed'
                       console.log("ça passe dans la case completé !")
                   else if isMessage(msg.data, COMPLETE_INDICATOR)
+                      console.log vizLoaded
                       viz.dispose()
                       console.log COMPLETE_INDICATOR
                       if vizLoaded
