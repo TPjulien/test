@@ -62,7 +62,7 @@
   background-color: none;
 }
 .search-filter__button {
-    margin-top: -7px !important;
+    margin-top: -8px !important;
 }
 .titleHome{
   margin-left: 15px!important;
@@ -80,6 +80,11 @@
 .search-filter--black .search-filter__clear, .search-filter--black .search-filter__input input {
     color: #fff;
     font-size: 15px;
+}
+.textWhite{
+  color:white;
+  font-size: 25px;
+  font-weight: bold;
 }
 /* ------------------------------------------------------------------------------------------------ */
 @import url(http://fonts.googleapis.com/css?family=Roboto:400,100);
