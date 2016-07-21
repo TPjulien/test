@@ -20,6 +20,14 @@ var connection = mysql.createConnection({
     debug:    true
 });
 
+var credentials = {
+    key:  fs.readFileSync('/etc/ssl/tp_control/ia.key'),
+    cert: fs.readFileSync('/etc/ssl/tp_control/tp-control_travelplanet_fr.crt'),
+    ca:   fs.readFileSync('/etc/ssl/tp_control/DigiCertCA.crt'),
+    requestCert:        true,
+    rejectUnauthorized: false
+};
+
 connection.connect(function(err) {
     if (err)
         console.log(err);
@@ -75,9 +83,9 @@ require('./app/routes/profilRoute')       (router, connection);
 app.use('/api', router);
 
 var httpServer  = http.createServer(app);
-//var httpsServer = https.createServer(credentials, app);
+var httpsServer = https.createServer(credentials, app);
 
 httpServer.listen(3001);
-//httpsServer.listen(3254);
+httpsServer.listen(3254);
 
 // console.log('done !' + port);
