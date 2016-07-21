@@ -31,7 +31,7 @@ tableau
           $scope.profils = data[0]
       .error (err) ->
           console.log err
-          
+
     $scope.getusersCommunity = (number_community) ->
       $http
           method: 'GET'
