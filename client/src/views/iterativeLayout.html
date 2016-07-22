@@ -30,3 +30,8 @@
     <div ng-include src="'templates/listOneTab.html'" onload="niggeh('none')"></div>
   </div>
 </div>
+
+<!-- if we have profil -->
+<div ng-repeat="frame in getAllView" class="row col s12" style="width:107%" ng-if="frame.embed_content_type == 'profils' && infoList == 'normal'">
+  <div ng-include ng-controller="profilCtrl" src="'templates/profils.html'"></div>
+</div>
