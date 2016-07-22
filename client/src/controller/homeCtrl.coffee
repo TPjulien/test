@@ -14,7 +14,7 @@ tableau
 
     $scope.goToList = (site_id, view_id, embed_id) ->
         $window.location.reload();
-        path        = '/home/tableau/' + site_id + '/' + view_id + '/' + embed_id
+        path        = '/home/dashboard/' + site_id + '/' + view_id + '/' + embed_id + '/list'
         $location.path path
 
     $scope.settings =
@@ -37,7 +37,7 @@ tableau
 
     $scope.goTO = (id, view, view_label) ->
       $mdSidenav('left').close()
-      path = 'home/dashboard/' + id + '/' + view
+      path = 'home/dashboard/' + id + '/' + view + '/1/normal'
       $location.path path
 
     $scope.getColor = (color) ->

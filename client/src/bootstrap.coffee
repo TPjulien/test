@@ -64,7 +64,7 @@ tableau
             templateUrl: 'templates/home.html',
             controller:  'homeCtrl'
         .state 'home.test',
-            url:          '/dashboard/:client/:id',
+            url:          '/dashboard/:client/:id/:embed/:list',
             templateUrl:  'templates/iterativeLayout.html',
             controller:   'iterativeLayoutCtrl'
         .state 'home.list',

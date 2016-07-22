@@ -33,10 +33,11 @@ tableau
 
     $scope.loadingText    = "Chargement de la vue en cours ..."
     $scope.urlLoadingView = "modals/loadingView.html"
-    $scope.niggeh = () ->
+    $scope.BI = () ->
+          console.log "c'est par ici la BI !"
           $http
               method: 'GET'
-              url:    options.api.base_url + '/getTemplateView/' +  decode[0].tableau_user_id + '/' + decode[0].site + '/' + $stateParams.site_id + '/' + $stateParams.view_id + '/' +  $stateParams.embed_id  + '/' + decode[0].user_auth
+              url:    options.api.base_url + '/getTemplateView/' +  decode[0].tableau_user_id + '/' + decode[0].site + '/' + $stateParams.client + '/' + $stateParams.id + '/' +  $stateParams.embed  + '/' + decode[0].user_auth
           .success (result) ->
               $scope.dataEmbed = result
               # viz.dispose()
@@ -44,7 +45,7 @@ tableau
               LOADED_INDICATOR   =   'tableau.loadIndicatorsLoaded'
               COMPLETE_INDICATOR =   'tableau.completed'
               ANOTHER_LOADING   =   'api.success'
-              placeholder = document.getElementById($scope.dataEmbed.token)
+              placeholder = document.getElementById('mahefa')
               vizLoaded   = false
               url         = url
               tableauOptions =

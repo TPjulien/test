@@ -138,7 +138,7 @@ html {
   margin-left: auto;
   position:absolute;
   margin-right: auto;
-  margin-top:20%;
+  /*margin-top:20%;*/
 }
 
 @-moz-document url-prefix() {
@@ -452,6 +452,18 @@ ob-daterangepicker .picker-dropdown-container .picker-dropdown {
 }
 
 .separator {
+  /*height:0px !important;*/
+  text-align:center;
+  margin-bottom: 7px;
+  margin-top: 10px;
+  margin-right: 0px;
+}
+
+iframe {
+  background-color: white;
+}
+
+.separator1 {
   height:0px !important;
   text-align:center;
   margin-bottom: 7px;
