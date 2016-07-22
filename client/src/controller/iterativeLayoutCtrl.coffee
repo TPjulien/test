@@ -41,6 +41,7 @@ tableau
             method: 'GET'
             url:    options.api.base_url + '/currentView/' +  decode[0].tableau_user_id + '/' + decode[0].site + '/' + site_id + '/' + view_id + '/' + decode[0].user_auth + '/' + decode[0].user_id
         .success (result) ->
+            console.log result
             $scope.getAllView = result
             $scope.lengthTableau = Object.keys($scope.getAllView).length
             if Object.keys($scope.getAllView).length > 2
