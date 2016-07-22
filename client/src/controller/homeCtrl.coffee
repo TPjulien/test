@@ -34,6 +34,11 @@ tableau
           console.log err
       $scope.id_number = id
 
+    $scope.numDisp = true;
+    if (window.screen.width < 1025)
+        $scope.numDisp = false
+    else if(window.screen.width > 1024)
+        $scope.numDisp = true
 
     $scope.goTO = (site_id, view_id, view_label) ->
       $mdSidenav('left').close()

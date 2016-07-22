@@ -48,8 +48,9 @@
                     </tr>
                   </tbody>
                 </table>
+                <md-table-pagination class="TabPagination" md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page" md-total="{{usersCommunity.length}}"></md-table-pagination>
               </md-table-container>
-              <md-table-pagination md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page" md-total="{{usersCommunity.length}}"></md-table-pagination>
+
             </div>
             <div class="addUserAnim col-md-12" ng-if="ajouterUser == true">
               <div class="panel h200px">
