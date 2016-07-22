@@ -201,7 +201,7 @@ module.exports = function(router, connection) {
                       })
                   } else if (rows[0].embed_content_type == 'profils') {
                     var query_one = "SELECT * FROM ?? WHERE ?? = ? AND ?? = ?";
-                    var table_one = ['embed_generic_info', 'embed_content_type', 'profils', 'auth_user_role', req.params.auth_user_role];
+                    var table_one = ['embed_generic_info', 'embed_content_type', 'profils', 'auth_user_role', req.params.auth_role];
                     query_one     = mysql.format(query_one, table_one);
                     connection.query(query_one, function(err, result) {
                         if (err)
