@@ -62,12 +62,13 @@ tableau
           $scope.user.phoneCode = '+' + data[0].phonecode
       .error (err) ->
           console.log err
+
     $scope.limitOptions = [5, 10, 15]
     $scope.selected = []
     $scope.config =
       itemsPerPage: 5
       fillLastPage: true
-    $scope.required = true;
+    $scope.required = true;git 
 
 #phone
     $scope.ajouterNum = true

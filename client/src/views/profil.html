@@ -7,7 +7,7 @@
         <div class="row">
           <label class="col-md-3 labelProfil ">Selectionner une communauté de voyageur</label>
           <div class="col-md-3">
-            <md-input-container class="w200px">
+            <md-input-container class="">
               <md-select ng-change='getusersCommunity(profils.site_id)'aria-label="chooseCommunity"  name="chooseCommunity" ng-model="chooseCommunity" >
                 <md-option ng-repeat="oneCommunity in community track by $index" value="{{oneCommunity}}">{{oneCommunity.SITE_LIBELLE}}</md-option>
               </md-select>
@@ -21,12 +21,13 @@
               </div>
             </div>
           </div>
+          </br>
           <div class="col-md-11">
             <div class="addUserAnim" ng-if="usersCommunity && ajouterUser == false">
               <div class="row">
                 <label class="col-md-3 labelProfil">Effectuer une recherche</label>
                 <div class="col-md-9">
-                  <input class="input_design w400px" name="search" ng-model="search" type="text">
+                  <input class="input_generic " name="search" ng-model="search" type="text">
                 </div>
               </div>
               <md-table-container class="col-md-12" style="width:100%">
@@ -48,19 +49,19 @@
                     </tr>
                   </tbody>
                 </table>
-                <md-table-pagination class="TabPagination" md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page" md-total="{{usersCommunity.length}}"></md-table-pagination>
               </md-table-container>
-
+              <md-table-pagination class="TabPagination" md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page" md-total="{{usersCommunity.length}}"></md-table-pagination>
+              <div class="clear"></div>
             </div>
             <div class="addUserAnim col-md-12" ng-if="ajouterUser == true">
-              <div class="panel h200px">
-                <div class="panel-header">Ajouter un voyageur à la communauté {{chooseCommunity.SITE_LIBELLE}}</div>
+              <div class="panel">
+                <div class="panel-header">Ajouter un voyageur {{chooseCommunity.SITE_LIBELLE}} <md-icon ng-click="hidePanelUser()" class="right logo_lock" md-svg-icon="img/icons/delete-button.svg"></md-icon></div>
                 <div class="col-md-2">
                   <label  class="right labelProfil">Nom</label>
                 </div>
                 <div class=" col-md-4">
                   <div class=" ">
-                    <input class="input_design w200px" name="chargeVoy" ng-model="user.nomChargeVoy" type="text" ng-minlength="1" ng-maxlength="30" class="validate" >
+                    <input class="input_generic" name="chargeVoy" ng-model="user.nomChargeVoy" type="text" ng-minlength="1" ng-maxlength="30" class="validate" >
                   </div>
                 </div>
                 <div class="col-md-2">
@@ -68,7 +69,7 @@
                 </div>
                 <div class=" col-md-4">
                   <div class=" ">
-                    <input class="input_design w200px" name="chargeVoy" ng-model="user.prenomChargeVoy" type="text" ng-minlength="1" ng-maxlength="30" class="validate" >
+                    <input class="input_generic" name="chargeVoy" ng-model="user.prenomChargeVoy" type="text" ng-minlength="1" ng-maxlength="30" class="validate" >
                   </div>
                 </div>
                 <div class="col-md-2">
@@ -76,7 +77,7 @@
                 </div>
                 <div class=" col-md-4">
                   <div class=" ">
-                    <input class="input_design w200px" name="chargeVoy" ng-model="user.identifiantChargeVoy" type="text" ng-minlength="1" ng-maxlength="30" class="validate" >
+                    <input class="input_generic" name="chargeVoy" ng-model="user.identifiantChargeVoy" type="text" ng-minlength="1" ng-maxlength="30" class="validate" >
                   </div>
                 </div>
                 <div class="col-md-2">
@@ -84,11 +85,15 @@
                 </div>
                 <div class=" col-md-4">
                   <div class=" ">
-                    <input class="input_design w200px" name="chargeVoy" ng-model="user.mailChargeVoy" type="text" ng-minlength="1" ng-maxlength="30" class="validate" >
+                    <input class="input_generic" name="chargeVoy" ng-model="user.mailChargeVoy" type="text" ng-minlength="1" ng-maxlength="30" class="validate" >
                   </div>
                 </div>
-                <button type="submit" class="right md-raised btn btn-success" value="Submit">Ajouter</button>
-                <button class="right md-raised btn btn-warning" ng-click="hidePanelUser()">Fermer</button>
+                <div class="row">
+                  <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+                    <button type="submit" class="right md-raised btn btn-success" value="Submit">Ajouter</button>
+                  </div>
+                </div>
+                <div class="clear"></div>
               </div>
             </div>
           </div>
@@ -101,13 +106,13 @@
             <div class="card-image">
               <div id="wrapper" ng-switch="user.sexe">
                 <div ng-if="profils.Customer_Gender == 'M' ">
-                  <img style="width:259;height:175;" src="img/Avatar-Man.jpg">
+                  <img class="img_profil" src="img/Avatar-Man.jpg">
                 </div>
                 <div ng-if="profils.Customer_Gender == 'F'">
-                  <img style="width:259;height:175;" src="img/Avatar-Woman.jpg">
+                  <img class="img_profil" src="img/Avatar-Woman.jpg">
                 </div>
                 <div ng-if="profils.Customer_Gender == null">
-                  <img style="width:259;height:175;" src="img/mario.jpg">
+                  <img class="img_profil" src="img/mario.jpg">
                 </div>
                 <span class="card-title">Card Title</span>
               </div>
@@ -132,14 +137,14 @@
         </div>
         <div class="col-md-9">
           <div class="panel"> <!--- Début Panel personnel  ----------------------------------->
-            <div id="perso" class="panel-header">Personnel <md-icon class="right" md-svg-icon="img/icons/spy.svg"></md-icon></div>
-            <div class="container">
+            <div id="perso" class="panel-header">Personnel <md-icon class="right" md-svg-icon="img/icons/spy.svg"></md-icon><div class="clear"></div></div>
+            <!-- <div class="container"> -->
               </br>
               <div class="row">
-                <div class="col-md-3">
-                  <label class="right labelProfil">Sexe <md-icon class="logo_lock" md-svg-icon="img/icons/locked-padlock.svg"></md-icon></label>
+                <div class="col-md-4 col-xs-12">
+                  <label class="right_profil labelProfil">Sexe <md-icon class="logo_lock" md-svg-icon="img/icons/locked-padlock.svg"></md-icon></label>
                 </div>
-                <div class="col-md-9">
+                <div class="col-md-8 col-xs-12 radio_generic">
                   <input class="with-gap" name="sexe" type="radio" id="M" ng-model="profils.Customer_Gender" value="M" ng-checked="{{profils.Customer_Gender=='M'}}" />
                   <label for="M">M. </label>
                   <input class="with-gap" name="sexe" type="radio" id="F" ng-model="profils.Customer_Gender" value="F"  ng-checked="{{profils.Customer_Gender=='F'}}"/>
@@ -149,89 +154,93 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-md-3">
-                  <label aria-label="prenom"  class="right labelProfil">Prénom <md-icon class="logo_lock" md-svg-icon="img/icons/locked-padlock.svg"></md-icon> </label>
+                <div class="col-md-4 col-xs-12">
+                  <label aria-label="prenom"  class="right_profil labelProfil">Prénom <md-icon class="logo_lock" md-svg-icon="img/icons/locked-padlock.svg"></md-icon> </label>
                 </div>
-                <div class="colmd-9">
-                  <input class="input_design w400px" name="prenom" ng-model="profils.Customer_GivenName" ng-minlength="1" ng-maxlength="20" type="text" class="validate" required>
+                <div class="col-md-8 col-xs-12">
+                  <input class="input_generic" name="prenom" ng-model="profils.Customer_GivenName" ng-minlength="1" ng-maxlength="20" type="text" class="validate" required>
                 </div>
-                <div class="col-md-3">
-                  <label aria-label="nom"  class="right labelProfil">Nom <md-icon class="logo_lock" md-svg-icon="img/icons/locked-padlock.svg"></md-icon></label>
+                <div class="col-md-4 col-xs-12">
+                  <label aria-label="nom"  class="right_profil labelProfil">Nom <md-icon class="logo_lock" md-svg-icon="img/icons/locked-padlock.svg"></md-icon></label>
                 </div>
-                <div class="colmd-9">
-                  <input class="input_design w400px" name="nom" ng-model="profils.Customer_surName"type="text" ng-minlength="1" ng-maxlength="30" class="validate" required>
+                <div class="col-md-8 col-xs-12">
+                  <input class="input_generic" name="nom" ng-model="profils.Customer_surName"type="text" ng-minlength="1" ng-maxlength="30" class="validate" required>
                 </div>
-                <div class="col-md-3">
-                  <label  class="right labelProfil">Date de naissance <md-icon class="logo_lock" md-svg-icon="img/icons/locked-padlock.svg"></md-icon></label>
+                <div class="col-md-4 col-xs-12">
+                  <label  class="right_profil labelProfil">Date de naissance</label>
                 </div>
-                <div class="colmd-9">
-                  <md-input-container class="w75px">
+                <div class="col-md-8 col-xs-12">
+                  <md-input-container class="margin-left">
                     <md-select aria-label="jours"  name="birth_jours" ng-model="user.birth_jours" >
-                      <md-option  ng-repeat="oneJours in jours"  value="{{oneJours.name}}">{{oneJours.name}}</md-option>
+                      <md-option class="select_container" ng-repeat="oneJours in jours"  value="{{oneJours.name}}">{{oneJours.name}}</md-option>
                     </md-select>
                   </md-input-container>
-                  <md-input-container class="birth_mois">
+                  <md-input-container>
                     <md-select aria-label="mois"  name="birth_mois" ng-model="user.birth_mois" >
-                      <md-option  ng-repeat="oneMois in mois"  value="{{oneMois.name}}">{{oneMois.name}}</md-option>
+                      <md-option class="select_container" ng-repeat="oneMois in mois"  value="{{oneMois.name}}">{{oneMois.name}}</md-option>
                     </md-select>
                   </md-input-container>
-                  <md-input-container class="birth_annee">
+                  <md-input-container>
                     <md-select  name="birth_annee" ng-model="user.birth_annee" >
-                      <md-option  ng-repeat="oneAnnee in annee"  value="{{oneAnnee.name}}">{{oneAnnee.name}}</md-option>
+                      <md-option class="select_container" ng-repeat="oneAnnee in annee"  value="{{oneAnnee.name}}">{{oneAnnee.name}}</md-option>
                     </md-select>
                   </md-input-container>
                 </div>
-                <div class="col-md-3">     <!--- Parti eMail  ----------------------------------->
-                  <label  class="right labelProfil">Adresse Mail <md-icon class="logo_lock"  md-svg-icon="img/icons/locked-padlock.svg"></md-icon></label>
+                <div class="col-md-4 col-xs-12">     <!--- Parti eMail  ----------------------------------->
+                  <label  class="right_profil labelProfil">Adresse Mail <md-icon class="logo_lock"  md-svg-icon="img/icons/locked-padlock.svg"></md-icon></label>
                 </div>
-                <div class=" col-md-9">
-                  <div ng-if='listMail.length == 0 && profils.Email.length == 0' class=" ">
+                <div class=" col-md-8 col-xs-12">
+                  <div ng-if='listMail.length == 0 && profils.Email.length == 0' class="margin-left">
                     <p class="p_profil">Mail Manquant</p>
                   </div>
-                  <div ng-if='listMail.length > 0 || profils.Email.length > 0' class="no-phone-numbers">
+                  <div ng-if='listMail.length > 0 || profils.Email.length > 0' class="margin-left no-phone-numbers">
                     <p class="p_profil">{{profils.Email}}</p>
                     <p class="p_profil" ng-repeat="mail in listMail">{{mail.mail}}</p>
                   </div>
-                  <div ng-if="ajouterMail" ng-click="showPanelMail()" class="add link-icon">
+                  <div ng-if="ajouterMail" ng-click="showPanelMail()" class="margin-left add link-icon">
                     <span class="addProfil link-icon__text"><md-icon class="logo_lock"md-svg-icon="img/icons/bleed.svg"></md-icon>Ajouter un Mail</span>
                   </div>
                   <div class="row">
-                    <form ng-submit="submitMail()">
-                      <div class="panel w415px h150px" ng-show="mail">
-                        <div class="panel-header">Ajouter un mail</div>
-                        <div class="col-md-4">
-                          <label  class="labelProfil" for="mail"> Mail </label>
+                    <div class="col-md-11">
+                      <form ng-submit="submitMail()">
+                        <div class="panel" ng-show="mail">
+                          <div class="panel-header">Ajouter un mail <md-icon ng-click="hidePanelMail()" class="right logo_lock" md-svg-icon="img/icons/delete-button.svg"></md-icon></div>
+                          <div class="col-md-4">
+                            <label  class="labelProfil" for="mail"> Mail </label>
+                          </div>
+                          <div class="col-md-8">
+                            <input class="input_generic" name="mail" ng-model="user.mail" type="email" ng-minlength="1" ng-maxlength="30" class="validate" required>
+                          </div>
+                          <div class="row">
+                            <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+                              <button class="right md-raised btn btn-warning" type="submit" value="Submit">Ajouter</button>
+                            </div>
+                          </div>
+                          <div class="clear"></div>
                         </div>
-                        <div class="col-md-8">
-                          <input class="input_design w200px" name="mail" ng-model="user.mail" type="email" ng-minlength="1" ng-maxlength="30" class="validate" required>
-                        </div>
-                        <md-button class="right md-raised" type="submit" value="Submit">Ajouter</md-button>
-                        <button class="right md-raised btn btn-warning" ng-click="hidePanelMail()">Fermer</button>
-                      </div>
-                    </form>
-                  </div>
-                </div>                    <!--- Fin Parti eMail  -------------------------------------->
-                <div class="col-md-3">    <!--- Parti NumTelephone  ----------------------------------->
-                  <label  class="right labelProfil">N° de téléphone <md-icon class="logo_lock" md-svg-icon="img/icons/locked-padlock.svg"></md-icon></label>
+                      </form>
+                    </div>
+                  </div>     <!--- Fin Parti eMail  -------------------------------------->
                 </div>
-                <div class="col-md-9">
-                  <div ng-if='listNumTel.length == 0 && profils.PhoneNumber.length == 0'  class=" ">
+              </div>
+                <div class="col-md-4 col-xs-12">    <!--- Parti NumTelephone  ----------------------------------->
+                  <label  class="right_profil labelProfil">N° de téléphone <md-icon class="logo_lock" md-svg-icon="img/icons/locked-padlock.svg"></md-icon></label>
+                </div>
+                <div class="col-md-8 col-xs-12">
+                  <div ng-if='listNumTel.length == 0 && profils.PhoneNumber.length == 0'  class="margin-left">
                     <p class="p_profil">N° de téléphone manquant</p>
                   </div>
-                  <div ng-if='listNumTel.length > 0 || profils.PhoneNumber.length > 0' class="no-phone-numbers">
+                  <div ng-if='listNumTel.length > 0 || profils.PhoneNumber.length > 0' class="margin-left no-phone-numbers">
                     <p class="p_profil">{{profils.PhoneNumber}}</p>
                     <p class="p_profil"ng-repeat="num in listNumTel">{{num.code}} {{num.numero}}</p>
                   </div>
-                  <div ng-if="ajouterNum" ng-click="showPanelTel()" class="add link-icon" >
-                    <span class="addProfil link-icon__text">
-                      <md-icon class="logo_lock" md-svg-icon="img/icons/bleed.svg"></md-icon>
-                      Ajouter un numéro de téléphone
-                    </span>
+                  <div ng-if="ajouterNum" ng-click="showPanelTel()" class="margin-left add link-icon" >
+                    <span class="addProfil link-icon__text"><md-icon class="logo_lock" md-svg-icon="img/icons/bleed.svg"></md-icon>Ajouter un numéro de téléphone</span>
                   </div>
                   <div class="row">
                     <form ng-submit="submitNumPhone()">
-                      <div class="telephone panel w415px h250px" ng-if="phone">
-                        <div class="panel-header">Ajouter un numéro de téléphone</div>
+                      <div class="telephone panel" ng-if="phone">
+                        <div class="panel-header">Ajouter un numéro de téléphone<md-icon ng-click="hidePanelTel()" class="right logo_lock" md-svg-icon="img/icons/delete-button.svg"></md-icon></div>
                         <div class="col-md-12">
                           <label class="labelProfil" for="phone_country">Choisissez un pays:</label>
                           <md-input-container class="wPays">
@@ -242,33 +251,37 @@
                           <label class="labelProfil" for="phone_number">Ajoutez un numéro de téléphone :</label>
                         </div>
                         <div class="col-md-2">
-                          <input class="input_design w50px" ng-disabled="user.pays_tel" type="text" ng-model="user.phoneCode">
+                          <input class="input_generic" ng-disabled="user.pays_tel" type="text" ng-model="user.phoneCode">
                         </div>
-                        <div class="colmd-10">
-                          <input class="input_design w200px" name="user.numPhone" type="number" ng-model="user.numPhone" ng-minlength="1" ng-maxlength="30">
+                        <div class="col-md-10">
+                          <input class="input_generic" name="user.numPhone" type="number" ng-model="user.numPhone" ng-minlength="1" ng-maxlength="30">
                         </div>
-                        <button type="submit" class="right md-raised btn btn-success" value="Submit">Ajouter</button>
-                        <button class="right md-raised btn btn-warning" ng-click="hidePanelTel()">Fermer</button>
+                        <div class="row">
+                          <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+                            <button class="right md-raised btn btn-warning" type="submit" value="Submit">Ajouter</button>
+                          </div>
+                        </div>
+                        <div class="clear"></div>
                       </div>
                     </form>
                   </div>
                 </div>                    <!--- Fin Parti NumTelephone  ----------------------------------->
-                <div class="col-md-3">    <!--- Parti Urgence  -------------------------------------------->
-                  <label  class="right labelProfil">Personne à contacter en cas d'urgence</label>
+                <div class="col-md-4">    <!--- Parti Urgence  -------------------------------------------->
+                  <label  class="right_profil labelProfil">Personne à contacter en cas d'urgence</label>
                 </div>
-                <div class="col-md-9">
-                  <input class="input_design w400px" name="nom" ng-model="profils.nameUrgence"type="text" ng-minlength="1" ng-maxlength="30" class="validate" required>
+                <div class="col-md-8">
+                  <input class="input_generic" name="nom" ng-model="profils.nameUrgence"type="text" ng-minlength="1" ng-maxlength="30" class="validate" required>
                 </div>
-                <div class="col-md-3">
-                  <label  class="right labelProfil">N° à contacter en cas d'urgence</label>
+                <div class="col-md-4">
+                  <label  class="right_profil labelProfil">N° à contacter en cas d'urgence</label>
                 </div>
-                <div class="col-md-9">
-                  <input class="input_design w400px" name="nom" ng-model="profils.numUrgence"type="text" ng-minlength="1" ng-maxlength="30" class="validate" required>
+                <div class="col-md-8">
+                  <input class="input_generic" name="nom" ng-model="profils.numUrgence"type="text" ng-minlength="1" ng-maxlength="30" class="validate" required>
                 </div>                    <!--- Fin Parti Urgence  ----------------------------------->
-                <div class="col-md-3">    <!--- Parti valideur  ----------------------------------->
-                  <label  class="right labelProfil">Valideur désigné</label>
+                <div class="col-md-4">    <!--- Parti valideur  ----------------------------------->
+                  <label  class="right_profil labelProfil">Valideur désigné</label>
                 </div>
-                <div class=" col-md-9">
+                <div class=" col-md-8">
                   <div ng-if='listValideur.length == 0 && profils.valideur.length == 0' class=" ">
                     <p class="p_profil">Valideur Manquant</p>
                   </div>
@@ -286,7 +299,7 @@
                 <div class="right col-md-2"></div>
                 <div class="right col-md-10">
                   <form ng-submit="submitValideur()">
-                    <div class="valideur panel w575px h450px" ng-if="valideur">
+                    <div class="valideur panel" ng-if="valideur">
                     <div class="panel-header">Rechercher & Ajouter un valideur</div>
                       <div class="col-md-5">
                         <label class="labelProfil" for="valideur">Sélectionner une communauté :</label>
@@ -297,35 +310,35 @@
                         </md-select>
                       </div>
                       <div class="col-md-2">
-                        <label  class="right labelProfil">Nom</label>
+                        <label  class="right_profil labelProfil">Nom</label>
                       </div>
                       <div class=" col-md-4">
                         <div class=" ">
-                          <input class="input_design w135px" name="valideur" ng-model="user.nomvalideur" type="text" ng-minlength="1" ng-maxlength="30" class="validate" >
+                          <input class="input_generic" name="valideur" ng-model="user.nomvalideur" type="text" ng-minlength="1" ng-maxlength="30" class="validate" >
                         </div>
                       </div>
                       <div class="col-md-2">
-                        <label  class="right labelProfil">Prénom</label>
+                        <label  class="right_profil labelProfil">Prénom</label>
                       </div>
                       <div class=" col-md-4">
                         <div class=" ">
-                          <input class="input_design w135px" name="valideur" ng-model="user.prenomvalideur" type="text" ng-minlength="1" ng-maxlength="30" class="validate" >
+                          <input class="input_generic" name="valideur" ng-model="user.prenomvalideur" type="text" ng-minlength="1" ng-maxlength="30" class="validate" >
                         </div>
                       </div>
                       <div class="col-md-2">
-                        <label  class="right labelProfil">Identifiant</label>
+                        <label  class="right_profil labelProfil">Identifiant</label>
                       </div>
                       <div class=" col-md-4">
                         <div class=" ">
-                          <input class="input_design w135px" name="valideur" ng-model="user.identifiantvalideur" type="text" ng-minlength="1" ng-maxlength="30" class="validate" >
+                          <input class="input_generic" name="valideur" ng-model="user.identifiantvalideur" type="text" ng-minlength="1" ng-maxlength="30" class="validate" >
                         </div>
                       </div>
                       <div class="col-md-2">
-                        <label  class="right labelProfil">Mail</label>
+                        <label  class="right_profil labelProfil">Mail</label>
                       </div>
                       <div class=" col-md-4">
                         <div class=" ">
-                          <input class="input_design w135px" name="valideur" ng-model="user.mailvalideur" type="email" ng-minlength="1" ng-maxlength="30" class="validate" >
+                          <input class="input_generic" name="valideur" ng-model="user.mailvalideur" type="email" ng-minlength="1" ng-maxlength="30" class="validate" >
                         </div>
                       </div>
                       <button type="submit" class="right md-raised btn btn-success" value="Submit">Rechercher</button>
@@ -341,11 +354,12 @@
                       <button class="right md-raised btn btn-warning" ng-click="hidePanelValideur()">Fermer</button>
                     </div>
                   </form>
+                  <div class="clear"></div>
                 </div>                  <!--- Fin Parti valideur  ----------------------------------->
-                <div class="col-md-3">  <!--- Parti chargé de voyage  ----------------------------------->
-                  <label  class="right labelProfil">Chargés de voyage</label>
+                <div class="col-md-4">  <!--- Parti chargé de voyage  ----------------------------------->
+                  <label  class="right_profil labelProfil">Chargés de voyage</label>
                 </div>
-                <div class=" col-md-9">
+                <div class=" col-md-8">
                   <div ng-if='listChargeVoy.length == 0 && profils.ChargeVoy.length == 0' class=" ">
                     <p class="p_profil">Chargés de voyage</p>
                   </div>
@@ -363,7 +377,7 @@
                 <div class="right col-md-2"></div>
                 <div class="right col-md-10">
                   <form ng-submit="submitChargeVoy()">
-                    <div class="chargeVoy panel w575px h450px" ng-if="chargeVoy">
+                    <div class="chargeVoy panel" ng-if="chargeVoy">
                       <div class="panel-header">Rechercher & Ajouter un chargé de voyage</div>
                       <div class="col-md-5">
                         <label class="labelProfil" for="chargeVoy">Sélectionner une communauté :</label>
@@ -374,35 +388,35 @@
                         </md-select>
                       </div>
                       <div class="col-md-2">
-                        <label  class="right labelProfil">Nom</label>
+                        <label  class="right_profil labelProfil">Nom</label>
                       </div>
                       <div class=" col-md-4">
                         <div class=" ">
-                          <input class="input_design w135px" name="chargeVoy" ng-model="user.nomChargeVoy" type="text" ng-minlength="1" ng-maxlength="30" class="validate" >
+                          <input class="input_generic" name="chargeVoy" ng-model="user.nomChargeVoy" type="text" ng-minlength="1" ng-maxlength="30" class="validate" >
                         </div>
                       </div>
                       <div class="col-md-2">
-                        <label  class="right labelProfil">Prénom</label>
+                        <label  class="right_profil labelProfil">Prénom</label>
                       </div>
                       <div class=" col-md-4">
                         <div class=" ">
-                          <input class="input_design w135px" name="chargeVoy" ng-model="user.prenomChargeVoy" type="text" ng-minlength="1" ng-maxlength="30" class="validate" >
+                          <input class="input_generic" name="chargeVoy" ng-model="user.prenomChargeVoy" type="text" ng-minlength="1" ng-maxlength="30" class="validate" >
                         </div>
                       </div>
                       <div class="col-md-2">
-                        <label  class="right labelProfil">Identifiant</label>
+                        <label  class="right_profil labelProfil">Identifiant</label>
                       </div>
                       <div class=" col-md-4">
                         <div class=" ">
-                          <input class="input_design w135px" name="chargeVoy" ng-model="user.identifiantChargeVoy" type="text" ng-minlength="1" ng-maxlength="30" class="validate" >
+                          <input class="input_generic" name="chargeVoy" ng-model="user.identifiantChargeVoy" type="text" ng-minlength="1" ng-maxlength="30" class="validate" >
                         </div>
                       </div>
                       <div class="col-md-2">
-                        <label  class="right labelProfil">Mail</label>
+                        <label  class="right_profil labelProfil">Mail</label>
                       </div>
                       <div class=" col-md-4">
                         <div class=" ">
-                          <input class="input_design w135px" name="chargeVoy" ng-model="user.mailChargeVoy" type="text" ng-minlength="1" ng-maxlength="30" class="validate" >
+                          <input class="input_generic" name="chargeVoy" ng-model="user.mailChargeVoy" type="text" ng-minlength="1" ng-maxlength="30" class="validate" >
                         </div>
                       </div>
                       <button type="submit" class="right md-raised btn btn-success" value="Submit">Rechercher</button>
@@ -419,10 +433,10 @@
                     </div>
                   </form>
                 </div>                  <!--- Fin Parti chargé de voyage  ----------------------------------->
-                <div class="col-md-3">  <!---Début Responsable de voyage  ----------------------------------->
-                  <label  class="right labelProfil">Responsable de voyage préféré</label>
+                <div class="col-md-4">  <!---Début Responsable de voyage  ----------------------------------->
+                  <label  class="right_profil labelProfil">Responsable de voyage préféré</label>
                 </div>
-                <div class=" col-md-9">
+                <div class=" col-md-8">
                   <div ng-if='listResponsable.length == 0 && profils.Responsable.length == 0' class=" ">
                     <p class="p_profil">Responsable de voyage préféré</p>
                   </div>
@@ -440,7 +454,7 @@
                 <div class="right col-md-2"></div>
                 <div class="right col-md-10">
                   <form ng-submit="submitResponsable()">
-                    <div class="responsable panel w575px h450px" ng-if="responsable">
+                    <div class="responsable panel" ng-if="responsable">
                       <div class="panel-header">Rechercher & Ajouter un responsable de voyage préféré</div>
                       <div class="col-md-5">
                         <label class="labelProfil" for="chargeVoy">Sélectionner une communauté :</label>
@@ -451,35 +465,35 @@
                         </md-select>
                       </div>
                       <div class="col-md-2">
-                        <label  class="right labelProfil">Nom</label>
+                        <label  class="right_profil labelProfil">Nom</label>
                       </div>
                       <div class=" col-md-4">
                         <div class=" ">
-                          <input class="input_design w135px" name="responsable" ng-model="user.nomResponsable" type="text" ng-minlength="1" ng-maxlength="30" class="validate" >
+                          <input class="input_generic" name="responsable" ng-model="user.nomResponsable" type="text" ng-minlength="1" ng-maxlength="30" class="validate" >
                         </div>
                       </div>
                       <div class="col-md-2">
-                        <label  class="right labelProfil">Prénom</label>
+                        <label  class="right_profil labelProfil">Prénom</label>
                       </div>
                       <div class=" col-md-4">
                         <div class=" ">
-                          <input class="input_design w135px" name="responsable" ng-model="user.prenomResponsable" type="text" ng-minlength="1" ng-maxlength="30" class="validate" >
+                          <input class="input_generic" name="responsable" ng-model="user.prenomResponsable" type="text" ng-minlength="1" ng-maxlength="30" class="validate" >
                         </div>
                       </div>
                       <div class="col-md-2">
-                        <label  class="right labelProfil">Identifiant</label>
+                        <label  class="right_profil labelProfil">Identifiant</label>
                       </div>
                       <div class=" col-md-4">
                         <div class=" ">
-                          <input class="input_design w135px" name="responsable" ng-model="user.identifiantResponsable" type="text" ng-minlength="1" ng-maxlength="30" class="validate" >
+                          <input class="input_generic" name="responsable" ng-model="user.identifiantResponsable" type="text" ng-minlength="1" ng-maxlength="30" class="validate" >
                         </div>
                       </div>
                       <div class="col-md-2">
-                        <label  class="right labelProfil">Mail</label>
+                        <label  class="right_profil labelProfil">Mail</label>
                       </div>
                       <div class=" col-md-4">
                         <div class=" ">
-                          <input class="input_design w135px" name="responsable" ng-model="user.mailResponsable" type="text" ng-minlength="1" ng-maxlength="30" class="validate" >
+                          <input class="input_generic" name="responsable" ng-model="user.mailResponsable" type="text" ng-minlength="1" ng-maxlength="30" class="validate" >
                         </div>
                       </div>
                       <button type="submit" class="right md-raised btn btn-success" value="Submit">Rechercher</button>
@@ -496,10 +510,10 @@
                     </div>
                   </form>
                 </div>                 <!--- Fin Parti Responsable de voyage  ----------------------------------->
-                <div class="col-md-3"> <!--- Fin passeport  ------------------------------------------>
-                  <label  class="right labelProfil">Passeport</label>
+                <div class="col-md-4"> <!--- Fin passeport  ------------------------------------------>
+                  <label  class="right_profil labelProfil">Passeport</label>
                 </div>
-                <div class=" col-md-9">
+                <div class=" col-md-8">
                   <div ng-if='listPasseport.length == 0 && profils.Passeport.length == 0' class=" ">
                     <p class="p_profil">Passeport</p>
                   </div>
@@ -519,41 +533,43 @@
                 <div class="right col-md-2"></div>
                 <div class="right col-md-10">
                   <form ng-submit="submitPasseport()">
-                    <div class="passeport panel w575px h200px" ng-if="passeport">
+                    <div class="passeport panel" ng-if="passeport">
                       <div class="panel-header">Ajouter un passeport</div>
                       <div class="col-md-2">
-                        <label  class="right labelProfil">Nom</label>
+                        <label  class="right_profil labelProfil">Nom</label>
                       </div>
                       <div class=" col-md-4">
-                        <input class="input_design w135px" name="passeport" ng-model="user.nomPasseport" type="text" ng-minlength="1" ng-maxlength="30" class="validate" >
+                        <input class="input_generic" name="passeport" ng-model="user.nomPasseport" type="text" ng-minlength="1" ng-maxlength="30" class="validate" >
                       </div>
                       <div class="col-md-2">
-                        <label  class="right labelProfil">Numéro</label>
+                        <label  class="right_profil labelProfil">Numéro</label>
                       </div>
                       <div class=" col-md-4">
-                        <input class="input_design w135px" name="passeport" ng-model="user.prenomPasseport" type="text" ng-minlength="1" ng-maxlength="30" class="validate" >
+                        <input class="input_generic" name="passeport" ng-model="user.prenomPasseport" type="text" ng-minlength="1" ng-maxlength="30" class="validate" >
                       </div>
                       <div class="col-md-2">
-                        <label  class="right labelProfil">Expiration</label>
+                        <label  class="right_profil labelProfil">Expiration</label>
                       </div>
                       <div class=" col-md-4">
-                        <input class="input_design w135px" name="passeport" ng-model="user.expirationPasseport" type="text" ng-minlength="1" ng-maxlength="30" class="validate" >
+                        <input class="input_generic" name="passeport" ng-model="user.expirationPasseport" type="text" ng-minlength="1" ng-maxlength="30" class="validate" >
                       </div>
                       <div class="col-md-2">
-                        <label  class="right labelProfil">Pays</label>
+                        <label  class="right_profil labelProfil">Pays</label>
                       </div>
                       <div class=" col-md-4">
-                        <input class="input_design w135px" name="passeport" ng-model="user.paysPasseport" type="text" ng-minlength="1" ng-maxlength="30" class="validate" >
+                        <input class="input_generic" name="passeport" ng-model="user.paysPasseport" type="text" ng-minlength="1" ng-maxlength="30" class="validate" >
                       </div>
                       <button type="submit" class="right md-raised btn btn-success" value="Submit">Ajouter</button>
                       <button class="right md-raised btn btn-warning" ng-click="hidePanelPasseport()">Fermer</button>
                     </div>
                   </form>
-                </div>           <!--- Fin passeport  ------------------------------------------>
+                </div>
+                <div class="clear"></div>           <!--- Fin passeport  ------------------------------------------>
               </div>
-            </div>
+            <!-- </div> -->
           </div>                <!--- Fin Panel personnel  ----------------------------------->
-          <div class="panel">   <!--- Parti Panel paiement  ----------------------------------->
+           <!--- Parti Panel paiement  ----------------------------------->
+          <!-- <div class="panel">
           <div id="paiement" class="panel-header">Paiement <md-icon class="right" md-svg-icon="img/icons/payment.svg"></md-icon></div>
           <div class="container">
             <div class="row">
@@ -562,8 +578,10 @@
                 <p class="p_profil">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor .</p>
               </div>
             </div>
+            <div class="clear"></div>
+          </div> -->
           </div>
-          </div>                <!--- Fin Parti paiement  ----------------------------------->
+          <!--- Fin Parti paiement  ----------------------------------->
           <div class="panel">   <!--- Parti Panel Livraison  ----------------------------------->
           <div id="livraison" class="panel-header">Livraison <md-icon class="right" md-svg-icon="img/icons/delivery.svg"></md-icon></div>
             <div class="container">
@@ -584,7 +602,7 @@
                   <label class="right labelProfil">Langue </label>
                 </div>
                 <div class="col-md-9">
-                  <md-input-container class="w400px">
+                  <md-input-container class="">
                     <md-select aria-label="jours"  name="birth_jours" ng-model="user.pref_avion_Langue" >
                       <md-option value="fr">Français</md-option>
                       <md-option value="ang">Anglais</md-option>
@@ -595,7 +613,7 @@
                   <label class="right labelProfil">Devise </label>
                 </div>
                 <div class="col-md-9">
-                  <md-input-container class="w400px">
+                  <md-input-container class="">
                     <md-select aria-label="jours"  name="birth_jours" ng-model="user.pref_avion_devise" >
                       <md-option value="eur">EURO</md-option>
                       <md-option value="dollar">Dollar</md-option>
@@ -609,7 +627,7 @@
                   <label class="right labelProfil">Préférence siège</label>
                 </div>
                 <div class="col-md-9">
-                  <md-input-container class="w400px">
+                  <md-input-container class="">
                     <md-select aria-label="jours"  name="birth_jours" ng-model="user.pref_avion_siege" >
                       <md-option value="couloir">Couloir</md-option>
                       <md-option value="hublot">Hublot</md-option>
@@ -620,7 +638,7 @@
                   <label class="right labelProfil">Préférence repas</label>
                 </div>
                 <div class="col-md-9">
-                  <md-input-container class="w400px">
+                  <md-input-container class="">
                     <md-select aria-label="jours"  name="birth_jours" ng-model="user.pref_avion_siege" >
                       <md-option value="vegetarien">Végétarien</md-option>
                       <md-option value="SansGlut">Sans gluten</md-option>
@@ -647,14 +665,14 @@
                   </div>
                   <div class="row">
                     <form ng-submit="submitFidelite()">
-                      <div class="fidelite panel w415px h225px" ng-if="fidelite">
+                      <div class="fidelite panel" ng-if="fidelite">
                         <div class="panel-header">Ajouter une carte de fidélité</div>
                         <div class="row">
                           <div class="col-md-4">
                             <label  class="labelProfil" for="mail"> Choississez la compagnie aérienne </label>
                           </div>
                           <div class="col-md-8">
-                            <md-input-container class="w250px">
+                            <md-input-container class="">
                               <md-select aria-label="jours"  name="birth_jours" ng-model="user.pref_avion_siege" >
                                 <md-option value="airFrance">Air France</md-option>
                                 <md-option value="airCorsica">Air Corsica</md-option>
@@ -668,7 +686,7 @@
                             <label  class="labelProfil" for="mail"> code carte fidélité </label>
                           </div>
                           <div class="col-md-8">
-                            <input class="input_design w135px" name="passeport" ng-model="user.code_fidelite" type="text" ng-minlength="1" ng-maxlength="30" class="validate" >
+                            <input class="input_generic" name="passeport" ng-model="user.code_fidelite" type="text" ng-minlength="1" ng-maxlength="30" class="validate" >
                           </div>
                         </div>
                         <button type="submit" class="right md-raised btn btn-success" value="Submit">Ajouter</button>
@@ -688,9 +706,9 @@
                       <th><label  class="labelProfil" for="mail"> Description de la carte </label></th>
                     </tr>
                     <tr>
-                      <td><input class="input_design w100px" name="passeport" ng-model="user.paysPasseport" type="text" ng-minlength="1" ng-maxlength="30" class="validate" ></td>
+                      <td><input class="input_generic" name="passeport" ng-model="user.paysPasseport" type="text" ng-minlength="1" ng-maxlength="30" class="validate" ></td>
                       <td>
-                        <md-input-container class="w50px">
+                        <md-input-container class="">
                           <md-select aria-label="jours"  name="birth_jours" ng-model="user.pref_avion_siege" >
                             <md-option value="1">1</md-option>
                             <md-option value="2">2</md-option>
@@ -700,7 +718,7 @@
                       </td>
                       <td>
                         <div class="col-md-2">
-                          <md-input-container class="w100px">
+                          <md-input-container class="">
                             <md-select aria-label="jours"  name="" ng-model="user.airfrance_fidelite_mois" >
                               <md-option value="janvier">Janvier</md-option>
                               <md-option value="decembre">Décembre</md-option>
@@ -710,7 +728,7 @@
                         </div>
                       </td>
                       <td>
-                        <input class="input_design w50px" name="" ng-model="user.airfrance_fidelite_" type="text" ng-minlength="1" ng-maxlength="30" class="validate" >
+                        <input class="input_generic" name="" ng-model="user.airfrance_fidelite_" type="text" ng-minlength="1" ng-maxlength="30" class="validate" >
                       </td>
                     </tr>
                   </table>
@@ -722,7 +740,7 @@
                   <label class="right labelProfil">Préférence de classe de réservation </label>
                 </div>
                 <div class="col-md-9">
-                  <md-input-container class="w400px">
+                  <md-input-container class="">
                     <md-select aria-label="Pref_classTrain"  name="Pref_classTrain" ng-model="Pref_classTrain" >
                       <md-option value="sansPref">Sans préférence</md-option>
                       <md-option value="standard_premium">Standard Premium</md-option>
@@ -735,7 +753,7 @@
                   <label class="right labelProfil">Emplacement </label>
                 </div>
                 <div class="col-md-9">
-                  <md-input-container class="w400px">
+                  <md-input-container class="">
                     <md-select aria-label="Pref_emplacementTrain"  name="Pref_emplacementTrain" ng-model="Pref_emplacementTrain" >
                       <md-option value="sansPref">Sans préférence</md-option>
                       <md-option value="fenetre">Fenêtre</md-option>
@@ -748,7 +766,7 @@
                   <label class="right labelProfil">Sens de la marche </label>
                 </div>
                 <div class="col-md-9">
-                  <md-input-container class="w400px">
+                  <md-input-container class="">
                     <md-select aria-label="Pref_sensTrain"  name="Pref_sensTrain" ng-model="Pref_sensTrain" >
                       <md-option value="sansPref">Sans préférence</md-option>
                       <md-option value="sens_marche">Sens de la marche</md-option>
@@ -776,13 +794,13 @@
                   </div>
                   <div class="row">
                     <form ng-submit="submitCarteVoy()">
-                      <div class="carteVoy panel w415px h250px" ng-if="carteVoy">
+                      <div class="carteVoy panel" ng-if="carteVoy">
                         <div class="panel-header">Ajouter une carte de voyage</div>
                         <div class="col-md-4">
                           <label  class="labelProfil" for="carteVoy"> Prestataire </label>
                         </div>
                         <div class="col-md-8">
-                          <md-input-container class="w135px">
+                          <md-input-container class="">
                             <md-select aria-label="prestataire_carteVoy"  name="prestataire_carteVoy" ng-model="prestataire_carteVoy" >
                               <md-option value="Lyria">Lyria</md-option>
                               <md-option value="SNCF">SNCF</md-option>
@@ -795,7 +813,7 @@
                           <label  class="labelProfil" for="nom_carteVoy"> Nom de la carte </label>
                         </div>
                         <div class="col-md-8">
-                          <md-input-container class="w135px">
+                          <md-input-container class="">
                             <md-select aria-label="nom_carteVoy"  name="nom_carteVoy" ng-model="nom_carteVoy" >
                               <md-option value="AFF1er">Abonnement Fréquence France entière valable en 1ère classe</md-option>
                               <md-option value="AFF2eme">Abonnement Fréquence France entière valable en 2ème classe</md-option>
@@ -808,23 +826,23 @@
                           <label  class="labelProfil" for="num_carteVoy"> Numéro de la carte </label>
                         </div>
                         <div class="col-md-8">
-                          <input class="input_design w135px" name="num_carteVoy" ng-model="user.num_carteVoy" type="text" ng-minlength="1" ng-maxlength="30" class="validate" >
+                          <input class="input_generic" name="num_carteVoy" ng-model="user.num_carteVoy" type="text" ng-minlength="1" ng-maxlength="30" class="validate" >
                         </div>
                         <div class="col-md-4">
                           <label  class="labelProfil" for="num_carteVoy"> Date de validité </label>
                         </div>
                         <div class="col-md-8">
-                          <md-input-container style="margin-right: 10px;" class="w50px">
+                          <md-input-container style="margin-right: 10px;" class="">
                             <md-select aria-label="jours"  name="birth_jours" ng-model="user.birth_jours" >
                               <md-option  ng-repeat="oneJours in jours"  value="{{oneJours.name}}">{{oneJours.name}}</md-option>
                             </md-select>
                           </md-input-container>
-                          <md-input-container class="w80px">
+                          <md-input-container class="">
                             <md-select aria-label="mois"  name="birth_mois" ng-model="user.birth_mois" >
                               <md-option  ng-repeat="oneMois in mois"  value="{{oneMois.name}}">{{oneMois.name}}</md-option>
                             </md-select>
                           </md-input-container>
-                          <md-input-container class="w80px">
+                          <md-input-container class="">
                             <md-select  name="birth_annee" ng-model="user.birth_annee" >
                               <md-option  ng-repeat="oneAnnee in annee"  value="{{oneAnnee.name}}">{{oneAnnee.name}}</md-option>
                             </md-select>
@@ -852,19 +870,19 @@
                     <tr>
                       <td>SNCF</td>
                       <td>Carte Grand Voyageur</td>
-                      <td><input class="input_design w90px" name="" ng-model="user.Num_carteGrandVoy" type="text" ng-minlength="1" ng-maxlength="30" class="validate" ></td>
+                      <td><input class="input_generic" name="" ng-model="user.Num_carteGrandVoy" type="text" ng-minlength="1" ng-maxlength="30" class="validate" ></td>
                       <td>
-                        <md-input-container style="margin-right: 10px;" class="w50px">
+                        <md-input-container style="margin-right: 10px;" class="">
                           <md-select aria-label="jours"  name="birth_jours" ng-model="user.birth_jours" >
                             <md-option  ng-repeat="oneJours in jours"  value="{{oneJours.name}}">{{oneJours.name}}</md-option>
                           </md-select>
                         </md-input-container>
-                        <md-input-container class="w90px">
+                        <md-input-container class="">
                           <md-select aria-label="mois"  name="birth_mois" ng-model="user.birth_mois" >
                             <md-option  ng-repeat="oneMois in mois"  value="{{oneMois.name}}">{{oneMois.name}}</md-option>
                           </md-select>
                         </md-input-container>
-                        <md-input-container class="w90px">
+                        <md-input-container class="">
                           <md-select  name="birth_annee" ng-model="user.birth_annee" >
                             <md-option  ng-repeat="oneAnnee in annee"  value="{{oneAnnee.name}}">{{oneAnnee.name}}</md-option>
                           </md-select>
@@ -874,19 +892,19 @@
                     <tr>
                       <td>Eurostar</td>
                       <td>Programme de fidélité</td>
-                      <td><input class="input_design w90px" name="" ng-model="user.Num_carteEurostar" type="text" ng-minlength="1" ng-maxlength="30" class="validate"></td>
+                      <td><input class="input_generic" name="" ng-model="user.Num_carteEurostar" type="text" ng-minlength="1" ng-maxlength="30" class="validate"></td>
                       <td>
-                        <md-input-container style="margin-right: 10px;" class="w50px">
+                        <md-input-container style="margin-right: 10px;" class="">
                           <md-select aria-label="jours"  name="birth_jours" ng-model="user.birth_jours" >
                             <md-option  ng-repeat="oneJours in jours"  value="{{oneJours.name}}">{{oneJours.name}}</md-option>
                           </md-select>
                         </md-input-container>
-                        <md-input-container class="w90px">
+                        <md-input-container class="">
                           <md-select aria-label="mois"  name="birth_mois" ng-model="user.birth_mois" >
                             <md-option  ng-repeat="oneMois in mois"  value="{{oneMois.name}}">{{oneMois.name}}</md-option>
                           </md-select>
                         </md-input-container>
-                        <md-input-container class="w90px">
+                        <md-input-container class="">
                           <md-select  name="birth_annee" ng-model="user.birth_annee" >
                             <md-option  ng-repeat="oneAnnee in annee"  value="{{oneAnnee.name}}">{{oneAnnee.name}}</md-option>
                           </md-select>
@@ -896,19 +914,19 @@
                     <tr>
                       <td>Thalys</td>
                       <td>Thalys TheCard</td>
-                      <td><input class="input_design w90px" name="" ng-model="user.Num_carteThalys" type="text" ng-minlength="1" ng-maxlength="30" class="validate" ></td>
+                      <td><input class="input_generic" name="" ng-model="user.Num_carteThalys" type="text" ng-minlength="1" ng-maxlength="30" class="validate" ></td>
                       <td>
-                        <md-input-container style="margin-right: 10px;" class="w50px">
+                        <md-input-container style="margin-right: 10px;" class="">
                           <md-select aria-label="jours"  name="birth_jours" ng-model="user.birth_jours" >
                             <md-option  ng-repeat="oneJours in jours"  value="{{oneJours.name}}">{{oneJours.name}}</md-option>
                           </md-select>
                         </md-input-container>
-                        <md-input-container class="w90px">
+                        <md-input-container class="">
                           <md-select aria-label="mois"  name="birth_mois" ng-model="user.birth_mois" >
                             <md-option  ng-repeat="oneMois in mois"  value="{{oneMois.name}}">{{oneMois.name}}</md-option>
                           </md-select>
                         </md-input-container>
-                        <md-input-container class="w90px">
+                        <md-input-container class="">
                           <md-select  name="birth_annee" ng-model="user.birth_annee" >
                             <md-option  ng-repeat="oneAnnee in annee"  value="{{oneAnnee.name}}">{{oneAnnee.name}}</md-option>
                           </md-select>
@@ -924,7 +942,7 @@
                   <label class="right labelProfil">Préférence fumeur</label>
                 </div>
                 <div class="col-md-9">
-                  <md-input-container class="w400px">
+                  <md-input-container class="">
                     <md-select aria-label="Pref_hotelfummeur"  name="Pref_classTrain" ng-model="Pref_hotelfummeur" >
                       <md-option value="sansPref">Sans préférence</md-option>
                       <md-option value="fumeur">Fumeur</md-option>
@@ -951,14 +969,14 @@
                   </div>
                   <div class="row">
                     <form ng-submit="submitFideliteHotel()">
-                      <div class="fideliteHotel panel w415px h225px" ng-if="fideliteHotel">
+                      <div class="fideliteHotel panel" ng-if="fideliteHotel">
                         <div class="panel-header">Ajouter une carte de fidélité</div>
                         <div class="row">
                           <div class="col-md-4">
                             <label  class="labelProfil" for="mail"> Choississez le code hotel </label>
                           </div>
                           <div class="col-md-8">
-                            <md-input-container class="w400px">
+                            <md-input-container class="">
                               <md-select aria-label="fideliteHotel"  name="fideliteHotel" ng-model="user.fideliteHotel" >
                                 <md-option value="airFrance">Accord</md-option>
                                 <md-option value="airCorsica">Formule 1</md-option>
@@ -972,7 +990,7 @@
                             <label  class="labelProfil" for="code_fideliteHotel"> code carte fidélité </label>
                           </div>
                           <div class="col-md-8">
-                            <input class="input_design w135px" name="code_fideliteHotel" ng-model="user.code_fideliteHotel" type="text" ng-minlength="1" ng-maxlength="30" class="validate" >
+                            <input class="input_generic" name="code_fideliteHotel" ng-model="user.code_fideliteHotel" type="text" ng-minlength="1" ng-maxlength="30" class="validate" >
                           </div>
                         </div>
                         <button type="submit" class="right md-raised btn btn-success" value="Submit">Ajouter</button>

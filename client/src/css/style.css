@@ -1166,10 +1166,12 @@ Use of this source code is governed by an MIT-style license that can be in found
   text-align: center;
   box-shadow: 0 0 1em 0.25em rgba(0,0,0,0.2);
 }
-.input_design{
+.input_generic{
   font-size: 12px !important;
   color:black;
   margin-top: -5px !important;
+  width: 70% !important;
+  margin-left: 40px !important;
 }
 
 .body{
@@ -1190,6 +1192,7 @@ Use of this source code is governed by an MIT-style license that can be in found
     border-bottom: 1px solid #bdbfbf;
     padding: 10px;
     margin-bottom: 10px;
+    height: auto;
   }
 .panel {
     border: 1px solid #a5a5a5;
@@ -1198,6 +1201,7 @@ Use of this source code is governed by an MIT-style license that can be in found
     -moz-border-radius: 0;
     border-radius: 5px;
     box-shadow: 1px 2px 10px 0px rgba(0, 0, 0, 0.2);
+    height: auto;
 }
 textarea.materialize-textarea:focus.valid {
     border: 1px solid #4CAF50;
@@ -1206,7 +1210,8 @@ textarea.materialize-textarea:focus.valid {
 .h1profil{
   color: rgba(0, 119, 187, 0.43);
 }
-.right{  float: right; margin-right: 10px;S}
+.left{  float: left; margin-left: 10px;}
+.right_profil{  float: right; margin-right: 10px;}
 .md-select-value{
   border-bottom: 5px;
 }
@@ -1214,76 +1219,11 @@ textarea.materialize-textarea:focus.valid {
   height: 15px;
   width: 15px;
 }
-.birth_mois{
-  width: 150px;
-}
-.w75px{
-  width: 75px;
-}
-.birth_annee{
-  width: 90px;
-}
 .card .card-action a:not(.btn):not(.btn-large):not(.btn-floating) {
   line-height: 30px;
   font-size: 14px;
 }
-.w400px{
-  width: 400px !important;
-}
-.w415px{
-  width: 415px;
-}
-.wPays{
-  width: 200px;
-}
-.w50px{
-  width: 50px !important;
-}
-.w30px{
-  width: 30px !important;
-}
-.w90px{
-  width: 90px !important;
-}
-.w135px{
-  width: 135px !important;
-}
-.w100px{
-  width: 100px !important;
-}
-.w200px{
-  width: 200px !important;
-  margin-left: 5px !important;
-  margin-top: -8px;
-}
-.w300px{
-  width: 300px !important;
-  margin-left: 5px !important;
-}
-.w250px{
-  width: 250 !important;
-  margin-left: 5px !important;
-}
-.w575px{
-  width: 575px !important;
-  margin-left: 5px !important;
-}
-.h225px{
-  height: 225px;
-}
-.h250px{
-  height: 250px;
-}
-.h200px{
-  height: 200px;
-}
-.h150px{
-  height: 150px;
-}
 md-input-container {margin:0;}
-.h450px{
-  height: 450px;
-}
 .addProfil{
   color: #0077bb;
   font-size: 13px;
@@ -1377,6 +1317,8 @@ md-table-container  {
   border-bottom-right-radius: 5px;
   border-bottom-left-radius: 5px;
   margin-top: -6px;
+  width: 97%;
+  margin-left: 16px;
 }
 .rondVert{
   height:20px;
@@ -1412,4 +1354,145 @@ tr:nth-child(odd):hover td {
 }
 .addUserAnim.ng-leave{
   -webkit-animation-duration:0s;
+}
+.img_profil{
+
+}
+.clear{clear:both;}
+.margin-left{
+  margin-left: 40px !important;
+}
+
+@media (min-width:200px) and (max-width: 400px)
+{
+    .right_profil
+    {
+      float: left;
+      margin-left: 10px;
+    }
+    .radio_generic{
+      margin-left: 40px;
+    }
+    .select_container{
+      min-width: 40px;
+    }
+    .margin-left{
+      margin-left: 40px;
+    }
+    .clear{
+      clear:both;
+    }
+    .h1profil {
+    font-size: 16px;
+    }
+    .img_profil{
+      width: 150px;
+    }
+
+}
+@media (min-width:400px) and (max-width: 500px)
+{
+    .right_profil
+    {
+      float: left;
+      margin-left: 10px;
+    }
+    .radio_generic{
+      margin-left: 40px ;
+    }
+    .select_container{
+      min-width: 40px;
+    }
+    .margin-left{
+      margin-left: 40px;
+    }
+    .clear{clear:both;}
+    .img-header_tp {
+    height: 55px;
+    }
+    .h1profil {
+    font-size: 20px;
+    }
+
+}
+@media  (min-width:500px) and (max-width: 641px)
+{
+    .right_profil
+    {
+      float: left;
+      margin-left: 10px;
+    }
+    .radio_generic{
+      margin-left: 40px;
+    }
+    .select_container{
+      min-width: 40px;
+    }
+    .margin-left{
+      margin-left: 40px;
+    }
+    .clear{clear:both;}
+    .img_profil{
+      width: 150px !important;
+    }
+    .img-header_tp {
+    height: 55px;
+    }
+    .h1profil {
+    font-size: 26px;
+    }
+
+}
+@media  (min-width:641px) and (max-width: 770px)
+{
+    .right_profil
+    {
+      float: left;
+      margin-left: 10px;
+    }
+    .radio_generic{
+      margin-left: 40px;
+    }
+    .select_container{
+      min-width: 40px;
+    }
+    .margin-left{
+      margin-left: 40px;
+    }
+    .clear{clear:both;}
+    .img_profil{
+      width: 165px !important;
+    }
+    .img-header_tp {
+    height: 55px;
+    }
+    .h1profil {
+    font-size: 26px;
+    }
+
+}
+@media (min-width:770px) and (max-width: 1020px)
+{
+    .right_profil
+    {
+      float: left;
+      margin-left: 10px;
+    }
+    .radio_generic{
+      margin-left: 40px;
+    }
+    .select_container{
+      min-width: 40px;
+    }
+    .margin-left{
+      margin-left: 40px;
+    }
+    .clear{clear:both;}
+    .h1profil {
+    font-size: 35px;
+    }
+    .img_profil{
+      width: 150px;
+    }
+
 }
