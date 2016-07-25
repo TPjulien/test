@@ -15,6 +15,8 @@ request.defaults({jar: true});
 var j = request.jar();
 
 module.exports = function(router, connection) {
+
+    insertLog("test1", "test2");
     var table_password = "user_password";
     var table_username = "username";
     var table_login    = "user_info";

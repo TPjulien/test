@@ -2,10 +2,11 @@ var mysql = require('mysql');
 var geoip = require('geoip-lite');
 
 module.exports = function(router, connection) {
-    router.route('/rules/ip')
+    router.route('/log')
         .post(function(req, res) {
             var getIp    = req.connection.remoteAddress;
             var dataInfo = geoip.lookup(getIp);
+            var date     = new Date();
             var query    = "INSERT INTO ?? \
                             (??,??,??,??,??,??) \
                             VALUES (?,?,?,?,?,?)"

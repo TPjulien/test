@@ -42,10 +42,17 @@ app.use(bodyParser.json());
 var port   = process.env.PORT || 3000;
 var router = express.Router();
 
+// function pour les logs
+function insertLog(req, res) {
+    console.log("hello !")
+    // var get_ip    = req.connection.remoteAddress;
+    // var data_info = geoip.lookup(getIp);
+    // var date      = new Date();
+}
 
 // debut des routes  ----------------------------------------------------------------------------------
 // on n'a pas besoin de proteger la route d'authentification
-require('./app/routes/loginRoute')(router, connection);
+require('./app/routes/loginRoute')(router, connection, logInsert);
 
 // on verifie le token auth pour les autres routes
 router.use(function(req, res, next) {
@@ -72,11 +79,11 @@ router.use(function(req, res, next) {
 });
 
 // require des routes nécesittant un token valide
-require('./app/routes/templateRoute')     (router, connection);
-require('./app/routes/pdfRoute')          (router, connection);
-require('./app/routes/rules')             (router, connection);
-require('./app/routes/ipRoute')           (router, connection);
-require('./app/routes/profilRoute')       (router, connection);
+require('./app/routes/templateRoute')     (router, connection, logInsert);
+require('./app/routes/pdfRoute')          (router, connection, logInsert);
+require('./app/routes/rules')             (router, connection, logInsert);
+require('./app/routes/ipRoute')           (router, connection, logInsert);
+require('./app/routes/profilRoute')       (router, connection, logInsert);
 
 app.use('/api', router);
 
