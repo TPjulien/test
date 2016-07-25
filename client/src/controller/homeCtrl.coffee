@@ -35,9 +35,10 @@ tableau
       $scope.id_number = id
 
 
-    $scope.goTO = (id, view, view_label) ->
+    $scope.goTO = (site_id, view_id, view_label) ->
       $mdSidenav('left').close()
-      path = 'home/dashboard/' + id + '/' + view + '/1/normal'
+      # revoir pourquoi 1/normal
+      path = 'home/dashboard/' + site_id + '/' + view_id + '/1/normal'
       $location.path path
 
     $scope.getColor = (color) ->
@@ -58,7 +59,7 @@ tableau
         return "slideLeft"
       else
         return "slideRight"
-
+        #encoder url
     $http
         method: 'GET'
         url:    options.api.base_url + '/getViewSite' + '/' + decode[0].site_id + '/' + decode[0].user_auth

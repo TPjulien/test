@@ -22,18 +22,6 @@ tableau
         counter          = 0
         $scope.testFacture(0, 50)
 
-    # $scope.downloadPdf = (selected) ->
-    #     $http
-    #         method      : "GET"
-    #         url         : options.api.base_url + '/downloadPDFinserm/' + selected
-    #         responseType: 'arraybuffer'
-    #     .success (result) ->
-    #         myblob  = new Blob([result], { type: 'application/pdf' })
-    #         blobURL = ( window.URL || window.webkitURL).createObjectURL(myblob)
-    #         anchor  = document.createElement("a")
-    #         anchor.download = selected + '.pdf'
-    #         anchor.href = blobURL
-    #         anchor.click()
     $scope.downloadPdf = (selected) ->
         $http
             method      : "GET"
@@ -46,19 +34,6 @@ tableau
             anchor.download = selected + '.pdf'
             anchor.href = blobURL
             anchor.click()
-
-
-
-    # $scope.watchPdf = (selected) ->
-    #     $http
-    #         method      : "GET"
-    #         url         : options.api.base_url + '/downloadPDFinserm/' + selected
-    #         responseType: 'arraybuffer'
-    #     .success (result) ->
-    #         console.log result
-    #         file           = new Blob([result], { type: 'application/pdf'})
-    #         fileUrl        = URL.createObjectURL(file)
-    #         $window.open(fileUrl,'C-Sharpcorner', 'width=600,height=800')
 
     $scope.watchPdf = (selected) ->
         $http
@@ -117,19 +92,6 @@ tableau
 
     getFilter()
 
-    # $scope.testFacture = (min, max) ->
-    #     $http
-    #       method: "GET"
-    #       url: options.api.base_url + '/insermPDF/' + search_type + '/' + search_num_invoice + '/' + search_price_min + '/' + search_price_max + '/' + min + '/' + max + '/' + search_name + '/' + search_date_min + '/' + search_date_max
-    #     .success (result) ->
-    #       console.log result
-    #       number  = 0
-    #       while number < result.length
-    #         $scope.data.push ({num: result[number]})
-    #         number++
-    #       counter = result.length
-    #     .error (err) ->
-    #       console.log err
     $scope.testFacture = (min, max) ->
         $http
           method: "GET"
@@ -215,13 +177,6 @@ tableau
           newName = "Information indisponible"
       else
           newName = name
-
-    # $scope.getColor = (type) ->
-    #   color: undefined
-    #   if type == "Facture"
-    #       color = "color: #2196F3"
-    #   else
-    #       color = "color: #F44336"
 
     $scope.getColor = (type) ->
       color: undefined

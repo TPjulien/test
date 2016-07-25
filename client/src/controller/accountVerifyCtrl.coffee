@@ -21,12 +21,8 @@ tableau
     $scope.backToCommu = () ->
         store.remove 'JWT'
         $location.path "/login/account"
-    #
-    # $scope.backToCommu = () ->
-    #     $location.path "/login/comunity/" + username
 
     $scope.user_image_url       = '/img/user_account.png'
-    # $scope.user_image_url = 'https://media.licdn.com/mpr/mpr/shrinknp_200_200/p/3/005/082/37d/3e8b4a2.jpg'
     $scope.background_image_url = '/img/wallpaper_account.jpg'
 
     $scope.login = (ev) ->
@@ -45,8 +41,6 @@ tableau
                 password: $scope.password
             }
         .success (data) ->
-            # $mdDialog.hide()
-            # ipFct.insertDataIp("Login session")
             store.set('JWT', data.token)
             $location.path "/home"
         .error (err) ->

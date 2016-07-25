@@ -2,7 +2,7 @@ tableau
 .factory 'logoutFct', (SweetAlert, $location, store, $rootScope) ->
     logOut: ->
         SweetAlert.swal {
-                  title: "Deconnexion"
+                  title: "Déconnexion"
                   text:  "Ceci mettra fin à votre session, continuer ?"
                   type:  "warning"
                   showCancelButton: true

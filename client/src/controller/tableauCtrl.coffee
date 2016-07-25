@@ -1,6 +1,7 @@
 tableau
   .controller 'tableauCtrl', ($scope, $http, $sce) ->
       $scope.display = "none"
+      console.log "tableau loaded !"
       # console.log $parent.$scope
       # url = null
       # $scope.trustHtml = (token, link) ->
