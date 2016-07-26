@@ -20,13 +20,13 @@ var connection = mysql.createConnection({
     debug:    true
 });
 
-var credentials = {
-    key:  fs.readFileSync('/etc/ssl/tp_control/ia.key'),
-    cert: fs.readFileSync('/etc/ssl/tp_control/tp-control_travelplanet_fr.crt'),
-    ca:   fs.readFileSync('/etc/ssl/tp_control/DigiCertCA.crt'),
-    requestCert:        true,
-    rejectUnauthorized: false
-};
+// var credentials = {
+//     key:  fs.readFileSync('/etc/ssl/tp_control/ia.key'),
+//     cert: fs.readFileSync('/etc/ssl/tp_control/tp-control_travelplanet_fr.crt'),
+//     ca:   fs.readFileSync('/etc/ssl/tp_control/DigiCertCA.crt'),
+//     requestCert:        true,
+//     rejectUnauthorized: false
+// };
 
 connection.connect(function(err) {
     if (err)
@@ -44,7 +44,7 @@ var router = express.Router();
 
 // debut des routes  ----------------------------------------------------------------------------------
 // on n'a pas besoin de proteger la route d'authentification
-require('./app/routes/loginRoute')(router, connection, logInsert);
+require('./app/routes/loginRoute')(router, connection);
 
 // on verifie le token auth pour les autres routes
 router.use(function(req, res, next) {
@@ -71,16 +71,16 @@ router.use(function(req, res, next) {
 });
 
 // require des routes nécesittant un token valide
-require('./app/routes/templateRoute')     (router, connection, logInsert);
-require('./app/routes/pdfRoute')          (router, connection, logInsert);
-require('./app/routes/rules')             (router, connection, logInsert);
-require('./app/routes/ipRoute')           (router, connection, logInsert);
-require('./app/routes/profilRoute')       (router, connection, logInsert);
+require('./app/routes/templateRoute')     (router, connection);
+require('./app/routes/pdfRoute')          (router, connection);
+require('./app/routes/rules')             (router, connection);
+require('./app/routes/ipRoute')           (router, connection);
+require('./app/routes/profilRoute')       (router, connection);
 
 app.use('/api', router);
 
 var httpServer  = http.createServer(app);
-var httpsServer = https.createServer(credentials, app);
+// var httpsServer = https.createServer(credentials, app);
 
 httpServer.listen(3001);
 httpsServer.listen(3254);
