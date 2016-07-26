@@ -68,9 +68,9 @@ tableau
     $scope.config =
       itemsPerPage: 5
       fillLastPage: true
-    $scope.required = true;git 
+    $scope.required = true
 
-#phone
+    #phone
     $scope.ajouterNum = true
     $scope.phone = false
     $scope.showPanelTel = () ->
@@ -275,3 +275,45 @@ tableau
       $scope.ajouterUser = true
     $scope.hidePanelUser = () ->
       $scope.ajouterUser = false
+
+    toArray = (object) ->
+        data = []
+        i = 0
+        while i < object.length
+            data.push(object[i].nicename)
+            i++
+        return data
+
+    toObject = (arr) ->
+        rv = []
+        i = 0
+        while i < arr.length
+          # rv[i].nicename = null
+          rv[i] =
+            nicename: arr[i]
+          ++i
+        rv
+
+    find = (key, array) ->
+      # The variable results needs var in this case (without 'var' a global variable is created)
+      results = []
+      i       = 0
+      while i < array.length
+        if array[i].indexOf(key) == 0
+          results.push array[i]
+        i++
+      results
+
+    arrayObjectIndexOf = (object, searchTerm) ->
+        console.log angular.uppercase(searchTerm)
+        if !searchTerm
+            console.log "no text"
+        else
+            getArray = toArray(object)
+            result   = find(searchTerm, getArray)
+            result2  = toObject(result)
+            return result2
+
+    $scope.querySearch = (query) ->
+        result = arrayObjectIndexOf($scope.country_phone, query)
+        return result

@@ -238,6 +238,9 @@
                     <span class="addProfil link-icon__text"><md-icon class="logo_lock" md-svg-icon="img/icons/bleed.svg"></md-icon>Ajouter un numéro de téléphone</span>
                   </div>
                   <div class="row">
+                    <md-autocomplete md-selected-item="selectedItem" md-search-text="searchText" md-items="item in querySearch(searchText)" md-item-text="item.nicename">
+                      <span md-highlight-text="searchText">{{item.nicename}}</span>
+                    </md-autocomplete>
                     <form ng-submit="submitNumPhone()">
                       <div class="telephone panel" ng-if="phone">
                         <div class="panel-header">Ajouter un numéro de téléphone<md-icon ng-click="hidePanelTel()" class="right logo_lock" md-svg-icon="img/icons/delete-button.svg"></md-icon></div>

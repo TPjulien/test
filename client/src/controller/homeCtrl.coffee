@@ -111,6 +111,12 @@ tableau
         .then ->
       ), 200)
 
+
+    createFilterFor = (query) ->
+        lowercaseQuery = angular.lowercase(query)
+        filterFn = (state) ->
+            state.value.indexOf(lowercaseQuery) == 0
+            
     $scope.toggleLeft = buildDelayedToggler('left')
 
     user_role = 'Manager'
