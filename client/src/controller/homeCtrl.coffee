@@ -113,14 +113,16 @@ tableau
 
     $scope.toggleLeft = buildDelayedToggler('left')
 
-
+    user_role = 'Manager'
+    site_id   = 'Q1CNQ1CN'
+    view_id   = 1
     $http
         method: 'POST'
         url:    options.api.base_url + '/showEmbed'
         data:
-            user_role: 'Manager'
-            site_id:   'Q1CNQ1CN'
-            view_id:   '1'
+            user_role: user_role
+            site_id:   site_id
+            view_id:   view_id
     .success (data) ->
         console.log data
     .error (err) ->
