@@ -5,17 +5,17 @@
         <div id="admin" class="panel-header">Administateur<md-icon class="right" md-svg-icon="img/icons/admin.svg"></md-icon></div>
         </br>
         <div class="row">
-          <label class="col-md-3 labelProfil ">Selectionner une communauté de voyageur</label>
-          <div class="col-md-3">
-            <md-input-container class="">
+          <label class="col-md-3 col-xs-12 labelProfil ">Selectionner une communauté de voyageur</label>
+          <div class="col-md-3 col-xs-12">
+            <md-input-container class="margin-left">
               <md-select ng-change='getusersCommunity(profils.site_id)'aria-label="chooseCommunity"  name="chooseCommunity" ng-model="chooseCommunity" >
                 <md-option ng-repeat="oneCommunity in community track by $index" value="{{oneCommunity}}">{{oneCommunity.SITE_LIBELLE}}</md-option>
               </md-select>
             </md-input-container>
           </div>
           <div class="addUserAnim" ng-if="usersCommunity">
-            <label class="col-md-2 labelProfil">Ajouter un voyageur à la communauté</label>
-            <div class="col-md-4">
+            <label class="col-md-2 col-xs-12 labelProfil">Ajouter un voyageur à la communauté</label>
+            <div class="col-md-4 col-xs-12">
               <div ng-click="showPanelUser()" class="add link-icon">
                 <span class="addProfil link-icon__text"><md-icon class="logo_lock"md-svg-icon="img/icons/bleed.svg"></md-icon>Ajouter un voyageur à la communauté</span>
               </div>
@@ -32,7 +32,7 @@
               </div>
               <md-table-container class="col-md-12" style="width:100%">
                 <table md-table ng-model="selected" class="tabSearchVoyageur">
-                  <thead md-head md-order="query.order" md-on-reorder="getDesserts">
+                  <thead md-head md-order="query.order" >
                     <tr md-row>
                       <th md-column>ID</th>
                       <th md-column>Nom</th>
@@ -55,35 +55,35 @@
             </div>
             <div class="addUserAnim col-md-12" ng-if="ajouterUser == true">
               <div class="panel">
-                <div class="panel-header">Ajouter un voyageur {{chooseCommunity.SITE_LIBELLE}} <md-icon ng-click="hidePanelUser()" class="right logo_lock" md-svg-icon="img/icons/delete-button.svg"></md-icon></div>
-                <div class="col-md-2">
-                  <label  class="right labelProfil">Nom</label>
+                <div class="panel-header panel-header_min">Ajouter un voyageur {{chooseCommunity.SITE_LIBELLE}} <md-icon ng-click="hidePanelUser()" class="right logo_lock" md-svg-icon="img/icons/delete-button.svg"></md-icon></div>
+                <div class="col-md-2 col-xs-12">
+                  <label class="right_profil labelProfil">Nom</label>
                 </div>
-                <div class=" col-md-4">
+                <div class=" col-md-4 col-xs-12">
                   <div class=" ">
-                    <input class="input_generic" name="chargeVoy" ng-model="user.nomChargeVoy" type="text" ng-minlength="1" ng-maxlength="30" class="validate" >
+                    <input class="input_generic right_profil" name="chargeVoy" ng-model="user.nomChargeVoy" type="text" ng-minlength="1" ng-maxlength="30" class="validate" >
                   </div>
                 </div>
-                <div class="col-md-2">
-                  <label  class="right labelProfil">Prénom</label>
+                <div class="col-md-2 col-xs-12">
+                  <label  class="right_profil labelProfil">Prénom</label>
                 </div>
-                <div class=" col-md-4">
+                <div class=" col-md-4 col-xs-12">
                   <div class=" ">
                     <input class="input_generic" name="chargeVoy" ng-model="user.prenomChargeVoy" type="text" ng-minlength="1" ng-maxlength="30" class="validate" >
                   </div>
                 </div>
-                <div class="col-md-2">
-                  <label  class="right labelProfil">Identifiant</label>
+                <div class="col-md-2 col-xs-12">
+                  <label  class="right_profil labelProfil">Identifiant</label>
                 </div>
-                <div class=" col-md-4">
+                <div class=" col-md-4 col-xs-12">
                   <div class=" ">
                     <input class="input_generic" name="chargeVoy" ng-model="user.identifiantChargeVoy" type="text" ng-minlength="1" ng-maxlength="30" class="validate" >
                   </div>
                 </div>
-                <div class="col-md-2">
-                  <label  class="right labelProfil">Mail</label>
+                <div class="col-md-2 col-xs-12">
+                  <label  class="right_profil labelProfil">Mail</label>
                 </div>
-                <div class=" col-md-4">
+                <div class=" col-md-4 col-xs-12">
                   <div class=" ">
                     <input class="input_generic" name="chargeVoy" ng-model="user.mailChargeVoy" type="text" ng-minlength="1" ng-maxlength="30" class="validate" >
                   </div>
@@ -106,17 +106,16 @@
             <div class="card-image">
               <div id="wrapper" ng-switch="user.sexe">
                 <div ng-if="profils.Customer_Gender == 'M' ">
-                  <img class="img_profil" src="img/Avatar-Man.jpg">
+                  <img class="col-xs-6 img_profil" src="img/Avatar-Man.jpg">
                 </div>
                 <div ng-if="profils.Customer_Gender == 'F'">
-                  <img class="img_profil" src="img/Avatar-Woman.jpg">
+                  <img class="col-xs-6 img_profil" src="img/Avatar-Woman.jpg">
                 </div>
                 <div ng-if="profils.Customer_Gender == null">
-                  <img class="img_profil" src="img/mario.jpg">
+                  <img class="col-xs-6 img_profil" src="img/mario.jpg">
                 </div>
-                <span class="card-title">Card Title</span>
               </div>
-              <div class="card-action">
+              <div class="col-xs-6 card-action">
                 <ul class="">
                   <li>
                     <a href="#/profil/#perso" class="liensprofil">Personnel</a>
@@ -141,6 +140,17 @@
             <!-- <div class="container"> -->
               </br>
               <div class="row">
+                <div class='container-fluid'>
+                    <p></p>
+                    <b>Selected User</b>
+                    <blockquote>
+                      ID: {{selected.id}}<br/>
+                      Name: {{selected.first + ' ' + selected.last}}<br/>
+                      Age: {{selected.age}}<br/>
+                      Gender: {{selected.gender}}
+                    </blockquote>
+                    Enter a name: <input type="text" ng-model="selected" typeahead="user as (user.first + ' ' + user.last) for user in users | filter:$viewValue" />
+                </div>
                 <div class="col-md-4 col-xs-12">
                   <label class="right_profil labelProfil">Sexe <md-icon class="logo_lock" md-svg-icon="img/icons/locked-padlock.svg"></md-icon></label>
                 </div>
@@ -204,11 +214,11 @@
                     <div class="col-md-11">
                       <form ng-submit="submitMail()">
                         <div class="panel" ng-show="mail">
-                          <div class="panel-header">Ajouter un mail <md-icon ng-click="hidePanelMail()" class="right logo_lock" md-svg-icon="img/icons/delete-button.svg"></md-icon></div>
-                          <div class="col-md-4">
+                          <div class="panel-header panel-header_min">Ajouter un mail <md-icon ng-click="hidePanelMail()" class="right logo_lock" md-svg-icon="img/icons/delete-button.svg"></md-icon></div>
+                          <div class="col-md-2">
                             <label  class="labelProfil" for="mail"> Mail </label>
                           </div>
-                          <div class="col-md-8">
+                          <div class="col-md-10">
                             <input class="input_generic" name="mail" ng-model="user.mail" type="email" ng-minlength="1" ng-maxlength="30" class="validate" required>
                           </div>
                           <div class="row">
@@ -238,19 +248,20 @@
                     <span class="addProfil link-icon__text"><md-icon class="logo_lock" md-svg-icon="img/icons/bleed.svg"></md-icon>Ajouter un numéro de téléphone</span>
                   </div>
                   <div class="row">
-                    <md-autocomplete md-selected-item="selectedItem" md-search-text="searchText" md-items="item in querySearch(searchText)" md-item-text="item.nicename">
-                      <span md-highlight-text="searchText">{{item.nicename}}</span>
-                    </md-autocomplete>
                     <form ng-submit="submitNumPhone()">
                       <div class="telephone panel" ng-if="phone">
-                        <div class="panel-header">Ajouter un numéro de téléphone<md-icon ng-click="hidePanelTel()" class="right logo_lock" md-svg-icon="img/icons/delete-button.svg"></md-icon></div>
+                        <div class="panel-header panel-header_min">Ajouter un numéro de téléphone<md-icon ng-click="hidePanelTel()" class="right logo_lock" md-svg-icon="img/icons/delete-button.svg"></md-icon></div>
                         <div class="col-md-12">
-                          <label class="labelProfil" for="phone_country">Choisissez un pays:</label>
-                          <md-input-container class="wPays">
-                            <md-select ng-change='getCodeNumber(user.pays_tel)' name="pays_tel" ng-model="user.pays_tel" >
-                              <md-option  ng-repeat="country in country_phone" value="{{country.nicename}}">{{country.nicename}}</md-option>
-                            </md-select>
-                          </md-input-container>
+                          <label class="col-md-5 labelProfil label_select" for="phone_country">Choisissez un pays:</label>
+                          <div class="col-md-7">
+
+                               <input type="text" ng-model="selected" typeahead="country as (country.first + ' ' + country.last) for country in  country_phone | filter:$viewValue" />
+                            <md-input-container>
+                              <md-select ng-change='getCodeNumber(user.pays_tel)' name="pays_tel" ng-model="user.pays_tel" >
+                                <md-option  ng-repeat="country in country_phone" value="{{country.nicename}}">{{country.nicename}}</md-option>
+                              </md-select>
+                            </md-input-container>
+                          </div>
                           <label class="labelProfil" for="phone_number">Ajoutez un numéro de téléphone :</label>
                         </div>
                         <div class="col-md-2">
@@ -281,20 +292,20 @@
                 <div class="col-md-8">
                   <input class="input_generic" name="nom" ng-model="profils.numUrgence"type="text" ng-minlength="1" ng-maxlength="30" class="validate" required>
                 </div>                    <!--- Fin Parti Urgence  ----------------------------------->
-                <div class="col-md-4">    <!--- Parti valideur  ----------------------------------->
+                <div class="col-md-4 col-xs-12">    <!--- Parti valideur  ----------------------------------->
                   <label  class="right_profil labelProfil">Valideur désigné</label>
                 </div>
-                <div class=" col-md-8">
+                <div class=" col-md-8 col-xs-12">
                   <div ng-if='listValideur.length == 0 && profils.valideur.length == 0' class=" ">
-                    <p class="p_profil">Valideur Manquant</p>
+                    <p class="p_profil col-xs-12">Valideur Manquant</p>
                   </div>
                   <div ng-if='listValideur.length > 0 || profils.PhoneNumber.length > 0' class="no-phone-numbers">
                     <p class="p_profil">{{profils.valideur}}</p>
                     <p class="p_profil" ng-repeat="valideur in listValideur">{{name.valideur}}</p>
                   </div>
                   <div ng-if="ajouterValideur" ng-click="showPanelValideur()" class="add link-icon">
-                    <span class="addProfil link-icon__text">
-                      <md-icon class="logo_lock"md-svg-icon="img/icons/bleed.svg"></md-icon>
+                    <span class="col-xs-12  addProfil link-icon__text">
+                      <md-icon class="logo_lock" md-svg-icon="img/icons/bleed.svg"></md-icon>
                       Ajouter valideur
                     </span>
                   </div>
@@ -303,7 +314,7 @@
                 <div class="right col-md-10">
                   <form ng-submit="submitValideur()">
                     <div class="valideur panel" ng-if="valideur">
-                    <div class="panel-header">Rechercher & Ajouter un valideur</div>
+                    <div class="panel-header panel-header_min">Rechercher & Ajouter un valideur <md-icon ng-click="hidePanelValideur()" class="right logo_lock" md-svg-icon="img/icons/delete-button.svg"></md-icon></div>
                       <div class="col-md-5">
                         <label class="labelProfil" for="valideur">Sélectionner une communauté :</label>
                       </div>
@@ -353,35 +364,38 @@
                           </tr>
                         </table>
                       </div>
-                      <button type="submit" class="right md-raised btn btn-success" value="Submit">Ajouter</button>
-                      <button class="right md-raised btn btn-warning" ng-click="hidePanelValideur()">Fermer</button>
+                      <div class="row">
+                        <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+                          <button class="right md-raised btn btn-warning" type="submit" value="Submit">Ajouter</button>
+                        </div>
+                      </div>
                     </div>
                   </form>
                   <div class="clear"></div>
                 </div>                  <!--- Fin Parti valideur  ----------------------------------->
-                <div class="col-md-4">  <!--- Parti chargé de voyage  ----------------------------------->
+                <div class="col-md-4 col-xs-12">  <!--- Parti chargé de voyage  ----------------------------------->
                   <label  class="right_profil labelProfil">Chargés de voyage</label>
                 </div>
-                <div class=" col-md-8">
+                <div class=" col-md-8 col-xs-12">
                   <div ng-if='listChargeVoy.length == 0 && profils.ChargeVoy.length == 0' class=" ">
-                    <p class="p_profil">Chargés de voyage</p>
+                    <p class="p_profil col-xs-12">Chargés de voyage</p>
                   </div>
                   <div ng-if='listChargeVoy.length > 0 || profils.chargeVoy.length > 0' class="no-phone-numbers">
-                    <p class="p_profil">{{profils.chargeVoy}}</p>
-                    <p class="p_profil" ng-repeat="oneChargeVoy in listChargeVoy">{{name.oneChargeVoy}}</p>
+                    <p class="p_profil col-xs-12">{{profils.chargeVoy}}</p>
+                    <p class="p_profil col-xs-12" ng-repeat="oneChargeVoy in listChargeVoy">{{name.oneChargeVoy}}</p>
                   </div>
                   <div ng-if="ajouterChargeVoy" ng-click="showPanelChargeVoy()" class="add link-icon">
-                    <span class="addProfil link-icon__text">
+                    <span class="col-xs-12 addProfil link-icon__text">
                       <md-icon class="logo_lock"md-svg-icon="img/icons/bleed.svg"></md-icon>
                       Ajouter chargé de voyage
                     </span>
                   </div>
                 </div>
                 <div class="right col-md-2"></div>
-                <div class="right col-md-10">
+                <div class="right col-md-10 col-xs-12">
                   <form ng-submit="submitChargeVoy()">
                     <div class="chargeVoy panel" ng-if="chargeVoy">
-                      <div class="panel-header">Rechercher & Ajouter un chargé de voyage</div>
+                      <div class="panel-header panel-header_min">Rechercher & Ajouter un chargé de voyage<md-icon ng-click="hidePanelChargeVoy()" class="right logo_lock" md-svg-icon="img/icons/delete-button.svg"></md-icon></div>
                       <div class="col-md-5">
                         <label class="labelProfil" for="chargeVoy">Sélectionner une communauté :</label>
                       </div>
@@ -431,15 +445,18 @@
                           </tr>
                         </table>
                       </div>
-                      <button type="submit" class="right md-raised btn btn-success" value="Submit">Ajouter</button>
-                      <button class="right md-raised btn btn-warning" ng-click="hidePanelChargeVoy()">Fermer</button>
+                      <div class="row">
+                        <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+                          <button class="right md-raised btn btn-warning" type="submit" value="Submit">Ajouter</button>
+                        </div>
+                      </div>
                     </div>
                   </form>
                 </div>                  <!--- Fin Parti chargé de voyage  ----------------------------------->
-                <div class="col-md-4">  <!---Début Responsable de voyage  ----------------------------------->
+                <div class="col-md-4 col-xs-12">  <!---Début Responsable de voyage  ----------------------------------->
                   <label  class="right_profil labelProfil">Responsable de voyage préféré</label>
                 </div>
-                <div class=" col-md-8">
+                <div class=" col-md-8 col-xs-12">
                   <div ng-if='listResponsable.length == 0 && profils.Responsable.length == 0' class=" ">
                     <p class="p_profil">Responsable de voyage préféré</p>
                   </div>
@@ -448,17 +465,17 @@
                     <p class="p_profil" ng-repeat="oneResponsable in listResponsable">{{name.oneResponsable}}</p>
                   </div>
                   <div ng-if="ajouterResponsable" ng-click="showPanelResponsable()" class="add link-icon">
-                    <span class="addProfil link-icon__text">
+                    <span class="col-xs-12 addProfil link-icon__text">
                       <md-icon class="logo_lock"md-svg-icon="img/icons/bleed.svg"></md-icon>
                       Ajouter responsable de voyage préféré
                     </span>
                   </div>
                 </div>
                 <div class="right col-md-2"></div>
-                <div class="right col-md-10">
+                <div class="right col-md-10 col-xs-12">
                   <form ng-submit="submitResponsable()">
                     <div class="responsable panel" ng-if="responsable">
-                      <div class="panel-header">Rechercher & Ajouter un responsable de voyage préféré</div>
+                      <div class="panel-header panel-header_min">Rechercher & Ajouter un responsable de voyage préféré</div>
                       <div class="col-md-5">
                         <label class="labelProfil" for="chargeVoy">Sélectionner une communauté :</label>
                       </div>
@@ -517,7 +534,7 @@
                   <label  class="right_profil labelProfil">Passeport</label>
                 </div>
                 <div class=" col-md-8">
-                  <div ng-if='listPasseport.length == 0 && profils.Passeport.length == 0' class=" ">
+                  <div ng-if='listPasseport.length == 0 && profils.Passeport.length == 0' class="col-xs-12 ">
                     <p class="p_profil">Passeport</p>
                   </div>
                   <div>
@@ -527,7 +544,7 @@
                     </div>
                   </div>
                   <div ng-if="ajouterPasseport" ng-click="showPanelPasseport()" class="add link-icon">
-                    <span class="addProfil link-icon__text">
+                    <span class="col-xs-12 addProfil link-icon__text">
                       <md-icon class="logo_lock"md-svg-icon="img/icons/bleed.svg"></md-icon>
                       Ajouter un passeport
                     </span>
@@ -537,7 +554,7 @@
                 <div class="right col-md-10">
                   <form ng-submit="submitPasseport()">
                     <div class="passeport panel" ng-if="passeport">
-                      <div class="panel-header">Ajouter un passeport</div>
+                      <div class="panel-header panel-header_min">Ajouter un passeport</div>
                       <div class="col-md-2">
                         <label  class="right_profil labelProfil">Nom</label>
                       </div>
@@ -669,7 +686,7 @@
                   <div class="row">
                     <form ng-submit="submitFidelite()">
                       <div class="fidelite panel" ng-if="fidelite">
-                        <div class="panel-header">Ajouter une carte de fidélité</div>
+                        <div class="panel-header panel-header_min">Ajouter une carte de fidélité</div>
                         <div class="row">
                           <div class="col-md-4">
                             <label  class="labelProfil" for="mail"> Choississez la compagnie aérienne </label>
@@ -686,7 +703,7 @@
                         </div>
                         <div class="row">
                           <div class="col-md-4">
-                            <label  class="labelProfil" for="mail"> code carte fidélité </label>
+                            <label  class="labelProfil" for="mail"> numéro carte </label>
                           </div>
                           <div class="col-md-8">
                             <input class="input_generic" name="passeport" ng-model="user.code_fidelite" type="text" ng-minlength="1" ng-maxlength="30" class="validate" >
@@ -777,11 +794,11 @@
                   </md-input-container>
                 </div>
                 <div class="col-md-3">
-                  <label  class="right labelProfil">Carte de voyage(s)</label>
+                  <label  class="right labelProfil">Carte voyageur</label>
                 </div>
                 <div class=" col-md-9">
                   <div ng-if='listCarteVoy.length == 0 && profils.CarteVoy.length == 0'>
-                    <p class="p_profil">Carte de voyage manquante</p>
+                    <p class="p_profil">Carte voyageur manquante</p>
                   </div>
                   <div>
                     <div ng-if='listCarteVoy.length > 0 || profils.CarteVoy.length > 0' class="no-phone-numbers">
@@ -792,13 +809,13 @@
                   <div ng-if="ajouterCarteVoy" ng-click="showPanelCarteVoy()" class="add link-icon">
                     <span class="addProfil link-icon__text">
                       <md-icon class="logo_lock"md-svg-icon="img/icons/bleed.svg"></md-icon>
-                      Ajouter une carte de voyage
+                      Ajouter une carte voyageur
                     </span>
                   </div>
                   <div class="row">
                     <form ng-submit="submitCarteVoy()">
                       <div class="carteVoy panel" ng-if="carteVoy">
-                        <div class="panel-header">Ajouter une carte de voyage</div>
+                        <div class="panel-header panel-header_min">Ajouter une carte de voyage</div>
                         <div class="col-md-4">
                           <label  class="labelProfil" for="carteVoy"> Prestataire </label>
                         </div>
@@ -868,73 +885,21 @@
                       <th><label  class="labelProfil" for=""> Fournisseur </label></th>
                       <th><label  class="labelProfil" for=""> Nom de la carte </label></th>
                       <th><label  class="labelProfil" for=""> Numéro de de la carte </label></th>
-                      <th><label  class="labelProfil" for=""> Fin de validité </label></th>
                     </tr>
                     <tr>
                       <td>SNCF</td>
                       <td>Carte Grand Voyageur</td>
                       <td><input class="input_generic" name="" ng-model="user.Num_carteGrandVoy" type="text" ng-minlength="1" ng-maxlength="30" class="validate" ></td>
-                      <td>
-                        <md-input-container style="margin-right: 10px;" class="">
-                          <md-select aria-label="jours"  name="birth_jours" ng-model="user.birth_jours" >
-                            <md-option  ng-repeat="oneJours in jours"  value="{{oneJours.name}}">{{oneJours.name}}</md-option>
-                          </md-select>
-                        </md-input-container>
-                        <md-input-container class="">
-                          <md-select aria-label="mois"  name="birth_mois" ng-model="user.birth_mois" >
-                            <md-option  ng-repeat="oneMois in mois"  value="{{oneMois.name}}">{{oneMois.name}}</md-option>
-                          </md-select>
-                        </md-input-container>
-                        <md-input-container class="">
-                          <md-select  name="birth_annee" ng-model="user.birth_annee" >
-                            <md-option  ng-repeat="oneAnnee in annee"  value="{{oneAnnee.name}}">{{oneAnnee.name}}</md-option>
-                          </md-select>
-                        </md-input-container>
-                      </td>
                     </tr>
                     <tr>
                       <td>Eurostar</td>
                       <td>Programme de fidélité</td>
-                      <td><input class="input_generic" name="" ng-model="user.Num_carteEurostar" type="text" ng-minlength="1" ng-maxlength="30" class="validate"></td>
-                      <td>
-                        <md-input-container style="margin-right: 10px;" class="">
-                          <md-select aria-label="jours"  name="birth_jours" ng-model="user.birth_jours" >
-                            <md-option  ng-repeat="oneJours in jours"  value="{{oneJours.name}}">{{oneJours.name}}</md-option>
-                          </md-select>
-                        </md-input-container>
-                        <md-input-container class="">
-                          <md-select aria-label="mois"  name="birth_mois" ng-model="user.birth_mois" >
-                            <md-option  ng-repeat="oneMois in mois"  value="{{oneMois.name}}">{{oneMois.name}}</md-option>
-                          </md-select>
-                        </md-input-container>
-                        <md-input-container class="">
-                          <md-select  name="birth_annee" ng-model="user.birth_annee" >
-                            <md-option  ng-repeat="oneAnnee in annee"  value="{{oneAnnee.name}}">{{oneAnnee.name}}</md-option>
-                          </md-select>
-                        </md-input-container>
-                      </td>
+                      <td><input class="input_generic" name="" ng-model="user.Num_carteEurostar" type="text" ng-minlength="1" ng-maxlength="30" class="validate"></td>>
                     </tr>
                     <tr>
                       <td>Thalys</td>
                       <td>Thalys TheCard</td>
                       <td><input class="input_generic" name="" ng-model="user.Num_carteThalys" type="text" ng-minlength="1" ng-maxlength="30" class="validate" ></td>
-                      <td>
-                        <md-input-container style="margin-right: 10px;" class="">
-                          <md-select aria-label="jours"  name="birth_jours" ng-model="user.birth_jours" >
-                            <md-option  ng-repeat="oneJours in jours"  value="{{oneJours.name}}">{{oneJours.name}}</md-option>
-                          </md-select>
-                        </md-input-container>
-                        <md-input-container class="">
-                          <md-select aria-label="mois"  name="birth_mois" ng-model="user.birth_mois" >
-                            <md-option  ng-repeat="oneMois in mois"  value="{{oneMois.name}}">{{oneMois.name}}</md-option>
-                          </md-select>
-                        </md-input-container>
-                        <md-input-container class="">
-                          <md-select  name="birth_annee" ng-model="user.birth_annee" >
-                            <md-option  ng-repeat="oneAnnee in annee"  value="{{oneAnnee.name}}">{{oneAnnee.name}}</md-option>
-                          </md-select>
-                        </md-input-container>
-                      </td>
                     </tr>
                   </table>
                 </div>
@@ -973,7 +938,7 @@
                   <div class="row">
                     <form ng-submit="submitFideliteHotel()">
                       <div class="fideliteHotel panel" ng-if="fideliteHotel">
-                        <div class="panel-header">Ajouter une carte de fidélité</div>
+                        <div class="panel-header panel-header_min">Ajouter une carte de fidélité</div>
                         <div class="row">
                           <div class="col-md-4">
                             <label  class="labelProfil" for="mail"> Choississez le code hotel </label>

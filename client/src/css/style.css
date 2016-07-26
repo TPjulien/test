@@ -1194,6 +1194,9 @@ Use of this source code is governed by an MIT-style license that can be in found
     margin-bottom: 10px;
     height: auto;
   }
+  .panel-header_min{
+      font-weight: lighter !important;
+    }
 .panel {
     border: 1px solid #a5a5a5;
     background-color: #fff;
@@ -1211,7 +1214,11 @@ textarea.materialize-textarea:focus.valid {
   color: rgba(0, 119, 187, 0.43);
 }
 .left{  float: left; margin-left: 10px;}
-.right_profil{  float: right; margin-right: 10px;}
+.right_profil{
+   float: right;
+   margin-right: 10px;
+   text-align: right;
+ }
 .md-select-value{
   border-bottom: 5px;
 }
@@ -1362,8 +1369,11 @@ tr:nth-child(odd):hover td {
 .margin-left{
   margin-left: 40px !important;
 }
+.label_select{
+  margin-top: 10px;
+}
 
-@media (min-width:200px) and (max-width: 400px)
+@media (min-width:200px) and (max-width:400px)
 {
     .right_profil
     {
@@ -1371,7 +1381,8 @@ tr:nth-child(odd):hover td {
       margin-left: 10px;
     }
     .radio_generic{
-      margin-left: 40px;
+      margin-left: 13px;
+      font-size: 10px;
     }
     .select_container{
       min-width: 40px;
@@ -1388,9 +1399,34 @@ tr:nth-child(odd):hover td {
     .img_profil{
       width: 150px;
     }
-
+    .img-header_tp {
+    height: 55px;
+    }
+    .card .card-action {
+    padding: 0px;
+    }
+    .card .card-image img {
+    width: 50%;
+    }
+    .md-table-pagination > * {
+    height: 30px;
+    }
+    .panel{
+    padding-right: 10px;
+    }
+    .panel-header{
+    margin-right: -10px;
+    font-size: 12px;
+    }
+    .md-table-pagination{
+    width: 93%;
+    }
+    .logo_lock {
+    height: 12px;
+    width: 12px;
 }
-@media (min-width:400px) and (max-width: 500px)
+}
+@media (min-width:400px) and (max-width:500px)
 {
     .right_profil
     {
@@ -1413,9 +1449,12 @@ tr:nth-child(odd):hover td {
     .h1profil {
     font-size: 20px;
     }
+    .img_profil{
+      width: 150px !important;
+    }
 
 }
-@media  (min-width:500px) and (max-width: 641px)
+@media  (min-width:500px) and (max-width:650px)
 {
     .right_profil
     {
@@ -1443,7 +1482,7 @@ tr:nth-child(odd):hover td {
     }
 
 }
-@media  (min-width:641px) and (max-width: 770px)
+@media  (min-width:650px) and (max-width:800px)
 {
     .right_profil
     {
@@ -1467,11 +1506,36 @@ tr:nth-child(odd):hover td {
     height: 55px;
     }
     .h1profil {
-    font-size: 26px;
+    font-size: 25px !important;
     }
 
 }
-@media (min-width:770px) and (max-width: 1020px)
+@media (min-width:800px) and (max-width:1000px)
+{
+    .right_profil
+    {
+      float: left;
+      margin-left: 10px;
+    }
+    .radio_generic{
+      margin-left: 40px;
+    }
+    .select_container{
+      min-width: 40px;
+    }
+    .margin-left{
+      margin-left: 40px;
+    }
+    .clear{clear:both;}
+    .h1profil {
+    font-size: 35px;
+    }
+    .img_profil{
+      width: 150px;
+    }
+
+}
+@media (min-width:1000px) and (max-width:1200px)
 {
     .right_profil
     {

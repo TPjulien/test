@@ -1,5 +1,5 @@
 tableau
-.controller "profilCtrl",($scope,$mdDialog,$http,$q,NgTableParams) ->
+.controller "profilCtrl",($scope,$mdDialog,$http,$q,NgTableParams,$log) ->
 #Ajouter user
     $scope.ajouterUser = false
     $scope.showPanelUser = () ->
@@ -62,6 +62,13 @@ tableau
           $scope.user.phoneCode = '+' + data[0].phonecode
       .error (err) ->
           console.log err
+    country_phone = $scope.country_phone
+    createFilterFor = (query) ->
+      lowercaseQuery = angular.lowercase(query)
+      console.log lowercaseQuery
+      filterFn = (country_phone) ->
+          (country_phone.value.indexOf(lowercaseQuery) == 0)
+
 
     $scope.limitOptions = [5, 10, 15]
     $scope.selected = []
