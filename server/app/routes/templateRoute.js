@@ -30,8 +30,8 @@ module.exports = function(router, connection) {
                     res.status(404).send("Not Found");
                 else {
                   // une fois passé l'etape 1, on verifie de quel embed il s'agit, si jamais c'est un tableau ou bien autre chose qu'un tableau
-                  var request_two = "SELECT DISCTINCT(??) FROM ?? WHERE ?? = ? AND ?? =?";
-                  var table_two   = ["embed_content_type", "tp_control.embed", "SITE_ID", site_id, "VIEW_ID", view_id];
+                  var request_two = "SELECT DISCTINCT(embed_content_type) FROM ?? WHERE ?? = ? AND ?? =?";
+                  var table_two   = ["tp_control.embed", "SITE_ID", site_id, "VIEW_ID", view_id];
                   request_two     = mysql.format(request_two, table_two);
                   connection.query(request_two, function(err, result_embed_content_type) {
                       if (err)
