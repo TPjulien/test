@@ -42,14 +42,6 @@ app.use(bodyParser.json());
 var port   = process.env.PORT || 3000;
 var router = express.Router();
 
-// function pour les logs
-function insertLog(req, res) {
-    console.log("hello !")
-    // var get_ip    = req.connection.remoteAddress;
-    // var data_info = geoip.lookup(getIp);
-    // var date      = new Date();
-}
-
 // debut des routes  ----------------------------------------------------------------------------------
 // on n'a pas besoin de proteger la route d'authentification
 require('./app/routes/loginRoute')(router, connection, logInsert);

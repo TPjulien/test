@@ -5,6 +5,65 @@ var fs        = require('fs');
 
 
 module.exports = function(router, connection) {
+    // une fonction qui retourne une queryBuilder en fonction de la requete donnée
+    function queryBuilder(data) {
+        var query = "ceci est un test de query";
+        return query;
+    }
+    // structure tableau v2
+    // On utilise un post au lieu d'un GET
+    router.route('/showEmbed')
+        .post(function(req, res) {
+            // la premiere étape consiste à verifier le role de l'utilisateur
+            var role_user = req.params.user_role;
+            var view_id   = req.params.view_id;
+            var site_id   = req.params.site_id;
+            // on prepare la premiere requete pour verifier
+            var request_one = "SELECT ?? FROM ?? WHERE ?? = ? AND ?? = ? AND ?? = ?";
+            var table_one   = ["ROLE", "embed_roles", "SITE_ID", req.params.site_id, "ROLE", req.params.user_role, "VIEW_ID", req.params.view_id];
+            request_one     = mysql.format(request_one, table_one);
+            connection.query(request_one, function(err, result_roles) {
+                // si jamais il y a une erreur ou bien que le tableau est vide, on retourne un status 400, 404
+                if (err)
+                    res.status(400).send(err);
+                else if (result_roles.length == 0)
+                    res.status(404).send("Not Found");
+                else {
+                  // une fois passé l'etape 1, on verifie de quel embed il s'agit, si jamais c'est un tableau ou bien autre chose qu'un tableau
+                  var request_two = "SELECT * FROM ?? WHERE ?? = ? AND ?? =?";
+                  var table_two   = ["embed", "SITE_ID", req.params.site_id, "VIEW_ID", req.params.view_id];
+                  request_two     = mysql.format(request_two, table_two);
+                  connection.query(request_two, function(err, result_embed_content_type) {
+                      if (err)
+                          res.status(400).send(err);
+                      else {
+                          // la on regarde si c'est un tableau ou bien autre chose
+                          if (result_embed_content_type == "tableau") {
+
+                          } else if (result_embed_content_type == "datatable") {
+                              // si jamais le content_type c'est un datatable
+                              var request_datatable = "SELECT * FROM ?? WHERE ?? =? AND ?? =?";
+                              var table_datatable   = ["datatable", "SITE_ID", req.params.site_id, "VIEW_ID", req.params.view_id];
+                              request_datatable     = mysql.format(request_datatable, table_datatable);
+                              connection.query(request_datatable, function(err, result_datatable) {
+                                  if (err)
+                                      res.status(400).send(err);
+                                  else {
+                                      res.json(result_datatable);
+                                  }
+                              })
+                          } else {
+                              // dans tout les autres cas
+                              res.send("Test");
+                          }
+                      }
+                  })
+                }
+
+            })
+
+        })
+
     router.route('/getViewSite/:site/:role_id')
         .get(function(req, res) {
             var auth_id      = "ai."        + req.params.role_id;
