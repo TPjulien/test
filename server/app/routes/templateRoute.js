@@ -38,9 +38,9 @@ module.exports = function(router, connection) {
                           res.status(400).send(err);
                       else {
                           // la on regarde si c'est un tableau ou bien autre chose
-                          if (result_embed_content_type == "tableau") {
+                          if (result_embed_content_type.embed_content_type == "tableau") {
 
-                          } else if (result_embed_content_type == "datatable") {
+                          } else if (result_embed_content_type.embed_content_type == "datatable") {
                               // si jamais le content_type c'est un datatable
                               var request_datatable = "SELECT * FROM ?? WHERE ?? =? AND ?? =?";
                               var table_datatable   = ["tp_control.datatable", "SITE_ID", site_id, "VIEW_ID", view_id];
