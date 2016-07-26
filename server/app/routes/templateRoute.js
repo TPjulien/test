@@ -31,7 +31,7 @@ module.exports = function(router, connection) {
                 else {
                   // une fois passé l'etape 1, on verifie de quel embed il s'agit, si jamais c'est un tableau ou bien autre chose qu'un tableau
                   var request_two = "SELECT * FROM ?? WHERE ?? = ? AND ?? =? GROUP BY ??";
-                  var table_two   = ["SITE_ID", site_id, "VIEW_ID", view_id, "embed_content_type"];
+                  var table_two   = ["tp_control.embed", "SITE_ID", site_id, "VIEW_ID", view_id, "embed_content_type"];
                   request_two     = mysql.format(request_two, table_two);
                   connection.query(request_two, function(err, result_embed_content_type) {
                       if (err)
