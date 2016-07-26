@@ -140,17 +140,6 @@
             <!-- <div class="container"> -->
               </br>
               <div class="row">
-                <div class='container-fluid'>
-                    <p></p>
-                    <b>Selected User</b>
-                    <blockquote>
-                      ID: {{selected.id}}<br/>
-                      Name: {{selected.first + ' ' + selected.last}}<br/>
-                      Age: {{selected.age}}<br/>
-                      Gender: {{selected.gender}}
-                    </blockquote>
-                    Enter a name: <input type="text" ng-model="selected" typeahead="user as (user.first + ' ' + user.last) for user in users | filter:$viewValue" />
-                </div>
                 <div class="col-md-4 col-xs-12">
                   <label class="right_profil labelProfil">Sexe <md-icon class="logo_lock" md-svg-icon="img/icons/locked-padlock.svg"></md-icon></label>
                 </div>
@@ -254,8 +243,6 @@
                         <div class="col-md-12">
                           <label class="col-md-5 labelProfil label_select" for="phone_country">Choisissez un pays:</label>
                           <div class="col-md-7">
-
-                               <input type="text" ng-model="selected" typeahead="country as (country.first + ' ' + country.last) for country in  country_phone | filter:$viewValue" />
                             <md-input-container>
                               <md-select ng-change='getCodeNumber(user.pays_tel)' name="pays_tel" ng-model="user.pays_tel" >
                                 <md-option  ng-repeat="country in country_phone" value="{{country.nicename}}">{{country.nicename}}</md-option>

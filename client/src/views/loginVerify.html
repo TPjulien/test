@@ -3,14 +3,14 @@
       background: url('{{background_image_url}}');
       background-size: cover;
       height: 100%;">
-    <div class="z-depth-2" style="background: url('{{user_image_url}}') center no-repeat; background-color:burlywood" id = "img"> </div>
+    <div class="z-depth-2" style="background: url('{{user_image_url}}') center no-repeat; background-color:burlywood" id ="img"> </div>
   </div>
   <div class="ccol s12 s8 l8 valign-wrapper" style="height: 100%;">
     <div class="valign center" style=" width: 100%;">
       <h2 layout-padding style="
       left: -55px;
       position: relative;"
-      >Connexion</h2>
+      >Connexion{{user_image_url}}</h2>
       <form name="loginForm" ng-submit="stepVerify()">
         <md-content layout-padding style="background-color:#EEE">
           <md-input-container>
