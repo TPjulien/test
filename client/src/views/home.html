@@ -14,41 +14,22 @@
               <div ng-click="logOut()" class="toolbar__right">
                 <md-icon style="margin-right:10px;"class="logo_lock" md-svg-icon="img/icons/power.svg"></md-icon>
               </div>
-              <!-- <lx-dropdown lx-position="right" lx-over-toggle="true">
-                  <lx-dropdown-menu>
-                      <ul>
-                          <li><a class="dropdown-link">Action</a></li>
-                          <li><a class="dropdown-link">Another action</a></li>
-                          <li><a class="dropdown-link">Something else here</a></li>
-                          <li class="dropdown-divider"></li>
-                          <li><a class="dropdown-link dropdown-link--is-header">Header</a></li>
-                      </ul>
-                  </lx-dropdown-menu>
-              </lx-dropdown> -->
           </div>
           <div   flex-item="1" class="hide-on-med-and-down toolbar__right">
             <div class="toolbar__right img-header"></div>
           </div>
+
         </div>
+        <div class="travel-colorR"></div>
     </nav>
   </div>
 
 <!-- mini nav-bar  pas deux ng-repeat ( 1 ng repeat global) faire un if avec un booleen-->
-<div show-gt-md class="menu blureffect fadein fadeout md-whiteframe-1dp" style="background-color: #FFFFFF; max-width: 80px;">
+<div show-gt-md class="menu blureffect fadein fadeout md-whiteframe-1dp" style=" max-width: 80px;">
   <md-toolbar style="background-color:transparent; padding-top: 25px;">
       <span flex></span>
       <div ng-repeat="menu in viewMenu">
         <div ng-if="menu.view_label !='Business Intelligence'" tooltips tooltip-template="{{menu.view_label}}" tooltip-side="right" ng-click="goTO(menu.site_id, menu.view_id, menu.view_label)"  class="tile-small" data-period="{{menu.view_position}}" data-duration="250" data-role="tile" data-effect="{{menu.animation}}">
-            <div class="tile-content">
-                <div class="live-slide tiles_size" style="{{getColor(menu.view_color)}};" layout-padding="">
-                    <img ng-src="{{getImage(menu.view_icon)}}">
-                </div>
-                <div class="live-slide tiles_size" style="{{getColor(menu.view_color)}};" layout-padding="">
-                    <img ng-src="{{getImage(menu.view_icon)}}">
-                </div>
-            </div>
-        </div>
-        <div ng-if="menu.view_label =='Business Intelligence'" tooltips tooltip-template="{{menu.view_label}}" tooltip-side="right" ng-click="getNumber(menu)" ng-morph-overlay="settings" class="tile-small" data-period="{{menu.view_position}}" data-duration="250" data-role="tile" data-effect="{{menu.animation}}">
             <div class="tile-content">
                 <div class="live-slide tiles_size" style="{{getColor(menu.view_color)}};" layout-padding="">
                     <img ng-src="{{getImage(menu.view_icon)}}">

@@ -12,17 +12,6 @@ tableau
 
     $mdDialog.hide()
 
-    $scope.goToList = (site_id, view_id, embed_id) ->
-        $window.location.reload();
-        path        = '/home/dashboard/' + site_id + '/' + view_id + '/' + embed_id + '/list'
-        $location.path path
-
-    $scope.settings =
-        closeEl: '.close'
-        overlay:
-            templateUrl: 'modals/tableau_type.html'
-            scroll:      false
-
     $scope.getNumber = (id) ->
       $http
           method: 'GET'
@@ -116,7 +105,7 @@ tableau
         lowercaseQuery = angular.lowercase(query)
         filterFn = (state) ->
             state.value.indexOf(lowercaseQuery) == 0
-            
+
     $scope.toggleLeft = buildDelayedToggler('left')
 
     user_role = 'Manager'
