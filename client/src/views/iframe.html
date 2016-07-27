@@ -1,1 +1,9 @@
-<iframe class="col-md-12" style="height:1000px; border: none;" ng-src="https://e-travelmanagement22.amadeus.com/login/pole-emploi"></iframe>
+<form class="mahefa-class" id="loginForm" target="myFrame" action="https://e-travelmanagement22.amadeus.com/portalApp/" method="POST">
+  <input type="hidden" name="LOGINNAME"  value="{{LOGINNAME}}">
+  <input type="hidden" name="SITE"       value="{{SITE}}">
+  <input type="hidden" name="LANGUAGE"   value="{{LANGUAGE}}">
+  <input type="hidden" name="LOGIN_TYPE" value="{{LOGIN_TYPE}}">
+  <input type="hidden" name="PASSWORD"   value="{{PASSWORD}}">
+  <input id="formSubmit" Type="submit"   value="submit" style="display:none">
+</form>
+<iframe class="col-md-12" style="height:1000px; border: none;" src="" name="myFrame"></iframe>
