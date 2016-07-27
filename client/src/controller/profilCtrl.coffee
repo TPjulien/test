@@ -312,7 +312,7 @@ tableau
       results
 
     arrayObjectIndexOf = (object, searchTerm) ->
-        console.log angular.uppercase(searchTerm)
+        searchTerm = searchTerm.substring(0,1).toUpperCase()+searchTerm.substring(1);
         if !searchTerm
             console.log "no text"
         else
