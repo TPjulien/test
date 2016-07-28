@@ -20,8 +20,8 @@ module.exports = function(router, connection) {
         })
     router.route('/railClass')
         .get(function(req, res) {
-            var query_one = "SELECT DISTINCT ?? FROM ??";
-            var table_one = ["railClass", "profils.view_profil_lvl1"];
+            var query_one = "SELECT DISTINCT ?? FROM ?? WHERE ?? IS NOT NULL";
+            var table_one = ["railClass", "profils.view_profil_lvl1","railClass"];
             query_one = mysql.format(query_one, table_one);
             connection.query(query_one, function(err, rows) {
                 if (err)
