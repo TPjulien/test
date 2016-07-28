@@ -257,9 +257,20 @@
                 </div>
                 <div class="col-md-8">
                   <md-input-container class="select_generic">
-                    <md-select aria-label=""  name="" ng-model="user.pref_avion_Langue" >
+                    <md-select aria-label="LanguePrefere"  name="" ng-model="profils.AirPrefLangID" >
                       <md-option value="FR">Français</md-option>
                       <md-option value="GB">Anglais</md-option>
+                    </md-select>
+                  </md-input-container>
+                </div>
+                <div class="col-md-3">
+                  <label class="right labelProfil">Devise préféré</label>
+                </div>
+                <div class="col-md-9">
+                  <md-input-container class="">
+                    <md-select aria-label="jours"  name="birth_jours" ng-model="user.pref_avion_devise" >
+                      <md-option value="eur">Euro (€)</md-option>
+                      <md-option value="dollar">Dollar ($)</md-option>
                     </md-select>
                   </md-input-container>
                 </div>
@@ -602,17 +613,7 @@
               <div class="row">
               </br>
 
-                <div class="col-md-3">
-                  <label class="right labelProfil">Devise </label>
-                </div>
-                <div class="col-md-9">
-                  <md-input-container class="">
-                    <md-select aria-label="jours"  name="birth_jours" ng-model="user.pref_avion_devise" >
-                      <md-option value="eur">EURO</md-option>
-                      <md-option value="dollar">Dollar</md-option>
-                    </md-select>
-                  </md-input-container>
-                </div>
+
                 <div class="col-md-12">
                   <h4 class="h4bleu">Préférences Avion</h4>
                 </div>
