@@ -6,9 +6,13 @@ module.exports = function(router, connection) {
             var query_one    = "SELECT \
                                ??, ??, ??, \
                                ??, ??, ??, ??, ??, ??, \
+                               ??, ??,  \
                                ??, ??, ??, ??, ?? \
                                FROM ?? em \
                                LEFT JOIN ?? cu \
+                                  ON ?? = ?? \
+                                  AND ?? = ?? \
+                              LEFT JOIN ?? airp \
                                   ON ?? = ?? \
                                   AND ?? = ?? \
                                LEFT JOIN ?? ph \
@@ -17,11 +21,15 @@ module.exports = function(router, connection) {
                                WHERE ?? = ?";
             var table_one    = ["em.site_id",         "em.uid",             "em.Email",
                                 "cu.Customer_Gender", "Customer_BirthDate", "Customer_surName",    "Customer_NameTitle",   "Customer_MiddleName", "Customer_GivenName",
+                                "airp.AirPrefLangID",    "airp.AirSeatingPref",
                                 "ph.PhoneUseType",    "ph.PhoneTechType",   "ph.PhoneCountryCode", "ph.PhoneAreaCityCode", "ph.PhoneNumber",
                                 "profils.email",
                                 "profils.customer",
                                     "em.site_id", "cu.site_id",
                                     "em.uid",     "cu.uid",
+                                "profils.air_pref",
+                                    "em.site_id", "airp.site_id",
+                                    "em.uid",     "airp.uid",
                                 "profils.phone",
                                     "em.site_id", "ph.site_id",
                                     "em.uid",     "ph.uid",

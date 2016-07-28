@@ -12,6 +12,7 @@ tableau
         url: options.api.base_url + '/profils/blyweereri'
     .success (data) ->
         $scope.profils = data[0]
+        console.log $scope.profils
     .error (err) ->
         console.log err
 
@@ -62,6 +63,7 @@ tableau
           $scope.user.phoneCode = '+' + data[0].phonecode
       .error (err) ->
           console.log err
+
 
     $scope.limitOptions = [5, 10, 15]
     $scope.selected = []
