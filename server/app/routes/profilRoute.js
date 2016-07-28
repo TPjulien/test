@@ -5,7 +5,7 @@ module.exports = function(router, connection) {
         .get(function(req, res) {
             var query_one    = "SELECT \
                                ??, ??, ??, \
-                               ??, ??, ??, ??, ??, ??, \
+                               ??, ??, ??, ??, ??, ??, ??, \
                                ??, ??,  \
                                ??, ??, ??, ??, ?? \
                                FROM ?? em \
@@ -20,7 +20,7 @@ module.exports = function(router, connection) {
                                   AND ?? = ?? \
                                WHERE ?? = ?";
             var table_one    = ["em.site_id",         "em.uid",             "em.Email",
-                                "cu.Customer_Gender", "Customer_BirthDate", "Customer_surName",    "Customer_NameTitle",   "Customer_MiddleName", "Customer_GivenName",
+                                "cu.Customer_Gender", "Customer_BirthDate", "Customer_surName",    "Customer_NameTitle",   "Customer_MiddleName", "Customer_GivenName","Customer_Currency",
                                 "airp.AirPrefLangID",    "airp.AirSeatingPref",
                                 "ph.PhoneUseType",    "ph.PhoneTechType",   "ph.PhoneCountryCode", "ph.PhoneAreaCityCode", "ph.PhoneNumber",
                                 "profils.email",
