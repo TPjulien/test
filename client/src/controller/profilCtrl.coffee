@@ -16,6 +16,18 @@ tableau
     .error (err) ->
         console.log err
 
+# Appel pour select railClass
+    $http
+        method: 'GET'
+        url: options.api.base_url + '/railClass'
+    .success (data) ->
+        $scope.railClass = data
+        console.log '-----------------'
+        console.log $scope.railClass
+        console.log '-----------------'
+    .error (err) ->
+        console.log err
+
     $http
         method: 'GET'
         url:    options.api.base_url + '/community'

@@ -1118,6 +1118,7 @@ Use of this source code is governed by an MIT-style license that can be in found
       color: #757575;
       font-size: 12px;
       font-weight: normal;
+      margin-top: 10px;
 }
 .panel-header{
     background-color: #0077bb;
@@ -1176,7 +1177,7 @@ md-input-container {margin:0;}
 .h4bleu{
   color:#0077bb;
   border-bottom: 1px solid #0077bb;
-  width: 60%;
+  width: 100%;
 }
 .tabProfil{
   border: 1px solid white;
