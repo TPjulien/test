@@ -763,9 +763,26 @@
                   <div class="col-md-9">
                     <md-input-container class="select_generic">
                       <md-select aria-label="railSeatPosition"  name="railSeatPosition" ng-model="profils.railSeatPosition" >
-                        <md-option ng-repeat="OnerailSeatPosition in railSeatPosition" value="{{OnerailSeatPosition.railSeatPosition}}">{{OnerailSeatPosition.railSeatPosition}}</md-option>
+                        <md-option ng-repeat="OnerailSeatPosition in railSeatPosition" value="{{OnerailSeatPosition.RailSeatPosition}}">{{OnerailSeatPosition.RailSeatPosition}}</md-option>
                       </md-select>
                     </md-input-container>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-3">
+                    <label class="right_profil labelProfil">Gare de Départ préférée</label>
+                  </div>
+                  <div class="col-md-9">
+
+                    <md-autocomplete class="select_generic" md-selected-item="selectedItem" md-search-text="searchText" md-items="OnerailDepartureStation in querySearch(searchText)" md-item-text="railDepartureStation.RailDepartureStation">
+                      <span md-highlight-text="searchText">{{OnerailDepartureStation.RailDepartureStation}}</span>
+                    </md-autocomplete>
+
+                    <!-- <md-input-container class="select_generic">
+                      <md-select aria-label="railSeatPosition"  name="railSeatPosition" ng-model="profils.railSeatPosition" >
+                        <md-option ng-repeat="OnerailSeatPosition in railSeatPosition" value="{{OnerailSeatPosition.RailSeatPosition}}">{{OnerailSeatPosition.RailSeatPosition}}</md-option>
+                      </md-select>
+                    </md-input-container> -->
                   </div>
                 </div>
                 <div class="col-md-3">
