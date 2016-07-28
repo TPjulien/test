@@ -1,8 +1,8 @@
 <div class="container">
   <div ng-cloak>
-    <md-content class="md-padding">
+    <md-content style="background-color: #EEE;" class="md-padding">
+      <div id="admin" class="panel-header">Gestionnaire de profil<md-icon class="right" md-svg-icon="img/icons/admin.svg"></md-icon></div>
       <div class="panel">
-        <div id="admin" class="panel-header">Gestionnaire de profil<md-icon class="right" md-svg-icon="img/icons/admin.svg"></md-icon></div>
         </br>
         <div class="row">
           <label class="col-md-3 col-xs-12 labelProfil ">Selectionner une communauté de voyageur</label>
@@ -102,7 +102,7 @@
       <h1 class="h1profil md-display-2">Modifier le profil de {{profils.Customer_surName }} {{profils.Customer_GivenName}}</h1>
       <div class="row">
         <div class="col-md-3">
-          <div class="card">
+          <div class="backgroung_grey card">
             <div class="card-image">
               <div id="wrapper" ng-switch="user.sexe">
                 <div ng-if="profils.Customer_Gender == 'M' ">
@@ -135,8 +135,8 @@
           </div>
         </div>
         <div class="col-md-9">
+          <div id="perso" class="panel-header">Personnel <md-icon class="right" md-svg-icon="img/icons/spy.svg"></md-icon><div class="clear"></div></div>
           <div class="panel"> <!--- Début Panel personnel  ----------------------------------->
-            <div id="perso" class="panel-header">Personnel <md-icon class="right" md-svg-icon="img/icons/spy.svg"></md-icon><div class="clear"></div></div>
             <!-- <div class="container"> -->
               </br>
               <div class="row">
@@ -251,28 +251,32 @@
                       </div>
                     </form>
                   </div>
-                </div>                    <!--- Fin Parti NumTelephone  ----------------------------------->
-                <div class="col-md-4">
-                  <label class="right_profil labelProfil">Langue préféré</label>
                 </div>
-                <div class="col-md-8">
-                  <md-input-container class="select_generic">
-                    <md-select aria-label="LanguePrefere"  name="" ng-model="profils.AirPrefLangID" >
-                      <md-option value="FR">Français</md-option>
-                      <md-option value="GB">Anglais</md-option>
-                    </md-select>
-                  </md-input-container>
+                <div class="row">                    <!--- Fin Parti NumTelephone  ----------------------------------->
+                  <div class="col-md-4">
+                    <label class="right_profil labelProfil">Langue préféré</label>
+                  </div>
+                  <div class="col-md-8">
+                    <md-input-container class="select_generic">
+                      <md-select aria-label="AirPrefLangID"  name="AirPrefLangID" ng-model="profils.AirPrefLangID" >
+                        <md-option value="FR">Français</md-option>
+                        <md-option value="GB">Anglais</md-option>
+                      </md-select>
+                    </md-input-container>
+                  </div>
                 </div>
-                <div class="col-md-3">
-                  <label class="right labelProfil">Devise préféré</label>
-                </div>
-                <div class="col-md-9">
-                  <md-input-container class="">
-                    <md-select aria-label="jours"  name="birth_jours" ng-model="user.pref_avion_devise" >
-                      <md-option value="eur">Euro (€)</md-option>
-                      <md-option value="dollar">Dollar ($)</md-option>
-                    </md-select>
-                  </md-input-container>
+                <div class="row">
+                  <div class="col-md-4">
+                    <label class="right_profil labelProfil">Devise préféré</label>
+                  </div>
+                  <div class="col-md-8">
+                    <md-input-container class="select_generic">
+                      <md-select aria-label="Customer_Currency"  name="Customer_Currency" ng-model="profils.Customer_Currency" >
+                        <md-option value="EUR">Euro</md-option>
+                        <md-option value="USD">Dollar</md-option>
+                      </md-select>
+                    </md-input-container>
+                  </div>
                 </div>
                 <div class="col-md-4">    <!--- Parti Urgence  -------------------------------------------->
                   <label style="margin-top:19px;" class="right_profil labelProfil">Personne à contacter en cas d'urgence</label>
@@ -596,8 +600,8 @@
           </div> -->
           </div>
           <!--- Fin Parti paiement  ----------------------------------->
-          <div class="panel">   <!--- Parti Panel Livraison  ----------------------------------->
           <div id="livraison" class="panel-header">Livraison <md-icon class="right" md-svg-icon="img/icons/delivery.svg"></md-icon></div>
+          <div class="panel">   <!--- Parti Panel Livraison  ----------------------------------->
             <div class="container">
               <div class="row">
               </br>
@@ -607,13 +611,11 @@
               </div>
             </div>
           </div>                <!--- Fin Parti Livraison  ----------------------------------->
+          <div id="preference" class="panel-header">Préférences <md-icon class="right" md-svg-icon="img/icons/like.svg"></md-icon></div>
           <div class="panel">   <!--- Parti Panel Préférence  ----------------------------------->
-            <div id="preference" class="panel-header">Préférences <md-icon class="right" md-svg-icon="img/icons/like.svg"></md-icon></div>
             <div class="container">
               <div class="row">
               </br>
-
-
                 <div class="col-md-12">
                   <h4 class="h4bleu">Préférences Avion</h4>
                 </div>

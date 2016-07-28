@@ -4,35 +4,11 @@ module.exports = function(router, connection) {
     router.route('/profils/:id')
         .get(function(req, res) {
             var query_one    = "SELECT \
-                               ??, ??, ??, \
-                               ??, ??, ??, ??, ??, ??, ??, \
-                               ??, ??,  \
-                               ??, ??, ??, ??, ?? \
-                               FROM ?? em \
-                               LEFT JOIN ?? cu \
-                                  ON ?? = ?? \
-                                  AND ?? = ?? \
-                              LEFT JOIN ?? airp \
-                                  ON ?? = ?? \
-                                  AND ?? = ?? \
-                               LEFT JOIN ?? ph \
-                                  ON ?? = ?? \
-                                  AND ?? = ?? \
+                               ??\
+                               FROM ?? \
                                WHERE ?? = ?";
-            var table_one    = ["em.site_id",         "em.uid",             "em.Email",
-                                "cu.Customer_Gender", "Customer_BirthDate", "Customer_surName",    "Customer_NameTitle",   "Customer_MiddleName", "Customer_GivenName","Customer_Currency",
-                                "airp.AirPrefLangID",    "airp.AirSeatingPref",
-                                "ph.PhoneUseType",    "ph.PhoneTechType",   "ph.PhoneCountryCode", "ph.PhoneAreaCityCode", "ph.PhoneNumber",
-                                "profils.email",
-                                "profils.customer",
-                                    "em.site_id", "cu.site_id",
-                                    "em.uid",     "cu.uid",
-                                "profils.air_pref",
-                                    "em.site_id", "airp.site_id",
-                                    "em.uid",     "airp.uid",
-                                "profils.phone",
-                                    "em.site_id", "ph.site_id",
-                                    "em.uid",     "ph.uid",
+            var table_one    = ["*",
+                                "profils.view_profil_lvl1",
                                 "em.uid", req.params.id];
             query_one = mysql.format(query_one, table_one);
             connection.query(query_one, function(err, rows) {
