@@ -42,11 +42,12 @@ module.exports = function(router, connection) {
                           res.status(400).send(err);
                       else {
                           // les requetes pour la datatable
-                          var object = {};
-                          var count  = result_embed_content_type.length;
-                          object.datatable = [];
-                          object.tableau = [];
-                          object.others = [];
+                          var object           = {};
+                          var object_optimized = {};
+                          var count            = result_embed_content_type.length;
+                          object.datatable     = [];
+                          object.tableau       = [];
+                          object.others        = [];
                           for (var i = 0; i < count; i++) {
                               if (result_embed_content_type[i].embed_content_type == 'datatable') {
                                   object.datatable.push(result_embed_content_type[i]);
@@ -58,7 +59,11 @@ module.exports = function(router, connection) {
                                   object.others.push(result_embed_content_type[i]);
                               }
                           }
-                          res.json(object);
+                          // on nettoie les données inutiles
+                          for (values, result in object)
+                              if (result.length != 0)
+                                  object_optimized[values] = result;
+                          res.json(object_optimized);
                       }
                   })
                 }

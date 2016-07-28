@@ -27,7 +27,7 @@ tableau
     $scope.getBI = "toto"
     $scope.infoList  = $stateParams.list
     $scope.dataEmbed = null
-    $scope.details   = []
+    $scope.details   = {}
 
     console.log $scope.infoList
     $scope.dynamic_rows = () ->
@@ -49,10 +49,11 @@ tableau
         # data_length = Object.keys(data).length;
         # i = 0
         for values, result of data
-            console.log values, result
-            if data. + values
-            console.log data + '.' + values
-        while i < data_length
+            if (result.length != 0)
+                $scope.details[values] = result
+        console.log $scope.details
+
+        # while i < data_length
 
             # console.log data.constructor.name
             # if Object.keys(data[i]).length != 0
