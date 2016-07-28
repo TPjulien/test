@@ -43,41 +43,25 @@ module.exports = function(router, connection) {
                       else {
                           // les requetes pour la datatable
                           var object = {};
-                          var object.datatable = [];
-                          var object.tableau = [];
-                          var object.others = [];
                           var count  = result_embed_content_type.length;
+                          object.datatable = [];
+                          // object.tableau   = [];
+                          // object.others    = [];
                           for (var i = 0; i < count; i++) {
                               if (result_embed_content_type[i].embed_content_type == 'datatable') {
+                                  object.datatable = [];
                                   object.datatable.push(result_embed_content_type[i]);
                               }
                               else if (result_embed_content_type[i].embed_content_type == 'tableau') {
+                                  object.tableau = [];
                                   object.tableau.push(result_embed_content_type[i]);
                               }
                               else {
+                                  object.others = [];
                                   object.others.push(result_embed_content_type[i]);
                               }
                           }
                           res.json(object);
-                          // for (var i = 0; i < count; i++) {
-                          //     // on check si jamais c'est un tableau ou bien quelque chose d'autre
-                          //     if (result_embed_content_type[i].embed_content_type == 'tableau') {
-                          //         console.log('tableau !');
-                          //     } else if (result_embed_content_type[i].embed_content_type == 'datatable') {
-                          //         var request_datatable = "SELECT * FROM ?? WHERE ?? =? AND ?? =? AND ?? =?";
-                          //         var table_datatable   = ["tp_control.datatable", "SITE_ID", site_id, "VIEW_ID", view_id, "EMBED_ID", result_embed_content_type[i].EMBED_ID];
-                          //         request_datatable     = mysql.format(request_datatable, table_datatable);
-                          //         connection.query(request_datatable, function(err, result_datatable) {
-                          //             if (err)
-                          //                 res.status(400).send(err);
-                          //             else {
-                          //                 object.push(result_datatable);
-                          //             }
-                          //         })
-                          //     }
-                          //     if(i == count)
-                          //         res.json(object);
-                          // }
                       }
                   })
                 }
