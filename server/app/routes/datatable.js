@@ -92,11 +92,16 @@ module.exports = function(router, connection) {
       // Ce n'est plus pdf mais du coup datatable
       router.route('/datatable')
           .get (function(req, res) {
-              var generic_data = req.body.generic_data;
-              var query        = "SELECT * FROM ";
+              var generic_data_length = req.body.generic_data.length;
+              var query        = "SELECT ";
               var table        = [];
-              res.send(req.body.generic_data);
+              query += generic_data[0].column
+              for (i = 1; i < generic_data.length; i++) {
+                  query += ', ' + generic_data[i].column;
+              }
+              query += " FROM " + generic_data[0].schema + '.' + generic_data[0].table;
           })
+
 
       router.route('/pdfSearchFilter/:type/:num_invoice/:amount_min/:amount_max/:min/:max/:clientName/:date_min/:date_max/:num_commande')
           .get (function (req, res) {

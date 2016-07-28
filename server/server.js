@@ -72,7 +72,7 @@ router.use(function(req, res, next) {
 
 // require des routes nécesittant un token valide
 require('./app/routes/templateRoute')     (router, connection);
-require('./app/routes/pdfRoute')          (router, connection);
+require('./app/routes/datatable')         (router, connection);
 require('./app/routes/rules')             (router, connection);
 require('./app/routes/ipRoute')           (router, connection);
 require('./app/routes/profilRoute')       (router, connection);

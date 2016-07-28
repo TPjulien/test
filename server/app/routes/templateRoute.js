@@ -42,51 +42,45 @@ module.exports = function(router, connection) {
                           res.status(400).send(err);
                       else {
                           // les requetes pour la datatable
-                          var object = [];
+                          var object = {};
+                          var object.datatable = [];
+                          var object.tableau = [];
+                          var object.others = [];
                           var count  = result_embed_content_type.length;
                           for (var i = 0; i < count; i++) {
-                              // on check si jamais c'est un tableau ou bien quelque chose d'autre
-                              if (result_embed_content_type[i].embed_content_type == 'tableau') {
-                                  console.log('tableau !');
-                              } else if (result_embed_content_type[i].embed_content_type == 'datatable') {
-                                  var request_datatable = "SELECT * FROM ?? WHERE ?? =? AND ?? =? AND ?? =?";
-                                  var table_datatable   = ["tp_control.datatable", "SITE_ID", site_id, "VIEW_ID", view_id, "EMBED_ID", result_embed_content_type[i].EMBED_ID];
-                                  request_datatable     = mysql.format(request_datatable, table_datatable);
-                                  connection.query(request_datatable, function(err, result_datatable) {
-                                      if (err)
-                                          res.status(400).send(err);
-                                      else {
-                                          object.push(result_datatable);
-                                      }
-                                  })
+                              if (result_embed_content_type[i].embed_content_type == 'datatable') {
+                                  object.datatable.push(result_embed_content_type[i]);
                               }
-                              if(i == count)
-                                  res.json(object);
+                              else if (result_embed_content_type[i].embed_content_type == 'tableau') {
+                                  object.tableau.push(result_embed_content_type[i]);
+                              }
+                              else {
+                                  object.others.push(result_embed_content_type[i]);
+                              }
                           }
-                          // // la on regarde si c'est un tableau ou bien autre chose
-                          // if (result_embed_content_type[0].embed_content_type == "tableau") {
-                          //
-                          // } else if (result_embed_content_type[0].embed_content_type == "datatable") {
-                          //     // si jamais le content_type c'est un datatable
-                          //     var request_datatable = "SELECT * FROM ?? WHERE ?? =? AND ?? =?";
-                          //     var table_datatable   = ["tp_control.datatable", "SITE_ID", site_id, "VIEW_ID", view_id];
-                          //     request_datatable     = mysql.format(request_datatable, table_datatable);
-                          //     connection.query(request_datatable, function(err, result_datatable) {
-                          //         if (err)
-                          //             res.status(400).send(err);
-                          //         else {
-                          //             res.json(result_datatable);
-                          //         }
-                          //     })
-                          // } else {
-                          //     console.log(result_embed_content_type[0]);
-                          //     // dans tout les autres cas
-                          //     res.send("Test");
+                          res.json(object);
+                          // for (var i = 0; i < count; i++) {
+                          //     // on check si jamais c'est un tableau ou bien quelque chose d'autre
+                          //     if (result_embed_content_type[i].embed_content_type == 'tableau') {
+                          //         console.log('tableau !');
+                          //     } else if (result_embed_content_type[i].embed_content_type == 'datatable') {
+                          //         var request_datatable = "SELECT * FROM ?? WHERE ?? =? AND ?? =? AND ?? =?";
+                          //         var table_datatable   = ["tp_control.datatable", "SITE_ID", site_id, "VIEW_ID", view_id, "EMBED_ID", result_embed_content_type[i].EMBED_ID];
+                          //         request_datatable     = mysql.format(request_datatable, table_datatable);
+                          //         connection.query(request_datatable, function(err, result_datatable) {
+                          //             if (err)
+                          //                 res.status(400).send(err);
+                          //             else {
+                          //                 object.push(result_datatable);
+                          //             }
+                          //         })
+                          //     }
+                          //     if(i == count)
+                          //         res.json(object);
                           // }
                       }
                   })
                 }
-
             })
 
         })
@@ -108,78 +102,6 @@ module.exports = function(router, connection) {
             })
         })
 
-    // route pour avoir toutes les
-    router.route('/getListTemplate/:site_id/:view_id')
-        .get (function(req, res) {
-            var request = "SELECT ??,??,??,?? FROM ?? WHERE ?? = ? AND ?? = ?";
-            var tableau = ["site_id", "view_id", "embed_id", "tableau_libelle", "tableau_info", "site_id", req.params.site_id, "view_id", req.params.view_id];
-            request     = mysql.format(request, tableau);
-            connection.query(request, function(err, rows) {
-                if (err)
-                    res.status(400).send(err);
-                else
-                    res.json(rows);
-            })
-        })
-
-    // route pour avoir un seul template
-    router.route('/getTemplateView/:user/:site/:site_id/:view_id/:embed_id/:auth_role')
-        .get (function (req, res)  {
-          var query_one = "SELECT * FROM ?? WHERE ?? = ? AND ?? = ? AND ?? = ?";
-          var table_one = ["embed_generic_info", "view_id", req.params.view_id, "site_id", req.params.site_id, "embed_id", req.params.embed_id];
-          query_one     = mysql.format(query_one, table_one);
-          connection.query(query_one, function(err, rows_one) {
-              if (err)
-                  res.status(400).send(err);
-              else {
-                  var query_two = "SELECT * FROM ?? WHERE ?? = ? AND ?? = ? AND ?? = ? AND ?? = ?";
-                  var table_two = ['tableau_view_info', 'view_id', req.params.view_id, 'site_id', req.params.site_id, 'auth_user_role', req.params.auth_role, "embed_id", req.params.embed_id];
-                  query_two     = mysql.format(query_two, table_two);
-                  connection.query(query_two, function(err, rows_two) {
-                      if (err)
-                          res.status(400).send(err);
-                      else {
-                        var site = req.params.site;
-                        if (site == "Default")
-                          site = "";
-                        var options = {
-                                                  url: 'https://data.travelplanet.fr/trusted',
-                          /*cert: fs.readFileSync('/etc/ssl/tp_control/tp-control_travelplanet_fr.crt'),
-                                                  key:  fs.readFileSync('/etc/ssl/tp_control/ia.key'),
-                                                  ca:   fs.readFileSync('/etc/ssl/tp_control/DigiCertCA.crt'),*/
-                                                  form : {
-                                                    username: req.params.user,
-                                                    target_site: site
-                                                  }
-                                        }
-                        request.post(options, function(err, resultat, body) {
-                                if (err)
-                                    res.send(400).send(err)
-                                else {
-                                    resultObject = {         "site_id"             : rows_one[0].site_id,
-                                                             "view_id"             : rows_one[0].view_id,
-                                                             "embed_id"            : rows_one[0].embed_id,
-                                                             "path_to_view"        : rows_two[0].path_to_view,
-                                                             "embed_width"         : rows_one[0].embed_width,
-                                                             "embed_height"        : rows_one[0].embed_height,
-                                                             "embed_position"      : rows_one[0].embed_position,
-                                                             "embed_content_type"  : rows_one[0].embed_content_type,
-                                                             "tableau_customer_id" : rows_two[0].tableau_customer_id,
-                                                             "auth_user_role"      : rows_two[0].auth_user_role,
-                                                             "token"               : body,
-                                                             "test"                : 'test-token'
-                                                           };
-                                    res.json(resultObject);
-                                }
-
-                        })
-
-                      }
-                  })
-              }
-          })
-        })
-
     router.route('/currentView/:user/:site/:customer/:view/:auth_role/:user_id')
         .get (function(req, res) {
             var completed_requests = 0;
@@ -196,7 +118,6 @@ module.exports = function(router, connection) {
                     res.status(404).send("Not found !");
                 } else {
                   if (rows[0].embed_content_type == "Tableau") {
-                    // Get only the necessary data (generic data)
                     var query_two = "SELECT * FROM ?? WHERE ?? = ? AND ?? = ? AND ?? = ?";
                     var table_two = ['tableau_view_info', 'view_id', req.params.view, 'site_id', req.params.customer, 'auth_user_role', req.params.auth_role];
                     query_two     = mysql.format(query_two, table_two);
@@ -214,9 +135,6 @@ module.exports = function(router, connection) {
                                 site = "";
                               var options = {
                                   url: 'https://' + rows_tableau[counter].tableau_server_url + '/trusted',
-				  /*cert: fs.readFileSync('/etc/ssl/tp_control/tp-control_travelplanet_fr.crt'),
-                                  key:  fs.readFileSync('/etc/ssl/tp_control/ia.key'),
-                                  ca:   fs.readFileSync('/etc/ssl/tp_control/DigiCertCA.crt'),*/
                                   form : {
                                     username: req.params.user,
                                     target_site: site

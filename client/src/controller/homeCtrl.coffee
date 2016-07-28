@@ -1,5 +1,6 @@
 tableau
 .controller 'homeCtrl', ($scope, $mdSidenav, $timeout, logoutFct, jwtHelper, store, $http, $stateParams, $location, $interval, $rootScope, $sce, $mdDialog, $window) ->
+    console.log "poison of paradise"
     token                 = store.get('JWT')
     decode                = jwtHelper.decodeToken(token)
     $rootScope.color      = "#EAEAEA"
@@ -11,6 +12,26 @@ tableau
     $scope.getListTableau = []
 
     $mdDialog.hide()
+
+    testIt = () ->
+        console.log "i kissed a girl !"
+        user_role = 'Manager'
+        site_id   = 'Q1CNQ1CN'
+        view_id   = 1
+        $http
+            method: 'POST'
+            url:    options.api.base_url + '/showEmbed'
+            data:
+                user_role: user_role
+                site_id:   site_id
+                view_id:   view_id
+        .success (data) ->
+            console.log("Bonjour")
+            console.log data
+        .error (err) ->
+            console.log err
+
+    testIt()
 
     $scope.getNumber = (id) ->
       $http
@@ -107,18 +128,3 @@ tableau
             state.value.indexOf(lowercaseQuery) == 0
 
     $scope.toggleLeft = buildDelayedToggler('left')
-
-    user_role = 'Manager'
-    site_id   = 'Q1CNQ1CN'
-    view_id   = 1
-    $http
-        method: 'POST'
-        url:    options.api.base_url + '/showEmbed'
-        data:
-            user_role: user_role
-            site_id:   site_id
-            view_id:   view_id
-    .success (data) ->
-        console.log data
-    .error (err) ->
-        console.log err
