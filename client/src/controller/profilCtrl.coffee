@@ -34,12 +34,21 @@ tableau
     .error (err) ->
         console.log err
 
-# Appel pour lister toutes les preferences sens de la marche train
+# Appel pour lister toutes les preferences sens de la marche train railDepartureStation
     $http
         method: 'GET'
         url: options.api.base_url + '/railSeatPosition'
     .success (data) ->
         $scope.railSeatPosition = data
+    .error (err) ->
+        console.log err
+        
+# Appel pour lister toutes les villes preféré de depart train
+    $http
+        method: 'GET'
+        url: options.api.base_url + '/railDepartureStation'
+    .success (data) ->
+        $scope.railDepartureStation = data
     .error (err) ->
         console.log err
 
