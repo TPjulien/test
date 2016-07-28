@@ -31,11 +31,24 @@ module.exports = function(router, connection) {
                     res.json(rows);
             })
         })
-    // route pour lister toutes les preferences siège pour le train
+    // route pour lister tout les emplacements siège pour le train
     router.route('/railWagonCode')
         .get(function(req, res) {
             var query_one = "SELECT DISTINCT ?? FROM ?? WHERE ?? IS NOT NULL";
             var table_one = ["RailWagonCode", "profils.view_profil_lvl1","RailWagonCode"];
+            query_one = mysql.format(query_one, table_one);
+            connection.query(query_one, function(err, rows) {
+                if (err)
+                    res.status(400).send(err);
+                else
+                    res.json(rows);
+            })
+        })
+    // route pour lister toutes les preferences sens marche train
+    router.route('/railSeatPosition')
+        .get(function(req, res) {
+            var query_one = "SELECT DISTINCT ?? FROM ?? WHERE ?? IS NOT NULL";
+            var table_one = ["railSeatPosition", "profils.view_profil_lvl1","railSeatPosition"];
             query_one = mysql.format(query_one, table_one);
             connection.query(query_one, function(err, rows) {
                 if (err)
