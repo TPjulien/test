@@ -9,7 +9,7 @@ module.exports = function(router, connection) {
                                WHERE ?? = ?";
             var table_one    = [
                                 "profils.view_profil_lvl1",
-                                "em.uid", req.params.id];
+                                "uid", req.params.id];
             query_one = mysql.format(query_one, table_one);
             connection.query(query_one, function(err, rows) {
                 if (err)
