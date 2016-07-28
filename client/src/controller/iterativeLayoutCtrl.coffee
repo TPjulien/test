@@ -45,13 +45,14 @@ tableau
             site_id:   site_id
             view_id:   view_id
     .success (data) ->
-        data_length = Object.keys(data).length;
-        i = 0
-        # for values, result in data
-        #     console.log values, result
-            # if data. + values
-            # console.log data + '.' + values
-        # while i < data_length
+        # console.log data
+        # data_length = Object.keys(data).length;
+        # i = 0
+        for values, result of data
+            console.log values, result
+            if data. + values
+            console.log data + '.' + values
+        while i < data_length
 
             # console.log data.constructor.name
             # if Object.keys(data[i]).length != 0
