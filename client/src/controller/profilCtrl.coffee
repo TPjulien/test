@@ -16,15 +16,20 @@ tableau
     .error (err) ->
         console.log err
 
-# Appel pour select railClass
+# Appel pour lister toutes les class voyageur pour le train
     $http
         method: 'GET'
         url: options.api.base_url + '/railClass'
     .success (data) ->
         $scope.railClass = data
-        console.log '-----------------'
-        console.log $scope.railClass
-        console.log '-----------------'
+    .error (err) ->
+        console.log err
+# Appel pour lister toutes les preferences sièges pour le train
+    $http
+        method: 'GET'
+        url: options.api.base_url + '/railWagonCode'
+    .success (data) ->
+        $scope.railClass = data
     .error (err) ->
         console.log err
 
