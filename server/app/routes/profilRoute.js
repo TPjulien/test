@@ -4,10 +4,10 @@ module.exports = function(router, connection) {
     router.route('/profils/:id')
         .get(function(req, res) {
             var query_one    = "SELECT \
-                               ??\
+                               * \
                                FROM ?? \
                                WHERE ?? = ?";
-            var table_one    = ["*",
+            var table_one    = [
                                 "profils.view_profil_lvl1",
                                 "em.uid", req.params.id];
             query_one = mysql.format(query_one, table_one);
