@@ -59,11 +59,19 @@ module.exports = function(router, connection) {
                                   object.others.push(result_embed_content_type[i]);
                               }
                           }
+                          var values, result;
+
                           // on nettoie les données inutiles
-                          for (values, result in object) {
-                              if (result.length != 0)
-                                  object_optimized[values] = result;
+                          for (values in object) {
+                            result = object[values];
+                            if (result.length !== 0) {
+                              object_optimized[values] = result;
+                            }
                           }
+                          // for (values, result in object) {
+                          //     if (result.length != 0)
+                          //         object_optimized[values] = result;
+                          // }
                           res.json(object_optimized);
                       }
                   })
