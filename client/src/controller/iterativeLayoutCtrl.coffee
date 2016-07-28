@@ -27,11 +27,41 @@ tableau
     $scope.getBI = "toto"
     $scope.infoList  = $stateParams.list
     $scope.dataEmbed = null
+    $scope.details   = []
 
     console.log $scope.infoList
     $scope.dynamic_rows = () ->
         return
 
+    # $scope.details = []
+    user_role = 'Manager'
+    site_id   = 'Q1CNQ1CN'
+    view_id   = 1
+    $http
+        method: 'POST'
+        url:    options.api.base_url + '/showEmbed'
+        data:
+            user_role: user_role
+            site_id:   site_id
+            view_id:   view_id
+    .success (data) ->
+        data_length = Object.keys(data).length;
+        i = 0
+        # for values, result in data
+        #     console.log values, result
+            # if data. + values
+            # console.log data + '.' + values
+        # while i < data_length
+
+            # console.log data.constructor.name
+            # if Object.keys(data[i]).length != 0
+            #     $scope.details.push data[i]
+            # i++
+        # console.log $scope.details
+        $scope.details = data
+        # console.log data
+    .error (err) ->
+        console.log err
 
     $scope.url = ""
     $scope.lengthTableau = 0
@@ -43,11 +73,7 @@ tableau
         .success (result) ->
             console.log result
             $scope.getAllView = result
-            $scope.lengthTableau = Object.keys($scope.getAllView).length
-            if Object.keys($scope.getAllView).length > 2
-                $scope.url = "templates/tableau.html"
-            else
-                $scope.url = "modals/tableau_type.html"
+            $scope.url = "templates/tableau.html"
         .error (err) ->
             $location.path '/home/error'
 

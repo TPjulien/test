@@ -44,21 +44,20 @@ module.exports = function(router, connection) {
                           // les requetes pour la datatable
                           var object = {};
                           var count  = result_embed_content_type.length;
-                          object.datatable = [];
-                          object.tableau   = [];
-                          object.others    = [];
+                          // object['datatable'] = [];
+                          // object['tableau']   = [];
+                          // object['others']    = [];
                           for (var i = 0; i < count; i++) {
                               if (result_embed_content_type[i].embed_content_type == 'datatable') {
-                                  // object.datatable = [];
-                                  object.datatable.push(result_embed_content_type[i]);
+                                  object['datatable'].push(result_embed_content_type[i]);
                               }
                               else if (result_embed_content_type[i].embed_content_type == 'tableau') {
                                   // object.tableau = [];
-                                  object.tableau.push(result_embed_content_type[i]);
+                                  object['tableau'].push(result_embed_content_type[i]);
                               }
                               else {
                                   // object.others = [];
-                                  object.others.push(result_embed_content_type[i]);
+                                  object['others'].push(result_embed_content_type[i]);
                               }
                           }
                           res.json(object);

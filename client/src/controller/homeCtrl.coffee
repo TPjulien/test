@@ -12,26 +12,8 @@ tableau
     $scope.getListTableau = []
 
     $mdDialog.hide()
-
-    testIt = () ->
-        console.log "i kissed a girl !"
-        user_role = 'Manager'
-        site_id   = 'Q1CNQ1CN'
-        view_id   = 1
-        $http
-            method: 'POST'
-            url:    options.api.base_url + '/showEmbed'
-            data:
-                user_role: user_role
-                site_id:   site_id
-                view_id:   view_id
-        .success (data) ->
-            console.log("Bonjour")
-            console.log data
-        .error (err) ->
-            console.log err
-
-    testIt()
+    # 
+    # testIt()
 
     $scope.getNumber = (id) ->
       $http

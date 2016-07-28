@@ -1,37 +1,39 @@
-<div layout-padding class="anim-fade">
-  <div id="{{frame.embed_id}}" ng-repeat="frame in getAllView" ng-if="frame.embed_content_type == 'Tableau' && infoList == 'normal'" class="{{frame.embed_width}} separator row" style="height:{{frame.embed_height}};">
-    <div ng-include src="'templates/tableau.html'" onload="niggeh(frame)"></div>
-  </div>
-</div>
-
-<!-- if we got a facture template -->
-<div ng-repeat="frame in getAllView" class="row col s12" style="width:107%" ng-if="frame.embed_content_type == 'Factures' && infoList == 'normal'">
+<!-- <div ng-repeat="frame in getAllView" class="row col s12" style="width:107%" ng-if="frame.embed_content_type == 'Factures' && infoList == 'normal'">
   <div ng-include ng-controller="factureCtrl" src="'templates/facture.html'"></div>
 </div>
 
-<!-- if we got a reclamation template -->
 <div ng-repeat="frame in getAllView" class="row col s12" style="width:107%" ng-if="frame.embed_content_type == 'Reclamation' && infoList == 'normal'">
   <div ng-include ng-controller="reclamationCtrl" src="'templates/reclamation.html'"></div>
 </div>
 
-<!-- if we got a profil template -->
 <div ng-repeat="frame in getAllView" class="row col s12" style="width:107%" ng-if="frame.embed_content_type == 'Profil' && infoList == 'normal'">
   <div ng-include ng-controller="profilCtrln" src="'templates/profils.html'"></div>
 </div>
 
-<!-- if we got a iframe template -->
 <div ng-repeat="frame in getAllView" class="row col s12" style="width:107%" ng-if="frame.embed_content_type == 'iframe' && infoList == 'normal'">
   <div ng-include ng-controller="iframeCtrl" src="'templates/iframe.html'"></div>
 </div>
 
-<!-- if we got only a one tab -->
 <div layout-padding class="anim-fade">
   <div class="col s12" id='mahefa' ng-if="infoList == 'list'" class="{{dataEmbed.embed_width}} separator1 row" style="height:800px;">
     <div ng-include src="'templates/listOneTab.html'" onload="niggeh('none')"></div>
   </div>
 </div>
 
-<!-- if we have profil -->
 <div ng-repeat="frame in getAllView" class="row col s12" style="width:107%" ng-if="frame.embed_content_type == 'profils' && infoList == 'normal'">
   <div ng-include ng-controller="profilCtrl" src="'templates/profil.html'"></div>
+</div>
+
+<div layout-padding class="anim-fade">
+  <div id="{{frame.embed_id}}" ng-repeat="frame in getAllView" ng-if="frame.embed_content_type == 'Tableau' && infoList == 'normal'" class="{{frame.embed_width}} separator row" style="height:{{frame.embed_height}};">
+    <div ng-include src="'templates/tableau.html'" onload="niggeh(frame)"></div>
+  </div>
+</div> -->
+
+<!-- test -->
+<div layout-padding class="anim-fade" ng-repeat="detail in details">
+  <div ng-if="detail.length != 0">
+    <p>{{detail.length}}</p>
+  </div>
+    <!-- <div ng-include ng-controller="" src="''" onload=""> -->
 </div>
