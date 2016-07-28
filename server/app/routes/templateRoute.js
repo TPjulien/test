@@ -60,9 +60,10 @@ module.exports = function(router, connection) {
                               }
                           }
                           // on nettoie les données inutiles
-                          for (values, result in object)
+                          for (values, result in object) {
                               if (result.length != 0)
                                   object_optimized[values] = result;
+                          }
                           res.json(object_optimized);
                       }
                   })
