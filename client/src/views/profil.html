@@ -170,7 +170,7 @@
                 </div>
                 <div class="col-md-8 col-xs-12">
                   <md-input-container flex-gt-md="30">
-                    <input mdc-datetime-picker="" date="true" time="false" type="text" id="datetime" min-date="date" ng-model="dateTime" class="datePicker_generic md-input">
+                    <input mdc-datetime-picker="" date="true" time="false" type="text" id="datetime" min-date="date" ng-model="profils.Customer_BirthDate" class="datePicker_generic md-input">
                 </div>
                 <div class="col-md-4 col-xs-12">     <!--- Parti eMail  ----------------------------------->
                   <label  class="right_profil labelProfil">Adresse Mail <md-icon class="logo_lock"  md-svg-icon="img/icons/locked-padlock.svg"></md-icon></label>
@@ -195,7 +195,7 @@
                             <label  class="labelProfil" for="mail"> Mail </label>
                           </div>
                           <div class="col-md-10">
-                            <input class="input_generic" name="mail" ng-model="user.mail" type="email" ng-minlength="1" ng-maxlength="30" class="validate" required>
+                            <input class="input_generic " name="mail" ng-model="user.mail" type="email" ng-minlength="1" ng-maxlength="30" class="validate" required>
                           </div>
                           <div class="row">
                             <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
@@ -252,8 +252,19 @@
                     </form>
                   </div>
                 </div>                    <!--- Fin Parti NumTelephone  ----------------------------------->
+                <div class="col-md-4">
+                  <label class="right_profil labelProfil">Langue préféré</label>
+                </div>
+                <div class="col-md-8">
+                  <md-input-container class="select_generic">
+                    <md-select aria-label=""  name="" ng-model="user.pref_avion_Langue" >
+                      <md-option value="FR">Français</md-option>
+                      <md-option value="GB">Anglais</md-option>
+                    </md-select>
+                  </md-input-container>
+                </div>
                 <div class="col-md-4">    <!--- Parti Urgence  -------------------------------------------->
-                  <label  class="right_profil labelProfil">Personne à contacter en cas d'urgence</label>
+                  <label style="margin-top:19px;" class="right_profil labelProfil">Personne à contacter en cas d'urgence</label>
                 </div>
                 <div class="col-md-8">
                   <input class="input_generic" name="nom" ng-model="profils.nameUrgence"type="text" ng-minlength="1" ng-maxlength="30" class="validate" required>
@@ -590,17 +601,7 @@
             <div class="container">
               <div class="row">
               </br>
-                <div class="col-md-3">
-                  <label class="right labelProfil">Langue </label>
-                </div>
-                <div class="col-md-9">
-                  <md-input-container class="">
-                    <md-select aria-label="jours"  name="birth_jours" ng-model="user.pref_avion_Langue" >
-                      <md-option value="fr">Français</md-option>
-                      <md-option value="ang">Anglais</md-option>
-                    </md-select>
-                  </md-input-container>
-                </div>
+
                 <div class="col-md-3">
                   <label class="right labelProfil">Devise </label>
                 </div>

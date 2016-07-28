@@ -1090,8 +1090,23 @@ Use of this source code is governed by an MIT-style license that can be in found
   margin-top: -5px !important;
   width: 70% !important;
   margin-left: 40px !important;
+  border-bottom: 1px solid #9e9e9e !important;
 }
-
+.select_generic md-select.md-default-theme:not([disabled]):focus .md-select-value, md-select:not([disabled]):focus .md-select-value {
+    border-bottom-color: transparent;
+    color: rgba(0,0,0,0.87);
+}
+.select_generic{
+  font-size: 12px !important;
+  color: black;
+  margin-top: -5px !important;
+  width: 70% !important;
+  margin-left: 40px !important;
+  border-bottom: 1px solid #9e9e9e !important;
+}
+.select_generic:focus{
+  border-bottom: 0px solid #9e9e9e !important;
+}
 .body{
   display: table;
 }
