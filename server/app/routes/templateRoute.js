@@ -42,7 +42,6 @@ module.exports = function(router, connection) {
                           res.status(400).send(err);
                       else {
                           // les requetes pour la datatable
-
                           var object = [];
                           var count  = result_embed_content_type.length;
                           for (var i = 0; i < count; i++) {

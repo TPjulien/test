@@ -88,6 +88,16 @@ module.exports = function(router, connection) {
                 })
               }
           })
+
+      // Ce n'est plus pdf mais du coup datatable
+      router.route('/datatable')
+          .get (function(req, res) {
+              var generic_data = req.body.generic_data;
+              var query        = "SELECT * FROM ";
+              var table        = [];
+              res.send(req.body.generic_data);
+          })
+
       router.route('/pdfSearchFilter/:type/:num_invoice/:amount_min/:amount_max/:min/:max/:clientName/:date_min/:date_max/:num_commande')
           .get (function (req, res) {
                 var query = "SELECT ??, ??, ??, ??, ??, ??, ??, ??, SUM(??) AS TOTAL_AMOUNT, ?? FROM ?? ";
