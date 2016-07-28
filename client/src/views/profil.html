@@ -737,11 +737,8 @@
                 </div>
                 <div class="col-md-9">
                   <md-input-container class="">
-                    <md-select aria-label="Pref_classTrain"  name="Pref_classTrain" ng-model="Pref_classTrain" >
-                      <md-option value="sansPref">Sans préférence</md-option>
-                      <md-option value="standard_premium">Standard Premium</md-option>
-                      <md-option value="1erClasse">1er Classe</md-option>
-                      <md-option value="2emeClasse">2ème Classe</md-option>
+                    <md-select aria-label="railClass"  name="railClass" ng-model="profils.railClass" >
+                      <md-option ng-repeat="OnerailClass in railClass"  value="OnerailClass.RailClass">{{OnerailClass.RailClass}}</md-option>
                     </md-select>
                   </md-input-container>
                 </div>
