@@ -732,28 +732,32 @@
                 <div class="col-md-12">
                   <h4 class="h4bleu">Préférences Train</h4>
                 </div>
-                <div class="col-md-3">
-                  <label class="right labelProfil">Préférence de classe de réservation </label>
+                <div class="row">
+                  <div class="col-md-3">
+                    <label class="right_profil labelProfil">Préférence de classe de réservation </label>
+                  </div>
+                  <div class="col-md-9">
+                    <md-input-container class="select_generic">
+                      <md-select aria-label="railClass"  name="railClass" ng-model="profils.railClass" >
+                        <md-option ng-repeat="OnerailClass in railClass"  value="{{OnerailClass.RailClass}}">{{OnerailClass.RailClass}}</md-option>
+                      </md-select>
+                    </md-input-container>
+                  </div>
                 </div>
-                <div class="col-md-9">
-                  <md-input-container class="">
-                    <md-select aria-label="railClass"  name="railClass" ng-model="profils.railClass" >
-                      <md-option ng-repeat="OnerailClass in railClass"  value="OnerailClass.RailClass">{{OnerailClass.RailClass}}</md-option>
-                    </md-select>
-                  </md-input-container>
-                </div>
-                <div class="col-md-3">
-                  <label class="right labelProfil">Emplacement </label>
-                </div>
-                <div class="col-md-9">
-                  <md-input-container class="">
-                    <md-select aria-label="Pref_emplacementTrain"  name="Pref_emplacementTrain" ng-model="Pref_emplacementTrain" >
-                      <md-option value="sansPref">Sans préférence</md-option>
-                      <md-option value="fenetre">Fenêtre</md-option>
-                      <md-option value="couloir">Couloir</md-option>
-                      <md-option value="fenetre_isole">Fenêtre isolé</md-option>
-                    </md-select>
-                  </md-input-container>
+                <div class="row">
+                  <div class="col-md-3">
+                    <label class="right_profil labelProfil">Emplacement </label>
+                  </div>
+                  <div class="col-md-9">
+                    <md-input-container class="">
+                      <md-select aria-label="Pref_emplacementTrain"  name="Pref_emplacementTrain" ng-model="Pref_emplacementTrain" >
+                        <md-option value="sansPref">Sans préférence</md-option>
+                        <md-option value="fenetre">Fenêtre</md-option>
+                        <md-option value="couloir">Couloir</md-option>
+                        <md-option value="fenetre_isole">Fenêtre isolé</md-option>
+                      </md-select>
+                    </md-input-container>
+                  </div>
                 </div>
                 <div class="col-md-3">
                   <label class="right labelProfil">Sens de la marche </label>
