@@ -24,12 +24,22 @@ tableau
         $scope.railClass = data
     .error (err) ->
         console.log err
-# Appel pour lister toutes les preferences sièges pour le train
+
+# Appel pour lister tout les emplacements sièges pour le train
     $http
         method: 'GET'
         url: options.api.base_url + '/railWagonCode'
     .success (data) ->
-        $scope.railClass = data
+        $scope.railWagonCode = data
+    .error (err) ->
+        console.log err
+
+# Appel pour lister toutes les preferences sens de la marche train
+    $http
+        method: 'GET'
+        url: options.api.base_url + '/railSeatPosition'
+    .success (data) ->
+        $scope.railSeatPosition = data
     .error (err) ->
         console.log err
 

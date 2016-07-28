@@ -282,7 +282,7 @@
                   <label style="margin-top:19px;" class="right_profil labelProfil">Personne à contacter en cas d'urgence</label>
                 </div>
                 <div class="col-md-8">
-                  <input class="input_generic" name="nom" ng-model="profils.nameUrgence"type="text" ng-minlength="1" ng-maxlength="30" class="validate" required>
+                  <input class="input_generic" name="nom" ng-model="profils.Customer_Conbtact_Name" type="text" ng-minlength="1" ng-maxlength="30" class="validate" required>
                 </div>
                 <div class="col-md-4">
                   <label  class="right_profil labelProfil">N° à contacter en cas d'urgence</label>
@@ -746,29 +746,27 @@
                 </div>
                 <div class="row">
                   <div class="col-md-3">
-                    <label class="right_profil labelProfil">Emplacement </label>
+                    <label class="right_profil labelProfil">Emplacement</label>
                   </div>
                   <div class="col-md-9">
-                    <md-input-container class="">
-                      <md-select aria-label="Pref_emplacementTrain"  name="Pref_emplacementTrain" ng-model="Pref_emplacementTrain" >
-                        <md-option value="sansPref">Sans préférence</md-option>
-                        <md-option value="fenetre">Fenêtre</md-option>
-                        <md-option value="couloir">Couloir</md-option>
-                        <md-option value="fenetre_isole">Fenêtre isolé</md-option>
+                    <md-input-container class="select_generic">
+                      <md-select aria-label="railWagonCode"  name="railWagonCode" ng-model="profils.railWagonCode" >
+                        <md-option ng-repeat="OnerailWagonCode in railWagonCode" value="{{OnerailWagonCode.RailWagonCode}}">{{OnerailWagonCode.RailWagonCode}}</md-option>
                       </md-select>
                     </md-input-container>
                   </div>
                 </div>
-                <div class="col-md-3">
-                  <label class="right labelProfil">Sens de la marche </label>
-                </div>
-                <div class="col-md-9">
-                  <md-input-container class="">
-                    <md-select aria-label="Pref_sensTrain"  name="Pref_sensTrain" ng-model="Pref_sensTrain" >
-                      <md-option value="sansPref">Sans préférence</md-option>
-                      <md-option value="sens_marche">Sens de la marche</md-option>
-                    </md-select>
-                  </md-input-container>
+                <div class="row">
+                  <div class="col-md-3">
+                    <label class="right_profil labelProfil">Sens de la marche</label>
+                  </div>
+                  <div class="col-md-9">
+                    <md-input-container class="select_generic">
+                      <md-select aria-label="railSeatPosition"  name="railSeatPosition" ng-model="profils.railSeatPosition" >
+                        <md-option ng-repeat="OnerailSeatPosition in railSeatPosition" value="{{OnerailSeatPosition.railSeatPosition}}">{{OnerailSeatPosition.railSeatPosition}}</md-option>
+                      </md-select>
+                    </md-input-container>
+                  </div>
                 </div>
                 <div class="col-md-3">
                   <label  class="right labelProfil">Carte voyageur</label>
