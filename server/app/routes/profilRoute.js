@@ -105,7 +105,7 @@ module.exports = function(router, connection) {
     // route pour lister les cartes voyageur du voyageur
     router.route('/cardTraveller/:uid')
         .get(function(req, res) {
-            var query_one    = "SELECT *  \
+            var query_one    = "SELECT \
                                * \
                                FROM ?? \
                                LEFT JOIN  ?? ON ?? = ?? \
