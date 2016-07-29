@@ -95,8 +95,8 @@ module.exports = function(router, connection) {
               var generic_data_length = req.body.generic_data.length;
               var query        = "SELECT ";
               var table        = [];
-              query += generic_data[0].column
-              for (i = 1; i < generic_data.length; i++) {
+              query += req.body.generic_data[0].column
+              for (i = 1; i < generic_data_length; i++) {
                   query += ', ' + req.body.generic_data[i].column;
               }
               query += " FROM " + req.body.generic_data[0].schema + '.' + req.body.generic_data[0].table;
