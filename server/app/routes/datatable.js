@@ -95,7 +95,7 @@ module.exports = function(router, connection) {
               // d'accord on cherche les données envoyé par le client puis une requete
               pre_data  = req.body.generic_data;
               var query = "SELECT * FROM ?? WHERE ?? = ? AND ?? = ? AND ?? =?";
-              var table = ["datatable", "SITE_ID", pre_data.SITE_ID, "VIEW_ID", pre_data.VIEW_ID, "EMBED_ID", pre_data.EMBED_ID];
+              var table = ["tp_control.datatable", "SITE_ID", pre_data.SITE_ID, "VIEW_ID", pre_data.VIEW_ID, "EMBED_ID", pre_data.EMBED_ID];
               query = mysql.format(query, table);
               connection.query(query, function(err, result_datatable) {
                 // on envoie au client pour test
