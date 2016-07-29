@@ -114,7 +114,7 @@ module.exports = function(router, connection) {
                       if (err)
                           res.status(400).send(err);
                       else
-                          res.json(query_datatable);
+                          res.json(post_data);
                     })
                 }
               })
