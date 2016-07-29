@@ -1100,16 +1100,20 @@ Use of this source code is governed by an MIT-style license that can be in found
     border-bottom-color: transparent;
     color: rgba(0,0,0,0.87);
 }
+.md-autocomplete input:focus{
+  border-bottom-color: transparent;
+}
+.select_generic input[type=search]:focus:not([readonly]), textarea.materialize-textarea:focus:not([readonly]) {
+    border-bottom: none !important;
+    box-shadow: none !important; 
+}
 .select_generic{
   font-size: 12px !important;
   color: black;
-  margin-top: -5px !important;
+  /*margin-top: -5px !important;*/
   width: 70% !important;
   margin-left: 40px !important;
   border-bottom: 1px solid #9e9e9e !important;
-}
-.select_generic:focus{
-  border-bottom: 0px solid #9e9e9e !important;
 }
 .body{
   display: table;
@@ -1167,6 +1171,11 @@ textarea.materialize-textarea:focus.valid {
 .card .card-action a:not(.btn):not(.btn-large):not(.btn-floating) {
   line-height: 30px;
   font-size: 14px;
+}
+.md-whiteframe-z1 {
+    box-shadow: none;
+    background-color: white;
+    border-bottom:  1px solid #9e9e9e;
 }
 md-input-container {margin:0;}
 .addProfil{

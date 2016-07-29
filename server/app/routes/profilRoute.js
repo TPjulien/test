@@ -70,6 +70,19 @@ module.exports = function(router, connection) {
                     res.json(rows);
             })
         })
+    // route pour lister toutes les preferences sens marche train
+    router.route('/provider')
+        .get(function(req, res) {
+            var query_one = "SELECT DISTINCT ?? FROM ?? WHERE ?? IS NOT NULL ORDER BY ?? ASC";
+            var table_one = ["PROVIDER", "profils.rail_cards","PROVIDER","PROVIDER"];
+            query_one = mysql.format(query_one, table_one);
+            connection.query(query_one, function(err, rows) {
+                if (err)
+                    res.status(400).send(err);
+                else
+                    res.json(rows);
+            })
+        })
     // route pour lister toutes les countries pour le phone
     router.route('/getCountry')
         .get(function(req, res) {
