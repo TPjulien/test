@@ -108,7 +108,7 @@ module.exports = function(router, connection) {
                     for (var i = 1; i < result_datatable.length; i++) {
                         query_datatable += ', ' + result_datatable[i].column;
                     }
-                    query_datatable += result_datatable[0].schema + '.' + result_datatable[0].table;
+                    query_datatable += ' FROM ' + result_datatable[0].schema + '.' + result_datatable[0].table;
                     // une fois terminé en renvoie la query pour verifiser si c'est bien cela.
                     res.json(query_datatable);
                 }
