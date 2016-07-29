@@ -92,15 +92,29 @@ module.exports = function(router, connection) {
       // On Recupere les données de la datatable
       router.route('/getDatatable')
           .post (function(req, res) {
-              var generic_data_length = req.body.generic_data.length;
-              var query        = "SELECT ";
-              var table        = [];
-              query += req.body.generic_data[0].column
-              for (i = 1; i < generic_data_length; i++) {
-                  query += ', ' + req.body.generic_data[i].column;
-              }
-              query += " FROM " + req.body.generic_data[0].schema + '.' + req.body.generic_data[0].table;
-              res.json(query);
+              // d'accord on cherche les données envoyé par le client puis une requete
+              pre_data  = req.body.generic_data;
+              var query = "SELECT * FROM ?? WHERE ?? = ? AND ?? = ? AND ?? =?";
+              var table = ["datatable", "SITE_ID", pre_data.SITE_ID, "VIEW_ID", pre_data.VIEW_ID, "EMBED_ID", pre_data.EMBED_ID];
+              query = mysql.format(query, table);
+              connection.query(query, function(err, result_datatable) {
+                // on envoie au client pour test
+                if (err)
+                    res.send(400).status(err);
+                else {
+                    res.json(result_datatable);
+                }
+              })
+
+              // var generic_data_length = req.body.generic_data.length;
+              // var query        = "SELECT ";
+              // var table        = [];
+              // query += req.body.generic_data[0].column
+              // for (i = 1; i < generic_data_length; i++) {
+              //     query += ', ' + req.body.generic_data[i].column;
+              // }
+              // query += " FROM " + req.body.generic_data[0].schema + '.' + req.body.generic_data[0].table;
+              // res.json(query);
           })
 
 
