@@ -1,5 +1,5 @@
 tableau
-.controller 'factureCtrl', ($scope, $http, jwtHelper, store, $window, $filter) ->
+.controller 'datatableCtrl', ($scope, $http, jwtHelper, store, $window, $filter) ->
     token              = store.get('JWT')
     search_type         = "none"
     search_num_commande = "none"
@@ -14,6 +14,17 @@ tableau
     max_slider          = 0
     value               = 50
     decode              = jwtHelper.decodeToken(token)
+
+    # on recupere les données de chaque instance de $scope.detail
+    $http
+        method: 'POST'
+        url:    options.api.base_url + '/getDatatable'
+        data:
+            generic_data: $scope.detail
+    .success (data) ->
+        console.log data
+    .success (err) ->
+        console.log err
 
     $scope.tototo = (min, max) ->
         search_price_min = min

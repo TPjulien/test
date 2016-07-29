@@ -79,7 +79,7 @@ tableau
         .state 'home.test.facture',
             url:          '/factures',
             templateUrl:  'templates/datatable.html',
-            controller:   'factureCtrl'
+            controller:   'datatableCtrl'
         .state 'home.profil',
             url:          '/profil',
             templateUrl:  'templates/profil.html',

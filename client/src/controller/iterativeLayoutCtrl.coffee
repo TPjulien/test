@@ -1,43 +1,49 @@
 tableau
 .controller 'iterativeLayoutCtrl', ($scope, $http, $stateParams, $sce, store, jwtHelper, $interval, $window, $filter, $location, $mdDialog) ->
-    token                 = store.get('JWT')
-    decode                = jwtHelper.decodeToken(token)
-    $scope.actualTemplate = []
-    $scope.viewMenu       = []
-    $scope.view           = $stateParams.client
-    $scope.getAllView     = null
-    $scope.id             = $stateParams.id
-    ticket                = null
-    $scope.dataWithTicket = []
-    $scope.url            = []
-    $scope.url.getLength  = []
-    $scope.dimension      = []
-    $scope.items          = []
-    $scope.test           = []
-    $scope.users          = []
-    $scope.data           = []
-    counter               = 0
-    $scope.allow_filters  = []
-    $scope.userText       = null
-    $scope.date           =
+    token                    = store.get('JWT')
+    decode                   = jwtHelper.decodeToken(token)
+    $scope.actualTemplate    = []
+    $scope.viewMenu          = []
+    $scope.view              = $stateParams.client
+    $scope.getAllView        = null
+    $scope.id                = $stateParams.id
+    ticket                   = null
+    $scope.dataWithTicket    = []
+    $scope.url               = []
+    $scope.url.getLength     = []
+    $scope.dimension         = []
+    $scope.items             = []
+    $scope.test              = []
+    $scope.users             = []
+    $scope.data              = []
+    counter                  = 0
+    $scope.allow_filters     = []
+    $scope.userText          = null
+    $scope.date              =
         startDate: null
         endDate:   null
-    $scope.show = false
-    $scope.display = "none"
-    $scope.getBI = "toto"
-    $scope.infoList  = $stateParams.list
-    $scope.dataEmbed = null
-    $scope.details   = {}
+    $scope.show              = false
+    $scope.display           = "none"
+    $scope.getBI             = "toto"
+    $scope.infoList          = $stateParams.list
+    $scope.dataEmbed         = null
+    $scope.details           = {}
+    $scope.getController     = null
+    $scope.getDataTransition = []
 
+    # obtenir le template de l'embed ainsi que sa valeur
     $scope.getTemplate = (value) ->
-        # console.log value
-        return 'templates/' + value + '.html'
+        $scope.getDataTransition = []
+        $scope.getDataTransition.push value.EMBED_ID
+        $scope.getController     = value.embed_content_type + 'Ctrl'
+        return 'templates/' + value.embed_content_type + '.html'
 
-    console.log $scope.infoList
+    $scope.getData = () ->
+        return $scope.getDataTransition
+
     $scope.dynamic_rows = () ->
         return
 
-    # $scope.details = []
     user_role = 'Manager'
     site_id   = 'Q1CNQ1CN'
     view_id   = 1
@@ -49,23 +55,7 @@ tableau
             site_id:   site_id
             view_id:   view_id
     .success (data) ->
-        console.log data
-        # data_length = Object.keys(data).length;
-        # i = 0
-        # for values, result of data
-        #     if (result.length != 0)
-        #         $scope.details[values] = result
-        # console.log $scope.details
-
-        # while i < data_length
-
-            # console.log data.constructor.name
-            # if Object.keys(data[i]).length != 0
-            #     $scope.details.push data[i]
-            # i++
-        # console.log $scope.details
         $scope.details = data
-        # console.log data
     .error (err) ->
         console.log err
 
@@ -77,7 +67,6 @@ tableau
             method: 'GET'
             url:    options.api.base_url + '/currentView/' +  decode[0].tableau_user_id + '/' + decode[0].site + '/' + site_id + '/' + view_id + '/' + decode[0].user_auth + '/' + decode[0].user_id
         .success (result) ->
-            console.log result
             $scope.getAllView = result
             $scope.url = "templates/tableau.html"
         .error (err) ->

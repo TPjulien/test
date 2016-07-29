@@ -5,15 +5,6 @@ var fs        = require('fs');
 
 
 module.exports = function(router, connection) {
-    // une fonction qui retourne une queryBuilder en fonction de la requete donnée
-    function queryBuilder(data) {
-        var query = "ceci est un test de query";
-        return query;
-    }
-
-    function getGenericJson(data) {
-
-    }
     // structure tableau v2
     // On utilise un post au lieu d'un GET
     router.route('/showEmbed')
@@ -41,13 +32,15 @@ module.exports = function(router, connection) {
                       if (err)
                           res.status(400).send(err);
                       else {
-                          // les requetes pour la datatable
+                          // On build un JSON generique donner au client
                           var object           = {};
                           var object_optimized = {};
                           var count            = result_embed_content_type.length;
+                          // Ici on dit si c'est un datatable, un tableau, ou bien un embed dont on ne connait pas la nature
                           object.datatable     = [];
                           object.tableau       = [];
                           object.others        = [];
+                          // cette boucle permet
                           for (var i = 0; i < count; i++) {
                               if (result_embed_content_type[i].embed_content_type == 'datatable') {
                                   object.datatable.push(result_embed_content_type[i]);
@@ -59,20 +52,19 @@ module.exports = function(router, connection) {
                                   object.others.push(result_embed_content_type[i]);
                               }
                           }
+                          // Un foreach pour recuperer que les donnée 'clean'
                           var values, result;
                           var object_final = []
                           // on nettoie les données inutiles
-                          // var count = 0;
                           for (values in object) {
                             result = object[values];
                             if (result.length !== 0) {
                               for (var i = 0; i < result.length; i++) {
                                 object_final.push(result[i]);
                               }
-                              // object_optimized[values] = result;
                             }
-                            // count++;
                           }
+                          // On envoie au client les types d'embed pour qu'il puisse generer automatiquement les vues et renvoyer d'autres instructions
                           res.json(object_final);
                       }
                   })

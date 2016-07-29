@@ -89,9 +89,9 @@ module.exports = function(router, connection) {
               }
           })
 
-      // Ce n'est plus pdf mais du coup datatable
-      router.route('/datatable')
-          .get (function(req, res) {
+      // On Recupere les données de la datatable
+      router.route('/getDatatable')
+          .post (function(req, res) {
               var generic_data_length = req.body.generic_data.length;
               var query        = "SELECT ";
               var table        = [];
@@ -100,6 +100,7 @@ module.exports = function(router, connection) {
                   query += ', ' + generic_data[i].column;
               }
               query += " FROM " + generic_data[0].schema + '.' + generic_data[0].table;
+              res.json(query);
           })
 
 
