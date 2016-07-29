@@ -3,8 +3,8 @@
     <div class="col s8">
       <div class        = "col s12"
            style        = "text-align:left; margin: 0; padding: 0; margin-bottom: -9px;"
-           ng-repeat    = "data in data_table"
-           ng-bind-html = "getGenericRow(data)"
+           ng-repeat    = "data in data_table.datatable"
+           ng-bind-html = "getGenericRow(data, data_table.datatable_width)"
            ng-click     = "watchOrDownload(data)">
       </div>
     </div>

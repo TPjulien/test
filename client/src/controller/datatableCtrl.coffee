@@ -30,17 +30,16 @@ tableau
     $scope.watchOrDownload = (value) ->
         console.log value
 
-    $scope.getGenericRow = (value) ->
+    $scope.getGenericRow = (value, width) ->
         result = []
+        count  = 0;
         # on supprime le hashkey car inutile pour afficher les données
         delete value.$$hashKey
-        # console.log Object.keys(value[1]).length;
         for data, name of value
-            console.log data
-            # console.log name
             if name == null
                 name = "donnée indisponible"
-            result += "<p class='col s4 md-whiteframe-1dp truncate' style='background-color:white'>" + name + "</p>"
+            result += "<p class='col s" + width[count].width + " md-whiteframe-1dp truncate' style='background-color:white'>" + name + "</p>"
+            count++
         return result
 
     $scope.nameValue = (name) ->
