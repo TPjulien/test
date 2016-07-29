@@ -807,8 +807,8 @@
                           </div>
                           <div class="col-md-8">
                             <md-input-container class="select_generic">
-                              <md-select aria-label="provider"  name="provider" ng-model="profils.provider" >
-                                <md-option ng-click="cardNameChange(profils.provider)" ng-repeat="Oneprovider in provider" value="{{Oneprovider.PROVIDER}}">{{Oneprovider.PROVIDER}}</md-option>
+                              <md-select ng-change="cardNameChange(profils.provider)" aria-label="provider"  name="provider" ng-model="profils.provider" >
+                                <md-option  ng-repeat="Oneprovider in provider" value="{{Oneprovider.PROVIDER}}">{{Oneprovider.PROVIDER}}</md-option>
                               </md-select>
                             </md-input-container>
                           </div>
@@ -818,7 +818,7 @@
                           <div class="col-md-8">
                             <md-input-container class="select_generic">
                               <md-select aria-label="card_name"  name="card_name" ng-model="profils.card_name" >
-                                <md-option ng-repeat="Onecard_name in card_name" value="{{Onecard_name.CARD_NAME}}">{{Oneprovider.CARD_NAME}}</md-option>
+                                <md-option ng-repeat="Onecard_name in card_name" value="{{Onecard_name.CARD_NAME}}">{{Onecard_name.CARD_NAME}}</md-option>
                               </md-select>
                             </md-input-container>
                           </div>

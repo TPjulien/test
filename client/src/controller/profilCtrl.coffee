@@ -59,6 +59,16 @@ tableau
     .success (data) ->
         $scope.provider = data
     .error (err) ->
+        console.log err cardTraveller
+
+# Appel pour lister les cartes voyageur du voyageur
+    $http
+        method: 'GET'
+        url: options.api.base_url + '/cardTraveller/' + uid
+    .success (data) ->
+        $scope.cardTraveller = data
+        console.log cardTraveller
+    .error (err) ->
         console.log err
 
 # Appel pour lister les carte voyageur en fonction des compagnies férrovières
@@ -67,7 +77,8 @@ tableau
           method: 'GET'
           url: options.api.base_url + '/card_name/' + provider
       .success (data) ->
-          $scope.cardName = data
+          $scope.card_name = data
+          console.log $scope.card_name
       .error (err) ->
           console.log err
 
