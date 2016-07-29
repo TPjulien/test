@@ -6,7 +6,7 @@ tableau
       $scope.ajouterUser = true
     $scope.hidePanelUser = () ->
       $scope.ajouterUser = false
-    uid = 'blyweereri'
+    uid = 'boetschnat'
 
     $http
         method: 'GET'
@@ -68,7 +68,7 @@ tableau
         url: options.api.base_url + '/cardTraveller/' + uid
     .success (data) ->
         $scope.cardTraveller = data
-        console.log cardTraveller
+        console.log $scope.cardTraveller
     .error (err) ->
         console.log err
 
@@ -298,12 +298,15 @@ tableau
 #Carte de voyage
     $scope.ajouterCarteVoy = true
     $scope.carteVoy = false
+    $scope.TabRecupCardVoy = true;
     $scope.showPanelCarteVoy = () ->
       $scope.carteVoy = true
       $scope.ajouterCarteVoy = false
+      $scope.TabRecupCardVoy = false;
     $scope.hidePanelCarteVoy = () ->
       $scope.carteVoy = false
       $scope.ajouterCarteVoy = true
+      $scope.TabRecupCardVoy = true;
 
     $scope.listCarteVoy = []
     $scope.submitCarteVoy = ->
