@@ -73,7 +73,7 @@ module.exports = function(router, connection) {
                             }
                             // count++;
                           }
-                          res.json(object_optimized);
+                          res.json(object_final);
                       }
                   })
                 }
