@@ -16,7 +16,6 @@ tableau
     decode              = jwtHelper.decodeToken(token)
 
     # on recupere les données de chaque instance de $scope.detail
-    console.log $scope.detail
     $http
         method: 'POST'
         url:    options.api.base_url + '/getDatatable'

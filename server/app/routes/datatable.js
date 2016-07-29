@@ -98,11 +98,19 @@ module.exports = function(router, connection) {
               var table = ["tp_control.datatable", "SITE_ID", pre_data.SITE_ID, "VIEW_ID", pre_data.VIEW_ID, "EMBED_ID", pre_data.EMBED_ID];
               query = mysql.format(query, table);
               connection.query(query, function(err, result_datatable) {
-                // on envoie au client pour test
                 if (err)
                     res.send(400).status(err);
                 else {
-                    res.json(result_datatable);
+                    // on fait les traitement
+                    var query_datatable = "SELECT ";
+                    var table_datatable = [];
+                    query_datatable += result_datatable[0].column;
+                    for (var i = 1; i < result_datatable.length; i++) {
+                        query_datatable += ', ' + result_datatable[i].column;
+                    }
+                    query_datatable += result_datatable[0].schema + '.' + result_datatable[0].table;
+                    // une fois terminé en renvoie la query pour verifiser si c'est bien cela.
+                    res.json(query_datatable);
                 }
               })
 
