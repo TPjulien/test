@@ -230,7 +230,7 @@
                         <div class="col-md-12">
                           <label class="col-md-5 labelProfil label_select" for="phone_country">Choisissez un pays:</label>
                           <div class="col-md-7">
-                            <md-autocomplete md-selected-item="selectedItem" md-search-text="searchText" md-items="item in querySearch(searchText)" md-item-text="item.nicename">
+                            <md-autocomplete md-selected-item="selectedItem" md-search-text="searchText" md-items="item in querySearch(searchText,'phone','country_phone')" md-item-text="item.nicename">
                               <span md-highlight-text="searchText">{{item.nicename}}</span>
                             </md-autocomplete>
                           </div>
@@ -773,16 +773,9 @@
                     <label class="right_profil labelProfil">Gare de Départ préférée</label>
                   </div>
                   <div class="col-md-9">
-
-                    <md-autocomplete class="select_generic" md-selected-item="selectedItem" md-search-text="searchText" md-items="OnerailDepartureStation in querySearch(searchText)" md-item-text="railDepartureStation.RailDepartureStation">
+                    <md-autocomplete class="select_generic" md-selected-item="selectedItem" md-search-text="railText" md-items="OnerailDepartureStation in querySearch(railText,'villeGare')" md-item-text="OnerailDepartureStation.RailDepartureStation">
                       <span md-highlight-text="searchText">{{OnerailDepartureStation.RailDepartureStation}}</span>
                     </md-autocomplete>
-
-                    <!-- <md-input-container class="select_generic">
-                      <md-select aria-label="railSeatPosition"  name="railSeatPosition" ng-model="profils.railSeatPosition" >
-                        <md-option ng-repeat="OnerailSeatPosition in railSeatPosition" value="{{OnerailSeatPosition.RailSeatPosition}}">{{OnerailSeatPosition.RailSeatPosition}}</md-option>
-                      </md-select>
-                    </md-input-container> -->
                   </div>
                 </div>
                 <div class="col-md-3">
@@ -806,63 +799,64 @@
                   </div>
                   <div class="row">
                     <form ng-submit="submitCarteVoy()">
-                      <div class="carteVoy panel" ng-if="carteVoy">
-                        <div class="panel-header panel-header_min">Ajouter une carte de voyage</div>
-                        <div class="col-md-4">
-                          <label  class="labelProfil" for="carteVoy"> Prestataire </label>
-                        </div>
-                        <div class="col-md-8">
-                          <md-input-container class="">
-                            <md-select aria-label="prestataire_carteVoy"  name="prestataire_carteVoy" ng-model="prestataire_carteVoy" >
-                              <md-option value="Lyria">Lyria</md-option>
-                              <md-option value="SNCF">SNCF</md-option>
-                              <md-option value="Thalys">Thalys</md-option>
-                              <md-option value="PGM">PGM (Paris,Genève, Méditerranée)</md-option>
-                            </md-select>
-                          </md-input-container>
-                        </div>
-                        <div class="col-md-4">
-                          <label  class="labelProfil" for="nom_carteVoy"> Nom de la carte </label>
-                        </div>
-                        <div class="col-md-8">
-                          <md-input-container class="">
-                            <md-select aria-label="nom_carteVoy"  name="nom_carteVoy" ng-model="nom_carteVoy" >
-                              <md-option value="AFF1er">Abonnement Fréquence France entière valable en 1ère classe</md-option>
-                              <md-option value="AFF2eme">Abonnement Fréquence France entière valable en 2ème classe</md-option>
-                              <md-option value="AFFS1er">Abonnement Fréquence France/Suisse entière valable en 1ère classe</md-option>
-                              <md-option value="AFFS2eme">Abonnement Fréquence France/Suisse entière valable en 2ème classe</md-option>
-                            </md-select>
-                          </md-input-container>
-                        </div>
-                        <div class="col-md-4">
-                          <label  class="labelProfil" for="num_carteVoy"> Numéro de la carte </label>
-                        </div>
-                        <div class="col-md-8">
-                          <input class="input_generic" name="num_carteVoy" ng-model="user.num_carteVoy" type="text" ng-minlength="1" ng-maxlength="30" class="validate" >
-                        </div>
-                        <div class="col-md-4">
-                          <label  class="labelProfil" for="num_carteVoy"> Date de validité </label>
-                        </div>
-                        <div class="col-md-8">
-                          <md-input-container style="margin-right: 10px;" class="">
-                            <md-select aria-label="jours"  name="birth_jours" ng-model="user.birth_jours" >
-                              <md-option  ng-repeat="oneJours in jours"  value="{{oneJours.name}}">{{oneJours.name}}</md-option>
-                            </md-select>
-                          </md-input-container>
-                          <md-input-container class="">
-                            <md-select aria-label="mois"  name="birth_mois" ng-model="user.birth_mois" >
-                              <md-option  ng-repeat="oneMois in mois"  value="{{oneMois.name}}">{{oneMois.name}}</md-option>
-                            </md-select>
-                          </md-input-container>
-                          <md-input-container class="">
-                            <md-select  name="birth_annee" ng-model="user.birth_annee" >
-                              <md-option  ng-repeat="oneAnnee in annee"  value="{{oneAnnee.name}}">{{oneAnnee.name}}</md-option>
-                            </md-select>
-                          </md-input-container>
-                        </div>
-                        <div class="col-md-12">
-                          <button type="submit" class="right md-raised btn btn-success" value="Submit">Ajouter</button>
-                          <button class="right md-raised btn btn-warning" ng-click="hidePanelCarteVoy()">Fermer</button>
+                      <div class="carteVoy" ng-if="carteVoy">
+                        <div class="panel-header panel-header_min">Ajouter une carte de voyage <md-icon ng-click="hidePanelCarteVoy()" class="right logo_lock" md-svg-icon="img/icons/delete-button.svg"></md-icon></div>
+                        <div class="panel">
+                          <div class="col-md-4">
+                            <label  class="labelProfil" for="carteVoy"> Prestataire </label>
+                          </div>
+                          <div class="col-md-8">
+                            <md-input-container class="select_generic">
+                              <md-select aria-label="provider"  name="provider" ng-model="profils.provider" >
+                                <md-option ng-repeat="Oneprovider in provider" value="{{Oneprovider.PROVIDER}}">{{Oneprovider.PROVIDER}}</md-option>
+                              </md-select>
+                            </md-input-container>
+                          </div>
+                          <div class="col-md-4">
+                            <label  class="labelProfil" for="nom_carteVoy"> Nom de la carte </label>
+                          </div>
+                          <div class="col-md-8">
+                            <md-input-container class="">
+                              <md-select aria-label="nom_carteVoy"  name="nom_carteVoy" ng-model="nom_carteVoy" >
+                                <md-option value="AFF1er">Abonnement Fréquence France entière valable en 1ère classe</md-option>
+                                <md-option value="AFF2eme">Abonnement Fréquence France entière valable en 2ème classe</md-option>
+                                <md-option value="AFFS1er">Abonnement Fréquence France/Suisse entière valable en 1ère classe</md-option>
+                                <md-option value="AFFS2eme">Abonnement Fréquence France/Suisse entière valable en 2ème classe</md-option>
+                              </md-select>
+                            </md-input-container>
+                          </div>
+                          <div class="col-md-4">
+                            <label  class="labelProfil" for="num_carteVoy"> Numéro de la carte </label>
+                          </div>
+                          <div class="col-md-8">
+                            <input class="input_generic" name="num_carteVoy" ng-model="user.num_carteVoy" type="text" ng-minlength="1" ng-maxlength="30" class="validate" >
+                          </div>
+                          <div class="col-md-4">
+                            <label  class="labelProfil" for="num_carteVoy"> Date de validité </label>
+                          </div>
+                          <div class="col-md-8">
+                            <md-input-container style="margin-right: 10px;" class="">
+                              <md-select aria-label="jours"  name="birth_jours" ng-model="user.birth_jours" >
+                                <md-option  ng-repeat="oneJours in jours"  value="{{oneJours.name}}">{{oneJours.name}}</md-option>
+                              </md-select>
+                            </md-input-container>
+                            <md-input-container class="">
+                              <md-select aria-label="mois"  name="birth_mois" ng-model="user.birth_mois" >
+                                <md-option  ng-repeat="oneMois in mois"  value="{{oneMois.name}}">{{oneMois.name}}</md-option>
+                              </md-select>
+                            </md-input-container>
+                            <md-input-container class="">
+                              <md-select  name="birth_annee" ng-model="user.birth_annee" >
+                                <md-option  ng-repeat="oneAnnee in annee"  value="{{oneAnnee.name}}">{{oneAnnee.name}}</md-option>
+                              </md-select>
+                            </md-input-container>
+                          </div>
+                          <div class="row">
+                            <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+                              <button class="right md-raised btn btn-warning" type="submit" value="Submit">Ajouter</button>
+                            </div>
+                          </div>
+                          <div class="clear"></div>
                         </div>
                       </div>
                     </form>

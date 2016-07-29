@@ -42,13 +42,22 @@ tableau
         $scope.railSeatPosition = data
     .error (err) ->
         console.log err
-        
+
 # Appel pour lister toutes les villes preféré de depart train
     $http
         method: 'GET'
         url: options.api.base_url + '/railDepartureStation'
     .success (data) ->
         $scope.railDepartureStation = data
+    .error (err) ->
+        console.log err
+
+# Appel pour lister toutes les villes preféré de depart train
+    $http
+        method: 'GET'
+        url: options.api.base_url + '/provider'
+    .success (data) ->
+        $scope.provider = data
     .error (err) ->
         console.log err
 
@@ -314,21 +323,30 @@ tableau
     $scope.hidePanelUser = () ->
       $scope.ajouterUser = false
 
-    toArray = (object) ->
+    toArray = (object,name) ->
+        console.log object
         data = []
         i = 0
         while i < object.length
+          if name == 'phone'
             data.push(object[i].nicename)
-            i++
+          else if name == 'villeGare'
+
+            data.push(object[i].RailDepartureStation)
+          i++
         return data
 
-    toObject = (arr) ->
+    toObject = (arr, name) ->
+
         rv = []
         i = 0
         while i < arr.length
-          # rv[i].nicename = null
-          rv[i] =
-            nicename: arr[i]
+          if name == "villeGare"
+              rv[i] =
+                RailDepartureStation: arr[i]
+          else
+              rv[i] =
+                nicename: arr[i]
           ++i
         rv
 
@@ -336,22 +354,26 @@ tableau
       # The variable results needs var in this case (without 'var' a global variable is created)
       results = []
       i       = 0
+      # console.log array
       while i < array.length
         if array[i].indexOf(key) == 0
           results.push array[i]
         i++
       results
 
-    arrayObjectIndexOf = (object, searchTerm) ->
+    arrayObjectIndexOf = (object, searchTerm,name) ->
         searchTerm = searchTerm.substring(0,1).toUpperCase()+searchTerm.substring(1);
         if !searchTerm
             console.log "no text"
         else
-            getArray = toArray(object)
+            getArray = toArray(object,name)
             result   = find(searchTerm, getArray)
-            result2  = toObject(result)
+            result2  = toObject(result, name)
             return result2
 
-    $scope.querySearch = (query) ->
-        result = arrayObjectIndexOf($scope.country_phone, query)
+    $scope.querySearch = (query,name) ->
+        if (name == 'villeGare')
+            result = arrayObjectIndexOf($scope.railDepartureStation, query,name)
+        else
+            result = arrayObjectIndexOf($scope.country_phone, query,name)
         return result
