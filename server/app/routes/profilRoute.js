@@ -86,14 +86,38 @@ module.exports = function(router, connection) {
     // route pour lister les carte voyageur en fonction des compagnies férrovières
     router.route('/card_name/:provider')
         .get(function(req, res) {
-            var query_one    = "SELECT DISTINCT \
-                               ?? \
+            var query_one    = "SELECT \
+                               * \
                                FROM ?? \
                                WHERE ?? = ?";
             var table_one    = [
                                 "CARD_NAME",
                                 "profils.rail_cards",
                                 "PROVIDER", req.params.provider];
+            query_one = mysql.format(query_one, table_one);
+            connection.query(query_one, function(err, rows) {
+                if (err)
+                    res.status(400).send(err);
+                else
+                    res.json(rows);
+            })
+        })
+    // route pour lister les cartes voyageur du voyageur
+    router.route('/cardTraveller/:uid')
+        .get(function(req, res) {
+            var query_one    = "SELECT *  \
+                               * \
+                               FROM ?? \
+                               LEFT JOIN  ?? ON ?? = ?? \
+                               WHERE ?? = ? AND ?? = ( \
+                                 SELECT MAX(??) FROM  ?? WHERE ?? = ? ) \
+                              ORDER BY ?? ASC ;"
+            var table_one    = [
+                                "profils.rail_discount",
+                                "profils.rail_cards","profils.rail_discount.DiscountCode","profils.rail_cards.CODE",
+                                "UID", req.params.uid, "DEPOSITED_DATE",
+                                "DEPOSITED_DATE","profils.rail_discount","UID", req.params.uid,
+                                "SequenceNumber"];
             query_one = mysql.format(query_one, table_one);
             connection.query(query_one, function(err, rows) {
                 if (err)
