@@ -70,11 +70,30 @@ module.exports = function(router, connection) {
                     res.json(rows);
             })
         })
-    // route pour lister toutes les preferences sens marche train
+    // route pour lister les compagnies férrovières
     router.route('/provider')
         .get(function(req, res) {
             var query_one = "SELECT DISTINCT ?? FROM ?? WHERE ?? IS NOT NULL ORDER BY ?? ASC";
             var table_one = ["PROVIDER", "profils.rail_cards","PROVIDER","PROVIDER"];
+            query_one = mysql.format(query_one, table_one);
+            connection.query(query_one, function(err, rows) {
+                if (err)
+                    res.status(400).send(err);
+                else
+                    res.json(rows);
+            })
+        })
+    // route pour lister les carte voyageur en fonction des compagnies férrovières
+    router.route('/card_name/:provider')
+        .get(function(req, res) {
+            var query_one    = "SELECT DISTINCT \
+                               ?? \
+                               FROM ?? \
+                               WHERE ?? = ?";
+            var table_one    = [
+                                "CARD_NAME",
+                                "profils.rail_cards",
+                                "PROVIDER", req.params.provider];
             query_one = mysql.format(query_one, table_one);
             connection.query(query_one, function(err, rows) {
                 if (err)
