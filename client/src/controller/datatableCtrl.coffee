@@ -14,6 +14,7 @@ tableau
     max_slider          = 0
     value               = 50
     decode              = jwtHelper.decodeToken(token)
+    $scope.datatable    = []
 
     # on recupere les données de chaque instance de $scope.detail
     $http
@@ -22,9 +23,28 @@ tableau
         data:
             generic_data: $scope.detail
     .success (data) ->
-        console.log data
+        $scope.data_table = data
     .success (err) ->
         console.log err
+
+    $scope.watchOrDownload = (value) ->
+        console.log value
+
+    $scope.getGenericRow = (value) ->
+        result = []
+        # on supprime le hashkey car inutile pour afficher les données
+        delete value.$$hashKey
+        # console.log Object.keys(value[1]).length;
+        for data, name of value
+            console.log data
+            # console.log name
+            if name == null
+                name = "donnée indisponible"
+            result += "<p class='col s4 md-whiteframe-1dp truncate' style='background-color:white'>" + name + "</p>"
+        return result
+
+    $scope.nameValue = (name) ->
+      return name.CABIN_CONCATENATED_CODE
 
     $scope.tototo = (min, max) ->
         search_price_min = min

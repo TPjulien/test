@@ -1,4 +1,19 @@
-<div ng-model="detail" class="separator">
+<div ng-model         = "detail" class = "separator row">
+    <!-- Partie datatable généré automatiquement -->
+    <div class="col s8">
+      <div class        = "col s12"
+           style        = "text-align:left; margin: 0; padding: 0; margin-bottom: -9px;"
+           ng-repeat    = "data in data_table"
+           ng-bind-html = "getGenericRow(data)"
+           ng-click     = "watchOrDownload(data)">
+      </div>
+    </div>
+    <!-- partie filtre généré automatiquement -->
+    <div class="col s4">
+      <p>Ceci est le filtre</p>
+    </div>
+  </div>
+</div>
   <!-- <div class="col 10 m4 l10 content" style="background-color:#EEEEEE; !important; height:800px" when-scrolled="loadMore()">
     <h1 class="md-title" style="color:#424242" ng-show="data.length == 0">0 Resultat(s)</h1>
     <p class="md-subhead">{{information}}</p>
@@ -80,4 +95,3 @@
     <p class="md-subhead">{{userText}}</p>
   </div>
   </form> -->
-</div>
