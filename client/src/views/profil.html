@@ -808,7 +808,7 @@
                           <div class="col-md-8">
                             <md-input-container class="select_generic">
                               <md-select aria-label="provider"  name="provider" ng-model="profils.provider" >
-                                <md-option ng-repeat="Oneprovider in provider" value="{{Oneprovider.PROVIDER}}">{{Oneprovider.PROVIDER}}</md-option>
+                                <md-option ng-click="cardNameChange(profils.provider)" ng-repeat="Oneprovider in provider" value="{{Oneprovider.PROVIDER}}">{{Oneprovider.PROVIDER}}</md-option>
                               </md-select>
                             </md-input-container>
                           </div>
@@ -816,12 +816,9 @@
                             <label  class="labelProfil" for="nom_carteVoy"> Nom de la carte </label>
                           </div>
                           <div class="col-md-8">
-                            <md-input-container class="">
-                              <md-select aria-label="nom_carteVoy"  name="nom_carteVoy" ng-model="nom_carteVoy" >
-                                <md-option value="AFF1er">Abonnement Fréquence France entière valable en 1ère classe</md-option>
-                                <md-option value="AFF2eme">Abonnement Fréquence France entière valable en 2ème classe</md-option>
-                                <md-option value="AFFS1er">Abonnement Fréquence France/Suisse entière valable en 1ère classe</md-option>
-                                <md-option value="AFFS2eme">Abonnement Fréquence France/Suisse entière valable en 2ème classe</md-option>
+                            <md-input-container class="select_generic">
+                              <md-select aria-label="card_name"  name="card_name" ng-model="profils.card_name" >
+                                <md-option ng-repeat="Onecard_name in card_name" value="{{Onecard_name.CARD_NAME}}">{{Oneprovider.CARD_NAME}}</md-option>
                               </md-select>
                             </md-input-container>
                           </div>

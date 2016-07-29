@@ -61,6 +61,16 @@ tableau
     .error (err) ->
         console.log err
 
+# Appel pour lister les carte voyageur en fonction des compagnies férrovières
+    $scope.cardNameChange = (provider) ->
+      $http
+          method: 'GET'
+          url: options.api.base_url + '/card_name/' + provider
+      .success (data) ->
+          $scope.cardName = data
+      .error (err) ->
+          console.log err
+
     $http
         method: 'GET'
         url:    options.api.base_url + '/community'
