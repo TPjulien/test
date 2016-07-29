@@ -99,7 +99,7 @@ module.exports = function(router, connection) {
               query = mysql.format(query, table);
               connection.query(query, function(err, result_datatable) {
                 if (err)
-                    res.send(400).status(err);
+                    res.status(400).send(err);
                 else {
                     // on fait les traitement
                     var query_datatable = "SELECT ";
@@ -109,8 +109,13 @@ module.exports = function(router, connection) {
                         query_datatable += ', ' + result_datatable[i].column;
                     }
                     query_datatable += ' FROM ' + result_datatable[0].schema + '.' + result_datatable[0].table;
-                    // une fois terminé en renvoie la query pour verifiser si c'est bien cela.
-                    res.json(query_datatable);
+                    // une fois la query buildé, on l'execute
+                    connection.query(query_datatable, function(err, post_data){
+                      if (err)
+                          res.status(400).send(err);
+                      else
+                          res.json(query_datatable);
+                    })
                 }
               })
 
