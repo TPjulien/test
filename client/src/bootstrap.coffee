@@ -78,7 +78,7 @@ tableau
             constroller:  'errorCtrl'
         .state 'home.test.facture',
             url:          '/factures',
-            templateUrl:  'templates/facture.html',
+            templateUrl:  'templates/datatable.html',
             controller:   'factureCtrl'
         .state 'home.profil',
             url:          '/profil',

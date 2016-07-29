@@ -60,18 +60,19 @@ module.exports = function(router, connection) {
                               }
                           }
                           var values, result;
-
+                          var object_final = []
                           // on nettoie les données inutiles
+                          // var count = 0;
                           for (values in object) {
                             result = object[values];
                             if (result.length !== 0) {
-                              object_optimized[values] = result;
+                              for (var i = 0; i < result.length; i++) {
+                                object_final.push(result);
+                              }
+                              // object_optimized[values] = result;
                             }
+                            // count++;
                           }
-                          // for (values, result in object) {
-                          //     if (result.length != 0)
-                          //         object_optimized[values] = result;
-                          // }
                           res.json(object_optimized);
                       }
                   })

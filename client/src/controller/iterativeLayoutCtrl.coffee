@@ -29,6 +29,10 @@ tableau
     $scope.dataEmbed = null
     $scope.details   = {}
 
+    $scope.getTemplate = (value) ->
+        # console.log value
+        return 'templates/' + value + '.html'
+
     console.log $scope.infoList
     $scope.dynamic_rows = () ->
         return
@@ -45,13 +49,13 @@ tableau
             site_id:   site_id
             view_id:   view_id
     .success (data) ->
-        # console.log data
+        console.log data
         # data_length = Object.keys(data).length;
         # i = 0
-        for values, result of data
-            if (result.length != 0)
-                $scope.details[values] = result
-        console.log $scope.details
+        # for values, result of data
+        #     if (result.length != 0)
+        #         $scope.details[values] = result
+        # console.log $scope.details
 
         # while i < data_length
 

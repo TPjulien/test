@@ -31,9 +31,10 @@
 </div> -->
 
 <!-- test -->
-<div layout-padding class="anim-fade" ng-repeat="detail in details">
-  <div ng-if="detail.length != 0">
-    <p>{{detail.length}}</p>
-  </div>
-    <!-- <div ng-include ng-controller="" src="''" onload=""> -->
+<div layout-padding class="anim-fade separator" ng-repeat="detail in details">
+  <!-- <div ng-if="detail.length != 0"> -->
+    <div ng-repeat="type in detail" class="separator">
+      <div ng-include src="getTemplate(type.embed_content_type)" onload="">
+        <!-- <p>{{type.SITE_ID}}</p> -->
+    </div>
 </div>
