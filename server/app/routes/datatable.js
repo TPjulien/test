@@ -97,9 +97,9 @@ module.exports = function(router, connection) {
               var table        = [];
               query += generic_data[0].column
               for (i = 1; i < generic_data.length; i++) {
-                  query += ', ' + generic_data[i].column;
+                  query += ', ' + req.body.generic_data[i].column;
               }
-              query += " FROM " + generic_data[0].schema + '.' + generic_data[0].table;
+              query += " FROM " + req.body.generic_data[0].schema + '.' + req.body.generic_data[0].table;
               res.json(query);
           })
 
