@@ -1,13 +1,6 @@
 tableau
 .controller "profilCtrl",($scope,$mdDialog,$http,$q,NgTableParams) ->
-#Ajouter user
-    $scope.ajouterUser = false
-    $scope.showPanelUser = () ->
-      $scope.ajouterUser = true
-    $scope.hidePanelUser = () ->
-      $scope.ajouterUser = false
     uid = 'boetschnat'
-
     $http
         method: 'GET'
         url: options.api.base_url + '/profils/' + uid
@@ -16,6 +9,41 @@ tableau
         console.log $scope.profils
     .error (err) ->
         console.log err
+
+    $scope.profilchange = (uid) ->
+      $http
+          method: 'GET'
+          url: options.api.base_url + '/profils/' + uid
+      .success (data) ->
+          $scope.profils = data[0]
+      .error (err) ->
+          console.log err
+
+#Mail
+    $scope.mail = null
+    $scope.ajouterMail = true
+    $scope.mailDisplay = false
+    $scope.showPanelMail = () ->
+      $scope.mailDisplay = true
+      $scope.ajouterMail = false
+    $scope.hidePanelMail = () ->
+      $scope.mailDisplay = false
+      $scope.ajouterMail = true
+    $scope.listMail = []
+    $scope.submitMail = () ->
+      console.log '------------------'
+      console.log $scope.mail
+      mailSub = {
+        mail: $scope.mail
+      }
+      if $scope.mail
+        $scope.listMail.push mailSub
+        $scope.mailSub = {}
+        $scope.mailDisplay = false
+        $scope.ajouterMail = true
+        $scope.mail = ''
+
+
 
 # Appel pour lister toutes les class voyageur pour le train
     $http
@@ -60,7 +88,7 @@ tableau
     .success (data) ->
         $scope.provider = data
     .error (err) ->
-        console.log err cardTraveller
+        console.log err
 
 # Appel pour lister les cartes voyageur du voyageur
     $http
@@ -68,7 +96,6 @@ tableau
         url: options.api.base_url + '/cardTraveller/' + uid
     .success (data) ->
         $scope.cardTraveller = data
-        console.log $scope.cardTraveller
     .error (err) ->
         console.log err
 
@@ -79,7 +106,6 @@ tableau
           url: options.api.base_url + '/card_name/' + provider
       .success (data) ->
           $scope.card_name = data
-          console.log $scope.card_name
       .error (err) ->
           console.log err
 
@@ -91,14 +117,7 @@ tableau
     .error (err) ->
         console.log err
 
-    $scope.profilchange = (uid) ->
-      $http
-          method: 'GET'
-          url: options.api.base_url + '/profils/' + uid
-      .success (data) ->
-          $scope.profils = data[0]
-      .error (err) ->
-          console.log err
+
 
     $scope.getusersCommunity = (number_community) ->
       $http
@@ -123,6 +142,7 @@ tableau
         console.log err
 
     $scope.getCodeNumber = (country) ->
+      console.log country
       $http
           method: 'GET'
           url:    options.api.base_url + '/phoneCode/' + country
@@ -163,27 +183,8 @@ tableau
         $scope.user.phoneCode = null
         $scope.user.numPhone = null
 
-#Mail
-    $scope.ajouterMail = true
-    $scope.mail = false
-    $scope.showPanelMail = () ->
-      $scope.mail = true
-      $scope.ajouterMail = false
-    $scope.hidePanelMail = () ->
-      $scope.mail = false
-      $scope.ajouterMail = true
 
-    $scope.listMail = []
-    $scope.submitMail = ->
-      mailSub = {
-        mail: $scope.user.mail
-      }
-      if $scope.user.mail
-        $scope.listMail.push mailSub
-        $scope.mailSub = {}
-        $scope.mail = false
-        $scope.ajouterMail = true
-        $scope.user.mail = null
+
 
 #valideur
     $scope.ajouterValideur = true
@@ -296,29 +297,30 @@ tableau
         $scope.user.nomFidelite = null
 
 #Carte de voyage
-    $scope.ajouterCarteVoy = true
-    $scope.carteVoy = false
+    $scope.ajouterCardTraveller = true
+    $scope.CardTravellerDisplay = false
     $scope.TabRecupCardVoy = true;
-    $scope.showPanelCarteVoy = () ->
-      $scope.carteVoy = true
-      $scope.ajouterCarteVoy = false
+    $scope.showPanelCardTraveller = () ->
+      $scope.CardTravellerDisplay = true
+      $scope.ajouterCardTraveller = false
       $scope.TabRecupCardVoy = false;
-    $scope.hidePanelCarteVoy = () ->
-      $scope.carteVoy = false
-      $scope.ajouterCarteVoy = true
+    $scope.hidePanelCardTraveller = () ->
+      $scope.CardTravellerDisplay = false
+      $scope.ajouterCardTraveller = true
       $scope.TabRecupCardVoy = true;
 
-    $scope.listCarteVoy = []
-    $scope.submitCarteVoy = ->
-      carteVoySub = {
-        name: $scope.user.carteVoy
+    $scope.listCardTraveller = []
+    $scope.submitCardTraveller = ->
+      CardTravellerSub = {
+        PROVIDER: $scope.CardTraveller.PROVIDER
+        CARD_NAME: $scope.CardTraveller.CARD_NAME
       }
-      if $scope.user.carteVoy
-        $scope.listCarteVoy.push carteVoySub
-        $scope.carteVoySub = {}
-        $scope.carteVoy = false
-        $scope.ajouterCarteVoy = true
-        $scope.user.nomCarteVoy = null
+      if $scope.user.CardTraveller
+        $scope.listCardTraveller.push CardTravellerSub
+        $scope.CardTravellerSub = {}
+        $scope.CardTraveller = false
+        $scope.ajouterCardTraveller = true
+        $scope.user.nomCardTraveller = null
 
 #Carte de fidélité Hotel
     $scope.ajouterFideliteHotel = true
