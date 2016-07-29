@@ -6,10 +6,11 @@ tableau
       $scope.ajouterUser = true
     $scope.hidePanelUser = () ->
       $scope.ajouterUser = false
+    uid = 'blyweereri'
 
     $http
         method: 'GET'
-        url: options.api.base_url + '/profils/blyweereri'
+        url: options.api.base_url + '/profils/' + uid
     .success (data) ->
         $scope.profils = data[0]
         console.log $scope.profils
