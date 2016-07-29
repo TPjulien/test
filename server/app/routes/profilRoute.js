@@ -86,8 +86,7 @@ module.exports = function(router, connection) {
     // route pour lister les carte voyageur en fonction des compagnies férrovières
     router.route('/card_name/:provider')
         .get(function(req, res) {
-            var query_one    = "SELECT \
-                               * \
+            var query_one    = "SELECT ?? \
                                FROM ?? \
                                WHERE ?? = ?";
             var table_one    = [

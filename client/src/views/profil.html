@@ -171,6 +171,7 @@
                 <div class="col-md-8 col-xs-12">
                   <md-input-container flex-gt-md="30">
                     <input mdc-datetime-picker="" date="true" time="false" type="text" id="datetime" min-date="date" ng-model="profils.Customer_BirthDate" class="datePicker_generic md-input">
+                  </md-input-container>
                 </div>
                 <div class="col-md-4 col-xs-12">     <!--- Parti eMail  ----------------------------------->
                   <label  class="right_profil labelProfil">Adresse Mail <md-icon class="logo_lock"  md-svg-icon="img/icons/locked-padlock.svg"></md-icon></label>
@@ -791,19 +792,35 @@
                       <p class="p_profil" ng-repeat="carteVoy in listCarteVoy">{{carteVoy.carteVoy}}</p>
                     </div>
                   </div>
-                  <div ng-if="ajouterCarteVoy" ng-click="showPanelCarteVoy()" class="add link-icon">
+                  <div ng-if="ajouterCarteVoy" ng-click="showPanelCarteVoy()" class="add link-icon" style="margin-top:5px;">
                     <span class="addProfil link-icon__text">
-                      <md-icon class="logo_lock"md-svg-icon="img/icons/bleed.svg"></md-icon>
-                      Ajouter une carte voyageur
+                      <md-icon class="logo_lock"md-svg-icon="img/icons/bleed.svg"></md-icon>Ajouter une carte voyageur
                     </span>
                   </div>
+                  </br>
+                  <table ng-if="TabRecupCardVoy" class="tabProfil">
+                    <tr>
+                      <th><label  class="labelProfil" for=""> # </label></th>
+                      <th><label  class="labelProfil" for=""> Compagnie </label></th>
+                      <th><label  class="labelProfil" for=""> Nom de la carte </label></th>
+                      <th><label  class="labelProfil" for=""> Numéro de de la carte </label></th>
+                      <th><label  class="labelProfil" for=""> Date d'expiration </label></th>
+                    </tr>
+                    <tr ng-repeat="oneCardTraveller in cardTraveller">
+                      <td>{{oneCardTraveller.SequenceNumber}}</td>
+                      <td>{{oneCardTraveller.PROVIDER}}</td>
+                      <td>{{oneCardTraveller.CARD_NAME}}</td>
+                      <td>{{oneCardTraveller.DiscountCardNumber}}</td>
+                      <td>{{oneCardTraveller.DiscountExpirationDate}}</td>
+                    </tr>
+                  </table>
                   <div class="row">
                     <form ng-submit="submitCarteVoy()">
                       <div class="carteVoy" ng-if="carteVoy">
                         <div class="panel-header panel-header_min">Ajouter une carte de voyage <md-icon ng-click="hidePanelCarteVoy()" class="right logo_lock" md-svg-icon="img/icons/delete-button.svg"></md-icon></div>
                         <div class="panel">
                           <div class="col-md-4">
-                            <label  class="labelProfil" for="carteVoy"> Prestataire </label>
+                            <label  class="labelProfil" for="carteVoy"> Compagnie </label>
                           </div>
                           <div class="col-md-8">
                             <md-input-container class="select_generic">
@@ -829,23 +846,11 @@
                             <input class="input_generic" name="num_carteVoy" ng-model="user.num_carteVoy" type="text" ng-minlength="1" ng-maxlength="30" class="validate" >
                           </div>
                           <div class="col-md-4">
-                            <label  class="labelProfil" for="num_carteVoy"> Date de validité </label>
+                            <label  class="labelProfil" for="CardTraveller.DiscountExpirationDate"> Date de validité </label>
                           </div>
                           <div class="col-md-8">
-                            <md-input-container style="margin-right: 10px;" class="">
-                              <md-select aria-label="jours"  name="birth_jours" ng-model="user.birth_jours" >
-                                <md-option  ng-repeat="oneJours in jours"  value="{{oneJours.name}}">{{oneJours.name}}</md-option>
-                              </md-select>
-                            </md-input-container>
-                            <md-input-container class="">
-                              <md-select aria-label="mois"  name="birth_mois" ng-model="user.birth_mois" >
-                                <md-option  ng-repeat="oneMois in mois"  value="{{oneMois.name}}">{{oneMois.name}}</md-option>
-                              </md-select>
-                            </md-input-container>
-                            <md-input-container class="">
-                              <md-select  name="birth_annee" ng-model="user.birth_annee" >
-                                <md-option  ng-repeat="oneAnnee in annee"  value="{{oneAnnee.name}}">{{oneAnnee.name}}</md-option>
-                              </md-select>
+                            <md-input-container flex-gt-md="30">
+                              <input mdc-datetime-picker="" date="true" time="false" type="text" id="DiscountExpirationDate" min-date="date" ng-model="CardTraveller.DiscountExpirationDate" class="datePicker_generic md-input">
                             </md-input-container>
                           </div>
                           <div class="row">
@@ -863,26 +868,18 @@
                   <label class="right labelProfil">Carte de fidélité train</label>
                 </div>
                 <div class="col-md-12 col-md-offset-1">
-                  <table class="tabProfil">
+                  <table  class="tabProfil">
                     <tr>
+                      <th><label  class="labelProfil" for=""> # </label></th>
                       <th><label  class="labelProfil" for=""> Fournisseur </label></th>
                       <th><label  class="labelProfil" for=""> Nom de la carte </label></th>
                       <th><label  class="labelProfil" for=""> Numéro de de la carte </label></th>
                     </tr>
-                    <tr>
-                      <td>SNCF</td>
-                      <td>Carte Grand Voyageur</td>
-                      <td><input class="input_generic" name="" ng-model="user.Num_carteGrandVoy" type="text" ng-minlength="1" ng-maxlength="30" class="validate" ></td>
-                    </tr>
-                    <tr>
-                      <td>Eurostar</td>
-                      <td>Programme de fidélité</td>
-                      <td><input class="input_generic" name="" ng-model="user.Num_carteEurostar" type="text" ng-minlength="1" ng-maxlength="30" class="validate"></td>>
-                    </tr>
-                    <tr>
-                      <td>Thalys</td>
-                      <td>Thalys TheCard</td>
-                      <td><input class="input_generic" name="" ng-model="user.Num_carteThalys" type="text" ng-minlength="1" ng-maxlength="30" class="validate" ></td>
+                    <tr ng-repeat="oneCardTraveller in cardTraveller">
+                      <td>{{oneCardTraveller.SequenceNumber}}</td>
+                      <td>{{oneCardTraveller.PROVIDER}}</td>
+                      <td>{{oneCardTraveller.CARD_NAME}}</td>
+                      <td>{{oneCardTraveller.DiscountCardNumber}}</td>
                     </tr>
                   </table>
                 </div>
