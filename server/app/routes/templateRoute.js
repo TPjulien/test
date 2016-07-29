@@ -67,7 +67,7 @@ module.exports = function(router, connection) {
                             result = object[values];
                             if (result.length !== 0) {
                               for (var i = 0; i < result.length; i++) {
-                                object_final.push(result);
+                                object_final.push(result[i]);
                               }
                               // object_optimized[values] = result;
                             }
