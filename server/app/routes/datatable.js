@@ -138,8 +138,7 @@ module.exports = function(router, connection) {
                             // on prend la datatable et aussi la largeur ainsi que le filtre de celui ci
                             res.json({
                                       'datatable'        : post_data,
-                                      'datatable_width'  : result_datatable,
-                                      'datatable_filter' : result_filter
+                                      'datatable_width'  : result_datatable
                                     });
                           }
                     })
