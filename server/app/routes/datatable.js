@@ -89,7 +89,6 @@ module.exports = function(router, connection) {
               }
           })
 
-
       // on recupere le filte séparément
       router.route('/getFilterDatatable/:site_id/:view_id/:embed_id')
           .get (function(req, res) {
@@ -135,13 +134,14 @@ module.exports = function(router, connection) {
                     connection.query(query_datatable, function(err, post_data){
                       if (err)
                           res.status(400).send(err);
-                      else
-                              // on prend la datatable et aussi la largeur
-                              res.json({
-                                        'datatable'        : post_data,
-                                        'datatable_width'  : result_datatable
-                                      });
-                        })
+                      else {
+                            // on prend la datatable et aussi la largeur ainsi que le filtre de celui ci
+                            res.json({
+                                      'datatable'        : post_data,
+                                      'datatable_width'  : result_datatable,
+                                      'datatable_filter' : result_filter
+                                    });
+                          }
                     })
                  }
               })
