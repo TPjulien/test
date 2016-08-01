@@ -103,7 +103,7 @@ module.exports = function(router, connection) {
                                 "VIEW_ID", req.params.view_id,
                                 "EMBED_ID", req.params.embed_id];
             query_filter = mysql.format(query_filter, table_filter);
-            conntection.query(query_filter, function(err, result_filter) {
+            connection.query(query_filter, function(err, result_filter) {
                 if (err)
                     res.status(400).send(err);
                 else

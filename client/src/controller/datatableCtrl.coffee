@@ -45,7 +45,6 @@ tableau
         data:
             generic_data: $scope.detail
     .success (data) ->
-        console.log data
         $scope.data_table = data
     .error (err) ->
         # mettre un toast en cas d'erreur
@@ -74,6 +73,7 @@ tableau
         method: 'GET'
         url:    options.api.base_url + '/getFilterDatatable/' + $scope.detail.SITE_ID + '/' + $scope.detail.VIEW_ID + '/' + $scope.detail.EMBED_ID
     .success (data) ->
+        console.log 'hey !'
         console.log data
     .error (err) ->
         console.log err
