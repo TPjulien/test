@@ -166,6 +166,7 @@ module.exports = function(router, connection) {
             var table_one = ["profils.rail_loyalty",
                              "profils.rail_loyalty.UID",req.params.uid,
                              "profils.rail_loyalty.DEPOSITED_DATE",
+                             "profils.rail_loyalty.DEPOSITED_DATE",
                              "profils.rail_loyalty","profils.rail_loyalty.UID",req.params.uid,
                              "profils.rail_loyalty.SequenceNumber"];
             query_one = mysql.format(query_one, table_one);
