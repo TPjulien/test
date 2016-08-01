@@ -135,14 +135,13 @@ module.exports = function(router, connection) {
                     connection.query(query_datatable, function(err, post_data){
                       if (err)
                           res.status(400).send(err);
-                      else {
+                      else
                               // on prend la datatable et aussi la largeur
                               res.json({
                                         'datatable'        : post_data,
                                         'datatable_width'  : result_datatable
                                       });
-                              })
-                          }
+                        })
                     })
                  }
               })
