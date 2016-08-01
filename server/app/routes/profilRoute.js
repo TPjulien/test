@@ -128,10 +128,47 @@ module.exports = function(router, connection) {
                                 "profils.rail_discount.DEPOSITED_DATE",
                                 "profils.rail_discount.DEPOSITED_DATE",
                                 "profils.rail_discount","profils.rail_discount.UID", req.params.uid,
+                                "profils.rail_discount_itinerary.DEPOSITED_DATE"
                                 "profils.rail_discount_itinerary.DEPOSITED_DATE",
-                                "profils.rail_discount_itinerary.DEPOSITED_DATE",
-                                "profils.rail_discount_itinerary","profils.rail_discount_itinerary.UID", req.params.uid,
+                                "profils.rail_discount_itinerary","rail_discount_itinerary.rail_discount.UID", req.params.uid,
                                 "profils.rail_discount.SequenceNumber"];
+            query_one = mysql.format(query_one, table_one);
+            connection.query(query_one, function(err, rows) {
+                if (err)
+                    res.status(400).send(err);
+                else
+                    res.json(rows);
+            })
+        })
+    // route pour lister toutes les countries pour le phone
+    router.route('/rail_loyaltyprogramCode')
+        .get(function(req, res) {
+            var query_one = "SELECT DISTINCT ?? FROM ??";
+            var table_one = ["profils.rail_loyalty.ProgramCode", "profils.rail_loyalty"];
+            query_one = mysql.format(query_one, table_one);
+            connection.query(query_one, function(err, rows) {
+                if (err)
+                    res.status(400).send(err);
+                else
+                    res.json(rows);
+            })
+        })
+      })
+    // route pour lister toutes les countries pour le phone
+      router.route('/rail_loyalty/:uid')
+        .get(function(req, res) {
+            var query_one = "  SELECT * \
+                               FROM (( ?? \
+                               WHERE ?? = ??  \
+                               AND ?? = ( \
+                                 SELECT MAX(??) \
+                                 FROM  ?? WHERE ?? = ? ) \
+                               ORDER BY ?? ASC" \
+            var table_one = ["profils.rail_loyalty",
+                             "profils.rail_loyalty.UID",req.params.uid,
+                             "profils.rail_loyalty.DEPOSITED_DATE",
+                             "profils.rail_loyalty","profils.rail_loyalty.UID",req.params.uid,
+                             "profils.rail_loyalty.SequenceNumber"];
             query_one = mysql.format(query_one, table_one);
             connection.query(query_one, function(err, rows) {
                 if (err)
