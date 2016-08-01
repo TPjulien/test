@@ -184,8 +184,8 @@ module.exports = function(router, connection) {
                              WHERE ?? IS NOT NULL \
                              AND ?? !='' ";
             var table_one = ["profils.air_pref.AirSeatingPref", "profils.air_pref",
-                             "profils.AirSeatingPref",
-                             "profils.AirSeatingPref"];
+                             "profils.air_pref.AirSeatingPref",
+                             "profils.air_pref.AirSeatingPref"];
             query_one = mysql.format(query_one, table_one);
             connection.query(query_one, function(err, rows) {
                 if (err)

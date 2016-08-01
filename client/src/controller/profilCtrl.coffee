@@ -121,7 +121,7 @@ tableau
         $scope.airSeatingPref = data
         console.log $scope.airSeatingPref
     .error (err) ->
-        console.log err airSeatingPref
+        console.log err
 
 
     $http
