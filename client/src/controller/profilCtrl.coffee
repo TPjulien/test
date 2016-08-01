@@ -87,6 +87,30 @@ tableau
       .error (err) ->
           console.log err
 
+# Appel pour lister les compagnies férrovières disponible pour les cartes de fidélités
+    $http
+        method: 'GET'
+        url:    options.api.base_url + '/rail_loyaltyprogramCode'
+    .success (data) ->
+        $scope.rail_loyaltyprogramCode = data
+        console.log 'rail_loyaltyprogramCode'
+        console.log rail_loyaltyprogramCode
+    .error (err) ->
+        console.log err
+
+# Appel pour lister les cartes de fidélité train d'un voyageur
+    $scope.rail_loyaltyChange = (uid) ->
+      $http
+          method: 'GET'
+          url: options.api.base_url + '/rail_loyalty/' + uid
+      .success (data) ->
+          console.log 'rail_loyalty'
+          console.log 'data[0]'
+          $scope.rail_loyalty = data[0]
+      .error (err) ->
+          console.log err
+
+
     $http
         method: 'GET'
         url:    options.api.base_url + '/community'
