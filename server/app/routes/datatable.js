@@ -112,7 +112,7 @@ module.exports = function(router, connection) {
                                         "VIEW_ID", pre_data.VIEW_ID,
                                         "EMBED_ID", pre_data.EMBED_ID];
                     query_filter = mysql.format(query_filter, table_filter);
-                    connection.query(query_datatable, function(err, result_filter){
+                    connection.query(query_filter, function(err, result_filter){
                       if (err)
                           res.status(400).send(err);
                       else {
