@@ -73,6 +73,7 @@ tableau
         url: options.api.base_url + '/cardTraveller/' + uid
     .success (data) ->
         $scope.cardTraveller = data
+        console.log $scope.cardTraveller
     .error (err) ->
         console.log err
 
