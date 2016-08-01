@@ -8,12 +8,17 @@ tableau
       $scope.ajouterUser = false
     uid = 'boetschnat'
 
+    # data du profil
+    $scope.anotherMail           = null
+    $scope.getCountryNumberphone = null
+    $scope.numPhoneUser          = null
+    $scope.getEmail              = null
+
     $http
         method: 'GET'
         url: options.api.base_url + '/profils/' + uid
     .success (data) ->
         $scope.profils = data[0]
-        console.log $scope.profils
     .error (err) ->
         console.log err
 
@@ -60,7 +65,7 @@ tableau
     .success (data) ->
         $scope.provider = data
     .error (err) ->
-        console.log err cardTraveller
+        console.log err
 
 # Appel pour lister les cartes voyageur du voyageur
     $http
@@ -68,7 +73,6 @@ tableau
         url: options.api.base_url + '/cardTraveller/' + uid
     .success (data) ->
         $scope.cardTraveller = data
-        console.log $scope.cardTraveller
     .error (err) ->
         console.log err
 
@@ -79,7 +83,6 @@ tableau
           url: options.api.base_url + '/card_name/' + provider
       .success (data) ->
           $scope.card_name = data
-          console.log $scope.card_name
       .error (err) ->
           console.log err
 
@@ -105,7 +108,6 @@ tableau
           method: 'GET'
           url:    options.api.base_url + '/usersCommunity/' + number_community
       .success (data) ->
-          console.log data
           $scope.usersCommunity = data
           $scope.query =
               order: 'name'
@@ -122,15 +124,9 @@ tableau
     .error (err) ->
         console.log err
 
-    $scope.getCodeNumber = (country) ->
-      $http
-          method: 'GET'
-          url:    options.api.base_url + '/phoneCode/' + country
-      .success (data) ->
-          $scope.user.phoneCode = '+' + data[0].phonecode
-      .error (err) ->
-          console.log err
-
+    # $scope.getPhoneCode = () ->
+    #   result = $scope.getCountryNumberphone
+    #   return result
 
     $scope.limitOptions = [5, 10, 15]
     $scope.selected = []
@@ -150,18 +146,21 @@ tableau
       $scope.ajouterNum = true
 
     $scope.listNumTel = []
-    $scope.submitNumPhone = ->
+    $scope.submitNumPhone = () ->
+      console.log "ça passe par la !"
+      console.log $scope.numPhoneUser
+      console.log $scope.getCountryNumberphone
       phoneSub = {
-        code: $scope.user.phoneCode
-        numero: $scope.user.numPhone
+        code: $scope.getCountryNumberphone
+        numero: $scope.numPhoneUser
       }
-      if $scope.user.numPhone && $scope.user.phoneCode
+      if $scope.numPhoneUser && $scope.getCountryNumberphone
         $scope.listNumTel.push phoneSub
-        $scope.phoneSub = {}
-        $scope.phone = false
-        $scope.ajouterNum = true
-        $scope.user.phoneCode = null
-        $scope.user.numPhone = null
+        $scope.phoneSub              = {}
+        $scope.phone                 = false
+        $scope.ajouterNum            = true
+        $scope.getCountryNumberphone = null
+        $scope.numPhoneUser          = null
 
 #Mail
     $scope.ajouterMail = true
@@ -174,16 +173,22 @@ tableau
       $scope.ajouterMail = true
 
     $scope.listMail = []
-    $scope.submitMail = ->
+
+    $scope.testNum = () ->
+        console.log "Pays changé !"
+
+    $scope.submitMail = (mail) ->
       mailSub = {
-        mail: $scope.user.mail
+        mail: mail
       }
-      if $scope.user.mail
+      if mail
         $scope.listMail.push mailSub
-        $scope.mailSub = {}
-        $scope.mail = false
+        scope.getEmail     = ''
+        $scope.mailSub     = {}
+        $scope.mail        = false
         $scope.ajouterMail = true
-        $scope.user.mail = null
+        $scope.getEmail    = null
+        mail               = null
 
 #valideur
     $scope.ajouterValideur = true
@@ -349,7 +354,6 @@ tableau
       $scope.ajouterUser = false
 
     toArray = (object,name) ->
-        console.log object
         data = []
         i = 0
         while i < object.length
@@ -379,7 +383,6 @@ tableau
       # The variable results needs var in this case (without 'var' a global variable is created)
       results = []
       i       = 0
-      # console.log array
       while i < array.length
         if array[i].indexOf(key) == 0
           results.push array[i]
@@ -395,6 +398,18 @@ tableau
             result   = find(searchTerm, getArray)
             result2  = toObject(result, name)
             return result2
+
+    $scope.getCodeNumber = (country, value) ->
+      # console.log country
+      console.log "ça passe toujour par la !"
+      $http
+          method: 'GET'
+          url:    options.api.base_url + '/phoneCode/' + country
+      .success (data) ->
+          console.log value
+          $scope.getCountryNumberphone = data[0].phonecode
+      .error (err) ->
+          console.log err
 
     $scope.querySearch = (query,name) ->
         if (name == 'villeGare')
