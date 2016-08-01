@@ -153,7 +153,6 @@ module.exports = function(router, connection) {
                     res.json(rows);
             })
         })
-      })
     // route pour lister toutes les countries pour le phone
       router.route('/rail_loyalty/:uid')
         .get(function(req, res) {
