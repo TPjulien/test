@@ -89,6 +89,28 @@ module.exports = function(router, connection) {
               }
           })
 
+
+      // on recupere le filte séparément
+      router.route('/getFilterDatatable/:site_id/:view_id/:embed_id')
+          .get (function(req, res) {
+            var query_filter = "SELECT ??,??,??,??,?? \
+                                      FROM ?? \
+                                      WHERE ?? = ? \
+                                          AND ?? = ? \
+                                          AND ?? = ?";
+            var table_filter = ["has_date_filter","has_search_filter","has_bullet_filter", "has_amount_filter", "pdf_diplay",
+                                "tp_control.datatable",
+                                "SITE_ID", req.params.site_id,
+                                "VIEW_ID", req.params.view_id,
+                                "EMBED_ID", req.params.embed_id];
+            query_filter = mysql.format(query_filter, table_filter);
+            conntection.query(query_filter, function(err, result_filter) {
+                if (err)
+                    res.status(400).send(err);
+                else
+                    res.json(result_filter);
+            })
+          })
       // On Recupere les données de la datatable
       router.route('/getDatatable')
           .post (function(req, res) {
@@ -101,43 +123,25 @@ module.exports = function(router, connection) {
                 if (err)
                     res.status(400).send(err);
                 else {
-                    var query_filter = "SELECT ??,??,??,??,?? \
-                                        FROM ?? \
-                                        WHERE ?? = ? \
-                                            AND ?? = ? \
-                                            AND ?? = ?";
-                    var table_filter = ["has_date_filter","has_search_filter","has_bullet_filter", "has_amount_filter", "pdf_diplay",
-                                        "tp_control.datatable",
-                                        "SITE_ID", pre_data.SITE_ID,
-                                        "VIEW_ID", pre_data.VIEW_ID,
-                                        "EMBED_ID", pre_data.EMBED_ID];
-                    query_filter = mysql.format(query_filter, table_filter);
-                    connection.query(query_filter, function(err, result_filter){
+                    // on fait les traitement
+                    var query_datatable = "SELECT ";
+                    var table_datatable = [];
+                    query_datatable += result_datatable[0].column;
+                    for (var i = 1; i < result_datatable.length; i++) {
+                        query_datatable += ', ' + result_datatable[i].column;
+                    }
+                    query_datatable += ' FROM ' + result_datatable[0].schema + '.' + result_datatable[0].table + ' LIMIT 50';
+                    // une fois la query buildé, on l'execute
+                    connection.query(query_datatable, function(err, post_data){
                       if (err)
                           res.status(400).send(err);
                       else {
-                          // on fait les traitement
-                          var query_datatable = "SELECT ";
-                          var table_datatable = [];
-                          query_datatable += result_datatable[0].column;
-                          for (var i = 1; i < result_datatable.length; i++) {
-                              query_datatable += ', ' + result_datatable[i].column;
-                          }
-                          query_datatable += ' FROM ' + result_datatable[0].schema + '.' + result_datatable[0].table + ' LIMIT 50';
-                          // une fois la query buildé, on l'execute
-                          // avant de tout envoyer, une requete pour recuperer seulement les filtres
-
-                          connection.query(query_datatable, function(err, post_data) {
-                              if (err)
-                                  res.status(400).send(err);
-                              else
-                                  // on prend la datatable et aussi la largeur ainsi que le filtre de celui ci
-                                  res.json({
-                                            'datatable'        : post_data,
-                                            'datatable_width'  : result_datatable,
-                                            'datatable_filter' : result_filter
-                                          });
-                                  })
+                              // on prend la datatable et aussi la largeur
+                              res.json({
+                                        'datatable'        : post_data,
+                                        'datatable_width'  : result_datatable
+                                      });
+                              })
                           }
                     })
                  }

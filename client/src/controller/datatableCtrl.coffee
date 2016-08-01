@@ -69,6 +69,15 @@ tableau
     $scope.filterFacture = () ->
         console.log "what the fuck"
 
+    # http qui permet de recuperer les filtres
+    $http
+        method: 'GET'
+        url:    options.api.base_url + '/getFilterDatatable/' + $scope.detail.SITE_ID + '/' + $scope.detail.VIEW_ID + '/' + $scope.detail.EMBED_ID
+    .success (data) ->
+        console.log data
+    .error (err) ->
+        console.log err
+
     $scope.getGenericFilter = (date, search, bullet, amount) ->
         # on fusionne tout dans un tableau
         result  = null
