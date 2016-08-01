@@ -128,9 +128,9 @@ module.exports = function(router, connection) {
                                 "profils.rail_discount.DEPOSITED_DATE",
                                 "profils.rail_discount.DEPOSITED_DATE",
                                 "profils.rail_discount","profils.rail_discount.UID", req.params.uid,
-                                "profils.rail_discount_itinerary.DEPOSITED_DATE"
                                 "profils.rail_discount_itinerary.DEPOSITED_DATE",
-                                "profils.rail_discount_itinerary","rail_discount_itinerary.rail_discount.UID", req.params.uid,
+                                "profils.rail_discount_itinerary.DEPOSITED_DATE",
+                                "profils.rail_discount_itinerary","profils.rail_discount_itinerary.UID", req.params.uid,
                                 "profils.rail_discount.SequenceNumber"];
             query_one = mysql.format(query_one, table_one);
             connection.query(query_one, function(err, rows) {
