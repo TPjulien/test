@@ -121,16 +121,16 @@ module.exports = function(router, connection) {
             var table_one    = [
                                 "profils.rail_discount",
                                 "profils.rail_cards","profils.rail_discount.DiscountCode","profils.rail_cards.CODE",
-                                "profils.discount_itinerary","profils.rail_discount.SITE_ID","profils.discount_itinerary.SITE_ID",
+                                "profils.rail_discount_itinerary","profils.rail_discount.SITE_ID","profils.rail_discount_itinerary.SITE_ID",
                                 "profils.rail_discount.UID", "profils.rail_discount_itinerary.UID",
                                 "profils.rail_discount.SequenceNumber","profils.rail_discount_itinerary.SequenceNumber",
                                 "profils.rail_discount.UID", req.params.uid,
                                 "profils.rail_discount.DEPOSITED_DATE",
-                                "DEPOSITED_DATE",
+                                "profils.rail_discount.DEPOSITED_DATE",
                                 "profils.rail_discount","profils.rail_discount.UID", req.params.uid,
-                                "profils.rail_discount_itinerary.DEPOSITED_DATE"
-                                "DEPOSITED_DATE",
-                                "profils.rail_discount_itinerary","rail_discount_itinerary.rail_discount.UID", req.params.uid,
+                                "profils.rail_discount_itinerary.DEPOSITED_DATE",
+                                "profils.rail_discount_itinerary.DEPOSITED_DATE",
+                                "profils.rail_discount_itinerary","profils.rail_discount_itinerary.UID", req.params.uid,
                                 "profils.rail_discount.SequenceNumber"];
             query_one = mysql.format(query_one, table_one);
             connection.query(query_one, function(err, rows) {
