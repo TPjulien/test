@@ -70,7 +70,6 @@ tableau
         console.log "what the fuck"
 
     $scope.getGenericFilter = (date, search, bullet, amount) ->
-        console.log $scope.data_table
         # on fusionne tout dans un tableau
         result  = null
         filters = []

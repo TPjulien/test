@@ -101,32 +101,33 @@ module.exports = function(router, connection) {
                 if (err)
                     res.status(400).send(err);
                 else {
-                    // on fait les traitement
-                    var query_datatable = "SELECT ";
-                    var table_datatable = [];
-                    query_datatable += result_datatable[0].column;
-                    for (var i = 1; i < result_datatable.length; i++) {
-                        query_datatable += ', ' + result_datatable[i].column;
-                    }
-                    query_datatable += ' FROM ' + result_datatable[0].schema + '.' + result_datatable[0].table + ' LIMIT 50';
-                    // une fois la query buildé, on l'execute
-                    connection.query(query_datatable, function(err, post_data){
+                    var query_filter = "SELECT ??,??,??,??,?? \
+                                        FROM ?? \
+                                        WHERE ?? = ? \
+                                            AND ?? = ? \
+                                            AND ?? = ?";
+                    var table_filter = ["has_date_filter","has_search_filter","has_bullet_filter", "has_amount_filter", "pdf_diplay",
+                                        "tp_control.datatable",
+                                        "SITE_ID", pre_data.SITE_ID,
+                                        "VIEW_ID", pre_data.VIEW_ID,
+                                        "EMBED_ID", pre_data.EMBED_ID];
+                    query_filter = mysql.format(query_filter, table_filter);
+                    connection.query(query_datatable, function(err, result_filter){
                       if (err)
                           res.status(400).send(err);
                       else {
+                          // on fait les traitement
+                          var query_datatable = "SELECT ";
+                          var table_datatable = [];
+                          query_datatable += result_datatable[0].column;
+                          for (var i = 1; i < result_datatable.length; i++) {
+                              query_datatable += ', ' + result_datatable[i].column;
+                          }
+                          query_datatable += ' FROM ' + result_datatable[0].schema + '.' + result_datatable[0].table + ' LIMIT 50';
+                          // une fois la query buildé, on l'execute
                           // avant de tout envoyer, une requete pour recuperer seulement les filtres
-                          var query_filter = "SELECT ??,??,??,??,?? \
-                                              FROM ?? \
-                                              WHERE ?? = ? \
-                                                  AND ?? = ? \
-                                                  AND ?? = ?";
-                          var table_filter = ["has_date_filter","has_search_filter","has_bullet_filter", "has_amount_filter", "pdf_diplay",
-                                              "tp_control.datatable",
-                                              "SITE_ID", pre_data.SITE_ID,
-                                              "VIEW_ID", pre_data.VIEW_ID,
-                                              "EMBED_ID", pre_data.EMBED_ID];
-                          query_filter = mysql.format(query_filter, table_filter);
-                          connection.query(query_filter, function(err, result_filter) {
+
+                          connection.query(query_datatable, function(err, post_data) {
                               if (err)
                                   res.status(400).send(err);
                               else
