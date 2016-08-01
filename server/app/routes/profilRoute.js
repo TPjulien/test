@@ -157,7 +157,7 @@ module.exports = function(router, connection) {
       router.route('/rail_loyalty/:uid')
         .get(function(req, res) {
             var query_one = "  SELECT * \
-                               FROM (( ?? \
+                               FROM ?? \
                                WHERE ?? = ??  \
                                AND ?? = ( \
                                  SELECT MAX(??) \
