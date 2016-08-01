@@ -155,7 +155,7 @@ module.exports = function(router, connection) {
         })
       })
     // route pour lister toutes les countries pour le phone
-    router.route('/rail_loyalty/:uid')
+      router.route('/rail_loyalty/:uid')
         .get(function(req, res) {
             var query_one = "  SELECT * \
                                FROM (( ?? \
