@@ -228,6 +228,7 @@
                     <form ng-submit="submitNumPhone()">
                       <div class="telephone panel" ng-if="phone">
                         <div class="panel-header panel-header_min">Ajouter un numéro de téléphone<md-icon ng-click="hidePanelTel()" class="right logo_lock" md-svg-icon="img/icons/delete-button.svg"></md-icon></div>
+                        </br>
                         <div class="col-md-12">
                           <label class="col-md-5 labelProfil label_select" for="phone_country">Choisissez un pays:</label>
                           <div class="col-md-7">
@@ -624,10 +625,9 @@
                   <label class="right labelProfil">Préférence siège</label>
                 </div>
                 <div class="col-md-9">
-                  <md-input-container class="">
-                    <md-select aria-label="jours"  name="birth_jours" ng-model="user.pref_avion_siege" >
-                      <md-option value="couloir">Couloir</md-option>
-                      <md-option value="hublot">Hublot</md-option>
+                  <md-input-container class="select_generic">
+                    <md-select aria-label="airSeatingPref"  name="airSeatingPref" ng-model="profils.airSeatingPref" >
+                      <md-option  ng-repeat="OneairSeatingPref in airSeatingPref" value="{{OneairSeatingPref.AirSeatingPref}}">{{OneairSeatingPref.AirSeatingPref}}</md-option>
                     </md-select>
                   </md-input-container>
                 </div>
@@ -780,7 +780,7 @@
                   </div>
                 </div>
                 <div class="col-md-3">
-                  <label  class="right labelProfil">Carte voyageur</label>
+                  <label  class="right_profil labelProfil">Carte voyageur</label>
                 </div>
                 <div class=" col-md-9">
                   <div ng-if='listCarteVoy.length == 0 && profils.CarteVoy.length == 0'>
@@ -798,6 +798,8 @@
                     </span>
                   </div>
                   </br>
+                  </div>
+                  <div class="col-md-12 col-md-offset-1">
                   <table ng-if="TabRecupCardVoy" class="tabProfil">
                     <tr>
                       <th><label  class="labelProfil" for=""> # </label></th>
@@ -805,6 +807,7 @@
                       <th><label  class="labelProfil" for=""> Nom de la carte </label></th>
                       <th><label  class="labelProfil" for=""> Numéro de de la carte </label></th>
                       <th><label  class="labelProfil" for=""> Date d'expiration </label></th>
+                      <th><label  class="labelProfil" for=""> Action </label></th>
                     </tr>
                     <tr ng-repeat="oneCardTraveller in cardTraveller">
                       <td>{{oneCardTraveller.SequenceNumber}}</td>
@@ -812,6 +815,7 @@
                       <td>{{oneCardTraveller.CARD_NAME}}</td>
                       <td>{{oneCardTraveller.DiscountCardNumber}}</td>
                       <td>{{oneCardTraveller.DiscountExpirationDate}}</td>
+                      <td><md-icon ng-click="" class="logo_lock" md-svg-icon="img/icons/delete-button.svg"></md-icon></td>
                     </tr>
                   </table>
                   <div class="row">
@@ -863,25 +867,63 @@
                       </div>
                     </form>
                   </div>
-                </div>
+                  </div>
                 <div class="col-md-3">
-                  <label class="right labelProfil">Carte de fidélité train</label>
+                  <label class="right_profil labelProfil">Carte de fidélité train</label>
+                </div>
+                <div class="col-md-9">
+                  <div ng-if="ajouterFideliteTrain" ng-click="showPanelCarteFideliteTrain()" class="add link-icon" style="margin-top:5px;">
+                    <span class="addProfil link-icon__text">
+                      <md-icon class="logo_lock"md-svg-icon="img/icons/bleed.svg"></md-icon>Ajouter une carte de fidélité
+                    </span>
+                  </div>
                 </div>
                 <div class="col-md-12 col-md-offset-1">
-                  <table  class="tabProfil">
+                  <table ng-if="TabRecupfideliteTrain" class="tabProfil">
                     <tr>
                       <th><label  class="labelProfil" for=""> # </label></th>
-                      <th><label  class="labelProfil" for=""> Fournisseur </label></th>
-                      <th><label  class="labelProfil" for=""> Nom de la carte </label></th>
+                      <th><label  class="labelProfil" for=""> Compagnie </label></th>
                       <th><label  class="labelProfil" for=""> Numéro de de la carte </label></th>
+                      <th><label  class="labelProfil" for=""> Action </label></th>
                     </tr>
-                    <tr ng-repeat="oneCardTraveller in cardTraveller">
-                      <td>{{oneCardTraveller.SequenceNumber}}</td>
-                      <td>{{oneCardTraveller.PROVIDER}}</td>
-                      <td>{{oneCardTraveller.CARD_NAME}}</td>
-                      <td>{{oneCardTraveller.DiscountCardNumber}}</td>
+                    <tr ng-repeat="onerail_loyalty in rail_loyalty">
+                      <td>{{onerail_loyalty.SequenceNumber}}</td>
+                      <td>{{onerail_loyalty.ProgramCode}}</td>
+                      <td>{{onerail_loyalty.MembershipId}}</td>
+                      <td><md-icon ng-click="" class="logo_lock" md-svg-icon="img/icons/delete-button.svg"></md-icon></td>
                     </tr>
                   </table>
+                  <div class="row">
+                    <form ng-submit="submitCarteVoy()">
+                      <div class="carteVoy" ng-if="CarteFideliteTrain">
+                        <div class="panel-header panel-header_min">Ajouter une carte de fidélité <md-icon ng-click="hidePanelCarteFideliteTrain()" class="right logo_lock" md-svg-icon="img/icons/delete-button.svg"></md-icon></div>
+                        <div class="panel">
+                          <div class="col-md-4">
+                            <label  class="labelProfil" for="carteVoy"> Compagnie </label>
+                          </div>
+                          <div class="col-md-8">
+                            <md-input-container class="select_generic">
+                              <md-select aria-label="rail_loyaltyprogramCode"  name="provider" ng-model="profils.rail_loyaltyprogramCode" >
+                                <md-option  ng-repeat="Onerail_loyaltyprogramCode in rail_loyaltyprogramCode" value="{{Onerail_loyaltyprogramCode.ProgramCode}}">{{Onerail_loyaltyprogramCode.ProgramCode}}</md-option>
+                              </md-select>
+                            </md-input-container>
+                          </div>
+                          <div class="col-md-4">
+                            <label  class="labelProfil" for="num_carteVoy"> Numéro de la carte </label>
+                          </div>
+                          <div class="col-md-8">
+                            <input class="input_generic" name="num_carteVoy" ng-model="user.num_carteVoy" type="text" ng-minlength="1" ng-maxlength="30" class="validate" >
+                          </div>
+                          <div class="row">
+                            <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+                              <button class="right md-raised btn btn-warning" type="submit" value="Submit">Ajouter</button>
+                            </div>
+                          </div>
+                          <div class="clear"></div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
                 </div>
                 <div class="col-md-12">
                   <h4 class="h4bleu">Préférences Hotel</h4>

@@ -19,6 +19,7 @@ tableau
         url: options.api.base_url + '/profils/' + uid
     .success (data) ->
         $scope.profils = data[0]
+        console.log   $scope.profils = data[0]
     .error (err) ->
         console.log err
 
@@ -73,7 +74,10 @@ tableau
         url: options.api.base_url + '/cardTraveller/' + uid
     .success (data) ->
         $scope.cardTraveller = data
-        console.log $scope.cardTraveller
+        if $scope.cardTraveller.length == 0
+            $scope.TabRecupCardVoy = false
+        else
+            $scope.TabRecupCardVoy = true
     .error (err) ->
         console.log err
 
@@ -93,8 +97,6 @@ tableau
         url:    options.api.base_url + '/rail_loyaltyprogramCode'
     .success (data) ->
         $scope.rail_loyaltyprogramCode = data
-        console.log 'rail_loyaltyprogramCode'
-        console.log  $scope.rail_loyaltyprogramCode
     .error (err) ->
         console.log err
 
@@ -103,11 +105,23 @@ tableau
         method: 'GET'
         url: options.api.base_url + '/rail_loyalty/' + uid
     .success (data) ->
-        console.log 'rail_loyalty'
-        console.log 'data[0]'
-        $scope.rail_loyalty = data[0]
+        $scope.rail_loyalty = data
+        if $scope.rail_loyalty.length == 0
+            $scope.TabRecupfideliteTrain = false
+        else
+            $scope.TabRecupfideliteTrain = true
     .error (err) ->
         console.log err
+
+# Appel pour lister les cartes de fidélité train d'un voyageur
+    $http
+        method: 'GET'
+        url: options.api.base_url + '/airSeatingPref'
+    .success (data) ->
+        $scope.airSeatingPref = data
+        console.log $scope.airSeatingPref
+    .error (err) ->
+        console.log err airSeatingPref
 
 
     $http
@@ -324,10 +338,35 @@ tableau
         $scope.ajouterFidelite = true
         $scope.user.nomFidelite = null
 
+    $scope.ajouterFideliteTrain = true
+    $scope.CarteFideliteTrain = false
+
+    $scope.showPanelCarteFideliteTrain = () ->
+      $scope.CarteFideliteTrain = true
+      $scope.ajouterFideliteTrain = false
+      $scope.TabRecupfideliteTrain = false;
+    $scope.hidePanelCarteFideliteTrain = () ->
+      $scope.CarteFideliteTrain = false
+      $scope.ajouterFideliteTrain = true
+      $scope.TabRecupfideliteTrain = true;
+
+    $scope.listFideliteTrain = []
+    $scope.submitFideliteTrain = ->
+      fideliteTrainSub = {
+        name: $scope.user.fideliteTrain
+      }
+      if $scope.user.fideliteTrain
+        $scope.listFidelite.push fideliteSub
+        $scope.fideliteSub = {}
+        $scope.CarteFideliteTrain = false
+        $scope.ajouterFideliteTrain = true
+        $scope.user.nomFideliteTrain = null
+
 #Carte de voyage
+
+
     $scope.ajouterCarteVoy = true
     $scope.carteVoy = false
-    $scope.TabRecupCardVoy = true;
     $scope.showPanelCarteVoy = () ->
       $scope.carteVoy = true
       $scope.ajouterCarteVoy = false
