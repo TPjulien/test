@@ -117,7 +117,7 @@ module.exports = function(router, connection) {
                               AND  ?? = ( \
                                 SELECT MAX(??) \
                                 FROM  ?? WHERE ?? = ? ) \ \
-                              ORDER BY ?? ASC ;"
+                              ORDER BY ?? ASC ";
             var table_one    = [
                                 "profils.rail_discount",
                                 "profils.rail_cards","profils.rail_discount.DiscountCode","profils.rail_cards.CODE",
@@ -162,7 +162,7 @@ module.exports = function(router, connection) {
                                AND ?? = ( \
                                  SELECT MAX(??) \
                                  FROM  ?? WHERE ?? = ? ) \
-                               ORDER BY ?? ASC" \
+                               ORDER BY ?? ASC ";
             var table_one = ["profils.rail_loyalty",
                              "profils.rail_loyalty.UID",req.params.uid,
                              "profils.rail_loyalty.DEPOSITED_DATE",
