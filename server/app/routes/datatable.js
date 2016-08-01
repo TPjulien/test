@@ -113,11 +113,31 @@ module.exports = function(router, connection) {
                     connection.query(query_datatable, function(err, post_data){
                       if (err)
                           res.status(400).send(err);
-                      else
-                          res.json({
-                                    'datatable'       : post_data,
-                                    'datatable_width' : result_datatable
-                                  });
+                      else {
+                          // avant de tout envoyer, une requete pour recuperer seulement les filtres
+                          var query_filter = "SELECT ??,??,??,??,?? \
+                                              FROM ?? \
+                                              WHERE ?? = ? \
+                                                  AND ?? = ? \
+                                                  AND ?? = ?";
+                          var table_filter = ["has_date_filter","has_search_filter","has_bullet_filter", "has_amount_filter", "pdf_diplay",
+                                              "tp_control.datatable",
+                                              "SITE_ID", pre_data.SITE_ID,
+                                              "VIEW_ID", pre_data.VIEW_ID,
+                                              "EMBED_ID", pre_data.EMBED_ID];
+                          query_filter = mysql.format(query_filter, table_filter);
+                          connection.query(query_filter, function(err, result_filter) {
+                              if (err)
+                                  res.status(400).send(err);
+                              else
+                                  // on prend la datatable et aussi la largeur ainsi que le filtre de celui ci
+                                  res.json({
+                                            'datatable'        : post_data,
+                                            'datatable_width'  : result_datatable,
+                                            'datatable_filter' : result_filter
+                                          });
+                                  })
+                          }
                     })
                  }
               })
