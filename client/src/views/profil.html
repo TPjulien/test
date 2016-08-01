@@ -112,7 +112,7 @@
                   <img class="col-xs-6 img_profil" src="img/Avatar-Woman.jpg">
                 </div>
                 <div ng-if="profils.Customer_Gender == null">
-                  <img class="col-xs-6 img_profil" src="img/mario.jpg">
+                  <img class="col-xs-6 img_profil" src="img/Avatar-dontkonw.jpg">
                 </div>
               </div>
               <div class="col-xs-6 card-action">
@@ -189,23 +189,23 @@
                   </div>
                   <div class="row">
                     <div class="col-md-11">
-                      <div class="panel" ng-show="mailDisplay">
-                        <div class="panel-header panel-header_min">Ajouter un mail <md-icon ng-click="hidePanelMail()" class="right logo_lock" md-svg-icon="img/icons/delete-button.svg"></md-icon></div>
-                        <form ng-submit="submitMail()">
+                      <form ng-submit="submitMail(getEmail)">
+                        <div class="panel" ng-show="mail">
+                          <div class="panel-header panel-header_min">Ajouter un mail <md-icon ng-click="hidePanelMail()" class="right logo_lock" md-svg-icon="img/icons/delete-button.svg"></md-icon></div>
                           <div class="col-md-2">
-                            <label  class="labelProfil" for="mail"> Mail {{mail}}</label>
+                            <label  class="labelProfil" for="mail"> Mail </label>
                           </div>
                           <div class="col-md-10">
-                            <input ng-model="mail" class="input_generic" name="mail">
+                            <input class="input_generic" ng-model="getEmail" ng-minlength="1" ng-maxlength="30" class="validate" required>
                           </div>
                           <div class="row">
                             <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
-                              <button class="right md-raised btn btn-warning" type="submit" value="submitMail">Ajouter</button>
+                              <button class="right md-raised btn btn-warning" type="submit" value="Submit">Ajouter</button>
                             </div>
                           </div>
-                        </form>
-                        <div class="clear"></div>
-                      </div>
+                          <div class="clear"></div>
+                        </div>
+                      </form>
                     </div>
                   </div>     <!--- Fin Parti eMail  -------------------------------------->
                 </div>
@@ -231,17 +231,17 @@
                         <div class="col-md-12">
                           <label class="col-md-5 labelProfil label_select" for="phone_country">Choisissez un pays:</label>
                           <div class="col-md-7">
-                            <md-autocomplete md-selected-item="selectedItem" md-search-text="searchText" md-items="item in querySearch(searchText,'phone','country_phone')" md-item-text="item.nicename">
+                            <md-autocomplete md-selected-item-change="getCodeNumber(item.nicename)" md-selected-item="selectedItem" md-search-text="searchText" md-items="item in querySearch(searchText,'phone','country_phone')" md-item-text="item.nicename">
                               <span md-highlight-text="searchText">{{item.nicename}}</span>
                             </md-autocomplete>
                           </div>
                           <label class="labelProfil" for="phone_number">Ajoutez un numéro de téléphone :</label>
                         </div>
                         <div class="col-md-2">
-                          <input class="input_generic" ng-disabled="user.pays_tel" type="text" ng-model="user.phoneCode">
+                          <input class="input_generic" ng-disabled="user.pays_tel" type="text" ng-model="getCountryNumberphone">
                         </div>
                         <div class="col-md-10">
-                          <input class="input_design" name="user.numPhone" type="number" ng-model="user.numPhone" ng-minlength="1" ng-maxlength="30">
+                          <input class="input_design" name="numPhoneUser" type="text" ng-model="numPhoneUser" ng-minlength="1" ng-maxlength="30">
                         </div>
                         <div class="row">
                           <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
@@ -783,16 +783,16 @@
                   <label  class="right labelProfil">Carte voyageur</label>
                 </div>
                 <div class=" col-md-9">
-                  <div ng-if='listCardTraveller.length == 0 && profils.CardTraveller.length == 0'>
+                  <div ng-if='listCarteVoy.length == 0 && profils.CarteVoy.length == 0'>
                     <p class="p_profil">Carte voyageur manquante</p>
                   </div>
                   <div>
-                    <div ng-if='listCardTraveller.length > 0 || profils.CardTraveller.length > 0' class="no-phone-numbers">
-                      <p class="p_profil">{{profils.CardTraveller}}</p>
-                      <p class="p_profil" ng-repeat="CardTraveller in listCardTraveller">{{CardTraveller.CardTraveller}}</p>
+                    <div ng-if='listCarteVoy.length > 0 || profils.CarteVoy.length > 0' class="no-phone-numbers">
+                      <p class="p_profil">{{profils.CarteVoy}}</p>
+                      <p class="p_profil" ng-repeat="carteVoy in listCarteVoy">{{carteVoy.carteVoy}}</p>
                     </div>
                   </div>
-                  <div ng-if="ajouterCardTraveller" ng-click="showPanelCardTraveller()" class="add link-icon" style="margin-top:5px;">
+                  <div ng-if="ajouterCarteVoy" ng-click="showPanelCarteVoy()" class="add link-icon" style="margin-top:5px;">
                     <span class="addProfil link-icon__text">
                       <md-icon class="logo_lock"md-svg-icon="img/icons/bleed.svg"></md-icon>Ajouter une carte voyageur
                     </span>
@@ -815,35 +815,35 @@
                     </tr>
                   </table>
                   <div class="row">
-                    <div class="CardTraveller" ng-if="CardTravellerDisplay">
-                      <div class="panel-header panel-header_min">Ajouter une carte de voyage <md-icon ng-click="hidePanelCardTraveller()" class="right logo_lock" md-svg-icon="img/icons/delete-button.svg"></md-icon></div>
-                      <div class="panel">
-                        <form ng-submit="submitCardTraveller()">
+                    <form ng-submit="submitCarteVoy()">
+                      <div class="carteVoy" ng-if="carteVoy">
+                        <div class="panel-header panel-header_min">Ajouter une carte de voyage <md-icon ng-click="hidePanelCarteVoy()" class="right logo_lock" md-svg-icon="img/icons/delete-button.svg"></md-icon></div>
+                        <div class="panel">
                           <div class="col-md-4">
-                            <label  class="labelProfil" for="CardTraveller.PROVIDER">Compagnie</label>
+                            <label  class="labelProfil" for="carteVoy"> Compagnie </label>
                           </div>
                           <div class="col-md-8">
                             <md-input-container class="select_generic">
-                              <md-select ng-change="cardNameChange(CardTraveller.provider)" aria-label="CardTraveller.provider"  name="CardTraveller.PROVIDER" ng-model="CardTraveller.PROVIDER" >
+                              <md-select ng-change="cardNameChange(profils.provider)" aria-label="provider"  name="provider" ng-model="profils.provider" >
                                 <md-option  ng-repeat="Oneprovider in provider" value="{{Oneprovider.PROVIDER}}">{{Oneprovider.PROVIDER}}</md-option>
                               </md-select>
                             </md-input-container>
                           </div>
                           <div class="col-md-4">
-                            <label  class="labelProfil" for="CardTraveller.CARD_NAME"> Nom de la carte </label>
+                            <label  class="labelProfil" for="nom_carteVoy"> Nom de la carte </label>
                           </div>
                           <div class="col-md-8">
                             <md-input-container class="select_generic">
-                              <md-select aria-label="CardTraveller.CARD_NAME"  name="CardTraveller.CARD_NAME" ng-model="CardTraveller.CARD_NAME" >
+                              <md-select aria-label="card_name"  name="card_name" ng-model="profils.card_name" >
                                 <md-option ng-repeat="Onecard_name in card_name" value="{{Onecard_name.CARD_NAME}}">{{Onecard_name.CARD_NAME}}</md-option>
                               </md-select>
                             </md-input-container>
                           </div>
                           <div class="col-md-4">
-                            <label  class="labelProfil" for="CardTraveller.DiscountCardNumber"> Numéro de la carte </label>
+                            <label  class="labelProfil" for="num_carteVoy"> Numéro de la carte </label>
                           </div>
                           <div class="col-md-8">
-                            <input class="input_generic" name="CardTraveller.DiscountCardNumber" ng-model="CardTraveller.DiscountCardNumber" type="text" ng-minlength="1" ng-maxlength="30" class="validate">
+                            <input class="input_generic" name="num_carteVoy" ng-model="user.num_carteVoy" type="text" ng-minlength="1" ng-maxlength="30" class="validate" >
                           </div>
                           <div class="col-md-4">
                             <label  class="labelProfil" for="CardTraveller.DiscountExpirationDate"> Date de validité </label>
@@ -855,13 +855,13 @@
                           </div>
                           <div class="row">
                             <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
-                              <button class="right md-raised btn btn-warning" id="submitCardTraveller" type="submitCardTravellery" value="submitCardTraveller">Ajouter</button>
+                              <button class="right md-raised btn btn-warning" type="submit" value="Submit">Ajouter</button>
                             </div>
                           </div>
                           <div class="clear"></div>
-                        </form>
+                        </div>
                       </div>
-                    </div>
+                    </form>
                   </div>
                 </div>
                 <div class="col-md-3">

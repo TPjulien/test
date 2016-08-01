@@ -104,19 +104,34 @@ module.exports = function(router, connection) {
     // route pour lister les cartes voyageur du voyageur
     router.route('/cardTraveller/:uid')
         .get(function(req, res) {
-            var query_one    = "SELECT \
-                               * \
-                               FROM ?? \
-                               LEFT JOIN  ?? ON ?? = ?? \
-                               WHERE ?? = ? AND ?? = ( \
-                                 SELECT MAX(??) FROM  ?? WHERE ?? = ? ) \
+            var query_one    = "SELECT * \
+                               FROM (( ?? \
+                               LEFT JOIN  ?? ON ?? = ?? ) \
+                               LEFT JOIN  ?? ON ?? = ??  \
+                               AND ?? = ??) \
+                               WHERE ?? = ??  \
+                               AND ?? = ? \
+                               AND ?? = ( \
+                                 SELECT MAX(??) \
+                                 FROM  ?? WHERE ?? = ? ) \
+                              AND  ?? = ( \
+                                SELECT MAX(??) \
+                                FROM  ?? WHERE ?? = ? ) \ \
                               ORDER BY ?? ASC ;"
             var table_one    = [
                                 "profils.rail_discount",
                                 "profils.rail_cards","profils.rail_discount.DiscountCode","profils.rail_cards.CODE",
-                                "UID", req.params.uid, "DEPOSITED_DATE",
-                                "DEPOSITED_DATE","profils.rail_discount","UID", req.params.uid,
-                                "SequenceNumber"];
+                                "profils.discount_itinerary","profils.rail_discount.SITE_ID","profils.discount_itinerary.SITE_ID",
+                                "profils.rail_discount.UID", "profils.rail_discount_itinerary.UID",
+                                "profils.rail_discount.SequenceNumber","profils.rail_discount_itinerary.SequenceNumber",
+                                "profils.rail_discount.UID", req.params.uid,
+                                "profils.rail_discount.DEPOSITED_DATE",
+                                "DEPOSITED_DATE",
+                                "profils.rail_discount","profils.rail_discount.UID", req.params.uid,
+                                "profils.rail_discount_itinerary.DEPOSITED_DATE"
+                                "DEPOSITED_DATE",
+                                "profils.rail_discount_itinerary","rail_discount_itinerary.rail_discount.UID", req.params.uid,
+                                "profils.rail_discount.SequenceNumber"];
             query_one = mysql.format(query_one, table_one);
             connection.query(query_one, function(err, rows) {
                 if (err)

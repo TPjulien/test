@@ -1,49 +1,26 @@
 tableau
 .controller "profilCtrl",($scope,$mdDialog,$http,$q,NgTableParams) ->
+#Ajouter user
+    $scope.ajouterUser = false
+    $scope.showPanelUser = () ->
+      $scope.ajouterUser = true
+    $scope.hidePanelUser = () ->
+      $scope.ajouterUser = false
     uid = 'boetschnat'
+
+    # data du profil
+    $scope.anotherMail           = null
+    $scope.getCountryNumberphone = null
+    $scope.numPhoneUser          = null
+    $scope.getEmail              = null
+
     $http
         method: 'GET'
         url: options.api.base_url + '/profils/' + uid
     .success (data) ->
         $scope.profils = data[0]
-        console.log $scope.profils
     .error (err) ->
         console.log err
-
-    $scope.profilchange = (uid) ->
-      $http
-          method: 'GET'
-          url: options.api.base_url + '/profils/' + uid
-      .success (data) ->
-          $scope.profils = data[0]
-      .error (err) ->
-          console.log err
-
-#Mail
-    $scope.mail = null
-    $scope.ajouterMail = true
-    $scope.mailDisplay = false
-    $scope.showPanelMail = () ->
-      $scope.mailDisplay = true
-      $scope.ajouterMail = false
-    $scope.hidePanelMail = () ->
-      $scope.mailDisplay = false
-      $scope.ajouterMail = true
-    $scope.listMail = []
-    $scope.submitMail = () ->
-      console.log '------------------'
-      console.log $scope.mail
-      mailSub = {
-        mail: $scope.mail
-      }
-      if $scope.mail
-        $scope.listMail.push mailSub
-        $scope.mailSub = {}
-        $scope.mailDisplay = false
-        $scope.ajouterMail = true
-        $scope.mail = ''
-
-
 
 # Appel pour lister toutes les class voyageur pour le train
     $http
@@ -117,14 +94,20 @@ tableau
     .error (err) ->
         console.log err
 
-
+    $scope.profilchange = (uid) ->
+      $http
+          method: 'GET'
+          url: options.api.base_url + '/profils/' + uid
+      .success (data) ->
+          $scope.profils = data[0]
+      .error (err) ->
+          console.log err
 
     $scope.getusersCommunity = (number_community) ->
       $http
           method: 'GET'
           url:    options.api.base_url + '/usersCommunity/' + number_community
       .success (data) ->
-          console.log data
           $scope.usersCommunity = data
           $scope.query =
               order: 'name'
@@ -141,16 +124,9 @@ tableau
     .error (err) ->
         console.log err
 
-    $scope.getCodeNumber = (country) ->
-      console.log country
-      $http
-          method: 'GET'
-          url:    options.api.base_url + '/phoneCode/' + country
-      .success (data) ->
-          $scope.user.phoneCode = '+' + data[0].phonecode
-      .error (err) ->
-          console.log err
-
+    # $scope.getPhoneCode = () ->
+    #   result = $scope.getCountryNumberphone
+    #   return result
 
     $scope.limitOptions = [5, 10, 15]
     $scope.selected = []
@@ -170,21 +146,49 @@ tableau
       $scope.ajouterNum = true
 
     $scope.listNumTel = []
-    $scope.submitNumPhone = ->
+    $scope.submitNumPhone = () ->
+      console.log "ça passe par la !"
+      console.log $scope.numPhoneUser
+      console.log $scope.getCountryNumberphone
       phoneSub = {
-        code: $scope.user.phoneCode
-        numero: $scope.user.numPhone
+        code: $scope.getCountryNumberphone
+        numero: $scope.numPhoneUser
       }
-      if $scope.user.numPhone && $scope.user.phoneCode
+      if $scope.numPhoneUser && $scope.getCountryNumberphone
         $scope.listNumTel.push phoneSub
-        $scope.phoneSub = {}
-        $scope.phone = false
-        $scope.ajouterNum = true
-        $scope.user.phoneCode = null
-        $scope.user.numPhone = null
+        $scope.phoneSub              = {}
+        $scope.phone                 = false
+        $scope.ajouterNum            = true
+        $scope.getCountryNumberphone = null
+        $scope.numPhoneUser          = null
 
+#Mail
+    $scope.ajouterMail = true
+    $scope.mail = false
+    $scope.showPanelMail = () ->
+      $scope.mail = true
+      $scope.ajouterMail = false
+    $scope.hidePanelMail = () ->
+      $scope.mail = false
+      $scope.ajouterMail = true
 
+    $scope.listMail = []
 
+    $scope.testNum = () ->
+        console.log "Pays changé !"
+
+    $scope.submitMail = (mail) ->
+      mailSub = {
+        mail: mail
+      }
+      if mail
+        $scope.listMail.push mailSub
+        scope.getEmail     = ''
+        $scope.mailSub     = {}
+        $scope.mail        = false
+        $scope.ajouterMail = true
+        $scope.getEmail    = null
+        mail               = null
 
 #valideur
     $scope.ajouterValideur = true
@@ -297,30 +301,29 @@ tableau
         $scope.user.nomFidelite = null
 
 #Carte de voyage
-    $scope.ajouterCardTraveller = true
-    $scope.CardTravellerDisplay = false
+    $scope.ajouterCarteVoy = true
+    $scope.carteVoy = false
     $scope.TabRecupCardVoy = true;
-    $scope.showPanelCardTraveller = () ->
-      $scope.CardTravellerDisplay = true
-      $scope.ajouterCardTraveller = false
+    $scope.showPanelCarteVoy = () ->
+      $scope.carteVoy = true
+      $scope.ajouterCarteVoy = false
       $scope.TabRecupCardVoy = false;
-    $scope.hidePanelCardTraveller = () ->
-      $scope.CardTravellerDisplay = false
-      $scope.ajouterCardTraveller = true
+    $scope.hidePanelCarteVoy = () ->
+      $scope.carteVoy = false
+      $scope.ajouterCarteVoy = true
       $scope.TabRecupCardVoy = true;
 
-    $scope.listCardTraveller = []
-    $scope.submitCardTraveller = ->
-      CardTravellerSub = {
-        PROVIDER: $scope.CardTraveller.PROVIDER
-        CARD_NAME: $scope.CardTraveller.CARD_NAME
+    $scope.listCarteVoy = []
+    $scope.submitCarteVoy = ->
+      carteVoySub = {
+        name: $scope.user.carteVoy
       }
-      if $scope.user.CardTraveller
-        $scope.listCardTraveller.push CardTravellerSub
-        $scope.CardTravellerSub = {}
-        $scope.CardTraveller = false
-        $scope.ajouterCardTraveller = true
-        $scope.user.nomCardTraveller = null
+      if $scope.user.carteVoy
+        $scope.listCarteVoy.push carteVoySub
+        $scope.carteVoySub = {}
+        $scope.carteVoy = false
+        $scope.ajouterCarteVoy = true
+        $scope.user.nomCarteVoy = null
 
 #Carte de fidélité Hotel
     $scope.ajouterFideliteHotel = true
@@ -351,7 +354,6 @@ tableau
       $scope.ajouterUser = false
 
     toArray = (object,name) ->
-        console.log object
         data = []
         i = 0
         while i < object.length
@@ -381,7 +383,6 @@ tableau
       # The variable results needs var in this case (without 'var' a global variable is created)
       results = []
       i       = 0
-      # console.log array
       while i < array.length
         if array[i].indexOf(key) == 0
           results.push array[i]
@@ -397,6 +398,18 @@ tableau
             result   = find(searchTerm, getArray)
             result2  = toObject(result, name)
             return result2
+
+    $scope.getCodeNumber = (country, value) ->
+      # console.log country
+      console.log "ça passe toujour par la !"
+      $http
+          method: 'GET'
+          url:    options.api.base_url + '/phoneCode/' + country
+      .success (data) ->
+          console.log value
+          $scope.getCountryNumberphone = data[0].phonecode
+      .error (err) ->
+          console.log err
 
     $scope.querySearch = (query,name) ->
         if (name == 'villeGare')
