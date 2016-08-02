@@ -75,35 +75,31 @@ tableau
         method: 'GET'
         url:    options.api.base_url + '/getFilterDatatable/' + $scope.detail.SITE_ID + '/' + $scope.detail.VIEW_ID + '/' + $scope.detail.EMBED_ID
     .success (data) ->
-        # console.log data.column_filter
         $scope.datatable_filters = data.datatable_filters
         $scope.column_filter     = data.column_filter
     .error (err) ->
         console.log err
 
     $scope.getTypeFilter = (value, column_name) ->
-        console.log value, column
+        console.log value, column_name
 
-    $scope.getGenericFilter = (filters, column_filter) ->
-        # console.log filters[0]
-        result   = null
-        htmlBind = null
+    $scope.getGenericFilter = (filters, key) ->
+        result                 = null
+        get_filter_column_name = null
         delete filters.$$hashKey
-        for name, values of filters[0]
-            # console.log "toto"
-            # console.log values
-            if filters[0][name] != null
-                # console.log filters[0][name]
-                # console.log "non null"
-                # console.log filters[name]
+        for name, values of filters
+            if filters[name] != null
+                # permet de retrouver le nom de la colonne associé au filtre
+                for column_name, value_column of $scope.column_filter[key]
+                    get_filter_column_name = value_column
                 result = """<h5 class = "md-subhead"
                                 style = "text-align: left">
-                                Par """ + filters[0][name] +
+                                Par """ + filters[name] +
                           """ : </h5>"""
                 # faut trouver une moyen plus cool de faire cela dynamique
                 if name == 'has_search_filter'
-                    dynamic_entry = "filterText(clientFacture,'" + name + "')"
-                    result += "<input for               = '" + name + "'
+                    dynamic_entry = "filterText(clientFacture,'" + get_filter_column_name + "')"
+                    result       += "<input for               = '" + name + "'
                                        ng-change        = " + dynamic_entry + " &nbsp;
                                        ng-model         = 'clientFacture'
                                        name             = 'clientFacture'
@@ -111,20 +107,20 @@ tableau
                                        minlength        = '3'
                                        maxlength        = '10'
                                        ng-pattern       = '/^[0-9]+$/'>
-                                 </input>"
+                                    </input>"
                 else if name == 'has_bullet_filter'
-                    result += """<md-radio-group ng-model="value"
-                                                 ng-change="getTypeFilter(value)">
-                                    <md-radio-button value="none"
-                                                     class="md-primary">
-                                                     """ + filters[name] + """
-                                     </md-radio-button>
-                                     <md-radio-button value="CommercialInvoice">
-                                                      """ + filters[name] + """</md-radio-button>
-                                     <md-radio-button value="CreditNoteGoodsAndServices">
-                                                      """ + filters[name] + """</md-radio-button>
-                                </md-radio-group>
-                              """
+                    dynamic_entry = "getTypeFilter(value,  '" + get_filter_column_name + "')"
+                    result       += '<md-radio-group ng-change = "' + dynamic_entry + '" &nbsp;
+                                               ng-model  = "value">
+                                        <md-radio-button value = "all"
+                                                         class = "md-primary">
+                                                           Tous
+                                        </md-radio-button>
+                                        <md-radio-button value = "CommercialInvoice">
+                                                          ' + filters[name] + '</md-radio-button>
+                                        <md-radio-button value = "CreditNoteGoodsAndServices">
+                                                          ' + filters[name] + '</md-radio-button>
+                                    </md-radio-group>'
         return $sce.trustAsHtml result
 
         # result = "<p>Bonjour à tous !</p>"
