@@ -1,25 +1,35 @@
 tableau
 .controller "profilCtrl",($scope,$mdDialog,$http,$q,NgTableParams) ->
-#Ajouter user
-    $scope.ajouterUser = false
-    $scope.showPanelUser = () ->
-      $scope.ajouterUser = true
-    $scope.hidePanelUser = () ->
-      $scope.ajouterUser = false
-    uid = 'dessaintri'
-
     # data du profil
     $scope.anotherMail           = null
     $scope.getCountryNumberphone = null
     $scope.numPhoneUser          = null
     $scope.getEmail              = null
+    $scope.limitOptions          = [5, 10, 15]
+    $scope.selected              = []
+    $scope.config                =
+                                  itemsPerPage: 5
+                                  fillLastPage: true
+    $scope.required              = true
+    uid                          = 'boetschnat'
 
+# Appel pour afficher les données profil de l'utilisateur
     $http
         method: 'GET'
         url: options.api.base_url + '/profils/' + uid
     .success (data) ->
         $scope.profils = data[0]
         console.log   $scope.profils = data[0]
+    .error (err) ->
+        console.log err
+
+# Appel pour afficher les données profil de l'utilisateur
+    $http
+        method: 'GET'
+        url: options.api.base_url + '/profilPhone/' + uid
+    .success (data) ->
+        $scope.profilPhone = data
+        console.log   $scope.profils = data
     .error (err) ->
         console.log err
 
@@ -180,18 +190,7 @@ tableau
     .error (err) ->
         console.log err
 
-    # $scope.getPhoneCode = () ->
-    #   result = $scope.getCountryNumberphone
-    #   return result
-
-    $scope.limitOptions = [5, 10, 15]
-    $scope.selected = []
-    $scope.config =
-      itemsPerPage: 5
-      fillLastPage: true
-    $scope.required = true
-
-    #phone
+#phone
     $scope.ajouterNum = true
     $scope.phone = false
     $scope.showPanelTel = () ->
@@ -217,6 +216,8 @@ tableau
         $scope.ajouterNum            = true
         $scope.getCountryNumberphone = null
         $scope.numPhoneUser          = null
+
+
 
 #Mail
     $scope.ajouterMail = true

@@ -18,6 +18,21 @@ module.exports = function(router, connection) {
                     res.json(rows);
             })
         })
+    // route pour lister les numéros de téléphone du profil
+    router.route('/profilPhone/:uid')
+        .get(function(req, res) {
+            var query_one = "SELECT * FROM ?? WHERE ?? = ? \
+                             AND ?? = (SELECT MAX (??) FROM ?? WHERE ?? = ? )";
+            var table_one = ["profils.phone", "profils.phone.UID", req.params.uid,
+                             "profils.phone.DEPOSITED_DATE","profils.phone.DEPOSITED_DATE","profils.phone","profils.phone.UID", req.params.uid];
+            query_one     = mysql.format(query_one, table_one);
+            connection.query(query_one, function(err, rows) {
+                if (err)
+                    res.status(400).send(err);
+                else
+                    res.json(rows);
+            })
+        })
     // route pour lister toutes les class voyageur pour le train
     router.route('/railClass')
         .get(function(req, res) {
@@ -284,7 +299,7 @@ module.exports = function(router, connection) {
     router.route('/usersCommunity/:number_community')
         .get(function(req, res) {
             var query_one = "SELECT *  FROM ?? WHERE ?? = ? GROUP BY ??";
-            var table_one = ["profils.customer", "SITE_ID", req.params.number_community, "Customer_surName"];
+            var table_one = ["profils.customer", "SITE_ID", req.params.number_community, "UID"];
             query_one     = mysql.format(query_one, table_one);
             connection.query(query_one, function(err, rows) {
                 if (err)
