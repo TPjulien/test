@@ -148,10 +148,22 @@ module.exports = function(router, connection) {
                     // condition si jamais le filter existe
                     if (filters.length != 0) {
                         for name in filters {
-                            console.log(name);
+                            if (name == 0) {
+                                // '%" + req.params.num_commande + "%'
+                                query_datatable += ' WHERE ' + filters[name]['column_name'] + "'%" + filters[name]['value'] + "%'";
+                            } else {
+                                query_datatable += ' AND ' + filters[name]['column_name'] + "'%" + filters[name]['value'] + "'%";
+                            }
+                            // for (value in filters[name]) {
+                            //     // dans le cas ou le compteur est a 0 on commence par un where
+                            //     if (name == 0) {
+                            //         query_datatable += ' WHERE ' + filters[name]['column_name'] + "='" + filters[name]['value'];
+                            //     }
+                            // }
                         }
                     }
-                    query_datatable += ' LIMIT 50';
+                    // on fini la query avec limit
+                    query_datatable += ' LIMIT ' + req.body.min + ',' + req.body.max;
                     // une fois la query buildé, on l'execute
                     connection.query(query_datatable, function(err, post_data){
                       if (err)
@@ -160,8 +172,7 @@ module.exports = function(router, connection) {
                             // on prend la datatable et aussi la largeur ainsi que le filtre de celui ci
                             res.json({
                                       'datatable'        : post_data,
-                                      'datatable_width'  : result_datatable,
-                                      'result_filters'   : filters
+                                      'datatable_width'  : result_datatable
                                     });
                           }
                     })

@@ -67,8 +67,8 @@ tableau
         if value != ''
             # on injecte dans un tableau qui lui va faire la correspondance client-serveur
             object_to_filter             = {}
-            object_to_filter.value       = value
             object_to_filter.column_name = column_name
+            object_to_filter.value       = value
             filter_array_text.push(object_to_filter)
         # la function pour lancer la requete
         getDatatable(0, 50);
