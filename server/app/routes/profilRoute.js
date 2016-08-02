@@ -182,7 +182,7 @@ module.exports = function(router, connection) {
         .get(function(req, res) {
             var query_one = "SELECT * FROM ?? \
                              WHERE ?? = ?  \
-                             AND ?? = AF \
+                             AND ?? = 'AF' \
                              AND ?? = ( \
                                SELECT MAX(??) \
                                FROM  ?? WHERE ?? = ? )  \
