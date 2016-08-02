@@ -15,7 +15,8 @@ tableau
     value               = 50
     decode              = jwtHelper.decodeToken(token)
     $scope.datatable    = []
-    $scope.datatableFilters = []
+    $scope.datatable_filters = []
+    $scope.column_filter = []
 
     # ticket                   = null
     # $scope.dataWithTicket    = []
@@ -74,26 +75,30 @@ tableau
         method: 'GET'
         url:    options.api.base_url + '/getFilterDatatable/' + $scope.detail.SITE_ID + '/' + $scope.detail.VIEW_ID + '/' + $scope.detail.EMBED_ID
     .success (data) ->
-        $scope.datatableFilters = data
+        # console.log data.column_filter
+        $scope.datatable_filters = data.datatable_filters
+        $scope.column_filter     = data.column_filter
     .error (err) ->
         console.log err
 
     $scope.getTypeFilter = (value, column_name) ->
         console.log value, column
 
-    $scope.getGenericFilter = (filters) ->
-        # console.log filters
+    $scope.getGenericFilter = (filters, column_filter) ->
+        # console.log filters[0]
         result   = null
         htmlBind = null
         delete filters.$$hashKey
-        for name, values of filters
+        for name, values of filters[0]
+            # console.log "toto"
             # console.log values
-            if filters[name] != null
+            if filters[0][name] != null
+                # console.log filters[0][name]
                 # console.log "non null"
                 # console.log filters[name]
                 result = """<h5 class = "md-subhead"
                                 style = "text-align: left">
-                                Par """ + filters[name] +
+                                Par """ + filters[0][name] +
                           """ : </h5>"""
                 # faut trouver une moyen plus cool de faire cela dynamique
                 if name == 'has_search_filter'

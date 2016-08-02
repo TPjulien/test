@@ -116,8 +116,8 @@ module.exports = function(router, connection) {
                             res.status(400).send(err);
                         else
                             res.json({
-                                      "filter" : result_filter,
-                                      "column_filter": result_filter_column
+                                      "datatable_filters" : result_filter,
+                                      "column_filter"     : result_filter_column
                             });
                     })
                 }
