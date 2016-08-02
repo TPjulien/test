@@ -106,8 +106,21 @@ module.exports = function(router, connection) {
             connection.query(query_filter, function(err, result_filter) {
                 if (err)
                     res.status(400).send(err);
-                else
-                    res.json(result_filter);
+                else {
+                    // deuxieme requete pour recuperer les colones utilisées
+                    var query_filter_column = "SELECT ?? FROM ?? WHERE ?? = ? AND ?? = ? AND ?? = ?";
+                    var table_filter_column = ["column", "tp_control.datatable", "SITE_ID", req.params.site_id, "VIEW_ID", req.params.view_id, "EMBED_ID", req.params.embed_id];
+                    query_filter_column = mysql.format(query_filter_column, table_filter_column);
+                    connection.query(query_filter_column, function(err, result_filter_column) {
+                        if (err)
+                            res.status(400).send(err);
+                        else
+                            res.json({
+                                      "filter" : result_filter,
+                                      "column_filter": result_filter_column
+                            });
+                    })
+                }
             })
           })
       // On Recupere les données de la datatable

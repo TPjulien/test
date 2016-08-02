@@ -66,8 +66,8 @@ tableau
             count++
         return result
 
-    $scope.filterText = (value) ->
-        console.log value
+    $scope.filterText = (value, column_name) ->
+        console.log value, column_name
 
     # http qui permet de recuperer les filtres
     $http
@@ -78,8 +78,8 @@ tableau
     .error (err) ->
         console.log err
 
-    $scope.getTypeFilter = (value) ->
-        console.log value
+    $scope.getTypeFilter = (value, column_name) ->
+        console.log value, column
 
     $scope.getGenericFilter = (filters) ->
         # console.log filters
@@ -97,15 +97,16 @@ tableau
                           """ : </h5>"""
                 # faut trouver une moyen plus cool de faire cela dynamique
                 if name == 'has_search_filter'
-                    result += """<input for             = '""" + filters[name] + """'
-                                       ng-change        = 'filterText(clientFacture)'
+                    dynamic_entry = "filterText(clientFacture,'" + name + "')"
+                    result += "<input for               = '" + name + "'
+                                       ng-change        = " + dynamic_entry + " &nbsp;
                                        ng-model         = 'clientFacture'
                                        name             = 'clientFacture'
                                        ng-model-options = '{debounce: 1000}'
                                        minlength        = '3'
                                        maxlength        = '10'
                                        ng-pattern       = '/^[0-9]+$/'>
-                                 </input>"""
+                                 </input>"
                 else if name == 'has_bullet_filter'
                     result += """<md-radio-group ng-model="value"
                                                  ng-change="getTypeFilter(value)">
