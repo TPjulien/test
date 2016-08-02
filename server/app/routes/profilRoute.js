@@ -177,7 +177,32 @@ module.exports = function(router, connection) {
                     res.json(rows);
             })
         })
-    // route pour lister toutes les countries pour le phone
+    // route pour la carte de fidelite air france d'un voyageur
+    router.route('/air_loyaltyAF/:uid')
+        .get(function(req, res) {
+            var query_one = "SELECT * FROM ?? \
+                             WHERE ?? = ?  \
+                             AND ?? = ?? \
+                             AND ?? = ( \
+                               SELECT MAX(??) \
+                               FROM  ?? WHERE ?? = ? )  \
+                               ORDER BY ?? ASC ";
+            var table_one = ["profils.air_loyalty",
+                             "profils.air_loyalty.UID",req.params.uid,
+                             "profils.air_loyalty.ProgramCode","AF",
+                             "profils.air_loyalty.DEPOSITED_DATE",
+                             "profils.air_loyalty.DEPOSITED_DATE",
+                             "profils.air_loyalty","profils.air_loyalty.UID",req.params.uid,
+                             "profils.air_loyalty.SequenceNumber"];
+            query_one = mysql.format(query_one, table_one);
+            connection.query(query_one, function(err, rows) {
+                if (err)
+                    res.status(400).send(err);
+                else
+                    res.json(rows);
+            })
+        })
+    // route pour les cartes de fidelite aérienne d'un voyageur
     router.route('/air_loyalty/:uid')
         .get(function(req, res) {
             var query_one = "SELECT * FROM ?? \
