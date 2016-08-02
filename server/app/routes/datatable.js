@@ -143,7 +143,15 @@ module.exports = function(router, connection) {
                     for (var i = 1; i < result_datatable.length; i++) {
                         query_datatable += ', ' + result_datatable[i].column;
                     }
-                    query_datatable += ' FROM ' + result_datatable[0].schema + '.' + result_datatable[0].table + ' LIMIT 50';
+                    // deuxieme étape de la query builder
+                    query_datatable += ' FROM ' + result_datatable[0].schema + '.' + result_datatable[0].table;
+                    // condition si jamais le filter existe
+                    if (filters.length != 0) {
+                        for name in filters {
+                            console.log(name);
+                        }
+                    }
+                    query_datatable += ' LIMIT 50';
                     // une fois la query buildé, on l'execute
                     connection.query(query_datatable, function(err, post_data){
                       if (err)

@@ -17,11 +17,11 @@ tableau
                 min:          min
                 max:          max
         .success (data) ->
+            console.log data
             $scope.data_table = data
         .error (err) ->
             # mettre un toast en cas d'erreur
             console.log err
-
     getDatatable(0, 50)
 
     # $scope.watchOrDownload = (value) ->
