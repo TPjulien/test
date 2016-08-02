@@ -74,6 +74,7 @@ tableau
         url: options.api.base_url + '/cardTraveller/' + uid
     .success (data) ->
         $scope.cardTraveller = data
+        console.log $scope.cardTraveller
         if $scope.cardTraveller.length == 0
             $scope.TabRecupCardVoy = false
         else
@@ -119,7 +120,15 @@ tableau
         url: options.api.base_url + '/airSeatingPref'
     .success (data) ->
         $scope.airSeatingPref = data
-        console.log $scope.airSeatingPref
+    .error (err) ->
+        console.log err
+
+# Appel pour lister les cartes de fidélité aérienne d'un voyageur
+    $http
+        method: 'GET'
+        url: options.api.base_url + '/air_loyalty'
+    .success (data) ->
+        $scope.air_loyalty = data
     .error (err) ->
         console.log err
 
