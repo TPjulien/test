@@ -186,12 +186,12 @@ module.exports = function(router, connection) {
                                SELECT MAX(??) \
                                FROM  ?? WHERE ?? = ? )  \
                                ORDER BY ?? ASC ";
-            var table_one = ["air_loyalty",
-                             "UID",req.params.uid,
-                             "air_loyalty.DEPOSITED_DATE",
-                             "DEPOSITED_DATE",
-                             "air_loyalty","UID",req.params.uid,
-                             "air_loyalty.SequenceNumber"];
+            var table_one = ["profils.air_loyalty",
+                             "profils.air_loyalty.UID",req.params.uid,
+                             "profils.air_loyalty.DEPOSITED_DATE",
+                             "profils.air_loyalty.DEPOSITED_DATE",
+                             "profils.air_loyalty","profils.air_loyalty.UID",req.params.uid,
+                             "profils.air_loyalty.SequenceNumber"];
             query_one = mysql.format(query_one, table_one);
             connection.query(query_one, function(err, rows) {
                 if (err)

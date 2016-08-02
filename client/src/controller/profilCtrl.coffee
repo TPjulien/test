@@ -6,7 +6,7 @@ tableau
       $scope.ajouterUser = true
     $scope.hidePanelUser = () ->
       $scope.ajouterUser = false
-    uid = 'boetschnat'
+    uid = 'dessaintri'
 
     # data du profil
     $scope.anotherMail           = null
