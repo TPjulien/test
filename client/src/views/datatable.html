@@ -9,20 +9,15 @@
       </div>
     </div>
     <!-- partie filtre généré automatiquement -->
-    <div class                = "col s4 "
-         layout-padding style = "background-color: white"
-         ng-repeat            = "filter in data_table.datatable_width">
-         <!-- <input for              = 'clientName'
-                ng-change        = 'filterFacture()'
-                ng-model         = 'clientFacture'
-                name             = 'clientFacture'
-                ng-model-options = '{debounce: 1000}'
-                minlength        = '3'
-                maxlength        = '10'
-                ng-pattern       = '/^[0-9]+$/'>
-         </input> -->
-         <md-input-container ng-bind-html = "getGenericFilter(filter.has_date_filter, filter.has_search_filter, filter.has_bullet_filter, filter.has_amount_filter)"></md-input-container>
-    </div>
+    <div class ="col s4" layout-padding style = "background-color: white">
+        <h4>Recherche :</h4>
+        <div class                = "col s12"
+             ng-repeat            = "filter in datatableFilters">
+             <md-input-container compile class = "options col s12"
+                                 ng-bind-html  = "getGenericFilter(filter)">
+             </md-input-container>
+        </div>
+     </div>
   </div>
 </div>
   <!--<form name="searchForm">

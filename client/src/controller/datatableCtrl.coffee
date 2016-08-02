@@ -15,6 +15,7 @@ tableau
     value               = 50
     decode              = jwtHelper.decodeToken(token)
     $scope.datatable    = []
+    $scope.datatableFilters = []
 
     # ticket                   = null
     # $scope.dataWithTicket    = []
@@ -65,44 +66,60 @@ tableau
             count++
         return result
 
-    $scope.filterFacture = () ->
-        console.log "what the fuck"
+    $scope.filterText = (value) ->
+        console.log value
 
     # http qui permet de recuperer les filtres
     $http
         method: 'GET'
         url:    options.api.base_url + '/getFilterDatatable/' + $scope.detail.SITE_ID + '/' + $scope.detail.VIEW_ID + '/' + $scope.detail.EMBED_ID
     .success (data) ->
-        console.log 'hey !'
-        console.log data
+        $scope.datatableFilters = data
     .error (err) ->
         console.log err
 
-    $scope.getGenericFilter = (date, search, bullet, amount) ->
-        # on fusionne tout dans un tableau
-        result  = null
-        filters = []
-        filters.push(date)
-        filters.push(search)
-        filters.push(bullet)
-        filters.push(amount)
-        i = 0
+    $scope.getTypeFilter = (value) ->
+        console.log value
 
-        # console.log filters.length
-        while (i < filters.length)
-            if filters[i] == "1"
-                result = """<input for            = 'clientName'
-                                 ng-change        = 'filterFacture()'
-                                 ng-model         = 'clientFacture'
-                                 name             = 'clientFacture'
-                                 ng-model-options = '{debounce: 1000}'
-                                 minlength        = '3'
-                                 maxlength        = '10'
-                                 ng-pattern       = '/^[0-9]+$/'>
-                          </input>"""
-            i++
+    $scope.getGenericFilter = (filters) ->
+        # console.log filters
+        result   = null
+        htmlBind = null
+        delete filters.$$hashKey
+        for name, values of filters
+            # console.log values
+            if filters[name] != null
+                # console.log "non null"
+                # console.log filters[name]
+                result = """<h5 class = "md-subhead"
+                                style = "text-align: left">
+                                Par """ + filters[name] +
+                          """ : </h5>"""
+                # faut trouver une moyen plus cool de faire cela dynamique
+                if name == 'has_search_filter'
+                    result += """<input for             = '""" + filters[name] + """'
+                                       ng-change        = 'filterText(clientFacture)'
+                                       ng-model         = 'clientFacture'
+                                       name             = 'clientFacture'
+                                       ng-model-options = '{debounce: 1000}'
+                                       minlength        = '3'
+                                       maxlength        = '10'
+                                       ng-pattern       = '/^[0-9]+$/'>
+                                 </input>"""
+                else if name == 'has_bullet_filter'
+                    result += """<md-radio-group ng-model="value"
+                                                 ng-change="getTypeFilter(value)">
+                                    <md-radio-button value="none"
+                                                     class="md-primary">
+                                                     """ + filters[name] + """
+                                     </md-radio-button>
+                                     <md-radio-button value="CommercialInvoice">
+                                                      """ + filters[name] + """</md-radio-button>
+                                     <md-radio-button value="CreditNoteGoodsAndServices">
+                                                      """ + filters[name] + """</md-radio-button>
+                                </md-radio-group>
+                              """
         return $sce.trustAsHtml result
-        # for (i = 1; i < filters.length; i++)
 
         # result = "<p>Bonjour à tous !</p>"
         # return result
