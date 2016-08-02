@@ -150,9 +150,9 @@ module.exports = function(router, connection) {
                         for (name in filters) {
                             if (name == 0) {
                                 // '%" + req.params.num_commande + "%'
-                                query_datatable += ' WHERE ' + filters[name]['column_name'] + "'%" + filters[name]['value'] + "%'";
+                                query_datatable += ' WHERE ' + filters[name]['column_name'] + " LIKE '%" + filters[name]['value'] + "%' ";
                             } else {
-                                query_datatable += ' AND ' + filters[name]['column_name'] + "'%" + filters[name]['value'] + "'%";
+                                query_datatable += ' AND ' + filters[name]['column_name'] + " LIKE '%" + filters[name]['value'] + "%' ";
                             }
                             // for (value in filters[name]) {
                             //     // dans le cas ou le compteur est a 0 on commence par un where
