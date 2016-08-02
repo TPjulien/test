@@ -8,7 +8,7 @@
           <label class="col-md-3 col-xs-12 labelProfil ">Selectionner une communauté de voyageur</label>
           <div class="col-md-3 col-xs-12">
             <md-input-container class="margin-left">
-              <md-select ng-change='getusersCommunity(profils.site_id)'aria-label="chooseCommunity"  name="chooseCommunity" ng-model="chooseCommunity" >
+              <md-select ng-change='getusersCommunity(profils.SITE_ID)' aria-label="chooseCommunity"  name="chooseCommunity" ng-model="chooseCommunity" >
                 <md-option ng-repeat="oneCommunity in community track by $index" value="{{oneCommunity}}">{{oneCommunity.SITE_LIBELLE}}</md-option>
               </md-select>
             </md-input-container>
@@ -85,7 +85,7 @@
                 </div>
                 <div class=" col-md-4 col-xs-12">
                   <div class=" ">
-                    <input class="input_generic" name="chargeVoy" ng-model="user.mailChargeVoy" type="text" ng-minlength="1" ng-maxlength="30" class="validate" >
+                    <input class="input_generic" name="chargeVoy" ng-model="user.mailChargeVoy" type="email" ng-minlength="1" ng-maxlength="30" class="validate" >
                   </div>
                 </div>
                 <div class="row">
@@ -196,7 +196,7 @@
                             <label  class="labelProfil" for="mail"> Mail </label>
                           </div>
                           <div class="col-md-10">
-                            <input class="input_generic" ng-model="getEmail" ng-minlength="1" ng-maxlength="30" class="validate" required>
+                            <input class="input_generic" ng-model="getEmail" type="email" ng-minlength="1" ng-maxlength="30" class="validate" required>
                           </div>
                           <div class="row">
                             <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
@@ -586,20 +586,7 @@
                 </div>
                 <div class="clear"></div>           <!--- Fin passeport  ------------------------------------------>
               </div>
-            <!-- </div> -->
           </div>                <!--- Fin Panel personnel  ----------------------------------->
-           <!--- Parti Panel paiement  ----------------------------------->
-          <!-- <div class="panel">
-          <div id="paiement" class="panel-header">Paiement <md-icon class="right" md-svg-icon="img/icons/payment.svg"></md-icon></div>
-          <div class="container">
-            <div class="row">
-            </br>
-              <div class="col-md-12">
-                <p class="p_profil">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor .</p>
-              </div>
-            </div>
-            <div class="clear"></div>
-          </div> -->
           </div>
           <!--- Fin Parti paiement  ----------------------------------->
           <div id="livraison" class="panel-header">Livraison <md-icon class="right" md-svg-icon="img/icons/delivery.svg"></md-icon></div>
@@ -622,7 +609,7 @@
                   <h4 class="h4bleu">Préférences Avion</h4>
                 </div>
                 <div class="col-md-3">
-                  <label class="right labelProfil">Préférence siège</label>
+                  <label class="right_profil labelProfil">Préférence siège</label>
                 </div>
                 <div class="col-md-9">
                   <md-input-container class="select_generic">
@@ -634,7 +621,7 @@
                 </br>
                 <div class="row">
                   <div class="col-md-3">
-                    <label  class="right labelProfil">Carte de fidélité </label>
+                    <label  class="right_profil labelProfil">Carte de fidélité </label>
                   </div>
                   <div class=" col-md-9" style="margin-top:10px">
                     <div ng-if='listFidelite.length == 0 && fidelite.fidelite.length == 0' class=" ">
@@ -699,26 +686,23 @@
                         </div>
                       </form>
                     </div>
-
                   </div>
                 </div>
-                <div class="col-md-3">
-                  <label class="right labelProfil">Carte abonné Air France</label>
-                </div>
-                <div class='col-md-5'>
-                  <label  class="labelProfil" for=""> Numéro de de la carte </label>
-                </div>
-                <div class='col-md-4'>
-                  <label  class="labelProfil" for="">  Fin de validité </label>
-                </div>
-                  <div class='col-md-5  col-md-offset-3'>
-                    <input style="margin-left:0px !important" class="input_generic" name="carteFideliteAirFrance" ng-model="user.carteFideliteAirFrance" type="text" ng-minlength="1" ng-maxlength="30" class="validate" >
+                <div class="row">
+                  <div class="col-md-3">
+                    <label class="right_profil labelProfil">Carte abonné Air France</label>
                   </div>
-                  <div class='col-md-4'>
-                    <md-input-container flex-gt-md="30">
-                      <input mdc-datetime-picker="" date="true" time="false" type="text" id="carteFideliteAirFranceDate" min-date="date" ng-model="user.carteFideliteAirFranceDate" style="margin-left:0px !important" class="datePicker_generic md-input">
-                    </md-input-container>
+                  <div class='col-md-9'>
+                    <div class="col-md-12">
+                      <label  class="labelProfil" for=""> Numéro de de la carte </label>
+                    </div>
+                    <div class="col-md-12">
+                      <div ng-repeat="oneAir_loyaltyAF in air_loyaltyAF" ></div>
+                      <input style="margin-left:30px !important" class="input_generic" name="carteFideliteAirFrance" ng-model="oneAir_loyaltyAF.MembershipId" type="text" ng-minlength="1" ng-maxlength="30" class="validate" >
+                    </div>
                   </div>
+                </div>
+                </div>
                 <div class="col-md-12">
                   <h4 class="h4bleu">Préférences Train</h4>
                 </div>
@@ -925,8 +909,8 @@
                   <label class="right labelProfil">Préférence fumeur</label>
                 </div>
                 <div class="col-md-9">
-                  <md-input-container class="">
-                    <md-select aria-label="Pref_hotelfummeur"  name="Pref_classTrain" ng-model="Pref_hotelfummeur" >
+                  <md-input-container class="select_generic">
+                    <md-select aria-label="airSeatingPref"  name="airSeatingPref" ng-model="profils.airSeatingPref" >
                       <md-option value="sansPref">Sans préférence</md-option>
                       <md-option value="fumeur">Fumeur</md-option>
                       <md-option value="nonFurmeur">Non fumeur</md-option>
@@ -944,16 +928,18 @@
                     <p class="p_profil">{{profils.fideliteHotel}}</p>
                     <p class="p_profil" ng-repeat="fideliteHotel in listFideliteHotel">{{fideliteHotel.fideliteHotel}}</p>
                   </div>
+                  </br>
                   <div ng-if="ajouterFideliteHotel" ng-click="showPanelFideliteHotel()" class="add link-icon">
                     <span class="addProfil link-icon__text">
                       <md-icon class="logo_lock"md-svg-icon="img/icons/bleed.svg"></md-icon>
                       Ajouter une carte de fidélité
                     </span>
                   </div>
+                  </br>
                   <div class="row">
                     <form ng-submit="submitFideliteHotel()">
                       <div class="fideliteHotel panel" ng-if="fideliteHotel">
-                        <div class="panel-header panel-header_min">Ajouter une carte de fidélité</div>
+                        <div class="panel-header panel-header_min">Ajouter une carte de fidélité<md-icon ng-click="hidePanelFideliteHotel()" class="right logo_lock" md-svg-icon="img/icons/delete-button.svg"></div>
                         <div class="row">
                           <div class="col-md-4">
                             <label  class="labelProfil" for="mail"> Choississez le code hotel </label>
@@ -970,14 +956,18 @@
                         </div>
                         <div class="row">
                           <div class="col-md-4">
-                            <label  class="labelProfil" for="code_fideliteHotel"> code carte fidélité </label>
+                            <label  class="labelProfil" for="code_fideliteHotel"> Numéro carte fidélité </label>
                           </div>
                           <div class="col-md-8">
                             <input class="input_generic" name="code_fideliteHotel" ng-model="user.code_fideliteHotel" type="text" ng-minlength="1" ng-maxlength="30" class="validate" >
                           </div>
                         </div>
-                        <button type="submit" class="right md-raised btn btn-success" value="Submit">Ajouter</button>
-                        <button class="right md-raised btn btn-warning" ng-click="hidePanelFidelite()">Fermer</button>
+                        <div class="row">
+                          <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+                            <button type="submit" class="right md-raised btn btn-success" value="Submit">Ajouter</button>
+                          </div>
+                        </div>
+                        <div class="clear"></div>
                       </div>
                     </form>
                   </div>
