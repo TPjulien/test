@@ -123,15 +123,6 @@ tableau
     .error (err) ->
         console.log err
 
-# Appel pour lister les cartes de fidélité aérienne d'un voyageur
-    $http
-        method: 'GET'
-        url: options.api.base_url + '/air_loyalty'
-    .success (data) ->
-        $scope.air_loyalty = data
-    .error (err) ->
-        console.log err
-
 
     $http
         method: 'GET'
@@ -168,6 +159,16 @@ tableau
         url:    options.api.base_url + '/getCountry'
     .success (data) ->
         $scope.country_phone = data
+    .error (err) ->
+        console.log err
+        
+# Appel pour lister les cartes de fidélité aérienne d'un voyageur
+    $http
+        method: 'GET'
+        url: options.api.base_url + '/air_loyalty'
+    .success (data) ->
+        $scope.air_loyalty = data
+        console.log $scope.air_loyalty
     .error (err) ->
         console.log err
 
