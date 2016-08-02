@@ -147,7 +147,7 @@ module.exports = function(router, connection) {
                     query_datatable += ' FROM ' + result_datatable[0].schema + '.' + result_datatable[0].table;
                     // condition si jamais le filter existe
                     if (filters.length != 0) {
-                        for name in filters {
+                        for (name in filters) {
                             if (name == 0) {
                                 // '%" + req.params.num_commande + "%'
                                 query_datatable += ' WHERE ' + filters[name]['column_name'] + "'%" + filters[name]['value'] + "%'";
