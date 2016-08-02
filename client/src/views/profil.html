@@ -137,7 +137,6 @@
         <div class="col-md-9">
           <div id="perso" class="panel-header">Personnel <md-icon class="right" md-svg-icon="img/icons/spy.svg"></md-icon><div class="clear"></div></div>
           <div class="panel"> <!--- Début Panel personnel  ----------------------------------->
-            <!-- <div class="container"> -->
               </br>
               <div class="row">
                 <div class="col-md-4 col-xs-12">
@@ -180,49 +179,59 @@
                   <div ng-if='listMail.length == 0 && profils.Email.length == 0' class="margin-left">
                     <p class="p_profil">Mail Manquant</p>
                   </div>
-                  <div ng-if='listMail.length > 0 || profils.Email.length > 0' class="margin-left no-phone-numbers">
-                    <p class="p_profil">{{profils.Email}}</p>
-                    <p class="p_profil" ng-repeat="mail in listMail">{{mail.mail}}</p>
+                </div>
+                <div class="row">
+                  <div class="margin_NumTel">
+                    <p ng-repeat="oneprofilEmail in profilEmail" class="p_profil">{{oneprofilEmail.Email}} <span style="float:right">[{{oneprofilEmail.Email}}]<md-icon ng-click="" class="right logo_lock" md-svg-icon="img/icons/delete.svg"></md-icon></span></p>
                   </div>
-                  <div ng-if="ajouterMail" ng-click="showPanelMail()" class="margin-left add link-icon">
-                    <span class="addProfil link-icon__text"><md-icon class="logo_lock"md-svg-icon="img/icons/bleed.svg"></md-icon>Ajouter un Mail</span>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-11">
-                      <form ng-submit="submitMail(getEmail)">
-                        <div class="panel" ng-show="mail">
-                          <div class="panel-header panel-header_min">Ajouter un mail <md-icon ng-click="hidePanelMail()" class="right logo_lock" md-svg-icon="img/icons/delete-button.svg"></md-icon></div>
-                          <div class="col-md-2">
-                            <label  class="labelProfil" for="mail"> Mail </label>
-                          </div>
-                          <div class="col-md-10">
-                            <input class="input_generic" ng-model="getEmail" type="email" ng-minlength="1" ng-maxlength="30" class="validate" required>
-                          </div>
-                          <div class="row">
-                            <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
-                              <button class="right md-raised btn btn-warning" type="submit" value="Submit">Ajouter</button>
-                            </div>
-                          </div>
-                          <div class="clear"></div>
+                  <p class="p_profil" ng-repeat="mail in listMail">{{mail.mail}}</p>
+                </div>
+                <div ng-if="ajouterMail" ng-click="showPanelMail()" class="margin-left add link-icon">
+                  <span class="addProfil link-icon__text"><md-icon class="logo_lock"md-svg-icon="img/icons/bleed.svg"></md-icon>Ajouter un Mail</span>
+                </div>
+                <div class="row">
+                  <div class="col-md-11">
+                    <form ng-submit="submitMail(getEmail)">
+                      <div class="panel" ng-show="mail">
+                        <div class="panel-header panel-header_min">Ajouter un mail <md-icon ng-click="hidePanelMail()" class="right logo_lock" md-svg-icon="img/icons/delete-button.svg"></md-icon></div>
+                        <div class="col-md-2">
+                          <label  class="labelProfil" for="mail"> Mail </label>
                         </div>
-                      </form>
-                    </div>
-                  </div>     <!--- Fin Parti eMail  -------------------------------------->
+                        <div class="col-md-10">
+                          <input class="input_generic" ng-model="getEmail" type="email" ng-minlength="1" ng-maxlength="30" class="validate" required>
+                        </div>
+                        <div class="row">
+                          <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+                            <button class="right md-raised btn btn-warning" type="submit" value="Submit">Ajouter</button>
+                          </div>
+                        </div>
+                        <div class="clear"></div>
+                      </div>
+                    </form>
+                  </div>
+                </div>     <!--- Fin Parti eMail  -------------------------------------->
                 </div>
               </div>
                 <div class="col-md-4 col-xs-12">    <!--- Parti NumTelephone  ----------------------------------->
-                  <label  class="right_profil labelProfil">N° de téléphone <md-icon class="logo_lock" md-svg-icon="img/icons/locked-padlock.svg"></md-icon></label>
+                  <label  class="right_profil labelProfil">N° de téléphone<md-icon class="logo_lock" md-svg-icon="img/icons/locked-padlock.svg"></md-icon></label>
                 </div>
                 <div class="col-md-8 col-xs-12">
-                  <div ng-if='listNumTel.length == 0 && profils.PhoneNumber.length == 0'  class="margin-left">
-                    <p class="p_profil">N° de téléphone manquant</p>
+
+                  <div class="row">
+                    <div ng-if="listNumTel.length == 0 && profilPhone.PhoneNumber.length == 0"  class="margin-left">
+                      <p class="p_profil">N° de téléphone manquant</p>
+                    </div>
                   </div>
-                  <div ng-if='listNumTel.length > 0 || profils.PhoneNumber.length > 0' class="margin-left no-phone-numbers">
-                    <p class="p_profil">{{profils.PhoneNumber}}</p>
-                    <p class="p_profil"ng-repeat="num in listNumTel">{{num.code}} {{num.numero}}</p>
+                  <div class="row">
+                    <div ng-if="ajouterNum" ng-click="showPanelTel()" class="margin-Add add link-icon" >
+                      <span class="addProfil link-icon__text"><md-icon class="logo_lock" md-svg-icon="img/icons/bleed.svg"></md-icon>Ajouter un numéro de téléphone</span>
+                    </div>
                   </div>
-                  <div ng-if="ajouterNum" ng-click="showPanelTel()" class="margin-left add link-icon" >
-                    <span class="addProfil link-icon__text"><md-icon class="logo_lock" md-svg-icon="img/icons/bleed.svg"></md-icon>Ajouter un numéro de téléphone</span>
+                  <div class="row">
+                    <div class="margin_NumTel">
+                      <p ng-repeat="oneProfilPhone in profilPhone" class="p_profil">{{oneProfilPhone.PhoneNumber}} <span style="float:right">[{{oneProfilPhone.PhoneUseType}}]<md-icon ng-click="" class="right logo_lock" md-svg-icon="img/icons/delete.svg"></md-icon></span></p>
+                    </div>
+                    <p class="p_profil" ng-repeat="num in listNumTel">{{num.code}} {{num.numero}}</p>
                   </div>
                   <div class="row">
                     <form ng-submit="submitNumPhone()">

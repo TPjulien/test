@@ -29,7 +29,15 @@ tableau
         url: options.api.base_url + '/profilPhone/' + uid
     .success (data) ->
         $scope.profilPhone = data
-        console.log   $scope.profils = data
+    .error (err) ->
+        console.log err
+
+# Appel pour afficher les données profil de l'utilisateur
+    $http
+        method: 'GET'
+        url: options.api.base_url + '/profilEmail/' + uid
+    .success (data) ->
+        $scope.profilEmail = data
     .error (err) ->
         console.log err
 
