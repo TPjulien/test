@@ -177,6 +177,7 @@ tableau
         url: options.api.base_url + '/air_loyaltyAF/' + uid
     .success (data) ->
         $scope.air_loyaltyAF = data
+        console.log $scope.air_loyaltyAF
     .error (err) ->
         console.log err
 
