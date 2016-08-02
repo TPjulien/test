@@ -1,59 +1,31 @@
 tableau
 .controller 'datatableCtrl', ($scope, $http, jwtHelper, store, $window, $filter, $stateParams, $sce) ->
-    token              = store.get('JWT')
-    search_type         = "none"
-    search_num_commande = "none"
-    search_num_invoice  = "none"
-    search_name         = "none"
-    search_price_min    = 0
-    search_price_max    = 10000
-    search_date_min     = "none"
-    search_date_max     = "none"
-    counter             = 0
-    min_slider          = 0
-    max_slider          = 0
-    value               = 50
-    decode              = jwtHelper.decodeToken(token)
-    $scope.datatable    = []
+    value                    = 50
+    $scope.datatable         = []
     $scope.datatable_filters = []
-    $scope.column_filter = []
-
-    # ticket                   = null
-    # $scope.dataWithTicket    = []
-    # $scope.url               = []
-    # $scope.url.getLength     = []
-    # $scope.dimension         = []
-    # $scope.items             = []
-    # $scope.test              = []
-    # $scope.users             = []
-    # $scope.data              = []
-    # counter                  = 0
-    # $scope.allow_filters     = []
-    # $scope.userText          = null
-    # $scope.date              =
-    #     startDate: null
-    #     endDate:   null
-    # $scope.show              = false
-    # $scope.display           = "none"
-    # $scope.getBI             = "toto"
-    # $scope.infoList          = $stateParams.list
-    # $scope.dataEmbed         = null
-    # $scope.details           = {}
+    $scope.column_filter     = []
+    filter_array_text        = []
 
     # on recupere les données de chaque instance de $scope.detail
-    $http
-        method: 'POST'
-        url:    options.api.base_url + '/getDatatable'
-        data:
-            generic_data: $scope.detail
-    .success (data) ->
-        $scope.data_table = data
-    .error (err) ->
-        # mettre un toast en cas d'erreur
-        console.log err
+    getDatatable = (min, max) ->
+        $http
+            method: 'POST'
+            url:    options.api.base_url + '/getDatatable'
+            data:
+                generic_data: $scope.detail
+                filters:      filter_array_text
+                min:          min
+                max:          max
+        .success (data) ->
+            $scope.data_table = data
+        .error (err) ->
+            # mettre un toast en cas d'erreur
+            console.log err
 
-    $scope.watchOrDownload = (value) ->
-        console.log value
+    getDatatable(0, 50)
+
+    # $scope.watchOrDownload = (value) ->
+    #     console.log value
 
     $scope.getGenericRow = (value, width) ->
         result = []
@@ -67,9 +39,6 @@ tableau
             count++
         return result
 
-    $scope.filterText = (value, column_name) ->
-        console.log value, column_name
-
     # http qui permet de recuperer les filtres
     $http
         method: 'GET'
@@ -78,7 +47,31 @@ tableau
         $scope.datatable_filters = data.datatable_filters
         $scope.column_filter     = data.column_filter
     .error (err) ->
+        # faire un toast
         console.log err
+
+    # Generique champs de text
+    $scope.filterText = (value, column_name) ->
+        # on vérifier dans un premier temps si jamais l'objet est utilisé ou non
+        if filter_array_text.length >= 0
+            count = 0
+            # dans un premier temps on parcours le tableau
+            for index, value_array of filter_array_text
+                # un deuxieme for pour verifier
+                for inside_index, inside_value of value_array
+                    # evitez les repetitions
+                    if inside_value == column_name
+                        filter_array_text.splice(count,1)
+                count++
+        # on vérifie si la value n'est pas vide, si oui on l'injecte dans le tableau, sinon on ne l'ajoute pas
+        if value != ''
+            # on injecte dans un tableau qui lui va faire la correspondance client-serveur
+            object_to_filter             = {}
+            object_to_filter.value       = value
+            object_to_filter.column_name = column_name
+            filter_array_text.push(object_to_filter)
+        # la function pour lancer la requete
+        getDatatable(0, 50);
 
     $scope.getTypeFilter = (value, column_name) ->
         console.log value, column_name
