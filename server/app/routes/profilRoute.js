@@ -207,12 +207,14 @@ module.exports = function(router, connection) {
         .get(function(req, res) {
             var query_one = "SELECT * FROM ?? \
                              WHERE ?? = ?  \
+                             AND ?? != 'AF' \
                              AND ?? = ( \
                                SELECT MAX(??) \
                                FROM  ?? WHERE ?? = ? )  \
                                ORDER BY ?? ASC ";
             var table_one = ["profils.air_loyalty",
                              "profils.air_loyalty.UID",req.params.uid,
+                             "profils.air_loyalty.ProgramCode",
                              "profils.air_loyalty.DEPOSITED_DATE",
                              "profils.air_loyalty.DEPOSITED_DATE",
                              "profils.air_loyalty","profils.air_loyalty.UID",req.params.uid,
