@@ -41,7 +41,7 @@
                     </tr>
                   </thead>
                   <tbody md-body>
-                    <tr ng-click="profilchange(user.UID)"md-row md-select="dessert" md-select-id="name" md-auto-select ng-repeat="user in usersCommunity | filter: search | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
+                    <tr ng-click="profilchange(user.UID);getprofilEmail(user.UID);getprofilPhone(user.UID);getCardTraveller(user.UID);getRail_loyalty(user.UID);getAir_loyalty(user.UID);getAir_loyaltyAF(user.UID)"md-row md-select="dessert" md-select-id="name" md-auto-select ng-repeat="user in usersCommunity | filter: search | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
                       <td md-cell>{{user.UID}}</td>
                       <td md-cell>{{user.Customer_surName}}</td>
                       <td md-cell>{{user.Customer_GivenName}}</td>
@@ -140,7 +140,7 @@
               </br>
               <div class="row">
                 <div class="col-md-4 col-xs-12">
-                  <label class="right_profil labelProfil">Sexe <md-icon class="logo_lock" md-svg-icon="img/icons/locked-padlock.svg"></md-icon></label>
+                  <label class="right_profil labelProfil">Sexe <md-icon class="logo_lock" md-svg-icon="img/icons/padlock.svg"></md-icon></label>
                 </div>
                 <div class="col-md-8 col-xs-12 radio_generic">
                   <input class="with-gap" name="sexe" type="radio" id="M" ng-model="profils.Customer_Gender" value="M" ng-checked="{{profils.Customer_Gender=='M'}}" />
@@ -153,41 +153,44 @@
               </div>
               <div class="row">
                 <div class="col-md-4 col-xs-12">
-                  <label aria-label="prenom"  class="right_profil labelProfil">Prénom <md-icon class="logo_lock" md-svg-icon="img/icons/locked-padlock.svg"></md-icon> </label>
+                  <label aria-label="prenom"  class="right_profil labelProfil">Prénom <md-icon class="logo_lock" md-svg-icon="img/icons/padlock.svg"></md-icon> </label>
                 </div>
-                <div class="col-md-8 col-xs-12">
+                <div style="margin-top: -7px;" class="col-md-8 col-xs-12">
                   <input class="input_generic" name="prenom" ng-model="profils.Customer_GivenName" ng-minlength="1" ng-maxlength="20" type="text" class="validate" required>
                 </div>
                 <div class="col-md-4 col-xs-12">
-                  <label aria-label="nom"  class="right_profil labelProfil">Nom <md-icon class="logo_lock" md-svg-icon="img/icons/locked-padlock.svg"></md-icon></label>
+                  <label aria-label="nom"  class="right_profil labelProfil">Nom <md-icon class="logo_lock" md-svg-icon="img/icons/padlock.svg"></md-icon></label>
                 </div>
-                <div class="col-md-8 col-xs-12">
+                <div style="margin-top: -7px;" class="col-md-8 col-xs-12">
                   <input class="input_generic" name="nom" ng-model="profils.Customer_surName"type="text" ng-minlength="1" ng-maxlength="30" class="validate" required>
                 </div>
                 <div class="col-md-4 col-xs-12">
-                  <label  class="label_datePicker right_profil labelProfil">Date de naissance</label>
+                  <label  class="label_datePicker right_profil labelProfil">Date de naissance<md-icon class="logo_lock" md-svg-icon="img/icons/padlock.svg"></md-icon></label>
                 </div>
                 <div class="col-md-8 col-xs-12">
                   <md-input-container flex-gt-md="30">
                     <input mdc-datetime-picker="" date="true" time="false" type="text" id="datetime" min-date="date" ng-model="profils.Customer_BirthDate" class="datePicker_generic md-input">
                   </md-input-container>
                 </div>
+              </div>
+              <div class="row">
                 <div class="col-md-4 col-xs-12">     <!--- Parti eMail  ----------------------------------->
-                  <label  class="right_profil labelProfil">Adresse Mail <md-icon class="logo_lock"  md-svg-icon="img/icons/locked-padlock.svg"></md-icon></label>
+                  <label  class="right_profil labelProfil">Adresse Mail <md-icon class="logo_lock"  md-svg-icon="img/icons/padlock.svg"></md-icon></label>
                 </div>
                 <div class=" col-md-8 col-xs-12">
                   <div ng-if='listMail.length == 0 && profils.Email.length == 0' class="margin-left">
                     <p class="p_profil">Mail Manquant</p>
                   </div>
+                <div class="row">
+                  <div ng-if="ajouterMail" ng-click="showPanelMail()" class="margin-AddEmail add link-icon">
+                    <span class="addProfil link-icon__text"><md-icon class="cross_Add" md-svg-icon="img/icons/bleed.svg"></md-icon>Ajouter un Mail</span>
+                  </div>
                 </div>
                 <div class="row">
                   <div class="margin_NumTel">
-                    <p ng-repeat="oneprofilEmail in profilEmail" class="p_profil">{{oneprofilEmail.Email}} <span style="float:right">[{{oneprofilEmail.Email}}]<md-icon ng-click="" class="right logo_lock" md-svg-icon="img/icons/delete.svg"></md-icon></span></p>
+                    <p ng-repeat="oneprofilEmail in profilEmail" class="p_profil">{{oneprofilEmail.Email}} <md-icon ng-click="" class="right logo_crossDelete" md-svg-icon="img/icons/delete.svg"></md-icon></p>
                   </div>
                   <p class="p_profil" ng-repeat="mail in listMail">{{mail.mail}}</p>
-                </div>
-                <div ng-if="ajouterMail" ng-click="showPanelMail()" class="margin-left add link-icon">
-                  <span class="addProfil link-icon__text"><md-icon class="logo_lock"md-svg-icon="img/icons/bleed.svg"></md-icon>Ajouter un Mail</span>
                 </div>
                 <div class="row">
                   <div class="col-md-11">
@@ -210,13 +213,11 @@
                     </form>
                   </div>
                 </div>     <!--- Fin Parti eMail  -------------------------------------->
-                </div>
               </div>
                 <div class="col-md-4 col-xs-12">    <!--- Parti NumTelephone  ----------------------------------->
-                  <label  class="right_profil labelProfil">N° de téléphone<md-icon class="logo_lock" md-svg-icon="img/icons/locked-padlock.svg"></md-icon></label>
+                  <label  class="right_profil labelProfil">N° de téléphone<md-icon class="logo_lock" md-svg-icon="img/icons/padlock.svg"></md-icon></label>
                 </div>
                 <div class="col-md-8 col-xs-12">
-
                   <div class="row">
                     <div ng-if="listNumTel.length == 0 && profilPhone.PhoneNumber.length == 0"  class="margin-left">
                       <p class="p_profil">N° de téléphone manquant</p>
@@ -224,16 +225,17 @@
                   </div>
                   <div class="row">
                     <div ng-if="ajouterNum" ng-click="showPanelTel()" class="margin-Add add link-icon" >
-                      <span class="addProfil link-icon__text"><md-icon class="logo_lock" md-svg-icon="img/icons/bleed.svg"></md-icon>Ajouter un numéro de téléphone</span>
+                      <span class="addProfil link-icon__text"><md-icon class="cross_Add" md-svg-icon="img/icons/bleed.svg"></md-icon>Ajouter un numéro de téléphone</span>
                     </div>
                   </div>
                   <div class="row">
                     <div class="margin_NumTel">
-                      <p ng-repeat="oneProfilPhone in profilPhone" class="p_profil">{{oneProfilPhone.PhoneNumber}} <span style="float:right">[{{oneProfilPhone.PhoneUseType}}]<md-icon ng-click="" class="right logo_lock" md-svg-icon="img/icons/delete.svg"></md-icon></span></p>
+                      <p ng-repeat="oneProfilPhone in profilPhone" class=" p_profil">{{oneProfilPhone.PhoneNumber}}<span><md-icon style="float:right" ng-click="" class="right logo_crossDelete" md-svg-icon="img/icons/delete.svg"></md-icon></span><span ng-if="oneProfilPhone.PhoneUseType " style="float:right">[{{oneProfilPhone.PhoneUseType}}]</span></p>
                     </div>
                     <p class="p_profil" ng-repeat="num in listNumTel">{{num.code}} {{num.numero}}</p>
                   </div>
                   <div class="row">
+                    <div class="col-md-11">
                     <form ng-submit="submitNumPhone()">
                       <div class="telephone panel" ng-if="phone">
                         <div class="panel-header panel-header_min">Ajouter un numéro de téléphone<md-icon ng-click="hidePanelTel()" class="right logo_lock" md-svg-icon="img/icons/delete-button.svg"></md-icon></div>
@@ -247,10 +249,10 @@
                           </div>
                           <label class="labelProfil" for="phone_number">Ajoutez un numéro de téléphone :</label>
                         </div>
-                        <div class="col-md-2">
-                          <input class="input_generic" ng-disabled="user.pays_tel" type="text" ng-model="getCountryNumberphone">
+                        <div class="col-md-4">
+                          <input style="text-align: center;" class="input_codeCoutry" ng-disabled="user.pays_tel" type="text" ng-model="getCountryNumberphone">
                         </div>
-                        <div class="col-md-10">
+                        <div class="col-md-8">
                           <input class="input_design" name="numPhoneUser" type="text" ng-model="numPhoneUser" ng-minlength="1" ng-maxlength="30">
                         </div>
                         <div class="row">
@@ -261,11 +263,12 @@
                         <div class="clear"></div>
                       </div>
                     </form>
+                    </div>
                   </div>
                 </div>
                 <div class="row">                    <!--- Fin Parti NumTelephone  ----------------------------------->
                   <div class="col-md-4">
-                    <label class="right_profil labelProfil">Langue préféré</label>
+                    <label class="right_profil labelProfil">Langue préféré<md-icon class="logo_lock" md-svg-icon="img/icons/padlock.svg"></md-icon></label>
                   </div>
                   <div class="col-md-8">
                     <md-input-container class="select_generic">
@@ -278,7 +281,7 @@
                 </div>
                 <div class="row">
                   <div class="col-md-4">
-                    <label class="right_profil labelProfil">Devise préféré</label>
+                    <label class="right_profil labelProfil">Devise préféré<md-icon class="logo_lock" md-svg-icon="img/icons/padlock.svg"></md-icon></label>
                   </div>
                   <div class="col-md-8">
                     <md-input-container class="select_generic">
@@ -289,18 +292,22 @@
                     </md-input-container>
                   </div>
                 </div>
-                <div class="col-md-4">    <!--- Parti Urgence  -------------------------------------------->
-                  <label style="margin-top:19px;" class="right_profil labelProfil">Personne à contacter en cas d'urgence</label>
+                <div class="row">
+                  <div class="col-md-4">    <!--- Parti Urgence  -------------------------------------------->
+                    <label style="margin-top:19px;" class="right_profil labelProfil">Personne à contacter en cas d'urgence</label>
+                  </div>
+                  <div class="col-md-8">
+                    <input class="input_generic" name="nom" ng-model="profils.Customer_Conbtact_Name" type="text" ng-minlength="1" ng-maxlength="30" class="validate" required>
+                  </div>
                 </div>
-                <div class="col-md-8">
-                  <input class="input_generic" name="nom" ng-model="profils.Customer_Conbtact_Name" type="text" ng-minlength="1" ng-maxlength="30" class="validate" required>
-                </div>
-                <div class="col-md-4">
-                  <label  class="right_profil labelProfil">N° à contacter en cas d'urgence</label>
-                </div>
-                <div class="col-md-8">
-                  <input class="input_generic" name="nom" ng-model="profils.numUrgence"type="text" ng-minlength="1" ng-maxlength="30" class="validate" required>
-                </div>                    <!--- Fin Parti Urgence  ----------------------------------->
+                <div class="row">
+                  <div class="col-md-4">
+                    <label  class="right_profil labelProfil">N° à contacter en cas d'urgence</label>
+                  </div>
+                  <div class="col-md-8">
+                    <input class="input_generic" name="nom" ng-model="profils.numUrgence"type="text" ng-minlength="1" ng-maxlength="30" class="validate" required>
+                  </div>
+                </div>                      <!--- Fin Parti Urgence  ----------------------------------->
                 <div class="col-md-4 col-xs-12">    <!--- Parti valideur  ----------------------------------->
                   <label  class="right_profil labelProfil">Valideur désigné</label>
                 </div>
@@ -314,7 +321,7 @@
                   </div>
                   <div ng-if="ajouterValideur" ng-click="showPanelValideur()" class="add link-icon">
                     <span class="col-xs-12  addProfil link-icon__text">
-                      <md-icon class="logo_lock" md-svg-icon="img/icons/bleed.svg"></md-icon>
+                      <md-icon class="cross_Add" md-svg-icon="img/icons/bleed.svg"></md-icon>
                       Ajouter valideur
                     </span>
                   </div>
@@ -395,7 +402,7 @@
                   </div>
                   <div ng-if="ajouterChargeVoy" ng-click="showPanelChargeVoy()" class="add link-icon">
                     <span class="col-xs-12 addProfil link-icon__text">
-                      <md-icon class="logo_lock"md-svg-icon="img/icons/bleed.svg"></md-icon>
+                      <md-icon class="cross_Add"md-svg-icon="img/icons/bleed.svg"></md-icon>
                       Ajouter chargé de voyage
                     </span>
                   </div>
@@ -475,7 +482,7 @@
                   </div>
                   <div ng-if="ajouterResponsable" ng-click="showPanelResponsable()" class="add link-icon">
                     <span class="col-xs-12 addProfil link-icon__text">
-                      <md-icon class="logo_lock"md-svg-icon="img/icons/bleed.svg"></md-icon>
+                      <md-icon class="cross_Add"md-svg-icon="img/icons/bleed.svg"></md-icon>
                       Ajouter responsable de voyage préféré
                     </span>
                   </div>
@@ -554,7 +561,7 @@
                   </div>
                   <div ng-if="ajouterPasseport" ng-click="showPanelPasseport()" class="add link-icon">
                     <span class="col-xs-12 addProfil link-icon__text">
-                      <md-icon class="logo_lock"md-svg-icon="img/icons/bleed.svg"></md-icon>
+                      <md-icon class="cross_Add"md-svg-icon="img/icons/bleed.svg"></md-icon>
                       Ajouter un passeport
                     </span>
                   </div>
@@ -597,9 +604,10 @@
               </div>
           </div>                <!--- Fin Panel personnel  ----------------------------------->
           </div>
+          </div>
           <!--- Fin Parti paiement  ----------------------------------->
           <div id="livraison" class="panel-header">Livraison <md-icon class="right" md-svg-icon="img/icons/delivery.svg"></md-icon></div>
-          <div class="panel">   <!--- Parti Panel Livraison  ----------------------------------->
+          <div class="panel">
             <div class="container">
               <div class="row">
               </br>
@@ -608,7 +616,7 @@
                 </div>
               </div>
             </div>
-          </div>                <!--- Fin Parti Livraison  ----------------------------------->
+          </div>
           <div id="preference" class="panel-header">Préférences <md-icon class="right" md-svg-icon="img/icons/like.svg"></md-icon></div>
           <div class="panel">   <!--- Parti Panel Préférence  ----------------------------------->
             <div class="container">
@@ -622,7 +630,7 @@
                 </div>
                 <div class="col-md-9">
                   <md-input-container class="select_generic">
-                    <md-select aria-label="airSeatingPref"  name="airSeatingPref" ng-model="profils.airSeatingPref" >
+                    <md-select aria-label="airSeatingPref"  name="airSeatingPref" ng-model="profils.AirSeatingPref" >
                       <md-option  ng-repeat="OneairSeatingPref in airSeatingPref" value="{{OneairSeatingPref.AirSeatingPref}}">{{OneairSeatingPref.AirSeatingPref}}</md-option>
                     </md-select>
                   </md-input-container>
@@ -706,9 +714,10 @@
                       <label  class="labelProfil" for=""> Numéro de de la carte </label>
                     </div>
                     <div class="col-md-12">
-                      <div ng-repeat="oneAir_loyaltyAF in air_loyaltyAF" ></div>
-                      <input style="margin-left:30px !important" class="input_generic" name="carteFideliteAirFrance" ng-model="oneAir_loyaltyAF.MembershipId" type="text" ng-minlength="1" ng-maxlength="30" class="validate" >
+                      <div ng-repeat="oneAir_loyaltyAF in air_loyaltyAF" >
+                          <input style="margin-left:30px !important" class="input_generic" name="oneAir_loyaltyAF" ng-model="oneAir_loyaltyAF.MembershipId" type="text" ng-minlength="1" ng-maxlength="30" class="validate" >
                     </div>
+                      <input ng-if="air_loyaltyAF.length == 0" style="margin-left:30px !important" class="input_generic" name="oneAir_loyaltyAF" ng-model="oneAir_loyaltyAF.MembershipId" type="text" ng-minlength="1" ng-maxlength="30" class="validate" >
                   </div>
                 </div>
                 </div>
@@ -721,7 +730,7 @@
                   </div>
                   <div class="col-md-9">
                     <md-input-container class="select_generic">
-                      <md-select aria-label="railClass"  name="railClass" ng-model="profils.railClass" >
+                      <md-select aria-label="RailClass"  name="RailClass" ng-model="profils.RailClass" >
                         <md-option ng-repeat="OnerailClass in railClass"  value="{{OnerailClass.RailClass}}">{{OnerailClass.RailClass}}</md-option>
                       </md-select>
                     </md-input-container>
@@ -733,7 +742,7 @@
                   </div>
                   <div class="col-md-9">
                     <md-input-container class="select_generic">
-                      <md-select aria-label="railWagonCode"  name="railWagonCode" ng-model="profils.railWagonCode" >
+                      <md-select aria-label="railWagonCode"  name="railWagonCode" ng-model="profils.RailWagonCode" >
                         <md-option ng-repeat="OnerailWagonCode in railWagonCode" value="{{OnerailWagonCode.RailWagonCode}}">{{OnerailWagonCode.RailWagonCode}}</md-option>
                       </md-select>
                     </md-input-container>
@@ -745,7 +754,7 @@
                   </div>
                   <div class="col-md-9">
                     <md-input-container class="select_generic">
-                      <md-select aria-label="railSeatPosition"  name="railSeatPosition" ng-model="profils.railSeatPosition" >
+                      <md-select aria-label="railSeatPosition"  name="railSeatPosition" ng-model="profils.RailSeatPosition" >
                         <md-option ng-repeat="OnerailSeatPosition in railSeatPosition" value="{{OnerailSeatPosition.RailSeatPosition}}">{{OnerailSeatPosition.RailSeatPosition}}</md-option>
                       </md-select>
                     </md-input-container>
