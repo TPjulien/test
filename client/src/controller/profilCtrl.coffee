@@ -17,8 +17,8 @@ tableau
                                   itemsPerPage: 5
                                   fillLastPage: true
     $scope.required              = true
-    uid                          = 'dessaintri'
-    site_id                      = 'Q40ZQ40Z'
+    uid                          = 'bastiencla'
+    site_id                      = 'R21VR21V'
 # Appel pour afficher les données profil de l'utilisateur
     $scope.getprofilEmail = (uid) ->
         $http
@@ -36,6 +36,7 @@ tableau
             url: options.api.base_url + '/profilPhone/' + uid
         .success (data) ->
             $scope.profilPhone = data
+            console.log $scope.profilPhone
         .error (err) ->
             console.log err
 
@@ -87,7 +88,7 @@ tableau
 # Appel pour afficher les données profil de l'utilisateur
     $http
         method: 'GET'
-        url: options.api.base_url + '/profils/' + site_id +'/'+ uid
+        url: options.api.base_url + '/profils/' + site_id + '/' + uid
     .success (data) ->
         $scope.profils = data[0]
         uid = $scope.profils.UID
@@ -181,6 +182,7 @@ tableau
         url:    options.api.base_url + '/community'
     .success (data) ->
         $scope.community = data
+        console.log $scope.community
     .error (err) ->
         console.log err
 
@@ -241,6 +243,9 @@ tableau
         $scope.getCountryNumberphone = null
         $scope.numPhoneUser          = null
 
+    $scope.deletePhoneNumber = (id) ->
+        $scope.profilPhone[id-1].PhoneNumber = ''
+        console.log $scope.profilPhone[id]
 
 
 #Mail

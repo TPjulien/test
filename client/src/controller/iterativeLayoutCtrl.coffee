@@ -8,8 +8,10 @@ tableau
 
     # obtenir le template de l'embed ainsi que sa valeur
     $scope.getTemplate = (value) ->
-        $scope.getController = value.embed_content_type + 'Ctrl'
-        result_template      = 'templates/' + value.embed_content_type + '.html'
+        # $scope.getController = value.embed_content_type + 'Ctrl'
+        # result_template      = 'templates/' + value.embed_content_type + '.html'
+        $scope.getController = 'profilCtrl'
+        result_template      = 'templates/profil.html'
         return result_template
 
     user_role = 'Manager'
