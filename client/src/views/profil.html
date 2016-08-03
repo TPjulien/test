@@ -8,8 +8,8 @@
           <label class="col-md-3 col-xs-12 labelProfil ">Selectionner une communauté de voyageur</label>
           <div class="col-md-3 col-xs-12">
             <md-input-container class="margin-left">
-              <md-select ng-change='getusersCommunity(profils.SITE_ID)' aria-label="chooseCommunity"  name="chooseCommunity" ng-model="chooseCommunity" >
-                <md-option ng-repeat="oneCommunity in community track by $index" value="{{oneCommunity}}">{{oneCommunity.Community}}</md-option>
+              <md-select ng-change='getusersCommunity(profils.SITE_ID, chooseCommunity )' aria-label="chooseCommunity"  name="chooseCommunity" ng-model="chooseCommunity" >
+                <md-option ng-repeat="oneCommunity in community track by $index" value="{{oneCommunity.Community}}">{{oneCommunity.Community}}</md-option>
               </md-select>
             </md-input-container>
           </div>
