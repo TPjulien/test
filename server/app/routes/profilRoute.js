@@ -325,7 +325,7 @@ module.exports = function(router, connection) {
                              ORDER BY ?? ";
             var table_one = ["profils.view_allowed_community",
                              "profils.view_customer", "profils.view_allowed_community.SITE_ID","profils.view_customer.SITE_ID",
-                             "profils.view_allowed_community.UID","profils.view_customer.UID"
+                             "profils.view_allowed_community.UID","profils.view_customer.UID",
                              "profils.view_allowed_community.SITE_ID", req.params.site_id,
                              "profils.view_allowed_community.Community", req.params.community,
                              "profils.view_allowed_community.Community"];
