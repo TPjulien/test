@@ -19,6 +19,7 @@ tableau
     $scope.required              = true
     uid                          = 'bastiencla'
     site_id                      = 'R21VR21V'
+    community                    = 'R21VQAGF'
 # Appel pour afficher les données profil de l'utilisateur
     $scope.getprofilEmail = (uid) ->
         $http
@@ -179,7 +180,7 @@ tableau
 
     $http
         method: 'GET'
-        url:    options.api.base_url + '/community'
+        url:    options.api.base_url + '/community/' + site_id
     .success (data) ->
         $scope.community = data
         console.log $scope.community
@@ -195,12 +196,13 @@ tableau
       .error (err) ->
           console.log err
 
-    $scope.getusersCommunity = (number_community) ->
+    $scope.getusersCommunity = (site_id,community) ->
       $http
           method: 'GET'
-          url:    options.api.base_url + '/usersCommunity/' + number_community
+          url:    options.api.base_url + '/usersCommunity/' + site_id + '/' + community
       .success (data) ->
           $scope.usersCommunity = data
+          console.log $scope.usersCommunity
           $scope.query =
               order: 'name'
               limit: 5

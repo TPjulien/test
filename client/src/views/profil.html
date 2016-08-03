@@ -9,7 +9,7 @@
           <div class="col-md-3 col-xs-12">
             <md-input-container class="margin-left">
               <md-select ng-change='getusersCommunity(profils.SITE_ID)' aria-label="chooseCommunity"  name="chooseCommunity" ng-model="chooseCommunity" >
-                <md-option ng-repeat="oneCommunity in community track by $index" value="{{oneCommunity}}">{{oneCommunity.SITE_LIBELLE}}</md-option>
+                <md-option ng-repeat="oneCommunity in community track by $index" value="{{oneCommunity}}">{{oneCommunity.Community}}</md-option>
               </md-select>
             </md-input-container>
           </div>
