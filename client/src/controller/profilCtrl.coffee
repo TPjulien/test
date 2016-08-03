@@ -193,7 +193,7 @@ tableau
         url:    options.api.base_url + '/community/' + site_id
     .success (data) ->
         $scope.community = data
-        console.log $scope.community
+
     .error (err) ->
         console.log err
 
@@ -203,6 +203,7 @@ tableau
           url:    options.api.base_url + '/usersCommunity/' + site_id + '/' + community
       .success (data) ->
           $scope.usersCommunity = data
+          console.log $scope.usersCommunity
           $scope.query =
               order: 'name'
               limit: 5
