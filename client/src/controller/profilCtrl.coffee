@@ -1,6 +1,12 @@
 tableau
-.controller "profilCtrl",($scope,$mdDialog,$http,$q,NgTableParams) ->
+.controller "profilCtrl",($scope,$mdDialog,$http,$q,NgTableParams,store, jwtHelper) ->
     # data du profil
+    if store.get('JWT')
+      token           = store.get('JWT')
+      decode          = jwtHelper.decodeToken(token)
+      $scope.get_username = decode[0].username
+      console.log decode
+
     $scope.anotherMail           = null
     $scope.getCountryNumberphone = null
     $scope.numPhoneUser          = null
@@ -11,33 +17,88 @@ tableau
                                   itemsPerPage: 5
                                   fillLastPage: true
     $scope.required              = true
-    uid                          = 'boetschnat'
+    uid                          = 'dessaintri'
+    site_id                      = 'Q40ZQ40Z'
+# Appel pour afficher les données profil de l'utilisateur
+    $scope.getprofilEmail = (uid) ->
+        $http
+            method: 'GET'
+            url: options.api.base_url + '/profilEmail/' + uid
+        .success (data) ->
+            $scope.profilEmail = data
+        .error (err) ->
+            console.log err
 
+# Appel pour afficher les données profil de l'utilisateur
+    $scope.getprofilPhone = (uid) ->
+        $http
+            method: 'GET'
+            url: options.api.base_url + '/profilPhone/' + uid
+        .success (data) ->
+            $scope.profilPhone = data
+        .error (err) ->
+            console.log err
+
+# Appel pour lister les cartes voyageur du voyageur
+    $scope.getCardTraveller = (uid) ->
+        $http
+            method: 'GET'
+            url: options.api.base_url + '/cardTraveller/' + uid
+        .success (data) ->
+            $scope.cardTraveller = data
+            if $scope.cardTraveller.length == 0
+                $scope.TabRecupCardVoy = false
+            else
+                $scope.TabRecupCardVoy = true
+        .error (err) ->
+            console.log err
+# Appel pour lister les cartes de fidélité train d'un voyageur
+    $scope.getRail_loyalty = (uid) ->
+        $http
+            method: 'GET'
+            url: options.api.base_url + '/rail_loyalty/' + uid
+        .success (data) ->
+            $scope.rail_loyalty = data
+            if $scope.rail_loyalty.length == 0
+                $scope.TabRecupfideliteTrain = false
+            else
+                $scope.TabRecupfideliteTrain = true
+        .error (err) ->
+            console.log err
+# Appel pour lister les cartes de fidélité aérienne d'un voyageur
+    $scope.getAir_loyalty = (uid) ->
+        $http
+            method: 'GET'
+            url: options.api.base_url + '/air_loyalty/' + uid
+        .success (data) ->
+            $scope.air_loyalty = data
+        .error (err) ->
+            console.log err
+
+# Appel pour lister les cartes de fidélité aérienne d'un voyageur
+    $scope.getAir_loyaltyAF = (uid) ->
+        $http
+            method: 'GET'
+            url: options.api.base_url + '/air_loyaltyAF/' + uid
+        .success (data) ->
+            $scope.air_loyaltyAF = data
+        .error (err) ->
+            console.log err
 # Appel pour afficher les données profil de l'utilisateur
     $http
         method: 'GET'
-        url: options.api.base_url + '/profils/' + uid
+        url: options.api.base_url + '/profils/' + site_id +'/'+ uid
     .success (data) ->
         $scope.profils = data[0]
-        console.log   $scope.profils = data[0]
-    .error (err) ->
-        console.log err
-
-# Appel pour afficher les données profil de l'utilisateur
-    $http
-        method: 'GET'
-        url: options.api.base_url + '/profilPhone/' + uid
-    .success (data) ->
-        $scope.profilPhone = data
-    .error (err) ->
-        console.log err
-
-# Appel pour afficher les données profil de l'utilisateur
-    $http
-        method: 'GET'
-        url: options.api.base_url + '/profilEmail/' + uid
-    .success (data) ->
-        $scope.profilEmail = data
+        uid = $scope.profils.UID
+        $scope.getprofilEmail(uid)
+        $scope.getprofilPhone(uid)
+        $scope.getCardTraveller(uid)
+        $scope.getRail_loyalty(uid)
+        $scope.getAir_loyalty(uid)
+        $scope.getAir_loyaltyAF(uid)
+        console.log 'profils'
+        console.log $scope.profils
     .error (err) ->
         console.log err
 
@@ -86,20 +147,6 @@ tableau
     .error (err) ->
         console.log err
 
-# Appel pour lister les cartes voyageur du voyageur
-    $http
-        method: 'GET'
-        url: options.api.base_url + '/cardTraveller/' + uid
-    .success (data) ->
-        $scope.cardTraveller = data
-        console.log $scope.cardTraveller
-        if $scope.cardTraveller.length == 0
-            $scope.TabRecupCardVoy = false
-        else
-            $scope.TabRecupCardVoy = true
-    .error (err) ->
-        console.log err
-
 # Appel pour lister les carte voyageur en fonction des compagnies férrovières
     $scope.cardNameChange = (provider) ->
       $http
@@ -116,19 +163,6 @@ tableau
         url:    options.api.base_url + '/rail_loyaltyprogramCode'
     .success (data) ->
         $scope.rail_loyaltyprogramCode = data
-    .error (err) ->
-        console.log err
-
-# Appel pour lister les cartes de fidélité train d'un voyageur
-    $http
-        method: 'GET'
-        url: options.api.base_url + '/rail_loyalty/' + uid
-    .success (data) ->
-        $scope.rail_loyalty = data
-        if $scope.rail_loyalty.length == 0
-            $scope.TabRecupfideliteTrain = false
-        else
-            $scope.TabRecupfideliteTrain = true
     .error (err) ->
         console.log err
 
@@ -153,7 +187,7 @@ tableau
     $scope.profilchange = (uid) ->
       $http
           method: 'GET'
-          url: options.api.base_url + '/profils/' + uid
+          url: options.api.base_url + '/profils/' + site_id +'/'+ uid
       .success (data) ->
           $scope.profils = data[0]
       .error (err) ->
@@ -177,24 +211,6 @@ tableau
         url:    options.api.base_url + '/getCountry'
     .success (data) ->
         $scope.country_phone = data
-    .error (err) ->
-        console.log err
-
-# Appel pour lister les cartes de fidélité aérienne d'un voyageur
-    $http
-        method: 'GET'
-        url: options.api.base_url + '/air_loyalty/' + uid
-    .success (data) ->
-        $scope.air_loyalty = data
-    .error (err) ->
-        console.log err
-
-# Appel pour lister les cartes de fidélité aérienne d'un voyageur
-    $http
-        method: 'GET'
-        url: options.api.base_url + '/air_loyaltyAF/' + uid
-    .success (data) ->
-        $scope.air_loyaltyAF = data
     .error (err) ->
         console.log err
 

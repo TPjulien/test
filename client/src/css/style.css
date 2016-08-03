@@ -22,7 +22,7 @@
 .p_profil{
   font-size: 14px;
   border-bottom: 1px solid #9e9e9e;
-  width: 70%;
+  width: 68%;
   margin-left: 50px;
   padding-bottom:8px;
 }
@@ -1098,7 +1098,6 @@ Use of this source code is governed by an MIT-style license that can be in found
 .input_generic{
   font-size: 12px !important;
   color: black;
-  margin-top: -5px !important;
   width: 70% !important;
   margin-left: 40px !important;
   border-bottom: 1px solid #9e9e9e !important;
@@ -1172,15 +1171,39 @@ textarea.materialize-textarea:focus.valid {
   border-bottom: 5px;
 }
 .logo_lock{
-  height: 10px;
-  width: 10px;
-  margin-top: 7px;
+  height: 16px;
+  width: 16px;
   margin-left: 10px;
+  margin-bottom: 3px;
+}
+.cross_Add{
+  height: 15px;
+  width: 15px;
+  margin-left: 10px;
+  color: #0077bb;
+  margin-right: 5px;
+}
+.logo_crossDelete{
+    height: 10px;
+    width: 10px;
+    margin-left: 10px;
+    margin-bottom: 3px;
+    margin-top: 6px;
 }
 .margin-Add{
   margin-bottom: 10px;
   margin-top: -10px;
   padding-bottom: 5px;
+}
+.margin-AddEmail{
+  margin-bottom: 10px;
+  padding-bottom: 5px;
+}
+.hoverCross > span{
+  display: none;
+}
+.hoverCross:hover > span{
+  display: block;
 }
 
 .card .card-action a:not(.btn):not(.btn-large):not(.btn-floating) {
@@ -1334,7 +1357,10 @@ md-table-container  {
 .label_select{
   margin-top: 10px;
 }
-
+.radio_generic{
+  padding-left: 50px;
+  margin-top: 7px;
+}
 @media (min-width:200px) and (max-width:400px)
 {
     .right_profil

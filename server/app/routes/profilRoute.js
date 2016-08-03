@@ -1,15 +1,17 @@
 var mysql = require('mysql');
 
 module.exports = function(router, connection) {
-    router.route('/profils/:id')
+    router.route('/profils/:site_id/:uid')
         .get(function(req, res) {
             var query_one    = "SELECT \
                                * \
                                FROM ?? \
-                               WHERE ?? = ?";
+                               WHERE ?? = ? \
+                               AND ?? = ? ";
             var table_one    = [
                                 "profils.view_profil_lvl1",
-                                "uid", req.params.id];
+                                "SITE_ID", req.params.site_id,
+                                "uid", req.params.uid];
             query_one = mysql.format(query_one, table_one);
             connection.query(query_one, function(err, rows) {
                 if (err)
@@ -299,10 +301,10 @@ module.exports = function(router, connection) {
                     res.json(rows);
             })
         })
-    router.route('/community')
+    router.route('/community/:site_id')
         .get(function(req, res) {
             var query_one = "SELECT DISTINCT ?? FROM ?? WHERE ?? = ?";
-            var table_one = ["site_libelle", "profils.view_tpa_extensions_libelle", "SITE_ID", "Q1CNQ1CN"];
+            var table_one = ["site_libelle", "profils.view_tpa_extensions_libelle", "SITE_ID", req.params.site_id];
             query_one     = mysql.format(query_one, table_one);
             connection.query(query_one, function(err, rows) {
                 if (err)
