@@ -89,6 +89,20 @@ module.exports = function(router, connection) {
               }
           })
 
+      // on recupere le type de bullet qu'on peut avoir
+      router.route('/getBulletFilter')
+          .post (function(req, res) {
+              var table = req.body.schema + '.' + req.body.table
+              var query_bullet = "SELECT DISTINCT(??) FROM ??";
+              var table_bullet = [req.body.column_name, table];
+              query_bullet = mysql.format(query_bullet, table_bullet);
+              connection.query(query_bullet, function(err, result_bullet) {
+                  if (err)
+                      res.status(400).send(err);
+                  else
+                      res.json(result_bullet);
+              })
+          })
       // on recupere le filte séparément
       router.route('/getFilterDatatable/:site_id/:view_id/:embed_id')
           .get (function(req, res) {

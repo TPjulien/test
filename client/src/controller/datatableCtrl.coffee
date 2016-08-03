@@ -5,6 +5,8 @@ tableau
     $scope.datatable_filters = []
     $scope.column_filter     = []
     filter_array_text        = []
+    schema                   = null
+    table                    = null
 
     # on recupere les données de chaque instance de $scope.detail
     getDatatable = (min, max) ->
@@ -17,8 +19,9 @@ tableau
                 min:          min
                 max:          max
         .success (data) ->
-            console.log data
             $scope.data_table = data
+            schema = $scope.data_table.datatable_width[0].schema
+            table  = $scope.data_table.datatable_width[0].table
         .error (err) ->
             # mettre un toast en cas d'erreur
             console.log err
@@ -62,12 +65,19 @@ tableau
                     if inside_value == column_name
                         filter_array_text.splice(count,1)
                 count++
+
+    forbiddenWord = (value) ->
+        forbidden_word = ['', 'all']
+        if value in forbidden_word
+            return false
+        else
+            return true
     # Generique champs de text
     $scope.filterText = (value, column_name) ->
         # appell de la fonction qui permet de nettoyer l'objet
         verifyArray(column_name)
         # on vérifie si la value n'est pas vide, si oui on l'injecte dans le tableau, sinon on ne l'ajoute pas
-        if value != '' || value != 'all'
+        if forbiddenWord(value) == true
             # on injecte dans un tableau qui lui va faire la correspondance client-serveur
             object_to_filter             = {}
             object_to_filter.column_name = column_name
@@ -76,18 +86,8 @@ tableau
         # la function pour lancer la requete
         getDatatable(0, 50);
 
-    # $scope.getTypeFilter = (value, column_name) ->
-    #     console.log value
-    #     console.log filter_array_text
-    #     verifyArray(column_name)
-    #     # on vérifie si la value n'est pas vide, si oui on l'injecte dans le tableau, sinon on ne l'ajoute pas
-    #     if value != 'all'
-    #         # on injecte dans un tableau qui lui va faire la correspondance client-serveur
-    #         object_to_filter             = {}
-    #         object_to_filter.column_name = column_name
-    #         object_to_filter.value       = value
-    #         filter_array_text.push(object_to_filter)
-    #     getDatatable(0, 50);
+    $scope.filterDate = (start, end) ->
+        console.log start, end
 
     $scope.getGenericFilter = (filters, key) ->
         result                 = null
@@ -114,18 +114,34 @@ tableau
                                        maxlength        = '10'>
                                     </input>"
                 else if name == 'has_bullet_filter'
-                    dynamic_entry = "filterText(value,  '" + get_filter_column_name + "')"
-                    result       += '<md-radio-group ng-change = "' + dynamic_entry + '" &nbsp;
-                                               ng-model  = "value">
-                                        <md-radio-button value = "all"
-                                                         class = "md-primary">
-                                                           Tous
-                                        </md-radio-button>
-                                        <md-radio-button value = "CommercialInvoice">
-                                                          ' + filters[name] + '</md-radio-button>
-                                        <md-radio-button value = "CreditNoteGoodsAndServices">
-                                                          ' + filters[name] + '</md-radio-button>
-                                    </md-radio-group>'
+                    # on lance une requete pour recuperer les parametres de bullet ensuite on peu afficher
+                    $http
+                        method: 'POST'
+                        url:    options.api.base_url + '/getBulletFilter'
+                        data:
+                            column_name: get_filter_column_name
+                            table:       filters[name]
+                            schema:      schema
+                    .success (data) ->
+                        dynamic_entry = "filterText(value,  '" + get_filter_column_name + "')"
+                        result       += '<md-radio-group ng-change = "' + dynamic_entry + '" &nbsp;
+                                                   ng-model  = "value">
+                                            <md-radio-button value = "all"
+                                                             class = "md-primary">
+                                                               Tous
+                                            </md-radio-button>
+                                            <md-radio-button value = "CommercialInvoice">
+                                                              ' + filters[name] + '</md-radio-button>
+                                            <md-radio-button value = "CreditNoteGoodsAndServices">
+                                                              ' + filters[name] + '</md-radio-button>
+                                        </md-radio-group>'
+                else if name == 'has_date_filter'
+                    dynamic_entry = "filterDate(start, end '" + get_filter_column_name + "')"
+                    result += '<ob-daterangepicker class="col s12"
+                                                   style="font-size:10px;"
+                                                   on-apply="' + dynamic_entry + '" &nbsp;
+                                                   range="vm.range">
+                               </ob-daterangepicker>'
         return $sce.trustAsHtml result
 
         # result = "<p>Bonjour à tous !</p>"
