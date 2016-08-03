@@ -301,23 +301,30 @@ module.exports = function(router, connection) {
                     res.json(rows);
             })
         })
-    // router.route('/community/:site_id')
-    //     .get(function(req, res) {
-    //         var query_one = "SELECT DISTINCT ?? FROM ?? WHERE ?? = ?";
-    //         var table_one = ["site_libelle", "profils.view_tpa_extensions_libelle", "SITE_ID", req.params.site_id];
-    //         query_one     = mysql.format(query_one, table_one);
-    //         connection.query(query_one, function(err, rows) {
-    //             if (err)
-    //                 res.status(400).send(err);
-    //             else
-    //                 res.json(rows);
-    //         })
-    //     })
-    // route pour lister toutes communautés disponible par Site
+    // route pour lister toutes les communautés par Site
     router.route('/community/:site_id')
         .get(function(req, res) {
             var query_one = "SELECT DISTINCT ?? FROM ?? WHERE ?? = ? ORDER BY ??";
             var table_one = ["profils.view_allowed_community.Community", "profils.view_allowed_community", "profils.view_allowed_community.SITE_ID", req.params.site_id,"profils.view_allowed_community.Community"];
+            query_one     = mysql.format(query_one, table_one);
+            connection.query(query_one, function(err, rows) {
+                if (err)
+                    res.status(400).send(err);
+                else
+                    res.json(rows);
+            })
+        })
+    // route pour lister tout les profils par communauté et site
+    router.route('/usersCommunity/:site_id/:community')
+        .get(function(req, res) {
+            var query_one = "SELECT * FROM ??  \
+                             WHERE ?? = ?  \
+                             AND ?? = ?  \
+                             ORDER BY ??";
+            var table_one = ["profils.view_allowed_community",
+                             "profils.view_allowed_community.SITE_ID", req.params.site_id,
+                             "profils.view_allowed_community.Community", req.params.community,
+                             "profils.view_allowed_community.Community"];
             query_one     = mysql.format(query_one, table_one);
             connection.query(query_one, function(err, rows) {
                 if (err)
