@@ -318,10 +318,14 @@ module.exports = function(router, connection) {
     router.route('/usersCommunity/:site_id/:community')
         .get(function(req, res) {
             var query_one = "SELECT * FROM ??  \
+                             LEFT JOIN ?? ON ?? = ?? \
+                             AND ?? = ?? \
                              WHERE ?? = ?  \
                              AND ?? = ?  \
-                             ORDER BY ??";
+                             ORDER BY ?? ";
             var table_one = ["profils.view_allowed_community",
+                             "profils.view_customer", "profils.view_allowed_community.SITE_ID","profils.view_customer.SITE_ID",
+                             "profils.view_allowed_community.UID","profils.view_customer.UID"
                              "profils.view_allowed_community.SITE_ID", req.params.site_id,
                              "profils.view_allowed_community.Community", req.params.community,
                              "profils.view_allowed_community.Community"];

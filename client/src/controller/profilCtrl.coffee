@@ -86,6 +86,16 @@ tableau
             $scope.air_loyaltyAF = data
         .error (err) ->
             console.log err
+
+    $scope.profilchange = (site_id,uid) ->
+      $http
+          method: 'GET'
+          url: options.api.base_url + '/profils/' + site_id + '/' + uid
+      .success (data) ->
+          $scope.profils = data[0]
+      .error (err) ->
+          console.log err
+
 # Appel pour afficher les données profil de l'utilisateur
     $http
         method: 'GET'
@@ -187,22 +197,12 @@ tableau
     .error (err) ->
         console.log err
 
-    $scope.profilchange = (uid) ->
-      $http
-          method: 'GET'
-          url: options.api.base_url + '/profils/' + site_id +'/'+ uid
-      .success (data) ->
-          $scope.profils = data[0]
-      .error (err) ->
-          console.log err
-
     $scope.getusersCommunity = (site_id,community) ->
       $http
           method: 'GET'
           url:    options.api.base_url + '/usersCommunity/' + site_id + '/' + community
       .success (data) ->
           $scope.usersCommunity = data
-          console.log $scope.usersCommunity
           $scope.query =
               order: 'name'
               limit: 5
