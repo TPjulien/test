@@ -50,8 +50,7 @@ tableau
         # faire un toast
         console.log err
 
-    # Generique champs de text
-    $scope.filterText = (value, column_name) ->
+    verifyArray = (column_name) ->
         # on vérifier dans un premier temps si jamais l'objet est utilisé ou non
         if filter_array_text.length >= 0
             count = 0
@@ -63,8 +62,12 @@ tableau
                     if inside_value == column_name
                         filter_array_text.splice(count,1)
                 count++
+    # Generique champs de text
+    $scope.filterText = (value, column_name) ->
+        # appell de la fonction qui permet de nettoyer l'objet
+        verifyArray(column_name)
         # on vérifie si la value n'est pas vide, si oui on l'injecte dans le tableau, sinon on ne l'ajoute pas
-        if value != ''
+        if value != '' || value != 'all'
             # on injecte dans un tableau qui lui va faire la correspondance client-serveur
             object_to_filter             = {}
             object_to_filter.column_name = column_name
@@ -73,8 +76,18 @@ tableau
         # la function pour lancer la requete
         getDatatable(0, 50);
 
-    $scope.getTypeFilter = (value, column_name) ->
-        console.log value, column_name
+    # $scope.getTypeFilter = (value, column_name) ->
+    #     console.log value
+    #     console.log filter_array_text
+    #     verifyArray(column_name)
+    #     # on vérifie si la value n'est pas vide, si oui on l'injecte dans le tableau, sinon on ne l'ajoute pas
+    #     if value != 'all'
+    #         # on injecte dans un tableau qui lui va faire la correspondance client-serveur
+    #         object_to_filter             = {}
+    #         object_to_filter.column_name = column_name
+    #         object_to_filter.value       = value
+    #         filter_array_text.push(object_to_filter)
+    #     getDatatable(0, 50);
 
     $scope.getGenericFilter = (filters, key) ->
         result                 = null
@@ -92,17 +105,16 @@ tableau
                 # faut trouver une moyen plus cool de faire cela dynamique
                 if name == 'has_search_filter'
                     dynamic_entry = "filterText(clientFacture,'" + get_filter_column_name + "')"
-                    result       += "<input for               = '" + name + "'
+                    result       += "<input for         = '" + name + "'
                                        ng-change        = " + dynamic_entry + " &nbsp;
                                        ng-model         = 'clientFacture'
                                        name             = 'clientFacture'
                                        ng-model-options = '{debounce: 1000}'
-                                       minlength        = '3'
-                                       maxlength        = '10'
-                                       ng-pattern       = '/^[0-9]+$/'>
+                                       minlength        = '1'
+                                       maxlength        = '10'>
                                     </input>"
                 else if name == 'has_bullet_filter'
-                    dynamic_entry = "getTypeFilter(value,  '" + get_filter_column_name + "')"
+                    dynamic_entry = "filterText(value,  '" + get_filter_column_name + "')"
                     result       += '<md-radio-group ng-change = "' + dynamic_entry + '" &nbsp;
                                                ng-model  = "value">
                                         <md-radio-button value = "all"

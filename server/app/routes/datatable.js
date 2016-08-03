@@ -154,12 +154,6 @@ module.exports = function(router, connection) {
                             } else {
                                 query_datatable += ' AND ' + filters[name]['column_name'] + " LIKE '%" + filters[name]['value'] + "%' ";
                             }
-                            // for (value in filters[name]) {
-                            //     // dans le cas ou le compteur est a 0 on commence par un where
-                            //     if (name == 0) {
-                            //         query_datatable += ' WHERE ' + filters[name]['column_name'] + "='" + filters[name]['value'];
-                            //     }
-                            // }
                         }
                     }
                     // on fini la query avec limit
