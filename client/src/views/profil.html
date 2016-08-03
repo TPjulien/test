@@ -230,7 +230,7 @@
                   </div>
                   <div class="row">
                     <div class="margin_NumTel">
-                      <p ng-repeat="oneProfilPhone in profilPhone" class=" p_profil">{{oneProfilPhone.PhoneNumber}}<span><md-icon style="float:right" ng-click="" class="right logo_crossDelete" md-svg-icon="img/icons/delete.svg"></md-icon></span><span ng-if="oneProfilPhone.PhoneUseType " style="float:right">[{{oneProfilPhone.PhoneUseType}}]</span></p>
+                      <p ng-repeat="oneProfilPhone in profilPhone" class=" p_profil">{{oneProfilPhone.PhoneNumber}}<span><md-icon style="float:right" ng-click="deletePhoneNumber(oneProfilPhone.PhoneId)" class="right logo_crossDelete" md-svg-icon="img/icons/delete.svg"></md-icon></span><span ng-if="oneProfilPhone.PhoneUseType " style="float:right">[{{oneProfilPhone.PhoneUseType}}]</span></p>
                     </div>
                     <p class="p_profil" ng-repeat="num in listNumTel">{{num.code}} {{num.numero}}</p>
                   </div>
@@ -570,7 +570,7 @@
                 <div class="right col-md-10">
                   <form ng-submit="submitPasseport()">
                     <div class="passeport panel" ng-if="passeport">
-                      <div class="panel-header panel-header_min">Ajouter un passeport</div>
+                      <div class="panel-header panel-header_min">Ajouter un passeport<md-icon ng-click="hidePanelPasseport()" class="right logo_lock" md-svg-icon="img/icons/delete-button.svg"></md-icon></div>
                       <div class="col-md-2">
                         <label  class="right_profil labelProfil">Nom</label>
                       </div>
@@ -595,8 +595,12 @@
                       <div class=" col-md-4">
                         <input class="input_generic" name="passeport" ng-model="user.paysPasseport" type="text" ng-minlength="1" ng-maxlength="30" class="validate" >
                       </div>
-                      <button type="submit" class="right md-raised btn btn-success" value="Submit">Ajouter</button>
-                      <button class="right md-raised btn btn-warning" ng-click="hidePanelPasseport()">Fermer</button>
+                      <div class="row">
+                        <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+                          <button type="submit" class="right md-raised btn btn-success" value="Submit">Ajouter</button>
+                        </div>
+                      </div>
+                      <div class="clear"></div>
                     </div>
                   </form>
                 </div>
