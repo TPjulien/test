@@ -162,13 +162,16 @@ module.exports = function(router, connection) {
                     // condition si jamais le filter existe
                     if (filters.length != 0) {
                         for (name in filters) {
-                            console.log(filters[name]);
                             if (name == 0) {
-                                // si jamais c'est une dateTime
-                                // '%" + req.params.num_commande + "%'
-                                query_datatable += ' WHERE ' + filters[name]['column_name'] + " LIKE '%" + filters[name]['value'] + "%' ";
+                                if (filters[name]['value'].length == 2)
+                                    query_datatable += ' WHERE ' + filter[name]['column_name'] + " BETWEEN " + filter[name]['value'][0] + " AND " filter[name]['value'][0];
+                                else
+                                    query_datatable += ' WHERE ' + filters[name]['column_name'] + " LIKE '%" + filters[name]['value'] + "%' ";
                             } else {
-                                query_datatable += ' AND ' + filters[name]['column_name'] + " LIKE '%" + filters[name]['value'] + "%' ";
+                                if (filters[name]['value'].length == 2)
+                                    query_datatable += ' AND ' + filter[name]['column_name'] + " BETWEEN " + filter[name]['value'][0] + " AND " filter[name]['value'][0];
+                                else
+                                    query_datatable += ' AND ' + filters[name]['column_name'] + " LIKE '%" + filters[name]['value'] + "%' ";
                             }
                         }
                     }

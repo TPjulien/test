@@ -111,6 +111,7 @@ tableau
         getDatatable(0, 50);
 
     $scope.filterDate = (start, end, column_name) ->
+        console.log "tired of talking"
         date_array = []
         date_array.push date_start = $filter('date')(start._d, "yyyy-MM-dd")
         date_array.push date_end   = $filter('date')(end._d, "yyyy-MM-dd")
