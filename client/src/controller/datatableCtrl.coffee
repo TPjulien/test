@@ -7,6 +7,26 @@ tableau
     filter_array_text        = []
     schema                   = null
     table                    = null
+    bullet_filters           = []
+
+    # fonction qui permet d'avoir les données du bullet
+    getBullet = (value) ->
+        table = null
+        name  = null
+        # console.log value
+        angular.forEach value, (name, key) ->
+            # console.log value[key].has_bullet_filter
+            if value[key].has_bullet_filter != null
+                table = value[key]
+                $http
+                    method: 'POST'
+                    url:    options.api.base_url + '/getBulletFilter'
+                    data:
+                        column_name: table.column
+                        table:       table.table
+                        schema:      table.schema
+                .success (data) ->
+                    bullet_filters.push data
 
     # on recupere les données de chaque instance de $scope.detail
     getDatatable = (min, max) ->
@@ -22,13 +42,12 @@ tableau
             $scope.data_table = data
             schema = $scope.data_table.datatable_width[0].schema
             table  = $scope.data_table.datatable_width[0].table
+            if bullet_filters.length == 0
+                getBullet(data.datatable_width);
         .error (err) ->
             # mettre un toast en cas d'erreur
             console.log err
     getDatatable(0, 50)
-
-    # $scope.watchOrDownload = (value) ->
-    #     console.log value
 
     $scope.getGenericRow = (value, width) ->
         result = []
@@ -36,8 +55,13 @@ tableau
         # on supprime le hashkey car inutile pour afficher les données
         delete value.$$hashKey
         for data, name of value
+            # console.log name
             if name == null
                 name = "donnée indisponible"
+            # on vérifie si c'est une date time
+            if data.indexOf('DATE') != -1
+                name = $filter('date')(name, "yyyy/MM/dd")
+                # result += "<p class='col s" + width[count].width + " md-whiteframe-1dp truncate' style='background-color:white'>" + name + "</p>"
             result += "<p class='col s" + width[count].width + " md-whiteframe-1dp truncate' style='background-color:white'>" + name + "</p>"
             count++
         return result
@@ -82,14 +106,23 @@ tableau
             object_to_filter             = {}
             object_to_filter.column_name = column_name
             object_to_filter.value       = value
-            filter_array_text.push(object_to_filter)
+            filter_array_text.push object_to_filter
         # la function pour lancer la requete
         getDatatable(0, 50);
 
-    $scope.filterDate = (start, end) ->
-        console.log start, end
+    $scope.filterDate = (start, end, column_name) ->
+        date_array = []
+        date_array.push date_start = $filter('date')(start._d, "yyyy-MM-dd")
+        date_array.push date_end   = $filter('date')(end._d, "yyyy-MM-dd")
+
+        object_to_filter             = {}
+        object_to_filter.column_name = column_name
+        object_to_filter.value       = date_array
+        filter_array_text.push object_to_filter
+        getDatatable(0, 50);
 
     $scope.getGenericFilter = (filters, key) ->
+        # console.log name, value
         result                 = null
         get_filter_column_name = null
         delete filters.$$hashKey
@@ -114,39 +147,32 @@ tableau
                                        maxlength        = '10'>
                                     </input>"
                 else if name == 'has_bullet_filter'
-                    # on lance une requete pour recuperer les parametres de bullet ensuite on peu afficher
-                    $http
-                        method: 'POST'
-                        url:    options.api.base_url + '/getBulletFilter'
-                        data:
-                            column_name: get_filter_column_name
-                            table:       filters[name]
-                            schema:      schema
-                    .success (data) ->
+                    if bullet_filters.length != 0
+                        generic_bullet = []
                         dynamic_entry = "filterText(value,  '" + get_filter_column_name + "')"
                         result       += '<md-radio-group ng-change = "' + dynamic_entry + '" &nbsp;
-                                                   ng-model  = "value">
-                                            <md-radio-button value = "all"
-                                                             class = "md-primary">
-                                                               Tous
-                                            </md-radio-button>
-                                            <md-radio-button value = "CommercialInvoice">
-                                                              ' + filters[name] + '</md-radio-button>
-                                            <md-radio-button value = "CreditNoteGoodsAndServices">
-                                                              ' + filters[name] + '</md-radio-button>
-                                        </md-radio-group>'
+                                                         ng-model  = "value">'
+                        # so deep ! PEGI 18 !
+                        generic_bullet += '<md-radio-button value = "all"
+                                              class = "md-primary">
+                                              Tous
+                                          </md-radio-button>'
+                        angular.forEach bullet_filters, (name, key) ->
+                            angular.forEach name, (value, deep_key) ->
+                                angular.forEach value, (deep_value, deep_key_level_2) ->
+                                        if deep_value != null
+                                            generic_bullet += '<md-radio-button value = "' + deep_value + '">
+                                                                ' + deep_value + '
+                                                               </md-radio-button>'
+                        result += generic_bullet + '</md-radio-group>'
                 else if name == 'has_date_filter'
-                    dynamic_entry = "filterDate(start, end '" + get_filter_column_name + "')"
+                    dynamic_entry = "filterDate(start, end, '" + get_filter_column_name + "')"
                     result += '<ob-daterangepicker class="col s12"
                                                    style="font-size:10px;"
                                                    on-apply="' + dynamic_entry + '" &nbsp;
                                                    range="vm.range">
                                </ob-daterangepicker>'
         return $sce.trustAsHtml result
-
-        # result = "<p>Bonjour à tous !</p>"
-        # return result
-
     # $scope.nameValue = (name) ->
     #   return name.CABIN_CONCATENATED_CODE
     #
