@@ -1,17 +1,24 @@
-<div class="row" style="max-width: none; margin-left: 0.0rem; height: 100%;  width: 100%; margin-bottom:0px">
-  <div class="col s12 bgc-cyan-500" style="height:100% ; overflow: auto;">
-    <div style="overflow: auto; padding-right: 20px;">
-      <h1 class="center">Choisissez une comunauté</h1>
-      <div class="tc-white-1 p+ col s12">
-          <!-- list of comuunity -->
-          <div class="p+ col s4" ng-click="goToPassword(community)"ng-repeat="community in communities">
-            <div class="card" style="box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);">
-                <div class="card__img card__img--top">
-                    <img src="http://www.bluthemes.com/assets/img/blog/12/airplane.jpg">
-                    <span class="fs-headline tc-white-1 display-block">{{community.SITE_LIBELLE}}</span>
-                </div>
-            </div>
+<div class="row" style="max-width: none; margin-left: 0.0rem; height: 100%;  width: 100%; margin-bottom:0px;">
+  <div class="col s12 s4 l4 valign hide-on-med-and-down" style="
+      background: url('{{background_image_url}}');
+      background-size: cover;
+      height: 100%;">
+    <div class="z-depth-2" style="background: url('{{user_image_url}}') center no-repeat; background-color:burlywood" id ="img"> </div>
+  </div>
+  <div class="col s12 s8 l8" style="height: 100%; overflow:auto;">
+    <div class="valign center" style=" width: 100%;">
+      <h5 class="left h5login">Veuillez sélectionner une communauté</h5>
+      <!-- list of comuunity -->
+      <div class="col s6" ng-click="goToPassword(community)"ng-repeat="community in communities">
+        <a class="button teach-me">
+          <div class="col s9">
+            <span class="item">{{community.SITE_LIBELLE}}</span>
           </div>
+          <div class="col s2 paddingImgLogin">
+            <img src="{{user_image_url}}" alt="" class="circle responsive-img">
+          </div>
+          <i class="chevron"></i>
+        </a>
       </div>
     </div>
   </div>

@@ -1,5 +1,7 @@
 tableau
 .controller 'communityCtrl', ($scope, $stateParams, $http, $location) ->
+    $scope.background_image_url = '/img/default_account_wallpaper.jpg'
+    $scope.user_image_url       = '/img/travel_planet_logo.png'
     username = $stateParams.username
     $http
         method: 'GET'

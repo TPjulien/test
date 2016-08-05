@@ -37,7 +37,6 @@ tableau
             url: options.api.base_url + '/profilPhone/' + uid
         .success (data) ->
             $scope.profilPhone = data
-            console.log $scope.profilPhone
         .error (err) ->
             console.log err
 
@@ -88,13 +87,21 @@ tableau
             console.log err
 
     $scope.profilchange = (site_id,uid) ->
-      $http
-          method: 'GET'
-          url: options.api.base_url + '/profils/' + site_id + '/' + uid
-      .success (data) ->
-          $scope.profils = data[0]
-      .error (err) ->
-          console.log err
+        $http
+            method: 'GET'
+            url: options.api.base_url + '/profils/' + site_id + '/' + uid
+        .success (data) ->
+            $scope.profils = data[0]
+            $scope.getprofilEmail(uid)
+            $scope.getprofilPhone(uid)
+            $scope.getCardTraveller(uid)
+            $scope.getRail_loyalty(uid)
+            $scope.getAir_loyalty(uid)
+            $scope.getAir_loyaltyAF(uid)
+            console.log '--profils--'
+            console.log $scope.profils
+        .error (err) ->
+            console.log err
 
 # Appel pour afficher les données profil de l'utilisateur
     $http
@@ -109,8 +116,6 @@ tableau
         $scope.getRail_loyalty(uid)
         $scope.getAir_loyalty(uid)
         $scope.getAir_loyaltyAF(uid)
-        console.log 'profils'
-        console.log $scope.profils
     .error (err) ->
         console.log err
 
@@ -161,6 +166,7 @@ tableau
 
 # Appel pour lister les carte voyageur en fonction des compagnies férrovières
     $scope.cardNameChange = (provider) ->
+      console.log 'looooooooooool'
       $http
           method: 'GET'
           url: options.api.base_url + '/card_name/' + provider
@@ -203,7 +209,6 @@ tableau
           url:    options.api.base_url + '/usersCommunity/' + site_id + '/' + community
       .success (data) ->
           $scope.usersCommunity = data
-          console.log $scope.usersCommunity
           $scope.query =
               order: 'name'
               limit: 5
