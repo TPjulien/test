@@ -61,40 +61,16 @@ module.exports = function(router, connection) {
                               console.log("data dont exist");
                             }
                             if (data.length != 0) {
-                              var query = 'SELECT ??, ??, \
-                                           ??, ??, \
-                                           ??, ??, \
-                                           ??, ??  \
-                                           FROM  ?? ??, ?? ?? \
-                                           WHERE ?? = ? \
-                                           AND ?? = ?? AND ti.tableau_user_id IS NOT NULL';
-                              var table = ['si.site_id'         , 'si.customer_id',
-                                           'si.site_logo'       , 'si.site_tableau_libelle',
-                                           'si.site_label'      , 'si.site_color_theme',
-                                           'ti.tableau_user_id' , 'si.site_background_theme',
-                                           'tableau_info'       , 'ti',
-                                           'site_info'          , 'si',
-                                           'si.customer_id'     , data[0].customer_id,
-                                           'si.site_id'         , 'ti.site_id'];
+                              var query = 'SELECT * FROM ??';
+                              var table = ['view_info_userConnected'];
                               query     = mysql.format(query, table);
                               connection.query(query, function(error, info_result) {
                                   if (err) {
                                       res.sendStatus(404, "user not found");
                                   } else {
                                       var preToken = [{
-                                          "username":            data[0].username,
-                                          "tableau_user_id":     info_result[0].tableau_user_id,
-                                          "site":                info_result[0].site_tableau_libelle,
-                                          "logo":                info_result[0].site_logo,
-                                          "customer_id":         info_result[0].customer_id,
-                                          "site_id":             info_result[0].site_id,
-                                          "firstname":           data[0].user_first_name,
-                                          "lastname":            data[0].user_last_name,
-                                          "company":             info_result[0].site_label,
-                                          "favorite_color":      info_result[0].site_color_theme,
-                                          "favorite_background": info_result[0].site_background_theme,
-                                          "user_id":             data[0].user_id,
-                                          "user_auth":           data[0].user_auth
+                                          console.log  data[0].username
+                                          "Login":              data[0].username,
                                       }];
                                       var token = jwt.sign(preToken, 'travelSecret', {
                                           expiresIn: 7200
