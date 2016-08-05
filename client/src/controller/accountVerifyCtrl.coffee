@@ -3,8 +3,6 @@ tableau
 
     SITE_ID   = $stateParams.SITE_ID
     Login    = $stateParams.Login
-    console.log Login
-    console.log $stateParams.Login
     $scope.data = []
     $http
       method: 'POST'
@@ -39,9 +37,10 @@ tableau
           escapeToClose:       false
         $http
             method: 'POST'
-            url:    options.api.base_url + '/login'
+            url:    options.api.base_url + '/login' 
             data: {
-                username: username
+                SITE_ID: SITE_ID
+                username: Login
                 password: $scope.password
             }
         .success (data) ->

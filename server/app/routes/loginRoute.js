@@ -32,9 +32,9 @@ module.exports = function(router, connection) {
         })
     }
 
-    function checkPwUser(login, pwd, callback) {
+    function checkPwUser(login, pwd,site_id, callback) {
         var query = "SELECT * FROM ?? WHERE ?? = ? AND ?? = ?";
-        var table = [table_login, table_password, pwd, table_username, login];
+        var table = ["profils.view_tpa_connexion", "PWD", pwd, "Login", login,"SITE_ID",site_id];
         query     = mysql.format(query, table);
         connection.query(query, function(err, rows) {
             if (err) {
@@ -54,7 +54,7 @@ module.exports = function(router, connection) {
                     res.sendStatus(404, "user not found !");
                 } else {
                     if (typeof data != "undefined" && data != null && data.length > 0) {
-                        checkPwUser(req.body.username, req.body.password, function(err, data) {
+                        checkPwUser(req.body.username, req.body.password, req.body.SITE_ID, function(err, data) {
                             if (data) {
                               console.log(data.length);
                             } else {
