@@ -53,7 +53,7 @@ tableau
             templateUrl: 'templates/loginVerify.html'
             controller:  'loginVerifyCtrl'
         .state 'login.checkaccount',
-            url:         '/verify/:username'
+            url:         '/verify/:Login/:SITE_ID'
             templateUrl: 'templates/accountVerify.html'
             controller:  'accountVerifyCtrl'
         .state 'login.comunity',

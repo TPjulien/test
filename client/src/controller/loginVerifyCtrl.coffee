@@ -21,13 +21,10 @@ tableau
 
 
     $scope.stepVerify = (ev) ->
-        console.log $scope.username
-
         $http
             method: 'GET'
             url:    options.api.base_url + '/loginProfils/' + $scope.username
         .success (data) ->
-            console.log data.length
             if (data.length == 1)
                 $location.path '/login/verify/' + $scope.username
             else if (data.length > 1)
