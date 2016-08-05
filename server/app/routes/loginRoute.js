@@ -114,10 +114,10 @@ module.exports = function(router, connection) {
                 }
             })
         })
-        router.route('/verify')
+        router.route('/verify/:Login/:SITE_ID')
           .post (function(req, res) {
-              var query = "SELECT ??,?? from ?? WHERE ?? = ?";
-              var table = ['user_last_name', 'user_first_name', 'user_info', 'username', req.body.username];
+              var query = "SELECT * from ?? WHERE ?? = ? AND ?? = ?";
+              var table = ['view_tpa_connexion', 'Login',req.params.Login, 'SITE_ID', req.params.SITE_ID];
               query     = mysql.format(query, table);
               connection.query(query, function(err, rows) {
                   if (err) {
@@ -151,7 +151,7 @@ module.exports = function(router, connection) {
                   res.json(body);
               });
           })
-        // permet de voir les communeauté d'un utilisateur donné
+        // permet de voir les communautés d'un utilisateur donné
         router.route('/loginProfils/:user')
           .get (function(req, res) {
               var query = "SELECT * FROM ?? WHERE ?? = ? GROUP BY ??";
