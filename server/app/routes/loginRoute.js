@@ -117,7 +117,7 @@ module.exports = function(router, connection) {
         router.route('/verify/:Login/:SITE_ID')
           .post (function(req, res) {
               var query = "SELECT * from ?? WHERE ?? = ? AND ?? = ?";
-              var table = ['view_tpa_connexion', 'Login',req.params.Login, 'SITE_ID', req.params.SITE_ID];
+              var table = ['profils.view_tpa_connexion', 'Login',req.params.Login, 'SITE_ID', req.params.SITE_ID];
               query     = mysql.format(query, table);
               connection.query(query, function(err, rows) {
                   if (err) {
