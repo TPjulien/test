@@ -69,7 +69,6 @@ module.exports = function(router, connection) {
                                       res.sendStatus(404, "user not found");
                                   } else {
                                       var preToken = [{
-                                          console.log  data[0].username
                                           "Login":              data[0].username,
                                       }];
                                       var token = jwt.sign(preToken, 'travelSecret', {
