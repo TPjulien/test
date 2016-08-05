@@ -35,14 +35,16 @@
                   <thead md-head md-order="query.order" >
                     <tr md-row>
                       <th md-column>ID</th>
+                      <th md-column>Role</th>
                       <th md-column>Nom</th>
                       <th md-column>Prénom</th>
                       <th md-column>Status profil</th>
                     </tr>
                   </thead>
                   <tbody md-body>
-                    <tr ng-click="profilchange(user.UID);getprofilEmail(user.UID);getprofilPhone(user.UID);getCardTraveller(user.UID);getRail_loyalty(user.UID);getAir_loyalty(user.UID);getAir_loyaltyAF(user.UID)"md-row md-select="dessert" md-select-id="name" md-auto-select ng-repeat="user in usersCommunity | filter: search | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
+                    <tr ng-click="profilchange(user.SITE_ID,user.UID);"md-row md-select="dessert" md-select-id="name" md-auto-select ng-repeat="user in usersCommunity | filter: search | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
                       <td md-cell>{{user.UID}}</td>
+                      <td md-cell>{{user.Role}}</td>
                       <td md-cell>{{user.Customer_surName}}</td>
                       <td md-cell>{{user.Customer_GivenName}}</td>
                       <td md-cell><div class="rondVert"></div></td>

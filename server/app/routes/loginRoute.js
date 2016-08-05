@@ -154,7 +154,7 @@ module.exports = function(router, connection) {
         // permet de voir les communeauté d'un utilisateur donné
         router.route('/loginProfils/:user')
           .get (function(req, res) {
-              var query = "SELECT * FROM ?? WHERE ?? = ? ORDER BY ??";
+              var query = "SELECT * FROM ?? WHERE ?? = ? GROUP BY ??";
               var table = ['profils.view_tpa_extensions_libelle', "Login", req.params.user, 'site_libelle'];
               query     = mysql.format(query, table);
               connection.query(query, function(err, rows) {

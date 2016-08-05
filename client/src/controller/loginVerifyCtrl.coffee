@@ -10,27 +10,27 @@ tableau
     $scope.background_image_url = '/img/default_account_wallpaper.jpg'
     $scope.user_image_url       = '/img/travel_planet_logo.png'
 
-    $scope.stepVerify = (ev) ->
-        $mdDialog.show
-            controller:          'loadingCtrl'
-            templateUrl:         'modals/loading.html'
-            parent:              angular.element(document.body)
-            clickOutsideToClose: false
-            escapeToClose:       false
-        $location.path '/login/verify/' + $scope.username
-
-
     # $scope.stepVerify = (ev) ->
-    #     console.log $scope.username
-    #
-    #     $http
-    #         method: 'GET'
-    #         url:    options.api.base_url + '/loginProfils/' + $scope.username
-    #     .success (data) ->
-    #         console.log data.length
-    #         if (data.length == 1)
-    #             $location.path '/login/verify/' + $scope.username
-    #         else if (data.length > 1)
-    #             $location.path '/login/comunity/' + $scope.username
-    #     .error (err) ->
-    #         console.log err
+    #     $mdDialog.show
+    #         controller:          'loadingCtrl'
+    #         templateUrl:         'modals/loading.html'
+    #         parent:              angular.element(document.body)
+    #         clickOutsideToClose: false
+    #         escapeToClose:       false
+    #     $location.path '/login/verify/' + $scope.username
+
+
+    $scope.stepVerify = (ev) ->
+        console.log $scope.username
+
+        $http
+            method: 'GET'
+            url:    options.api.base_url + '/loginProfils/' + $scope.username
+        .success (data) ->
+            console.log data.length
+            if (data.length == 1)
+                $location.path '/login/verify/' + $scope.username
+            else if (data.length > 1)
+                $location.path '/login/comunity/' + $scope.username
+        .error (err) ->
+            console.log err
