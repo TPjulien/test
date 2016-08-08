@@ -23,7 +23,6 @@ tableau
           url:    options.api.base_url + '/getListTemplate/' + id.site_id + '/' + id.view_id
       .success (data) ->
           $scope.getListTableau = data
-          console.log data
       .error (err) ->
           console.log err
       $scope.id_number = id
@@ -64,6 +63,8 @@ tableau
         url:    options.api.base_url + '/getViewSite' + '/' + decode[0].site_id + '/' + decode[0].user_auth
     .success (result) ->
         $scope.viewMenu = result
+        console.log 'viewMenu'
+        console.log result
         for values in $scope.viewMenu
           values.view_position = getRandomNumber(1)
           values.animation     = null

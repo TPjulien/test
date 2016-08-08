@@ -17,9 +17,9 @@ tableau
                                   itemsPerPage: 5
                                   fillLastPage: true
     $scope.required              = true
-    uid                          = 'bastiencla'
-    site_id                      = 'R21VR21V'
-    community                    = 'R21VQAGF'
+    uid                          =  decode[0].UID
+    site_id                      =  decode[0].site_id
+    community                    =  decode[0].home_community
 # Appel pour afficher les données profil de l'utilisateur
     $scope.getprofilEmail = (uid) ->
         $http
@@ -193,16 +193,6 @@ tableau
     .error (err) ->
         console.log err
 
-
-    $http
-        method: 'GET'
-        url:    options.api.base_url + '/community/' + site_id
-    .success (data) ->
-        $scope.community = data
-
-    .error (err) ->
-        console.log err
-
     $scope.getusersCommunity = (site_id,community) ->
       $http
           method: 'GET'
@@ -221,6 +211,14 @@ tableau
         url:    options.api.base_url + '/getCountry'
     .success (data) ->
         $scope.country_phone = data
+    .error (err) ->
+        console.log err
+
+    $http
+        method: 'GET'
+        url:    options.api.base_url + '/community/' + site_id
+    .success (data) ->
+        $scope.community = data
     .error (err) ->
         console.log err
 

@@ -17,6 +17,9 @@
 .h5login{
   margin-top:30px;
 }
+.layout-padding > * {
+  padding: 0px!important;
+}
 
 #centeringContainer {
   position:absolute;
