@@ -30,4 +30,5 @@ tableau
             else if (data.length > 1)
                 $location.path '/login/comunity/' + $scope.username
         .error (err) ->
+            # ajouter une erreur
             console.log err

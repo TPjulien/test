@@ -43,6 +43,7 @@ tableau
                 password: $scope.password
             }
         .success (data) ->
+            console.log data
             store.set('JWT', data.token)
             $location.path "/home"
         .error (err) ->

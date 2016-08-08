@@ -69,15 +69,15 @@ module.exports = function(router, connection) {
                                       res.sendStatus(404, "user not found");
                                   } else {
                                       var preToken = [{
-                                          "SITE_ID":              info_result[0].SITE_ID,
+                                          "site_id":              info_result[0].SITE_ID,
                                           "UID":                  info_result[0].UID,
                                           "DEPOSITED_DATE":       info_result[0].DEPOSITED_DATE,
-                                          "HomeCommunity":        info_result[0].HomeCommunity,
-                                          "Login":                info_result[0].Login,
-                                          "SITE_LIBELLE":         info_result[0].SITE_LIBELLE,
-                                          "Customer_GivenName":   info_result[0].Customer_GivenName,
-                                          "Customer_surName":     info_result[0].Customer_surName,
-                                          "Role":                 info_result[0].Role,
+                                          "home_community":       info_result[0].HomeCommunity,
+                                          "username":             info_result[0].Login,
+                                          "company":              info_result[0].SITE_LIBELLE,
+                                          "firstname":            info_result[0].Customer_GivenName,
+                                          "lastname":             info_result[0].Customer_surName,
+                                          "user_auth":            info_result[0].Role,
                                       }];
                                       var token = jwt.sign(preToken, 'travelSecret', {
                                           expiresIn: 7200

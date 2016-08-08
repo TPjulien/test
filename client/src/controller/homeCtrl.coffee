@@ -3,7 +3,7 @@ tableau
     console.log "poison of paradise"
     token                 = store.get('JWT')
     decode                = jwtHelper.decodeToken(token)
-    console.log "TOKEN"
+    # console.log "TOKEN"
     console.log decode
     $rootScope.color      = "#EAEAEA"
     $scope.firstname      = decode[0].firstname
