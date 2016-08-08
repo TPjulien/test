@@ -68,16 +68,17 @@ module.exports = function(router, connection) {
                                   if (err) {
                                       res.sendStatus(404, "user not found");
                                   } else {
+                                      console.log info_result
                                       var preToken = [{
-                                          "SITE_ID":              data[0].SITE_ID,
-                                          "UID":                  data[0].UID,
-                                          "DEPOSITED_DATE":       data[0].DEPOSITED_DATE,
-                                          "HomeCommunity":        data[0].HomeCommunity,
-                                          "Login":                data[0].Login,
-                                          "SITE_LIBELLE":         data[0].SITE_LIBELLE,
-                                          "Customer_GivenName":   data[0].Customer_GivenName,
-                                          "Customer_surName":     data[0].Customer_surName,
-                                          "Role":                 data[0].Role,
+                                          "SITE_ID":              info_result[0].SITE_ID,
+                                          "UID":                  info_result[0].UID,
+                                          "DEPOSITED_DATE":       info_result[0].DEPOSITED_DATE,
+                                          "HomeCommunity":        info_result[0].HomeCommunity,
+                                          "Login":                info_result[0].Login,
+                                          "SITE_LIBELLE":         info_result[0].SITE_LIBELLE,
+                                          "Customer_GivenName":   info_result[0].Customer_GivenName,
+                                          "Customer_surName":     info_result[0].Customer_surName,
+                                          "Role":                 info_result[0].Role,
                                       }];
                                       var token = jwt.sign(preToken, 'travelSecret', {
                                           expiresIn: 7200
