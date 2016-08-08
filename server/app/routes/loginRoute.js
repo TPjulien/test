@@ -68,7 +68,6 @@ module.exports = function(router, connection) {
                                   if (err) {
                                       res.sendStatus(404, "user not found");
                                   } else {
-                                      console.log (info_result);
                                       var preToken = [{
                                           "SITE_ID":              info_result[0].SITE_ID,
                                           "UID":                  info_result[0].UID,
