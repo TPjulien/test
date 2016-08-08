@@ -62,7 +62,7 @@ module.exports = function(router, connection) {
                             }
                             if (data.length != 0) {
                               var query = 'SELECT * FROM ??';
-                              var table = ['view_info_userConnected'];
+                              var table = ['profils.view_info_userConnected'];
                               query     = mysql.format(query, table);
                               connection.query(query, function(error, info_result) {
                                   if (err) {
