@@ -37,7 +37,7 @@ tableau
           escapeToClose:       false
         $http
             method: 'POST'
-            url:    options.api.base_url + '/login' 
+            url:    options.api.base_url + '/login'
             data: {
                 SITE_ID: SITE_ID
                 username: Login

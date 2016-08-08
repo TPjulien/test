@@ -7,7 +7,6 @@ tableau
         method: 'GET'
         url:    options.api.base_url + '/loginProfils/' + username
     .success (data) ->
-        console.log data
         $scope.communities = data
     .error (err) ->
         console.log err
