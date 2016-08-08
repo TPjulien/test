@@ -14,8 +14,8 @@ tableau
         # result_template      = 'templates/profil.html'
         return result_template
 
-    user_role = 'Manager'
-    site_id   = 'Q1CNQ1CN'
+    user_role = decode[0].user_auth
+    site_id   = decode[0].site_id
     view_id   = 1
     $http
         method: 'POST'
@@ -26,6 +26,8 @@ tableau
             view_id:   view_id
     .success (data) ->
         $scope.details = data
+        console.log 'details'
+        console.log $scope.details
     .error (err) ->
         # ajouter un toast en cas d'erreur
         console.log err
