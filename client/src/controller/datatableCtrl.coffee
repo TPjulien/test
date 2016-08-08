@@ -13,13 +13,6 @@ tableau
     counter                  = 50
     $scope.datatable_columns = []
 
-    # $scope.overrideList = [{
-    #     position  : 1
-    #     label     : 'Autre'
-    #     startDate : moment()
-    #     endDate   :  moment()
-    # }]
-
     $scope.yourCallbackFun = (range, name) ->
         console.log range, name
 
@@ -153,14 +146,12 @@ tableau
 
     $scope.filterDate = (range_date, column_name) ->
         $scope.datatable_columns = []
+        date_array               = []
+        object_to_filter         = {}
         counter = 50
         verifyArray(column_name)
-        date_array                 = []
-        # $scope.datatable_columns   = []
         date_array.push range_date.startDate
         date_array.push range_date.endDate
-
-        object_to_filter             = {}
         object_to_filter.column_name = column_name
         object_to_filter.value       = date_array
         filter_array_text.push object_to_filter
