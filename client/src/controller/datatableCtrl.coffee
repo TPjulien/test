@@ -1,5 +1,7 @@
 tableau
 .controller 'datatableCtrl', ($scope, $http, jwtHelper, store, $window, $filter, $stateParams, $sce) ->
+
+    console.log picker
     value                    = 50
     $scope.datatable         = []
     $scope.datatable_filters = []
@@ -8,6 +10,8 @@ tableau
     schema                   = null
     table                    = null
     bullet_filters           = []
+    counter                  = 50
+    $scope.datatable_columns = []
 
     # fonction qui permet d'avoir les données du bullet
     getBullet = (value) ->
@@ -30,6 +34,7 @@ tableau
 
     # on recupere les données de chaque instance de $scope.detail
     getDatatable = (min, max) ->
+        array_concat = []
         $http
             method: 'POST'
             url:    options.api.base_url + '/getDatatable'
@@ -39,15 +44,36 @@ tableau
                 min:          min
                 max:          max
         .success (data) ->
-            $scope.data_table = data
-            schema = $scope.data_table.datatable_width[0].schema
-            table  = $scope.data_table.datatable_width[0].table
-            if bullet_filters.length == 0
-                getBullet(data.datatable_width);
+            if counter != 50 and data.datatable.length == 0
+                console.log "empty"
+            else
+                if $scope.datatable_columns.length == 0
+                    $scope.datatable_columns = data.datatable
+                else
+                    $scope.datatable_columns = $scope.datatable_columns.concat data.datatable
+
+                $scope.data_table = data
+                schema = $scope.data_table.datatable_width[0].schema
+                table  = $scope.data_table.datatable_width[0].table
+                if bullet_filters.length == 0
+                    getBullet(data.datatable_width);
         .error (err) ->
             # mettre un toast en cas d'erreur
             console.log err
     getDatatable(0, 50)
+
+    # infinite scroll
+    $scope.loadMore = () ->
+        # if $scope.information
+        if (counter == 0)
+            getDatatable($scope.data_table.datatable.length, $scope.data_table.datatable.length + 50)
+            counter += 50
+        else
+            getDatatable(counter, 20)
+            counter += 20
+        # console.log counter
+
+    # $scope.loadMore()
 
     $scope.getGenericRow = (value, width) ->
         result = []
@@ -77,6 +103,9 @@ tableau
         # faire un toast
         console.log err
 
+    $scope.getLabel = (value) ->
+        return "Label test"
+
     verifyArray = (column_name) ->
         # on vérifier dans un premier temps si jamais l'objet est utilisé ou non
         if filter_array_text.length >= 0
@@ -98,6 +127,8 @@ tableau
             return true
     # Generique champs de text
     $scope.filterText = (value, column_name) ->
+        $scope.datatable_columns = []
+        counter = 50;
         # appell de la fonction qui permet de nettoyer l'objet
         verifyArray(column_name)
         # on vérifie si la value n'est pas vide, si oui on l'injecte dans le tableau, sinon on ne l'ajoute pas
@@ -111,8 +142,10 @@ tableau
         getDatatable(0, 50);
 
     $scope.filterDate = (start, end, column_name) ->
+        counter = 50
         verifyArray(column_name)
-        date_array = []
+        date_array                 = []
+        $scope.datatable_columns   = []
         date_array.push date_start = $filter('date')(start._d, "yyyy-MM-dd")
         date_array.push date_end   = $filter('date')(end._d, "yyyy-MM-dd")
 

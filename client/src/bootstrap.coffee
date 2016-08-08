@@ -31,6 +31,7 @@ tableau = angular.module 'tableauApp', [
   'ngTable'
   'md.data.table'
   'ngMaterialDatePicker'
+  'smDateTimeRangePicker'
 ]
 
 options = {}
@@ -41,7 +42,129 @@ options.api.base_url = "http://151.80.121.123:3001/api"
 # prod
 # options.api.base_url = "https://tp-control.travelplanet.fr:3254/api"
 tableau
-.config (authProvider, $stateProvider, $urlRouterProvider, $httpProvider, jwtInterceptorProvider) ->
+.config (authProvider, $stateProvider, $urlRouterProvider, $httpProvider, jwtInterceptorProvider, $mdThemingProvider, pickerProvider) ->
+    # console.log pickerProvider.setRangeDefaultList()
+    # Partie picker
+    pickerProvider.setOkLabel 'Enregistrer'
+    pickerProvider.setCancelLabel 'Fermer'
+    # Overide du datepicker pour le mettre en français
+    pickerProvider.setDayHeader 'shortName'
+    # Semaine
+    pickerProvider
+    .setDaysNames [
+      {
+        'single': 'D'
+        'shortName': 'Dim'
+        'fullName':  'Dimanche'
+      }
+      {
+        'single': 'L'
+        'shortName': 'Lun'
+        'fullName':  'Lundi'
+      }
+      {
+        'single': 'M'
+        'shortName': 'Mar'
+        'fullName':  'Mardi'
+      }
+      {
+        'single': 'M'
+        'shortName': 'Mer'
+        'fullName':  'Mercredi'
+      }
+      {
+        'single': 'J'
+        'shortName': 'Jeu'
+        'fullName':  'Jeudi'
+      }
+      {
+        'single': 'V'
+        'shortName': 'Ven'
+        'fullName':  'Vendredi'
+      }
+      {
+        'single': 'S'
+        'shortName': 'Sam'
+        'fullName':  'Samedi'
+      }
+    ]
+    # Date Range config
+    pickerProvider
+    .setDivider 'au'
+    pickerProvider
+    .setMonthNames [
+      "Janvier"
+      "Fevrier"
+      "Mars"
+      "Avril"
+      "Mai"
+      "Juin"
+      "Juillet"
+      "Août"
+      "Septembre"
+      "Novembre"
+      "Decembre"
+    ]
+    pickerProvider
+    .setRangeDefaultList [
+        {
+          label     : "Aujourd'hui"
+          startDate : moment().startOf('day')
+          endDate   : moment().endOf('day')
+        }
+        {
+          label     : "7 derniers jours"
+          startDate : moment().subtract(7, 'd')
+          endDate   : moment()
+        }
+        {
+          label     : "Ce mois-ci"
+          startDate : moment().startOf('month')
+          endDate   : moment().endOf('month')
+          # startDate : moment().startOf('month')
+        	# endDate   : moment().endOf('month')
+        }
+        {
+          label     : "Mois Dernier"
+          startDate : moment().subtract(1, 'month').startOf('month')
+          endDate   : moment()
+          # startDate : moment().subtract(1,'month').startOf('month')
+				  # endDate   : moment()
+        }
+        {
+          label     : "Les 3 derniers mois"
+          startDate : moment().subtract('quarter')
+          endDate   : moment().endOf('quarter')
+          # startDate : moment().startOf('quarter')
+        	# endDate   : moment().endOf('quarter')
+        }
+        {
+          label     : "Jusqu'a aujourd'hui"
+          startDate : moment().startOf('year')
+          endDate   : moment()
+          # startDate :  moment().startOf('year')
+        	# endDate   :  moment()
+        }
+        {
+          label     : "cette année"
+          startDate : moment().startOf('year')
+          endDate   : moment().endOf('year')
+          # startDate :  moment().startOf('year')
+        	# endDate   :  moment().endOf('year')
+        }
+        {
+          label     : "Autre"
+          startDate : 'custom'
+          endDate   : 'custom'
+          # startDate : 'custom'
+  				# endDate   : 'custom'
+        }
+    ]
+    pickerProvider
+    .setRangeCustomStartEnd [
+        "Date de début"
+        "Date de fin"
+    ]
     $urlRouterProvider.otherwise '/login/account'
     $stateProvider
         .state 'login',

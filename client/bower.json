@@ -58,7 +58,8 @@
     "angular-ui-select": "^0.18.1",
     "angular-material-data-table": "^0.10.9",
     "jqlite": "jstools-jqlite#^0.2.39",
-    "angular-material-datetimepicker": "^1.4.0"
+    "angular-material-datetimepicker": "^1.4.0",
+    "smDateTimeRangePicker": "^1.6.1"
   },
   "resolutions": {
     "angular": "~1.4.7"

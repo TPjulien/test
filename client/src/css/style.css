@@ -44,6 +44,12 @@
 {
   background-color: #EEE;
 }
+
+.range-picker {
+    width: 320px;
+    height: 475px;
+}
+
 .img-header{
   float:right;
   height: 115px;
@@ -87,6 +93,10 @@
 }
 .btn--icon.btn--black:hover {
   box-shadow:none;
+}
+
+tooltip {
+    width: 100%;
 }
 .btn:hover, .btn-large:hover {
   background-color: none;

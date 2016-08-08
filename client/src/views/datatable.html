@@ -1,22 +1,42 @@
-<div ng-model           = "detail" class = "separator row">
+<div ng-model = "detail"
+     class    = "separator row"
+     style    = "background-color: #EEE; box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);">
     <!-- Partie datatable généré automatiquement -->
-    <div class="col s8">
-      <div class        = "col s12"
-           style        = "text-align:left; margin: 0; padding: 0; margin-bottom: -9px;"
-           ng-repeat    = "data in data_table.datatable"
-           ng-bind-html = "getGenericRow(data, data_table.datatable_width)"
-           ng-click     = "watchOrDownload(data)">
+    <div class="col s8" style="height: 800px; overflow-y:auto; overflow-x:none" when-scrolled="loadMore()">
+      <div class            = "col s12"
+           style            = "text-align:left; margin: 0; padding: 0; margin-bottom: -14px;"
+           ng-repeat        = "data in datatable_columns"
+           ng-bind-html     = "getGenericRow(data, data_table.datatable_width)"
+           ng-click         = "watchOrDownloads(data)"
+           tooltips
+           tooltip-template = "{{getLabel(data)}}"
+           tooltip-side     = "bottom">
       </div>
     </div>
     <!-- partie filtre généré automatiquement -->
-    <div class ="col s4" layout-padding style  = "background-color: white">
+    <div class                 = "col s4"
+         layout-padding style  = "background-color: white;
+                                  margin-left: -6px;
+                                  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+                                  height: 800px;
+                                  overflow-y: auto">
+        <div layout="row">
+            <sm-range-picker-input
+                    fname="dayOfPay"
+                    label="Date of Pay"
+                    form="empForm"
+                    value="vm.employee.dateOfPay"
+                    flex="100"
+                    is-required="{{true}}"
+                    format="MM-DD-YYYY"
+                    mode="date-time"
+                    week-start-day="Sunday">
+            </sm-range-picker-input>
+        </div>
         <h4>Recherche :</h4>
-        <div class                             = "col s12"
+        <div class  = "col s12"
              ng-repeat                         = "(key, filter) in datatable_filters">
              <form compile class = "options col s12" ng-bind-html  = "getGenericFilter(filter, key)">
-             <!-- <md-input-container
-                                 >
-             </md-input-container> -->
         </div>
      </div>
   </div>
