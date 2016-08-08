@@ -13,7 +13,6 @@ tableau
     .success (data) ->
         $mdDialog.hide()
         $scope.data = data
-        console.log data
     .error (err) ->
         alertFct.loginError()
         $mdDialog.hide()
