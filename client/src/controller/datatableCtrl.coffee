@@ -13,6 +13,16 @@ tableau
     counter                  = 50
     $scope.datatable_columns = []
 
+    # $scope.overrideList = [{
+    #     position  : 1
+    #     label     : 'Autre'
+    #     startDate : moment()
+    #     endDate   :  moment()
+    # }]
+
+    $scope.yourCallbackFun = (range, name) ->
+        console.log range, name
+
     # fonction qui permet d'avoir les données du bullet
     getBullet = (value) ->
         table = null
@@ -141,13 +151,14 @@ tableau
         # la function pour lancer la requete
         getDatatable(0, 50);
 
-    $scope.filterDate = (start, end, column_name) ->
+    $scope.filterDate = (range_date, column_name) ->
+        $scope.datatable_columns = []
         counter = 50
         verifyArray(column_name)
         date_array                 = []
-        $scope.datatable_columns   = []
-        date_array.push date_start = $filter('date')(start._d, "yyyy-MM-dd")
-        date_array.push date_end   = $filter('date')(end._d, "yyyy-MM-dd")
+        # $scope.datatable_columns   = []
+        date_array.push range_date.startDate
+        date_array.push range_date.endDate
 
         object_to_filter             = {}
         object_to_filter.column_name = column_name
@@ -200,12 +211,17 @@ tableau
                                                                </md-radio-button>'
                         result += generic_bullet + '</md-radio-group>'
                 else if name == 'has_date_filter'
-                    dynamic_entry = "filterDate(start, end, '" + get_filter_column_name + "')"
-                    result += '<ob-daterangepicker class="col s12"
-                                                   style="font-size:10px;"
-                                                   on-apply="' + dynamic_entry + '" &nbsp;
-                                                   range="vm.range">
-                               </ob-daterangepicker>'
+                    dynamic_entry = "filterDate(range, '" + get_filter_column_name + "')"
+                    result += '<sm-range-picker-input class           = "col s12"
+                                                      style           = "font-size:10px;"
+                                                      on-range-select = "' + dynamic_entry + '"
+                                                      value           = "date"
+                                                      is-required     = "false"
+                                                      format          = "YYYY-MM-DD"
+                                                      mode            = "date"
+                                                      week-start-day  = "monday"
+                                                      divider         = "Au">
+                               </sm-range-picker-input>'
         return $sce.trustAsHtml result
     # $scope.nameValue = (name) ->
     #   return name.CABIN_CONCATENATED_CODE

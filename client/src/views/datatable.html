@@ -21,17 +21,29 @@
                                   height: 800px;
                                   overflow-y: auto">
         <div layout="row">
-            <sm-range-picker-input
-                    fname="dayOfPay"
-                    label="Date of Pay"
+          <!-- <sm-range-picker-input
+             label="Date de Départ"
+             value="date"
+             flex-size="150"
+             is-required="true"
+             format="MM/DD/YYYY"
+             mode="date"
+             on-range-select="yourCallbackFun(range, 'function')"
+             week-start-day="monday"
+             divider="Au"
+             class="col s12">
+          </sm-range-picker-input> -->
+            <!-- <sm-range-picker-input
+                    fname="datededate"
+                    label="Date de mahefa"
                     form="empForm"
-                    value="vm.employee.dateOfPay"
+                    value="filterDate"
                     flex="100"
-                    is-required="{{true}}"
+                    is-required="true"
                     format="MM-DD-YYYY"
-                    mode="date-time"
-                    week-start-day="Sunday">
-            </sm-range-picker-input>
+                    on-range-select="getDate(date)"
+                    divider="Au">
+            </sm-range-picker-input> -->
         </div>
         <h4>Recherche :</h4>
         <div class  = "col s12"
