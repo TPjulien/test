@@ -1,5 +1,6 @@
 tableau
   .controller 'tableauCtrl', ($scope, $http, $sce) ->
+      console.log "partie tableau"
       $scope.display = "none"
       # $scope.url = ""
       # $scope.lengthTableau = 0

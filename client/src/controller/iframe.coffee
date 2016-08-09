@@ -1,5 +1,6 @@
 tableau
 .controller 'iframeCtrl', ($scope, $sce, $http) ->
+      # trouver un moyen plus simple
       $scope.LOGINNAME  = "helpdesk@travelplanet.fr"
       $scope.SITE       = "Q4OZQ4OZ"
       $scope.LANGUAGE   = "FR"
@@ -8,15 +9,3 @@ tableau
       setTimeout (->
         document.getElementById('formSubmit').click()
       ), 0
-      # value = angular.element(document.querySelector('#formSubmit'))
-      # # value.triggerHandler('#formSubmit')
-      # console.log value.ready()
-      # value.ready = ->
-      #     console.log('click !')
-      # console.log value
-      # $(document).ready ->
-      #   test = document.getElementById('formSubmit')
-      #   console.log test
-      #   test.click()
-        # console.log test
-        # console.log("DOM is ready")

@@ -1,10 +1,7 @@
 tableau
 .controller 'homeCtrl', ($scope, $mdSidenav, $timeout, logoutFct, jwtHelper, store, $http, $stateParams, $location, $interval, $rootScope, $sce, $mdDialog, $window) ->
-    console.log "poison of paradise"
     token                 = store.get('JWT')
     decode                = jwtHelper.decodeToken(token)
-    # console.log "TOKEN"
-    # console.log decode
     $rootScope.color      = "#EAEAEA"
     $scope.firstname      = decode[0].firstname
     $scope.lastname       = decode[0].lastname
@@ -14,8 +11,6 @@ tableau
     $scope.getListTableau = []
 
     $mdDialog.hide()
-    #
-    # testIt()
 
     $scope.getNumber = (id) ->
       $http
@@ -62,9 +57,7 @@ tableau
         method: 'GET'
         url:    options.api.base_url + '/getViewSite' + '/' + decode[0].site_id + '/' + decode[0].user_auth
     .success (result) ->
-        # console.log result
         $scope.viewMenu = result
-        # console.log result
         for values in $scope.viewMenu
           values.view_position = getRandomNumber(1)
           values.animation     = null
@@ -72,44 +65,47 @@ tableau
           # une fois qu'on a tous les menus, on lui demande d'aller sur la premiere page par défaut
           # $location.path '/home/dashboard/' + decode[0].site_id + '/' + $scope.viewMenu[0].view_id
     .error (err) ->
+        # Faire un toast en cas d'erreur
         console.log err
 
     $scope.logOut = () ->
         logoutFct.logOut()
 
-    tick = () ->
-        $scope.clock = Date.now()
-
-    tick()
-    $interval(tick, 1000)
+    # tick à faire plus tard
+    # tick = () ->
+    #     $scope.clock = Date.now()
+    #
+    # tick()
+    # $interval(tick, 1000)
 
     $scope.getImage = (src) ->
         url = "img/" + src
         return url
 
-    # The sideBar
-    debounce = (func, wait, context) ->
-      timer = undefined
-      debounced = () ->
-        context = $scope
-        args    = Array.prototype.slice.call arguments
-        $timeout.cancel timer
-        timer   = $timeout(( ->
-          timer = 0
-          func.apply context, args
-        ),wait || 10)
 
-    buildDelayedToggler = (navID) ->
-      debounce(( ->
-        $mdSidenav(navID)
-        .toggle()
-        .then ->
-      ), 200)
-
-
-    createFilterFor = (query) ->
-        lowercaseQuery = angular.lowercase(query)
-        filterFn = (state) ->
-            state.value.indexOf(lowercaseQuery) == 0
-
-    $scope.toggleLeft = buildDelayedToggler('left')
+    # le menu de droite
+    # debounce = (func, wait, context) ->
+    #   timer = undefined
+    #   debounced = () ->
+    #     context = $scope
+    #     args    = Array.prototype.slice.call arguments
+    #     $timeout.cancel timer
+    #     timer   = $timeout(( ->
+    #       timer = 0
+    #       func.apply context, args
+    #     ),wait || 10)
+    #
+    # buildDelayedToggler = (navID) ->
+    #   debounce(( ->
+    #     $mdSidenav(navID)
+    #     .toggle()
+    #     .then ->
+    #   ), 200)
+    #
+    #
+    # createFilterFor = (query) ->
+    #     lowercaseQuery = angular.lowercase(query)
+    #     filterFn = (state) ->
+    #         state.value.indexOf(lowercaseQuery) == 0
+    #
+    # $scope.toggleLeft = buildDelayedToggler('left')

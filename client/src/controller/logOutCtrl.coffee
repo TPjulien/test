@@ -7,4 +7,5 @@ tableau
               $location.path '/login'
               ngDialog.close()
           .catch (err), ->
+              # ajouter un toast en cas d'erreur
               console.log err

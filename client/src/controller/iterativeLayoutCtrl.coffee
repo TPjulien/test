@@ -1,8 +1,8 @@
 tableau
 .controller 'iterativeLayoutCtrl', ($scope, $stateParams, store, jwtHelper, $http) ->
-    token                    = store.get('JWT')
-    decode                   = jwtHelper.decodeToken(token)
-    $scope.getController     = null
+    token                = store.get('JWT')
+    decode               = jwtHelper.decodeToken(token)
+    $scope.getController = null
 
     # obtenir le template de l'embed ainsi que sa valeur
     $scope.getTemplate = (value) ->

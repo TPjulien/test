@@ -10,16 +10,6 @@ tableau
     $scope.background_image_url = '/img/default_account_wallpaper.jpg'
     $scope.user_image_url       = '/img/travel_planet_logo.png'
 
-    # $scope.stepVerify = (ev) ->
-    #     $mdDialog.show
-    #         controller:          'loadingCtrl'
-    #         templateUrl:         'modals/loading.html'
-    #         parent:              angular.element(document.body)
-    #         clickOutsideToClose: false
-    #         escapeToClose:       false
-    #     $location.path '/login/verify/' + $scope.username
-
-
     $scope.stepVerify = (ev) ->
         $http
             method: 'GET'
@@ -30,5 +20,5 @@ tableau
             else if (data.length > 1)
                 $location.path '/login/comunity/' + $scope.username
         .error (err) ->
-            # ajouter une erreur
+            # ajouter un toas en cas d'erreur
             console.log err

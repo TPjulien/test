@@ -5,7 +5,6 @@ tableau
       token           = store.get('JWT')
       decode          = jwtHelper.decodeToken(token)
       $scope.get_username = decode[0].username
-      console.log decode
 
     $scope.anotherMail           = null
     $scope.getCountryNumberphone = null

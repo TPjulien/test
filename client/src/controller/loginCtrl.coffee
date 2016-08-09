@@ -1,3 +1,3 @@
 tableau
-.controller 'loginCtrl', ($scope, $http, jwtHelper, store, auth, $location, SweetAlert, alertFct, $mdDialog, ipFct) ->
+.controller 'loginCtrl', ($scope) ->
     $location.path "/login/account"
