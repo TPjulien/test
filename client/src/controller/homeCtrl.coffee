@@ -4,7 +4,7 @@ tableau
     token                 = store.get('JWT')
     decode                = jwtHelper.decodeToken(token)
     # console.log "TOKEN"
-    console.log decode
+    # console.log decode
     $rootScope.color      = "#EAEAEA"
     $scope.firstname      = decode[0].firstname
     $scope.lastname       = decode[0].lastname
@@ -22,6 +22,7 @@ tableau
           method: 'GET'
           url:    options.api.base_url + '/getListTemplate/' + id.site_id + '/' + id.view_id
       .success (data) ->
+          # console.log data
           $scope.getListTableau = data
       .error (err) ->
           console.log err
@@ -35,8 +36,7 @@ tableau
 
     $scope.goTO = (site_id, view_id, view_label) ->
       $mdSidenav('left').close()
-      # revoir pourquoi 1/normal
-      path = 'home/dashboard/' + site_id + '/' + view_id + '/1/normal'
+      path = '/home/dashboard/' + view_id
       $location.path path
 
     $scope.getColor = (color) ->
@@ -62,9 +62,9 @@ tableau
         method: 'GET'
         url:    options.api.base_url + '/getViewSite' + '/' + decode[0].site_id + '/' + decode[0].user_auth
     .success (result) ->
+        # console.log result
         $scope.viewMenu = result
-        console.log 'viewMenu'
-        console.log result
+        # console.log result
         for values in $scope.viewMenu
           values.view_position = getRandomNumber(1)
           values.animation     = null

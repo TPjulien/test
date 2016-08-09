@@ -188,7 +188,7 @@ tableau
             templateUrl: 'templates/home.html',
             controller:  'homeCtrl'
         .state 'home.test',
-            url:          '/dashboard/:client/:id/:embed/:list',
+            url:          '/dashboard/:id',
             templateUrl:  'templates/iterativeLayout.html',
             controller:   'iterativeLayoutCtrl'
         .state 'home.list',
