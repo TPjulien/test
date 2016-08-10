@@ -190,7 +190,7 @@
                 </div>
                 <div class="row">
                   <div class="margin_NumTel">
-                    <p ng-repeat="oneprofilEmail in profilEmail" class="p_profil">{{oneprofilEmail.Email}} <md-icon ng-click="" class="right logo_crossDelete" md-svg-icon="img/icons/delete.svg"></md-icon></p>
+                    <p ng-repeat="oneprofilEmail in profil_email" class="p_profil">{{oneprofilEmail.Email}} <md-icon ng-click="" class="right logo_crossDelete" md-svg-icon="img/icons/delete.svg"></md-icon></p>
                   </div>
                   <p class="p_profil" ng-repeat="mail in listMail">{{mail.mail}}</p>
                 </div>
@@ -221,7 +221,7 @@
                 </div>
                 <div class="col-md-8 col-xs-12">
                   <div class="row">
-                    <div ng-if="listNumTel.length == 0 && profilPhone.PhoneNumber.length == 0"  class="margin-left">
+                    <div ng-if="listNumTel.length == 0 && profil_phone.PhoneNumber.length == 0"  class="margin-left">
                       <p class="p_profil">N° de téléphone manquant</p>
                     </div>
                   </div>
@@ -232,7 +232,7 @@
                   </div>
                   <div class="row">
                     <div class="margin_NumTel">
-                      <p ng-repeat="oneProfilPhone in profilPhone" class=" p_profil">{{oneProfilPhone.PhoneNumber}}<span><md-icon style="float:right" ng-click="deletePhoneNumber(oneProfilPhone.PhoneId)" class="right logo_crossDelete" md-svg-icon="img/icons/delete.svg"></md-icon></span><span ng-if="oneProfilPhone.PhoneUseType " style="float:right">[{{oneProfilPhone.PhoneUseType}}]</span></p>
+                      <p ng-repeat="oneProfilPhone in profil_phone" class=" p_profil">{{oneProfilPhone.PhoneNumber}}<span><md-icon style="float:right" ng-click="deletePhoneNumber(oneProfilPhone.PhoneId)" class="right logo_crossDelete" md-svg-icon="img/icons/delete.svg"></md-icon></span><span ng-if="oneProfilPhone.PhoneUseType " style="float:right">[{{oneProfilPhone.PhoneUseType}}]</span></p>
                     </div>
                     <p class="p_profil" ng-repeat="num in listNumTel">{{num.code}} {{num.numero}}</p>
                   </div>
@@ -720,7 +720,7 @@
                       <label  class="labelProfil" for=""> Numéro de de la carte </label>
                     </div>
                     <div class="col-md-12">
-                      <div ng-repeat="oneAir_loyaltyAF in air_loyaltyAF" >
+                      <div ng-repeat="oneAir_loyaltyAF in air_loyalty_af" >
                           <input style="margin-left:30px !important" class="input_generic" name="oneAir_loyaltyAF" ng-model="oneAir_loyaltyAF.MembershipId" type="text" ng-minlength="1" ng-maxlength="30" class="validate" >
                     </div>
                       <input ng-if="air_loyaltyAF.length == 0" style="margin-left:30px !important" class="input_generic" name="oneAir_loyaltyAF" ng-model="oneAir_loyaltyAF.MembershipId" type="text" ng-minlength="1" ng-maxlength="30" class="validate" >
@@ -808,7 +808,7 @@
                       <th><label  class="labelProfil" for=""> Ville d'arrivée </label></th>
                       <th><label  class="labelProfil" for=""> Action </label></th>
                     </tr>
-                    <tr ng-repeat="oneCardTraveller in cardTraveller">
+                    <tr ng-repeat="oneCardTraveller in card_traveller">
                       <td>{{oneCardTraveller.SequenceNumber}}</td>
                       <td>{{oneCardTraveller.PROVIDER}}</td>
                       <td>{{oneCardTraveller.CARD_NAME}}</td>
@@ -851,11 +851,11 @@
                             <input class="input_generic" name="num_carteVoy" ng-model="user.num_carteVoy" type="text" ng-minlength="1" ng-maxlength="30" class="validate" >
                           </div>
                           <div class="col-md-4">
-                            <label  class="labelProfil" for="CardTraveller.DiscountExpirationDate"> Date de validité </label>
+                            <label  class="labelProfil" for="card_traveller.DiscountExpirationDate"> Date de validité </label>
                           </div>
                           <div class="col-md-8">
                             <md-input-container flex-gt-md="30">
-                              <input mdc-datetime-picker="" date="true" time="false" type="text" id="DiscountExpirationDate" min-date="date" ng-model="CardTraveller.DiscountExpirationDate" class="datePicker_generic md-input">
+                              <input mdc-datetime-picker="" date="true" time="false" type="text" id="DiscountExpirationDate" min-date="date" ng-model="card_traveller.DiscountExpirationDate" class="datePicker_generic md-input">
                             </md-input-container>
                           </div>
                           <div class="row">

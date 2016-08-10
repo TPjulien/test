@@ -1,5 +1,5 @@
 tableau
-.controller "profilCtrl",($scope,$mdDialog,$http,$q,NgTableParams,store, jwtHelper) ->
+.controller "profilCtrl",($scope, $mdDialog, $http, NgTableParams, store, jwtHelper, $q) ->
     # data du profil
     if store.get('JWT')
       token           = store.get('JWT')
@@ -19,178 +19,81 @@ tableau
     uid                          =  decode[0].UID
     site_id                      =  decode[0].site_id
     community                    =  decode[0].home_community
-# Appel pour afficher les données profil de l'utilisateur
-    $scope.getprofilEmail = (uid) ->
-        $http
-            method: 'GET'
-            url: options.api.base_url + '/profilEmail/' + uid
-        .success (data) ->
-            $scope.profilEmail = data
-        .error (err) ->
+
+    # une mise à jour de profil
+    $scope.profilChange = (site_id, uid) ->
+        get_profil_email           = $http.get options.api.base_url + '/profilEmail/'   + uid
+        get_profil_phone           = $http.get options.api.base_url + '/profilPhone/'   + uid
+        get_card_traveller         = $http.get options.api.base_url + '/cardTraveller/' + uid
+        get_rail_loyalty           = $http.get options.api.base_url + '/rail_loyalty/'  + uid
+        get_air_loyalty            = $http.get options.api.base_url + '/air_loyalty/'   + uid
+        get_air_loyalty_air_france = $http.get options.api.base_url + '/air_loyaltyAF/' + uid
+        get_profil_change          = $http.get options.api.base_url + '/profils/' + site_id + uid
+
+        # requete plus propre et moins couteux en terme de ressource
+        $q.all([
+            get_profil_email
+            get_profil_phone
+            get_card_traveller
+            get_rail_loyalty
+            get_air_loyalty
+            get_air_loyalty_air_france
+            get_profil_change
+        ]).then (data) ->
+            $scope.profil_email   = data[0]
+            $scope.profil_phone   = data[1]
+            $scope.card_traveller = data[2]
+            $scope.rail_loyalty   = data[3]
+            $scope.air_loyalty    = data[4]
+            $scope.air_loyalty_af = data[5]
+            $scope.profils        = data[6]
+          .catch (err) ->
+            # toast en cas d'erreur
             console.log err
 
-# Appel pour afficher les données profil de l'utilisateur
-    $scope.getprofilPhone = (uid) ->
-        $http
-            method: 'GET'
-            url: options.api.base_url + '/profilPhone/' + uid
-        .success (data) ->
-            $scope.profilPhone = data
-        .error (err) ->
+    # on apelle une fois pour afficher les données avec le site_id et l'uid du cookies
+    $scope.profilChange(site_id, uid)
+
+#########################################################################
+    # une v2 de tous les call qu'on dispose
+    $scope.profilChange = (site_id, uid) ->
+        get_rail_class                = $http.get options.api.base_url + '/railClass'
+        get_rail_wagon_code           = $http.get options.api.base_url + '/railWagonCode'
+        get_rail_seat_position        = $http.get options.api.base_url + '/railSeatPosition'
+        get_rail_departure_station    = $http.get options.api.base_url + '/railDepartureStation'
+        get_provider                  = $http.get options.api.base_url + '/provider'
+        get_card_name                 = $http.get options.api.base_url + '/card_name'
+        get_rail_loyalty_program_code = $http.get options.api.base_url + '/rail_loyaltyprogramCode/'
+        get_air_seating_pref          = $http.get options.api.base_url + '/airSeatingPref'
+        get_country                   = $http.get options.api.base_url + '/getCountry'
+        get_community                 = $http.get options.api.base_url + '/community/' + site_id
+
+        # requete plus propre et moins couteux en terme de ressource
+        $q.all([
+            get_rail_class
+            get_rail_wagon_code
+            get_rail_seat_position
+            get_rail_departure_station
+            get_provider
+            get_card_name
+            get_rail_loyalty_program_code
+            get_air_seating_pref
+            get_country
+            get_community
+        ]).then (data) ->
+            $scope.rail_class                = data[0]
+            $scope.rail_wagon_code           = data[1]
+            $scope.rail_seat_position        = data[2]
+            $scope.rail_departure_station    = data[3]
+            $scope.provider                  = data[4]
+            $scope.card_name                 = data[5]
+            $scope.rail_loyalty_program_code = data[6]
+            $scope.air_seating_pref          = data[7]
+            $scope.country                   = data[8]
+            $scope.community                 = data[9]
+          .catch (err) ->
+            # toast en cas d'erreur
             console.log err
-
-# Appel pour lister les cartes voyageur du voyageur
-    $scope.getCardTraveller = (uid) ->
-        $http
-            method: 'GET'
-            url: options.api.base_url + '/cardTraveller/' + uid
-        .success (data) ->
-            $scope.cardTraveller = data
-            if $scope.cardTraveller.length == 0
-                $scope.TabRecupCardVoy = false
-            else
-                $scope.TabRecupCardVoy = true
-        .error (err) ->
-            console.log err
-# Appel pour lister les cartes de fidélité train d'un voyageur
-    $scope.getRail_loyalty = (uid) ->
-        $http
-            method: 'GET'
-            url: options.api.base_url + '/rail_loyalty/' + uid
-        .success (data) ->
-            $scope.rail_loyalty = data
-            if $scope.rail_loyalty.length == 0
-                $scope.TabRecupfideliteTrain = false
-            else
-                $scope.TabRecupfideliteTrain = true
-        .error (err) ->
-            console.log err
-# Appel pour lister les cartes de fidélité aérienne d'un voyageur
-    $scope.getAir_loyalty = (uid) ->
-        $http
-            method: 'GET'
-            url: options.api.base_url + '/air_loyalty/' + uid
-        .success (data) ->
-            $scope.air_loyalty = data
-        .error (err) ->
-            console.log err
-
-# Appel pour lister les cartes de fidélité aérienne d'un voyageur
-    $scope.getAir_loyaltyAF = (uid) ->
-        $http
-            method: 'GET'
-            url: options.api.base_url + '/air_loyaltyAF/' + uid
-        .success (data) ->
-            $scope.air_loyaltyAF = data
-        .error (err) ->
-            console.log err
-
-    $scope.profilchange = (site_id,uid) ->
-        $http
-            method: 'GET'
-            url: options.api.base_url + '/profils/' + site_id + '/' + uid
-        .success (data) ->
-            $scope.profils = data[0]
-            $scope.getprofilEmail(uid)
-            $scope.getprofilPhone(uid)
-            $scope.getCardTraveller(uid)
-            $scope.getRail_loyalty(uid)
-            $scope.getAir_loyalty(uid)
-            $scope.getAir_loyaltyAF(uid)
-            console.log '--profils--'
-            console.log $scope.profils
-        .error (err) ->
-            console.log err
-
-# Appel pour afficher les données profil de l'utilisateur
-    $http
-        method: 'GET'
-        url: options.api.base_url + '/profils/' + site_id + '/' + uid
-    .success (data) ->
-        $scope.profils = data[0]
-        uid = $scope.profils.UID
-        $scope.getprofilEmail(uid)
-        $scope.getprofilPhone(uid)
-        $scope.getCardTraveller(uid)
-        $scope.getRail_loyalty(uid)
-        $scope.getAir_loyalty(uid)
-        $scope.getAir_loyaltyAF(uid)
-    .error (err) ->
-        console.log err
-
-# Appel pour lister toutes les class voyageur pour le train
-    $http
-        method: 'GET'
-        url: options.api.base_url + '/railClass'
-    .success (data) ->
-        $scope.railClass = data
-    .error (err) ->
-        console.log err
-
-# Appel pour lister tout les emplacements sièges pour le train
-    $http
-        method: 'GET'
-        url: options.api.base_url + '/railWagonCode'
-    .success (data) ->
-        $scope.railWagonCode = data
-    .error (err) ->
-        console.log err
-
-# Appel pour lister toutes les preferences sens de la marche train railDepartureStation
-    $http
-        method: 'GET'
-        url: options.api.base_url + '/railSeatPosition'
-    .success (data) ->
-        $scope.railSeatPosition = data
-    .error (err) ->
-        console.log err
-
-# Appel pour lister toutes les villes preféré de depart train
-    $http
-        method: 'GET'
-        url: options.api.base_url + '/railDepartureStation'
-    .success (data) ->
-        $scope.railDepartureStation = data
-    .error (err) ->
-        console.log err
-
-# Appel pour lister toutes les villes preféré de depart train
-    $http
-        method: 'GET'
-        url: options.api.base_url + '/provider'
-    .success (data) ->
-        $scope.provider = data
-    .error (err) ->
-        console.log err
-
-# Appel pour lister les carte voyageur en fonction des compagnies férrovières
-    $scope.cardNameChange = (provider) ->
-      console.log 'looooooooooool'
-      $http
-          method: 'GET'
-          url: options.api.base_url + '/card_name/' + provider
-      .success (data) ->
-          $scope.card_name = data
-      .error (err) ->
-          console.log err
-
-# Appel pour lister les compagnies férrovières disponible pour les cartes de fidélités
-    $http
-        method: 'GET'
-        url:    options.api.base_url + '/rail_loyaltyprogramCode'
-    .success (data) ->
-        $scope.rail_loyaltyprogramCode = data
-    .error (err) ->
-        console.log err
-
-# Appel pour lister les cartes de fidélité train d'un voyageur
-    $http
-        method: 'GET'
-        url: options.api.base_url + '/airSeatingPref'
-    .success (data) ->
-        $scope.airSeatingPref = data
-    .error (err) ->
-        console.log err
 
     $scope.getusersCommunity = (site_id,community) ->
       $http
@@ -204,22 +107,6 @@ tableau
               page: 1
       .error (err) ->
           console.log err
-
-    $http
-        method: 'GET'
-        url:    options.api.base_url + '/getCountry'
-    .success (data) ->
-        $scope.country_phone = data
-    .error (err) ->
-        console.log err
-
-    $http
-        method: 'GET'
-        url:    options.api.base_url + '/community/' + site_id
-    .success (data) ->
-        $scope.community = data
-    .error (err) ->
-        console.log err
 
 #phone
     $scope.ajouterNum = true
@@ -320,19 +207,19 @@ tableau
       }
       if $scope.user.nomChargeVoyr
         $scope.listChargeVoy.push chargeVoySub
-        $scope.chargeVoySub = {}
-        $scope.chargeVoy = false
-        $scope.ajouterChargeVoy = true
+        $scope.chargeVoySub      = {}
+        $scope.chargeVoy         = false
+        $scope.ajouterChargeVoy  = true
         $scope.user.nomChargeVoy = null
 
 #Responsable de Voyage préféré
-    $scope.ajouterResponsable = true
-    $scope.responsable = false
+    $scope.ajouterResponsable   = true
+    $scope.responsable          = false
     $scope.showPanelResponsable = () ->
-      $scope.responsable = true
+      $scope.responsable        = true
       $scope.ajouterResponsable = false
     $scope.hidePanelResponsable = () ->
-      $scope.responsable = false
+      $scope.responsable        = false
       $scope.ajouterResponsable = true
 
     $scope.listResponsable = []
@@ -342,19 +229,19 @@ tableau
       }
       if $scope.user.responsable
         $scope.listResponsable.push responsableSub
-        $scope.responsableSub = {}
-        $scope.responsable = false
-        $scope.ajouterResponsable = true
+        $scope.responsableSub      = {}
+        $scope.responsable         = false
+        $scope.ajouterResponsable  = true
         $scope.user.nomResponsable = null
 
 #Passeport
-    $scope.ajouterPasseport = true
-    $scope.passeport = false
+    $scope.ajouterPasseport   = true
+    $scope.passeport          = false
     $scope.showPanelPasseport = () ->
-      $scope.passeport = true
+      $scope.passeport        = true
       $scope.ajouterPasseport = false
     $scope.hidePanelPasseport = () ->
-      $scope.passeport = false
+      $scope.passeport        = false
       $scope.ajouterPasseport = true
 
     $scope.listPasseport = []
@@ -364,19 +251,19 @@ tableau
       }
       if $scope.user.passeport
         $scope.listPasseport.push passeportSub
-        $scope.passeportSub = {}
-        $scope.passeport = false
-        $scope.ajouterPasseport = true
+        $scope.passeportSub      = {}
+        $scope.passeport         = false
+        $scope.ajouterPasseport  = true
         $scope.user.nomPasseport = null
 
 #Carte de fidélité
-    $scope.ajouterFidelite = true
-    $scope.fidelite = false
+    $scope.ajouterFidelite   = true
+    $scope.fidelite          = false
     $scope.showPanelFidelite = () ->
-      $scope.fidelite = true
+      $scope.fidelite        = true
       $scope.ajouterFidelite = false
     $scope.hidePanelFidelite = () ->
-      $scope.fidelite = false
+      $scope.fidelite        = false
       $scope.ajouterFidelite = true
 
     $scope.listFidelite = []
@@ -386,69 +273,69 @@ tableau
       }
       if $scope.user.fidelite
         $scope.listFidelite.push fideliteSub
-        $scope.fideliteSub = {}
-        $scope.fidelite = false
-        $scope.ajouterFidelite = true
+        $scope.fideliteSub      = {}
+        $scope.fidelite         = false
+        $scope.ajouterFidelite  = true
         $scope.user.nomFidelite = null
 
     $scope.ajouterFideliteTrain = true
-    $scope.CarteFideliteTrain = false
+    $scope.CarteFideliteTrain   = false
 
     $scope.showPanelCarteFideliteTrain = () ->
-      $scope.CarteFideliteTrain = true
-      $scope.ajouterFideliteTrain = false
+      $scope.CarteFideliteTrain    = true
+      $scope.ajouterFideliteTrain  = false
       $scope.TabRecupfideliteTrain = false;
     $scope.hidePanelCarteFideliteTrain = () ->
-      $scope.CarteFideliteTrain = false
-      $scope.ajouterFideliteTrain = true
+      $scope.CarteFideliteTrain    = false
+      $scope.ajouterFideliteTrain  = true
       $scope.TabRecupfideliteTrain = true;
 
-    $scope.listFideliteTrain = []
+    $scope.listFideliteTrain   = []
     $scope.submitFideliteTrain = ->
       fideliteTrainSub = {
         name: $scope.user.fideliteTrain
       }
       if $scope.user.fideliteTrain
         $scope.listFidelite.push fideliteSub
-        $scope.fideliteSub = {}
-        $scope.CarteFideliteTrain = false
-        $scope.ajouterFideliteTrain = true
+        $scope.fideliteSub           = {}
+        $scope.CarteFideliteTrain    = false
+        $scope.ajouterFideliteTrain  = true
         $scope.user.nomFideliteTrain = null
 
 #Carte de voyage
 
 
-    $scope.ajouterCarteVoy = true
-    $scope.carteVoy = false
+    $scope.ajouterCarteVoy   = true
+    $scope.carteVoy          = false
     $scope.showPanelCarteVoy = () ->
-      $scope.carteVoy = true
+      $scope.carteVoy        = true
       $scope.ajouterCarteVoy = false
       $scope.TabRecupCardVoy = false;
     $scope.hidePanelCarteVoy = () ->
-      $scope.carteVoy = false
+      $scope.carteVoy        = false
       $scope.ajouterCarteVoy = true
       $scope.TabRecupCardVoy = true;
 
-    $scope.listCarteVoy = []
+    $scope.listCarteVoy   = []
     $scope.submitCarteVoy = ->
       carteVoySub = {
         name: $scope.user.carteVoy
       }
       if $scope.user.carteVoy
         $scope.listCarteVoy.push carteVoySub
-        $scope.carteVoySub = {}
-        $scope.carteVoy = false
-        $scope.ajouterCarteVoy = true
+        $scope.carteVoySub      = {}
+        $scope.carteVoy         = false
+        $scope.ajouterCarteVoy  = true
         $scope.user.nomCarteVoy = null
 
 #Carte de fidélité Hotel
-    $scope.ajouterFideliteHotel = true
-    $scope.fideliteHotel = false
+    $scope.ajouterFideliteHotel   = true
+    $scope.fideliteHotel          = false
     $scope.showPanelFideliteHotel = () ->
-      $scope.fideliteHotel = true
+      $scope.fideliteHotel        = true
       $scope.ajouterFideliteHotel = false
     $scope.hidePanelFideliteHotel = () ->
-      $scope.fideliteHotel = false
+      $scope.fideliteHotel        = false
       $scope.ajouterFideliteHotel = true
 
     $scope.listFideliteHotel = []
@@ -458,9 +345,9 @@ tableau
       }
       if $scope.user.fideliteHotel
         $scope.listFideliteHotel.push fideliteHotelSub
-        $scope.fideliteHotelSub = {}
-        $scope.fideliteHotel = false
-        $scope.ajouterFideliteHotel = true
+        $scope.fideliteHotelSub      = {}
+        $scope.fideliteHotel         = false
+        $scope.ajouterFideliteHotel  = true
         $scope.user.nomFideliteHotel = null
 #Ajouter user
     $scope.ajouterUser = false
@@ -507,17 +394,13 @@ tableau
 
     arrayObjectIndexOf = (object, searchTerm,name) ->
         searchTerm = searchTerm.substring(0,1).toUpperCase()+searchTerm.substring(1);
-        if !searchTerm
-            console.log "no text"
-        else
+        if searchTerm
             getArray = toArray(object,name)
             result   = find(searchTerm, getArray)
             result2  = toObject(result, name)
             return result2
 
     $scope.getCodeNumber = (country, value) ->
-      # console.log country
-      console.log "ça passe toujour par la !"
       $http
           method: 'GET'
           url:    options.api.base_url + '/phoneCode/' + country
@@ -525,6 +408,7 @@ tableau
           console.log value
           $scope.getCountryNumberphone = data[0].phonecode
       .error (err) ->
+          # toast en cas d'erreur
           console.log err
 
     $scope.querySearch = (query,name) ->

@@ -13,16 +13,12 @@ tableau
     counter                  = 50
     $scope.datatable_columns = []
 
-    $scope.yourCallbackFun = (range, name) ->
-        console.log range, name
-
     # fonction qui permet d'avoir les données du bullet
     getBullet = (value) ->
         table = null
         name  = null
         # console.log value
         angular.forEach value, (name, key) ->
-            # console.log value[key].has_bullet_filter
             if value[key].has_bullet_filter != null
                 table = value[key]
                 $http
@@ -48,7 +44,7 @@ tableau
                 max:          max
         .success (data) ->
             if counter != 50 and data.datatable.length == 0
-                console.log "empty"
+                console.log "datatable empty"
             else
                 if $scope.datatable_columns.length == 0
                     $scope.datatable_columns = data.datatable
@@ -67,16 +63,12 @@ tableau
 
     # infinite scroll
     $scope.loadMore = () ->
-        # if $scope.information
         if (counter == 0)
             getDatatable($scope.data_table.datatable.length, $scope.data_table.datatable.length + 50)
             counter += 50
         else
             getDatatable(counter, 20)
             counter += 20
-        # console.log counter
-
-    # $scope.loadMore()
 
     $scope.getGenericRow = (value, width) ->
         result = []
@@ -84,7 +76,6 @@ tableau
         # on supprime le hashkey car inutile pour afficher les données
         delete value.$$hashKey
         for data, name of value
-            # console.log name
             if name == null
                 name = "donnée indisponible"
             # on vérifie si c'est une date time
@@ -168,8 +159,8 @@ tableau
                     get_filter_column_name = value_column
                 result = """<h5 class = "md-subhead"
                                 style = "text-align: left">
-                                Par """ + filters[name] +
-                          """ : </h5>"""
+                                Par """ + filters[name] + """ :
+                             </h5>"""
                 # faut trouver une moyen plus cool de faire cela dynamique
                 if name == 'has_search_filter'
                     dynamic_entry = "filterText(clientFacture,'" + get_filter_column_name + "')"
@@ -187,7 +178,6 @@ tableau
                         dynamic_entry = "filterText(value,  '" + get_filter_column_name + "')"
                         result       += '<md-radio-group ng-change = "' + dynamic_entry + '" &nbsp;
                                                          ng-model  = "value">'
-                        # so deep ! PEGI 18 !
                         generic_bullet += '<md-radio-button value = "all"
                                               class = "md-primary">
                                               Tous

@@ -6,7 +6,6 @@ tableau
 
     # obtenir le template de l'embed ainsi que sa valeur
     $scope.getTemplate = (value) ->
-        # console.log value.embed_content_type
         $scope.getController = value.embed_content_type + 'Ctrl'
         result_template      = 'templates/' + value.embed_content_type + '.html'
         return result_template

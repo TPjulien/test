@@ -17,9 +17,9 @@ tableau
           method: 'GET'
           url:    options.api.base_url + '/getListTemplate/' + id.site_id + '/' + id.view_id
       .success (data) ->
-          # console.log data
           $scope.getListTableau = data
       .error (err) ->
+          # toast en erreur
           console.log err
       $scope.id_number = id
 
