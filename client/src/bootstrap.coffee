@@ -32,6 +32,7 @@ tableau = angular.module 'tableauApp', [
   'md.data.table'
   'ngMaterialDatePicker'
   'smDateTimeRangePicker'
+  'ui.tree'
 ]
 
 options = {}

@@ -53,6 +53,10 @@
     height: 475px;
 }
 
+input {
+  color: black;
+}
+
 .img-header{
   float:right;
   height: 115px;

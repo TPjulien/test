@@ -1,7 +1,6 @@
 tableau
 .controller 'datatableCtrl', ($scope, $http, jwtHelper, store, $window, $filter, $stateParams, $sce) ->
 
-    console.log picker
     value                    = 50
     $scope.datatable         = []
     $scope.datatable_filters = []

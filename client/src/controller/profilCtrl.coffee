@@ -27,6 +27,7 @@ tableau
       .success (data) ->
           $scope.card_name = data
       .error (err) ->
+          # toas en cas d'erreur
           console.log err
 
     # une mise à jour de profil
@@ -87,6 +88,7 @@ tableau
             get_country
             get_community
         ]).then (data) ->
+            console.log data[6].data
             $scope.rail_class                = data[0].data
             $scope.rail_wagon_code           = data[1].data
             $scope.rail_seat_position        = data[2].data
@@ -126,11 +128,9 @@ tableau
 
     $scope.listNumTel = []
     $scope.submitUserPhone = (user_phone) ->
-
-        # console.log $scope.listNumTel
         phoneSub = {
-            PhoneNumber: user_phone
-            codeNumber:  $scope.getCountryNumberphone
+            phone_number : user_phone
+            code_number  : $scope.getCountryNumberphone
         }
         if user_phone && $scope.getCountryNumberphone
           $scope.listNumTel.push phoneSub
@@ -360,7 +360,6 @@ tableau
       $scope.ajouterUser = false
 
     toArray = (object,name) ->
-        console.log object, name
         data = []
         i = 0
         while i < object.length
@@ -397,7 +396,6 @@ tableau
       results
 
     arrayObjectIndexOf = (object, searchTerm,name) ->
-        console.log object, searchTerm, name
         searchTerm = searchTerm.substring(0,1).toUpperCase()+searchTerm.substring(1);
         if searchTerm
             getArray = toArray(object,name)
@@ -417,7 +415,6 @@ tableau
           console.log err
 
     $scope.querySearch = (query,name) ->
-        console.log $scope.rail_departure_station
         if (name == 'villeGare')
             result = arrayObjectIndexOf($scope.rail_departure_station, query,name)
         else

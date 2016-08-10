@@ -234,7 +234,7 @@
                     <div class="margin_NumTel">
                       <p ng-repeat="oneProfilPhone in profil_phone" class=" p_profil">{{oneProfilPhone.PhoneNumber}}<span><md-icon style="float:right" ng-click="deletePhoneNumber(oneProfilPhone.PhoneId)" class="right logo_crossDelete" md-svg-icon="img/icons/delete.svg"></md-icon></span><span ng-if="oneProfilPhone.PhoneUseType " style="float:right">[{{oneProfilPhone.PhoneUseType}}]</span></p>
                     </div>
-                    <p class="p_profil" ng-repeat="num in listNumTel">{{num.codeNumber}} {{num.phoneNumber}}</p>
+                    <p class="p_profil" ng-repeat="num in listNumTel"> +{{num.code_number}} {{num.phone_number}}</p>
                   </div>
                   <div class="row">
                     <div class="col-md-11">
@@ -637,7 +637,7 @@
                 <div class="col-md-9">
                   <md-input-container class="select_generic">
                     <md-select aria-label="airSeatingPref"  name="airSeatingPref" ng-model="profils.AirSeatingPref" >
-                      <md-option  ng-repeat="OneairSeatingPref in airSeatingPref" value="{{OneairSeatingPref.AirSeatingPref}}">{{OneairSeatingPref.AirSeatingPref}}</md-option>
+                      <md-option  ng-repeat="OneairSeatingPref in air_seating_pref" value="{{OneairSeatingPref.AirSeatingPref}}">{{OneairSeatingPref.AirSeatingPref}}</md-option>
                     </md-select>
                   </md-input-container>
                 </div>
@@ -736,8 +736,8 @@
                   </div>
                   <div class="col-md-9">
                     <md-input-container class="select_generic">
-                      <md-select aria-label="RailClass"  name="RailClass" ng-model="profils.RailClass" >
-                        <md-option ng-repeat="OnerailClass in railClass"  value="{{OnerailClass.RailClass}}">{{OnerailClass.RailClass}}</md-option>
+                      <md-select aria-label="rail_class"  name="rail_class" ng-model="profils.RailClass" >
+                        <md-option ng-repeat="OnerailClass in rail_class"  value="{{OnerailClass.RailClass}}">{{OnerailClass.RailClass}}</md-option>
                       </md-select>
                     </md-input-container>
                   </div>
@@ -748,8 +748,8 @@
                   </div>
                   <div class="col-md-9">
                     <md-input-container class="select_generic">
-                      <md-select aria-label="railWagonCode"  name="railWagonCode" ng-model="profils.RailWagonCode" >
-                        <md-option ng-repeat="OnerailWagonCode in railWagonCode" value="{{OnerailWagonCode.RailWagonCode}}">{{OnerailWagonCode.RailWagonCode}}</md-option>
+                      <md-select aria-label="rail_wagon_code"  name="rail_wagon_code" ng-model="profils.RailWagonCode" >
+                        <md-option ng-repeat="OnerailWagonCode in rail_wagon_code" value="{{OnerailWagonCode.RailWagonCode}}">{{OnerailWagonCode.RailWagonCode}}</md-option>
                       </md-select>
                     </md-input-container>
                   </div>
@@ -760,8 +760,8 @@
                   </div>
                   <div class="col-md-9">
                     <md-input-container class="select_generic">
-                      <md-select aria-label="railSeatPosition"  name="railSeatPosition" ng-model="profils.RailSeatPosition" >
-                        <md-option ng-repeat="OnerailSeatPosition in railSeatPosition" value="{{OnerailSeatPosition.RailSeatPosition}}">{{OnerailSeatPosition.RailSeatPosition}}</md-option>
+                      <md-select aria-label="rail_seat_position"  name="rail_seat_position" ng-model="profils.RailSeatPosition" >
+                        <md-option ng-repeat="OnerailSeatPosition in rail_seat_position" value="{{OnerailSeatPosition.RailSeatPosition}}">{{OnerailSeatPosition.RailSeatPosition}}</md-option>
                       </md-select>
                     </md-input-container>
                   </div>
