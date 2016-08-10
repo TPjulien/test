@@ -8,7 +8,7 @@ tableau
 
     $scope.anotherMail           = null
     $scope.getCountryNumberphone = null
-    $scope.numPhoneUser          = null
+    $scope.num_phone_user        = null
     $scope.getEmail              = null
     $scope.limitOptions          = [5, 10, 15]
     $scope.selected              = []
@@ -20,6 +20,15 @@ tableau
     site_id                      =  decode[0].site_id
     community                    =  decode[0].home_community
 
+    $scope.cardNameChange = (provider) ->
+      $http
+          method: 'GET'
+          url: options.api.base_url + '/card_name/' + provider
+      .success (data) ->
+          $scope.card_name = data
+      .error (err) ->
+          console.log err
+
     # une mise à jour de profil
     $scope.profilChange = (site_id, uid) ->
         get_profil_email           = $http.get options.api.base_url + '/profilEmail/'   + uid
@@ -28,7 +37,7 @@ tableau
         get_rail_loyalty           = $http.get options.api.base_url + '/rail_loyalty/'  + uid
         get_air_loyalty            = $http.get options.api.base_url + '/air_loyalty/'   + uid
         get_air_loyalty_air_france = $http.get options.api.base_url + '/air_loyaltyAF/' + uid
-        get_profil_change          = $http.get options.api.base_url + '/profils/' + site_id + uid
+        get_profil_change          = $http.get options.api.base_url + '/profils/' + site_id + '/' + uid
 
         # requete plus propre et moins couteux en terme de ressource
         $q.all([
@@ -40,13 +49,13 @@ tableau
             get_air_loyalty_air_france
             get_profil_change
         ]).then (data) ->
-            $scope.profil_email   = data[0]
-            $scope.profil_phone   = data[1]
-            $scope.card_traveller = data[2]
-            $scope.rail_loyalty   = data[3]
-            $scope.air_loyalty    = data[4]
-            $scope.air_loyalty_af = data[5]
-            $scope.profils        = data[6]
+            $scope.profil_email   = data[0].data
+            $scope.profil_phone   = data[1].data
+            $scope.card_traveller = data[2].data
+            $scope.rail_loyalty   = data[3].data
+            $scope.air_loyalty    = data[4].data
+            $scope.air_loyalty_af = data[5].data
+            $scope.profils        = data[6].data
           .catch (err) ->
             # toast en cas d'erreur
             console.log err
@@ -56,18 +65,16 @@ tableau
 
 #########################################################################
     # une v2 de tous les call qu'on dispose
-    $scope.profilChange = (site_id, uid) ->
+    getSubData = () ->
         get_rail_class                = $http.get options.api.base_url + '/railClass'
         get_rail_wagon_code           = $http.get options.api.base_url + '/railWagonCode'
         get_rail_seat_position        = $http.get options.api.base_url + '/railSeatPosition'
         get_rail_departure_station    = $http.get options.api.base_url + '/railDepartureStation'
         get_provider                  = $http.get options.api.base_url + '/provider'
-        get_card_name                 = $http.get options.api.base_url + '/card_name'
         get_rail_loyalty_program_code = $http.get options.api.base_url + '/rail_loyaltyprogramCode/'
         get_air_seating_pref          = $http.get options.api.base_url + '/airSeatingPref'
         get_country                   = $http.get options.api.base_url + '/getCountry'
         get_community                 = $http.get options.api.base_url + '/community/' + site_id
-
         # requete plus propre et moins couteux en terme de ressource
         $q.all([
             get_rail_class
@@ -75,26 +82,25 @@ tableau
             get_rail_seat_position
             get_rail_departure_station
             get_provider
-            get_card_name
             get_rail_loyalty_program_code
             get_air_seating_pref
             get_country
             get_community
         ]).then (data) ->
-            $scope.rail_class                = data[0]
-            $scope.rail_wagon_code           = data[1]
-            $scope.rail_seat_position        = data[2]
-            $scope.rail_departure_station    = data[3]
-            $scope.provider                  = data[4]
-            $scope.card_name                 = data[5]
-            $scope.rail_loyalty_program_code = data[6]
-            $scope.air_seating_pref          = data[7]
-            $scope.country                   = data[8]
-            $scope.community                 = data[9]
+            $scope.rail_class                = data[0].data
+            $scope.rail_wagon_code           = data[1].data
+            $scope.rail_seat_position        = data[2].data
+            $scope.rail_departure_station    = data[3].data
+            $scope.provider                  = data[4].data
+            $scope.rail_loyalty_program_code = data[5].data
+            $scope.air_seating_pref          = data[6].data
+            $scope.country                   = data[7].data
+            $scope.community                 = data[8].data
           .catch (err) ->
             # toast en cas d'erreur
             console.log err
 
+    getSubData()
     $scope.getusersCommunity = (site_id,community) ->
       $http
           method: 'GET'
@@ -119,26 +125,23 @@ tableau
       $scope.ajouterNum = true
 
     $scope.listNumTel = []
-    $scope.submitNumPhone = () ->
-      console.log "ça passe par la !"
-      console.log $scope.numPhoneUser
-      console.log $scope.getCountryNumberphone
-      phoneSub = {
-        code: $scope.getCountryNumberphone
-        numero: $scope.numPhoneUser
-      }
-      if $scope.numPhoneUser && $scope.getCountryNumberphone
-        $scope.listNumTel.push phoneSub
-        $scope.phoneSub              = {}
-        $scope.phone                 = false
-        $scope.ajouterNum            = true
-        $scope.getCountryNumberphone = null
-        $scope.numPhoneUser          = null
+    $scope.submitUserPhone = (user_phone) ->
+
+        # console.log $scope.listNumTel
+        phoneSub = {
+            PhoneNumber: user_phone
+            codeNumber:  $scope.getCountryNumberphone
+        }
+        if user_phone && $scope.getCountryNumberphone
+          $scope.listNumTel.push phoneSub
+          phoneSub                     = {}
+          $scope.phone                 = false
+          $scope.ajouterNum            = true
+          $scope.getCountryNumberphone = null
+          $scope.numPhoneUser          = null
 
     $scope.deletePhoneNumber = (id) ->
-        $scope.profilPhone[id-1].PhoneNumber = ''
-        console.log $scope.profilPhone[id]
-
+        $scope.profil_phone[id-1].PhoneNumber = ''
 
 #Mail
     $scope.ajouterMail = true
@@ -161,7 +164,7 @@ tableau
       }
       if mail
         $scope.listMail.push mailSub
-        scope.getEmail     = ''
+        $scope.getEmail     = ''
         $scope.mailSub     = {}
         $scope.mail        = false
         $scope.ajouterMail = true
@@ -357,6 +360,7 @@ tableau
       $scope.ajouterUser = false
 
     toArray = (object,name) ->
+        console.log object, name
         data = []
         i = 0
         while i < object.length
@@ -393,6 +397,7 @@ tableau
       results
 
     arrayObjectIndexOf = (object, searchTerm,name) ->
+        console.log object, searchTerm, name
         searchTerm = searchTerm.substring(0,1).toUpperCase()+searchTerm.substring(1);
         if searchTerm
             getArray = toArray(object,name)
@@ -405,15 +410,16 @@ tableau
           method: 'GET'
           url:    options.api.base_url + '/phoneCode/' + country
       .success (data) ->
-          console.log value
-          $scope.getCountryNumberphone = data[0].phonecode
+          if data.length > 0
+              $scope.getCountryNumberphone = data[0].phonecode
       .error (err) ->
           # toast en cas d'erreur
           console.log err
 
     $scope.querySearch = (query,name) ->
+        console.log $scope.rail_departure_station
         if (name == 'villeGare')
-            result = arrayObjectIndexOf($scope.railDepartureStation, query,name)
+            result = arrayObjectIndexOf($scope.rail_departure_station, query,name)
         else
-            result = arrayObjectIndexOf($scope.country_phone, query,name)
+            result = arrayObjectIndexOf($scope.country, query,name)
         return result

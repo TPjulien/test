@@ -25,7 +25,7 @@
   </div>
 
 <!-- mini nav-bar  pas deux ng-repeat ( 1 ng repeat global) faire un if avec un booleen-->
-<div show-gt-md class="menu blureffect fadein fadeout md-whiteframe-1dp" style=" max-width: 80px;">
+<div show-gt-md class="hide-on-med-and-down menu blureffect fadein fadeout md-whiteframe-1dp" style=" max-width: 80px;">
   <md-toolbar style="background-color:transparent; padding-top: 25px;">
       <span flex></span>
       <div ng-repeat="menu in viewMenu">
@@ -47,8 +47,8 @@
     margin-right: auto;
     margin-left: auto;">
 <!-- state home -->
-  <div  class="col s10 offset-s1">
-    <div ui-view class="anim-in-out" data-anim-speed="500">
+  <div  class="col s11 offset-s1">
+    <div style="position:absolute" ui-view class="anim-in-out anim-slide-below-fade col s10" data-anim-speed="500">
     </div>
   </div>
 </div>

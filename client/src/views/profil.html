@@ -234,11 +234,11 @@
                     <div class="margin_NumTel">
                       <p ng-repeat="oneProfilPhone in profil_phone" class=" p_profil">{{oneProfilPhone.PhoneNumber}}<span><md-icon style="float:right" ng-click="deletePhoneNumber(oneProfilPhone.PhoneId)" class="right logo_crossDelete" md-svg-icon="img/icons/delete.svg"></md-icon></span><span ng-if="oneProfilPhone.PhoneUseType " style="float:right">[{{oneProfilPhone.PhoneUseType}}]</span></p>
                     </div>
-                    <p class="p_profil" ng-repeat="num in listNumTel">{{num.code}} {{num.numero}}</p>
+                    <p class="p_profil" ng-repeat="num in listNumTel">{{num.codeNumber}} {{num.phoneNumber}}</p>
                   </div>
                   <div class="row">
                     <div class="col-md-11">
-                    <form ng-submit="submitNumPhone()">
+                    <form>
                       <div class="telephone panel" ng-if="phone">
                         <div class="panel-header panel-header_min">Ajouter un numéro de téléphone<md-icon ng-click="hidePanelTel()" class="right logo_lock" md-svg-icon="img/icons/delete-button.svg"></md-icon></div>
                         </br>
@@ -255,11 +255,11 @@
                           <input style="text-align: center;" class="input_codeCoutry" ng-disabled="user.pays_tel" type="text" ng-model="getCountryNumberphone">
                         </div>
                         <div class="col-md-8">
-                          <input class="input_design" name="numPhoneUser" type="text" ng-model="numPhoneUser" ng-minlength="1" ng-maxlength="30">
+                          <input class="input_design" name="numPhoneUser" type="text" ng-model="num_phone_user" ng-minlength="1" ng-maxlength="30">
                         </div>
                         <div class="row">
                           <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
-                            <button class="right md-raised btn btn-warning" type="submit" value="Submit">Ajouter</button>
+                            <button class="right md-raised btn btn-warning" ng-click="submitUserPhone(num_phone_user)" type="submit" value="Submit">Ajouter</button>
                           </div>
                         </div>
                         <div class="clear"></div>
