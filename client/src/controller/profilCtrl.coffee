@@ -1,9 +1,14 @@
 tableau
-.controller "profilCtrl",($scope, $mdDialog, $http, NgTableParams, store, jwtHelper, $q) ->
+.controller "profilCtrl",($scope, $mdDialog, $http, NgTableParams, store, jwtHelper, $q, toastErrorFct) ->
+
+    # toastErrorFct.toastError("Ceci est un toast pour voir s'il fonctionne 2")
+    # toastErrorFct.toastError("Ceci est un toast pour voir s'il fonctionne")
+
+
     # data du profil
     if store.get('JWT')
-      token           = store.get('JWT')
-      decode          = jwtHelper.decodeToken(token)
+      token               = store.get('JWT')
+      decode              = jwtHelper.decodeToken(token)
       $scope.get_username = decode[0].username
 
     $scope.anotherMail           = null
@@ -27,8 +32,9 @@ tableau
       .success (data) ->
           $scope.card_name = data
       .error (err) ->
-          # toas en cas d'erreur
-          console.log err
+          # toast en cas d'erreur
+          toastErrorFct.toastError("Impossible d'acceder au cartes du voyageur")
+          # console.log err
 
     # une mise à jour de profil
     $scope.profilChange = (site_id, uid) ->
@@ -58,8 +64,10 @@ tableau
             $scope.air_loyalty_af = data[5].data
             $scope.profils        = data[6].data
           .catch (err) ->
+            toastErrorFct.toastError("Impossible d'acceder au profil de l'utilisateur")
+
             # toast en cas d'erreur
-            console.log err
+            # console.log err
 
     # on apelle une fois pour afficher les données avec le site_id et l'uid du cookies
     $scope.profilChange(site_id, uid)
@@ -88,7 +96,6 @@ tableau
             get_country
             get_community
         ]).then (data) ->
-            console.log data[6].data
             $scope.rail_class                = data[0].data
             $scope.rail_wagon_code           = data[1].data
             $scope.rail_seat_position        = data[2].data
@@ -99,10 +106,13 @@ tableau
             $scope.country                   = data[7].data
             $scope.community                 = data[8].data
           .catch (err) ->
+            toastErrorFct.toastError("Impossible d'acceder aux information du voyageur")
+
             # toast en cas d'erreur
-            console.log err
+            # console.log err
 
     getSubData()
+
     $scope.getusersCommunity = (site_id,community) ->
       $http
           method: 'GET'
@@ -114,16 +124,18 @@ tableau
               limit: 5
               page: 1
       .error (err) ->
-          console.log err
+          toastErrorFct.toastError("Impossible d'acceder à la communauté du voyageur")
+          # mettre un toast en cas d'erreur
+          # console.log err
 
 #phone
-    $scope.ajouterNum = true
-    $scope.phone = false
+    $scope.ajouterNum   = true
+    $scope.phone        = false
     $scope.showPanelTel = () ->
-      $scope.phone = true
+      $scope.phone      = true
       $scope.ajouterNum = false
     $scope.hidePanelTel = () ->
-      $scope.phone = false
+      $scope.phone      = false
       $scope.ajouterNum = true
 
     $scope.listNumTel = []
@@ -140,23 +152,24 @@ tableau
           $scope.getCountryNumberphone = null
           $scope.numPhoneUser          = null
 
+    # Verifier la fiabilité du code
     $scope.deletePhoneNumber = (id) ->
         $scope.profil_phone[id-1].PhoneNumber = ''
 
 #Mail
-    $scope.ajouterMail = true
-    $scope.mail = false
+    $scope.ajouterMail   = true
+    $scope.mail          = false
     $scope.showPanelMail = () ->
-      $scope.mail = true
+      $scope.mail        = true
       $scope.ajouterMail = false
     $scope.hidePanelMail = () ->
-      $scope.mail = false
+      $scope.mail        = false
       $scope.ajouterMail = true
 
     $scope.listMail = []
 
-    $scope.testNum = () ->
-        console.log "Pays changé !"
+    # $scope.testNum = () ->
+    #     console.log "Pays changé !"
 
     $scope.submitMail = (mail) ->
       mailSub = {
@@ -306,8 +319,6 @@ tableau
         $scope.user.nomFideliteTrain = null
 
 #Carte de voyage
-
-
     $scope.ajouterCarteVoy   = true
     $scope.carteVoy          = false
     $scope.showPanelCarteVoy = () ->
@@ -411,8 +422,9 @@ tableau
           if data.length > 0
               $scope.getCountryNumberphone = data[0].phonecode
       .error (err) ->
+          toastErrorFct.toastError("Impossible d'afficher le code numéro")
           # toast en cas d'erreur
-          console.log err
+          # console.log err
 
     $scope.querySearch = (query,name) ->
         if (name == 'villeGare')

@@ -81,6 +81,10 @@ input {
     background-position: center;
     background-size: contain;
 }
+
+md-toast {
+    position: fixed;
+}
 .navbar-vertical{
   margin-top: 5px;
   position: absolute;
