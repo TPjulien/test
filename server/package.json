@@ -27,6 +27,8 @@
     "mysql": "^2.9.0",
     "mysql-promise": "^1.4.0",
     "node-rsa": "^0.2.30",
+    "passport": "^0.3.2",
+    "passport-saml": "^0.15.0",
     "password-hash-and-salt": "^0.1.2",
     "python-shell": "~0.3.0",
     "request": "^2.67.0",

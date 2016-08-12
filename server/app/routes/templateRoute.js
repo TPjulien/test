@@ -34,7 +34,6 @@ module.exports = function(router, connection) {
                       else {
                           // On build un JSON generique donner au client
                           var object           = {};
-                          var object_optimized = {};
                           var count            = result_embed_content_type.length;
                           // Ici on dit si c'est un datatable, un tableau, ou bien un embed dont on ne connait pas la nature
                           object.datatable     = [];

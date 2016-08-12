@@ -1,18 +1,43 @@
-var http      = require('http');
-var mysql     = require('mysql');
-var jwt       = require('jsonwebtoken');
-var NodeRSA   = require('node-rsa');
-var http_post = require('http-post');
-var request   = require('request');
-//var request   = request.defaults({jar: true});
-var key       = new NodeRSA({b: 512});
+var http         = require('http');
+var mysql        = require('mysql');
+var jwt          = require('jsonwebtoken');
+var NodeRSA      = require('node-rsa');
+var http_post    = require('http-post');
+var request      = require('request');
+var key          = new NodeRSA({b: 512});
 var httpsRequest = require('https-request');
-var pythonShell = require('python-shell');
-var pyshell = new pythonShell('test.py');
-
+var pythonShell  = require('python-shell');
+var pyshell      = new pythonShell('test.py');
+// ajout de la stratégie saml shibboleth, pour one-login
+var SamlStrategy = require('passport-saml').Strategy;
+var passport     = require('passport');
 
 request.defaults({jar: true});
 var j = request.jar();
+
+
+// shibboleth
+// passport.use(new SamlStrategy(
+//   {
+//     path :      '',
+//     entryPoint: '',
+//     issuer:     'passport-saml'
+//   },
+//   function(profile, done) {
+//       var query = "";
+//       var table = [];
+//       // requete sql pour verifier
+//       connection.query(query, function(err, rows) {
+//           if (err);
+//               res.status(400).send(err);
+//           else
+//               console.log(rows);
+//               console.log(profile);
+//               res.send(done);
+//               // Trouver un moyen pour le Saml
+//       })
+//   }
+// )
 
 module.exports = function(router, connection) {
     var table_password = "user_password";
@@ -44,7 +69,6 @@ module.exports = function(router, connection) {
             }
         })
     }
-
 
     // ancien login
     router.route('/login')

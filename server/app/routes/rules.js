@@ -1,5 +1,6 @@
 var mysql = require('mysql');
 
+// Faudrai reverifier les roles
 module.exports = function(router, connection) {
     router.route('/rules/:client_id/:user_id')
         .get (function(req, res) {

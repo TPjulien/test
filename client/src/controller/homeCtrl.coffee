@@ -20,7 +20,7 @@ tableau
           $scope.getListTableau = data
       .error (err) ->
           # toast en erreur
-          console.log err
+          toastErrorFct.toastError("Impossible de se connecter au serveur de menu, veuillez retenter plus tard")
       $scope.id_number = id
 
     $scope.numDisp = true;
@@ -30,7 +30,8 @@ tableau
         $scope.numDisp = true
 
     $scope.goTO = (site_id, view_id, view_label) ->
-      $mdSidenav('left').close()
+      # a mettre pour plus tard
+      # $mdSidenav('left').close()
       path = '/home/dashboard/' + view_id
       $location.path path
 
@@ -65,8 +66,7 @@ tableau
           # une fois qu'on a tous les menus, on lui demande d'aller sur la premiere page par défaut
           # $location.path '/home/dashboard/' + decode[0].site_id + '/' + $scope.viewMenu[0].view_id
     .error (err) ->
-        # Faire un toast en cas d'erreur
-        console.log err
+        toastErrorFct.toastError("Impossible de visualiser menu, veuillez retenter plus tard")
 
     $scope.logOut = () ->
         logoutFct.logOut()
@@ -81,7 +81,6 @@ tableau
     $scope.getImage = (src) ->
         url = "img/" + src
         return url
-
 
     # le menu de droite
     # debounce = (func, wait, context) ->
@@ -101,11 +100,5 @@ tableau
     #     .toggle()
     #     .then ->
     #   ), 200)
-    #
-    #
-    # createFilterFor = (query) ->
-    #     lowercaseQuery = angular.lowercase(query)
-    #     filterFn = (state) ->
-    #         state.value.indexOf(lowercaseQuery) == 0
     #
     # $scope.toggleLeft = buildDelayedToggler('left')

@@ -1,9 +1,8 @@
 tableau
 .controller "profilCtrl",($scope, $mdDialog, $http, NgTableParams, store, jwtHelper, $q, toastErrorFct) ->
 
-    # toastErrorFct.toastError("Ceci est un toast pour voir s'il fonctionne 2")
-    # toastErrorFct.toastError("Ceci est un toast pour voir s'il fonctionne")
 
+    toastErrorFct.toastError("Erreur blablabla")
 
     # data du profil
     if store.get('JWT')
@@ -32,9 +31,7 @@ tableau
       .success (data) ->
           $scope.card_name = data
       .error (err) ->
-          # toast en cas d'erreur
           toastErrorFct.toastError("Impossible d'acceder au cartes du voyageur")
-          # console.log err
 
     # une mise à jour de profil
     $scope.profilChange = (site_id, uid) ->
@@ -65,9 +62,6 @@ tableau
             $scope.profils        = data[6].data
           .catch (err) ->
             toastErrorFct.toastError("Impossible d'acceder au profil de l'utilisateur")
-
-            # toast en cas d'erreur
-            # console.log err
 
     # on apelle une fois pour afficher les données avec le site_id et l'uid du cookies
     $scope.profilChange(site_id, uid)
@@ -108,9 +102,6 @@ tableau
           .catch (err) ->
             toastErrorFct.toastError("Impossible d'acceder aux information du voyageur")
 
-            # toast en cas d'erreur
-            # console.log err
-
     getSubData()
 
     $scope.getusersCommunity = (site_id,community) ->
@@ -125,8 +116,6 @@ tableau
               page: 1
       .error (err) ->
           toastErrorFct.toastError("Impossible d'acceder à la communauté du voyageur")
-          # mettre un toast en cas d'erreur
-          # console.log err
 
 #phone
     $scope.ajouterNum   = true
@@ -167,9 +156,6 @@ tableau
       $scope.ajouterMail = true
 
     $scope.listMail = []
-
-    # $scope.testNum = () ->
-    #     console.log "Pays changé !"
 
     $scope.submitMail = (mail) ->
       mailSub = {
@@ -423,8 +409,6 @@ tableau
               $scope.getCountryNumberphone = data[0].phonecode
       .error (err) ->
           toastErrorFct.toastError("Impossible d'afficher le code numéro")
-          # toast en cas d'erreur
-          # console.log err
 
     $scope.querySearch = (query,name) ->
         if (name == 'villeGare')

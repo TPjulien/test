@@ -1,5 +1,5 @@
 tableau
-.controller 'loginVerifyCtrl', ($http, $location, $scope, $mdDialog, store, jwtHelper) ->
+.controller 'loginVerifyCtrl', ($http, $location, $scope, $mdDialog, store, jwtHelper, toastErrorFct) ->
 
     if store.get('JWT')
       token           = store.get('JWT')
@@ -19,6 +19,7 @@ tableau
                 $location.path '/login/verify/' + $scope.username
             else if (data.length > 1)
                 $location.path '/login/comunity/' + $scope.username
+            else
+                toastErrorFct.toastError("L'utilisateur : " + $scope.username + " n'existe pas")
         .error (err) ->
-            # ajouter un toas en cas d'erreur
-            console.log err
+            toastErrorFct.toastError("Impossible de se connecter au serveur de login, veuillez retenter plus tard")

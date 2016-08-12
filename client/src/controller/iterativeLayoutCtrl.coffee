@@ -24,5 +24,4 @@ tableau
     .success (data) ->
         $scope.details = data
     .error (err) ->
-        # ajouter un toast en cas d'erreur
-        console.log err
+        toastErrorFct.toastError("Une erreur est survenue lors de l'affichage de cette vue, veuillez retenter plus tard")
