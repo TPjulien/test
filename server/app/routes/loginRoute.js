@@ -17,32 +17,36 @@ var passport     = require('passport');
 
 
 // shibboleth
-// passport.use(new SamlStrategy(
-//   {
-//     path :      '/test/ressource',
-//     entryPoint: 'https://test.federation.renater.fr/test/ressource',
-//     issuer:     'passport-saml'
-//   },
-//   function(profile, done) {
-//       var query = "";
-//       var table = [];
-//       // requete sql pour verifier
-//       connection.query(query, function(err, rows) {
-//           if (err);
-//               res.status(400).send(err);
-//           else
-//               console.log(rows);
-//               console.log(profile);
-//               res.send(done);
-//               // Trouver un moyen pour le Saml
-//       })
-//   }
-// )
+
 
 module.exports = function(router, connection) {
     var table_password = "user_password";
     var table_username = "username";
     var table_login    = "user_info";
+
+    passport.use(new SamlStrategy(
+      {
+        path :      '/login/callback',
+        entryPoint: 'https://test.federation.renater.fr/idp/shibboleth',
+        issuer:     'passport-saml'
+      },
+      function(profile, done) {
+          var query = "";
+          var table = [];
+          console.log profile;
+          return done(null, profile);
+          // requete sql pour verifier
+          // connection.query(query, function(err, rows) {
+          //     if (err);
+          //         res.status(400).send(err);
+          //     else
+          //         console.log(rows);
+          //         console.log(profile);
+          //         res.send(done);
+                  // Trouver un moyen pour le Saml
+          })
+      }
+    )
 
     function getPassUser(loginUser, callback) {
         var query = "SELECT ?? FROM ?? WHERE ?? = ? AND ?? = ?";
@@ -108,10 +112,6 @@ module.exports = function(router, connection) {
                                       var token = jwt.sign(preToken, 'travelSecret', {
                                           expiresIn: 7200
                                       });
-                                      // Test d'environement pour savoir si oui ou non on recupere bien les bonnes infos
-                                      console.log(process.env.CALLBACK_URL);
-                                      console.log(process.env.ENTRY_POINT);
-                                      console.log(process.env.ISSUER);
                                       res.json({
                                         token: token
                                       });
@@ -168,6 +168,11 @@ module.exports = function(router, connection) {
         // permet de voir les communautés d'un utilisateur donné
         router.route('/loginProfils/:user')
           .get (function(req, res) {
+              return passport.authenticate('saml', function(err, user, info){
+                  console.log(err);
+                  console.log(user);
+                  console.log(info);
+              })
               var query = "SELECT * FROM ?? WHERE ?? = ? GROUP BY ??";
               var table = ['profils.view_tpa_extensions_libelle', "Login", req.params.user, 'site_libelle'];
               query     = mysql.format(query, table);
