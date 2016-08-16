@@ -27,8 +27,8 @@ module.exports = function(router, connection) {
     passport.use(new SamlStrategy(
       {
         path :      '/loginProfils',
-        entryPoint: 'https://test.federation.renater.fr/idp/shibboleth',
-        issuer:     'passport-saml'
+        entryPoint: 'https://test.federation.renater.fr/idp/profile/SAML2/Redirect/SSO',
+        issuer:     'https://test.federation.renater.fr/idp/shibboleth'
       },
       function(profile, done) {
           var query = "";
@@ -167,7 +167,7 @@ module.exports = function(router, connection) {
         //   })
         // permet de voir les communautés d'un utilisateur donné
         router.route('/loginProfils')
-          .post (passport.authenticate('saml', { failureRedirect: '', failureFlash: true }),
+          .post(passport.authenticate('saml', { failureRedirect: '', failureFlash: true }),
               function (req, res) {
                 console.log(res);
                 res.send('ça fonctionne !');

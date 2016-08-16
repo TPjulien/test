@@ -7,8 +7,10 @@ tableau
 
     getCommunity = () ->
         $http
-            method: 'GET'
-            url:    options.api.base_url + '/loginProfils/' + username
+            method: 'POST'
+            url:    options.api.base_url + '/loginProfils'
+            data:
+              username: username
         .success (data) ->
             $scope.communities = data
         .error (err) ->
