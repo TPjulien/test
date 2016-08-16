@@ -167,10 +167,10 @@ module.exports = function(router, connection) {
         //   })
         // permet de voir les communautés d'un utilisateur donné
         router.route('/loginProfils')
-          .post(passport.authenticate('saml', { failureRedirect: '', failureFlash: true }),
+          .post(passport.authenticate('saml', { failureRedirect: '/loginProfils' }),
               function (req, res) {
-                console.log(res);
-                res.send('ça fonctionne !');
+                // console.log(res);
+                res.status(200).send('ça fonctionne !');
           });
           // .get (function(req, res) {
           //     var query = "SELECT * FROM ?? WHERE ?? = ? GROUP BY ??";
