@@ -27,25 +27,17 @@ module.exports = function(router, connection) {
     passport.use(new SamlStrategy(
       {
         path :      '/loginProfils',
-        entryPoint: 'https://test.federation.renater.fr/idp/profile/SAML2/Redirect/SSO',
-        issuer:     'https://test.federation.renater.fr/idp/shibboleth'
+        entryPoint: 'https://shibboleth-test.main.ad.rit.edu/idp/profile/SAML2/Redirect/SSO'
+        // entryPoint: 'https://test.federation.renater.fr/idp/profile/SAML2/Redirect/SSO',
+        issuer:     'passport-saml'
+        // issuer:     'https://test.federation.renater.fr/idp/shibboleth'
       },
       function(profile, done) {
           var query = "";
           var table = [];
           console.log(profile);
           return done(null, profile);
-          // requete sql pour verifier
-          // connection.query(query, function(err, rows) {
-          //     if (err);
-          //         res.status(400).send(err);
-          //     else
-          //         console.log(rows);
-          //         console.log(profile);
-          //         res.send(done);
-                  // Trouver un moyen pour le Saml
           })
-      // }
     )
 
     function getPassUser(loginUser, callback) {
@@ -142,30 +134,6 @@ module.exports = function(router, connection) {
                   }
               })
           })
-        // On met en commentaire le SSO car inutilisable
-        // router.route('/SSO')
-        //   .get (function(req, res) {
-      	//       pythonShell.run('test.py', function(err, result) {
-      	// 	  if (err)
-      	// 	      throw err;
-      	// 	  else {
-      	// 	      console.log(result[0]);
-      	// 	      res.send(result[0]);
-      	// 	  }
-      	//       })
-      	//   })
-        //   .post (function(req, res) {
-        //       request.post('https://e-travelmanagement22.amadeus.com/portalApp/', { form : { LOGINNAME: req.body.username,
-        //                                                                             SITE:       'Q4OZQ4OZ',
-        //                                                                             LANGUAGE:   'FR',
-        //                                                                             LOGIN_TYPE: 'SSO',
-        //                                                                             PASSWORD:   req.body.password,
-        //                                                                             BOOKING_FLOW_TYPE: 'MODIFY'
-        //       }}, function(err, result, body) {
-        //           res.json(body);
-        //       });
-        //   })
-        // permet de voir les communautés d'un utilisateur donné
         router.route('/loginProfils')
           .post(passport.authenticate('saml', { failureRedirect: '/loginProfils' }),
               function (req, res) {
