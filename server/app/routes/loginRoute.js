@@ -26,14 +26,14 @@ module.exports = function(router, connection) {
 
     passport.use(new SamlStrategy(
       {
-        path :      '/login/callback',
+        path :      '/loginProfils',
         entryPoint: 'https://test.federation.renater.fr/idp/shibboleth',
         issuer:     'passport-saml'
       },
       function(profile, done) {
           var query = "";
           var table = [];
-          console.log profile;
+          console.log(profile);
           return done(null, profile);
           // requete sql pour verifier
           // connection.query(query, function(err, rows) {
@@ -166,21 +166,22 @@ module.exports = function(router, connection) {
         //       });
         //   })
         // permet de voir les communautés d'un utilisateur donné
-        router.route('/loginProfils/:user')
-          .get (function(req, res) {
-              return passport.authenticate('saml', function(err, user, info){
-                  console.log(err);
-                  console.log(user);
-                  console.log(info);
-              })
-              var query = "SELECT * FROM ?? WHERE ?? = ? GROUP BY ??";
-              var table = ['profils.view_tpa_extensions_libelle', "Login", req.params.user, 'site_libelle'];
-              query     = mysql.format(query, table);
-              connection.query(query, function(err, rows) {
-                  if (err)
-                      res.status(400).send(err);
-                  else
-                      res.json(rows);
-              })
-          })
+        router.route('/loginProfils')
+          .post (passport.authenticate('saml', { failureRedirect: '', failureFlash: true }),
+              function (req, res) {
+                console.log(res);
+                res.send('ça fonctionne !');
+          });
+          // .get (function(req, res) {
+          //     var query = "SELECT * FROM ?? WHERE ?? = ? GROUP BY ??";
+          //     var table = ['profils.view_tpa_extensions_libelle', "Login", req.params.user, 'site_libelle'];
+          //     query     = mysql.format(query, table);
+          //     connection.query(query, function(err, rows) {
+          //         if (err)
+          //             res.status(400).send(err);
+          //         else
+          //             res.json(rows);
+          //     })
+          // })
+
 };
