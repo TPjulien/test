@@ -7,20 +7,20 @@ var request      = require('request');
 var key          = new NodeRSA({b: 512});
 var httpsRequest = require('https-request');
 var pythonShell  = require('python-shell');
-var pyshell      = new pythonShell('test.py');
+// var pyshell      = new pythonShell('test.py');
 // ajout de la stratégie saml shibboleth, pour one-login
 var SamlStrategy = require('passport-saml').Strategy;
 var passport     = require('passport');
 
-request.defaults({jar: true});
-var j = request.jar();
+// request.defaults({jar: true});
+// var j = request.jar();
 
 
 // shibboleth
 // passport.use(new SamlStrategy(
 //   {
-//     path :      '',
-//     entryPoint: '',
+//     path :      '/test/ressource',
+//     entryPoint: 'https://test.federation.renater.fr/test/ressource',
 //     issuer:     'passport-saml'
 //   },
 //   function(profile, done) {
@@ -108,6 +108,10 @@ module.exports = function(router, connection) {
                                       var token = jwt.sign(preToken, 'travelSecret', {
                                           expiresIn: 7200
                                       });
+                                      // Test d'environement pour savoir si oui ou non on recupere bien les bonnes infos
+                                      console.log(process.env.CALLBACK_URL);
+                                      console.log(process.env.ENTRY_POINT);
+                                      console.log(process.env.ISSUER);
                                       res.json({
                                         token: token
                                       });
@@ -138,28 +142,29 @@ module.exports = function(router, connection) {
                   }
               })
           })
-        router.route('/SSO')
-          .get (function(req, res) {
-      	      pythonShell.run('test.py', function(err, result) {
-      		  if (err)
-      		      throw err;
-      		  else {
-      		      console.log(result[0]);
-      		      res.send(result[0]);
-      		  }
-      	      })
-      	  })
-          .post (function(req, res) {
-              request.post('https://e-travelmanagement22.amadeus.com/portalApp/', { form : { LOGINNAME: req.body.username,
-                                                                                    SITE:       'Q4OZQ4OZ',
-                                                                                    LANGUAGE:   'FR',
-                                                                                    LOGIN_TYPE: 'SSO',
-                                                                                    PASSWORD:   req.body.password,
-                                                                                    BOOKING_FLOW_TYPE: 'MODIFY'
-              }}, function(err, result, body) {
-                  res.json(body);
-              });
-          })
+        // On met en commentaire le SSO car inutilisable
+        // router.route('/SSO')
+        //   .get (function(req, res) {
+      	//       pythonShell.run('test.py', function(err, result) {
+      	// 	  if (err)
+      	// 	      throw err;
+      	// 	  else {
+      	// 	      console.log(result[0]);
+      	// 	      res.send(result[0]);
+      	// 	  }
+      	//       })
+      	//   })
+        //   .post (function(req, res) {
+        //       request.post('https://e-travelmanagement22.amadeus.com/portalApp/', { form : { LOGINNAME: req.body.username,
+        //                                                                             SITE:       'Q4OZQ4OZ',
+        //                                                                             LANGUAGE:   'FR',
+        //                                                                             LOGIN_TYPE: 'SSO',
+        //                                                                             PASSWORD:   req.body.password,
+        //                                                                             BOOKING_FLOW_TYPE: 'MODIFY'
+        //       }}, function(err, result, body) {
+        //           res.json(body);
+        //       });
+        //   })
         // permet de voir les communautés d'un utilisateur donné
         router.route('/loginProfils/:user')
           .get (function(req, res) {
