@@ -45,7 +45,7 @@ module.exports = function(router, connection) {
           //         res.send(done);
                   // Trouver un moyen pour le Saml
           })
-      }
+      // }
     )
 
     function getPassUser(loginUser, callback) {
