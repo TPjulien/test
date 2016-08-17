@@ -35,9 +35,19 @@ connection.connect(function(err) {
         console.log("connection etablished !");
 });
 
-app.use(cors({credentials: true}));
+// ajouter une whitelist pour Cors
+var whitelist = ['*'];
+var corsOptions = {
+  origin: function(origin, callback) {
+      console.log(origin);
+      var originIsWhiteListed = whitelist.indexOf(origin) !== -1;
+      callback(null, originIsWhiteListed);
+  }
+}
+
+// app.use(cors({credentials: true}));
+app.use(cors(corsOptions));
 // options pour accepter tout !
-app.options('*', cors());
 app.use(bodyParser.json({ extended: true }));
 app.use(bodyParser.json());
 

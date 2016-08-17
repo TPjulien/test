@@ -43,8 +43,14 @@ options.api.base_url = "http://151.80.121.123:3001/api"
 # prod
 # options.api.base_url = "https://tp-control.travelplanet.fr:3254/api"
 tableau
-.config (authProvider, $stateProvider, $urlRouterProvider, $httpProvider, jwtInterceptorProvider, $mdThemingProvider, pickerProvider) ->
+.config (authProvider, $stateProvider, $urlRouterProvider, $httpProvider, jwtInterceptorProvider, $mdThemingProvider, pickerProvider, $sceDelegateProvider) ->
     # console.log pickerProvider.setRangeDefaultList()
+    # Partie whiteList
+    $sceDelegateProvider
+    .resourceUrlWhitelist [
+        'self'
+        '**'
+    ]
     # Partie picker
     pickerProvider.setOkLabel 'Enregistrer'
     pickerProvider.setCancelLabel 'Fermer'
