@@ -25,8 +25,6 @@ tableau
         $http
             method: 'GET'
             url:    options.api.base_url + '/loginProfils'
-            headers:
-                'content-type': 'application/x-www-form-urlencoded'
         .success (data) ->
             console.log data
             console.log "ça fonctionne !"
