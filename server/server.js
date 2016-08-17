@@ -35,20 +35,26 @@ connection.connect(function(err) {
         console.log("connection etablished !");
 });
 
+// cors perso
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+});
+
 // ajouter une whitelist pour Cors
-var whitelist = ['http://localhost', 'https://tp-control.travelplanet.fr/**'];
-var corsOptions = {
-  origin: function(origin, callback) {
-      console.log(origin);
-      var originIsWhiteListed = whitelist.indexOf(origin) !== -1;
-      callback(null, originIsWhiteListed);
-  }
-}
+// var whitelist = ['http://localhost', 'https://tp-control.travelplanet.fr/**'];
+// var corsOptions = {
+//   origin: function(origin, callback) {
+//       console.log(origin);
+//       var originIsWhiteListed = whitelist.indexOf(origin) !== -1;
+//       callback(null, originIsWhiteListed);
+//   }
+// }
 
 // app.use(cors({credentials: true}));
 // app.use(cors(corsOptions));
 
-app.options('*', cors());
+// app.options('*', cors());
 // options pour accepter tout !
 app.use(bodyParser.json({ extended: true }));
 app.use(bodyParser.json());
