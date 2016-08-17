@@ -29,8 +29,8 @@ module.exports = function(router, connection) {
         path :      '/loginProfils',
         entryPoint: 'https://test.federation.renater.fr/idp/profile/SAML2/Redirect/SSO'
         // entryPoint: 'https://test.federation.renater.fr/idp/profile/SAML2/Redirect/SSO',
-        issuer:     'passport-saml'
-        // issuer:     'https://test.federation.renater.fr/idp/shibboleth'
+        // issuer:     'passport-saml'
+        issuer:     'https://test.federation.renater.fr/idp/shibboleth'
       },
       function(profile, done) {
           var query = "";
