@@ -11,34 +11,32 @@ tableau
     $scope.user_image_url       = '/img/travel_planet_logo.png'
 
     $scope.stepVerify = (ev) ->
-        settings =
-          'async': true
-          'crossDomain': true
-          'url': 'http://151.80.121.123:3001/api/loginProfils'
-          'method': 'POST'
-          'headers':
-            'cache-control': 'no-cache'
-            'postman-token': '0cb14738-fdaa-591a-cc59-309210cdc022'
-            'content-type': 'application/x-www-form-urlencoded'
-        $.ajax(settings).done (response) ->
-          console.log response
-        # $http
-        #     method: 'POST'
-        #     url:    options.api.base_url + '/loginProfils'
-        #     headers:
-        #         'content-type': 'application/x-www-form-urlencoded'
-        #     data:
-        #         username: $scope.username
-        # .success (data) ->
-        #     console.log data
-        #     console.log "ça fonctionne !"
-        #     $window.open(data, "_blank")
-        #     # console.log data
-        #     if (data.length == 1)
-        #         $location.path '/login/verify/' + $scope.username
-        #     else if (data.length > 1)
-        #         $location.path '/login/comunity/' + $scope.username
-        #     else
-        #         toastErrorFct.toastError("L'utilisateur : " + $scope.username + " n'existe pas")
-        # .error (err) ->
-        #     toastErrorFct.toastError("Impossible de se connecter au serveur de login, veuillez retenter plus tard")
+        # settings =
+        #   'async': true
+        #   'crossDomain': true
+        #   'url': 'http://151.80.121.123:3001/api/loginProfils'
+        #   'method': 'POST'
+        #   'headers':
+        #     'cache-control': 'no-cache'
+        #     'postman-token': '0cb14738-fdaa-591a-cc59-309210cdc022'
+        #     'content-type': 'application/x-www-form-urlencoded'
+        # $.ajax(settings).done (response) ->
+        #   console.log response
+        $http
+            method: 'GET'
+            url:    options.api.base_url + '/loginProfils'
+            headers:
+                'content-type': 'application/x-www-form-urlencoded'
+        .success (data) ->
+            console.log data
+            console.log "ça fonctionne !"
+            $window.open(data, "_blank")
+            # console.log data
+            if (data.length == 1)
+                $location.path '/login/verify/' + $scope.username
+            else if (data.length > 1)
+                $location.path '/login/comunity/' + $scope.username
+            else
+                toastErrorFct.toastError("L'utilisateur : " + $scope.username + " n'existe pas")
+        .error (err) ->
+            toastErrorFct.toastError("Impossible de se connecter au serveur de login, veuillez retenter plus tard")

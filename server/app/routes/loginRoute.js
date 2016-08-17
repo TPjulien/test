@@ -136,7 +136,7 @@ module.exports = function(router, connection) {
               })
           })
         router.route('/loginProfils')
-          .post(passport.authenticate('saml', { failureRedirect: '/loginProfils' }),
+          .get(passport.authenticate('saml', { failureRedirect: '/loginProfils' }),
               function (req, res) {
                 // console.log(res);
                 res.status(200).send('ça fonctionne !');
