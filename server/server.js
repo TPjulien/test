@@ -36,17 +36,17 @@ connection.connect(function(err) {
 });
 
 // ajouter une whitelist pour Cors
-var whitelist = ['*'];
-var corsOptions = {
-  origin: function(origin, callback) {
-      console.log(origin);
-      var originIsWhiteListed = whitelist.indexOf(origin) !== -1;
-      callback(null, originIsWhiteListed);
-  }
-}
+// var whitelist = ['http://localhost'];
+// var corsOptions = {
+//   origin: function(origin, callback) {
+//       console.log(origin);
+//       var originIsWhiteListed = whitelist.indexOf(origin) !== -1;
+//       callback(null, originIsWhiteListed);
+//   }
+// }
 
 // app.use(cors({credentials: true}));
-app.use(cors(corsOptions));
+app.use(cors());
 // options pour accepter tout !
 app.use(bodyParser.json({ extended: true }));
 app.use(bodyParser.json());
