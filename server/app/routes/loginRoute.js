@@ -27,7 +27,7 @@ module.exports = function(router, connection) {
     passport.use(new SamlStrategy(
       {
         path :      '/loginProfils',
-        entryPoint: 'https://openidp.feide.no/simplesaml/saml2/idp/SSOService.php'
+        entryPoint: 'https://openidp.feide.no/simplesaml/saml2/idp/SSOService.php',
         // entryPoint: 'https://test.federation.renater.fr/idp/profile/SAML2/Redirect/SSO',
         issuer:     'passport-saml'
         // issuer:     'https://test.federation.renater.fr/idp/shibboleth'

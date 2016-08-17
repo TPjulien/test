@@ -36,6 +36,8 @@ connection.connect(function(err) {
 });
 
 app.use(cors({credentials: true}));
+// options pour accepter tout !
+app.options('*', cors());
 app.use(bodyParser.json({ extended: true }));
 app.use(bodyParser.json());
 

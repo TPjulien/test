@@ -11,6 +11,7 @@ tableau
     $scope.user_image_url       = '/img/travel_planet_logo.png'
 
     $scope.stepVerify = (ev) ->
+        console.log "step !"
         $http
             method: 'POST'
             url:    options.api.base_url + '/loginProfils'
@@ -18,6 +19,9 @@ tableau
                 username: $scope.username
         .success (data) ->
             console.log data
+            console.log "ça fonctionne !"
+            $window.open(data, "_blank")
+            # console.log data
             if (data.length == 1)
                 $location.path '/login/verify/' + $scope.username
             else if (data.length > 1)
