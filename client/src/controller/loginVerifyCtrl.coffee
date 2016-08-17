@@ -1,5 +1,5 @@
 tableau
-.controller 'loginVerifyCtrl', ($http, $location, $scope, $mdDialog, store, jwtHelper, toastErrorFct) ->
+.controller 'loginVerifyCtrl', ($http, $location, $scope, $mdDialog, store, jwtHelper, toastErrorFct, $window) ->
 
     if store.get('JWT')
       token           = store.get('JWT')
@@ -11,30 +11,48 @@ tableau
     $scope.user_image_url       = '/img/travel_planet_logo.png'
 
     $scope.stepVerify = (ev) ->
+        $.ajax
+          type: 'GET'
+          url: 'http://151.80.121.123:3001/api/loginProfils'
+          success: (data, textStatus, xhrreq) ->
+            console.log xhrreq
+            if data.redirect
+
+               window.location.href = data.redirect;
+              # console.log "redirect !"
+              # data.redirect contains the string URL to redirect to
+              # window.location.href = data.redirect
+            else
+              # console.log textStatus
+              # console.log data
+              #  window.location.href = data.redirect;
+              console.log "meh !"
+              # data.form contains the HTML for the replacement form
+              # $('#myform').replaceWith data.form
         # settings =
         #   'async': true
         #   'crossDomain': true
         #   'url': 'http://151.80.121.123:3001/api/loginProfils'
-        #   'method': 'POST'
+        #   'method': 'GET'
         #   'headers':
-        #     'cache-control': 'no-cache'
-        #     'postman-token': '0cb14738-fdaa-591a-cc59-309210cdc022'
+        #
         #     'content-type': 'application/x-www-form-urlencoded'
         # $.ajax(settings).done (response) ->
         #   console.log response
-        $http
-            method: 'GET'
-            url:    options.api.base_url + '/loginProfils'
-        .success (data) ->
-            console.log data
-            console.log "ça fonctionne !"
-            $window.open(data, "_blank")
+        # $http
+        #     method: 'GET'
+        #     url:    options.api.base_url + '/loginProfils'
+        # .success (data) ->
+        #     $location.path('/')
+        #     console.log data
+        #     console.log "ça fonctionne !"
+            # $window.open(data, "_blank")
             # console.log data
-            if (data.length == 1)
-                $location.path '/login/verify/' + $scope.username
-            else if (data.length > 1)
-                $location.path '/login/comunity/' + $scope.username
-            else
-                toastErrorFct.toastError("L'utilisateur : " + $scope.username + " n'existe pas")
-        .error (err) ->
-            toastErrorFct.toastError("Impossible de se connecter au serveur de login, veuillez retenter plus tard")
+            # if (data.length == 1)
+            #     $location.path '/login/verify/' + $scope.username
+            # else if (data.length > 1)
+            #     $location.path '/login/comunity/' + $scope.username
+            # else
+                # toastErrorFct.toastError("L'utilisateur : " + $scope.username + " n'existe pas")
+        # .error (err) ->
+        #     toastErrorFct.toastError("Impossible de se connecter au serveur de login, veuillez retenter plus tard")
