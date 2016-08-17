@@ -7,6 +7,7 @@ var request      = require('request');
 var key          = new NodeRSA({b: 512});
 var httpsRequest = require('https-request');
 var pythonShell  = require('python-shell');
+var cors         = require('cors')
 // var pyshell      = new pythonShell('test.py');
 // ajout de la stratégie saml shibboleth, pour one-login
 var SamlStrategy = require('passport-saml').Strategy;

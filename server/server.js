@@ -35,15 +35,15 @@ connection.connect(function(err) {
         console.log("connection etablished !");
 });
 
-// cors perso
-app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept");
-    res.header("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE, OPTIONS");
-    res.header("Access-Control-Allow-Credentials", "true");
-    res.header("Access-Control-Max-Age", '86400');
-    next();
-});
+// // cors perso
+// app.use(function(req, res, next) {
+//     res.header("Access-Control-Allow-Origin", "*");
+//     res.header("Access-Control-Allow-Headers", "X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept");
+//     res.header("Access-Control-Allow-Methods", "POST, HEAD, GET, PUT, DELETE, OPTIONS");
+//     res.header("Access-Control-Allow-Credentials", "true");
+//     res.header("Access-Control-Max-Age", '86400');
+//     next();
+// });
 
 // ajouter une whitelist pour Cors
 // var whitelist = ['http://localhost', 'https://tp-control.travelplanet.fr/**'];
@@ -56,8 +56,9 @@ app.use(function(req, res, next) {
 // }
 
 // app.use(cors({credentials: true}));
-// app.use(cors(corsOptions));
+app.use(cors());
 
+// ajouter exceptionnelement le preflight sur loginprofils
 // app.options('*', cors());
 // options pour accepter tout !
 app.use(bodyParser.json({ extended: true }));
@@ -102,6 +103,9 @@ require('./app/routes/ipRoute')           (router, connection);
 require('./app/routes/profilRoute')       (router, connection);
 
 app.use('/api', router);
+
+// ajouter exceptionnelement le preflight
+app.options('/loginProfils', cors());
 
 var httpServer  = http.createServer(app);
 // var httpsServer = https.createServer(credentials, app);
