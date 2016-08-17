@@ -46,7 +46,9 @@ var corsOptions = {
 }
 
 // app.use(cors({credentials: true}));
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
+
+app.options('*', cors());
 // options pour accepter tout !
 app.use(bodyParser.json({ extended: true }));
 app.use(bodyParser.json());
