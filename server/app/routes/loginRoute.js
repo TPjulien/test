@@ -29,8 +29,9 @@ module.exports = function(router, connection) {
       {
         path :      '/Shibboleth.sso/SAML2/POST',
         entryPoint: 'https://test.federation.renater.fr/idp/profile/SAML2/Redirect/SSO',
-        issuer:     'https://test.federation.renater.fr/idp/shibboleth',
-        cert:       'https://federation.renater.fr/test/renater-test-metadata.xml'
+        issuer: 'https://test.federation.renater.fr/test/ressource'
+        // issuer:     'https://test.federation.renater.fr/idp/shibboleth',
+        // cert:       'https://federation.renater.fr/test/renater-test-metadata.xml'
       },
       function(profile, done) {
           var query = "";
