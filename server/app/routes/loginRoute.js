@@ -27,7 +27,7 @@ module.exports = function(router, connection) {
 
     passport.use(new SamlStrategy(
       {
-        path :      '/login/callback',
+        path :      '/Shibboleth.sso/SAML2/POST',
         entryPoint: 'https://test.federation.renater.fr/idp/profile/SAML2/Redirect/SSO',
         issuer:     'https://test.federation.renater.fr/idp/shibboleth',
         cert:       'https://federation.renater.fr/test/renater-test-metadata.xml'
@@ -39,6 +39,7 @@ module.exports = function(router, connection) {
           return done(null, profile);
           })
     )
+
 
     function getPassUser(loginUser, callback) {
         var query = "SELECT ?? FROM ?? WHERE ?? = ? AND ?? = ?";
@@ -65,6 +66,11 @@ module.exports = function(router, connection) {
             }
         })
     }
+    router.route('/Shibboleth.sso/SAML2/POST')
+        .post (function (req, res) {
+            console.log(req.body);
+            res.status(200).send(req.body);
+        })
 
     // ancien login
     router.route('/login')
