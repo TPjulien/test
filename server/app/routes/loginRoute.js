@@ -29,7 +29,7 @@ module.exports = function(router, connection) {
       {
         path :      '/login/callback',
         entryPoint: 'https://test.federation.renater.fr/idp/profile/SAML2/Redirect/SSO',
-        // issuer:     'Fédération Éducation-Recherche - IdP de Test',
+        issuer:     'https://test.federation.renater.fr/idp/shibboleth',
         cert:       'https://federation.renater.fr/test/renater-test-metadata.xml'
       },
       function(profile, done) {
