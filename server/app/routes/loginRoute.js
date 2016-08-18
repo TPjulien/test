@@ -28,7 +28,7 @@ module.exports = function(router, connection) {
     passport.use(new SamlStrategy(
       {
         path :      '/login/callback',
-        entryPoint: 'https://shibboleth-test.main.ad.rit.edu/idp/profile/SAML2/Redirect/SSO',
+        entryPoint: 'https://test.federation.renater.fr/idp/profile/SAML2/Redirect/SSO',
         issuer:     'passport-saml'
       },
       function(profile, done) {
@@ -134,7 +134,7 @@ module.exports = function(router, connection) {
               })
           })
         router.route('/loginProfils')
-          .get(passport.authenticate('saml', { failureRedirect: '/', failureFlash: true }),
+          .get(passport.authenticate('saml', { failureRedirect: '/',  }),
               function (req, res) {
                 res.status(200).send('ça fonctionne !');
           });
