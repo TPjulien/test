@@ -39,20 +39,21 @@ tableau
         #     'content-type': 'application/x-www-form-urlencoded'
         # $.ajax(settings).done (response) ->
         #   console.log response
-        # $http
-        #     method: 'GET'
-        #     url:    options.api.base_url + '/loginProfils'
-        # .success (data) ->
-        #     $location.path('/')
-        #     console.log data
-        #     console.log "ça fonctionne !"
+        $http
+            method: 'GET'
+            url:    options.api.base_url + '/loginProfils'
+        .success (data) ->
+            console.log data
+            # $location.path('/')
+            # console.log data
+            # console.log "ça fonctionne !"
             # $window.open(data, "_blank")
             # console.log data
-            # if (data.length == 1)
-            #     $location.path '/login/verify/' + $scope.username
-            # else if (data.length > 1)
-            #     $location.path '/login/comunity/' + $scope.username
-            # else
-                # toastErrorFct.toastError("L'utilisateur : " + $scope.username + " n'existe pas")
-        # .error (err) ->
-        #     toastErrorFct.toastError("Impossible de se connecter au serveur de login, veuillez retenter plus tard")
+            if (data.length == 1)
+                $location.path '/login/verify/' + $scope.username
+            else if (data.length > 1)
+                $location.path '/login/comunity/' + $scope.username
+            else
+                toastErrorFct.toastError("L'utilisateur : " + $scope.username + " n'existe pas")
+        .error (err) ->
+            toastErrorFct.toastError("Impossible de se connecter au serveur de login, veuillez retenter plus tard")

@@ -28,10 +28,8 @@ module.exports = function(router, connection) {
     passport.use(new SamlStrategy(
       {
         path :      '/login/callback',
-        // entryPoint: 'https://tp-control.travelplanet.fr/#/login/account',
-        entryPoint: 'https://test.federation.renater.fr/idp/profile/SAML2/Redirect/SSO',
+        entryPoint: 'https://shibboleth-test.main.ad.rit.edu/idp/profile/SAML2/Redirect/SSO',
         issuer:     'passport-saml'
-        // issuer:     'https://test.federation.renater.fr/idp/shibboleth'
       },
       function(profile, done) {
           var query = "";
