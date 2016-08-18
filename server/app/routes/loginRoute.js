@@ -29,8 +29,8 @@ module.exports = function(router, connection) {
       {
         path :      '/login/callback',
         entryPoint: 'https://test.federation.renater.fr/idp/profile/SAML2/Redirect/SSO',
-        issuer:     'Fédération Éducation-Recherche - IdP de Test',
-        // cert:       'https://federation.renater.fr/renater/idps-renater-metadata.xml'
+        // issuer:     'Fédération Éducation-Recherche - IdP de Test',
+        cert:       'https://federation.renater.fr/test/renater-test-metadata.xml'
       },
       function(profile, done) {
           var query = "";
