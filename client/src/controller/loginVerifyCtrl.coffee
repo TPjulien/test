@@ -7,6 +7,15 @@ tableau
       $scope.get_username = decode[0].username
       $location.path '/login/verify/' + $scope.get_username
 
+
+    # $http
+    #     method: 'GET'
+    #     url:    options.api.base_url + '/loginProfils'
+    # .success (data, status, headers, config) ->
+    #     console.log data
+        # $location.url('www.google.fr')
+        # console.log data
+
     $scope.background_image_url = '/img/default_account_wallpaper.jpg'
     $scope.user_image_url       = '/img/travel_planet_logo.png'
 
@@ -43,6 +52,7 @@ tableau
             method: 'GET'
             url:    options.api.base_url + '/loginProfils'
         .success (data) ->
+            $location.url('/')
             console.log data
             # $location.path('/')
             # console.log data

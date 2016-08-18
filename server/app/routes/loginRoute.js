@@ -29,7 +29,8 @@ module.exports = function(router, connection) {
       {
         path :      '/login/callback',
         entryPoint: 'https://test.federation.renater.fr/idp/profile/SAML2/Redirect/SSO',
-        issuer:     'passport-saml'
+        issuer:     'passport-saml',
+        cert:       'https://federation.renater.fr/renater/idps-renater-metadata.xml'
       },
       function(profile, done) {
           var query = "";
