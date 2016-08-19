@@ -28,7 +28,7 @@ module.exports = function(router, connection) {
 
     passport.use(new SamlStrategy(
       {
-        callbackUrl : '151.80.121.123:3001/api/login/callback'
+        callbackUrl : 'https://test.federation.renater.fr/Shibboleth.sso/SAML2/POST',
         // path :      '/Shibboleth.sso/SAML2/POST',
         entryPoint: 'https://test.federation.renater.fr/idp/profile/SAML2/Redirect/SSO',
         issuer:     'https://test.federation.renater.fr/test/ressource',
