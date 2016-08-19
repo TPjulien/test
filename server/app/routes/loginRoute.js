@@ -12,6 +12,7 @@ var cors         = require('cors')
 // ajout de la stratégie saml shibboleth, pour one-login
 var SamlStrategy = require('passport-saml').Strategy;
 var passport     = require('passport');
+var fs           = require('fs');
 
 // request.defaults({jar: true});
 // var j = request.jar();
@@ -27,12 +28,13 @@ module.exports = function(router, connection) {
 
     passport.use(new SamlStrategy(
       {
-        path :      '/Shibboleth.sso/SAML2/POST',
+        callbackUrl : '151.80.121.123:3001/api/login/callback'
+        // path :      '/Shibboleth.sso/SAML2/POST',
         entryPoint: 'https://test.federation.renater.fr/idp/profile/SAML2/Redirect/SSO',
-        issuer: 'https://test.federation.renater.fr/test/ressource',
-        authnRequestBinding: 'HTTP-POST'
+        issuer:     'https://test.federation.renater.fr/test/ressource',
+        cert:       fs.readFileSync('./app/crt/metadata-federation-renater.crt', 'utf-8')
+        // authnRequestBinding: 'HTTP-POST'
         // issuer:     'https://test.federation.renater.fr/idp/shibboleth',
-        // cert:       'https://federation.renater.fr/test/renater-test-metadata.xml'
       },
       function(profile, done) {
           var query = "";
@@ -150,7 +152,7 @@ module.exports = function(router, connection) {
 
         // Callback du login
         router.route('/login/callback')
-          .get(passport.authenticate('saml', { failureRedirect: '/', failureFlash: true}),
+          .get(passport.authenticate('saml', { failureRedirect: '/', failureFlash: false}),
           function(req, res) {
                 res.send("toto !");
           });
