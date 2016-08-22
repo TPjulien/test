@@ -143,7 +143,7 @@ module.exports = function(router, connection) {
           })
         // route de shibboleth
         router.route('/shibboleth')
-          .get(passport.authenticate('saml', { failureRedirect: '/',  }),
+          .get(passport.authenticate('saml', { failureRedirect: '/'  }),
               function (req, res) {
                 res.status(200).send('ça fonctionne !');
           });

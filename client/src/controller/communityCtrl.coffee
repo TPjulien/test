@@ -7,8 +7,8 @@ tableau
 
     getCommunity = () ->
         $http
-            method: 'POST'
-            url:    options.api.base_url + '/loginProfils'
+            method: 'GET'
+            url:    options.api.base_url + '/loginCheck/' + username
             data:
               username: username
         .success (data) ->

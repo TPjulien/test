@@ -20,22 +20,22 @@ tableau
     $scope.user_image_url       = '/img/travel_planet_logo.png'
 
     $scope.stepVerify = (ev) ->
-        $.ajax
-          type: 'GET'
-          url: 'http://151.80.121.123:3001/api/loginProfils'
-          success: (data, textStatus, xhrreq) ->
-            console.log xhrreq
-            if data.redirect
-
-               window.location.href = data.redirect;
+        # $.ajax
+        #   type: 'GET'
+        #   url: 'http://151.80.121.123:3001/api/loginProfils'
+        #   success: (data, textStatus, xhrreq) ->
+        #     console.log xhrreq
+        #     if data.redirect
+        #
+        #        window.location.href = data.redirect;
               # console.log "redirect !"
               # data.redirect contains the string URL to redirect to
               # window.location.href = data.redirect
-            else
+            # else
               # console.log textStatus
               # console.log data
               #  window.location.href = data.redirect;
-              console.log "meh !"
+              # console.log "meh !"
               # data.form contains the HTML for the replacement form
               # $('#myform').replaceWith data.form
         # settings =
@@ -50,10 +50,10 @@ tableau
         #   console.log response
         $http
             method: 'GET'
-            url:    options.api.base_url + '/loginProfils'
+            url:    options.api.base_url + '/loginCheck/' + $scope.username
         .success (data) ->
-            $location.url('/')
-            console.log data
+            # $location.url('/')
+            # console.log data
             # $location.path('/')
             # console.log data
             # console.log "ça fonctionne !"
