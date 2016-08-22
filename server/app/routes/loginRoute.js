@@ -29,12 +29,9 @@ module.exports = function(router, connection) {
     passport.use(new SamlStrategy(
       {
         callbackUrl : 'https://test.federation.renater.fr/Shibboleth.sso/SAML2/POST',
-        // path :      '/Shibboleth.sso/SAML2/POST',
         entryPoint: 'https://test.federation.renater.fr/idp/profile/SAML2/Redirect/SSO',
         issuer:     'https://test.federation.renater.fr/test/ressource',
         cert:       fs.readFileSync('./app/crt/metadata-federation-renater.crt', 'utf-8')
-        // authnRequestBinding: 'HTTP-POST'
-        // issuer:     'https://test.federation.renater.fr/idp/shibboleth',
       },
       function(profile, done) {
           var query = "";
@@ -144,28 +141,31 @@ module.exports = function(router, connection) {
                   }
               })
           })
-        router.route('/loginProfils')
+        // route de shibboleth
+        router.route('/shibboleth')
           .get(passport.authenticate('saml', { failureRedirect: '/',  }),
               function (req, res) {
                 res.status(200).send('ça fonctionne !');
           });
 
-        // Callback du login
+        // Callback du login shibboleth
         router.route('/login/callback')
           .get(passport.authenticate('saml', { failureRedirect: '/', failureFlash: false}),
           function(req, res) {
                 res.send("toto !");
           });
-          // .get (function(req, res) {
-          //     var query = "SELECT * FROM ?? WHERE ?? = ? GROUP BY ??";
-          //     var table = ['profils.view_tpa_extensions_libelle', "Login", req.params.user, 'site_libelle'];
-          //     query     = mysql.format(query, table);
-          //     connection.query(query, function(err, rows) {
-          //         if (err)
-          //             res.status(400).send(err);
-          //         else
-          //             res.json(rows);
-          //     })
-          // })
 
+        // login normal travel planet
+        router.route('/loginCheck/:user')
+          .get (function(req, res) {
+              var query = "SELECT * FROM ?? WHERE ?? = ? GROUP BY ??";
+              var table = ['profils.view_tpa_extensions_libelle', "Login", req.params.user, 'site_libelle'];
+              query     = mysql.format(query, table);
+              connection.query(query, function(err, rows) {
+                  if (err)
+                      res.status(400).send(err);
+                  else
+                      res.json(rows);
+              })
+          })
 };
