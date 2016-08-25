@@ -150,9 +150,14 @@ module.exports = function(router, connection) {
           });
 
         // Callback du login shibboleth
+        // router.route('/login/callback')
+        //   .post(passport.authenticate('saml', { failureRedirect: '/', failureFlash: false}),
+        //   function(req, res) {
+        //         res.send("toto !");
+        //
+
         router.route('/login/callback')
-          .post(passport.authenticate('saml', { failureRedirect: '/', failureFlash: false}),
-          function(req, res) {
+          .post (function(req, res) {
                 res.send("toto !");
           });
 
