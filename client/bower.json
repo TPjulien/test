@@ -59,7 +59,9 @@
     "jqlite": "jstools-jqlite#^0.2.39",
     "angular-material-datetimepicker": "^1.4.0",
     "smDateTimeRangePicker": "^1.6.1",
-    "angular-ui-tree": "^2.17.0"
+    "angular-ui-tree": "^2.17.0",
+    "md-joyride": "*",
+    "angular-tour": "^0.2.5"
   },
   "resolutions": {
     "angular": "~1.4.7"

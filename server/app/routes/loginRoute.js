@@ -28,10 +28,11 @@ module.exports = function(router, connection) {
 
     passport.use(new SamlStrategy(
       {
-        callbackUrl : 'https://test.federation.renater.fr/Shibboleth.sso/SAML2/POST',
-        entryPoint: 'https://test.federation.renater.fr/idp/profile/SAML2/Redirect/SSO',
-        issuer:     'https://test.federation.renater.fr/test/ressource',
-        cert:       fs.readFileSync('./app/crt/metadata-federation-renater.crt', 'utf-8')
+        path:         '/api/login/callback',
+        // callbackUrl : 'https://test.federation.renater.fr/Shibboleth.sso/SAML2/POST',
+        entryPoint  : 'https://test.federation.renater.fr/idp/profile/SAML2/Redirect/SSO',
+        issuer      : 'https://test.federation.renater.fr/test/ressource',
+        cert        : fs.readFileSync('./app/crt/metadata-federation-renater.crt', 'utf-8')
       },
       function(profile, done) {
           var query = "";
@@ -150,7 +151,7 @@ module.exports = function(router, connection) {
 
         // Callback du login shibboleth
         router.route('/login/callback')
-          .get(passport.authenticate('saml', { failureRedirect: '/', failureFlash: false}),
+          .post(passport.authenticate('saml', { failureRedirect: '/', failureFlash: false}),
           function(req, res) {
                 res.send("toto !");
           });

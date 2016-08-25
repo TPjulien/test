@@ -14,7 +14,6 @@ tableau
         .success (data) ->
             $scope.communities = data
         .error (err) ->
-            # toast
             toastErrorFct.toastError("Impossible de connecter au serveur de communauté, veuillez retenter plus tard")
 
     getCommunity()

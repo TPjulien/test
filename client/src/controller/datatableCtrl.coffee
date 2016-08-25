@@ -1,5 +1,5 @@
 tableau
-.controller 'datatableCtrl', ($scope, $http, jwtHelper, store, $window, $filter, $stateParams, $sce) ->
+.controller 'datatableCtrl', ($scope, $http, jwtHelper, store, $window, $filter, $stateParams, $sce, toastErrorFct) ->
 
     value                    = 50
     $scope.datatable         = []
@@ -56,8 +56,8 @@ tableau
                 if bullet_filters.length == 0
                     getBullet(data.datatable_width);
         .error (err) ->
-            # mettre un toast en cas d'erreur
-            console.log err
+            toastErrorFct.toastError("Impossible de connecter au serveur de table, veuillez retenter plus tard")
+
     getDatatable(0, 50)
 
     # infinite scroll
@@ -92,8 +92,7 @@ tableau
         $scope.datatable_filters = data.datatable_filters
         $scope.column_filter     = data.column_filter
     .error (err) ->
-        # faire un toast
-        console.log err
+        toastErrorFct.toastError("Impossible de connecter au serveur de table, veuillez retenter plus tard")
 
     $scope.getLabel = (value) ->
         return "Label test"

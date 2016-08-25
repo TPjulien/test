@@ -33,6 +33,7 @@ tableau = angular.module 'tableauApp', [
   'ngMaterialDatePicker'
   'smDateTimeRangePicker'
   'ui.tree'
+  'angular-tour'
 ]
 
 options = {}

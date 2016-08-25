@@ -1,5 +1,5 @@
 tableau
-.controller 'iterativeLayoutCtrl', ($scope, $stateParams, store, jwtHelper, $http) ->
+.controller 'iterativeLayoutCtrl', ($scope, $stateParams, store, jwtHelper, $http, toastErrorFct) ->
     token                = store.get('JWT')
     decode               = jwtHelper.decodeToken(token)
     $scope.getController = null
@@ -24,4 +24,4 @@ tableau
     .success (data) ->
         $scope.details = data
     .error (err) ->
-        toastErrorFct.toastError("Une erreur est survenue lors de l'affichage de cette vue, veuillez retenter plus tard")
+        toastErrorFct.toastError(err)

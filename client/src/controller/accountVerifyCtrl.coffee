@@ -1,12 +1,12 @@
 tableau
 .controller 'accountVerifyCtrl', ($scope, $location, $stateParams, $mdDialog, $http, ipFct, store, auth, jwtHelper, alertFct) ->
 
-    $scope.name = $stateParams.username
-    SITE_ID     = $stateParams.SITE_ID
-    Login       = $stateParams.Login
+    $scope.name                 = $stateParams.username
+    SITE_ID                     = $stateParams.SITE_ID
+    Login                       = $stateParams.Login
     $scope.user_image_url       = '/img/user_account.png'
     $scope.background_image_url = '/img/wallpaper_account.jpg'
-    $scope.data = []
+    $scope.data                 = []
 
     verifyAccount = ->
         $http

@@ -1,5 +1,5 @@
 tableau
-.controller 'homeCtrl', ($scope, $mdSidenav, $timeout, logoutFct, jwtHelper, store, $http, $stateParams, $location, $interval, $rootScope, $sce, $mdDialog, $window) ->
+.controller 'homeCtrl', ($scope, $mdSidenav, $timeout, logoutFct, jwtHelper, store, $http, $stateParams, $location, $interval, $rootScope, $sce, $mdDialog, $window, toastErrorFct) ->
     token                 = store.get('JWT')
     decode                = jwtHelper.decodeToken(token)
     $rootScope.color      = "#EAEAEA"
@@ -29,11 +29,30 @@ tableau
     else if(window.screen.width > 1024)
         $scope.numDisp = true
 
-    $scope.goTO = (site_id, view_id, view_label) ->
+    # $scope.goTO = (site_id, view_id, view_label, ev) ->
+    #   params = [{
+    #       title: 'Click button if you want',
+    #       description: 'Just by giving button ID, mdJoyride clicks the' +
+    #                    ' button before focusing an element',
+    #       buttonType: 'back-next',
+    #       elementId: 'elementId2',
+    #       position: 'bottom',
+    #       beforeClickButtonId: 'menu-button-id2'
+    #   }]
+    #   $mdJoyride.ride(params)
+      # Permet d'ajouter l'alert en cas de multiple View
+      # $mdDialog.show
+      #   controller:          'multipleViewCtrl'
+      #   templateUrl:         'modals/multipleView.html'
+      #   parent:              angular.element(document.body)
+      #   targetEvent:         ev
+      #   clickOutsideToClose: true
+      #   escapeToClose:       true
+      #   openFrom:            'left'
       # a mettre pour plus tard
       # $mdSidenav('left').close()
-      path = '/home/dashboard/' + view_id
-      $location.path path
+      # path = '/home/dashboard/' + view_id
+      # $location.path path
 
     $scope.getColor = (color) ->
       css = 'background-color:' + color
