@@ -71,6 +71,24 @@ module.exports = function(router, connection) {
 
         })
 
+    // Nouvelle route pour menu
+    router.route('/getMenu')
+        .post(function(req, res) {
+            var user_auth = req.body.user_auth;
+            var site_id   = req.body.site_id;
+            var user_id   = req.body.user_id;
+            var query     = "SELECT DISTINCT ?? FROM ?? WHERE ?? IN ( SELECT ?? FROM ?? WHERE ?? = ? AND ?? = ? ) AND ?? = ?";
+            var table     = ["view_id", "tp_control.View_Role_WIP", "ROLE_ID", "ROLE", "tp_control.user_roles", "SITE_ID", site_id, "USER_ID", user_id, "SITE_ID", site_id];
+            query         = mysql.format(query, table);
+            connection.query(query, function(err, result_menu) {
+                if (err)
+                    res.status(400).send(err);
+                else {
+                    res.json(result_menu);
+                }
+            })
+        })
+
     router.route('/getViewSite/:site/:role_id')
         .get(function(req, res) {
             var auth_id      = "ai."        + req.params.role_id;

@@ -29,34 +29,40 @@ tableau
     else if(window.screen.width > 1024)
         $scope.numDisp = true
 
-    # $scope.goTO = (site_id, view_id, view_label, ev) ->
-    #   params = [{
-    #       title: 'Click button if you want',
-    #       description: 'Just by giving button ID, mdJoyride clicks the' +
-    #                    ' button before focusing an element',
-    #       buttonType: 'back-next',
-    #       elementId: 'elementId2',
-    #       position: 'bottom',
-    #       beforeClickButtonId: 'menu-button-id2'
-    #   }]
-    #   $mdJoyride.ride(params)
-      # Permet d'ajouter l'alert en cas de multiple View
-      # $mdDialog.show
-      #   controller:          'multipleViewCtrl'
-      #   templateUrl:         'modals/multipleView.html'
-      #   parent:              angular.element(document.body)
-      #   targetEvent:         ev
-      #   clickOutsideToClose: true
-      #   escapeToClose:       true
-      #   openFrom:            'left'
+    $scope.goTO = (site_id, view_id, view_label, ev) ->
+      console.log "one more time!"
       # a mettre pour plus tard
-      # $mdSidenav('left').close()
-      # path = '/home/dashboard/' + view_id
-      # $location.path path
+      $mdSidenav('left').close()
+      path = '/home/dashboard/' + view_id
+      $location.path path
 
     $scope.getColor = (color) ->
       css = 'background-color:' + color
       return css
+
+
+    # Html pour le menu comme je dois verifier si oui ou non la requete fonctionne
+    $scope.bindMenu = () ->
+        # console.log $scope.viewMenu
+        after  = "<p>Bonjour tout le monde !</p>"
+
+        before = """<md-toolbar style="background-color:transparent; padding-top: 25px;">
+              <span flex></span>
+              <div angular-popover direction="right" close-on-click="false" template-url="/modals/right.html" mode="click" close-on-mouseleave="true" style="position: relative;" ng-repeat="menu in viewMenu">
+                <div ng-if="menu.view_label !='Business Intelligence'" tooltips tooltip-template="{{menu.view_label}}" tooltip-side="bottom" ng-click="goTO(menu.site_id, menu.view_id, menu.view_label)"  class="tile-small" data-period="{{menu.view_position}}" data-duration="250" data-role="tile" data-effect="{{menu.animation}}">
+                    <div class="tile-content">
+                        <div class="live-slide tiles_size" style="{{getColor(menu.view_color)}};" layout-padding="">
+                            <img ng-src="{{getImage(menu.view_icon)}}">
+                        </div>
+                        <div class="live-slide tiles_size" style="{{getColor(menu.view_color)}};" layout-padding="">
+                            <img ng-src="{{getImage(menu.view_icon)}}">
+                        </div>
+                    </div>
+                </div>
+              </div>
+          </md-toolbar>"""
+        return $sce.trustAsHtml before
+
 
     getRandomNumber = () ->
       min = 2000;
@@ -73,19 +79,34 @@ tableau
       else
         return "slideRight"
         #encoder url
-    $http
-        method: 'GET'
-        url:    options.api.base_url + '/getViewSite' + '/' + decode[0].site_id + '/' + decode[0].user_auth
-    .success (result) ->
-        $scope.viewMenu = result
-        for values in $scope.viewMenu
-          values.view_position = getRandomNumber(1)
-          values.animation     = null
-          values.animation     = getRandomAnimation()
-          # une fois qu'on a tous les menus, on lui demande d'aller sur la premiere page par défaut
-          # $location.path '/home/dashboard/' + decode[0].site_id + '/' + $scope.viewMenu[0].view_id
-    .error (err) ->
-        toastErrorFct.toastError("Impossible de visualiser menu, veuillez retenter plus tard")
+    getMenu = () ->
+        console.log "futuresex lovesound"
+        console.log decode[0]
+
+        $http
+            method: 'POST'
+            url:    options.api.base_url + '/getMenu'
+            data:
+                site_id   : decode[0].site_id
+                user_auth : decode[0].user_auth
+                user_id   : decode[0].UID
+        .success (data) ->
+            console.log data
+        .error (err) ->
+            console.log err
+    # $http
+    #     method: 'GET'
+    #     url:    options.api.base_url + '/getViewSite' + '/' + decode[0].site_id + '/' + decode[0].user_auth
+    # .success (result) ->
+    #     $scope.viewMenu = result
+    #     for values in $scope.viewMenu
+    #       values.view_position = getRandomNumber(1)
+    #       values.animation     = null
+    #       values.animation     = getRandomAnimation()
+    #       # une fois qu'on a tous les menus, on lui demande d'aller sur la premiere page par défaut
+    #       # $location.path '/home/dashboard/' + decode[0].site_id + '/' + $scope.viewMenu[0].view_id
+    # .error (err) ->
+    #     toastErrorFct.toastError("Impossible de visualiser menu, veuillez retenter plus tard")
 
     $scope.logOut = () ->
         logoutFct.logOut()

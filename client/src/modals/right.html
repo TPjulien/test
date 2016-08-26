@@ -1,0 +1,14 @@
+<div layout-padding="" style="width: 325px; background-color:#2196F3" ng-controller="multipleViewCtrl">
+  <!-- <p>Rechercher dans la liste</p> -->
+  <div class="row">
+      <div ng-repeat="test in tests" class="col s4" style="text-align:center">
+          <div ng-click="goTO(menu.site_id, menu.view_id, menu.view_label, $event)"  class="tile-small" data-period="500" data-duration="250" data-role="tile" data-effect="200">
+              <div class="tile-content">
+                  <div class="live-slide tiles_size" style="background-color:blue;" layout-padding="">
+                      <img ng-src="/img/{{test.img}}">
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
