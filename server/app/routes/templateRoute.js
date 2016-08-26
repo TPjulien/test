@@ -77,8 +77,16 @@ module.exports = function(router, connection) {
             var user_auth = req.body.user_auth;
             var site_id   = req.body.site_id;
             var user_id   = req.body.user_id;
-            var query     = "SELECT DISTINCT ?? FROM ?? WHERE ?? IN ( SELECT ?? FROM ?? WHERE ?? = ? AND ?? = ? ) AND ?? = ?";
-            var table     = ["view_id", "tp_control.View_Role_WIP", "ROLE_ID", "ROLE", "tp_control.user_roles", "SITE_ID", site_id, "USER_ID", user_id, "SITE_ID", site_id];
+            var query     = "SELECT * FROM ?? WHERE ?? IN \
+                              ( SELECT DISTINCT ?? FROM ?? WHERE ?? IN \
+                                ( SELECT ?? FROM ?? WHERE ?? = ? AND ?? = ? ) \
+                                AND ?? = ? ) \
+                              AND ?? = ?";
+            var table     = ["tp_control.View_WIP", "VIEW_ID",
+                             "view_id", "tp_control.View_Role_WIP", "ROLE_ID",
+                             "ROLE", "tp_control.user_roles", "SITE_ID", site_id, "USER_ID", user_id,
+                             "SITE_ID", site_id,
+                             "SITE_ID", site_id];
             query         = mysql.format(query, table);
             connection.query(query, function(err, result_menu) {
                 if (err)

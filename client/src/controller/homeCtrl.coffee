@@ -80,9 +80,8 @@ tableau
         return "slideRight"
         #encoder url
     getMenu = () ->
-        console.log "futuresex lovesound"
-        console.log decode[0]
-
+        # console.log "futuresex lovesound"
+        # console.log decode[0]
         $http
             method: 'POST'
             url:    options.api.base_url + '/getMenu'
@@ -94,6 +93,7 @@ tableau
             console.log data
         .error (err) ->
             console.log err
+    getMenu()
     # $http
     #     method: 'GET'
     #     url:    options.api.base_url + '/getViewSite' + '/' + decode[0].site_id + '/' + decode[0].user_auth
