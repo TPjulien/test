@@ -1,5 +1,5 @@
 tableau
-.controller 'homeCtrl', ($scope, $mdSidenav, $timeout, logoutFct, jwtHelper, store, $http, $stateParams, $location, $interval, $rootScope, $sce, $mdDialog, $window, toastErrorFct) ->
+.controller 'homeCtrl', ($scope, $mdSidenav, $timeout, logoutFct, jwtHelper, store, $http, $stateParams, $location, $interval, $rootScope, $sce, $mdDialog, $window, toastErrorFct, $q) ->
     token                 = store.get('JWT')
     decode                = jwtHelper.decodeToken(token)
     $rootScope.color      = "#EAEAEA"
@@ -40,28 +40,64 @@ tableau
       css = 'background-color:' + color
       return css
 
+    # fonction pour appeller en cas de popover
+
 
     # Html pour le menu comme je dois verifier si oui ou non la requete fonctionne
     $scope.bindMenu = () ->
-        # console.log $scope.viewMenu
-        after  = "<p>Bonjour tout le monde !</p>"
+        # on prend une variable variable et on le stocke
 
-        before = """<md-toolbar style="background-color:transparent; padding-top: 25px;">
-              <span flex></span>
-              <div angular-popover direction="right" close-on-click="false" template-url="/modals/right.html" mode="click" close-on-mouseleave="true" style="position: relative;" ng-repeat="menu in viewMenu">
-                <div ng-if="menu.view_label !='Business Intelligence'" tooltips tooltip-template="{{menu.view_label}}" tooltip-side="bottom" ng-click="goTO(menu.site_id, menu.view_id, menu.view_label)"  class="tile-small" data-period="{{menu.view_position}}" data-duration="250" data-role="tile" data-effect="{{menu.animation}}">
-                    <div class="tile-content">
-                        <div class="live-slide tiles_size" style="{{getColor(menu.view_color)}};" layout-padding="">
-                            <img ng-src="{{getImage(menu.view_icon)}}">
-                        </div>
-                        <div class="live-slide tiles_size" style="{{getColor(menu.view_color)}};" layout-padding="">
-                            <img ng-src="{{getImage(menu.view_icon)}}">
-                        </div>
-                    </div>
-                </div>
-              </div>
-          </md-toolbar>"""
-        return $sce.trustAsHtml before
+        get_infos = []
+        final_infos = []
+        angular.forEach $scope.viewMenu, (result, key) ->
+            get_infos.push result['VIEW_ID']
+
+
+
+        console.log get_infos.map
+        if get_info.length > 0
+            full_link = get_infos.map (view_id) ->
+                return options.api.base_url + '/getMultipleView/' + view_id + '/' + decode[0].SITE_ID
+
+            $q.all(full_link.map((url) ->
+                $http.get(url).success (data) ->
+                   final_infos.push data: data
+            )).then ->
+                console.log $final_infos
+
+            # console.log result['SITE_ID'], result['VIEW_ID']
+            # $http
+            #     method : 'GET'
+            #     url    : options.api.base_url + '/getMultipleView/' + result['SITE_ID'] + '/' + result['VIEW_ID']
+            # .success (data) ->
+            #     menu = """<p>Bonjour tout le monde ! </p>"""
+            #     console.log data
+            # .error (err) ->
+            #     console.log err
+            # console.log result['SITE_ID'], result['VIEW_ID']
+        # console.log $scope.viewMenu
+        # after  = "<p>Bonjour tout le monde !</p>"
+        # intro_div = """
+        #            <md-toolbar style="background-color:transparent; padding-top: 25px;">
+        #               <span flex></span>
+        #         """
+        # check_popover = """<div angular-popover direction="right" close-on-click="false" template-url="/modals/right.html" mode="click" close-on-mouseleave="true" style="position: relative;" ng-repeat="menu in viewMenu">"""
+        # final_div = """
+        #               <div tooltips tooltip-template="{{menu.VIEW_LABEL}}" tooltip-side="bottom" ng-click="goTO(menu.SITE_ID, menu.VIEW_ID, menu.VIEW_LABEL)"  class="tile-small" data-period="{{menu.view_position}}" data-duration="250" data-role="tile" data-effect="{{menu.animation}}">
+        #                   <div class="tile-content">
+        #                       <div class="live-slide tiles_size" style="{{getColor(menu.VIEW_COLOR)}};" layout-padding="">
+        #                           <img ng-src="{{getImage(menu.VIEW_ICON)}}">
+        #                       </div>
+        #                       <div class="live-slide tiles_size" style="{{getColor(menu.VIEW_COLOR)}};" layout-padding="">
+        #                           <img ng-src="{{getImage(menu.VIEW_ICON)}}">
+        #                       </div>
+        #                   </div>
+        #               </div>
+        #             </div>
+        #         </md-toolbar>
+        #             """
+        # menu = intro_div + check_popover + final_div
+        # return $sce.trustAsHtml menu
 
 
     getRandomNumber = () ->
@@ -90,7 +126,12 @@ tableau
                 user_auth : decode[0].user_auth
                 user_id   : decode[0].UID
         .success (data) ->
-            console.log data
+            $scope.viewMenu = data
+            for values in $scope.viewMenu
+              values.view_position = getRandomNumber(1)
+              values.animation     = null
+              values.animation     = getRandomAnimation()
+            console.log $scope.viewMenu
         .error (err) ->
             console.log err
     getMenu()

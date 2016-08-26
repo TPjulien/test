@@ -77,6 +77,7 @@ module.exports = function(router, connection) {
             var user_auth = req.body.user_auth;
             var site_id   = req.body.site_id;
             var user_id   = req.body.user_id;
+            // Faire une view plus tard
             var query     = "SELECT * FROM ?? WHERE ?? IN \
                               ( SELECT DISTINCT ?? FROM ?? WHERE ?? IN \
                                 ( SELECT ?? FROM ?? WHERE ?? = ? AND ?? = ? ) \
@@ -97,6 +98,19 @@ module.exports = function(router, connection) {
             })
         })
 
+    // Permet de recuperer la route si jamais il y a plus de 1 tableau
+    router.route('/getMultipleView/:view_id/:site_id')
+        .get(function(req, res) {
+            var query  = "SELECT * FROM ?? WHERE ?? = ? AND ?? = ?";
+            var table  = ["tp_control.embed_embed_view_WIP", "VIEW_ID", req.params.view_id, "SITE_ID", req.params.site_id];
+            query      = mysql.format(query, table);
+            connection.query(query, function(err, rows) {
+                if (err)
+                    res.status(400).send(err);
+                else
+                    res.json(rows);
+            })
+        })
     router.route('/getViewSite/:site/:role_id')
         .get(function(req, res) {
             var auth_id      = "ai."        + req.params.role_id;
