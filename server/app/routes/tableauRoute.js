@@ -44,7 +44,7 @@ module.exports = function(router, connection) {
                     // if (counter == (rows_tableau.length - 1)) {
                     //     res.json(resultObject);
                     // }
-                }
-            });
-        })
+                })
+           }
+      })
 }
