@@ -18,6 +18,8 @@ module.exports = function(router, connection) {
             connection.query(query, function(err, result_datatable) {
                 if(err)
                     res.status(400).send(err);
+                else if (result_datatable.length == 0)
+                    res.status(404).send('empty !');
                 else {
                   var options = {
                       url: 'https://' + result_datatable[0].tableau_server_url + '/trusted',

@@ -1,6 +1,34 @@
 tableau
-  .controller 'tableauCtrl', ($scope, $http, $sce) ->
+  .controller 'tableauCtrl', ($scope, $http, $sce, $stateParams, jwtHelper, store) ->
       console.log "partie tableau"
+
+      token     = store.get('JWT')
+      view_id   = $stateParams.id
+      decode    = jwtHelper.decodeToken(token)
+
+      site_id   = decode[0].site_id
+      embed_id  = []
+      splitted  = []
+
+      if view_id.indexOf('-') != -1
+          splitted = view_id.split("-")
+          view_id  = splitted[0]
+          embed_id = splitted[1]
+
+      console.log site_id, view_id, embed_id
+
+      $http
+          method : 'POST'
+          url    :   options.api.base_url + '/getTableau'
+          data   :
+              site_id  : site_id
+              view_id  : view_id
+              embed_id : embed_id
+      .success (data) ->
+          console.log data
+      .error (err) ->
+          console.log err
+
       $scope.display = "none"
       # $scope.url = ""
       # $scope.lengthTableau = 0
