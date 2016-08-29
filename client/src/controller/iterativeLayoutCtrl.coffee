@@ -13,6 +13,14 @@ tableau
     user_role = decode[0].user_auth
     site_id   = decode[0].site_id
     view_id   = $stateParams.id
+    embed_id  = null
+    splitted  = []
+    if view_id.indexOf('-') != -1
+        splitted = view_id.split("-")
+        view_id  = splitted[0]
+        embed_id = splitted[1]
+
+    console.log view_id, embed_id
 
     $http
         method: 'POST'
@@ -21,6 +29,7 @@ tableau
             user_role: user_role
             site_id:   site_id
             view_id:   view_id
+            embed_id:  embed_id
     .success (data) ->
         $scope.details = data
     .error (err) ->

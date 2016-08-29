@@ -9,6 +9,11 @@ tableau
     $scope.company        = decode[0].company
     $scope.id_number      = null
     $scope.getListTableau = []
+    $scope.multiple_view  = []
+    $scope.get_multiple_view     = []
+    $scope.get_color      = []
+
+    $scope.allow_compile = false
 
     $mdDialog.hide()
 
@@ -19,7 +24,6 @@ tableau
       .success (data) ->
           $scope.getListTableau = data
       .error (err) ->
-          # toast en erreur
           toastErrorFct.toastError("Impossible de se connecter au serveur de menu, veuillez retenter plus tard")
       $scope.id_number = id
 
@@ -32,38 +36,104 @@ tableau
     $scope.goTO = (site_id, view_id, view_label, ev) ->
       console.log "one more time!"
       # a mettre pour plus tard
-      $mdSidenav('left').close()
+      # $mdSidenav('left').close()
       path = '/home/dashboard/' + view_id
       $location.path path
 
-    $scope.getColor = (color) ->
+    getColor = (color) ->
       css = 'background-color:' + color
       return css
 
+    getImage = (src) ->
+        url = "img/" + src
+        return url
+
+    $scope.checkMultiple = (data) ->
+        return $scope.get_multiple_view
+
     # fonction pour appeller en cas de popover
+    getMultipleView = () ->
+      get_infos   = []
+      angular.forEach $scope.viewMenu, (value, key) ->
+          get_infos.push value['view_id']
 
+      final_infos = []
 
+      if get_infos.length > 0
+          full_link = get_infos.map (view_id) ->
+              return options.api.base_url + '/getMultipleView/' + view_id + '/' + decode[0].site_id
+
+          $q.all(full_link.map((url) ->
+              $http.get(url).success (result) ->
+                  if (result.length > 1)
+                      custom_key = {}
+                      final_infos[result[0].VIEW_ID] = result
+          )).then ->
+              $scope.get_multiple_view = final_infos
+              # console.log $scope.get_multiple_view
+
+    $scope.goToTemplate = (data) ->
+        console.log data
+        path = '/home/dashboard/' + data.VIEW_ID + "-" + data.EMBED_ID
+        $location.path path
     # Html pour le menu comme je dois verifier si oui ou non la requete fonctionne
-    $scope.bindMenu = () ->
-        # on prend une variable variable et on le stocke
+    $scope.bindMenu = (data, menu) ->
+        # console.log menu
+        # getMultipleView()
+        # color = $scope.get_color = getColor(data['VIEW_COLOR'])
+        # image = getImage(data['VIEW_ICON'])
+        # id    = data['VIEW_ID']
 
-        get_infos = []
-        final_infos = []
-        angular.forEach $scope.viewMenu, (result, key) ->
-            get_infos.push result['VIEW_ID']
+        # console.log get_multiple_view.length
 
+        color      = $scope.get_color = getColor(data['view_color'])
+        image      = getImage(data['view_icon'])
+        id         = data['view_id']
+        view_label = data['view_label']
+        menu       = []
+        # console.log $scope.get_color
+        # on verifie si jamais c'est un popover ou bien une vue
+        if $scope.get_multiple_view.length > 0
+            if $scope.get_multiple_view[id] != undefined
+                # console.log "ça passe par la"
+                $scope.multiple_view = $scope.get_multiple_view[id]
+                pre_html = "<div style='" + color + "'> Hello ! </div>"
+                menu += """ <div angular-popover direction="right" close-on-click="false" template-url="/modals/right.html" mode="click" close-on-mouseleave="false" style="position: relative;"> """
+            else
+                menu += """ <div ng-click="goTO(menu.site_id, menu.view_id, menu.view_label)" style="position: relative;"> """
 
+            menu += """
+                          <div tooltips tooltip-template=" """ + view_label + """ " tooltip-side="bottom"  class="tile-small" data-period=" """ + data['view_position'] + """ " data-duration="250" data-role="tile" data-effect=" """ + data['animation'] + """ ">
+                              <div class="tile-content">
+                                  <div class="live-slide tiles_size" style=" """ + color + """ " layout-padding="">
+                                      <img ng-src=" """ + image + """ ">
+                                  </div>
+                                  <div class="live-slide tiles_size" style=" """ + color + """ " layout-padding="">
+                                      <img ng-src=" """ + image + """ ">
+                                  </div>
+                              </div>
+                          </div>
+                        </div>
+                    """
 
-        console.log get_infos.map
-        if get_info.length > 0
-            full_link = get_infos.map (view_id) ->
-                return options.api.base_url + '/getMultipleView/' + view_id + '/' + decode[0].SITE_ID
+            return $sce.trustAsHtml menu
 
-            $q.all(full_link.map((url) ->
-                $http.get(url).success (data) ->
-                   final_infos.push data: data
-            )).then ->
-                console.log $final_infos
+    console.log $scope.get_color
+            # angular.forEach $scope.viewMenu, (value, key) ->
+            #     console.log get_multiple_view[test]
+                #
+
+                # console.log value["VIEW_ID"]
+            # console.log get_multiple_view
+            # test = "SITE_ID"
+            # angular.forEach get_multiple_view, (value, key) ->
+                # console.log value, key
+                # angular.forEach value, (value_deep, key_deep) ->
+                #     console.log value_deep, key_deep
+
+                    # console.log value_deep[test], key_deep
+            # console.log get_multiple_view[0]
+
 
             # console.log result['SITE_ID'], result['VIEW_ID']
             # $http
@@ -131,23 +201,27 @@ tableau
               values.view_position = getRandomNumber(1)
               values.animation     = null
               values.animation     = getRandomAnimation()
-            console.log $scope.viewMenu
+            # on apelle le multiple view pour tout reunir
+            getMultipleView()
+            # console.log $scope.viewMenu
         .error (err) ->
             console.log err
-    getMenu()
-    # $http
-    #     method: 'GET'
-    #     url:    options.api.base_url + '/getViewSite' + '/' + decode[0].site_id + '/' + decode[0].user_auth
-    # .success (result) ->
-    #     $scope.viewMenu = result
-    #     for values in $scope.viewMenu
-    #       values.view_position = getRandomNumber(1)
-    #       values.animation     = null
-    #       values.animation     = getRandomAnimation()
-    #       # une fois qu'on a tous les menus, on lui demande d'aller sur la premiere page par défaut
-    #       # $location.path '/home/dashboard/' + decode[0].site_id + '/' + $scope.viewMenu[0].view_id
-    # .error (err) ->
-    #     toastErrorFct.toastError("Impossible de visualiser menu, veuillez retenter plus tard")
+    # getMenu()
+    $http
+        method: 'GET'
+        url:    options.api.base_url + '/getViewSite' + '/' + decode[0].site_id + '/' + decode[0].user_auth
+    .success (result) ->
+        $scope.viewMenu = result
+        # console.log $scope.viewMenu
+        for values in $scope.viewMenu
+          values.view_position = getRandomNumber(1)
+          values.animation     = null
+          values.animation     = getRandomAnimation()
+        getMultipleView()
+          # une fois qu'on a tous les menus, on lui demande d'aller sur la premiere page par défaut
+          # $location.path '/home/dashboard/' + decode[0].site_id + '/' + $scope.viewMenu[0].view_id
+    .error (err) ->
+        toastErrorFct.toastError("Impossible de visualiser menu, veuillez retenter plus tard")
 
     $scope.logOut = () ->
         logoutFct.logOut()
@@ -158,10 +232,6 @@ tableau
     #
     # tick()
     # $interval(tick, 1000)
-
-    $scope.getImage = (src) ->
-        url = "img/" + src
-        return url
 
     # le menu de droite
     # debounce = (func, wait, context) ->

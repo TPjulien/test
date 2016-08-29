@@ -25,6 +25,16 @@
   position:absolute;
   right: 61px;
 }
+
+
+.angular-popover-template {
+  padding: 0px;
+}
+
+.angular-popover-triangle {
+  display: none;
+}
+
 [type="radio"]:not(:checked) + label, [type="radio"]:checked + label {
     font-weight: 500;
   }

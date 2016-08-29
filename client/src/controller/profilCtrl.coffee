@@ -2,7 +2,7 @@ tableau
 .controller "profilCtrl",($scope, $mdDialog, $http, NgTableParams, store, jwtHelper, $q, toastErrorFct) ->
 
 
-    toastErrorFct.toastError("Erreur blablabla")
+    # toastErrorFct.toastError("Erreur blablabla")
 
     # data du profil
     if store.get('JWT')

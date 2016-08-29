@@ -1,11 +1,14 @@
-<div layout-padding="" style="width: 325px; background-color:#2196F3" ng-controller="multipleViewCtrl">
-  <!-- <p>Rechercher dans la liste</p> -->
+<div ng-model="multiple_view" layout-padding="" style="width: 325px; {{get_color}}">
   <div class="row">
-      <div ng-repeat="test in tests" class="col s4" style="text-align:center">
-          <div ng-click="goTO(menu.site_id, menu.view_id, menu.view_label, $event)"  class="tile-small" data-period="500" data-duration="250" data-role="tile" data-effect="200">
+      <p style="color: black">{{multiple_view}}</p>
+      <div ng-repeat="view in multiple_view" class="col s4" style="text-align:center">
+          <div ng-click="goToTemplate(view)"  class="tile-small" data-period="{{menu.view_position}}" data-duration="250" data-role="tile" data-effect="{{menu.animation}}">
               <div class="tile-content">
                   <div class="live-slide tiles_size" style="background-color:blue;" layout-padding="">
-                      <img ng-src="/img/{{test.img}}">
+                      <img ng-src="/img/profils.svg">
+                  </div>
+                  <div class="live-slide tiles_size" style="background-color:blue;" layout-padding="">
+                      <img ng-src="/img/profils.svg">
                   </div>
               </div>
           </div>

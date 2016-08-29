@@ -222,7 +222,7 @@ tableau
     $httpProvider.interceptors.push 'jwtInterceptor'
     # $httpProvider.defaults.withCredentials = true
 .run ($rootScope, jwtHelper, $location, store, alertFct) ->
-    $rootScope.color = "#03a9f4"
+    $rootScope.data = []
     # $rootScope.$on '$locationChangeStart', ->
     #     token = store.get('JWT')
     #     if token

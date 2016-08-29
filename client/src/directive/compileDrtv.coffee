@@ -3,9 +3,9 @@ tableau
   {
     restrict: 'A'
     link: (scope, elem, attrs) ->
-      $timeout ->
+      $timeout (->
         $compile(elem.contents()) scope
-        return
+      ), 1000
       return
 
     }
