@@ -101,6 +101,8 @@ require('./app/routes/datatable')         (router, connection);
 require('./app/routes/rules')             (router, connection);
 require('./app/routes/ipRoute')           (router, connection);
 require('./app/routes/profilRoute')       (router, connection);
+require('./app/routes/tableauRoute')      (router, connection);
+
 
 app.use('/api', router);
 

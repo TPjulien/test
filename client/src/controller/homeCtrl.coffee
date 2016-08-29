@@ -1,19 +1,17 @@
 tableau
 .controller 'homeCtrl', ($scope, $mdSidenav, $timeout, logoutFct, jwtHelper, store, $http, $stateParams, $location, $interval, $rootScope, $sce, $mdDialog, $window, toastErrorFct, $q) ->
-    token                 = store.get('JWT')
-    decode                = jwtHelper.decodeToken(token)
-    $rootScope.color      = "#EAEAEA"
-    $scope.firstname      = decode[0].firstname
-    $scope.lastname       = decode[0].lastname
-    $scope.favorite_color = decode[0].favorite_color
-    $scope.company        = decode[0].company
-    $scope.id_number      = null
-    $scope.getListTableau = []
-    $scope.multiple_view  = []
-    $scope.get_multiple_view     = []
-    $scope.get_color      = []
-
-    $scope.allow_compile = false
+    token                    = store.get('JWT')
+    decode                   = jwtHelper.decodeToken(token)
+    $rootScope.color         = "#EAEAEA"
+    $scope.firstname         = decode[0].firstname
+    $scope.lastname          = decode[0].lastname
+    $scope.favorite_color    = decode[0].favorite_color
+    $scope.company           = decode[0].company
+    $scope.id_number         = null
+    $scope.getListTableau    = []
+    $scope.multiple_view     = []
+    $scope.get_multiple_view = []
+    $scope.get_color         = []
 
     $mdDialog.hide()
 
@@ -34,7 +32,6 @@ tableau
         $scope.numDisp = true
 
     $scope.goTO = (site_id, view_id, view_label, ev) ->
-      console.log "one more time!"
       # a mettre pour plus tard
       # $mdSidenav('left').close()
       path = '/home/dashboard/' + view_id
@@ -70,12 +67,12 @@ tableau
                       final_infos[result[0].VIEW_ID] = result
           )).then ->
               $scope.get_multiple_view = final_infos
-              # console.log $scope.get_multiple_view
 
     $scope.goToTemplate = (data) ->
         console.log data
         path = '/home/dashboard/' + data.VIEW_ID + "-" + data.EMBED_ID
         $location.path path
+
     # Html pour le menu comme je dois verifier si oui ou non la requete fonctionne
     $scope.bindMenu = (data, menu) ->
         # console.log menu
@@ -95,10 +92,8 @@ tableau
         # on verifie si jamais c'est un popover ou bien une vue
         if $scope.get_multiple_view.length > 0
             if $scope.get_multiple_view[id] != undefined
-                # console.log "ça passe par la"
                 $scope.multiple_view = $scope.get_multiple_view[id]
-                pre_html = "<div style='" + color + "'> Hello ! </div>"
-                menu += """ <div angular-popover direction="right" close-on-click="false" template-url="/modals/right.html" mode="click" close-on-mouseleave="false" style="position: relative;"> """
+                menu += """ <div angular-popover direction="right" close-on-click="false" template-url="/modals/right.html" mode="click" close-on-mouseleave="true" style="position: relative;"> """
             else
                 menu += """ <div ng-click="goTO(menu.site_id, menu.view_id, menu.view_label)" style="position: relative;"> """
 
@@ -117,8 +112,6 @@ tableau
                     """
 
             return $sce.trustAsHtml menu
-
-    console.log $scope.get_color
             # angular.forEach $scope.viewMenu, (value, key) ->
             #     console.log get_multiple_view[test]
                 #
