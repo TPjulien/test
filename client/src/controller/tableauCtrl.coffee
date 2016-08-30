@@ -23,8 +23,7 @@ tableau
                   view_id  : view_id
                   embed_id : embed_id
           .success (data) ->
-
-              console.log "resultat de retour :", data
+              console.log "resultat de retour :", data.token
           .error (err) ->
               console.log err
           $scope.display = "none"
@@ -63,12 +62,12 @@ tableau
       # refaire le site
       getTableau = () ->
           url = trustHtml(result.token, result.path_to_view)
-          LOADED_INDICATOR =   'tableau.loadIndicatorsLoaded'
+          LOADED_INDICATOR   = 'tableau.loadIndicatorsLoaded'
           COMPLETE_INDICATOR = 'tableau.completed'
-          placeholder = document.getElementById('divMahefa')
-          vizLoaded   = false
-          url         = url
-          tableauOptions =
+          placeholder        = document.getElementById('divMahefa')
+          vizLoaded          = false
+          url                = url
+          tableauOptions     =
               hideTabs: true
               width:  "104%"
               height: result.embed_height
