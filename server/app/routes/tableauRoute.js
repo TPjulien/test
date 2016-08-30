@@ -21,17 +21,17 @@ module.exports = function(router, connection) {
                 else if (result_datatable.length == 0)
                     res.status(404).send('La ressource demandé est introuvable.');
                 else {
-                  var username = null;
+                  var user_site = null;
                   if (result_datatable[0].tableau_user_id == "Default") {
-                      username = '';
+                      user_site = '';
                   } else
-                      username = result_datatable[0].tableau_user_id;
+                      user_site = result_datatable[0].tableau_site;
 
                   var options = {
                       url: 'https://' + result_datatable[0].tableau_server_url + '/trusted',
                       form : {
-                        username    : username,
-                        target_site : result_datatable[0].tableau_site
+                        username    : result_datatable[0].tableau_user_id,
+                        target_site : user_site
                       }
                   }
                   // get token for each tableau in row
