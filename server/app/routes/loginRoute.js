@@ -21,8 +21,8 @@ module.exports = function(router, connection) {
     // shibboleth
     passport.use(new SamlStrategy(
       {
-        // path:         '/api/login/callback',
-        callbackUrl : 'https://test.federation.renater.fr/Shibboleth.sso/SAML2/POST',
+        path:         '/api/login/callback',
+        // callbackUrl : 'https://test.federation.renater.fr/Shibboleth.sso/SAML2/POST',
         entryPoint  : 'https://test.federation.renater.fr/idp/profile/SAML2/Redirect/SSO',
         issuer      : 'https://test.federation.renater.fr/test/ressource',
         cert        : fs.readFileSync('./app/crt/metadata-federation-renater.crt', 'utf-8')
