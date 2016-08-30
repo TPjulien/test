@@ -22,7 +22,7 @@ module.exports = function(router, connection) {
                     res.status(404).send('La ressource demandé est introuvable.');
                 else {
                   var user_site = null;
-                  if (result_datatable[0].tableau_user_id == "Default") {
+                  if (result_datatable[0].tableau_site == "Default") {
                       user_site = '';
                   } else
                       user_site = result_datatable[0].tableau_site;
