@@ -8,24 +8,17 @@ var key          = new NodeRSA({b: 512});
 var httpsRequest = require('https-request');
 var pythonShell  = require('python-shell');
 var cors         = require('cors')
-// var pyshell      = new pythonShell('test.py');
 // ajout de la stratégie saml shibboleth, pour one-login
 var SamlStrategy = require('passport-saml').Strategy;
 var passport     = require('passport');
 var fs           = require('fs');
-
-// request.defaults({jar: true});
-// var j = request.jar();
-
-
-// shibboleth
-
 
 module.exports = function(router, connection) {
     var table_password = "user_password";
     var table_username = "username";
     var table_login    = "user_info";
 
+    // shibboleth
     passport.use(new SamlStrategy(
       {
         path:         '/api/Shibboleth.sso/SAML2/POST',
@@ -148,13 +141,6 @@ module.exports = function(router, connection) {
               function (req, res) {
                 res.status(200).send('ça fonctionne !');
           });
-
-        // Callback du login shibboleth
-        // router.route('/login/callback')
-        //   .post(passport.authenticate('saml', { failureRedirect: '/', failureFlash: false}),
-        //   function(req, res) {
-        //         res.send("toto !");
-        //
 
         router.route('/Shibboleth.sso/SAML2/POST')
           .post (function(req, res) {

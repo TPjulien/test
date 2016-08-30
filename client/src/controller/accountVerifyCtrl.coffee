@@ -31,12 +31,12 @@ tableau
 
     $scope.login = (ev) ->
         $mdDialog.show
-          controller:          'loadingCtrl'
-          templateUrl:         'modals/loading.html'
-          parent:              angular.element(document.body)
-          targetEvent:         ev
-          clickOutsideToClose: false
-          escapeToClose:       false
+          controller          : 'loadingCtrl'
+          templateUrl         : 'modals/loading.html'
+          parent              : angular.element(document.body)
+          targetEvent         : ev
+          clickOutsideToClose : false
+          escapeToClose       : false
         $http
             method: 'POST'
             url:    options.api.base_url + '/login'

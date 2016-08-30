@@ -1,6 +1,5 @@
 tableau
   .controller 'tableauCtrl', ($scope, $http, $sce, $stateParams, jwtHelper, store) ->
-      console.log "partie tableau"
 
       token     = store.get('JWT')
       view_id   = $stateParams.id
@@ -15,11 +14,9 @@ tableau
           view_id  = splitted[0]
           embed_id = splitted[1]
 
-      console.log site_id, view_id, embed_id
-
       $http
           method : 'POST'
-          url    :   options.api.base_url + '/getTableau'
+          url    :  options.api.base_url + '/getTableau'
           data   :
               site_id  : site_id
               view_id  : view_id
@@ -28,7 +25,7 @@ tableau
           console.log data
       .error (err) ->
           console.log err
-
+          # data
       $scope.display = "none"
       # $scope.url = ""
       # $scope.lengthTableau = 0
@@ -104,8 +101,8 @@ tableau
               url         = url
               tableauOptions =
                   hideTabs: true
-                  width:  "100%"
-                  height: getTableau.embed_height
+                  width   : "100%"
+                  height  : getTableau.embed_height
                   onFirstInteractive: () ->
                       $scope.show    = true
                       $scope.display = "block"

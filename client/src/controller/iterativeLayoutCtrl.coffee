@@ -20,16 +20,14 @@ tableau
         view_id  = splitted[0]
         embed_id = splitted[1]
 
-    console.log view_id, embed_id
-
     $http
         method: 'POST'
         url:    options.api.base_url + '/showEmbed'
         data:
-            user_role: user_role
-            site_id:   site_id
-            view_id:   view_id
-            embed_id:  embed_id
+            user_role : user_role
+            site_id   : site_id
+            view_id   : view_id
+            embed_id  : embed_id
     .success (data) ->
         $scope.details = data
     .error (err) ->

@@ -19,12 +19,18 @@ module.exports = function(router, connection) {
                 if(err)
                     res.status(400).send(err);
                 else if (result_datatable.length == 0)
-                    res.status(404).send('empty !');
+                    res.status(404).send('La ressource demandé est introuvable.');
                 else {
+                  var username = null;
+                  if (result_datatable[0].tableau_user_id == "Default") {
+                      username = '';
+                  } else
+                      username = result_datatable[0].tableau_user_id;
+
                   var options = {
                       url: 'https://' + result_datatable[0].tableau_server_url + '/trusted',
                       form : {
-                        username    : result_datatable[0].tableau_user_id,
+                        username    : username,
                         target_site : result_datatable[0].tableau_site
                       }
                   }

@@ -1,9 +1,5 @@
 tableau
 .controller "profilCtrl",($scope, $mdDialog, $http, NgTableParams, store, jwtHelper, $q, toastErrorFct) ->
-
-
-    # toastErrorFct.toastError("Erreur blablabla")
-
     # data du profil
     if store.get('JWT')
       token               = store.get('JWT')
@@ -23,6 +19,8 @@ tableau
     uid                          =  decode[0].UID
     site_id                      =  decode[0].site_id
     community                    =  decode[0].home_community
+
+    console.log decode[0]
 
     $scope.cardNameChange = (provider) ->
       $http
