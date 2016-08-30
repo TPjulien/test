@@ -69,7 +69,6 @@ tableau
               $scope.get_multiple_view = final_infos
 
     $scope.goToTemplate = (data) ->
-        console.log data
         path = '/home/dashboard/' + data.VIEW_ID + "-" + data.EMBED_ID
         $location.path path
 

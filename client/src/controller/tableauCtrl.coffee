@@ -14,18 +14,22 @@ tableau
           view_id  = splitted[0]
           embed_id = splitted[1]
 
-      $http
-          method : 'POST'
-          url    :  options.api.base_url + '/getTableau'
-          data   :
-              site_id  : site_id
-              view_id  : view_id
-              embed_id : embed_id
-      .success (data) ->
-          console.log data
-      .error (err) ->
-          console.log err
-      $scope.display = "none"
+      getTableau = () ->
+          $http
+              method : 'POST'
+              url    :  options.api.base_url + '/getTableau'
+              data   :
+                  site_id  : site_id
+                  view_id  : view_id
+                  embed_id : embed_id
+          .success (data) ->
+
+              console.log "resultat de retour :", data
+          .error (err) ->
+              console.log err
+          $scope.display = "none"
+
+      getTableau()
       # $scope.url = ""
       # $scope.lengthTableau = 0
 

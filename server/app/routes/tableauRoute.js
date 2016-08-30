@@ -36,16 +36,19 @@ module.exports = function(router, connection) {
                   }
                   // get token for each tableau in row
                   request.post(options, function(err, resultat, body) {
-                    resultOBject = { "SITE_ID"            : result_datatable[0].SITE_ID,
-                                     "VIEW_ID"            : result_datatable[0].VIEW_ID,
-                                     "EMBED_ID"           : result_datatable[0].EMBED_ID,
-                                     "tableau_site"       : result_datatable[0].tableau_site,
-                                     "tableau_view"       : result_datatable[0].tableau_view,
-                                     "tableau_user_id"    : result_datatable[0].tableau_user_id,
-                                     "tableau_server_url" : result_datatable[0].tableau_server_url,
-                                     "token"              : body
-                                   };
-                    res.json(resultObject);
+                    if (body != '' || body != undefined || body != null) {
+                        var resultOBject = { "SITE_ID"            : result_datatable[0].SITE_ID,
+                                             "VIEW_ID"            : result_datatable[0].VIEW_ID,
+                                             "EMBED_ID"           : result_datatable[0].EMBED_ID,
+                                             "tableau_site"       : result_datatable[0].tableau_site,
+                                             "tableau_view"       : result_datatable[0].tableau_view,
+                                             "tableau_user_id"    : result_datatable[0].tableau_user_id,
+                                             "tableau_server_url" : result_datatable[0].tableau_server_url,
+                                             "token"              : body
+                                       };
+                        res.json(resultObject);
+                    } else
+                        res.status(404).send('élement introuvable !');
                     //   resultObject[counter] = {  "site_id"             : rows[counter].site_id,
                     //                              "view_id"             : rows[counter].view_id,
                     //                              "embed_id"            : rows[counter].embed_id,
