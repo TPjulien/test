@@ -25,7 +25,6 @@ tableau
           console.log data
       .error (err) ->
           console.log err
-          # data
       $scope.display = "none"
       # $scope.url = ""
       # $scope.lengthTableau = 0
@@ -57,66 +56,60 @@ tableau
 
       $scope.loadingText    = "Chargement de la vue en cours ..."
       $scope.urlLoadingView = "modals/loadingView.html"
-      $scope.niggeh = (getTableau) ->
-          if ($scope.infoList == 'list' && getTableau == "none")
-              $http
-                  method: 'GET'
-                  url:    options.api.base_url + '/getTemplateView/' +  decode[0].tableau_user_id + '/' + decode[0].site + '/' + $stateParams.client + '/' + $stateParams.id + '/' +  $stateParams.embed  + '/' + decode[0].user_auth
-              .success (result) ->
-                    url = trustHtml(result.token, result.path_to_view)
-                    LOADED_INDICATOR =   'tableau.loadIndicatorsLoaded'
-                    COMPLETE_INDICATOR = 'tableau.completed'
-                    placeholder = document.getElementById('mahefa')
-                    vizLoaded   = false
-                    url         = url
-                    tableauOptions =
-                        hideTabs: true
-                        width:  "104%"
-                        height: result.embed_height
-                        onFirstInteractive: () ->
-                            $scope.show    = true
-                            $scope.display = "block"
-                    viz = new tableau.Viz(placeholder, url, tableauOptions)
-                    window.addEventListener('message', (msg) ->
-                        if (isMessage(msg.data, LOADED_INDICATOR))
-                            vizLoaded      = true
-                            $scope.display = "none"
-                        else if isMessage(msg.data, COMPLETE_INDICATOR)
-                            if vizLoaded
-                                viz.dispose()
-                                $scope.display = "block"
-                            else
-                                $scope.urlLoadingView = "modals/errorLoading.html"
-                                $scope.loadingText    = "Impossible de charger cette vue"
-                                $scope.display        = "none"
-                    )
-              .error (err) ->
-                  console.log err
-          else
-              url = trustHtml(getTableau.token, getTableau.path_to_view)
-              LOADED_INDICATOR =   'tableau.loadIndicatorsLoaded'
-              COMPLETE_INDICATOR = 'tableau.completed'
-              placeholder = document.getElementById(getTableau.embed_id)
-              vizLoaded   = false
-              url         = url
-              tableauOptions =
-                  hideTabs: true
-                  width   : "100%"
-                  height  : getTableau.embed_height
-                  onFirstInteractive: () ->
-                      $scope.show    = true
+      # refaire le site
+      getTableau = () ->
+          url = trustHtml(result.token, result.path_to_view)
+          LOADED_INDICATOR =   'tableau.loadIndicatorsLoaded'
+          COMPLETE_INDICATOR = 'tableau.completed'
+          placeholder = document.getElementById('divMahefa')
+          vizLoaded   = false
+          url         = url
+          tableauOptions =
+              hideTabs: true
+              width:  "104%"
+              height: result.embed_height
+              onFirstInteractive: () ->
+                  $scope.show    = true
+                  $scope.display = "block"
+          viz = new tableau.Viz(placeholder, url, tableauOptions)
+          window.addEventListener('message', (msg) ->
+              if (isMessage(msg.data, LOADED_INDICATOR))
+                  vizLoaded      = true
+                  $scope.display = "none"
+              else if isMessage(msg.data, COMPLETE_INDICATOR)
+                  if vizLoaded
+                      viz.dispose()
                       $scope.display = "block"
-              viz = new tableau.Viz(placeholder, url, tableauOptions)
-              window.addEventListener('message', (msg) ->
-                  if (isMessage(msg.data, LOADED_INDICATOR))
-                      vizLoaded      = true
-                      $scope.display = "none"
-                  else if isMessage(msg.data, COMPLETE_INDICATOR)
-                      if vizLoaded
-                          viz.dispose()
-                          $scope.display = "block"
-                      else
-                          $scope.urlLoadingView = "modals/errorLoading.html"
-                          $scope.loadingText    = "Impossible de charger cette vue"
-                          $scope.display        = "none"
-              )
+                  else
+                      $scope.urlLoadingView = "modals/errorLoading.html"
+                      $scope.loadingText    = "Impossible de charger cette vue"
+                      $scope.display        = "none"
+          )
+          # else
+          #     url = trustHtml(getTableau.token, getTableau.path_to_view)
+          #     LOADED_INDICATOR =   'tableau.loadIndicatorsLoaded'
+          #     COMPLETE_INDICATOR = 'tableau.completed'
+          #     placeholder = document.getElementById(getTableau.embed_id)
+          #     vizLoaded   = false
+          #     url         = url
+          #     tableauOptions =
+          #         hideTabs: true
+          #         width   : "100%"
+          #         height  : getTableau.embed_height
+          #         onFirstInteractive: () ->
+          #             $scope.show    = true
+          #             $scope.display = "block"
+          #     viz = new tableau.Viz(placeholder, url, tableauOptions)
+          #     window.addEventListener('message', (msg) ->
+          #         if (isMessage(msg.data, LOADED_INDICATOR))
+          #             vizLoaded      = true
+          #             $scope.display = "none"
+          #         else if isMessage(msg.data, COMPLETE_INDICATOR)
+          #             if vizLoaded
+          #                 viz.dispose()
+          #                 $scope.display = "block"
+          #             else
+          #                 $scope.urlLoadingView = "modals/errorLoading.html"
+          #                 $scope.loadingText    = "Impossible de charger cette vue"
+          #                 $scope.display        = "none"
+          #     )
