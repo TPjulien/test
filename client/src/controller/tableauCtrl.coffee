@@ -1,10 +1,10 @@
 tableau
   .controller 'tableauCtrl', ($scope, $http, $sce, $stateParams, jwtHelper, store) ->
 
-      token     = store.get('JWT')
-      view_id   = $stateParams.id
-      decode    = jwtHelper.decodeToken(token)
-
+      token       = store.get('JWT')
+      view_id     = $stateParams.id
+      decode      = jwtHelper.decodeToken(token)
+      $scope.show = true
       $scope.data = []
 
       site_id   = decode[0].site_id
@@ -69,35 +69,35 @@ tableau
       $scope.loadingText    = "Chargement de la vue en cours ..."
       $scope.urlLoadingView = "modals/loadingView.html"
       # refaire le site
-      getTableau = () ->
-          # console.log("ça passe ici")
-          url = trustHtml()
-          LOADED_INDICATOR   = 'tableau.loadIndicatorsLoaded'
-          COMPLETE_INDICATOR = 'tableau.completed'
-          placeholder        = document.getElementById('divMahefa')
-          vizLoaded          = false
-          url                = url
-          tableauOptions     =
-              hideTabs: true
-              width:  "104%"
-              height: "700px"
-              onFirstInteractive: () ->
-                  $scope.show    = true
-                  $scope.display = "block"
-          viz = new tableau.Viz(placeholder, url, tableauOptions)
-          window.addEventListener('message', (msg) ->
-              if (isMessage(msg.data, LOADED_INDICATOR))
-                  vizLoaded      = true
-                  $scope.display = "none"
-              else if isMessage(msg.data, COMPLETE_INDICATOR)
-                  if vizLoaded
-                      viz.dispose()
-                      $scope.display = "block"
-                  else
-                      $scope.urlLoadingView = "modals/errorLoading.html"
-                      $scope.loadingText    = "Impossible de charger cette vue"
-                      $scope.display        = "none"
-          )
+      # getTableau = () ->
+      #     # console.log("ça passe ici")
+      #     url = trustHtml()
+      #     LOADED_INDICATOR   = 'tableau.loadIndicatorsLoaded'
+      #     COMPLETE_INDICATOR = 'tableau.completed'
+      #     placeholder        = document.getElementById('divMahefa')
+      #     vizLoaded          = false
+      #     url                = url
+      #     tableauOptions     =
+      #         hideTabs: true
+      #         width:  "100%"
+      #         height: "800px"
+      #         onFirstInteractive: () ->
+      #             $scope.show    = true
+      #             $scope.display = "block"
+      #     viz = new tableau.Viz(placeholder, url, tableauOptions)
+      #     window.addEventListener('message', (msg) ->
+      #         if (isMessage(msg.data, LOADED_INDICATOR))
+      #             vizLoaded      = true
+      #             $scope.display = "none"
+      #         else if isMessage(msg.data, COMPLETE_INDICATOR)
+      #             if vizLoaded
+      #                 viz.dispose()
+      #                 $scope.display = "block"
+      #             else
+      #                 $scope.urlLoadingView = "modals/errorLoading.html"
+      #                 $scope.loadingText    = "Impossible de charger cette vue"
+      #                 $scope.display        = "none"
+      #     )
           # else
           #     url = trustHtml(getTableau.token, getTableau.path_to_view)
           #     LOADED_INDICATOR =   'tableau.loadIndicatorsLoaded'
