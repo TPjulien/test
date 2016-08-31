@@ -7,6 +7,9 @@ tableau
       $scope.show = true
       $scope.data = []
 
+      $scope.tableauDisplay = "none"
+      $scope.loadingDisplay = "block"
+
       site_id   = decode[0].site_id
       embed_id  = []
       splitted  = []
@@ -90,7 +93,9 @@ tableau
                   vizLoaded      = true
                   $scope.display = "none"
               else if isMessage(msg.data, COMPLETE_INDICATOR)
-                  $scope.show = false
+                  console.log "c'est bon !"
+                  $scope.tableauDisplay = "block"
+                  $scope.loadingDisplay = "none"
                   if vizLoaded
                       viz.dispose()
                       $scope.display = "block"
