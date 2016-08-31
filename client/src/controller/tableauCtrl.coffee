@@ -83,7 +83,6 @@ tableau
               width:  "100%"
               height: "800px"
               onFirstInteractive: () ->
-                  $scope.show    = true
                   $scope.display = "block"
           viz = new tableau.Viz(placeholder, url, tableauOptions)
           window.addEventListener('message', (msg) ->
@@ -91,6 +90,7 @@ tableau
                   vizLoaded      = true
                   $scope.display = "none"
               else if isMessage(msg.data, COMPLETE_INDICATOR)
+                  $scope.show = false
                   if vizLoaded
                       viz.dispose()
                       $scope.display = "block"
