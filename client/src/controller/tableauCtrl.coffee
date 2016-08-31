@@ -62,7 +62,7 @@ tableau
               tableau_url += '/t/' + $scope.data.tableau_site + '/views/' + $scope.data.tableau_view + '?embed=yes&:toolbar=no'
           url = "https://data.travelplanet.fr/trusted/" + $scope.data.token + tableau_url
           console.log url
-          return url
+          return $sce.trustAsResourceUrl url
       #
       isMessage = (txt, msg) ->
           txt.substring(0, msg.length) == msg
