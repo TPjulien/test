@@ -54,15 +54,15 @@ tableau
       #     else
       #         height = { height : "500px" }
 
-      trustHtml = () ->
+      $scope.trustHtml = () ->
           tableau_url = null
           if $scope.data.tableau_site == "Default"
-              tableau_url += '/views/' + $scope.data.tableau_view + '?:embed=yes&:toolbar=no'
+              tableau_url = '/views/' + $scope.data.tableau_view + '?:embed=yes&:toolbar=no'
           else
-              tableau_url += '/t/' + $scope.data.tableau_site + '/views/' + $scope.data.tableau_view + '?:embed=yes&:toolbar=no'
+              tableau_url = '/t/' + $scope.data.tableau_site + '/views/' + $scope.data.tableau_view + '?:embed=yes&:toolbar=no'
           url = "https://data.travelplanet.fr/trusted/" + $scope.data.token + tableau_url
           console.log url
-          return $sce.trustAsUrl url
+          return $sce.trustAsResourceUrl url
       #
       isMessage = (txt, msg) ->
           txt.substring(0, msg.length) == msg
