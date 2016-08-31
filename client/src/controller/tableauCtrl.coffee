@@ -25,6 +25,7 @@ tableau
                   view_id  : view_id
                   embed_id : embed_id
           .success (data) ->
+              console.log data
               $scope.data = data
               getTableau()
           .error (err) ->
@@ -54,7 +55,12 @@ tableau
       #         height = { height : "500px" }
 
       trustHtml = () ->
-          url = "https://data.travelplanet.fr/trusted/" + $scope.data.token + '/t/Customer/views/Realtime/V1?embed=yes' +  '&:toolbar=no'
+          tableau_url = null
+          if $scope.data.tableau_site == "Default"
+              tableau_url += '/views/' + $scope.data.tableau_view + '?embed=yes&:toolbar=no'
+          else
+              tableau_url += '/t/' + $scope.data.tableau_site + '/views/' + $scope.data.tableau_view + '?embed=yes&:toolbar=no'
+          url = "https://data.travelplanet.fr/trusted/" + $scope.data.token + tableau_url
           return url
       #
       isMessage = (txt, msg) ->
