@@ -5,6 +5,8 @@ tableau
       view_id   = $stateParams.id
       decode    = jwtHelper.decodeToken(token)
 
+      $scope.data = []
+
       site_id   = decode[0].site_id
       embed_id  = []
       splitted  = []
@@ -23,7 +25,8 @@ tableau
                   view_id  : view_id
                   embed_id : embed_id
           .success (data) ->
-              console.log "resultat de retour :", data.token
+              $scope.data = data
+              getTableau()
           .error (err) ->
               console.log err
           $scope.display = "none"
@@ -50,18 +53,19 @@ tableau
       #     else
       #         height = { height : "500px" }
 
-      # trustHtml = (token, link) ->
-      #     url = "https://data.travelplanet.fr/trusted/" + token + link + '&:toolbar=no'
-      #     return url
+      trustHtml = () ->
+          url = "https://data.travelplanet.fr/trusted/" + $scope.data.token + '/t/Customer/views/Realtime/V1?embed=yes' +  '&:toolbar=no'
+          return url
       #
-      # isMessage = (txt, msg) ->
-      #     txt.substring(0, msg.length) == msg
+      isMessage = (txt, msg) ->
+          txt.substring(0, msg.length) == msg
 
       $scope.loadingText    = "Chargement de la vue en cours ..."
       $scope.urlLoadingView = "modals/loadingView.html"
       # refaire le site
       getTableau = () ->
-          url = trustHtml(result.token, result.path_to_view)
+          # console.log("ça passe ici")
+          url = trustHtml()
           LOADED_INDICATOR   = 'tableau.loadIndicatorsLoaded'
           COMPLETE_INDICATOR = 'tableau.completed'
           placeholder        = document.getElementById('divMahefa')
@@ -70,7 +74,7 @@ tableau
           tableauOptions     =
               hideTabs: true
               width:  "104%"
-              height: result.embed_height
+              height: "700px"
               onFirstInteractive: () ->
                   $scope.show    = true
                   $scope.display = "block"
