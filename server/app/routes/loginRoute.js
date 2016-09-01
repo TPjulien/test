@@ -142,10 +142,10 @@ module.exports = function(router, connection) {
                 res.status(200).send('ça fonctionne !');
           });
 
-        router.route('/Shibboleth.sso/SAML2/POST')
-          .post (function(req, res) {
-                res.send("toto !");
-          });
+        // router.route('/Shibboleth.sso/SAML2/POST')
+        //   .post (function(req, res) {
+        //         res.status(200).send(req.body);
+        //   });
 
         // login normal travel planet
         router.route('/loginCheck/:user')
