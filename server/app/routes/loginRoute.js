@@ -63,7 +63,8 @@ module.exports = function(router, connection) {
     // test
     router.route('/Shibboleth.sso/SAML2/POST')
         .post (function (req, res) {
-            res.status(200).send('Bonjour !');
+            var result = req.body;
+            res.status(200).send(result);
         })
 
     // ancien login
