@@ -60,12 +60,19 @@ module.exports = function(router, connection) {
             }
         })
     }
+
+    // router.route('/shibboleth')
+    //   .get(passport.authenticate('saml', { failureRedirect: '/'  }),
+    //       function (req, res) {
+    //         res.status(200).send('ça fonctionne !');
+    //   });
     // test
     router.route('/Shibboleth.sso/SAML2/POST')
-        .post (function (req, res) {
-            var result = req.body;
-            res.status(200).send(result);
-        })
+        .post (passport.authenticate('saml', { failureRedirect: '/'}),
+            function (req, res) {
+                var result = req.body;
+                res.status(200).send(result);
+        });
 
     // ancien login
     router.route('/login')
