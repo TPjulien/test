@@ -1,3 +1,3 @@
 tableau
-.controller 'reclamationCtrl', ($scope) ->
+.controller 'emailCtrl', ($scope) ->
     console.log "partie reclamation"

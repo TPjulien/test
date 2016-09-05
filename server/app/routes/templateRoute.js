@@ -10,14 +10,14 @@ module.exports = function(router, connection) {
         .post(function(req, res) {
             // la premiere étape consiste à verifier le role de l'utilisateur
             var user_role = req.body.user_role;
-            var view_id   = req.body.view_id;
             var site_id   = req.body.site_id;
             var embed_id  = req.body.embed_id;
             // on prepare la premiere requete pour verifier
             var request_one = "SELECT ??, ?? FROM ?? WHERE ?? = ? AND ?? IN \
-                                  (SELECT ?? FROM ?? WHERE ?? = ? AND ?? = ?)";
+                                  (SELECT ?? FROM ?? WHERE ?? = ? AND ?? = ?) AND ?? = ?";
             var table_one   = ["ROLE_ID",  "EMBED_ID", "tp_control.Embed_Role_WIP", "SITE_ID", site_id, "ROLE_ID",
-                              "ROLE_ID", "tp_control.Role_WIP", "ROLE_LIBELLE", user_role, "SITE_ID", site_id];
+                              "ROLE_ID", "tp_control.Role_WIP", "ROLE_LIBELLE", user_role, "SITE_ID", site_id,
+                              "EMBED_ID", req.body.embed_id];
 
             // var request_one = "SELECT ?? FROM ?? WHERE ?? = ? AND ?? = ? AND ?? = ?";
             // var table_one   = ["ROLE_ID", "tp_control.Embed_Role_WIP", "SITE_ID", site_id, "ROLE_ID", user_role, "VIEW_ID", view_id];

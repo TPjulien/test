@@ -24,7 +24,7 @@
 <div show-gt-md class="hide-on-med-and-down menu blureffect fadein fadeout md-whiteframe-1dp" style=" max-width: 80px;">
   <md-toolbar style="background-color:transparent; padding-top: 25px;">
       <span flex></span>
-      <div compile ng-repeat="menu in viewMenu" ng-bind-html="bindMenu(menu, checkMultiple(get_multiple_view))">
+      <div compile ng-repeat="menu in viewMenu | orderBy: 'EMBED_POSITION' " ng-bind-html="bindMenu(menu, checkMultiple(get_multiple_view))">
       </div>
       <!-- <div angular-popover direction="right" close-on-click="false" template-url="/modals/right.html" mode="click" close-on-mouseleave="true" style="position: relative;" ng-repeat="menu in viewMenu">
         <div ng-if="menu.view_label !='Business Intelligence'" tooltips tooltip-template="{{menu.view_label}}" tooltip-side="bottom" ng-click="goTO(menu.site_id, menu.view_id, menu.view_label)"  class="tile-small" data-period="{{menu.view_position}}" data-duration="250" data-role="tile" data-effect="{{menu.animation}}">

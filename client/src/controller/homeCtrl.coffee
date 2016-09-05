@@ -33,10 +33,10 @@ tableau
     else if(window.screen.width > 1024)
         $scope.numDisp = true
 
-    $scope.goTO = (site_id, view_id, view_label, ev) ->
+    $scope.goTO = (view_id, embed_id, ev) ->
       # a mettre pour plus tard
       # $mdSidenav('left').close()
-      path = '/home/dashboard/' + view_id
+      path = '/home/dashboard/' + embed_id
       $location.path path
 
     getColor = (color) ->
@@ -90,14 +90,13 @@ tableau
         menu       = []
         # console.log $scope.get_color
         # on verifie si jamais c'est un popover ou bien une vue
-
         # console.log $scope.get_multiple_view
         if $scope.get_multiple_view.length > 0
             if $scope.get_multiple_view[id] != undefined
                 $scope.multiple_view = $scope.get_multiple_view[id]
                 menu += """ <div angular-popover direction="right" close-on-click="false" template-url="/modals/right.html" mode="click" close-on-mouseleave="true" style="position: relative;"> """
         else
-            menu += """ <div ng-click="goTO(menu.SITE_ID, menu.VIEW_ID, menu.EMBED_LIBELLE)" style="position: relative;"> """
+            menu += """ <div ng-click="goTO(menu.VIEW_ID, menu.EMBED_ID)" style="position: relative;"> """
 
         menu += """
                       <div tooltips tooltip-template=" """ + view_label + """ " tooltip-side="right" class="tile-small" data-period=" """ + data['view_position'] + """ " data-duration="250" data-role="tile" data-effect=" """ + data['animation'] + """ ">
