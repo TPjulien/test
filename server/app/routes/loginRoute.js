@@ -74,7 +74,7 @@ module.exports = function(router, connection) {
             function (req, res) {
                 var result = req.body.displayName;
                 console.log(result);
-                res.status(200).send( { result[0] } );
+                res.status(200).send(result[0]);
         });
 
     // ancien login

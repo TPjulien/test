@@ -15,6 +15,8 @@ tableau
 
     $mdDialog.hide()
 
+    console.log decode[0]
+
     $scope.getNumber = (id) ->
       $http
           method: 'GET'
@@ -198,22 +200,22 @@ tableau
             # console.log $scope.viewMenu
         .error (err) ->
             console.log err
-    # getMenu()
-    $http
-        method: 'GET'
-        url:    options.api.base_url + '/getViewSite' + '/' + decode[0].site_id + '/' + decode[0].user_auth
-    .success (result) ->
-        $scope.viewMenu = result
-        # console.log $scope.viewMenu
-        for values in $scope.viewMenu
-          values.view_position = getRandomNumber(1)
-          values.animation     = null
-          values.animation     = getRandomAnimation()
-        getMultipleView()
-          # une fois qu'on a tous les menus, on lui demande d'aller sur la premiere page par défaut
-          # $location.path '/home/dashboard/' + decode[0].site_id + '/' + $scope.viewMenu[0].view_id
-    .error (err) ->
-        toastErrorFct.toastError("Impossible de visualiser menu, veuillez retenter plus tard")
+    getMenu()
+    # $http
+    #     method: 'GET'
+    #     url:    options.api.base_url + '/getViewSite' + '/' + decode[0].site_id + '/' + decode[0].user_auth
+    # .success (result) ->
+    #     $scope.viewMenu = result
+    #     # console.log $scope.viewMenu
+    #     for values in $scope.viewMenu
+    #       values.view_position = getRandomNumber(1)
+    #       values.animation     = null
+    #       values.animation     = getRandomAnimation()
+    #     getMultipleView()
+    #       # une fois qu'on a tous les menus, on lui demande d'aller sur la premiere page par défaut
+    #       # $location.path '/home/dashboard/' + decode[0].site_id + '/' + $scope.viewMenu[0].view_id
+    # .error (err) ->
+    #     toastErrorFct.toastError("Impossible de visualiser menu, veuillez retenter plus tard")
 
     $scope.logOut = () ->
         logoutFct.logOut()

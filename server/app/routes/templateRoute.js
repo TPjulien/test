@@ -85,12 +85,12 @@ module.exports = function(router, connection) {
             // Faire une view plus tard
             var query     = "SELECT * FROM ?? WHERE ?? IN \
                               ( SELECT DISTINCT ?? FROM ?? WHERE ?? IN \
-                                ( SELECT ?? FROM ?? WHERE ?? = ? AND ?? = ? ) \
+                                ( SELECT ?? FROM ?? WHERE ?? = ? ) \
                                 AND ?? = ? ) \
                               AND ?? = ?";
-            var table     = ["tp_control.View_WIP", "VIEW_ID",
-                             "view_id", "tp_control.View_Role_WIP", "ROLE_ID",
-                             "ROLE", "tp_control.user_roles", "SITE_ID", site_id, "USER_ID", user_id,
+            var table     = ["tp_control.Embed_WIP", "EMBED_ID",
+                             "EMBE_ID", "tp_control.Embed_Role_WIP", "ROLE_ID",
+                             "ROLE", "tp_control.role_embed_association_WIP", "SITE_ID", site_id,
                              "SITE_ID", site_id,
                              "SITE_ID", site_id];
             query         = mysql.format(query, table);
@@ -120,7 +120,7 @@ module.exports = function(router, connection) {
         .get(function(req, res) {
             var auth_id      = "ai."        + req.params.role_id;
             var view_auth_id = "aei.embed_" + req.params.role_id;
-            var query        = "select DISTINCT * from ?? WHERE ?? = ? AND ?? = ?";
+            var query        = "select a * from ?? WHERE ?? = ? AND ?? = ?";
             var table        = ['view_menu_auth_role', 'auth_user_role', req.params.role_id, 'site_id', req.params.site];
             query     = mysql.format(query, table);
             connection.query(query, function(err, rows) {
