@@ -109,7 +109,7 @@ module.exports = function(router, connection) {
             var query_filter = "SELECT ??,??,??,??,?? \
                                       FROM ?? \
                                       WHERE ?? = ?";
-            var table_filter = ["has_date_filter","has_search_filter","has_bullet_filter", "has_amount_filter", "pdf_diplay",
+            var table_filter = ["has_date_filter","has_search_filter","has_bullet_filter", "has_amount_filter", "pdf_display",
                                 "tp_control.Datatable_WIP",
                                 "EMBED_ID", req.params.embed_id];
             query_filter = mysql.format(query_filter, table_filter);
