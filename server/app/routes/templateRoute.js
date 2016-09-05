@@ -30,7 +30,7 @@ module.exports = function(router, connection) {
                     res.status(404).send("Not Found");
                 else {
                   // une fois passé l'etape 1, on verifie de quel embed il s'agit, si jamais c'est un tableau ou bien autre chose qu'un tableau
-                  var request_two = "SELECT * FROM ?? WHERE ?? = ? AND ?? =?";
+                  var request_two = "SELECT * FROM ?? WHERE ?? = ?";
                   var table_two   = ["tp_control.Embed_WIP", "EMBED_ID", result_roles[0].EMBED_ID];
                   // if(embed_id != null) {
                   //       request_two += "AND ?? = ?";
