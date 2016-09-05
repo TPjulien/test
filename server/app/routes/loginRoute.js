@@ -103,9 +103,9 @@ module.exports = function(router, connection) {
                                   "company":              info_result[0].SITE_LIBELLE,
                                   "firstname":            info_result[0].Customer_GivenName,
                                   "lastname":             info_result[0].Customer_surName,
-                                  "user_auth":            "Administrator"
+                                  // "user_auth":            "Administrator"
                                   // bug de roles
-                                  // "user_auth":            info_result[0].Role,
+                                  "user_auth":            info_result[0].Role,
                               }];
                               var token = jwt.sign(preToken, 'travelSecret', {
                                   expiresIn: 7200

@@ -54,7 +54,7 @@ tableau
     getMultipleView = () ->
       get_infos   = []
       angular.forEach $scope.viewMenu, (value, key) ->
-          get_infos.push value['view_id']
+          get_infos.push value['VIEW_ID']
 
       final_infos = []
 
@@ -83,36 +83,36 @@ tableau
         # id    = data['VIEW_ID']
 
         # console.log get_multiple_view.length
-
-        color      = $scope.get_color = getColor(data['view_color'])
-        image      = getImage(data['view_icon'])
-        id         = data['view_id']
-        view_label = data['view_label']
+        color      = $scope.get_color = getColor(data['EMBED_COLOR'])
+        image      = getImage(data['EMBED_ICON'])
+        id         = data['VIEW_ID']
+        view_label = data['EMBED_LIBELLE']
         menu       = []
         # console.log $scope.get_color
         # on verifie si jamais c'est un popover ou bien une vue
+
+        # console.log $scope.get_multiple_view
         if $scope.get_multiple_view.length > 0
             if $scope.get_multiple_view[id] != undefined
                 $scope.multiple_view = $scope.get_multiple_view[id]
                 menu += """ <div angular-popover direction="right" close-on-click="false" template-url="/modals/right.html" mode="click" close-on-mouseleave="true" style="position: relative;"> """
-            else
-                menu += """ <div ng-click="goTO(menu.site_id, menu.view_id, menu.view_label)" style="position: relative;"> """
+        else
+            menu += """ <div ng-click="goTO(menu.site_id, menu.view_id, menu.view_label)" style="position: relative;"> """
 
-            menu += """
-                          <div tooltips tooltip-template=" """ + view_label + """ " tooltip-side="right" class="tile-small" data-period=" """ + data['view_position'] + """ " data-duration="250" data-role="tile" data-effect=" """ + data['animation'] + """ ">
-                              <div class="tile-content">
-                                  <div class="live-slide tiles_size" style=" """ + color + """ " layout-padding="">
-                                      <img ng-src=" """ + image + """ ">
-                                  </div>
-                                  <div class="live-slide tiles_size" style=" """ + color + """ " layout-padding="">
-                                      <img ng-src=" """ + image + """ ">
-                                  </div>
+        menu += """
+                      <div tooltips tooltip-template=" """ + view_label + """ " tooltip-side="right" class="tile-small" data-period=" """ + data['view_position'] + """ " data-duration="250" data-role="tile" data-effect=" """ + data['animation'] + """ ">
+                          <div class="tile-content">
+                              <div class="live-slide tiles_size" style=" """ + color + """ " layout-padding="">
+                                  <img ng-src=" """ + image + """ ">
+                              </div>
+                              <div class="live-slide tiles_size" style=" """ + color + """ " layout-padding="">
+                                  <img ng-src=" """ + image + """ ">
                               </div>
                           </div>
-                        </div>
-                    """
-
-            return $sce.trustAsHtml menu
+                      </div>
+                    </div>
+                """
+        return $sce.trustAsHtml menu
             # angular.forEach $scope.viewMenu, (value, key) ->
             #     console.log get_multiple_view[test]
                 #
@@ -188,7 +188,6 @@ tableau
             data:
                 site_id   : decode[0].site_id
                 user_auth : decode[0].user_auth
-                user_id   : decode[0].UID
         .success (data) ->
             $scope.viewMenu = data
             for values in $scope.viewMenu
