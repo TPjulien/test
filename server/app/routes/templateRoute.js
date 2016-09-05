@@ -89,8 +89,8 @@ module.exports = function(router, connection) {
                                 AND ?? = ? ) \
                               AND ?? = ?";
             var table     = ["tp_control.Embed_WIP", "EMBED_ID",
-                             "EMBE_ID", "tp_control.Embed_Role_WIP", "ROLE_ID",
-                             "ROLE", "tp_control.role_embed_association_WIP", "SITE_ID", site_id,
+                             "EMBED_ID", "tp_control.Embed_Role_WIP", "ROLE_ID",
+                             "ROLE_LIBELLE", "tp_control.role_embed_association_WIP", "SITE_ID", site_id,
                              "SITE_ID", site_id,
                              "SITE_ID", site_id];
             query         = mysql.format(query, table);
