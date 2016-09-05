@@ -80,49 +80,45 @@ module.exports = function(router, connection) {
     // ancien login
     router.route('/login')
         .post (function (req, res) {
-                if (typeof data != "undefined" && data != null && data.length > 0) {
-                    checkPwUser(req.body.username, req.body.password, req.body.SITE_ID, function(err, data) {
-                        if (data) {
-                          console.log("data exist");
-                        } else {
-                          console.log("data dont exist");
-                        }
-                        if (data.length != 0) {
-                          var query = 'SELECT * FROM ?? WHERE ?? = ? AND ?? = ?';
-                          var table = ['profils.view_info_userConnected','SITE_ID',req.body.SITE_ID,"Login",req.body.username ];
-                          query     = mysql.format(query, table);
-                          connection.query(query, function(error, info_result) {
-                              if (err) {
-                                  res.status(400).send(err);
-                              } else {
-                                  var preToken = [{
-                                      "site_id":              info_result[0].SITE_ID,
-                                      "UID":                  info_result[0].UID,
-                                      "DEPOSITED_DATE":       info_result[0].DEPOSITED_DATE,
-                                      "home_community":       info_result[0].HomeCommunity,
-                                      "username":             info_result[0].Login,
-                                      "company":              info_result[0].SITE_LIBELLE,
-                                      "firstname":            info_result[0].Customer_GivenName,
-                                      "lastname":             info_result[0].Customer_surName,
-                                      "user_auth":            "Administrator"
-                                      // bug de roles
-                                      // "user_auth":            info_result[0].Role,
-                                  }];
-                                  var token = jwt.sign(preToken, 'travelSecret', {
-                                      expiresIn: 7200
-                                  });
-                                  res.json({
-                                    token: token
-                                  });
-                              }
-                          })
-                        } else {
-                            res.status(400).send("user not found");
-                        }
-                    });
-                } else {
-                    res.sendStatus(404, "user not found !");
-                }
+                checkPwUser(req.body.username, req.body.password, req.body.SITE_ID, function(err, data) {
+                    if (data) {
+                      console.log("data exist");
+                    } else {
+                      console.log("data dont exist");
+                    }
+                    if (data.length != 0) {
+                      var query = 'SELECT * FROM ?? WHERE ?? = ? AND ?? = ?';
+                      var table = ['profils.view_info_userConnected','SITE_ID',req.body.SITE_ID,"Login",req.body.username ];
+                      query     = mysql.format(query, table);
+                      connection.query(query, function(error, info_result) {
+                          if (err) {
+                              res.status(400).send(err);
+                          } else {
+                              var preToken = [{
+                                  "site_id":              info_result[0].SITE_ID,
+                                  "UID":                  info_result[0].UID,
+                                  "DEPOSITED_DATE":       info_result[0].DEPOSITED_DATE,
+                                  "home_community":       info_result[0].HomeCommunity,
+                                  "username":             info_result[0].Login,
+                                  "company":              info_result[0].SITE_LIBELLE,
+                                  "firstname":            info_result[0].Customer_GivenName,
+                                  "lastname":             info_result[0].Customer_surName,
+                                  "user_auth":            "Administrator"
+                                  // bug de roles
+                                  // "user_auth":            info_result[0].Role,
+                              }];
+                              var token = jwt.sign(preToken, 'travelSecret', {
+                                  expiresIn: 7200
+                              });
+                              res.json({
+                                token: token
+                              });
+                          }
+                      })
+                    } else {
+                        res.status(400).send("user not found");
+                    }
+                });
         })
         router.route('/verify/:Login/:SITE_ID')
           .post (function(req, res) {
