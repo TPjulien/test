@@ -82,24 +82,41 @@ module.exports = function(router, connection) {
             var user_auth = req.body.user_auth;
             var site_id   = req.body.site_id;
             var user_id   = req.body.user_id;
-            // Faire une view plus tard
-            var query     = "SELECT * FROM ?? WHERE ?? IN \
-                              ( SELECT DISTINCT ?? FROM ?? WHERE ?? IN \
-                                ( SELECT ?? FROM ?? WHERE ?? = ? ) \
-                                AND ?? = ? )";
-            var table     = ["tp_control.Embed_WIP", "EMBED_ID",
-                             "EMBED_ID", "tp_control.Embed_Role_WIP", "ROLE_ID",
-                             "ROLE_LIBELLE", "tp_control.role_embed_association_WIP", "SITE_ID", site_id,
-                             "SITE_ID", site_id];
-            query         = mysql.format(query, table);
-            connection.query(query, function(err, result_menu) {
+            var query_one = "SELECT DISTINCT * FROM ?? WHERE ?? = ? AND ?? IN \
+                            (SELECT ?? FROM ?? WHERE ?? = ? AND ?? = ?)";
+            var table_one = ["tp_control.embed_embed_view_WIP", "SITE_ID", req.body.site_id, "EMBED_ID"
+                             "EMBED_ID", "tp_control.embed_role_view_WIP", "SITE_ID", req.body.site_id, "ROLE_LIBELLE", req.body.user_auth];
+            var query_one = mysql.format(query_one, table_one);
+            connection.query(query_one, function(err, result) {
                 if (err)
-                    res.status(400).send(err);
-                else {
-                    res.json(result_menu);
-                }
+                    res.status(400).send(err)
+                else
+                    res.json(result);
             })
         })
+    // router.route('/getMenu')
+    //     .post(function(req, res) {
+    //         var user_auth = req.body.user_auth;
+    //         var site_id   = req.body.site_id;
+    //         var user_id   = req.body.user_id;
+    //         // Faire une view plus tard
+    //         var query     = "SELECT * FROM ?? WHERE ?? IN \
+    //                           ( SELECT DISTINCT ?? FROM ?? WHERE ?? IN \
+    //                             ( SELECT ?? FROM ?? WHERE ?? = ? ) \
+    //                             AND ?? = ? )";
+    //         var table     = ["tp_control.Embed_WIP", "EMBED_ID",
+    //                          "EMBED_ID", "tp_control.Embed_Role_WIP", "ROLE_ID",
+    //                          "ROLE_LIBELLE", "tp_control.role_embed_association_WIP", "SITE_ID", site_id,
+    //                          "SITE_ID", site_id];
+    //         query         = mysql.format(query, table);
+    //         connection.query(query, function(err, result_menu) {
+    //             if (err)
+    //                 res.status(400).send(err);
+    //             else {
+    //                 res.json(result_menu);
+    //             }
+    //         })
+    //     })
 
     // Permet de recuperer la route si jamais il y a plus de 1 tableau
     router.route('/getMultipleView/:view_id/:site_id')
