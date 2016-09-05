@@ -82,7 +82,7 @@ module.exports = function(router, connection) {
         .post (function (req, res) {
             getPassUser(req.body.username, function(err, data) {
                 if (err) {
-                    res.sendStatus(404, "user not found !");
+                    res.status(400).send(err);
                 } else {
                     if (typeof data != "undefined" && data != null && data.length > 0) {
                         checkPwUser(req.body.username, req.body.password, req.body.SITE_ID, function(err, data) {
@@ -97,7 +97,7 @@ module.exports = function(router, connection) {
                               query     = mysql.format(query, table);
                               connection.query(query, function(error, info_result) {
                                   if (err) {
-                                      res.sendStatus(404, "user not found");
+                                      res.status(400).send(err);
                                   } else {
                                       var preToken = [{
                                           "site_id":              info_result[0].SITE_ID,
@@ -121,7 +121,7 @@ module.exports = function(router, connection) {
                                   }
                               })
                             } else {
-                                res.sendStatus(404, "User not found")
+                                res.status(400).send("user not found");
                             }
                         });
                     } else {

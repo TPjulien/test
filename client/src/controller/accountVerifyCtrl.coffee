@@ -37,6 +37,8 @@ tableau
           targetEvent         : ev
           clickOutsideToClose : false
           escapeToClose       : false
+
+
         $http
             method: 'POST'
             url:    options.api.base_url + '/login'
@@ -46,8 +48,10 @@ tableau
                 password: $scope.password
             }
         .success (data) ->
+            console.log data
             store.set('JWT', data.token)
             $location.path "/home"
         .error (err) ->
+            console.log err
             alertFct.loginError()
             $mdDialog.hide()
