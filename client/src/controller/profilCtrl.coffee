@@ -39,7 +39,7 @@ tableau
         get_rail_loyalty           = $http.get options.api.base_url + '/rail_loyalty/'  + uid
         get_air_loyalty            = $http.get options.api.base_url + '/air_loyalty/'   + uid
         get_air_loyalty_air_france = $http.get options.api.base_url + '/air_loyaltyAF/' + uid
-        get_profil_change          = $http.get options.api.base_url + '/profils/' + site_id + '/' + uid
+        get_profil_change          = $http.get options.api.base_url + '/profils/'       + site_id + '/' + uid
 
         # requete plus propre et moins couteux en terme de ressource
         $q.all([
@@ -97,6 +97,7 @@ tableau
             $scope.air_seating_pref          = data[6].data
             $scope.country                   = data[7].data
             $scope.community                 = data[8].data
+            console.log $scope.community
           .catch (err) ->
             toastErrorFct.toastError("Impossible d'acceder aux information du voyageur")
 

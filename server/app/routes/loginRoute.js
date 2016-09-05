@@ -18,19 +18,19 @@ module.exports = function(router, connection) {
     var table_username = "username";
     var table_login    = "user_info";
 
+
     // shibboleth
     passport.use(new SamlStrategy(
       {
         callbackUrl  : 'https://tp-control.travelplanet.fr:3254/api/Shibboleth.sso/SAML2/POST',
         entryPoint   : 'https://test.federation.renater.fr/idp/profile/SAML2/Redirect/SSO',
         issuer       : 'https://tp-control.travelplanet.fr/#/account/login',
-        // ecryptionPvk : fs.readFileSync('/etc/ssl/tp_control/tp-control_travelplanet_fr.crt', 'utf8'),
-        cert         : fs.readFileSync('/etc/ssl/tp_control/tp-control_travelplanet_fr.crt', 'utf-8')
+        decryptionPvk : fs.readFileSync('/etc/ssl/tp_control/tp-control_travelplanet_fr.crt', 'utf8')
+        // cert         : fs.readFileSync('/etc/ssl/tp_control/tp-control_travelplanet_fr.crt', 'utf-8')
       },
       function(profile, done) {
           var query = "";
           var table = [];
-          console.log(profile);
           return done(null, profile);
           })
     )
@@ -68,11 +68,13 @@ module.exports = function(router, connection) {
     //         res.status(200).send('ça fonctionne !');
     //   });
     // test
+
     router.route('/Shibboleth.sso/SAML2/POST')
         .post (passport.authenticate('saml', { failureRedirect: '/'}),
             function (req, res) {
-                var result = req.body;
-                res.status(200).send(result);
+                var result = req.body.displayName;
+                console.log(result);
+                res.status(200).send( { result[0] } );
         });
 
     // ancien login
@@ -85,7 +87,7 @@ module.exports = function(router, connection) {
                     if (typeof data != "undefined" && data != null && data.length > 0) {
                         checkPwUser(req.body.username, req.body.password, req.body.SITE_ID, function(err, data) {
                             if (data) {
-                              console.log(data.length);
+                              console.log("data exist");
                             } else {
                               console.log("data dont exist");
                             }
@@ -162,6 +164,20 @@ module.exports = function(router, connection) {
               var table = ['profils.view_tpa_extensions_libelle', "Login", req.params.user, 'site_libelle'];
               query     = mysql.format(query, table);
               connection.query(query, function(err, rows) {
+                  if (err)
+                      res.status(400).send(err);
+                  else
+                      res.json(rows);
+              })
+          })
+
+        // route pour aetm
+        router.route('/aetmConnect')
+          .post (function(req, res) {
+              var query = "SELECT * FROM ?? WHERE ?? = ? AND ?? = ?";
+              var table = ['tp_control.Aetm_WIP', 'SITE_ID', req.body.site_id, 'user', req.body.username];
+              query     = mysql.format(query, table);
+              connection.query(query, function(err, result) {
                   if (err)
                       res.status(400).send(err);
                   else

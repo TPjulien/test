@@ -97,7 +97,7 @@ tableau
                 menu += """ <div ng-click="goTO(menu.site_id, menu.view_id, menu.view_label)" style="position: relative;"> """
 
             menu += """
-                          <div tooltips tooltip-template=" """ + view_label + """ " tooltip-side="bottom"  class="tile-small" data-period=" """ + data['view_position'] + """ " data-duration="250" data-role="tile" data-effect=" """ + data['animation'] + """ ">
+                          <div tooltips tooltip-template=" """ + view_label + """ " tooltip-side="right" class="tile-small" data-period=" """ + data['view_position'] + """ " data-duration="250" data-role="tile" data-effect=" """ + data['animation'] + """ ">
                               <div class="tile-content">
                                   <div class="live-slide tiles_size" style=" """ + color + """ " layout-padding="">
                                       <img ng-src=" """ + image + """ ">

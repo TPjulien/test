@@ -62,7 +62,7 @@ app.use(cors());
 // app.options('*', cors());
 // options pour accepter tout !
 app.use(bodyParser.urlencoded({extended: true}));
-// app.use(bodyParser.json({ extended: true }));
+app.use(bodyParser.json({ extended: true }));
 app.use(bodyParser.json());
 
 var port   = process.env.PORT || 3000;
