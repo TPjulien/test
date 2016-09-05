@@ -14,10 +14,10 @@ tableau
       embed_id  = []
       splitted  = []
 
-      if view_id.indexOf('-') != -1
-          splitted = view_id.split("-")
-          view_id  = splitted[0]
-          embed_id = splitted[1]
+      # if embed_id.indexOf('-') != -1
+      #     splitted = embed_id.split("-")
+      #     view_id  = splitted[0]
+      #     embed_id = splitted[1]
 
       getTableauRequest = () ->
           $http
