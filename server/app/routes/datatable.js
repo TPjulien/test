@@ -104,7 +104,7 @@ module.exports = function(router, connection) {
               })
           })
       // on recupere le filte séparément
-      router.route('/getFilterDatatable/:site_id/:view_id/:embed_id')
+      router.route('/getFilterDatatable/:embed_id')
           .get (function(req, res) {
             var query_filter = "SELECT ??,??,??,??,?? \
                                       FROM ?? \
