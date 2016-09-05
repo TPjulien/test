@@ -52,6 +52,7 @@ tableau
             method: 'GET'
             url:    options.api.base_url + '/loginCheck/' + $scope.username
         .success (data) ->
+            # console.log data
             # $location.url('/')
             # console.log data
             # $location.path('/')
@@ -60,7 +61,8 @@ tableau
             # $window.open(data, "_blank")
             # console.log data
             if (data.length == 1)
-                $location.path '/login/verify/' + $scope.username
+                console.log data[0]
+                $location.path '/login/verify/' + $scope.username + '/' + data[0].SITE_ID
             else if (data.length > 1)
                 $location.path '/login/comunity/' + $scope.username
             else

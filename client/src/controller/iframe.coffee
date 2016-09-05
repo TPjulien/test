@@ -1,5 +1,5 @@
 tableau
-.controller 'iframeCtrl', ($scope, $sce, $http, tokenFactory, $http) ->
+.controller 'iframeCtrl', ($scope, $sce, $http, tokenFactory) ->
       getDataToken = tokenFactory.tokenData()
 
       getAetm = () ->
