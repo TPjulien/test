@@ -30,8 +30,6 @@ tableau
         $location.path "/login/account"
 
     $scope.login = (ev) ->
-        console.log Login
-
         $mdDialog.show
           controller          : 'loadingCtrl'
           templateUrl         : 'modals/loading.html'
@@ -50,10 +48,8 @@ tableau
                 password: $scope.password
             }
         .success (data) ->
-            console.log data
             store.set('JWT', data.token)
             $location.path "/home"
         .error (err) ->
-            console.log err
             alertFct.loginError()
             $mdDialog.hide()

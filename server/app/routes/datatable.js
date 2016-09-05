@@ -108,13 +108,9 @@ module.exports = function(router, connection) {
           .get (function(req, res) {
             var query_filter = "SELECT ??,??,??,??,?? \
                                       FROM ?? \
-                                      WHERE ?? = ? \
-                                          AND ?? = ? \
-                                          AND ?? = ?";
+                                      WHERE ?? = ?";
             var table_filter = ["has_date_filter","has_search_filter","has_bullet_filter", "has_amount_filter", "pdf_diplay",
-                                "tp_control.datatable",
-                                "SITE_ID", req.params.site_id,
-                                "VIEW_ID", req.params.view_id,
+                                "tp_control.Datatable_WIP",
                                 "EMBED_ID", req.params.embed_id];
             query_filter = mysql.format(query_filter, table_filter);
             connection.query(query_filter, function(err, result_filter) {
@@ -123,7 +119,7 @@ module.exports = function(router, connection) {
                 else {
                     // deuxieme requete pour recuperer les colones utilisées
                     var query_filter_column = "SELECT ?? FROM ?? WHERE ?? = ? AND ?? = ? AND ?? = ?";
-                    var table_filter_column = ["column", "tp_control.datatable", "SITE_ID", req.params.site_id, "VIEW_ID", req.params.view_id, "EMBED_ID", req.params.embed_id];
+                    var table_filter_column = ["column", "tp_control.Datatable_WIP", "SITE_ID", req.params.site_id, "VIEW_ID", req.params.view_id, "EMBED_ID", req.params.embed_id];
                     query_filter_column = mysql.format(query_filter_column, table_filter_column);
                     connection.query(query_filter_column, function(err, result_filter_column) {
                         if (err)
@@ -143,8 +139,8 @@ module.exports = function(router, connection) {
               // d'accord on cherche les données envoyé par le client puis une requete
               pre_data  = req.body.generic_data;
               filters   = req.body.filters;
-              var query = "SELECT * FROM ?? WHERE ?? = ? AND ?? = ? AND ?? =?";
-              var table = ["tp_control.datatable", "SITE_ID", pre_data.SITE_ID, "VIEW_ID", pre_data.VIEW_ID, "EMBED_ID", pre_data.EMBED_ID];
+              var query = "SELECT * FROM ?? WHERE ?? = ?";
+              var table = ["tp_control.Datatable_WIP", "EMBED_ID", pre_data.EMBED_ID];
               query = mysql.format(query, table);
               connection.query(query, function(err, result_datatable) {
                 if (err)

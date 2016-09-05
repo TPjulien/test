@@ -16,7 +16,6 @@ tableau
     getBullet = (value) ->
         table = null
         name  = null
-        # console.log value
         angular.forEach value, (name, key) ->
             if value[key].has_bullet_filter != null
                 table = value[key]
@@ -146,7 +145,6 @@ tableau
         getDatatable(0, 50);
 
     $scope.getGenericFilter = (filters, key) ->
-        # console.log name, value
         result                 = null
         get_filter_column_name = null
         delete filters.$$hashKey

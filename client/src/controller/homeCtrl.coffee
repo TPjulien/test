@@ -15,8 +15,6 @@ tableau
 
     $mdDialog.hide()
 
-    console.log decode[0]
-
     $scope.getNumber = (id) ->
       $http
           method: 'GET'
@@ -76,21 +74,13 @@ tableau
 
     # Html pour le menu comme je dois verifier si oui ou non la requete fonctionne
     $scope.bindMenu = (data, menu) ->
-        # console.log menu
         # getMultipleView()
-        # color = $scope.get_color = getColor(data['VIEW_COLOR'])
-        # image = getImage(data['VIEW_ICON'])
-        # id    = data['VIEW_ID']
 
-        # console.log get_multiple_view.length
         color      = $scope.get_color = getColor(data['EMBED_COLOR'])
         image      = getImage(data['EMBED_ICON'])
         id         = data['VIEW_ID']
         view_label = data['EMBED_LIBELLE']
         menu       = []
-        # console.log $scope.get_color
-        # on verifie si jamais c'est un popover ou bien une vue
-        # console.log $scope.get_multiple_view
         if $scope.get_multiple_view.length > 0
             if $scope.get_multiple_view[id] != undefined
                 $scope.multiple_view = $scope.get_multiple_view[id]
