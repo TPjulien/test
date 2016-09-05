@@ -14,8 +14,12 @@ module.exports = function(router, connection) {
             var site_id   = req.body.site_id;
             var embed_id  = req.body.embed_id;
             // on prepare la premiere requete pour verifier
-            var request_one = "SELECT ?? FROM ?? WHERE ?? = ? AND ?? = ? AND ?? = ?";
-            var table_one   = ["ROLE", "tp_control.embed_roles", "SITE_ID", site_id, "ROLE", user_role, "VIEW_ID", view_id];
+            var request_one = "SELECT ?? FROM ?? WHERE ?? = ? AND ?? = IN (SELECT ?? FROM ?? WHERE ?? = ? AND ?? = ?)";
+            var table_one   = ["ROLE_ID", "tp_control.Embed_Role_WIP", "SITE_ID", site_id, "ROLE_ID",
+                              "ROLE_ID", "tp_control.Role_WIP", "ROLE_LIBELLE", user_role, "SITE_ID", site_id];
+
+            // var request_one = "SELECT ?? FROM ?? WHERE ?? = ? AND ?? = ? AND ?? = ?";
+            // var table_one   = ["ROLE_ID", "tp_control.Embed_Role_WIP", "SITE_ID", site_id, "ROLE_ID", user_role, "VIEW_ID", view_id];
             request_one     = mysql.format(request_one, table_one);
             connection.query(request_one, function(err, result_roles) {
                 // si jamais il y a une erreur ou bien que le tableau est vide, on retourne un status 400, 404

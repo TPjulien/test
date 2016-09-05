@@ -97,7 +97,7 @@ tableau
                 $scope.multiple_view = $scope.get_multiple_view[id]
                 menu += """ <div angular-popover direction="right" close-on-click="false" template-url="/modals/right.html" mode="click" close-on-mouseleave="true" style="position: relative;"> """
         else
-            menu += """ <div ng-click="goTO(menu.site_id, menu.view_id, menu.view_label)" style="position: relative;"> """
+            menu += """ <div ng-click="goTO(menu.SITE_ID, menu.VIEW_ID, menu.EMBED_LIBELLE)" style="position: relative;"> """
 
         menu += """
                       <div tooltips tooltip-template=" """ + view_label + """ " tooltip-side="right" class="tile-small" data-period=" """ + data['view_position'] + """ " data-duration="250" data-role="tile" data-effect=" """ + data['animation'] + """ ">
