@@ -30,6 +30,8 @@ tableau
         $location.path "/login/account"
 
     $scope.login = (ev) ->
+        console.log Login
+
         $mdDialog.show
           controller          : 'loadingCtrl'
           templateUrl         : 'modals/loading.html'
