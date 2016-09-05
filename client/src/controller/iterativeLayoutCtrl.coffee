@@ -27,8 +27,8 @@ tableau
             user_role : user_role
             site_id   : site_id
             view_id   : view_id
-            embed_id  : embed_id
     .success (data) ->
+        console.log data
         $scope.details = data
     .error (err) ->
         toastErrorFct.toastError(err)
