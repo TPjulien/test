@@ -118,8 +118,8 @@ module.exports = function(router, connection) {
                     res.status(400).send(err);
                 else {
                     // deuxieme requete pour recuperer les colones utilisées
-                    var query_filter_column = "SELECT ?? FROM ?? WHERE ?? = ? AND ?? = ? AND ?? = ?";
-                    var table_filter_column = ["column", "tp_control.Datatable_WIP", "SITE_ID", req.params.site_id, "VIEW_ID", req.params.view_id, "EMBED_ID", req.params.embed_id];
+                    var query_filter_column = "SELECT ?? FROM ?? WHERE ?? = ?";
+                    var table_filter_column = ["column", "tp_control.Datatable_WIP", "EMBED_ID", req.params.embed_id];
                     query_filter_column = mysql.format(query_filter_column, table_filter_column);
                     connection.query(query_filter_column, function(err, result_filter_column) {
                         if (err)

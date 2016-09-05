@@ -86,7 +86,7 @@ tableau
     # http qui permet de recuperer les filtres
     $http
         method: 'GET'
-        url:    options.api.base_url + '/getFilterDatatable/' + $scope.detail.SITE_ID + '/' + $scope.detail.VIEW_ID + '/' + $scope.detail.EMBED_ID
+        url:    options.api.base_url + '/getFilterDatatable/' + $scope.detail.EMBED_ID
     .success (data) ->
         $scope.datatable_filters = data.datatable_filters
         $scope.column_filter     = data.column_filter
