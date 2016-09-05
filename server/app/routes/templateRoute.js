@@ -14,7 +14,8 @@ module.exports = function(router, connection) {
             var site_id   = req.body.site_id;
             var embed_id  = req.body.embed_id;
             // on prepare la premiere requete pour verifier
-            var request_one = "SELECT ?? FROM ?? WHERE ?? = ? AND ?? = IN (SELECT ?? FROM ?? WHERE ?? = ? AND ?? = ?)";
+            var request_one = "SELECT ?? FROM ?? WHERE ?? = ? AND ?? IN \
+                                  (SELECT ?? FROM ?? WHERE ?? = ? AND ?? = ?)";
             var table_one   = ["ROLE_ID", "tp_control.Embed_Role_WIP", "SITE_ID", site_id, "ROLE_ID",
                               "ROLE_ID", "tp_control.Role_WIP", "ROLE_LIBELLE", user_role, "SITE_ID", site_id];
 
