@@ -3,6 +3,16 @@
   background-color: #0077bb;
   color: white;
 }
+
+@font-face {
+    font-family: 'gotham'; /*a name to be used later*/
+    src: url('/fonts/gotham_travelplanet.ttf'); /*URL to font*/
+}
+
+p, h1, h2, h3, h4, h5, h6, span {
+  font-family: 'gotham';
+}
+
 .row .col.offset-s1 {
     margin-left: 3.333333% !important;
 }
@@ -195,12 +205,15 @@ html {
 }
 
 .loginPage {
-  height: 600px;
-  background-color:#EEE;
-  width: 97.333%;
+  /*height: 600px;*/
+  height: 75%;
+  /*background-color:#EEE;*/
+  /*width: 97.333%;*/
+  width: 100%;
   margin-left: auto;
   position:initial;
   margin-right: auto;
+  bottom: 12%;
   /*margin-top:20%;*/
 }
 
@@ -574,7 +587,7 @@ iframe {
 }
 
 #img-logo{
-  height: 600px;
+  height: 100%;
   width: 100%;
   /*border-radius: 50%;
   margin-left: auto;
