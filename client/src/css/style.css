@@ -206,14 +206,14 @@ html {
 
 .loginPage {
   /*height: 600px;*/
-  height: 75%;
+  height: 50%;
   /*background-color:#EEE;*/
   /*width: 97.333%;*/
   width: 100%;
   margin-left: auto;
   position:initial;
   margin-right: auto;
-  bottom: 12%;
+  bottom: 25%;
   /*margin-top:20%;*/
 }
 
