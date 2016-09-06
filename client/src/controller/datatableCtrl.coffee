@@ -17,17 +17,28 @@ tableau
         table = null
         name  = null
         angular.forEach value, (name, key) ->
-            if value[key].has_bullet_filter != null
-                table = value[key]
-                $http
-                    method: 'POST'
-                    url:    options.api.base_url + '/getBulletFilter'
-                    data:
+            table = value[key]
+            if table.has_bullet_filter != ''
+                if table.has_bullet_filter != null
+                  $http
+                      method: 'POST'
+                      url:    options.api.base_url + '/getBulletFilter'
+                      data:
                         column_name: table.column
                         table:       table.table
                         schema:      table.schema
-                .success (data) ->
-                    bullet_filters.push data
+                  .success (data) ->
+                      bullet_filters.push data
+
+            console.log bullet_filters
+            # if value[key].has_bullet_filter != null && value[key].has_bullet_filter != "null"
+            #     table = value[key]
+            #     if table.has_bullet_filter == ''
+            #         console.log "ça passe par la !"
+            #     console.log table
+                # console.log table.column
+                # console.log table.table
+                # console.log table.schema
 
     # on recupere les données de chaque instance de $scope.detail
     getDatatable = (min, max) ->
@@ -88,6 +99,7 @@ tableau
         method: 'GET'
         url:    options.api.base_url + '/getFilterDatatable/' + $scope.detail.EMBED_ID
     .success (data) ->
+        console.log data
         $scope.datatable_filters = data.datatable_filters
         $scope.column_filter     = data.column_filter
     .error (err) ->
@@ -145,59 +157,63 @@ tableau
         getDatatable(0, 50);
 
     $scope.getGenericFilter = (filters, key) ->
+        # console.log filters, key
         result                 = null
         get_filter_column_name = null
         delete filters.$$hashKey
         for name, values of filters
+            console.log filters[name]
             if filters[name] != null
-                # permet de retrouver le nom de la colonne associé au filtre
-                for column_name, value_column of $scope.column_filter[key]
-                    get_filter_column_name = value_column
-                result = """<h5 class = "md-subhead"
-                                style = "text-align: left">
-                                Par """ + filters[name] + """ :
-                             </h5>"""
-                # faut trouver une moyen plus cool de faire cela dynamique
-                if name == 'has_search_filter'
-                    dynamic_entry = "filterText(clientFacture,'" + get_filter_column_name + "')"
-                    result       += "<input for         = '" + name + "'
-                                       ng-change        = " + dynamic_entry + " &nbsp;
-                                       ng-model         = 'clientFacture'
-                                       name             = 'clientFacture'
-                                       ng-model-options = '{debounce: 1000}'
-                                       minlength        = '1'
-                                       maxlength        = '10'>
-                                    </input>"
-                else if name == 'has_bullet_filter'
-                    if bullet_filters.length != 0
-                        generic_bullet = []
-                        dynamic_entry = "filterText(value,  '" + get_filter_column_name + "')"
-                        result       += '<md-radio-group ng-change = "' + dynamic_entry + '" &nbsp;
-                                                         ng-model  = "value">'
-                        generic_bullet += '<md-radio-button value = "all"
-                                              class = "md-primary">
-                                              Tous
-                                          </md-radio-button>'
-                        angular.forEach bullet_filters, (name, key) ->
-                            angular.forEach name, (value, deep_key) ->
-                                angular.forEach value, (deep_value, deep_key_level_2) ->
-                                        if deep_value != null
-                                            generic_bullet += '<md-radio-button value = "' + deep_value + '">
-                                                                ' + deep_value + '
-                                                               </md-radio-button>'
-                        result += generic_bullet + '</md-radio-group>'
-                else if name == 'has_date_filter'
-                    dynamic_entry = "filterDate(range, '" + get_filter_column_name + "')"
-                    result += '<sm-range-picker-input class           = "col s12"
-                                                      style           = "font-size:10px;"
-                                                      on-range-select = "' + dynamic_entry + '"
-                                                      value           = "date"
-                                                      is-required     = "false"
-                                                      format          = "YYYY-MM-DD"
-                                                      mode            = "date"
-                                                      week-start-day  = "monday"
-                                                      divider         = "Au">
-                               </sm-range-picker-input>'
+                if filters[name] != ""
+                    if filters[name] != "false"
+                        # permet de retrouver le nom de la colonne associé au filtre
+                        for column_name, value_column of $scope.column_filter[key]
+                            get_filter_column_name = value_column
+                        result = """<h5 class = "md-subhead"
+                                        style = "text-align: left">
+                                        Par """ + filters[name] + """ :
+                                     </h5>"""
+                        # faut trouver une moyen plus cool de faire cela dynamique
+                        if name == 'has_search_filter'
+                            dynamic_entry = "filterText(clientFacture,'" + get_filter_column_name + "')"
+                            result       += "<input for         = '" + name + "'
+                                               ng-change        = " + dynamic_entry + " &nbsp;
+                                               ng-model         = 'clientFacture'
+                                               name             = 'clientFacture'
+                                               ng-model-options = '{debounce: 1000}'
+                                               minlength        = '1'
+                                               maxlength        = '10'>
+                                            </input>"
+                        else if name == 'has_bullet_filter'
+                            if bullet_filters.length != 0
+                                generic_bullet = []
+                                dynamic_entry = "filterText(value,  '" + get_filter_column_name + "')"
+                                result       += '<md-radio-group ng-change = "' + dynamic_entry + '" &nbsp;
+                                                                 ng-model  = "value">'
+                                generic_bullet += '<md-radio-button value = "all"
+                                                      class = "md-primary">
+                                                      Tous
+                                                  </md-radio-button>'
+                                angular.forEach bullet_filters, (name, key) ->
+                                    angular.forEach name, (value, deep_key) ->
+                                        angular.forEach value, (deep_value, deep_key_level_2) ->
+                                                if deep_value != null
+                                                    generic_bullet += '<md-radio-button value = "' + deep_value + '">
+                                                                        ' + deep_value + '
+                                                                       </md-radio-button>'
+                                result += generic_bullet + '</md-radio-group>'
+                        else if name == 'has_date_filter'
+                            dynamic_entry = "filterDate(range, '" + get_filter_column_name + "')"
+                            result += '<sm-range-picker-input class           = "col s12"
+                                                              style           = "font-size:10px;"
+                                                              on-range-select = "' + dynamic_entry + '"
+                                                              value           = "date"
+                                                              is-required     = "false"
+                                                              format          = "YYYY-MM-DD"
+                                                              mode            = "date"
+                                                              week-start-day  = "monday"
+                                                              divider         = "Au">
+                                       </sm-range-picker-input>'
         # On retourne le code en donnant l'autorisation à angular de poster du html grace à $sce
         return $sce.trustAsHtml result
     # $scope.downloadPdf = (selected) ->

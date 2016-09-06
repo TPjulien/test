@@ -27,6 +27,7 @@
 }
 
 
+
 .angular-popover-template {
   padding: 0px;
 }
@@ -570,6 +571,16 @@ iframe {
   margin-top: 115px;
   margin-right: auto;
   margin-bottom: auto;
+}
+
+#img-logo{
+  height: 600px;
+  width: 100%;
+  /*border-radius: 50%;
+  margin-left: auto;
+  margin-top: 115px;
+  margin-right: auto;
+  margin-bottom: auto;*/
 }
 
 .cssFade {
