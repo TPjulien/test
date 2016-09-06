@@ -1,5 +1,5 @@
 tableau
-.controller 'iframeCtrl', ($scope, $sce, $http, tokenFactory) ->
+.controller 'aetmCtrl', ($scope, $sce, $http, tokenFactory) ->
       getDataToken = tokenFactory.tokenData()
 
       # getAetm = () ->
@@ -16,11 +16,11 @@ tableau
       # console.log getDataToken
 
       # trouver un moyen plus simple
-      $scope.LOGINNAME  = "johann"
-      $scope.SITE       = "Q1CNQ1CN"
+      $scope.LOGINNAME  = "lauriers"
+      $scope.SITE       = "R4QVR4QV"
       $scope.LANGUAGE   = "FR"
       $scope.LOGIN_TYPE = "SSO"
-      $scope.PASSWORD   = "BruceLee27!"
+      $scope.PASSWORD   = "lauriers2016"
       setTimeout (->
         document.getElementById('formSubmit').click()
       ), 0

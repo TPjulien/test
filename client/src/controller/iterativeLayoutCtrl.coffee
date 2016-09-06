@@ -6,8 +6,8 @@ tableau
 
     # obtenir le template de l'embed ainsi que sa valeur
     $scope.getTemplate = (value) ->
-        $scope.getController = value.EMBED_CONTENT_TYPE + 'Ctrl'
-        result_template      = 'templates/' + value.EMBED_CONTENT_TYPE + '.html'
+        $scope.getController = value.EMBED_CONTENT_TYPE.toLowerCase() + 'Ctrl'
+        result_template      = 'templates/' + value.EMBED_CONTENT_TYPE.toLowerCase() + '.html'
         return result_template
 
     user_role = decode[0].user_auth
