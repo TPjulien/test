@@ -1,6 +1,6 @@
   /* ----------------------------TP-V2-------------------------------------------------------------------- */
 .travel-colorB{
-  background-color: #0077bb;
+  background-color: #757575;
   color: white;
 }
 
@@ -83,7 +83,7 @@ input {
   height: 115px;
   width: 115px;
   border-radius: 50%;
-  background-image: url('/img/logo/poleemploi.jpg');
+  background-image: url('https://media.licdn.com/mpr/mpr/shrink_200_200/AAEAAQAAAAAAAAUIAAAAJDBjMWM3NDAwLWUxMjAtNDBiMy04YWM3LWFjZWY4Y2ExOWRjYg.png');
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
