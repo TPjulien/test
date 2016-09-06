@@ -1,5 +1,5 @@
 tableau
-.controller "profilCtrl",($scope, $mdDialog, $http, NgTableParams, store, jwtHelper, $q, toastErrorFct) ->
+.controller "profilsCtrl",($scope, $mdDialog, $http, NgTableParams, store, jwtHelper, $q, toastErrorFct) ->
     # data du profil
     if store.get('JWT')
       token               = store.get('JWT')
