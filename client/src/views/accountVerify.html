@@ -1,30 +1,29 @@
 <div class="row" style="max-width: none; margin-left: 0.0rem; height: 100%;  width: 100%; margin-bottom:0px">
-  <div class="col s12 s4 l4 valign hide-on-med-and-down" style="
-      background: url('{{background_image_url}}');
-      background-size: cover;
+  <div class="col s12 s7 l7 valign hide-on-med-and-down" style="
+      padding: 0;
       height: 100%;">
-    <div class="z-depth-2" style="background: url('img/logo/poleemploi.jpg') center no-repeat; background-size: contain; background-color:white" id = "img"> </div>
+    <div class="z-depth-2" style="background: url('img/travel_planet_logo.png') center no-repeat; background-color:white" id = "img-logo"> </div>
     <!-- <div class="z-depth-2" style="background: url('{{user_image_url}}') center no-repeat; background-color:burlywood" id = "img"> </div> -->
   </div>
-  <div class="col s12 s8 l8 valign-wrapper" style="height: 100%;">
+  <div class="col s12 s5 l5 valign-wrapper" style="height: 100%; background-color:#03A9F4">
     <div class="valign center" style=" width: 100%;">
       <!-- <h2 layout-padding>Bonjour {{data[0].user_last_name}}</h2> -->
-      <h2 layout-padding>Bonjour Tout le monde !</h2>
+      <h2 style="color:white" layout-padding>Bonjour !</h2>
 
-      <h5 layout-padding>Session verrouillée, veuillez entrer votre mot de passe.</h5>
+      <h5 style="color:white" layout-padding>Session verrouillée, veuillez entrer votre mot de passe.</h5>
       <form name="loginForm" ng-submit="login($event)">
-        <md-content layout-padding style="background-color: #EEE">
+        <md-content layout-padding style="background-color:transparent">
           <md-input-container>
             <label style="
               font-size: 15px;
               padding-left: 9px;
               ">Mot de passe</label>
             <input type="password" ng-model="password" required="true">
-            <a ng-click="backToCommu()" class="left" style="cursor:pointer">Retourner à la page de sélection de communauté</a>
+            <a ng-click="backToCommu()" class="left" style="cursor:pointer; color:white">Retourner à la page de sélection de communauté</a>
           </md-input-container>
         </md-content>
-        <div layout-padding class="col s12 center cssFade">
-          <a type="submit" style="background-color:#0077BB" ng-hide="loginForm.$invalid"  ng-click="login($event)" class="waves-effect waves-light btn">Connexion</a>
+        <div class="col s12 center cssFade">
+          <a type="submit" style="background-color:#4CAF50" ng-hide="loginForm.$invalid"  ng-click="login($event)" class="waves-effect waves-light btn">Connexion</a>
         </div>
       </form>
     </div>

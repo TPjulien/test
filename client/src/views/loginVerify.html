@@ -7,7 +7,7 @@
       height: 100%;"> -->
       <div class="col s12 s7 l7 valign hide-on-med-and-down" style="padding: 0; height:100%">
     <!-- <div class="z-depth-2" style="background: url('{{user_image_url}}') center no-repeat; background-color:burlywood" id ="img"> </div> -->
-    <div class="" style="background: url('{{user_image_url}}') center no-repeat; background-color:white; background-size:contain" id ="img-logo"> </div>
+    <div class="" style="background: url('{{user_image_url}}') center no-repeat; background-color:white;" id ="img-logo"> </div>
 
   </div>
   <div class="col s12 s5 l5 valign-wrapper" style="height: 100%; background-color:#03A9F4">
@@ -23,8 +23,8 @@
             <input style="font-size: 20px;" ng-model="username" required="true">
           </md-input-container>
         </md-content>
-        <div layout-padding class="col s12 center cssFade" ng-hide="loginForm.$invalid">
-          <a type="submit" style="background-color:#0077BB"  ng-click="stepVerify()" class="waves-effect waves-light btn">Etape suivante</a>
+        <div class="col s12 center cssFade" ng-hide="loginForm.$invalid">
+          <a type="submit" style="background-color:#4CAF50"  ng-click="stepVerify()" class="waves-effect waves-light btn">Etape suivante</a>
         </div>
       </form>
     </div>

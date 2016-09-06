@@ -251,13 +251,14 @@ ob-daterangepicker .picker-dropdown-container .picker-dropdown:after {
 }
 
 .connectionTravel {
-  font-family: 'roboto';
+  /*font-family: 'gotham';*/
   text-align: center;
-  color: white;
-  position: absolute;
-  left: 30%;
-  top: 74%;
-  font-size: 19px;
+  /*color: white;*/
+  /*position: absolute;*/
+  /*left: 30%;*/
+  /*top: 74%;*/
+  color: #545554;
+  font-size: 20px;
   font-weight: bold;
 }
 
