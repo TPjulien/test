@@ -162,7 +162,7 @@ tableau
         get_filter_column_name = null
         delete filters.$$hashKey
         for name, values of filters
-            console.log filters[name]
+            # console.log filters[name]
             if filters[name] != null
                 if filters[name] != ""
                     if filters[name] != "false"

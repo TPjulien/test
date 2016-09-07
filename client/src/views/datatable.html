@@ -7,10 +7,10 @@
            style            = "text-align:left; margin: 0; padding: 0; margin-bottom: -14px;"
            ng-repeat        = "data in datatable_columns"
            ng-bind-html     = "getGenericRow(data, data_table.datatable_width)"
-           ng-click         = "watchOrDownloads(data)"
-           tooltips
-           tooltip-template = "{{getLabel(data)}}"
-           tooltip-side     = "bottom">
+           ng-click         = "watchOrDownloads(data)">
+       <md-tooltip md-direction="bottom">
+           Bonjour je test
+       </md-tooltip>
       </div>
     </div>
     <!-- partie filtre généré automatiquement -->

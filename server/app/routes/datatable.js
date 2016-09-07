@@ -147,12 +147,13 @@ module.exports = function(router, connection) {
                     res.status(400).send(err);
                 else {
                     // on fait les traitement
-                    var query_datatable = "SELECT ";
+                    var query_datatable = 'SELECT "';
                     var table_datatable = [];
                     query_datatable += result_datatable[0].column;
                     for (var i = 1; i < result_datatable.length; i++) {
-                        query_datatable += ', ' + result_datatable[i].column;
+                        query_datatable += '", "' + result_datatable[i].column;
                     }
+                    query_datatable += '"';
                     // deuxieme étape de la query builder
                     query_datatable += ' FROM ' + result_datatable[0].schema + '.' + result_datatable[0].table;
                     // condition si jamais le filter existe

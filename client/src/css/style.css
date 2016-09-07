@@ -129,7 +129,9 @@ md-toast {
 
 tooltip {
     width: 100%;
+    /*position: fixed;*/
 }
+
 .btn:hover, .btn-large:hover {
   background-color: none;
 }

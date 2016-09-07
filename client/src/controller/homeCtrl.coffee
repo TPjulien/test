@@ -32,7 +32,6 @@ tableau
         $scope.numDisp = true
 
     $scope.goTO = (view_id, embed_id, ev) ->
-      console.log view_id, embed_id
       # a mettre pour plus tard
       # $mdSidenav('left').close()
       path = '/home/dashboard/' + view_id + '-' + embed_id
@@ -75,10 +74,9 @@ tableau
 
     # Html pour le menu comme je dois verifier si oui ou non la requete fonctionne
     $scope.bindMenu = (data, menu) ->
-        # getMultipleView()
-
         color      = $scope.get_color = getColor(data['EMBED_COLOR'])
-        image      = getImage(data['EMBED_ICON'])
+        # image      = data['VIEW_ICON']
+        image      = getImage(data['VIEW_ICON'])
         id         = data['VIEW_ID']
         view_label = data['EMBED_LIBELLE']
         menu       = []
@@ -170,8 +168,6 @@ tableau
         return "slideRight"
         #encoder url
     getMenu = () ->
-        # console.log "futuresex lovesound"
-        # console.log decode[0]
         $http
             method: 'POST'
             url:    options.api.base_url + '/getMenu'
@@ -179,7 +175,6 @@ tableau
                 site_id   : decode[0].site_id
                 user_auth : decode[0].user_auth
         .success (data) ->
-            console.log data
             $scope.viewMenu = data
             for values in $scope.viewMenu
               values.view_position = getRandomNumber(1)
