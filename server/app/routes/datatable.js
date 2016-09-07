@@ -134,20 +134,6 @@ module.exports = function(router, connection) {
                               }
                         })
                       }
-              // var query = "SELECT ?? AS pdf FROM ?? WHERE ?? = ? AND ?? = ?";
-              // var table = [req.params.type, 'accelya.vue_juju', 'NUM_FACTURE', req.params.invoice, 'NUM_COMMANDE', req.params.commande];
-              // query     = mysql.format(query, table);
-              // connection.query(query, function(err, rows) {
-              //   if (err) {
-              //         res.status(400).send('bad realm');
-              //     } else {
-              //         if (rows[0].pdf) {
-              //           res.send(new Buffer(rows[0].pdf, 'binary'));
-              //         } else {
-              //           res.status(404).send('not found !');
-              //       }
-              //     }
-              // })
             })
           })
 };
