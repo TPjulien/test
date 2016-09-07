@@ -185,7 +185,7 @@ tableau
               values.animation     = null
               values.animation     = getRandomAnimation()
             # on apelle le multiple view pour tout reunir
-            # getMultipleView()
+            getMultipleView()
             # console.log $scope.viewMenu
         .error (err) ->
             console.log err

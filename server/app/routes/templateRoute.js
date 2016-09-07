@@ -127,7 +127,7 @@ module.exports = function(router, connection) {
     router.route('/getMultipleView/:view_id/:site_id')
         .get(function(req, res) {
             var query  = "SELECT * FROM ?? WHERE ?? = ? AND ?? = ?";
-            var table  = ["tp_control.embed_embed_view_WIP", "VIEW_ID", req.params.view_id, "SITE_ID", req.params.site_id];
+            var table  = ["tp_control.Embed_WIP", "VIEW_ID", req.params.view_id, "SITE_ID", req.params.site_id];
             query      = mysql.format(query, table);
             connection.query(query, function(err, rows) {
                 if (err)
