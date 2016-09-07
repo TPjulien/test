@@ -107,14 +107,14 @@ module.exports = function(router, connection) {
               var user_data = req.body.user_data;
               var embed_id  = req.body.embed_id;
 
-              var query_one = "SELECT schema, table, column FROM tp_control.Datatable_WIP WHERE EMBED_ID  = ? AND pdf_display IS LIMIT 1";
+              var query_one = "SELECT `schema`, `table`, `column` FROM tp_control.Datatable_WIP WHERE `EMBED_ID` = ? AND `pdf_display` IS NOT NULL LIMIT 1";
               var table_one = [embed_id];
               query_one     = mysql.format(query_one, table_one);
               connection.query(query_one, function(err, result) {
                   if (err)
                       res.status(404).send(err);
                   else {
-                      var query_intermediate = "SELECT column FROM tp_control.Datatable_WIP WHERE EMBED_ID  = ? AND position  = 1 LIMIT 1";
+                      var query_intermediate = "SELECT `column` FROM tp_control.Datatable_WIP WHERE `EMBED_ID` = ? AND `position`  = 1 LIMIT 1";
                       query_intermediate     = mysql.format(query_intermediate, table_one);
                       connection.query(query_intermediate, function(err, result_intermediate) {
                           if (err)
