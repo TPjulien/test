@@ -175,15 +175,27 @@ tableau
                                      </h5>"""
                         # faut trouver une moyen plus cool de faire cela dynamique
                         if name == 'has_search_filter'
-                            dynamic_entry = "filterText(clientFacture,'" + get_filter_column_name + "')"
-                            result       += "<input for         = '" + name + "'
-                                               ng-change        = " + dynamic_entry + " &nbsp;
-                                               ng-model         = 'clientFacture'
-                                               name             = 'clientFacture'
-                                               ng-model-options = '{debounce: 1000}'
-                                               minlength        = '1'
-                                               maxlength        = '10'>
-                                            </input>"
+                            # "filterDate(range, '" + get_filter_column_name + "')"
+                            dynamic_entry = "filterText(clientFacture, '" + get_filter_column_name + "')"
+
+                            # result += '<sm-range-picker-input class           = "col s12"
+                            #                                   style           = "font-size:10px;"
+                            #                                   on-range-select = "' + dynamic_entry + '"
+                            #                                   value           = "date"
+                            #                                   is-required     = "false"
+                            #                                   format          = "YYYY-MM-DD"
+                            #                                   mode            = "date"
+                            #                                   week-start-day  = "monday"
+                            #                                   divider         = "Au">
+                            #            </sm-range-picker-input>'
+                            result       += '<input for         = "' + name + '"
+                                               ng-change        = "' + dynamic_entry + '"
+                                               ng-model         = "clientFacture"
+                                               name             = "clientFacture"
+                                               ng-model-options = "{debounce: 1000}"
+                                               minlength        = "1"
+                                               maxlength        = "10">
+                                            </input>'
                         else if name == 'has_bullet_filter'
                             if bullet_filters.length != 0
                                 generic_bullet = []
