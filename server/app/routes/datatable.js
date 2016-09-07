@@ -68,7 +68,7 @@ module.exports = function(router, connection) {
               pre_data  = req.body.generic_data;
               filters   = req.body.filters;
               columns   = req.body.columns;
-              var query = "SELECT * FROM ?? WHERE ?? = ? AND pdf_display IS NULL";
+              var query = "SELECT * FROM ?? WHERE ?? = ? AND pdf_display IS NULL ORDER BY position";
               var table = ["tp_control.Datatable_WIP", "EMBED_ID", pre_data.EMBED_ID];
               query = mysql.format(query, table);
               connection.query(query, function(err, result_datatable) {
