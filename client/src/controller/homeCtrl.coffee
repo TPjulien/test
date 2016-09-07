@@ -78,7 +78,7 @@ tableau
         # image      = data['VIEW_ICON']
         image      = getImage(data['VIEW_ICON'])
         id         = data['VIEW_ID']
-        view_label = data['EMBED_LIBELLE']
+        view_label = data['VIEW_LABEL']
         menu       = []
         if $scope.get_multiple_view.length > 0
             if $scope.get_multiple_view[id] != undefined
