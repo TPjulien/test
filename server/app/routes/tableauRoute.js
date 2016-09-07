@@ -6,14 +6,9 @@ module.exports = function(router, connection) {
     router.route('/getTableau')
         .post(function(req, res) {
             var query    = "SELECT * FROM ?? \
-                              WHERE ?? = ? \
-                              AND ?? = ? \
-                              AND ?? = ?";
-            var table    = ['tp_control.tableau',
-                            'SITE_ID',  req.body.site_id,
-                            'VIEW_ID',  req.body.view_id,
-                            'EMBED_ID', req.body.embed_id
-                           ];
+                              WHERE ?? = ?";
+            var table    = ['tp_control.Tableau_WIP',
+                            'EMBED_ID', req.body.embed_id];
             query = mysql.format(query, table);
             connection.query(query, function(err, result_datatable) {
                 if(err)
