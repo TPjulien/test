@@ -89,7 +89,7 @@ tableau
                 name = "donnée indisponible"
             # on vérifie si c'est une date time
             if data.indexOf('Date') != -1
-                name = $filter('date')(name, "dd/MM/yyyy")
+                name = $filter('date')(name, "dd/MM/yyyy HH:mm:ss")
 
 
             i       = 0
@@ -142,7 +142,6 @@ tableau
             return true
     # Generique champs de text
     $scope.filterText = (value, column_name) ->
-        console.log "ça doit passer par la"
         $scope.datatable_columns = []
         counter = 50;
         # appell de la fonction qui permet de nettoyer l'objet
@@ -171,7 +170,6 @@ tableau
         getDatatable(0, 50);
 
     $scope.getGenericFilter = (filters, key) ->
-        console.log filters, key
         result                 = null
         get_filter_column_name = null
         delete filters.$$hashKey
@@ -182,7 +180,6 @@ tableau
                     if filters[name] != "false"
                         # permet de retrouver le nom de la colonne associé au filtre
                         for column_name, value_column of $scope.column_filter[key]
-                            # console.log $scope.column_filter[key]
                             get_filter_column_name = value_column
                         result = """<h5 class = "md-subhead"
                                         style = "text-align: left">
@@ -190,7 +187,6 @@ tableau
                                      </h5>"""
                         # faut trouver une moyen plus cool de faire cela dynamique
                         if name == 'has_search_filter'
-                            # "filterDate(range, '" + get_filter_column_name + "')"
                             dynamic_entry = "filterText(clientFacture, '" + get_filter_column_name + "')"
                             result       += '<input for         = "' + name + '"
                                                ng-change        = "' + dynamic_entry + '"
@@ -234,19 +230,20 @@ tableau
         return $sce.trustAsHtml result
 
     $scope.downloadPdf = (selected) ->
-        console.log selected
-        console.log "ça passe dedans"
-        # $http
-        #     method      : "GET"
-        #     url         : options.api.base_url + '/downloadPDF/' + selected
-        #     responseType: 'arraybuffer'
-        # .success (result) ->
-        #     myblob  = new Blob([result], { type: 'application/pdf' })
-        #     blobURL = ( window.URL || window.webkitURL).createObjectURL(myblob)
-        #     anchor  = document.createElement("a")
-        #     anchor.download = selected + '.pdf'
-        #     anchor.href = blobURL
-        #     anchor.click()
+        $http
+            method      : "POST"
+            url         : options.api.base_url + '/downloadPDF'
+            data:
+                user_data: selected
+                embed_id:  $scope.detail.EMBED_ID
+            responseType: 'arraybuffer'
+        .success (result) ->
+            myblob  = new Blob([result], { type: 'application/pdf' })
+            blobURL = ( window.URL || window.webkitURL).createObjectURL(myblob)
+            anchor  = document.createElement("a")
+            anchor.download = selected + '.pdf'
+            anchor.href = blobURL
+            anchor.click()
     #
     # $scope.watchPdf = (selected) ->
     #     $http

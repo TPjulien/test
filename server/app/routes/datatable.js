@@ -117,21 +117,51 @@ module.exports = function(router, connection) {
               })
           })
 
-      router.route('/downloadPdf/:invoice/:commande/:type')
-          .get (function(req, res) {
-              var query = "SELECT ?? AS pdf FROM ?? WHERE ?? = ? AND ?? = ?";
-              var table = [req.params.type, 'accelya.vue_juju', 'NUM_FACTURE', req.params.invoice, 'NUM_COMMANDE', req.params.commande];
-              query     = mysql.format(query, table);
-              connection.query(query, function(err, rows) {
-                if (err) {
-                      res.status(400).send('bad realm');
-                  } else {
-                      if (rows[0].pdf) {
-                        res.send(new Buffer(rows[0].pdf, 'binary'));
-                      } else {
-                        res.status(404).send('not found !');
-                    }
-                  }
+      router.route('/downloadPdf')
+          .post (function(req, res) {
+              var user_data = req.body.user_data;
+              var embed_id  = req.body.embed_id;
+
+              var query_one = "SELECT schema, table, column FROM tp_control.Datatable_WIP WHERE pdf_display IS NOT NULL AND EMBED_ID  = ? LIMIT 1";
+              var table_one = [embed_id];
+              query_one     = mysql.format(query_one, table_one);
+              connection.query(query_one, function(err, result) {
+                  if (err)
+                      res.status(404).send(err);
+                  else {
+                      var query_intermediate = "SELECT column FROM tp_control.Datatable_WIP WHERE EMBED_ID  = ? AND position  = 1 LIMIT 1";
+                      query_intermediate     = mysql.format(query_intermediate, table_one);
+                      connection.query(query_intermediate, function(err, result_intermediate) {
+                          if (err)
+                              res.status(404).send(err);
+                          else
+                              {
+                                var concat    = result[0].schema + '.' + result[0].table;
+                                var query_two = "SELECT ?? AS pdf FROM ?? WHERE ?? = ?";
+                                var table_two = [result[0].column, concat, result_intermediate[0].column,  user_data[result_intermediate[0].column]];
+                                query_two     = mysql.format(query_two, table_two);
+                                connection.query(query_two, function(err, data_blob) {
+                                    if (err)
+                                        res.status(400).send(err);
+                                    else
+                                        res.send(new Buffer(data_blob[0].pdf, 'binary'));
+                                })
+                              }
+                      }
               })
+              // var query = "SELECT ?? AS pdf FROM ?? WHERE ?? = ? AND ?? = ?";
+              // var table = [req.params.type, 'accelya.vue_juju', 'NUM_FACTURE', req.params.invoice, 'NUM_COMMANDE', req.params.commande];
+              // query     = mysql.format(query, table);
+              // connection.query(query, function(err, rows) {
+              //   if (err) {
+              //         res.status(400).send('bad realm');
+              //     } else {
+              //         if (rows[0].pdf) {
+              //           res.send(new Buffer(rows[0].pdf, 'binary'));
+              //         } else {
+              //           res.status(404).send('not found !');
+              //       }
+              //     }
+              // })
           })
 };
