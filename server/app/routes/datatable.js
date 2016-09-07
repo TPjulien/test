@@ -161,14 +161,14 @@ module.exports = function(router, connection) {
                         for (name in filters) {
                             if (name == 0) {
                                 if (filters[name]['value'].length == 2)
-                                    query_datatable += ' WHERE ' + filters[name]['column_name'] + " BETWEEN '" + filters[name]['value'][0] + "' AND '" + filters[name]['value'][1] + "' ";
+                                    query_datatable += ' WHERE `' + filters[name]['column_name'] + "` BETWEEN '" + filters[name]['value'][0] + "' AND '" + filters[name]['value'][1] + "' ";
                                 else
-                                    query_datatable += ' WHERE ' + filters[name]['column_name'] + " LIKE '%" + filters[name]['value'] + "%' ";
+                                    query_datatable += ' WHERE `' + filters[name]['column_name'] + "` LIKE '%" + filters[name]['value'] + "%' ";
                             } else {
                                 if (filters[name]['value'].length == 2)
-                                    query_datatable += ' AND ' + filters[name]['column_name'] + " BETWEEN '" + filters[name]['value'][0] + "' AND '" + filters[name]['value'][1] + "' ";
+                                    query_datatable += ' AND `' + filters[name]['column_name'] + "` BETWEEN '" + filters[name]['value'][0] + "' AND '" + filters[name]['value'][1] + "' ";
                                 else
-                                    query_datatable += ' AND ' + filters[name]['column_name'] + " LIKE '%" + filters[name]['value'] + "%' ";
+                                    query_datatable += ' AND `' + filters[name]['column_name'] + "` LIKE '%" + filters[name]['value'] + "%' ";
                             }
                         }
                     }
