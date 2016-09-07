@@ -147,8 +147,8 @@ module.exports = function(router, connection) {
                                         res.send(new Buffer(data_blob[0].pdf, 'binary'));
                                 })
                               }
-                      }
-              })
+                        })
+              }
               // var query = "SELECT ?? AS pdf FROM ?? WHERE ?? = ? AND ?? = ?";
               // var table = [req.params.type, 'accelya.vue_juju', 'NUM_FACTURE', req.params.invoice, 'NUM_COMMANDE', req.params.commande];
               // query     = mysql.format(query, table);
