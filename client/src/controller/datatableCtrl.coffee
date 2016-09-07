@@ -42,14 +42,14 @@ tableau
 
     # on recupere les données de chaque instance de $scope.detail
     getDatatable = (min, max) ->
-        console.log $scope.detail
+        console.log filter_array_text
         array_concat = []
         $http
             method: 'POST'
             url:    options.api.base_url + '/getDatatable'
             data:
                 generic_data: $scope.detail
-                filters:      $scope.column_filter
+                filters:      filter_array_text
                 min:          min
                 max:          max
         .success (data) ->
@@ -68,6 +68,8 @@ tableau
                     getBullet(data.datatable_width);
         .error (err) ->
             toastErrorFct.toastError("Impossible de connecter au serveur de table, veuillez retenter plus tard")
+
+    getDatatable(0, 50)
 
     # infinite scroll
     $scope.loadMore = () ->
@@ -111,9 +113,9 @@ tableau
         method: 'GET'
         url:    options.api.base_url + '/getFilterDatatable/' + $scope.detail.EMBED_ID
     .success (data) ->
+        console.log data
         $scope.datatable_filters = data.datatable_filters
         $scope.column_filter     = data.column_filter
-        getDatatable(0, 50)
     .error (err) ->
         toastErrorFct.toastError("Impossible de connecter au serveur de table, veuillez retenter plus tard")
 
