@@ -3,21 +3,6 @@ var http_post = require('http-post');
 var request   = require('request');
 
 module.exports = function(router, connection) {
-    // get blob pdf
-    router.route('/downloadPDF/:id_item')
-        .get (function(req, res) {
-            var query = "SELECT ?? from ?? WHERE ?? = ?";
-            var table = ['blob', 'accelya.pdf', 'NUM_INVOICE', req.params.id_item];
-            query     = mysql.format(query, table);
-            connection.query(query, function(err, rows) {
-                if (err) {
-                    res.json({ message: 'error'})
-                } else {
-                    res.send(new Buffer(rows[0].blob, 'binary'))
-                }
-            })
-        })
-
       // on recupere le type de bullet qu'on peut avoir
       router.route('/getBulletFilter')
           .post (function(req, res) {
@@ -122,7 +107,7 @@ module.exports = function(router, connection) {
               var user_data = req.body.user_data;
               var embed_id  = req.body.embed_id;
 
-              var query_one = "SELECT schema, table, column FROM tp_control.Datatable_WIP WHERE pdf_display IS NOT NULL AND EMBED_ID  = ? LIMIT 1";
+              var query_one = "SELECT schema, table, column FROM tp_control.Datatable_WIP WHERE EMBED_ID  = ? AND pdf_display IS LIMIT 1";
               var table_one = [embed_id];
               query_one     = mysql.format(query_one, table_one);
               connection.query(query_one, function(err, result) {
@@ -148,7 +133,7 @@ module.exports = function(router, connection) {
                                 })
                               }
                         })
-              }
+                      }
               // var query = "SELECT ?? AS pdf FROM ?? WHERE ?? = ? AND ?? = ?";
               // var table = [req.params.type, 'accelya.vue_juju', 'NUM_FACTURE', req.params.invoice, 'NUM_COMMANDE', req.params.commande];
               // query     = mysql.format(query, table);
@@ -163,5 +148,6 @@ module.exports = function(router, connection) {
               //       }
               //     }
               // })
+            })
           })
 };
