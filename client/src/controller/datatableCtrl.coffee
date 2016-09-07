@@ -42,7 +42,6 @@ tableau
 
     # on recupere les données de chaque instance de $scope.detail
     getDatatable = (min, max) ->
-        console.log filter_array_text
         array_concat = []
         $http
             method: 'POST'
@@ -50,6 +49,7 @@ tableau
             data:
                 generic_data: $scope.detail
                 filters:      filter_array_text
+                columns:
                 min:          min
                 max:          max
         .success (data) ->

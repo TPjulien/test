@@ -67,7 +67,8 @@ module.exports = function(router, connection) {
               // d'accord on cherche les données envoyé par le client puis une requete
               pre_data  = req.body.generic_data;
               filters   = req.body.filters;
-              var query = "SELECT * FROM ?? WHERE ?? = ?";
+              columns   = req.body.columns;
+              var query = "SELECT * FROM ?? WHERE ?? = ? AND pdf_display IS NULL";
               var table = ["tp_control.Datatable_WIP", "EMBED_ID", pre_data.EMBED_ID];
               query = mysql.format(query, table);
               connection.query(query, function(err, result_datatable) {
@@ -134,3 +135,4 @@ module.exports = function(router, connection) {
                   }
               })
           })
+};
