@@ -118,7 +118,7 @@ module.exports = function(router, connection) {
                     res.status(400).send(err);
                 else {
                     // deuxieme requete pour recuperer les colones utilisées
-                    var query_filter_column = "SELECT ?? FROM ?? WHERE ?? = ?";
+                    var query_filter_column = "SELECT ?? FROM ?? WHERE ?? = ? AND pdf_display IS NULL";
                     var table_filter_column = ["column", "tp_control.Datatable_WIP", "EMBED_ID", req.params.embed_id];
                     query_filter_column = mysql.format(query_filter_column, table_filter_column);
                     connection.query(query_filter_column, function(err, result_filter_column) {
@@ -156,7 +156,6 @@ module.exports = function(router, connection) {
                     query_datatable += '`';
                     // deuxieme étape de la query builder
                     query_datatable += ' FROM ' + result_datatable[0].schema + '.' + result_datatable[0].table;
-                    // condition si jamais le filter existe
                     if (filters.length != 0) {
                         for (name in filters) {
                             if (name == 0) {

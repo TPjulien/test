@@ -5,9 +5,9 @@
     <div class="col s9" style="height: 800px; overflow-y:auto; overflow-x:none" when-scrolled="loadMore()">
       <div class            = "col s12"
            style            = "text-align:left; margin: 0; padding: 0; margin-bottom: -14px;"
-           ng-repeat        = "data in datatable_columns | orderBy:'position'"
+           ng-repeat        = "data in datatable_columns"
            ng-bind-html     = "getGenericRow(data, data_table.datatable_width)"
-           ng-click         = "watchOrDownloads(data)">
+           ng-click         = "downloadPdf(data)">
        <md-tooltip md-direction="bottom">
            Bonjour je test
        </md-tooltip>

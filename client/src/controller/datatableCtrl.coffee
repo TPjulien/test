@@ -42,6 +42,7 @@ tableau
 
     # on recupere les données de chaque instance de $scope.detail
     getDatatable = (min, max) ->
+        console.log $scope.detail
         array_concat = []
         $http
             method: 'POST'
@@ -88,9 +89,22 @@ tableau
             if name == null
                 name = "donnée indisponible"
             # on vérifie si c'est une date time
-            if data.indexOf('DATE') != -1
-                name = $filter('date')(name, "yyyy/MM/dd")
-            result += "<p class='col s" + width[count].width + " md-whiteframe-1dp truncate' style='background-color:white'>" + name + "</p>"
+            if data.indexOf('Date') != -1
+                name = $filter('date')(name, "dd/MM/yyyy")
+
+
+            i       = 0
+            id_pdf  = -1
+            while i < $scope.data_table.datatable_width.length
+                if $scope.data_table.datatable_width[i].pdf_display != true
+                  id_pdf = i
+                  i = $scope.data_table.datatable_width.length
+                i++
+
+            # if id_pdf == -1
+                result += "<p class='col s" + width[count].width + " md-whiteframe-1dp truncate getSize' style='background-color:white;'>" + name + "</p>"
+            # else
+                # result += "<p class='col s" + width[count].width + " md-whiteframe-1dp truncate getSize' style='background-color:white;' ng-click='downloadPdf(" + $scope.data_table.datatable_width[id_pdf].column + ")'>" + name + "</p>"
             count++
         return result
 
@@ -228,18 +242,21 @@ tableau
                                        </sm-range-picker-input>'
         # On retourne le code en donnant l'autorisation à angular de poster du html grace à $sce
         return $sce.trustAsHtml result
-    # $scope.downloadPdf = (selected) ->
-    #     $http
-    #         method      : "GET"
-    #         url         : options.api.base_url + '/downloadPDF/' + selected
-    #         responseType: 'arraybuffer'
-    #     .success (result) ->
-    #         myblob  = new Blob([result], { type: 'application/pdf' })
-    #         blobURL = ( window.URL || window.webkitURL).createObjectURL(myblob)
-    #         anchor  = document.createElement("a")
-    #         anchor.download = selected + '.pdf'
-    #         anchor.href = blobURL
-    #         anchor.click()
+
+    $scope.downloadPdf = (selected) ->
+        console.log selected
+        console.log "ça passe dedans"
+        # $http
+        #     method      : "GET"
+        #     url         : options.api.base_url + '/downloadPDF/' + selected
+        #     responseType: 'arraybuffer'
+        # .success (result) ->
+        #     myblob  = new Blob([result], { type: 'application/pdf' })
+        #     blobURL = ( window.URL || window.webkitURL).createObjectURL(myblob)
+        #     anchor  = document.createElement("a")
+        #     anchor.download = selected + '.pdf'
+        #     anchor.href = blobURL
+        #     anchor.click()
     #
     # $scope.watchPdf = (selected) ->
     #     $http

@@ -20,8 +20,6 @@ tableau
         view_id  = splitted[0]
         embed_id = splitted[1]
 
-    console.log embed_id
-
     $http
         method: 'POST'
         url:    options.api.base_url + '/showEmbed'
