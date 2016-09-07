@@ -37,7 +37,7 @@ module.exports = function(router, connection) {
           .get (function(req, res) {
             var query_filter = "SELECT ??,??,??,?? \
                                       FROM ?? \
-                                      WHERE ?? = ?";
+                                      WHERE ?? = ? AND pdf_display IS NULL";
             var table_filter = ["has_date_filter","has_search_filter","has_bullet_filter", "has_amount_filter", "tp_control.Datatable_WIP",
                                 "EMBED_ID", req.params.embed_id];
             query_filter = mysql.format(query_filter, table_filter);
@@ -45,7 +45,7 @@ module.exports = function(router, connection) {
                 if (err)
                     res.status(400).send(err);
                 else {
-                    // deuxieme requete pour recuperer les colones utilisées
+                    // deuxieme requete pour recuperer les colonnes utilisées
                     var query_filter_column = "SELECT ?? FROM ?? WHERE ?? = ? AND pdf_display IS NULL";
                     var table_filter_column = ["column", "tp_control.Datatable_WIP", "EMBED_ID", req.params.embed_id];
                     query_filter_column = mysql.format(query_filter_column, table_filter_column);
@@ -67,7 +67,6 @@ module.exports = function(router, connection) {
               // d'accord on cherche les données envoyé par le client puis une requete
               pre_data  = req.body.generic_data;
               filters   = req.body.filters;
-              columns   = req.body.columns;
               var query = "SELECT * FROM ?? WHERE ?? = ? AND pdf_display IS NULL ORDER BY position";
               var table = ["tp_control.Datatable_WIP", "EMBED_ID", pre_data.EMBED_ID];
               query = mysql.format(query, table);

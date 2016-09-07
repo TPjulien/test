@@ -49,7 +49,6 @@ tableau
             data:
                 generic_data: $scope.detail
                 filters:      filter_array_text
-                columns:
                 min:          min
                 max:          max
         .success (data) ->
@@ -143,6 +142,7 @@ tableau
             return true
     # Generique champs de text
     $scope.filterText = (value, column_name) ->
+        console.log "ça doit passer par la"
         $scope.datatable_columns = []
         counter = 50;
         # appell de la fonction qui permet de nettoyer l'objet
@@ -171,7 +171,7 @@ tableau
         getDatatable(0, 50);
 
     $scope.getGenericFilter = (filters, key) ->
-        # console.log filters, key
+        console.log filters, key
         result                 = null
         get_filter_column_name = null
         delete filters.$$hashKey
@@ -182,6 +182,7 @@ tableau
                     if filters[name] != "false"
                         # permet de retrouver le nom de la colonne associé au filtre
                         for column_name, value_column of $scope.column_filter[key]
+                            # console.log $scope.column_filter[key]
                             get_filter_column_name = value_column
                         result = """<h5 class = "md-subhead"
                                         style = "text-align: left">
@@ -191,17 +192,6 @@ tableau
                         if name == 'has_search_filter'
                             # "filterDate(range, '" + get_filter_column_name + "')"
                             dynamic_entry = "filterText(clientFacture, '" + get_filter_column_name + "')"
-
-                            # result += '<sm-range-picker-input class           = "col s12"
-                            #                                   style           = "font-size:10px;"
-                            #                                   on-range-select = "' + dynamic_entry + '"
-                            #                                   value           = "date"
-                            #                                   is-required     = "false"
-                            #                                   format          = "YYYY-MM-DD"
-                            #                                   mode            = "date"
-                            #                                   week-start-day  = "monday"
-                            #                                   divider         = "Au">
-                            #            </sm-range-picker-input>'
                             result       += '<input for         = "' + name + '"
                                                ng-change        = "' + dynamic_entry + '"
                                                ng-model         = "clientFacture"
