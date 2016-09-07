@@ -83,7 +83,7 @@ input {
   height: 115px;
   width: 115px;
   border-radius: 50%;
-  background-image: url('http://www.deplacementspros.com/photo/art/grande/9290087-14843197.jpg?v=1460379484');
+  background-image: url('../img/lauriers.png');
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
@@ -97,7 +97,7 @@ input {
     float: left;
     height: 64px;
     width: 65px;
-    background-image: url('/img/travel_planet_logo.png');
+    background-image: url('/img/travel_planet_long.png');
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
