@@ -19,6 +19,7 @@ tableau
     uid                          =  decode[0].UID
     site_id                      =  decode[0].site_id
     community                    =  decode[0].home_community
+    $scope.profils               = []
 
     console.log decode[0]
 
@@ -58,6 +59,7 @@ tableau
             $scope.air_loyalty    = data[4].data
             $scope.air_loyalty_af = data[5].data
             $scope.profils        = data[6].data
+            console.log $scope.profils
           .catch (err) ->
             toastErrorFct.toastError("Impossible d'acceder au profil de l'utilisateur")
 
@@ -97,7 +99,6 @@ tableau
             $scope.air_seating_pref          = data[6].data
             $scope.country                   = data[7].data
             $scope.community                 = data[8].data
-            console.log $scope.community
           .catch (err) ->
             toastErrorFct.toastError("Impossible d'acceder aux information du voyageur")
 
