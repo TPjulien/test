@@ -32,9 +32,10 @@ tableau
         $scope.numDisp = true
 
     $scope.goTO = (view_id, embed_id, ev) ->
+      # console.log view_id
       # a mettre pour plus tard
       # $mdSidenav('left').close()
-      path = '/home/dashboard/' + embed_id
+      path = '/home/dashboard/' + view_id + '-' + embed_id
       $location.path path
 
     getColor = (color) ->
@@ -184,7 +185,7 @@ tableau
               values.animation     = null
               values.animation     = getRandomAnimation()
             # on apelle le multiple view pour tout reunir
-            getMultipleView()
+            # getMultipleView()
             # console.log $scope.viewMenu
         .error (err) ->
             console.log err

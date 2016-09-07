@@ -15,10 +15,12 @@ tableau
     embed_id  = $stateParams.id
     # embed_id  = null
     splitted  = []
-    # if embed_id.indexOf('-') != -1
-    #     splitted = embed_id.split("-")
-    #     view_id  = splitted[0]
-    #     embed_id = splitted[1]
+    if embed_id.indexOf('-') != -1
+        splitted = embed_id.split("-")
+        view_id  = splitted[0]
+        embed_id = splitted[1]
+
+    console.log embed_id
 
     $http
         method: 'POST'
@@ -28,7 +30,6 @@ tableau
             site_id    : site_id
             embed_id   : embed_id
     .success (data) ->
-        console.log data
         $scope.details = data
     .error (err) ->
         toastErrorFct.toastError(err)
