@@ -1,4 +1,4 @@
-<div class="container" ng-repeat="profil in profils">
+<div style="width: 85%; margin-left: 10%;" ng-repeat="profil in profils">
   <div ng-cloak>
     <md-content style="background-color: #EEE;" class="md-padding">
       <!-- <div id="admin" class="panel-header">Gestionnaire de profil<md-icon class="right" md-svg-icon="img/icons/admin.svg"></md-icon></div> -->
@@ -171,7 +171,7 @@
                 </div>
                 <div class="col-md-8 col-xs-12">
                   <md-input-container flex-gt-md="30">
-                    <input mdc-datetime-picker="" date="true" time="false" type="text" id="datetime" min-date="date" ng-model="profil.Customer_BirthDate" class="datePicker_generic md-input">
+                    <input mdc-datetime-picker="" date="true" time="false" type="text" id="datetime" format="YYYY/MM/DD" min-date="date" ng-model="profil.Customer_BirthDate" class="datePicker_generic md-input">
                   </md-input-container>
                 </div>
               </div>

@@ -20,7 +20,7 @@ p, h1, h2, h3, h4, h5, h6, span {
     width: 90.333333% !important;
   }
 .travel-colorR{
-  background-color: #ff5e6e;
+  background-color: #e40514;
   height:2px;
   box-shadow: 1px 2px 10px 0px rgba(0, 0, 0, 0.2);
 }
@@ -87,7 +87,7 @@ input {
   height: 115px;
   width: 115px;
   border-radius: 50%;
-  background-image: url('../img/lauriers.png');
+  background-image: url('../img/lauriers.jpg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
@@ -99,9 +99,10 @@ input {
 }
 .img-header_tp{
     float: left;
-    height: 64px;
-    width: 65px;
-    background-image: url('/img/travel_planet_long.png');
+    margin-top: -15px;
+    height: 100px;
+    width: 220px;
+    background-image: url('../img/Travel_Planet_long.png');
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
