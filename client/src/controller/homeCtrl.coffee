@@ -179,6 +179,7 @@ tableau
                 site_id   : decode[0].site_id
                 user_auth : decode[0].user_auth
         .success (data) ->
+            console.log data
             $scope.viewMenu = data
             for values in $scope.viewMenu
               values.view_position = getRandomNumber(1)
