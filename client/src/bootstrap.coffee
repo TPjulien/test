@@ -35,6 +35,7 @@ tableau = angular.module 'tableauApp', [
   'ui.tree'
   'angular-popover'
   'ngPopover'
+  'uz.mailto'
 ]
 
 options = {}
