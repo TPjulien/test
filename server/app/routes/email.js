@@ -15,7 +15,7 @@ module.exports = function(router, connection) {
 
           // setup e-mail data with unicode symbols
           var mailOptions = {
-              from: '"Fred Foo ?" <'from'>', // sender address
+              from: '<' + from + '>', // sender address
               to: destinataire, // list of receivers
               subject: objet, // Subject line
               text: 'Hello world ?', // plaintext body
