@@ -11,7 +11,7 @@ module.exports = function(router, connection) {
           var body            = req.body.body;
 
           // create reusable transporter object using the default SMTP transport
-          var transporter = nodemailer.createTransport('smtps://user%40gmail.com:pass@smtp.gmail.com');
+          var transporter = nodemailer.createTransport('smtps://christophe.rocc@gmail.com:Casabianca2b@smtp.gmail.com');
 
           // setup e-mail data with unicode symbols
           var mailOptions = {
