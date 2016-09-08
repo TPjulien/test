@@ -25,7 +25,7 @@ module.exports = function(router, connection) {
         callbackUrl  : 'https://tp-control.travelplanet.fr:3254/api/Shibboleth.sso/SAML2/POST',
         entryPoint   : 'https://test.federation.renater.fr/idp/profile/SAML2/Redirect/SSO',
         issuer       : 'https://tp-control.travelplanet.fr/#/account/login',
-        decryptionPvk : fs.readFileSync('/etc/ssl/tp_control/tp-control_travelplanet_fr.crt', 'utf8')
+        //decryptionPvk : fs.readFileSync('/etc/ssl/tp_control/tp-control_travelplanet_fr.crt', 'utf8')
         // cert         : fs.readFileSync('/etc/ssl/tp_control/tp-control_travelplanet_fr.crt', 'utf-8')
       },
       function(profile, done) {

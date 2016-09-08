@@ -13,8 +13,8 @@ process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
 
 var connection = mysql.createConnection({
     host:     '192.168.1.119',
-    user:     'mahefa',
-    password: '7umAban73EAZjKXt',
+    user:     'pre_prod',
+    password: 'andrianifahanana',
     database: 'portail_tableau',
     port:     '3333',
     debug:    true
