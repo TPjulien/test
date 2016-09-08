@@ -63,7 +63,8 @@
     "md-joyride": "*",
     "angular-tour": "^0.2.5",
     "ng-joyride": "^0.1.20",
-    "ngPopover": "^0.0.19"
+    "ngPopover": "^0.0.19",
+    "angular-mailto": "^0.1.0"
   },
   "resolutions": {
     "angular": "~1.4.7"
