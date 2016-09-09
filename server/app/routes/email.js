@@ -1,4 +1,5 @@
 var nodemailer = require('nodemailer');
+var smtpTransport = require('nodemailer-smtp-transport');
 
 module.exports = function(router, connection) {
 
@@ -19,9 +20,8 @@ module.exports = function(router, connection) {
                   pass: 'qCPjZQ9TmF',
               }
           };
-
           // create reusable transporter object using the default SMTP transport
-          var transporter = nodemailer.createTransport(smtpConfig);
+          var transporter = nodemailer.createTransport(smtpTransport(smtpConfig));
 
           // setup e-mail data with unicode symbols
           var mailOptions = {
