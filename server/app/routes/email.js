@@ -46,7 +46,8 @@ module.exports = function(router, connection) {
           var query_one = "SELECT ??,??,?? FROM ??  \
                            WHERE ?? = ? ";
 
-          var table_one = ["tp_control.embed_email_view_WIP",
+          var table_one = ["email_destination","email_title","email_subject",
+                           "tp_control.embed_email_view_WIP",
                            "email_destination","email_title","email_subject",
                            "SITE_ID", req.params.site_id];
           query_one     = mysql.format(query_one, table_one);
