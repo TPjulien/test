@@ -10,8 +10,20 @@ module.exports = function(router, connection) {
           var objet           = req.body.objet;
           var body            = req.body.body;
 
+          var smtpConfig = {
+              host: 'Smtp-pulse.com',
+              port: 2525,
+              secure: true, // use SSL
+              auth: {
+                  user: 'julien@travelplanet.fr',
+                  pass: 'qCPjZQ9TmF'
+              }
+          };
+
+
+
           // create reusable transporter object using the default SMTP transport
-          var transporter = nodemailer.createTransport('smtps://christophe.rocc@gmail.com:Casabianca2b@smtp.gmail.com');
+          var transporter = nodemailer.createTransport(smtpConfig);
 
           // setup e-mail data with unicode symbols
           var mailOptions = {
