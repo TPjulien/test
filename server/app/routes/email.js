@@ -26,8 +26,6 @@ module.exports = function(router, connection) {
           // setup e-mail data with unicode symbols
           var mailOptions = {
               from: '<julien@travelplanet.fr>', // sender address
-              cc: expediteur,
-              bcc:expediteur,
               replyTo:expediteur,
               to: destinataire, // list of receivers
               subject: objet, // Subject line
