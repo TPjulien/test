@@ -36,7 +36,7 @@ module.exports = function(router, connection) {
               if(error){
                   return console.log(error);
               }
-              console.log('Message sent: ' + info.response);
+              res.status(200).send('ok');
           })
       })
   }
