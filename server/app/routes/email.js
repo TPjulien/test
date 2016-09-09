@@ -17,7 +17,6 @@ module.exports = function(router, connection) {
               auth: {
                   user: 'julien@travelplanet.fr',
                   pass: 'qCPjZQ9TmF',
-
               }
           };
 
@@ -29,7 +28,6 @@ module.exports = function(router, connection) {
               from: '<julien@travelplanet.fr>', // sender address
               to: destinataire, // list of receivers
               subject: objet, // Subject line
-              text: 'Hello world ?', // plaintext body
               html: body // html body
           };
           // send mail with defined transport object
