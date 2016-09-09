@@ -43,10 +43,11 @@ module.exports = function(router, connection) {
   // route pour lister les infos mail
   router.route('/infoMail/:site_id')
       .get(function(req, res) {
-          var query_one = "SELECT * FROM ??  \
+          var query_one = "SELECT ??,??,?? FROM ??  \
                            WHERE ?? = ? ";
 
           var table_one = ["tp_control.embed_email_view_WIP",
+                           "email_destination","email_title","email_subject",
                            "SITE_ID", req.params.site_id];
           query_one     = mysql.format(query_one, table_one);
           connection.query(query_one, function(err, rows) {
