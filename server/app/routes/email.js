@@ -12,11 +12,12 @@ module.exports = function(router, connection) {
 
           var smtpConfig = {
               host: 'Smtp-pulse.com',
-              port: 2525,
+              port:  465,
               secure: true, // use SSL
               auth: {
                   user: 'julien@travelplanet.fr',
-                  pass: 'qCPjZQ9TmF'
+                  pass: 'qCPjZQ9TmF',
+
               }
           };
 
