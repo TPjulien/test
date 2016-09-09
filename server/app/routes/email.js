@@ -7,6 +7,7 @@ module.exports = function(router, connection) {
   router.route('/sendMail')
       .post(function(req, res) {
           var expediteur      = req.body.expediteur;
+	  console.log(expediteur);
           var destinataire    = req.body.destinataire;
           var objet           = req.body.objet;
           var body            = req.body.body;
