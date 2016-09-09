@@ -1,5 +1,4 @@
 var nodemailer = require('nodemailer');
-var sendmailTransport = require('nodemailer-sendmail-transport');
 
 module.exports = function(router, connection) {
 
@@ -13,7 +12,7 @@ module.exports = function(router, connection) {
 
           var smtpConfig = {
               host: 'Smtp-pulse.com',
-              port:  465,
+              port: 465,
               secure: true, // use SSL
               auth: {
                   user: 'julien@travelplanet.fr',
@@ -22,10 +21,8 @@ module.exports = function(router, connection) {
               }
           };
 
-
           // create reusable transporter object using the default SMTP transport
-          var transporter = nodemailer.createTransport(sendmailTransport(smtpConfig))
-          //var transporter = nodemailer.createTransport(smtpConfig);
+          var transporter = nodemailer.createTransport(smtpConfig);
 
           // setup e-mail data with unicode symbols
           var mailOptions = {
