@@ -5,7 +5,7 @@ module.exports = function(router, connection) {
   // route pour lister les numéros de téléphone du profil
   router.route('/sendMail')
       .post(function(req, res) {
-        
+
         var expediteur      = req.body.expediteur;
         var destinataire    = req.body.destinataire;
         var objet           = req.body.objet;
@@ -38,8 +38,6 @@ module.exports = function(router, connection) {
 
             // if you don't want to use this transport object anymore, uncomment following line
             smtpTransport.close(); // shut down the connection pool, no more messages
-
-            callback();
         });
 
       })
