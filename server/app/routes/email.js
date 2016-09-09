@@ -16,7 +16,7 @@ module.exports = function(router, connection) {
               secure: true, // use SSL
               auth: {
                   user: 'christophe.rocc@gmail.com',
-                  pass: 'Casabianca2b',
+                  pass: '	Lj47k9b6Ctd4',
 
               }
           };
