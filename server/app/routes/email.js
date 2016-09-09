@@ -15,8 +15,8 @@ module.exports = function(router, connection) {
               port: 465,
               secure: true, // use SSL
               auth: {
-                  user: 'christophe.rocc@gmail.com',
-                  pass: '	Lj47k9b6Ctd4',
+                  user: 'julien@travelplanet.fr',
+                  pass: 'qCPjZQ9TmF',
 
               }
           };
