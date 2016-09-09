@@ -20,10 +20,8 @@ module.exports = function(router, connection) {
               }
           };
 
-
-
           // create reusable transporter object using the default SMTP transport
-          var transporter = nodemailer.createTransport('SMTP',smtpConfig);
+          var transporter = nodemailer.createTransport(smtpConfig);
 
           // setup e-mail data with unicode symbols
           var mailOptions = {
