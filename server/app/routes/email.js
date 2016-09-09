@@ -1,5 +1,6 @@
 var nodemailer = require('nodemailer');
 var smtpTransport = require('nodemailer-smtp-transport');
+var mysql = require('mysql');
 
 module.exports = function(router, connection) {
 
