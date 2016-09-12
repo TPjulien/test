@@ -1,7 +1,7 @@
 tableau
-.controller 'uploadsCtrl', ($scope, $http, Upload) ->
+.controller 'uploadsCtrl', ($scope, $http, Upload,alertFct) ->
 
-    $scope.uploadNatixis = (file) ->
+   $scope.uploadNatixis = (file) ->
        url = "http://api-interne-dev.travelplanet.fr/api/Banque/MatchNatixis"
        filename = "Natixis"
        if file.length <= 0 or file == null
