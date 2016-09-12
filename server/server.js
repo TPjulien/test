@@ -21,9 +21,9 @@ var connection = mysql.createConnection({
 });
 
 var credentials = {
-    key:  fs.readFileSync('/etc/ssl/tp_control/tp_control.key'),
-    cert: fs.readFileSync('/etc/ssl/tp_control/test_tp-control_travelplanet_fr.crt'),
-    ca:   fs.readFileSync('/etc/ssl/tp_control/DigiCertCA.crt'),
+    key:  fs.readFileSync('/etc/ssl/dev_tp_control/tp_control.key'),
+    cert: fs.readFileSync('/etc/ssl/dev_tp_control/test_tp-control_travelplanet_fr.crt'),
+    ca:   fs.readFileSync('/etc/ssl/dev_tp_control/DigiCertCA.crt'),
     requestCert:        true,
     rejectUnauthorized: false
 };
