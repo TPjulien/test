@@ -50,7 +50,10 @@ p, h1, h2, h3, h4, h5, h6, span {
   right: 61px;
 }
 
-
+.btn-toolbar {
+    margin-left: 0px;
+    background: rgba(216, 216, 216, 0.76);
+}
 
 .angular-popover-template {
   padding: 0px;
