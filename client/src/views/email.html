@@ -1,40 +1,45 @@
-<div layout="column" style="margin-top: 10px;width: 85%;margin-left: 10%;" ng-cloak>
+<div layout="column" style="margin-top: 10px;width: 85%;margin-left: 10%;" ng-cloak ng-repeat="infoMail in infoMails">
   <div class="">
   <h4 style="border-bottom: 3px solid #e40514;color: rgb(117, 117, 117);margin-left: 33px;">Demande de Réclamation</h4>
-    <md-content style="background-color: #FFFFFF;" layout-padding>
+    <md-content style="overflow: hidden;background-color: #FFFFFF;" layout-padding>
       <form name="emailForm">
-        <md-input-container style="background-color:#ffffff; border-radius:5px;" class="md-block">
-          <label style="font-size:15px;">De</label>
-          <md-icon md-svg-src="img/icons/from.svg" class="name" style="color:#757575;!important;"></md-icon>
-          <input required type="email" name="clientEmail" ng-model="expediteur"
-                 minlength="10" maxlength="100" ng-pattern="/^.+@.+\..+$/" />
-          <div ng-messages="emailForm.clientEmail.$error" role="alert">
-            <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
-              Votre e-mail doit être compris entre 10 et 100 caractères et doit ressembler à une adresse e -mail .
+        <div class="row">
+          <md-input-container style="width: 100%;"  >
+              <md-icon md-svg-src="img/icons/from.svg" class="name" style="color:#757575;!important;"></md-icon>
+            <md-select ng-model="expediteur"class="select_generic_email" placeholder="Veuillez selectionner votre adresse mail">
+              <md-option  ng-repeat="profilEmail in profilEmails" value="{{profilEmail.Email}}">{{profilEmail.Email}}</md-option>
+            </md-select>
+            <div ng-messages="emailForm.clientEmail.$error" role="alert">
+              <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
+                Votre e-mail doit être compris entre 10 et 100 caractères et doit ressembler à une adresse e -mail .
+              </div>
             </div>
-          </div>
-        </br>
-        </br>
-        </md-input-container>
-        <md-input-container style="background-color:#ffffff; border-radius:5px;" class="md-block">
-          <label  style="font-size:15px;">Destinataire</label>
-          <md-icon md-svg-src="img/icons/mail.svg" class="name" style="color:#757575;!important;"></md-icon>
-          <input ng-model="destinataire">
-        </md-input-container>
-        <md-input-container style="background-color:#ffffff; border-radius:5px;" class="md-block">
-          <label  style="font-size:15px;">Objet</label>
-          <md-icon md-svg-src="img/icons/objet.svg" class="name" style="color:#757575;!important;"></md-icon>
-          <input required name="objet" ng-model="objet">
-          <div ng-messages="emailForm.objet.$error">
-            <div ng-message="required">Ce champs est obligatoire.</div>
-          </div>
-        </md-input-container>
-        <md-input-container style="background-color:#ffffff; border-radius:5px;" class="md-block">
-          <div text-angular ng-model="body"></div>
-          <label style="font-size:15px;"></label>
-          <md-icon md-svg-src="img/icons/write.svg" class="name" style="color:#757575;!important;"></md-icon>
-        </md-input-container>
-        <button ng-click="sendMail(expediteur,destinataire,objet,body)"style="width: 98%;background-color: #757575;float:right;margin-left: 33px;" type="button" class="btn btn-primary">Envoyer</button>
+          </md-input-container>
+        </div>
+        <div class="row">
+          <md-input-container style="background-color:#ffffff; border-radius:5px;" class="md-block">
+            <md-icon md-svg-src="img/icons/mail.svg" class="name" style="color:#757575;!important;"></md-icon>
+            <input style="padding-left: 10px;" ng-model="infoMail.email_destination" disabled>
+          </md-input-container>
+        </div>
+        <div class="row">
+          <md-input-container style="background-color:#ffffff; border-radius:5px;" class="md-block">
+            <label  style="font-size:15px;">Objet</label>
+            <md-icon md-svg-src="img/icons/objet.svg" class="name" style="color:#757575;!important;"></md-icon>
+            <input required name="objet" ng-model="objet" style="padding-left: 10px;font-family: 'gotham';">
+            <div ng-messages="emailForm.objet.$error">
+              <div ng-message="required">Ce champs est obligatoire.</div>
+            </div>
+          </md-input-container>
+        </div>
+        <div class="row">
+          <md-input-container style="background-color:#ffffff; border-radius:5px;" class="md-block">
+            <text-angular ta-toolbar="[['h1','h2','h3','h4','h5','p','pre','quote','bold','italics','underline','strikeThrough','undo','redo','clear','justifyLeft','justifyCenter','justifyRight','justifyFull','indent']]"></text-angular>
+            <label style="font-size:15px;"></label>
+            <md-icon md-svg-src="img/icons/write.svg" class="name" style="color:#757575;!important;"></md-icon>
+          </md-input-container>
+        </div>
+        <button ng-click="sendMail(expediteur,infoMail.email_destination,objet,body)"style="width: 98%;background-color: #757575;float:right;margin-left: 33px;" type="button" class="btn btn-primary">Envoyer</button>
       </form>
     </md-content>
   </div>

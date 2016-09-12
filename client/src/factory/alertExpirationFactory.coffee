@@ -17,3 +17,8 @@ tableau
               title: "Connexion refusée"
               text:  "Login ou mot de passe erroné, veuillez vous reconnecter"
               type:  "error"
+      alertSendMail: ->
+          SweetAlert.swal
+              title: "Mail Envoyé!"
+              text:  "Votre mail a bien été transmis à nos équipes. Nous nous engageons à vous répondre dans les plus brefs délais"
+              imageUrl: "img/sendMail.gif"
