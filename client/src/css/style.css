@@ -34,7 +34,10 @@ p, h1, h2, h3, h4, h5, h6, span {
 .h5login{
   margin-top:30px;
 }
-
+.btn-group .btn + .btn, .btn-group .btn + .btn-group, .btn-group .btn-group + .btn, .btn-group .btn-group + .btn-group {
+    margin-left: -1px;
+    width: 5%;
+}
 .getSize {
     font-size: 15px;
 }
@@ -182,6 +185,7 @@ tooltip {
 .dtp table.dtp-picker-days tr > td > a.selected {
     background: #0077bb;
 }
+
 /* ------------------------------------------------------------------------------------------------ */
 @import url(http://fonts.googleapis.com/css?family=Roboto:400,100);
 
@@ -1202,8 +1206,31 @@ Use of this source code is governed by an MIT-style license that can be in found
   margin-left: 40px !important;
   border-bottom: 1px solid #9e9e9e !important;
 }
+.select_generic_email{
+  font-size: 12px !important;
+  color: black;
+  padding-left: 10px;
+  border-bottom: 1px solid #9e9e9e !important;
+}
 .body{
   display: table;
+}
+.btn-toolbar > .btn{
+  font-size: 100px;
+}
+.btn, .btn-large {
+    text-decoration: none;
+    color: #fff;
+    background-color: #757575;
+    text-align: center;
+    letter-spacing: .5px;
+    transition: .2s ease-out;
+    cursor: pointer;
+}
+
+.btn-group > .btn:last-child:not(:first-child), .btn-group > .dropdown-toggle:not(:first-child) {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
 }
 .labelProfil{
       color: #757575;
@@ -1783,5 +1810,55 @@ i {
     .img_profil{
       width: 150px;
     }
+    .btn-group .btn + .btn, .btn-group .btn + .btn-group, .btn-group .btn-group + .btn, .btn-group .btn-group + .btn-group {
+    margin-left: -1px;
+    width: 88px;
+}
+@media (min-width:1200px)
+{
+    .right_profil
+    {
+      float: left;
+      margin-left: 10px;
+    }
+    .radio_generic{
+      margin-left: 40px;
+    }
+    .select_container{
+      min-width: 40px;
+    }
+    .margin-left{
+      margin-left: 40px;
+    }
+    .clear{clear:both;}
+    .h1profil {
+    font-size: 35px;
+    }
+    .img_profil{
+      width: 150px;
+    }
+    .btn-group .btn + .btn, .btn-group .btn + .btn-group, .btn-group .btn-group + .btn, .btn-group .btn-group + .btn-group {
+    margin-left: -1px;
+    width: 88px;
+}
+.ta-editor {
+  height: 400px;
+  overflow: auto;
+  font-family: inherit;
+  font-size: 100%;
+  margin: 20px 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+.editor-wrapper {
+  position: relative;
+  height: 470px;
+}
+.ta-toolbar {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
 
 }
