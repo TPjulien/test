@@ -110,7 +110,7 @@ module.exports = function(router, connection) {
         })
 
     // route pour lister les infos mail
-    router.route('/getBillets/:site_id/:uid/:billet_id')
+    router.route('/getMailsByBillet/:site_id/:uid/:billet_id')
         .get(function(req, res) {
             var query_one = "SELECT * FROM ??  \
                              WHERE ?? = ?  AND ?? = ? AND ?? = ? ORDER BY ?? DESC";
