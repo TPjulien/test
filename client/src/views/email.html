@@ -34,7 +34,7 @@
         </div>
         <div class="row">
           <md-input-container style="background-color:#ffffff; border-radius:5px;" class="md-block">
-            <text-angular ta-toolbar="[['h1','h2','h3','h4','h5','p','pre','quote','bold','italics','underline','strikeThrough','undo','redo','clear','justifyLeft','justifyCenter','justifyRight','justifyFull','indent']]"></text-angular>
+            <text-angular ng-model="body" ta-toolbar="[['h1','h2','h3','h4','h5','p','pre','quote','bold','italics','underline','strikeThrough','undo','redo','clear','justifyLeft','justifyCenter','justifyRight','justifyFull','indent']]"></text-angular>
           </md-input-container>
         </div>
         <button ng-click="sendMail(expediteur,infoMail.email_destination,objet,body)"style="width: 100%;background-color: #75757;" type="button" class="btn btn-primary">Envoyer</button>
