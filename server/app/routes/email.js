@@ -92,13 +92,13 @@ module.exports = function(router, connection) {
 
     })
     // route pour lister les infos mail
-    router.route('/getBillets')
+    router.route('/getBillets/:site_id/:uid')
         .get(function(req, res) {
             var query_one = "SELECT * FROM ??  \
                              WHERE ?? = ?  AND ?? = ? GROUP BY ??";
             var table_one = ["tp_control.History_Email_WIP",
-                             "SITE_ID",req.body.SITE_ID,
-                             "UID", req.body.UID,
+                             "SITE_ID",req.params.site_id,
+                             "UID", req.params.uid,
                              "BILLET_ID"];
             query_one     = mysql.format(query_one, table_one);
             connection.query(query_one, function(err, rows) {
