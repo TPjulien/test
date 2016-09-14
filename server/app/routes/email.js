@@ -67,13 +67,13 @@ module.exports = function(router, connection) {
               res.status(400).send(err);
             else
               var new_mail_id    = rows[0].new_mail_id + 1;
-              var query_one = "SELECT NOW() as new_date"  \
+              var query_one = "SELECT NOW()"  \
               query_one     = mysql.format(query_one);
               connection.query(query_one, function(err, rows_one) {
                   if (err)
                       res.status(400).send(err);
                   else
-                      var new_date    = rows[0].new_date;
+                      var new_date    = rows[0];
                       var query_two = "INSERT INTO ?? (??,??,??,??,??,??,??,??) VALUES (?,?,?,?,?,?,?,?)";
                       var table_two = ["tp_control.History_Email_WIP",
                                        "SITE_ID","UID","EMAIL_ID","DEPOSITED_DATE","email_sender","email_destination","email_title","email_body",
