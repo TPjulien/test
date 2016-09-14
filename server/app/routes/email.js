@@ -56,4 +56,39 @@ module.exports = function(router, connection) {
                   res.json(rows);
           })
       })
-  }
+  // route pour ajouter le mail en base
+  router.route('/putHistoryMail')
+      .post (function(req, res) {
+        var query = "SELECT MAX(??) as new_mail_id FROM ??";
+        var table = ['EMAIL_ID', 'tp_control.History_Email_WIP'];
+        query = mysql.format(query, table);
+        connection.query(query, function (err, rows) {
+            if (err)
+              res.status(400).send(err);
+            else
+              var new_mail_id    = rows[0].new_mail_id + 1;
+              var query_one = "SELECT NOW() as new_date"  \
+              query_one     = mysql.format(query_one);
+              connection.query(query_one, function(err, rows_one) {
+                  if (err)
+                      res.status(400).send(err);
+                  else
+                      var new_date    = rows[0].new_date;
+                      var query_two = "INSERT INTO ?? (??,??,??,??,??,??,??,??) VALUES (?,?,?,?,?,?,?,?)";
+                      var table_two = ["tp_control.History_Email_WIP",
+                                       "SITE_ID","UID","EMAIL_ID","DEPOSITED_DATE","email_sender","email_destination","email_title","email_body",
+                                       req.body.SITE_ID,req.body.UID,new_mail_id,new_date,req.body.email_sender,req.body.email_destination,req.body.email_title,req.body.email_body];
+                     query_two     = mysql.format(query_two, table_two);
+                     connection.query(query_two, function(err, rows_two) {
+                         if (err)
+                             res.status(400).send(err);
+                         else
+                             res.status(200).send('Created');
+                     })
+              })
+
+
+        })
+
+    })
+}
