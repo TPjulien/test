@@ -4,7 +4,6 @@ tableau
     decode                   = jwtHelper.decodeToken(token)
     site_id                  =  decode[0].site_id
     uid                      =  decode[0].UID
-
     $http
         method :    'GET'
         url    :    options.api.base_url + '/infoMail/' + site_id
@@ -36,15 +35,27 @@ tableau
                   method :    'POST'
                   url    :    options.api.base_url + '/putHistoryMail'
                   data   :
-                    SITE_ID :             site_id
-                    UID :                 uid
-                    expediteur:           expediteur
-                    destinataire :        destinataire
-                    objet :               objet
-                    body :                body
+                      SITE_ID :               site_id
+                      UID :                   uid
+                      email_sender:           expediteur
+                      email_destination :     destinataire
+                      email_title :           objet
+                      email_body :            body
               .success (data) ->
                   alertFct.alertSendMail()
               .error (err) ->
                   console.log err
+        .error (err) ->
+            console.log err
+
+    $scope.getBillets = () ->
+        $http
+            method :    'GET'
+            url    :    options.api.base_url + '/getHistoryMail'
+            data   :
+              SITE_ID :               site_id
+              UID :                   uid
+        .success (data) ->
+            $scope.billets = data
         .error (err) ->
             console.log err
