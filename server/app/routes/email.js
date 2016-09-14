@@ -91,4 +91,21 @@ module.exports = function(router, connection) {
         })
 
     })
+    // route pour lister les infos mail
+    router.route('/getBillets')
+        .get(function(req, res) {
+            var query_one = "SELECT * FROM ??  \
+                             WHERE ?? = ?  AND ?? = ? GROUP BY ??";
+            var table_one = ["tp_control.History_Email_WIP",
+                             "SITE_ID",req.body.SITE_ID,
+                             "UID", req.body.UID,
+                             "BILLET_ID"];
+            query_one     = mysql.format(query_one, table_one);
+            connection.query(query_one, function(err, rows) {
+                if (err)
+                    res.status(400).send(err);
+                else
+                    res.json(rows);
+            })
+        })
 }
