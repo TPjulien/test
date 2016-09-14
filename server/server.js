@@ -11,36 +11,19 @@ var app = express();
 
 process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
 
-// var connection = mysql.createConnection({
-//     host:     '151.80.121.119',
-//     user:     'pre_prod',
-//     password: 'andrianifahanana',
-//     database: 'portail_tableau',
-//     port:     '3333',
-//     debug:    true
-// });
-//
-// var credentials = {
-//     key:  fs.readFileSync('/etc/ssl/dev_tp_control/tp_control.key'),
-//     cert: fs.readFileSync('/etc/ssl/dev_tp_control/test_tp-control_travelplanet_fr.crt'),
-//     ca:   fs.readFileSync('/etc/ssl/dev_tp_control/DigiCertCA.crt'),
-//     requestCert:        true,
-//     rejectUnauthorized: false
-// };
-
 var connection = mysql.createConnection({
-    host:     '192.168.1.119',
-    user:     'mahefa',
-    password: '7umAban73EAZjKXt',
+    host:     '151.80.121.119',
+    user:     'pre_prod',
+    password: 'andrianifahanana',
     database: 'portail_tableau',
     port:     '3333',
     debug:    true
 });
 
 var credentials = {
-    key:  fs.readFileSync('/etc/ssl/tp_control/ia.key'),
-    cert: fs.readFileSync('/etc/ssl/tp_control/tp-control_travelplanet_fr.crt'),
-    ca:   fs.readFileSync('/etc/ssl/tp_control/DigiCertCA.crt'),
+    key:  fs.readFileSync('/etc/ssl/dev_tp_control/tp_control.key'),
+    cert: fs.readFileSync('/etc/ssl/dev_tp_control/test_tp-control_travelplanet_fr.crt'),
+    ca:   fs.readFileSync('/etc/ssl/dev_tp_control/DigiCertCA.crt'),
     requestCert:        true,
     rejectUnauthorized: false
 };
