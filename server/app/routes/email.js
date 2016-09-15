@@ -118,7 +118,7 @@ module.exports = function(router, connection) {
               if (err)
                 res.status(400).send(err);
               else
-                var new_billet_id    = rows[0].new_email_id + 1;
+                var new_email_id    = rows[0].new_email_id + 1;
                 var query_one        = "SELECT NOW() as new_date"
                 query_one            = mysql.format(query_one);
                 connection.query(query_one, function(err, rows_one) {
