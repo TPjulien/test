@@ -60,7 +60,7 @@ module.exports = function(router, connection) {
   router.route('/infoReponse/:site_id/:uid/:billet_id')
       .get(function(req, res) {
           var query_one = "SELECT * FROM ??  \
-                            WHERE ?? = ?  AND ?? = ?? AND ?? = ? GROUP BY ??";
+                            WHERE ?? = ?  AND ?? = ? AND ?? = ? GROUP BY ??";
           var table_one = ["tp_control.History_Email_WIP",
                            "SITE_ID", req.params.site_id,
                            "UID", req.params.uid,
