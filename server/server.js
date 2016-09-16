@@ -12,21 +12,21 @@ var app = express();
 process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
 
 var connection = mysql.createConnection({
-    host:     '151.80.121.119',
-    user:     'pre_prod',
-    password: 'andrianifahanana',
+    host:     '192.168.1.119',
+    user:     'mahefa',
+    password: '7umAban73EAZjKXt',
     database: 'portail_tableau',
     port:     '3333',
     debug:    true
 });
 
-var credentials = {
-    key:  fs.readFileSync('/etc/ssl/dev_tp_control/tp_control.key'),
-    cert: fs.readFileSync('/etc/ssl/dev_tp_control/test_tp-control_travelplanet_fr.crt'),
-    ca:   fs.readFileSync('/etc/ssl/dev_tp_control/DigiCertCA.crt'),
-    requestCert:        true,
-    rejectUnauthorized: false
-};
+// var credentials = {
+//     key:  fs.readFileSync('/etc/ssl/dev_tp_control/tp_control.key'),
+//     cert: fs.readFileSync('/etc/ssl/dev_tp_control/test_tp-control_travelplanet_fr.crt'),
+//     ca:   fs.readFileSync('/etc/ssl/dev_tp_control/DigiCertCA.crt'),
+//     requestCert:        true,
+//     rejectUnauthorized: false
+// };
 
 connection.connect(function(err) {
     if (err)
@@ -90,7 +90,7 @@ app.use('/api', router);
 app.options('/loginProfils', cors());
 
 var httpServer  = http.createServer(app);
-var httpsServer = https.createServer(credentials, app);
+//var httpsServer = https.createServer(credentials, app);
 
 httpServer.listen(3001);
-httpsServer.listen(3254);
+//httpsServer.listen(3254);
