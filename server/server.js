@@ -12,18 +12,18 @@ var app = express();
 process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
 
 var connection = mysql.createConnection({
-    host:     '151.80.121.119',
-    user:     'pre_prod',
-    password: 'andrianifahanana',
+    host:     '192.168.1.119',
+    user:     'mahefa',
+    password: '7umAban73EAZjKXt',
     database: 'portail_tableau',
     port:     '3333',
     debug:    true
 });
 
 var credentials = {
-    key:  fs.readFileSync('/etc/ssl/dev_tp_control/tp_control.key'),
-    cert: fs.readFileSync('/etc/ssl/dev_tp_control/test_tp-control_travelplanet_fr.crt'),
-    ca:   fs.readFileSync('/etc/ssl/dev_tp_control/DigiCertCA.crt'),
+    key:  fs.readFileSync('/etc/ssl/tp_control/ia.key'),
+    cert: fs.readFileSync('/etc/ssl/tp_control/tp-control_travelplanet_fr.crt'),
+    ca:   fs.readFileSync('/etc/ssl/tp_control/DigiCertCA.crt'),
     requestCert:        true,
     rejectUnauthorized: false
 };
@@ -35,9 +35,31 @@ connection.connect(function(err) {
         console.log("connection etablished !");
 });
 
+// // cors perso
+// app.use(function(req, res, next) {
+//     res.header("Access-Control-Allow-Origin", "*");
+//     res.header("Access-Control-Allow-Headers", "X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept");
+//     res.header("Access-Control-Allow-Methods", "POST, HEAD, GET, PUT, DELETE, OPTIONS");
+//     res.header("Access-Control-Allow-Credentials", "true");
+//     res.header("Access-Control-Max-Age", '86400');
+//     next();
+// });
+
+// ajouter une whitelist pour Cors
+// var whitelist = ['http://localhost', 'https://tp-control.travelplanet.fr/**'];
+// var corsOptions = {
+//   origin: function(origin, callback) {
+//       console.log(origin);
+//       var originIsWhiteListed = whitelist.indexOf(origin) !== -1;
+//       callback(null, originIsWhiteListed);
+//   }
+// }
+
 // app.use(cors({credentials: true}));
 app.use(cors());
 
+// ajouter exceptionnelement le preflight sur loginprofils
+// app.options('*', cors());
 // options pour accepter tout !
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json({ extended: true }));
@@ -81,7 +103,6 @@ require('./app/routes/rules')             (router, connection);
 require('./app/routes/ipRoute')           (router, connection);
 require('./app/routes/profilRoute')       (router, connection);
 require('./app/routes/tableauRoute')      (router, connection);
-require('./app/routes/email')             (router, connection);
 
 
 app.use('/api', router);
