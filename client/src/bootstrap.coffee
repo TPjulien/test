@@ -26,7 +26,6 @@ tableau = angular.module 'tableauApp', [
   'anim-in-out'
   '720kb.tooltips'
   'btford.markdown'
-  'textAngular'
   'ngImageCache'
   'ngTable'
   'md.data.table'
@@ -35,6 +34,9 @@ tableau = angular.module 'tableauApp', [
   'ui.tree'
   'angular-popover'
   'ngPopover'
+  'vAccordion'
+  'wysiwyg.module'
+  'colorpicker.module'
 ]
 
 options = {}
