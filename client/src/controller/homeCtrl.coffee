@@ -72,17 +72,21 @@ tableau
         path = '/home/dashboard/' + data.VIEW_ID + "-" + data.EMBED_ID
         $location.path path
 
+    # $scope.returnMultipleImage(image) ->
+    #     image = 'data:' + data['EMBED_LOGO_TYPE'] + ';base64,' + data['EMBED_LOGO_BASE_64']
+
     # Html pour le menu comme je dois verifier si oui ou non la requete fonctionne
     $scope.bindMenu = (data, menu) ->
         color      = $scope.get_color = getColor(data['EMBED_COLOR'])
         # image      = data['VIEW_ICON']
-        image      = getImage(data['VIEW_ICON'])
+        image = 'data:' + data['EMBED_LOGO_TYPE'] + ';base64,' + data['EMBED_LOGO_BASE_64']
+
         id         = data['VIEW_ID']
         view_label = data['VIEW_LABEL']
         menu       = []
 
         # console.log $scope.get_multiple_view.length
-
+        console.log $scope.multiple_view
         if $scope.get_multiple_view.length >= 0
             if $scope.get_multiple_view[id] != undefined
                 $scope.multiple_view = $scope.get_multiple_view[id]
