@@ -17,24 +17,55 @@ module.exports = function(router, connection) {
     var table_password = "user_password";
     var table_username = "username";
     var table_login    = "user_info";
+    var saml_data      = [];
+    
 
+    // serialize user
+    passport.serializeUser(function(user, done) {
+	done(null, user);
+    });
 
+    // deserialize user
+    passport.deserializeUser(function(user, done) {
+	done(null, user);
+    });
+    
     // shibboleth
     passport.use(new SamlStrategy(
-      {
-        callbackUrl  : 'https://tp-control.travelplanet.fr:3254/api/Shibboleth.sso/SAML2/POST',
-        entryPoint   : 'https://test.federation.renater.fr/idp/profile/SAML2/Redirect/SSO',
-        issuer       : 'https://tp-control.travelplanet.fr/#/account/login',
-        //decryptionPvk : fs.readFileSync('/etc/ssl/tp_control/tp-control_travelplanet_fr.crt', 'utf8')
-        // cert         : fs.readFileSync('/etc/ssl/tp_control/tp-control_travelplanet_fr.crt', 'utf-8')
-      },
-      function(profile, done) {
-          var query = "";
-          var table = [];
-          return done(null, profile);
-          })
-    )
+	{
+            callbackUrl   : 'https://tp-control.travelplanet.fr:3254/api/Shibboleth.sso/SAML2/POST',
+            entryPoint    : 'https://test.federation.renater.fr/idp/profile/SAML2/Redirect/SSO',
+            issuer        : 'https://tp-control.travelplanet.fr/#/account/login',
+            decryptionPvk : fs.readFileSync('/etc/ssl/tp_control/key_shib.pem', 'utf8'),
+            cert          : fs.readFileSync('/etc/ssl/tp_control/metadata-federation-renater.crt', 'utf-8')
+	},
+	function(profile, done, err) {
+            var query = "";
+            var table = {};
+	    table.uid =                 profile['urn:oid:0.9.2342.19200300.100.1.1'];
+	    table.affiliations =        profile['urn:oid:1.3.6.1.4.1.5923.1.1.1.1'];
+	    table.primary_affiliation = profile['urn:oid:1.3.6.1.4.1.5923.1.1.1.5'];
+	    table.surname =             profile['urn:oid:2.5.4.4'];
+	    table.email_affiliations =  profile['urn:oid:1.3.6.1.4.1.5923.1.1.1.9'];
+	    table.mail =                profile['urn:oid:0.9.2342.19200300.100.1.3'];
+	    table.eppn =                profile['urn:oid:1.3.6.1.4.1.5923.1.1.1.6'];
+	    table.etablissement =       profile['urn:oid:1.3.6.1.4.1.7135.1.2.1.14'];
+	    table.given_name =          profile['urn:oid:2.5.4.42'];
+	    table.common_name =         profile['urn:oid:2.5.4.3'];
+	    table.display_name =        profile['urn:oid:2.16.840.1.113730.3.1.241'];
+	    
+	    //console.log(table)
+	    
+	    var token = jwt.sign(table, 'travelSecret', {
+                expiresIn: 7200
+            });
 
+	    saml_data = token;
+
+	    return done(null, token);
+	})
+		)
+    
 
     function getPassUser(loginUser, callback) {
         var query = "SELECT ?? FROM ?? WHERE ?? = ? AND ?? = ?";
@@ -62,20 +93,56 @@ module.exports = function(router, connection) {
         })
     }
 
-    // router.route('/shibboleth')
-    //   .get(passport.authenticate('saml', { failureRedirect: '/'  }),
-    //       function (req, res) {
-    //         res.status(200).send('ça fonctionne !');
-    //   });
-    // test
-
+    router.route('/toto')
+        .get(function(req, res) {
+	    res.redirect("http://localhost/#/SAML/" + saml_data);
+	});
+    
     router.route('/Shibboleth.sso/SAML2/POST')
-        .post (passport.authenticate('saml', { failureRedirect: '/'}),
-            function (req, res) {
-                var result = req.body.displayName;
-                console.log(result);
-                res.status(200).send(result[0]);
-        });
+        .post (passport.authenticate('saml', { 
+	    failureRedirect: '/api/error',
+	    successRedirect: '/api/toto'
+	}), 
+	       function (err, req, res, next) {
+               });
+
+    router.route('error')
+        .get(function(req, res) {
+	    res.status(400).res("une erreur est survenu");
+	});
+    
+
+    router.route('samlLogin')
+        .post(function(req, res) {
+	    var query = "SELECT * FROM ?? WHERE ?? = ? AND ?? = ?";
+	    var table = ['profils.view_info_userConnected', 'SITE_ID', req.body.SITE_ID, "Login", req.body.username];
+	    query     = mysql.format(query, table);
+	    connection.query(query, function(err, info_result) {
+		if (err)
+		    res.status(400).send(err);
+		else {
+		    var preToken = [{
+			"site_id":              info_result[0].SITE_ID,
+			"UID":                  info_result[0].UID,
+			"DEPOSITED_DATE":       info_result[0].DEPOSITED_DATE,
+			"home_community":       info_result[0].HomeCommunity,
+			"username":             info_result[0].Login,
+			"company":              info_result[0].SITE_LIBELLE,
+			"firstname":            info_result[0].Customer_GivenName,
+			"lastname":             info_result[0].Customer_surName,
+			// "user_auth":            "Administrator"
+			// bug de roles
+			"user_auth":            info_result[0].Role,
+                    }];
+		    var token = jwt.sign(preToken, 'travelSecret', {
+                        expiresIn: 7200
+                    });
+                    res.json({
+                        token: token
+                    });
+		}
+	    })
+	});
 
     // ancien login
     router.route('/login')
@@ -142,10 +209,6 @@ module.exports = function(router, connection) {
                 res.status(200).send('ça fonctionne !');
           });
 
-        // router.route('/Shibboleth.sso/SAML2/POST')
-        //   .post (function(req, res) {
-        //         res.status(200).send(req.body);
-        //   });
 
         // login normal travel planet
         router.route('/loginCheck/:user')

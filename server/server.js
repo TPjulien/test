@@ -6,6 +6,8 @@ var bodyParser  = require('body-parser');
 var jwt         = require('jsonwebtoken');
 var https       = require('https');
 var http        = require('http');
+var passport    = require('passport');
+
 
 var app = express();
 
@@ -20,13 +22,13 @@ var connection = mysql.createConnection({
     debug:    true
 });
 
-// var credentials = {
-//     key:  fs.readFileSync('/etc/ssl/dev_tp_control/tp_control.key'),
-//     cert: fs.readFileSync('/etc/ssl/dev_tp_control/test_tp-control_travelplanet_fr.crt'),
-//     ca:   fs.readFileSync('/etc/ssl/dev_tp_control/DigiCertCA.crt'),
-//     requestCert:        true,
-//     rejectUnauthorized: false
-// };
+var credentials = {
+     key:  fs.readFileSync('/etc/ssl/tp_control/ia.key'),
+     cert: fs.readFileSync('/etc/ssl/tp_control/tp-control_travelplanet_fr.crt'),
+     ca:   fs.readFileSync('/etc/ssl/tp_control/DigiCertCA.crt'),
+     requestCert:        true,
+     rejectUnauthorized: false
+};
 
 connection.connect(function(err) {
     if (err)
@@ -45,6 +47,9 @@ app.use(bodyParser.json());
 
 var port   = process.env.PORT || 3000;
 var router = express.Router();
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 // debut des routes  ----------------------------------------------------------------------------------
 // on n'a pas besoin de proteger la route d'authentification
@@ -90,7 +95,7 @@ app.use('/api', router);
 app.options('/loginProfils', cors());
 
 var httpServer  = http.createServer(app);
-//var httpsServer = https.createServer(credentials, app);
+var httpsServer = https.createServer(credentials, app);
 
 httpServer.listen(3001);
-//httpsServer.listen(3254);
+httpsServer.listen(3254);
