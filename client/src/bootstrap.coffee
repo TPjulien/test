@@ -182,6 +182,11 @@ tableau
             url:         '/login',
             templateUrl: 'templates/login.html',
             controller:  'loginCtrl'
+        # la partie saml
+        .state 'saml',
+            url:         '/SAML/:tokenSaml',
+            templateUrl: 'templates/samlCheck.html',
+            controller:  'samlCtrl'
         .state 'login.account',
             url:         '/account',
             templateUrl: 'templates/loginVerify.html'

@@ -1,7 +1,6 @@
 tableau
-.controller 'uploadsCtrl', ($scope, $http, Upload,alertFct) ->
-
-   $scope.uploadNatixis = (file) ->
+.controller 'uploadsCtrl', ($scope, $http, Upload) ->
+    $scope.uploadNatixis = (file) ->
        url = "http://api-interne-dev.travelplanet.fr/api/Banque/MatchNatixis"
        filename = "Natixis"
        if file.length <= 0 or file == null
@@ -12,7 +11,7 @@ tableau
        else
            upload(file, url, filename)
 
-   $scope.uploadFiles = (file) ->
+    $scope.uploadFiles = (file) ->
        url      = "http://api-interne-dev.travelplanet.fr/api/Banque/MatchSGPalatine"
        filename = "Banque"
        if file.length <= 0 or file == null
@@ -23,7 +22,7 @@ tableau
        else
            upload(file, url, filename)
 
-   upload = (file, url, filename) ->
+    upload = (file, url, filename) ->
        Upload.upload
            method       : 'POST'
            url          : url
@@ -53,7 +52,7 @@ tableau
        ), (resp) ->
            console.log 'error status: ' + resp.status
 
-   $scope.downloadNatixisCFONG = () ->
+    $scope.downloadNatixisCFONG = () ->
        $http
            method       : 'GET'
            url          : 'http://api-interne-dev.travelplanet.fr/api/Banque/GenerateNatixisCFONB'

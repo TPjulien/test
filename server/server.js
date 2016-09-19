@@ -88,7 +88,6 @@ require('./app/routes/profilRoute')       (router, connection);
 require('./app/routes/tableauRoute')      (router, connection);
 require('./app/routes/email')             (router, connection);
 
-
 app.use('/api', router);
 
 // ajouter exceptionnelement le preflight
