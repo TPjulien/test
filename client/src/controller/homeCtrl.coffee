@@ -80,7 +80,10 @@ tableau
         id         = data['VIEW_ID']
         view_label = data['VIEW_LABEL']
         menu       = []
-        if $scope.get_multiple_view.length > 0
+
+        # console.log $scope.get_multiple_view.length
+
+        if $scope.get_multiple_view.length >= 0
             if $scope.get_multiple_view[id] != undefined
                 $scope.multiple_view = $scope.get_multiple_view[id]
                 menu += """ <div angular-popover direction="right" close-on-click="false" template-url="/modals/right.html" mode="click" close-on-mouseleave="true" style="position: relative;"> """

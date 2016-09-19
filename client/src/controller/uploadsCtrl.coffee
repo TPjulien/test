@@ -1,5 +1,5 @@
 tableau
-.controller 'uploadsCtrl', ($scope, $http, Upload) ->
+.controller 'uploadCtrl', ($scope, $http, Upload) ->
     $scope.uploadNatixis = (file) ->
        url = "http://api-interne-dev.travelplanet.fr/api/Banque/MatchNatixis"
        filename = "Natixis"

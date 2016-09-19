@@ -7,7 +7,7 @@ tableau
       $scope.get_username = decode[0].username
       $location.path '/login/verify/' + $scope.get_username
 
-    $window.location.href = "https://tp-control.travelplanet.fr:3254/api/shibboleth"
+    # $window.location.href = "https://tp-control.travelplanet.fr:3254/api/shibboleth"
     # $http
     #     method: 'GET'
     #     url:    options.api.base_url + '/loginProfils'
