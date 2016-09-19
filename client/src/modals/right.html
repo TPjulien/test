@@ -3,10 +3,10 @@
     <div ng-repeat="view in multiple_view" class="col s4" style="text-align:center">
       <div ng-click="goToTemplate(view)" tooltips tooltip-template="{{view.EMBED_LIBELLE}}" tooltip-side="top"  class="tile-small" data-period="{{menu.view_position}}" data-duration="250" data-role="tile" data-effect="{{menu.animation}}">
         <div class="tile-content">
-          <div class="live-slide tiles_size" style="background-color:blue;" layout-padding="">
+          <div class="live-slide tiles_size" style="background-color:{{view.EMBED_COLOR}};" layout-padding="">
               <img ng-src="{{'data:' + view.EMBED_LOGO_TYPE + ';base64,' + view.EMBED_LOGO_BASE_64}}">
           </div>
-          <div class="live-slide tiles_size" style="background-color:blue;" layout-padding="">
+          <div class="live-slide tiles_size" style="background-color:{{view.EMBED_COLOR}};" layout-padding="">
               <img ng-src="{{'data:' + view.EMBED_LOGO_TYPE + ';base64,' + view.EMBED_LOGO_BASE_64}}">
           </div>
         </div>
