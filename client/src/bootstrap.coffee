@@ -187,6 +187,16 @@ tableau
             url:         '/SAML/:tokenSaml',
             templateUrl: 'templates/samlCheck.html',
             controller:  'samlCtrl'
+        # Pour la gallerie d'images
+        .state 'gallery',
+            url:         '/gallery',
+            templateUrl: 'templates/gallery.html',
+            controller:  'galleryCtrl'
+        # pour recuperer l'image
+        .state 'getImage',
+            url:         '/img/:filename',
+            templateUrl: 'templates/img.html',
+            controller:  'imgCtrl'
         .state 'login.account',
             url:         '/account',
             templateUrl: 'templates/loginVerify.html'

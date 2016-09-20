@@ -40,14 +40,6 @@ var credentials = {
      rejectUnauthorized: false
 };
 
-/*var credentials = {
-     key:  fs.readFileSync('/etc/ssl/tp_control/ia.key'),
-     cert: fs.readFileSync('/etc/ssl/tp_control/tp-control_travelplanet_fr.crt'),
-     ca:   fs.readFileSync('/etc/ssl/tp_control/DigiCertCA.crt'),
-     requestCert:        true,
-     rejectUnauthorized: false
-};*/
-
 connection.connect(function(err) {
     if (err)
         console.log(err);
