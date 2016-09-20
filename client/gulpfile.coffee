@@ -14,12 +14,13 @@ coffeelint  = require 'gulp-coffeelint'
 css_minify  = require 'gulp-minify-css'
 ngAnnotate  = require 'gulp-ng-annotate'
 html_minify = require 'gulp-minify-html'
+require('dotenv').config( { path: process.env.HOME + '/.env'})
 
 js_filter  = filter '**/*.js', { restore: true }
 css_filter = filter '**/*.css', { restore: true }
 
 src  = 'src'
-dest = 'public'
+dest = process.env.TP_CONTROL_NAME
 name = 'tableau'
 
 gulp.task 'clean', ->
@@ -109,9 +110,14 @@ gulp.task 'img_copy', ->
   gulp.src "#{src}/img/**/*"
     .pipe gulp.dest "#{dest}/img/"
 
-gulp.task 'shell_copy', ['common'], ->
-  gulp.src "public"
-    .pipe shell 'sudo sh copy_shell.sh'
+# au lieu de copy sh on utilise dest maintenant
+gulp.task 'dest', ->
+  gulp.src "#{dest}/**"
+      .pipe gulp.dest "/var/www/#{dest}"
+
+# gulp.task 'shell_copy', ['common'], ->
+#   gulp.src "public"
+#     .pipe shell 'sudo sh copy_shell.sh'
 
 gulp.task 'common',  ['clean', 'copy', 'coffee', 'css', 'copy_other', 'jqueryJs', 'copy_json', 'img_copy']
-gulp.task 'default', [ 'shell_copy']
+gulp.task 'default', [ 'common']
