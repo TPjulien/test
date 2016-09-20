@@ -18,7 +18,7 @@ module.exports = function(router, connection) {
     var table_username = "username";
     var table_login    = "user_info";
     var saml_data      = [];
-    
+
 
     // serialize user
     /*passport.serializeUser(function(user, done) {
@@ -29,7 +29,7 @@ module.exports = function(router, connection) {
     /*passport.deserializeUser(function(user, done) {
 	done(null, user);
     });*/
-    
+
     // shibboleth
     /*passport.use(new SamlStrategy(
 	{
@@ -53,9 +53,9 @@ module.exports = function(router, connection) {
 	    table.given_name =          profile['urn:oid:2.5.4.42'];
 	    table.common_name =         profile['urn:oid:2.5.4.3'];
 	    table.display_name =        profile['urn:oid:2.16.840.1.113730.3.1.241'];
-	    
+
 	    //console.log(table)
-	    
+
 	    var token = jwt.sign(table, 'travelSecret', {
                 expiresIn: 7200
             });
@@ -65,7 +65,7 @@ module.exports = function(router, connection) {
 	    return done(null, token);
 	})
 		)*/
-    
+
 
     function getPassUser(loginUser, callback) {
         var query = "SELECT ?? FROM ?? WHERE ?? = ? AND ?? = ?";
@@ -97,12 +97,12 @@ module.exports = function(router, connection) {
         .get(function(req, res) {
 	    res.redirect("http://localhost/#/SAML/" + saml_data);
 	});*/
-    
+
     /*router.route('/Shibboleth.sso/SAML2/POST')
-        .post (passport.authenticate('saml', { 
+        .post (passport.authenticate('saml', {
 	    failureRedirect: '/api/error',
 	    successRedirect: '/api/toto'
-	}), 
+	}),
 	       function (err, req, res, next) {
                });*/
 
@@ -110,7 +110,7 @@ module.exports = function(router, connection) {
         .get(function(req, res) {
 	    res.status(400).res("une erreur est survenu");
 	});*/
-    
+
 
     router.route('samlLogin')
         .post(function(req, res) {
@@ -154,8 +154,8 @@ module.exports = function(router, connection) {
                       console.log("data dont exist");
                     }
                     if (data.length != 0) {
-                      var query = 'SELECT * FROM ?? WHERE ?? = ? AND ?? = ?';
-                      var table = ['profils.view_info_userConnected','SITE_ID',req.body.SITE_ID,"Login",req.body.username ];
+                      var query = 'SELECT * FROM ?? WHERE ?? = ? AND ?? = ? ORDER BY ??';
+                      var table = ['profils.view_info_userConnected','SITE_ID',req.body.SITE_ID,"Login",req.body.username,"ROLE_ORDRE" ];
                       query     = mysql.format(query, table);
                       connection.query(query, function(error, info_result) {
                           if (err) {
