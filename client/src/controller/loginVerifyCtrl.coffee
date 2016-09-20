@@ -53,11 +53,11 @@ tableau
             url:    options.api.base_url + '/loginCheck/' + $scope.username
         .success (data) ->
             if (data.length == 1)
-                console.log data[0]
                 $location.path '/login/verify/' + $scope.username + '/' + data[0].SITE_ID
             else if (data.length > 1)
                 $location.path '/login/comunity/' + $scope.username
             else
                 toastErrorFct.toastError("L'utilisateur : " + $scope.username + " n'existe pas")
         .error (err) ->
+            console.log err
             toastErrorFct.toastError("Impossible de se connecter au serveur de login, veuillez retenter plus tard")
