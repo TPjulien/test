@@ -2,7 +2,7 @@
   <md-content>
     <md-tabs md-dynamic-height md-border-bottom>
       <md-tab label="Nouveau billet">
-        <md-content class="md-padding">
+        <md-content class="">
           <div layout="column" style="margin-top: 10px;width: 85%;margin-left: 10%;" ng-cloak ng-repeat="infoMail in infoMails">
             <h4 style="border-bottom: 3px solid #e40514;color: rgb(117, 117, 117);margin-left: 33px;">Demande de Réclamation</h4>
             <md-content style="overflow: hidden;background-color: #FFFFFF;" layout-padding>
@@ -48,23 +48,20 @@
         </md-content>
       </md-tab>
       <md-tab ng-click="getBillets()"label="Suivi de vos billets ">
-        <md-content class="md-padding">
+        <md-content class="">
           <h4 style="border-bottom: 3px solid #e40514;color: rgb(117, 117, 117);margin-left: 33px;">Suivi de vos Réclamations</h4>
-          <div class="col s3">
+          <div class="col s12 m12 l3">
             <div class="col s12" ng-click="getMailsByBillet(billet.BILLET_ID);displayMails();infoReponse(billet.BILLET_ID)" ng-repeat="billet in billets">
-              <a ng-click="" class="button_email teach-me_email">
-                <div class="col s12">
+              <a class="button_email teach-me_email">
+                <div class="col s12 m12 l12">
                   <div class="row">
-                    <div class="col s5">
-                      <span class="item_email">Billet n° #{{billet.BILLET_ID}}_{{billet.email_title}}</span>
-                    </div>
-                    <div class="col s7">
-                      <span class="item_email right">{{billet.DEPOSITED_DATE | date:' dd-MM-yyyy'}}</span>
+                    <div class="col s12 m12 l12">
+                      <span class=" truncate item_email">Billet n° #{{billet.BILLET_ID}}_{{billet.email_title }}</span>
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col s12">
-                      <span class="item_email">Objet : {{billet.email_title}}</span>
+                    <div class="col s12 m12 l12">
+                      <span class="truncate item_email ">{{billet.DEPOSITED_DATE | date:' dd-MM-yyyy'}}</span>
                     </div>
                   </div>
                 </div>
@@ -73,7 +70,7 @@
               </a>
             </div>
           </div>
-          <div class="col s9">
+          <div class="col s12 m12 l9 divHistory">
             <md-content ng-repeat="info in infoReponses" style="overflow: hidden;background-color: #FFFFFF;" layout-padding>
               <form ng-show="showReponse" name="emailForm">
                 <div  class="row">
@@ -84,7 +81,7 @@
                 <button ng-click="sendMail_reponse(info.email_sender,info.email_destination,info.email_title,body_reponse,info.BILLET_ID)"style="width: 100%;background-color: #75757;" type="button" class="btn btn-primary">Envoyer</button>
               </form>
             </md-content>
-            <div ng-attr-id="{{ 'object-' + mail.BILLET_ID }}" class="">
+            <div ng-attr-id="{{ 'object-' + mail.BILLET_ID }}" class="col s12">
               <div ng-show="showMails" class="col s12 barre_reponse">
                 <button ng-click="displayreponse()"style="margin-right: -11px;border-top-right-radius: 5px;width: 25%;background-color: #75757;float:right;" type="button" class="btn_email btn_reponse ">Répondre</button>
               </div>
@@ -92,7 +89,7 @@
                 <v-accordion class="vAccordion--default">
                   <v-pane id="{{ ::pane.id }}" ng-repeat="mail in mails"  ng-bind-html-unsafe="mail.email_body" expanded="pane.isExpanded">
                     <v-pane-header >
-                      <span style="font-size: 14px;">Billet n° #{{mail.BILLET_ID}}_{{mail.email_title}} / Mail :  {{ ::mail.EMAIL_ID }}</span>
+                      <span style="font-size: 14px;">Billet n° #{{mail.BILLET_ID}}_{{mail.email_title }} / Mail :  {{ ::mail.EMAIL_ID }}</span>
                     </v-pane-header>
                     <v-pane-content >
                       <md-content style="border: 2px solid #d8d8d8;border-radius: 5px;font-size: 14px;" layout-padding>

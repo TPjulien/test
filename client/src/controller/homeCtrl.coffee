@@ -2,6 +2,7 @@ tableau
 .controller 'homeCtrl', ($scope, $mdSidenav, $timeout, logoutFct, jwtHelper, store, $http, $stateParams, $location, $interval, $rootScope, $sce, $mdDialog, $window, toastErrorFct, $q) ->
     token                    = store.get('JWT')
     decode                   = jwtHelper.decodeToken(token)
+    console.log decode
     $rootScope.color         = "#EAEAEA"
     $scope.firstname         = decode[0].firstname
     $scope.lastname          = decode[0].lastname

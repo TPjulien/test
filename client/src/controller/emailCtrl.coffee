@@ -130,7 +130,7 @@ tableau
         $sce.trustAsHtml html_code
 
     $scope.sendMail_reponse = (expediteur,destinataire,objet,body,billet_id) ->
-      if ( expediteur != undefined  && objet != undefined && body != undefined)   
+      if ( expediteur != undefined  && objet != undefined && body != undefined)
         $http
             method :    'POST'
             url    :    options.api.base_url + '/sendMail'

@@ -44,8 +44,13 @@ options.api = {}
 # dev
 #options.api.base_url = "http://151.80.121.123:3001/api"
 
+<<<<<<< ce523dc426f6c35b464709054e7d76fe0b8392eb
 # pré-prod
 # options.api.base_url = "https://test.tp-control.travelplanet.fr:3254/api"
+=======
+# pré-prod&()
+options.api.base_url = "http://151.80.121.114:3001/api"
+>>>>>>> mise en place dun fix je ne sais pas quoi
 
 # prod
 options.api.base_url = "https://tp-control.travelplanet.fr:3254/api"

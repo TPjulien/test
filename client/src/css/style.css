@@ -1671,6 +1671,11 @@ i {
   right: .25em;
   top: 50%;
 }
+.md-content-reclamation{
+  z-index: -1;
+  display: initial !important;
+  overflow: hidden !important;
+}
 
 .chevron:before {
   transform: skewX( 45deg );
@@ -1872,12 +1877,8 @@ i {
 {
     .right_profil
     {
-      float: left;
       margin-left: 10px;
-    }
-    .radio_generic{
-      margin-left: 40px;
-    }
+    }œ
     .select_container{
       min-width: 40px;
     }
@@ -1890,6 +1891,13 @@ i {
     }
     .img_profil{
       width: 150px;
+    }
+}
+@media (max-width:1400px)
+{
+    .divHistory
+    {
+      width: : 100%;
     }
 }
 .ta-editor {
