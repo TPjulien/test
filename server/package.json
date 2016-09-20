@@ -33,6 +33,7 @@
     "python-shell": "~0.3.0",
     "request": "^2.67.0",
     "xlsx-json": "^0.1.0",
-    "xlsx-to-json": "^0.2.4"
+    "xlsx-to-json": "^0.2.4",
+    "dotenv": "~2.0.0"
   }
 }

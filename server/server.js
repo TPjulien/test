@@ -7,28 +7,46 @@ var jwt         = require('jsonwebtoken');
 var https       = require('https');
 var http        = require('http');
 var passport    = require('passport');
+require('dotenv').config({path: '/home/defaultuser/.env' });
 
 
 var app = express();
 
 process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
 
-var connection = mysql.createConnection({
-    host:     '192.168.1.119',
-    user:     'mahefa',
-    password: '7umAban73EAZjKXt',
+/*var connection = mysql.createConnection({
+    host:     '151.80.121.119',
+    user:     'pre_prod',
+    password: 'andrianifahanana',
     database: 'portail_tableau',
     port:     '3333',
+    debug:    true
+});*/
+
+var connection = mysql.createConnection({
+    host:     process.env.DB_HOST,
+    user:     process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_DATABASE,
+    port:     process.env.DB_PORT,
     debug:    true
 });
 
 var credentials = {
+     key:  fs.readFileSync(process.env.SERV_KEY),
+     cert: fs.readFileSync(process.env.SERV_CERT),
+     ca:   fs.readFileSync(process.env.SERV_KEY_CHAIN),
+     requestCert:        true,
+     rejectUnauthorized: false
+};
+
+/*var credentials = {
      key:  fs.readFileSync('/etc/ssl/tp_control/ia.key'),
      cert: fs.readFileSync('/etc/ssl/tp_control/tp-control_travelplanet_fr.crt'),
      ca:   fs.readFileSync('/etc/ssl/tp_control/DigiCertCA.crt'),
      requestCert:        true,
      rejectUnauthorized: false
-};
+};*/
 
 connection.connect(function(err) {
     if (err)

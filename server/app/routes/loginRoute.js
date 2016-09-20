@@ -9,8 +9,8 @@ var httpsRequest = require('https-request');
 var pythonShell  = require('python-shell');
 var cors         = require('cors')
 // ajout de la stratégie saml shibboleth, pour one-login
-var SamlStrategy = require('passport-saml').Strategy;
-var passport     = require('passport');
+//var SamlStrategy = require('passport-saml').Strategy;
+//var passport     = require('passport');
 var fs           = require('fs');
 
 module.exports = function(router, connection) {
@@ -21,17 +21,17 @@ module.exports = function(router, connection) {
     
 
     // serialize user
-    passport.serializeUser(function(user, done) {
+    /*passport.serializeUser(function(user, done) {
 	done(null, user);
-    });
+    });*/
 
     // deserialize user
-    passport.deserializeUser(function(user, done) {
+    /*passport.deserializeUser(function(user, done) {
 	done(null, user);
-    });
+    });*/
     
     // shibboleth
-    passport.use(new SamlStrategy(
+    /*passport.use(new SamlStrategy(
 	{
             callbackUrl   : 'https://tp-control.travelplanet.fr:3254/api/Shibboleth.sso/SAML2/POST',
             entryPoint    : 'https://test.federation.renater.fr/idp/profile/SAML2/Redirect/SSO',
@@ -64,7 +64,7 @@ module.exports = function(router, connection) {
 
 	    return done(null, token);
 	})
-		)
+		)*/
     
 
     function getPassUser(loginUser, callback) {
@@ -93,23 +93,23 @@ module.exports = function(router, connection) {
         })
     }
 
-    router.route('/toto')
+    /*router.route('/toto')
         .get(function(req, res) {
 	    res.redirect("http://localhost/#/SAML/" + saml_data);
-	});
+	});*/
     
-    router.route('/Shibboleth.sso/SAML2/POST')
+    /*router.route('/Shibboleth.sso/SAML2/POST')
         .post (passport.authenticate('saml', { 
 	    failureRedirect: '/api/error',
 	    successRedirect: '/api/toto'
 	}), 
 	       function (err, req, res, next) {
-               });
+               });*/
 
-    router.route('error')
+    /*router.route('error')
         .get(function(req, res) {
 	    res.status(400).res("une erreur est survenu");
-	});
+	});*/
     
 
     router.route('samlLogin')
@@ -203,11 +203,11 @@ module.exports = function(router, connection) {
               })
           })
         // route de shibboleth
-        router.route('/shibboleth')
+        /*router.route('/shibboleth')
           .get(passport.authenticate('saml', { failureRedirect: '/'  }),
               function (req, res) {
                 res.status(200).send('ça fonctionne !');
-          });
+          });*/
 
 
         // login normal travel planet
