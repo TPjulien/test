@@ -124,10 +124,10 @@ module.exports = function(router, connection) {
     //     })
 
     // Permet de recuperer la route si jamais il y a plus de 1 tableau
-    router.route('/getMultipleView/:view_id/:site_id')
+    router.route('/getMultipleView/:view_id/:site_id/:user_auth')
         .get(function(req, res) {
-            var query  = "SELECT * FROM ?? WHERE ?? = ? AND ?? = ?";
-            var table  = ["tp_control.Embed_WIP", "VIEW_ID", req.params.view_id, "SITE_ID", req.params.site_id];
+            var query  = "SELECT * FROM ?? WHERE ?? = ? AND ?? = ? AND ?? = ?";
+            var table  = ["tp_control.embed_role_view_WIP", "VIEW_ID", req.params.view_id, "SITE_ID", req.params.site_id,"ROLE_LIBELLE",req.params.user_auth];
             query      = mysql.format(query, table);
             connection.query(query, function(err, rows) {
                 if (err)
