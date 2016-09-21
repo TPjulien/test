@@ -5,21 +5,18 @@
     <div class="z-depth-2" style="background: url('img/travel_planet_logo.png') center no-repeat; background-color:white" id = "img-logo"> </div>
     <!-- <div class="z-depth-2" style="background: url('{{user_image_url}}') center no-repeat; background-color:burlywood" id = "img"> </div> -->
   </div>
-  <div class="col s12 s5 l5 valign-wrapper" style="height: 100%; background-color:#03A9F4">
+  <div class="col s12 s5 l5 valign-wrapper" style="height: 100%; background-color:#402f73">
     <div class="valign center" style=" width: 100%;">
       <!-- <h2 layout-padding>Bonjour {{data[0].user_last_name}}</h2> -->
       <h2 style="color:white" layout-padding>Bonjour !</h2>
 
       <h5 style="color:white" layout-padding>Session verrouillée, veuillez entrer votre mot de passe.</h5>
       <form name="loginForm" ng-submit="login($event)">
-        <md-content layout-padding style="background-color:transparent">
+        <md-content layout-padding class="md-content-community">
           <md-input-container>
-            <label style="
-              font-size: 15px;
-              padding-left: 9px;
-              ">Mot de passe</label>
-            <input type="password" ng-model="password" required="true">
-            <a ng-click="backToCommu()" class="left" style="cursor:pointer; color:white">Retourner à la page de sélection de communauté</a>
+            <label style="color: white;font-size: 15px; padding-left: 9px;">Mot de passe</label>
+            <input type="password" ng-model="password" style="color: white;" required="true">
+            <a ng-click="backToCommu()" style="cursor:pointer; color:white"><md-icon md-svg-icon="img/icons/previous.svg"></md-icon><span style="margin-left:5px">Retour à la page précédente</span></a>
           </md-input-container>
         </md-content>
         <div class="col s12 center cssFade">

@@ -37,7 +37,19 @@ p, h1, h2, h3, h4, h5, h6, span {
 .h5login{
   margin-top:30px;
 }
-
+.md-content-community{
+  padding: 5%;
+  margin: auto;
+  width: 80%;
+  margin-bottom: 5%;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.24);
+}
+.hoverable {
+  transition: box-shadow .25s;
+  box-shadow: 0;
+  box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
 .getSize {
     font-size: 15px;
 }
