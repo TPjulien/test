@@ -1,3 +1,21 @@
+Skip to content
+This repository
+Search
+Pull requests
+Issues
+Gist
+ @ChrisRocch
+ Unwatch 1
+  Star 0
+  Fork 1 ChrisRocch/Tableau Private
+forked from TravelPlanetNDF/Tableau
+ Code  Pull requests 0  Projects 0  Wiki  Pulse  Graphs  Settings
+Tree: 45372d1535 Find file Copy pathTableau/server/app/routes/templateRoute.js
+487cf22  14 days ago
+@nmahefa nmahefa correction du projet
+1 contributor
+RawBlameHistory
+288 lines (280 sloc)  17 KB
 var mysql     = require('mysql');
 var http_post = require('http-post');
 var request   = require('request');
@@ -124,10 +142,10 @@ module.exports = function(router, connection) {
     //     })
 
     // Permet de recuperer la route si jamais il y a plus de 1 tableau
-    router.route('/getMultipleView/:view_id/:site_id/:user_auth')
+    router.route('/getMultipleView/:view_id/:site_id')
         .get(function(req, res) {
-            var query  = "SELECT * FROM ?? WHERE ?? = ? AND ?? = ? AND ?? = ?";
-            var table  = ["tp_control.embed_role_view_WIP", "VIEW_ID", req.params.view_id, "SITE_ID", req.params.site_id,"ROLE_LIBELLE",req.params.user_auth];
+            var query  = "SELECT * FROM ?? WHERE ?? = ? AND ?? = ?";
+            var table  = ["tp_control.Embed_WIP", "VIEW_ID", req.params.view_id, "SITE_ID", req.params.site_id];
             query      = mysql.format(query, table);
             connection.query(query, function(err, rows) {
                 if (err)
@@ -285,3 +303,5 @@ module.exports = function(router, connection) {
     //           })
     //     });
 }
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status Help
