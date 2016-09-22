@@ -44,16 +44,13 @@ options.api = {}
 # dev
 #options.api.base_url = "http://151.80.121.123:3001/api"
 
-# pré-prod&()
+# pré-prod
 options.api.base_url = "https://api.test.tp-control.travelplanet.fr"
 
 # prod
 # options.api.base_url = "https://tp-control.travelplanet.fr:3254/api"
 tableau
 .config (authProvider, $stateProvider, $urlRouterProvider, $httpProvider, jwtInterceptorProvider, $mdThemingProvider, pickerProvider) ->
-    # console.log pickerProvider.setRangeDefaultList()
-    # redirect interceptors
-    # $httpProvider.interceptors.push('redirectInterceptor')
 
     # Partie picker
     pickerProvider.setOkLabel 'Enregistrer'
@@ -176,7 +173,7 @@ tableau
         "Date de début"
         "Date de fin"
     ]
-    $urlRouterProvider.otherwise '/login/account'
+    $urlRouterProvider.otherwise '/login'
     $stateProvider
         .state 'login',
             url:         '/login',
@@ -240,18 +237,20 @@ tableau
         store.get('JWT')
     ]
     $httpProvider.interceptors.push 'jwtInterceptor'
-    # $httpProvider.defaults.withCredentials = true
-.run ($rootScope, jwtHelper, $location, store, alertFct) ->
-    $rootScope.data = []
+# .run ($rootScope, jwtHelper, $location, store, alertFct) ->
+#     console.log "ceci est un test !"
+    # $rootScope.data = []
     # $rootScope.$on '$locationChangeStart', ->
     #     token = store.get('JWT')
     #     if token
     #         if jwtHelper.isTokenExpired(token)
-    #             alertFct.alertExpiration()
+    #             console.log "bonjour !"
     #             $location.path '/login/account'
     #     else
-    #         if $location.path() == '/login' or $location.path() == ''
-    #             console.log("successful !")
+    #         console.log "Bonjour dans le else !"
+    #         if $location.path() == '/login'
+    #                 console.log("timer initialized")
+    #         if $location.path() == ''
+    #             console.log("second timer initialized")
     #         else
-    #             alertFct.tokenNotFound()
     #             $location.path '/login/account'
