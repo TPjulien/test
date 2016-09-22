@@ -4,6 +4,7 @@ tableau
         $state.go 'login'
     else
         if jwtHelper.isTokenExpired(store.get('JWT'))
+            store.remove 'JWT'
             $state.go 'login.account'
         else
             token                    = store.get('JWT')
