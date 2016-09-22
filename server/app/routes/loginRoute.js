@@ -227,14 +227,14 @@ module.exports = function(router, connection) {
         // route pour aetm
         router.route('/aetmConnect/:uid')
           .get (function(req, res) {
-              var query = "SELECT * FROM ?? WHERE ?? = ? ";
+              var query = "SELECT * FROM ?? WHERE ?? = ? LIMIT 1 ";
               var table = ['profils.view_Aetm', 'UID', req.params.uid];
               query     = mysql.format(query, table);
               connection.query(query, function(err, result) {
                   if (err)
                       res.status(400).send(err);
                   else
-                      res.json(rows);
+                      res.json(result);
               })
           })
 };

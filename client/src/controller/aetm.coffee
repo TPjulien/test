@@ -10,18 +10,16 @@ tableau
           data   :
               UID   : getDataToken.UID
       .success (data) ->
-          console.log 'data'
           console.log data
-          $scope.getParamAetm = data
+          $scope.LOGINNAME  = data[0].LOGINNAME
+          $scope.SITE       = data[0].SITE_ID
+          $scope.LANGUAGE   = data[0].LANGUAGE
+          $scope.LOGIN_TYPE = "SSO"
+          $scope.PASSWORD   = data[0].PWD
+          setTimeout (->
+            document.getElementById('formSubmit').click()
+          ), 0
       .error (err) ->
           console.log err
 
       # trouver un moyen plus simple
-      $scope.LOGINNAME  = "lauriers"
-      $scope.SITE       = "R4QVR4QV"
-      $scope.LANGUAGE   = "FR"
-      $scope.LOGIN_TYPE = "SSO"
-      $scope.PASSWORD   = "lauriers2016"
-      setTimeout (->
-        document.getElementById('formSubmit').click()
-      ), 0
