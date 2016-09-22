@@ -225,10 +225,10 @@ module.exports = function(router, connection) {
           })
 
         // route pour aetm
-        router.route('/aetmConnect')
-          .post (function(req, res) {
-              var query = "SELECT * FROM ?? WHERE ?? = ? AND ?? = ?";
-              var table = ['tp_control.Aetm_WIP', 'SITE_ID', req.body.site_id, 'user', req.body.username];
+        router.route('/aetmConnect/:uid')
+          .get (function(req, res) {
+              var query = "SELECT * FROM ?? WHERE ?? = ? ";
+              var table = ['tp_control.view_Aetm', 'UID', req.params.uid];
               query     = mysql.format(query, table);
               connection.query(query, function(err, result) {
                   if (err)
