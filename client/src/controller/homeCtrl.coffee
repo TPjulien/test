@@ -59,7 +59,9 @@ tableau
 
       if get_infos.length > 0
           full_link = get_infos.map (view_id) ->
-              return options.api.base_url + '/getMultipleView/' + view_id + '/' + decode[0].site_id + '/' + decode[0].user_auth
+              #return options.api.base_url + '/getMultipleView/' + view_id + '/' + decode[0].site_id + '/' + decode[0].user_auth
+              return options.api.base_url + '/getMultipleView/' + view_id + '/' + decode[0].site_id
+
 
           $q.all(full_link.map((url) ->
               $http.get(url).success (result) ->
