@@ -1,6 +1,5 @@
 tableau
-.controller 'samlCtrl', ($scope, $window, $stateParams, store, $location, jwtHelper, $http) ->
-    # console.log "ceci est le saml du projet"
+.controller 'samlCtrl', ($scope, $window, $stateParams, store, $location, jwtHelper, $http, toastErrorFct) ->
     token  = $stateParams.tokenSaml
     decode = jwtHelper.decodeToken(token)
 
@@ -14,9 +13,4 @@ tableau
         store.set('JWT', data.token)
         $location.path "/home"
     .error (err) ->
-        console.log err
-
-
-    # console.log decode
-    # store.set('JWT', token)
-    # $location.path "/home"
+        toastErrorFct.toastError("Impossible de se connecter, veuillez retenter plus tard")

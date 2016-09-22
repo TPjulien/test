@@ -19,5 +19,4 @@ tableau
     getCommunity()
 
     $scope.goToPassword = (data) ->
-        console.log data
         $location.path '/login/verify/' + data.Login + '/' + data.SITE_ID

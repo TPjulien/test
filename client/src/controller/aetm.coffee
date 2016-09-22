@@ -1,5 +1,5 @@
 tableau
-.controller 'aetmCtrl', ($scope, $sce, $http, tokenFactory, store, jwtHelper) ->
+.controller 'aetmCtrl', ($scope, $sce, $http, tokenFactory, store, jwtHelper, toastErrorFct) ->
       getDataToken = tokenFactory.tokenData()
       site_id = getDataToken.site_id
       uid = getDataToken.UID
@@ -10,7 +10,6 @@ tableau
           data   :
               UID   : getDataToken.UID
       .success (data) ->
-          console.log data
           $scope.LOGINNAME  = data[0].LOGINNAME
           $scope.SITE       = data[0].SITE_ID
           $scope.LANGUAGE   = data[0].LANGUAGE
@@ -20,6 +19,4 @@ tableau
             document.getElementById('formSubmit').click()
           ), 0
       .error (err) ->
-          console.log err
-
-      # trouver un moyen plus simple
+          toastErrorFct.toastError("Impossible de se connecter au serveur d'aetm, veuillez retenter plus tard")

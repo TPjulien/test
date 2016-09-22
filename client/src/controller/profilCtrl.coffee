@@ -21,8 +21,6 @@ tableau
     community                    =  decode[0].home_community
     $scope.profils               = []
 
-    console.log decode[0]
-
     $scope.cardNameChange = (provider) ->
       $http
           method: 'GET'
@@ -59,7 +57,6 @@ tableau
             $scope.air_loyalty    = data[4].data
             $scope.air_loyalty_af = data[5].data
             $scope.profils        = data[6].data
-            console.log $scope.profils
           .catch (err) ->
             toastErrorFct.toastError("Impossible d'acceder au profil de l'utilisateur")
 

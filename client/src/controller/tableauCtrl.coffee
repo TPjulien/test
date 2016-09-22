@@ -20,8 +20,6 @@ tableau
           view_id  = splitted[0]
           embed_id = splitted[1]
 
-      console.log embed_id
-
       getTableauRequest = () ->
           $http
               method : 'POST'
@@ -31,7 +29,6 @@ tableau
                   view_id  : view_id
                   embed_id : embed_id
           .success (data) ->
-              # console.log data
               $scope.data = data
               getTableau()
           .error (err) ->
@@ -67,7 +64,6 @@ tableau
           else
               tableau_url = '/t/' + $scope.data.tableau_site + '/views/' + $scope.data.tableau_view + '?:embed=yes&:toolbar=no'
           url = "https://data.travelplanet.fr/trusted/" + $scope.data.token + tableau_url
-          # console.log url
           return url
       #
       isMessage = (txt, msg) ->
@@ -77,7 +73,6 @@ tableau
       $scope.urlLoadingView = "modals/loadingView.html"
       # refaire le site
       getTableau = () ->
-          # console.log("ça passe ici")
           url = $scope.trustHtml()
           LOADED_INDICATOR   = 'tableau.loadIndicatorsLoaded'
           COMPLETE_INDICATOR = 'tableau.completed'
@@ -96,7 +91,6 @@ tableau
                   vizLoaded      = true
                   $scope.display = "none"
               else if isMessage(msg.data, COMPLETE_INDICATOR)
-                  console.log "c'est bon !"
                   $scope.tableauDisplay = "block"
                   $scope.loadingDisplay = "none"
                   if vizLoaded

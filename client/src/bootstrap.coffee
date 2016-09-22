@@ -237,20 +237,3 @@ tableau
         store.get('JWT')
     ]
     $httpProvider.interceptors.push 'jwtInterceptor'
-# .run ($rootScope, jwtHelper, $location, store, alertFct) ->
-#     console.log "ceci est un test !"
-    # $rootScope.data = []
-    # $rootScope.$on '$locationChangeStart', ->
-    #     token = store.get('JWT')
-    #     if token
-    #         if jwtHelper.isTokenExpired(token)
-    #             console.log "bonjour !"
-    #             $location.path '/login/account'
-    #     else
-    #         console.log "Bonjour dans le else !"
-    #         if $location.path() == '/login'
-    #                 console.log("timer initialized")
-    #         if $location.path() == ''
-    #             console.log("second timer initialized")
-    #         else
-    #             $location.path '/login/account'

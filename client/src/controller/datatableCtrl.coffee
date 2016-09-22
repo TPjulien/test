@@ -30,16 +30,6 @@ tableau
                   .success (data) ->
                       bullet_filters.push data
 
-            console.log bullet_filters
-            # if value[key].has_bullet_filter != null && value[key].has_bullet_filter != "null"
-            #     table = value[key]
-            #     if table.has_bullet_filter == ''
-            #         console.log "ça passe par la !"
-            #     console.log table
-                # console.log table.column
-                # console.log table.table
-                # console.log table.schema
-
     # on recupere les données de chaque instance de $scope.detail
     getDatatable = (min, max) ->
         array_concat = []
@@ -53,7 +43,7 @@ tableau
                 max:          max
         .success (data) ->
             if counter != 50 and data.datatable.length == 0
-                console.log "datatable empty"
+                toastErrorFct.toastError("Aucune donnée disponible")
             else
                 if $scope.datatable_columns.length == 0
                     $scope.datatable_columns = data.datatable
@@ -112,7 +102,6 @@ tableau
         method: 'GET'
         url:    options.api.base_url + '/getFilterDatatable/' + $scope.detail.EMBED_ID
     .success (data) ->
-        console.log data
         $scope.datatable_filters = data.datatable_filters
         $scope.column_filter     = data.column_filter
     .error (err) ->
@@ -174,7 +163,6 @@ tableau
         get_filter_column_name = null
         delete filters.$$hashKey
         for name, values of filters
-            # console.log filters[name]
             if filters[name] != null
                 if filters[name] != ""
                     if filters[name] != "false"

@@ -1,5 +1,5 @@
 tableau
-.controller 'logOutCtrl', ($scope, $location, ngDialog, logoutFct) ->
+.controller 'logOutCtrl', ($scope, $location, ngDialog, logoutFct, toastErrorFct) ->
       $scope.confirmLogout = () ->
           promise = logoutFactory.logOut()
           promise
@@ -8,4 +8,4 @@ tableau
               ngDialog.close()
           .catch (err), ->
               # ajouter un toast en cas d'erreur
-              console.log err
+              toastErrorFct.toastError("Une erreur est survenue, error 500")
