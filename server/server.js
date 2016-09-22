@@ -23,9 +23,9 @@ var connection = mysql.createConnection({
 });
 
 var credentials = {
-     key:  fs.readFileSync(process.env.SERV_KEY),
-     cert: fs.readFileSync(process.env.SERV_CERT),
-     ca:   fs.readFileSync(process.env.SERV_KEY_CHAIN),
+     key:  fs.readFileSync(process.env.SERV_API_KEY),
+     cert: fs.readFileSync(process.env.SERV_API_CERT),
+     ca:   fs.readFileSync(process.env.SERV_API_KEY_CHAIN),
      requestCert:        true,
      rejectUnauthorized: false
 };
