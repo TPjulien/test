@@ -154,8 +154,8 @@ module.exports = function(router, connection) {
                       console.log("data dont exist");
                     }
                     if (data.length != 0) {
-                      var query = 'SELECT * FROM ?? WHERE ?? = ? AND ?? = ? ORDER BY ?? ASC LIMIT 1'
-                      var table = ['profils.view_info_userConnected','SITE_ID',req.body.SITE_ID,"Login",req.body.username,"ROLE_ORDRE" ];
+                      var query = 'SELECT * FROM ?? WHERE ?? = ? AND ?? = ?'
+                      var table = ['profils.view_info_userConnected','SITE_ID',req.body.SITE_ID,"Login",req.body.username];
                       query     = mysql.format(query, table);
                       connection.query(query, function(error, info_result) {
                           if (err) {

@@ -1,21 +1,3 @@
-Skip to content
-This repository
-Search
-Pull requests
-Issues
-Gist
- @ChrisRocch
- Unwatch 1
-  Star 0
-  Fork 1 ChrisRocch/Tableau Private
-forked from TravelPlanetNDF/Tableau
- Code  Pull requests 0  Projects 0  Wiki  Pulse  Graphs  Settings
-Tree: 45372d1535 Find file Copy pathTableau/server/app/routes/templateRoute.js
-487cf22  14 days ago
-@nmahefa nmahefa correction du projet
-1 contributor
-RawBlameHistory
-288 lines (280 sloc)  17 KB
 var mysql     = require('mysql');
 var http_post = require('http-post');
 var request   = require('request');
@@ -303,5 +285,3 @@ module.exports = function(router, connection) {
     //           })
     //     });
 }
-Contact GitHub API Training Shop Blog About
-© 2016 GitHub, Inc. Terms Privacy Security Status Help
