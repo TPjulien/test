@@ -103,7 +103,7 @@ module.exports = function(router, connection) {
     router.route('/getImgSite/:site_id')
         .get(function(req, res) {
             var query_one = "SELECT ??,?? FROM ?? WHERE ?? = ? LIMIT 1 ";
-            var table_one = ["SITE_LOGO_TYPE","SITE_LOGO_BASE_64","tp_control.Site_WIP", "SITE_ID", req.body.site_id];
+            var table_one = ["SITE_LOGO_TYPE","SITE_LOGO_BASE_64","tp_control.Site_WIP", "SITE_ID", req.params.site_id];
             var query_one = mysql.format(query_one, table_one);
             connection.query(query_one, function(err, result) {
                 if (err)

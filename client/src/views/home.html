@@ -12,8 +12,8 @@
                 <md-icon style="margin-right:10px;"class="logo_lock" md-svg-icon="img/icons/power.svg"></md-icon>
               </div>
           </div>
-          <div   flex-item="1" class="hide-on-med-and-down toolbar__right">
-            <div class="toolbar__right img-header"></div>
+          <div  ng-repeat="ImgSite in ImgSites" flex-item="1" class="hide-on-med-and-down toolbar__right">
+            <div class="toolbar__right "><img class="img-header"src="data:{{ImgSite.SITE_LOGO_TYPE}};base64,{{ImgSite.SITE_LOGO_BASE_64 }}" /></div>
           </div>
 
         </div>
