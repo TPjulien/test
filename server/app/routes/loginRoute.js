@@ -100,8 +100,8 @@ module.exports = function(router, connection) {
 
     router.route('/Shibboleth.sso/SAML2/POST')
         .post (passport.authenticate('saml', {
-      	    failureRedirect: '/api/error',
-      	    successRedirect: '/api/toto'
+      	    failureRedirect: '/error',
+      	    successRedirect: '/toto'
 	       }),
 	       function (err, req, res, next) {
     });
