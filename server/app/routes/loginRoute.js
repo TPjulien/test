@@ -107,6 +107,15 @@ module.exports = function(router, connection) {
 	    res.status(400).res("une erreur est survenu");
   	});
 
+    router.route('/samlLogout')
+        .get(function(req, res) {
+            SamlStrategy.logout(req, function(err, requestUrl) {
+                // On apelle le logout pour mettre fin au saml
+                req.logout();
+                res.status(200).send("Logout completed");
+            })
+        })
+
     router.route('/samlLogin')
         .post(function(req, res) {
             var query = 'SELECT * FROM ?? WHERE ?? = ? AND ?? = ?'
