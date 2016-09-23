@@ -32,11 +32,12 @@ module.exports = function(router, connection) {
     // shibboleth
     passport.use(new SamlStrategy(
       	{
-                  callbackUrl   : 'https://api.test.tp-control.travelplanet.fr/Shibboleth.sso/SAML2/POST',
-                  entryPoint    : 'https://test.federation.renater.fr/idp/profile/SAML2/Redirect/SSO',
-                  issuer        : process.env.RENATER_ISSUER,
-                  decryptionPvk : fs.readFileSync(process.env.SERV_KEY, 'utf8'),
-                  cert          : fs.readFileSync(process.env.RENATER_CRT, 'utf-8')
+                  callbackUrl       : 'https://api.test.tp-control.travelplanet.fr/Shibboleth.sso/SAML2/POST',
+                  entryPoint        : 'https://test.federation.renater.fr/idp/profile/SAML2/Redirect/SSO',
+                  issuer            : process.env.RENATER_ISSUER,
+                  decryptionPvk     : fs.readFileSync(process.env.SERV_KEY, 'utf8'),
+                  cert              : fs.readFileSync(process.env.RENATER_CRT, 'utf-8'),
+                  logoutCallbackUrl : 'https://api.test.tp-control.travelplanet.fr/Shibboleth.sso/Logout'
       	},
       	function(profile, done, err) {
             var query = "";
@@ -107,13 +108,10 @@ module.exports = function(router, connection) {
 	    res.status(400).res("une erreur est survenu");
   	});
 
-    router.route('/samlLogout')
+    router.route('/Shibboleth.sso/Logout')
         .get(function(req, res) {
-            SamlStrategy.logout(req, function(err, requestUrl) {
-                // On apelle le logout pour mettre fin au saml
-                req.logout();
-                res.status(200).send("Logout completed");
-            })
+            req.logout();
+            res.status(200).send("done");
         })
 
     router.route('/samlLogin')
