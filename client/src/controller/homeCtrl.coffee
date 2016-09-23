@@ -10,6 +10,7 @@ tableau
             token                    = store.get('JWT')
             decode                   = jwtHelper.decodeToken(token)
             site_id                  = decode[0].site_id
+            console.log decode
             $rootScope.color         = "#EAEAEA"
             $scope.firstname         = decode[0].firstname
 
