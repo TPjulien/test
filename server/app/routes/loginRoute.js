@@ -30,15 +30,15 @@ module.exports = function(router, connection) {
     });
 
     // shibboleth
-    passport.use(new SamlStrategy(
+    var saml = new SamlStrategy(
       	{
                   callbackUrl       : 'https://api.test.tp-control.travelplanet.fr/Shibboleth.sso/SAML2/POST',
                   entryPoint        : 'https://test.federation.renater.fr/idp/profile/SAML2/Redirect/SSO',
                   issuer            : process.env.RENATER_ISSUER,
                   decryptionPvk     : fs.readFileSync(process.env.SERV_KEY, 'utf8'),
-                  cert              : fs.readFileSync(process.env.RENATER_CRT, 'utf-8'),
-                  logoutUrl         : 'https://test.federation.renater.fr/idp/profile/SAML2/Redirect/SSO',
-                  logoutCallbackUrl : 'https://test.tp-control.travelplanet.fr'
+                  cert              : fs.readFileSync(process.env.RENATER_CRT, 'utf-8')
+                  // logoutUrl         : 'https://test.federation.renater.fr/idp/profile/SAML2/Redirect/SSO',
+                  // logoutCallbackUrl : 'https://test.tp-control.travelplanet.fr'
 
       	},
       	function(profile, done, err) {
@@ -65,6 +65,8 @@ module.exports = function(router, connection) {
       	    return done(null, token);
       	})
 		)
+
+    passport.use(saml);
 
     function getPassUser(loginUser, callback) {
         var query = "SELECT ?? FROM ?? WHERE ?? = ? AND ?? = ?";
@@ -94,7 +96,7 @@ module.exports = function(router, connection) {
 
     router.route('/toto')
         .get(function(req, res) {
-	    res.redirect("http://localhost/#/SAML/" + saml_data);
+	         res.redirect("http://localhost/#/SAML/" + saml_data);
 	   });
 
     router.route('/Shibboleth.sso/SAML2/POST')
@@ -112,8 +114,14 @@ module.exports = function(router, connection) {
 
     router.route('/Shibboleth.sso/Logout')
         .get(function(req, res) {
-            req.logout();
-            res.status(200).send("done");
+            saml.logout(req, function(err, requestUrl) {
+                if (err)
+                    res.status(400).send(err);
+                else {
+                    console.log(requestUrl);
+                    res.status(200).send("ok");
+                }
+            });
         })
 
     router.route('/samlLogin')
