@@ -8,7 +8,6 @@ var key          = new NodeRSA({b: 512});
 var httpsRequest = require('https-request');
 var pythonShell  = require('python-shell');
 var cors         = require('cors')
-// ajout de la stratégie saml shibboleth, pour one-login
 var SamlStrategy = require('passport-saml').Strategy;
 var passport     = require('passport');
 var fs           = require('fs');
@@ -19,7 +18,6 @@ module.exports = function(router, connection) {
     var table_username = "username";
     var table_login    = "user_info";
     var saml_data      = [];
-
 
     // serialize user
     passport.serializeUser(function(user, done) {
@@ -54,8 +52,6 @@ module.exports = function(router, connection) {
       	    table.given_name =          profile['urn:oid:2.5.4.42'];
       	    table.common_name =         profile['urn:oid:2.5.4.3'];
       	    table.display_name =        profile['urn:oid:2.16.840.1.113730.3.1.241'];
-
-      	    //console.log(table)
 
       	    var token = jwt.sign(table, 'travelSecret', {
                       expiresIn: 7200
@@ -113,8 +109,8 @@ module.exports = function(router, connection) {
 
     router.route('/samlLogin')
         .post(function(req, res) {
-      	    var query = "SELECT * FROM ?? WHERE ?? = ? AND ?? = ?";
-      	    var table = ['profils.view_info_userConnected', 'SITE_ID', req.body.SITE_ID, "Login", req.body.username];
+            var query = 'SELECT * FROM ?? WHERE ?? = ? AND ?? = ?'
+            var table = ['profils.view_info_userConnected', 'SITE_ID', req.body.SITE_ID, "Login", req.body.username];
       	    query     = mysql.format(query, table);
       	    connection.query(query, function(err, info_result) {
             		if (err)
@@ -182,6 +178,7 @@ module.exports = function(router, connection) {
                     }
                 });
         })
+
         router.route('/verify/:Login/:SITE_ID')
           .post (function(req, res) {
               var query = "SELECT * from ?? WHERE ?? = ? AND ?? = ?";
@@ -197,8 +194,8 @@ module.exports = function(router, connection) {
                   }
               })
           })
-        // route de shibboleth
 
+        // route de shibboleth
         router.route('/shibboleth')
           .get(passport.authenticate('saml', { failureRedirect: '/'  }),
               function (req, res) {
