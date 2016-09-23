@@ -37,22 +37,24 @@ module.exports = function(router, connection) {
                   issuer            : process.env.RENATER_ISSUER,
                   decryptionPvk     : fs.readFileSync(process.env.SERV_KEY, 'utf8'),
                   cert              : fs.readFileSync(process.env.RENATER_CRT, 'utf-8'),
-                  logoutCallbackUrl : 'https://api.test.tp-control.travelplanet.fr/Shibboleth.sso/Logout'
+                  logoutUrl         : 'https://test.federation.renater.fr/idp/profile/SAML2/Redirect/SSO',
+                  logoutCallbackUrl : 'https://test.tp-control.travelplanet.fr'
+
       	},
       	function(profile, done, err) {
             var query = "";
             var table = {};
-      	    table.uid =                 profile['urn:oid:0.9.2342.19200300.100.1.1'];
-      	    table.affiliations =        profile['urn:oid:1.3.6.1.4.1.5923.1.1.1.1'];
+      	    table.uid                 = profile['urn:oid:0.9.2342.19200300.100.1.1'];
+      	    table.affiliations        = profile['urn:oid:1.3.6.1.4.1.5923.1.1.1.1'];
       	    table.primary_affiliation = profile['urn:oid:1.3.6.1.4.1.5923.1.1.1.5'];
-      	    table.surname =             profile['urn:oid:2.5.4.4'];
-      	    table.email_affiliations =  profile['urn:oid:1.3.6.1.4.1.5923.1.1.1.9'];
-      	    table.mail =                profile['urn:oid:0.9.2342.19200300.100.1.3'];
-      	    table.eppn =                profile['urn:oid:1.3.6.1.4.1.5923.1.1.1.6'];
-      	    table.etablissement =       profile['urn:oid:1.3.6.1.4.1.7135.1.2.1.14'];
-      	    table.given_name =          profile['urn:oid:2.5.4.42'];
-      	    table.common_name =         profile['urn:oid:2.5.4.3'];
-      	    table.display_name =        profile['urn:oid:2.16.840.1.113730.3.1.241'];
+      	    table.surname             = profile['urn:oid:2.5.4.4'];
+      	    table.email_affiliations  = profile['urn:oid:1.3.6.1.4.1.5923.1.1.1.9'];
+      	    table.mail                = profile['urn:oid:0.9.2342.19200300.100.1.3'];
+      	    table.eppn                = profile['urn:oid:1.3.6.1.4.1.5923.1.1.1.6'];
+      	    table.etablissement       = profile['urn:oid:1.3.6.1.4.1.7135.1.2.1.14'];
+      	    table.given_name          = profile['urn:oid:2.5.4.42'];
+      	    table.common_name         = profile['urn:oid:2.5.4.3'];
+      	    table.display_name        = profile['urn:oid:2.16.840.1.113730.3.1.241'];
 
       	    var token = jwt.sign(table, 'travelSecret', {
                       expiresIn: 7200
