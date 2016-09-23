@@ -20,12 +20,12 @@ module.exports = function(router, connection) {
     var saml_data      = [];
 
 
-    serialize user
+    // serialize user
     passport.serializeUser(function(user, done) {
 	     done(null, user);
     });
 
-    deserialize user
+    // deserialize user
     passport.deserializeUser(function(user, done) {
 	     done(null, user);
     });
