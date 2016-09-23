@@ -9,19 +9,9 @@ var http        = require('http');
 var passport    = require('passport');
 require('dotenv').config({path: '/home/defaultuser/.env' });
 
-
 var app = express();
 
 process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
-
-/*var connection = mysql.createConnection({
-    host:     '151.80.121.119',
-    user:     'pre_prod',
-    password: 'andrianifahanana',
-    database: 'portail_tableau',
-    port:     '3333',
-    debug:    true
-});*/
 
 var connection = mysql.createConnection({
     host:     process.env.DB_HOST,
