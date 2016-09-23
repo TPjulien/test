@@ -41,8 +41,8 @@ module.exports = function(router, connection) {
                   cert          : fs.readFileSync(process.env.RENATER_CRT, 'utf-8')
       	},
       	function(profile, done, err) {
-                  var query = "";
-                  var table = {};
+            var query = "";
+            var table = {};
       	    table.uid =                 profile['urn:oid:0.9.2342.19200300.100.1.1'];
       	    table.affiliations =        profile['urn:oid:1.3.6.1.4.1.5923.1.1.1.1'];
       	    table.primary_affiliation = profile['urn:oid:1.3.6.1.4.1.5923.1.1.1.5'];
