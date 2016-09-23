@@ -111,7 +111,7 @@ module.exports = function(router, connection) {
 	    res.status(400).res("une erreur est survenu");
   	});
 
-    router.route('samlLogin')
+    router.route('/samlLogin')
         .post(function(req, res) {
       	    var query = "SELECT * FROM ?? WHERE ?? = ? AND ?? = ?";
       	    var table = ['profils.view_info_userConnected', 'SITE_ID', req.body.SITE_ID, "Login", req.body.username];
