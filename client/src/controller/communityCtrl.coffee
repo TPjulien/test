@@ -1,5 +1,5 @@
 tableau
-.controller 'communityCtrl', ($scope, $stateParams, $http, $location, toastErrorFct) ->
+.controller 'communityCtrl', ($scope, $stateParams, $http, $location, toastErrorFct, $window) ->
     $scope.background_image_url = '/img/default_account_wallpaper.jpg'
     $scope.user_image_url       = '/img/travel_planet_logo.png'
     $scope.communities          = []
@@ -24,8 +24,12 @@ tableau
             method: 'POST'
             url:    options.api.base_url + '/samlCheck'
             data:
-                data.SITE_ID
+                SITE_ID: data.SITE_ID
         .success (data) ->
+            if data[0].IS_SAML_AUTHORIZED == 1
+                $window.location.href = "https://api.test.tp-control.travelplanet.fr/shibboleth"
+            else
+                $location.path '/login/verify/' + data.Login + '/' + data.SITE_ID
+
             console.log data
         # console.log data
-        # $location.path '/login/verify/' + data.Login + '/' + data.SITE_ID
