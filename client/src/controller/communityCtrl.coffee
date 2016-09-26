@@ -19,4 +19,13 @@ tableau
     getCommunity()
 
     $scope.goToPassword = (data) ->
-        $location.path '/login/verify/' + data.Login + '/' + data.SITE_ID
+        # avant d'aller à goToPassword, il faudra determiner si oui ou non c'est du saml
+        $http
+            method: 'POST'
+            url:    options.api.base_url + '/samlCheck'
+            data:
+                data.SITE_ID
+        .success (data) ->
+            console.log data
+        # console.log data
+        # $location.path '/login/verify/' + data.Login + '/' + data.SITE_ID

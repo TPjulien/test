@@ -153,6 +153,7 @@ module.exports = function(router, connection) {
             "firstname":            info_result[0].Customer_GivenName,
             "lastname":             info_result[0].Customer_surName,
             "user_auth":            info_result[0].Role,
+            "is_saml":              true
           }];
           var token = jwt.sign(preToken, 'travelSecret', {
             expiresIn: 7200
@@ -163,6 +164,21 @@ module.exports = function(router, connection) {
         }
       })
     });
+
+
+    // on verifie s'il est éligible au samlCheck
+    router.route('/samlCheck')
+        .post (function (req, res) {
+            var query = "SELECT ?? FROM ?? WHERE ?? = ?";
+            var table  = ['IS_SAML_AUTHORIZED', 'profils.saml', 'SITE_ID', req.body.SITE_ID];
+            query = mysql.format(query, table);
+            connection.query(query, function(err, result) {
+                if (err)
+                    res.status(400).send(err);
+                else
+                    res.json(result);
+            })
+        })
 
     // ancien login
     router.route('/login')
@@ -188,6 +204,7 @@ module.exports = function(router, connection) {
                                   "firstname":            info_result[0].Customer_GivenName,
                                   "lastname":             info_result[0].Customer_surName,
                                   "user_auth":            info_result[0].Role,
+                                  "is_saml":              false
                               }];
                               var token = jwt.sign(preToken, 'travelSecret', {
                                   expiresIn: 7200

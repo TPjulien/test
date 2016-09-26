@@ -17,8 +17,12 @@ tableau
             method: 'GET'
             url:    options.api.base_url + '/loginCheck/' + $scope.username
         .success (data) ->
-            if (data.length == 1)
-                $location.path '/login/verify/' + $scope.username + '/' + data[0].SITE_ID
+            if (data.tpa)
+                if (data.tpa.length == 1)
+                    if (data.saml[0].IS_SAML_AUTHORIZED == 0)
+                        $location.path '/login/verify/' + $scope.username + '/' + data.tpa[0].SITE_ID
+                    else
+                        $window.location.href = "https://api.test.tp-control.travelplanet.fr/shibboleth"
             else if (data.length > 1)
                 $location.path '/login/comunity/' + $scope.username
             else
