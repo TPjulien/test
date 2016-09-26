@@ -7,7 +7,7 @@ tableau
       $scope.get_username = decode[0].username
       $location.path '/login/verify/' + $scope.get_username
 
-    $window.location.href = "https://api.test.tp-control.travelplanet.fr/shibboleth"
+    # $window.location.href = "https://api.test.tp-control.travelplanet.fr/shibboleth"
 
     $scope.background_image_url = '/img/default_account_wallpaper.jpg'
     $scope.user_image_url       = '/img/travel_planet_logo.png'

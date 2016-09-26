@@ -32,18 +32,17 @@ module.exports = function(router, connection) {
     // shibboleth
     var saml = new SamlStrategy(
       	{
-                  callbackUrl       : 'https://api.test.tp-control.travelplanet.fr/Shibboleth.sso/SAML2/POST',
-                  entryPoint        : 'https://test.federation.renater.fr/idp/profile/SAML2/Redirect/SSO',
-                  issuer            : process.env.RENATER_ISSUER,
-                  decryptionPvk     : fs.readFileSync(process.env.SERV_KEY, 'utf8'),
-                  privateCert       : fs.readFileSync(process.env.SERV_KEY, 'utf-8'),
-	          cert              : fs.readFileSync(process.env.RENATER_CRT, 'utf-8'),
-                  logoutUrl         : 'https://test.federation.renater.fr/idp/profile/SAML2/Redirect/SLO',
+            callbackUrl       : 'https://api.test.tp-control.travelplanet.fr/Shibboleth.sso/SAML2/POST',
+            entryPoint        : 'https://test.federation.renater.fr/idp/profile/SAML2/Redirect/SSO',
+            issuer            : process.env.RENATER_ISSUER,
+            decryptionPvk     : fs.readFileSync(process.env.SERV_KEY, 'utf8'),
+            privateCert       : fs.readFileSync(process.env.SERV_KEY, 'utf-8'),
+            cert              : fs.readFileSync(process.env.RENATER_CRT, 'utf-8'),
+            logoutUrl         : 'https://test.federation.renater.fr/idp/profile/SAML2/Redirect/SLO',
 	          identifierFormat  : 'urn:oasis:names:tc:SAML:2.0:nameid-format:transient',
 	          logoutCallbackUrl : 'https://test.tp-control.travelplanet.fr/#/account/login'
       	},
       	function(profile, done, err) {
-	    console.log(profile);
             var query = "";
             var table = {};
       	    table.uid                 = profile['urn:oid:0.9.2342.19200300.100.1.1'];
@@ -57,18 +56,15 @@ module.exports = function(router, connection) {
       	    table.given_name          = profile['urn:oid:2.5.4.42'];
       	    table.common_name         = profile['urn:oid:2.5.4.3'];
       	    table.display_name        = profile['urn:oid:2.16.840.1.113730.3.1.241'];
-	    table.nameID              = profile.nameID;
-	    table.nameIDFormat        = profile.nameIDFormat;
-	    table.sessionIndex        = profile.sessionIndex;
-	    table.nameQualifier       = profile.nameQualifier;
-	    table.spNameQualifier     = profile.spNameQualifier;
-	    
-
+      	    table.nameID              = profile.nameID;
+      	    table.nameIDFormat        = profile.nameIDFormat;
+      	    table.sessionIndex        = profile.sessionIndex;
+      	    table.nameQualifier       = profile.nameQualifier;
+      	    table.spNameQualifier     = profile.spNameQualifier;
       	    var token = jwt.sign(table, 'travelSecret', {
                       expiresIn: 7200
                   });
-
-	    saml_data_not_crypted = table;
+      	    saml_data_not_crypted = table;
       	    saml_data             = token;
 
       	    return done(null, token);
@@ -77,16 +73,16 @@ module.exports = function(router, connection) {
     passport.use(saml);
 
     function getPassUser(loginUser, callback) {
-        var query = "SELECT ?? FROM ?? WHERE ?? = ? AND ?? = ?";
-        var table = [table_password, table_login, table_username, loginUser, "isActivated", 1];
-        query     = mysql.format(query, table);
-        connection.query(query, function(err, rows) {
-            if (err) {
-                callback(err, 404);
-            } else {
-                callback(null, rows);
-            }
-        })
+      var query = "SELECT ?? FROM ?? WHERE ?? = ? AND ?? = ?";
+      var table = [table_password, table_login, table_username, loginUser, "isActivated", 1];
+      query     = mysql.format(query, table);
+      connection.query(query, function(err, rows) {
+        if (err) {
+          callback(err, 404);
+        } else {
+          callback(null, rows);
+        }
+      })
     }
 
     function checkPwUser(login, pwd,site_id, callback) {
@@ -121,65 +117,59 @@ module.exports = function(router, connection) {
   	});
 
     router.route('/Shibboleth.sso/Logout')
-        .get(function(req, res) {
-	    req.user = [];
-	    
-	    req.user.nameID          = saml_data_not_crypted.nameID;
-	    req.user.nameIDFormat    = saml_data_not_crypted.nameIDFormat;
-	    req.user.sessionIndex    = saml_data_not_crypted.sessionIndex;
-	    req.user.spNameQualifier = saml_data_not_crypted.spNameQualifier;
-	    req.user.nameQualifier   = saml_data_not_crypted.nameQualifier;
-	    console.log(req.user);
-            saml.logout(req, function(err, requestUrl) {
-		console.log(req.user);
-		if (err)
-                    res.status(400).send(err);
-                else {
-		    res.json(requestUrl);
-                    //res.redirect(requestUrl);
-                }
-            });
-        })
+    .get(function(req, res) {
+      req.user = [];
+
+      req.user.nameID          = saml_data_not_crypted.nameID;
+      req.user.nameIDFormat    = saml_data_not_crypted.nameIDFormat;
+      req.user.sessionIndex    = saml_data_not_crypted.sessionIndex;
+      req.user.spNameQualifier = saml_data_not_crypted.spNameQualifier;
+      req.user.nameQualifier   = saml_data_not_crypted.nameQualifier;
+      saml.logout(req, function(err, requestUrl) {
+        if (err)
+        res.status(400).send(err);
+        else {
+          res.json(requestUrl);
+        }
+      });
+    })
 
     router.route('/samlLogin')
-        .post(function(req, res) {
-            var query = 'SELECT * FROM ?? WHERE ?? = ? AND ?? = ?'
-            var table = ['profils.view_info_userConnected', 'SITE_ID', req.body.SITE_ID, "Login", req.body.username];
-      	    query     = mysql.format(query, table);
-      	    connection.query(query, function(err, info_result) {
-            		if (err)
-            		    res.status(400).send(err);
-            		else {
-            		    var preToken = [{
-                  			"site_id":              info_result[0].SITE_ID,
-                  			"UID":                  info_result[0].UID,
-                  			"DEPOSITED_DATE":       info_result[0].DEPOSITED_DATE,
-                  			"home_community":       info_result[0].HomeCommunity,
-                  			"username":             info_result[0].Login,
-                  			"company":              info_result[0].SITE_LIBELLE,
-                  			"firstname":            info_result[0].Customer_GivenName,
-                  			"lastname":             info_result[0].Customer_surName,
-                  			"user_auth":            info_result[0].Role,
-                    }];
-            		    var token = jwt.sign(preToken, 'travelSecret', {
-                        expiresIn: 7200
-                    });
-                    res.json({
-                        token: token
-                    });
-            		}
-    	    })
-	  });
+    .post(function(req, res) {
+      var query = 'SELECT * FROM ?? WHERE ?? = ? AND ?? = ?'
+      var table = ['profils.view_info_userConnected', 'SITE_ID', req.body.SITE_ID, "Login", req.body.username];
+      query     = mysql.format(query, table);
+      connection.query(query, function(err, info_result) {
+        if (err)
+        res.status(400).send(err);
+        else {
+          var preToken = [{
+            "site_id":              info_result[0].SITE_ID,
+            "UID":                  info_result[0].UID,
+            "DEPOSITED_DATE":       info_result[0].DEPOSITED_DATE,
+            "home_community":       info_result[0].HomeCommunity,
+            "username":             info_result[0].Login,
+            "company":              info_result[0].SITE_LIBELLE,
+            "firstname":            info_result[0].Customer_GivenName,
+            "lastname":             info_result[0].Customer_surName,
+            "user_auth":            info_result[0].Role,
+          }];
+          var token = jwt.sign(preToken, 'travelSecret', {
+            expiresIn: 7200
+          });
+          res.json({
+            token: token
+          });
+        }
+      })
+    });
 
     // ancien login
     router.route('/login')
         .post (function (req, res) {
                 checkPwUser(req.body.username, req.body.password, req.body.SITE_ID, function(err, data) {
-                    if (data) {
-                      console.log("data exist");
-                    } else {
-                      console.log("data dont exist");
-                    }
+                    if (!data)
+                      console.log("Data empty !");
                     if (data.length != 0) {
                       var query = 'SELECT * FROM ?? WHERE ?? = ? AND ?? = ?'
                       var table = ['profils.view_info_userConnected','SITE_ID',req.body.SITE_ID,"Login",req.body.username];
@@ -239,14 +229,27 @@ module.exports = function(router, connection) {
         // login normal travel planet
         router.route('/loginCheck/:user')
           .get (function(req, res) {
+              // premiere requete
               var query = "SELECT * FROM ?? WHERE ?? = ? GROUP BY ??";
               var table = ['profils.view_tpa_extensions_libelle', "Login", req.params.user, 'site_libelle'];
               query     = mysql.format(query, table);
               connection.query(query, function(err, rows) {
                   if (err)
                       res.status(400).send(err);
-                  else
-                      res.json(rows);
+                  else {
+                      if (rows.length == 1) {
+                          var query_two = "SELECT * FROM ?? WHERE ?? = ?";
+                          var table_two = ['profils.saml', 'SITE_ID', rows[0].SITE_ID];
+                          query_two     = mysql.format(query_two, table_two);
+                          connection.query(query_two, function(err, rows_two) {
+                              if (err)
+                                  res.status(400).send(err);
+                              else
+                                  res.json({'tpa': rows, 'saml': rows_two})
+                          })
+                      } else
+                          res.json(rows);
+                  }
               })
           })
 
