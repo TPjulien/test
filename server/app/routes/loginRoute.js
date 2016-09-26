@@ -14,11 +14,11 @@ var fs           = require('fs');
 require('dotenv').config({path: '/home/defaultuser/.env' });
 
 module.exports = function(router, connection) {
-    var table_password = "user_password";
-    var table_username = "username";
-    var table_login    = "user_info";
-    var saml_data      = [];
-
+    var table_password        = "user_password";
+    var table_username        = "username";
+    var table_login           = "user_info";
+    var saml_data             = [];
+    var saml_data_not_crypted = [];
     // serialize user
     passport.serializeUser(function(user, done) {
 	     done(null, user);
@@ -36,12 +36,14 @@ module.exports = function(router, connection) {
                   entryPoint        : 'https://test.federation.renater.fr/idp/profile/SAML2/Redirect/SSO',
                   issuer            : process.env.RENATER_ISSUER,
                   decryptionPvk     : fs.readFileSync(process.env.SERV_KEY, 'utf8'),
-                  cert              : fs.readFileSync(process.env.RENATER_CRT, 'utf-8')
-                  // logoutUrl         : 'https://test.federation.renater.fr/idp/profile/SAML2/Redirect/SSO',
-                  // logoutCallbackUrl : 'https://test.tp-control.travelplanet.fr'
-
+                  privateCert       : fs.readFileSync(process.env.SERV_KEY, 'utf-8'),
+	          cert              : fs.readFileSync(process.env.RENATER_CRT, 'utf-8'),
+                  logoutUrl         : 'https://test.federation.renater.fr/idp/profile/SAML2/Redirect/SLO',
+	          identifierFormat  : 'urn:oasis:names:tc:SAML:2.0:nameid-format:transient',
+	          logoutCallbackUrl : 'https://test.tp-control.travelplanet.fr/#/account/login'
       	},
       	function(profile, done, err) {
+	    console.log(profile);
             var query = "";
             var table = {};
       	    table.uid                 = profile['urn:oid:0.9.2342.19200300.100.1.1'];
@@ -55,16 +57,22 @@ module.exports = function(router, connection) {
       	    table.given_name          = profile['urn:oid:2.5.4.42'];
       	    table.common_name         = profile['urn:oid:2.5.4.3'];
       	    table.display_name        = profile['urn:oid:2.16.840.1.113730.3.1.241'];
+	    table.nameID              = profile.nameID;
+	    table.nameIDFormat        = profile.nameIDFormat;
+	    table.sessionIndex        = profile.sessionIndex;
+	    table.nameQualifier       = profile.nameQualifier;
+	    table.spNameQualifier     = profile.spNameQualifier;
+	    
 
       	    var token = jwt.sign(table, 'travelSecret', {
                       expiresIn: 7200
                   });
 
-      	    saml_data = token;
+	    saml_data_not_crypted = table;
+      	    saml_data             = token;
 
       	    return done(null, token);
-      	})
-		)
+      	});
 
     passport.use(saml);
 
@@ -114,12 +122,21 @@ module.exports = function(router, connection) {
 
     router.route('/Shibboleth.sso/Logout')
         .get(function(req, res) {
+	    req.user = [];
+	    
+	    req.user.nameID          = saml_data_not_crypted.nameID;
+	    req.user.nameIDFormat    = saml_data_not_crypted.nameIDFormat;
+	    req.user.sessionIndex    = saml_data_not_crypted.sessionIndex;
+	    req.user.spNameQualifier = saml_data_not_crypted.spNameQualifier;
+	    req.user.nameQualifier   = saml_data_not_crypted.nameQualifier;
+	    console.log(req.user);
             saml.logout(req, function(err, requestUrl) {
-                if (err)
+		console.log(req.user);
+		if (err)
                     res.status(400).send(err);
                 else {
-                    console.log(requestUrl);
-                    res.status(200).send("ok");
+		    res.json(requestUrl);
+                    //res.redirect(requestUrl);
                 }
             });
         })
