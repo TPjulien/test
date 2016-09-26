@@ -170,7 +170,7 @@ module.exports = function(router, connection) {
     router.route('/samlCheck')
         .post (function (req, res) {
             var query = "SELECT ?? FROM ?? WHERE ?? = ?";
-            var table  = ['IS_SAML_AUTHORIZED', 'profils.saml', 'SITE_ID', req.body.SITE_ID];
+            var table  = ['SAML_TYPE', 'profils.saml', 'SITE_ID', req.body.SITE_ID];
             query = mysql.format(query, table);
             connection.query(query, function(err, result) {
                 if (err)

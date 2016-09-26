@@ -26,7 +26,7 @@ tableau
             data:
                 SITE_ID: data.SITE_ID
         .success (saml_data) ->
-            if saml_data[0].IS_SAML_AUTHORIZED == 1
+            if saml_data[0].SAML_TYPE == 'RENATER'
                 $window.location.href = "https://api.test.tp-control.travelplanet.fr/shibboleth"
             else
                 $location.path '/login/verify/' + data.Login + '/' + data.SITE_ID

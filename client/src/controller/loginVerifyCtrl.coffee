@@ -19,7 +19,7 @@ tableau
         .success (data) ->
             if (data.tpa)
                 if (data.tpa.length == 1)
-                    if (data.saml[0].IS_SAML_AUTHORIZED == 0)
+                    if (data.saml[0].SAML_TYPE == 0 or data.saml[0].SAML_TYPE == null)
                         $location.path '/login/verify/' + $scope.username + '/' + data.tpa[0].SITE_ID
                     else
                         $window.location.href = "https://api.test.tp-control.travelplanet.fr/shibboleth"
