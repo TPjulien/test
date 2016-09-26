@@ -255,8 +255,8 @@ module.exports = function(router, connection) {
                       res.status(400).send(err);
                   else {
                       if (rows.length == 1) {
-                          var query_two = "SELECT * FROM ?? WHERE ?? = ?";
-                          var table_two = ['profils.saml', 'SITE_ID', rows[0].SITE_ID];
+                          var query_two = "SELECT * FROM ?? WHERE ?? = ? AND ?? = ?";
+                          var table_two = ['profils.saml', 'SITE_ID', rows[0].SITE_ID, 'UID', req.params.user];
                           query_two     = mysql.format(query_two, table_two);
                           connection.query(query_two, function(err, rows_two) {
                               if (err)
