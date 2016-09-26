@@ -3,12 +3,16 @@ tableau
     token  = $stateParams.tokenSaml
     decode = jwtHelper.decodeToken(token)
 
+    # site_id =
+    site_id = decode.etablissement.substring(0, 8)
+    # console.log decode
+
     $http
         method: 'POST'
         url:    options.api.base_url + '/samlLogin'
         data:
-            SITE_ID  : decode[0].etablissement
-            username : decode[0].uid
+            SITE_ID  : site_id
+            username : decode.mail
     .success (data) ->
         store.set('JWT', data.token)
         $location.path "/home"
