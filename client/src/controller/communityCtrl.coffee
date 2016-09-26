@@ -25,11 +25,8 @@ tableau
             url:    options.api.base_url + '/samlCheck'
             data:
                 SITE_ID: data.SITE_ID
-        .success (data) ->
-            if data[0].IS_SAML_AUTHORIZED == 1
+        .success (saml_data) ->
+            if saml_data[0].IS_SAML_AUTHORIZED == 1
                 $window.location.href = "https://api.test.tp-control.travelplanet.fr/shibboleth"
             else
                 $location.path '/login/verify/' + data.Login + '/' + data.SITE_ID
-
-            console.log data
-        # console.log data
