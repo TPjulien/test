@@ -9,8 +9,11 @@ tableau
       $scope.tableauDisplay = "none"
       $scope.loadingDisplay = "block"
 
-      site_id   = decode[0].site_id
-      ids       = $stateParams.id
+      site_id        = decode[0].site_id
+      uid            = decode[0].UID
+      ids            = $stateParams.id
+      site_id_parse  = site_id.substr(0,4)
+      tableau_site   = site_id_parse + uid
       view_id   = undefined
       embed_id  = undefined
       splitted  = []
@@ -25,9 +28,10 @@ tableau
               method : 'POST'
               url    :  options.api.base_url + '/getTableau'
               data   :
-                  site_id  : site_id
-                  view_id  : view_id
-                  embed_id : embed_id
+                  site_id       : site_id
+                  get_user_name : tableau_site
+                  view_id       : view_id
+                  embed_id      : embed_id
           .success (data) ->
               $scope.data = data
               getTableau()
@@ -64,6 +68,7 @@ tableau
           else
               tableau_url = '/t/' + $scope.data.tableau_site + '/views/' + $scope.data.tableau_view + '?:embed=yes&:toolbar=no'
           url = "https://data.travelplanet.fr/trusted/" + $scope.data.token + tableau_url
+          console.log url
           return url
       #
       isMessage = (txt, msg) ->
