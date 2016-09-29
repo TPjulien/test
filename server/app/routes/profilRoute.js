@@ -7,7 +7,7 @@ module.exports = function(router, connection) {
                                * \
                                FROM ?? \
                                WHERE ?? = ? \
-                               AND ?? = ? ";
+                               AND ?? = ? LIMIT 1 ";
             var table_one    = [
                                 "profils.view_profil_lvl1",
                                 "SITE_ID", req.params.site_id,
