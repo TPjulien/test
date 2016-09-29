@@ -17,7 +17,6 @@ tableau
             method: 'GET'
             url:    options.api.base_url + '/loginCheck/' + $scope.username
         .success (data) ->
-            console.log data
             if (data.tpa)
                 if (data.tpa.length == 1)
                     if (data.saml[0].SAML_TYPE == "0" or data.saml[0].SAML_TYPE == null)

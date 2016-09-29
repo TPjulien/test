@@ -33,7 +33,6 @@ module.exports = function(router, connection) {
                   // get token for each tableau in row
                   request.post(options, function(err, resultat, body) {
                     if (body != '' || body != undefined || body != null) {
-                        console.log(body);
                         var resultObject = { "SITE_ID"            : result_datatable[0].SITE_ID,
                                              "VIEW_ID"            : result_datatable[0].VIEW_ID,
                                              "EMBED_ID"           : result_datatable[0].EMBED_ID,
