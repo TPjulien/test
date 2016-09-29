@@ -32,7 +32,7 @@ module.exports = function(router, connection) {
     // shibboleth
     var saml = new SamlStrategy(
       	{
-            callbackUrl       : 'https://api.test.tp-control.travelplanet.fr/Shibboleth.sso/SAML2/POST',
+            callbackUrl       : process.env.SAML_CALLBACK_URL,
             entryPoint        : 'https://test.federation.renater.fr/idp/profile/SAML2/Redirect/SSO',
             issuer            : process.env.RENATER_ISSUER,
             decryptionPvk     : fs.readFileSync(process.env.SERV_KEY, 'utf8'),
@@ -107,8 +107,8 @@ module.exports = function(router, connection) {
 
     router.route('/Shibboleth.sso/SAML2/POST')
         .post (passport.authenticate('saml', {
-      	    failureRedirect: '/error',
-      	    successRedirect: '/toto'
+      	    failureRedirect: '/api/error',
+      	    successRedirect: '/api/toto'
 	       }),
 	       function (err, req, res, next) {
     });
