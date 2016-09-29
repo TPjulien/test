@@ -45,10 +45,10 @@ options.api = {}
 # options.api.base_url = "http://151.80.121.123:3001/api"
 
 # pré-prod
-options.api.base_url = "https://api.test.tp-control.travelplanet.fr"
+# options.api.base_url = "https://api.test.tp-control.travelplanet.fr"
 
 # prod
-# options.api.base_url = "https://tp-control.travelplanet.fr:3254/api"
+options.api.base_url = "https://tp-control.travelplanet.fr:3254/api"
 tableau
 .config (authProvider, $stateProvider, $urlRouterProvider, $httpProvider, jwtInterceptorProvider, $mdThemingProvider, pickerProvider) ->
 

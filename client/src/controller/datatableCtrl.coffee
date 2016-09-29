@@ -69,6 +69,15 @@ tableau
             getDatatable(counter, 20)
             counter += 20
 
+    $scope.getGenericNameRow = (width) ->
+        if (width)
+            result = ""
+            i = 0
+            while i < width.length
+                result += "<p class='col s" + width[i].width + " md-whiteframe-1dp truncate getSize' style='background-color:#64B5F6; color:white'>" + width[i].column + "</p>"
+                i++
+            return result
+
     $scope.getGenericRow = (value, width) ->
         result = []
         count  = 0;
@@ -79,7 +88,8 @@ tableau
                 name = "donnée indisponible"
             # on vérifie si c'est une date time
             if data.indexOf('Date') != -1
-                name = $filter('date')(name, "dd/MM/yyyy HH:mm:ss")
+                name = $filter('date')(name, "dd/MM/yy")
+                # name = $filter('date')(name, "dd/MM/yy HH:mm:ss")
 
 
             i       = 0
@@ -229,7 +239,7 @@ tableau
             myblob  = new Blob([result], { type: 'application/pdf' })
             blobURL = ( window.URL || window.webkitURL).createObjectURL(myblob)
             anchor  = document.createElement("a")
-            anchor.download = selected + '.pdf'
+            anchor.download = selected['Numéro facture'] + '.pdf'
             anchor.href = blobURL
             anchor.click()
     #
