@@ -33,6 +33,7 @@ tableau
                   view_id       : view_id
                   embed_id      : embed_id
           .success (data) ->
+              console.log data
               $scope.data = data
               getTableau()
           .error (err) ->

@@ -22,16 +22,18 @@ module.exports = function(router, connection) {
                   } else
                       user_site = result_datatable[0].tableau_site;
 
+                  var username = req.body.get_user_name
                   var options = {
                       url: 'https://' + result_datatable[0].tableau_server_url + '/trusted',
                       form : {
-                        username    : result_datatable[0].tableau_user_id,
+                        username    : username,
                         target_site : user_site
                       }
                   }
                   // get token for each tableau in row
                   request.post(options, function(err, resultat, body) {
                     if (body != '' || body != undefined || body != null) {
+                        console.log(body);
                         var resultObject = { "SITE_ID"            : result_datatable[0].SITE_ID,
                                              "VIEW_ID"            : result_datatable[0].VIEW_ID,
                                              "EMBED_ID"           : result_datatable[0].EMBED_ID,
