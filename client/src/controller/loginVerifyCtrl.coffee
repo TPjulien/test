@@ -23,7 +23,10 @@ tableau
                     if (data.saml[0].SAML_TYPE == "0" or data.saml[0].SAML_TYPE == null)
                         $location.path '/login/verify/' + $scope.username + '/' + data.tpa[0].SITE_ID
                     else
-                        $window.location.href = "https://api.test.tp-control.travelplanet.fr/shibboleth"
+                        # preprod
+                        # $window.location.href = "https://api.test.tp-control.travelplanet.fr/shibboleth"
+                        # prod
+                        $window.location.href = "https://tp-control.travelplanet.fr:3254/api/shibboleth"
             else if (data.length > 1)
                 $location.path '/login/comunity/' + $scope.username
             else

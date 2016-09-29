@@ -42,7 +42,7 @@ tableau = angular.module 'tableauApp', [
 options = {}
 options.api = {}
 # dev
-#options.api.base_url = "http://151.80.121.123:3001/api"
+# options.api.base_url = "http://151.80.121.123:3001/api"
 
 # pré-prod
 options.api.base_url = "https://api.test.tp-control.travelplanet.fr"

@@ -100,7 +100,9 @@ module.exports = function(router, connection) {
 
     router.route('/toto')
         .get(function(req, res) {
-	         res.redirect("https://test.tp-control.travelplanet.fr/#/SAML/" + saml_data);
+          //  callback du saml
+	        //  res.redirect("https://test.tp-control.travelplanet.fr/#/SAML/" + saml_data);
+          res.redirect(process.env.SAML_CALLBACK + saml_data);
 	   });
 
     router.route('/Shibboleth.sso/SAML2/POST')
