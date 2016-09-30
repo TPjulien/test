@@ -50,7 +50,6 @@ tableau
         .success (data) ->
             store.set('JWT', data.token)
             $location.path "/home"
-            decode = jwtHelper.decodeToken(data)
         .error (err) ->
             alertFct.loginError()
             $mdDialog.hide()

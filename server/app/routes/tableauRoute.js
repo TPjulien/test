@@ -22,7 +22,12 @@ module.exports = function(router, connection) {
                   } else
                       user_site = result_datatable[0].tableau_site;
 
-                  var username = req.body.get_user_name
+                  var username = null
+                  // condition si jamais ce n'est pas un customer
+                  if (result_datatable[0].tableau_site == "Customer")
+                      username = req.body.get_user_name
+                  else
+                      username = result_datatable[0].tableau_user_id;
                   var options = {
                       url: 'https://' + result_datatable[0].tableau_server_url + '/trusted',
                       form : {
@@ -45,21 +50,6 @@ module.exports = function(router, connection) {
                         res.json(resultObject);
                     } else
                         res.status(404).send('élement introuvable !');
-                    //   resultObject[counter] = {  "site_id"             : rows[counter].site_id,
-                    //                              "view_id"             : rows[counter].view_id,
-                    //                              "embed_id"            : rows[counter].embed_id,
-                    //                              "path_to_view"        : rows_tableau[counter].path_to_view,
-                    //                              "embed_width"         : rows[counter].embed_width,
-                    //                              "embed_height"        : rows[counter].embed_height,
-                    //                              "embed_position"      : rows[counter].embed_position,
-                    //                              "embed_content_type"  : rows[counter].embed_content_type,
-                    //                              "tableau_customer_id" : rows_tableau[counter].tableau_customer_id,
-                    //                              "auth_user_role"      : rows[counter].auth_user_role,
-                    //                              "token"               : body
-                    // };
-                    // if (counter == (rows_tableau.length - 1)) {
-                    //     res.json(resultObject);
-                    // }
                 })
            }
       })
