@@ -30,6 +30,6 @@ tableau
                 # preprod
                 # $window.location.href = "https://api.test.tp-control.travelplanet.fr/shibboleth"
                 # prod
-                $window.location.href = "https://tp-control.travelplanet.fr:3254/api/shibboleth"
+                $window.location.href = "https://api.tp-control.travelplanet.fr/shibboleth"
             else
                 $location.path '/login/verify/' + data.Login + '/' + data.SITE_ID
