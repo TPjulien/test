@@ -20,6 +20,19 @@ module.exports = function(router, connection) {
     var saml_data             = [];
     var saml_data_not_crypted = [];
     // serialize user
+
+    function returnOptions(query, database, decrypt_table) {
+        var options = {
+          url: 'http://api-interne-test.travelplanet.fr/api/ReadDatabase/selectMySQLPost',
+          form : {
+            sql      : query,
+            database : database,
+            decrypt  : decrypt_table
+          }
+        }
+        return options;
+    }
+
     passport.serializeUser(function(user, done) {
 	     done(null, user);
     });
@@ -72,48 +85,52 @@ module.exports = function(router, connection) {
 
     passport.use(saml);
 
-    function getPassUser(loginUser, callback) {
-      var query = "SELECT ?? FROM ?? WHERE ?? = ? AND ?? = ?";
-      var table = [table_password, table_login, table_username, loginUser, "isActivated", 1];
-      query     = mysql.format(query, table);
-      connection.query(query, function(err, rows) {
-        if (err) {
-          callback(err, 404);
-        } else {
-          callback(null, rows);
-        }
-      })
-    }
 
-    function checkPwUser(login, pwd,site_id, callback) {
-        var query = "SELECT * FROM ?? WHERE ?? = ? AND ?? = ?";
-        var table = ["profils.view_tpa_connexion", "PWD", pwd, "Login", login,"SITE_ID",site_id];
-        query     = mysql.format(query, table);
-        connection.query(query, function(err, rows) {
-            if (err) {
+    // nouvelle version du password checker
+    function checkPwUser(login, pwd, site_id, callback) {
+        var query = "SELECT * FROM view_tpa_connexion WHERE PWD='" + pwd + "' AND LOGIN='" + login +  "' AND SITE_ID='" + site_id + "'";
+        request.post(returnOptions(query, 'profils', 'PWD'), function(err, result, body) {
+            if (err)
                 callback(err, 404);
-            } else {
-                callback(null, rows);
+            else {
+                var body_parsed = JSON.parse(body);
+                // une verification pour les password non matchés (maj et min)
+                if (body_parsed[0].pwd != pwd) {
+                    callback(err, 400);
+                } else
+                    callback(null, rows);
             }
         })
     }
 
+    // function checkPwUser(login, pwd,site_id, callback) {
+    //     var query = "SELECT * FROM ?? WHERE ?? = ? AND ?? = ?";
+    //     var table = ["profils.view_tpa_connexion", "PWD", pwd, "Login", login,"SITE_ID",site_id];
+    //     query     = mysql.format(query, table);
+    //     connection.query(query, function(err, rows) {
+    //         if (err) {
+    //             callback(err, 404);
+    //         } else {
+    //             callback(null, rows);
+    //         }
+    //     })
+    // }
+
     router.route('/toto')
         .get(function(req, res) {
           //  callback du saml
-	        res.redirect("https://test.tp-control.travelplanet.fr/#/SAML/" + saml_data);
+	        res.redirect("https://click.travelplanet.fr/#/SAML/" + saml_data);
 	   });
 
     router.route('/Shibboleth.sso/SAML2/POST')
         .post (passport.authenticate('saml', {
-      	    failureRedirect: '/api/error',
+      	    failureRedirect: '/error',
       	    successRedirect: '/toto'
 	       }),
 	       function (err, req, res, next) {
-		   if(err) {
-		       console.log(err);
-		       res.json(err);
-		   }
+    		   if(err) {
+    		       res.status(400).send(err);
+    		   }
     });
 
     router.route('/error')
