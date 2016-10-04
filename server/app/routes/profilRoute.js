@@ -3,6 +3,18 @@ var http      = require('http');
 var request   = require('request');
 
 module.exports = function(router, connection) {
+
+    function returnOptions(query, database, decrypt_table) {
+        var options = {
+          url: 'http://api-interne-test.travelplanet.fr/api/ReadDatabase/selectMySQLPost',
+          form : {
+            sql      : query,
+            database : database,
+            decrypt  : decrypt_table
+          }
+        }
+        return options;
+    }
     router.route('/profils/:site_id/:uid')
         .get(function(req, res) {
             var query_one    = "SELECT \
@@ -22,43 +34,48 @@ module.exports = function(router, connection) {
                     res.json(rows);
             })
         })
-    // route pour lister les numéros de téléphone du profil
-    router.route('/profilPhone/:uid')
+
+
+    // nouvelle route du telephone
+    router.rotue('/profilPhone/:uid')
         .get(function(req, res) {
-            var query_one = "SELECT * FROM ?? WHERE ?? = ? \
-                             AND ?? = (SELECT MAX (??) FROM ?? WHERE ?? = ? )";
-            var table_one = ["profils.phone", "profils.phone.UID", req.params.uid,
-                             "profils.phone.DEPOSITED_DATE","profils.phone.DEPOSITED_DATE","profils.phone","profils.phone.UID", req.params.uid];
-            query_one     = mysql.format(query_one, table_one);
-            connection.query(query_one, function(err, rows) {
+            var query = "SELECT * FROM phone WHERE UID='" + req.params.uid + "' AND DEPOSITED_DATE=(SELECT MAX(DEPOSITED_DATE) FROM phone WHERE UID='" + req.params.uid + "')";
+            request.post(returnOptions(query, 'profils', 'phone'), function(err, resultat, body) {
                 if (err)
                     res.status(400).send(err);
-                else
-                    res.json(rows);
+                else {
+                    var body_parsed = JSON.parse(body);
+                    res.json(body_parsed);
+                }
             })
-        })
+          })
+    // route pour lister les numéros de téléphone du profil
+    // router.route('/profilPhone/:uid')
+    //     .get(function(req, res) {
+    //         var query_one = "SELECT * FROM ?? WHERE ?? = ? \
+    //                          AND ?? = (SELECT MAX (??) FROM ?? WHERE ?? = ? )";
+    //         var table_one = ["profils.phone", "profils.phone.UID", req.params.uid,
+    //                          "profils.phone.DEPOSITED_DATE","profils.phone.DEPOSITED_DATE","profils.phone","profils.phone.UID", req.params.uid];
+    //         query_one     = mysql.format(query_one, table_one);
+    //         connection.query(query_one, function(err, rows) {
+    //             if (err)
+    //                 res.status(400).send(err);
+    //             else
+    //                 res.json(rows);
+    //         })
+    //     })
 
 
     // Nouvelle route du profil Email
     router.route('/profilEmail/:uid')
         .get(function(req, res){
-          // var query_one = "SELECT * FROM ?? WHERE ?? = ? \
-          //                           AND ?? = (SELECT MAX (??) FROM ?? WHERE ?? = ? )";
-          // var table_one = ["profils.email", "profils.email.UID", req.params.uid,
-          //                  "profils.email.DEPOSITED_DATE","profils.email.DEPOSITED_DATE","profils.email","profils.email.UID", req.params.uid];
-          // query_one     = mysql.format(query_one, table_one);
-
           var query = "SELECT * FROM email WHERE UID='" + req.params.uid + "' AND DEPOSITED_DATE=(SELECT MAX(DEPOSITED_DATE) FROM email WHERE UID='" + req.params.uid + "')";
-          var options = {
-              url: 'http://api-interne-test.travelplanet.fr/api/ReadDatabase/selectMySQLPost',
-              form : {
-                sql      : query,
-                database : 'profils',
-                decrypt  : ''
-              }
-          }
-          request.post(options, function(err, resultat, body) {
-              res.json(body);
+          request.post(returnOptions(query, 'profils', 'Email'), function(err, resultat, body) {
+              if (err)
+                  res.status(400).send(err);
+              else
+                  var body_parsed = JSON.parse(body);
+                  res.json(body_parsed);
           })
         })
 
