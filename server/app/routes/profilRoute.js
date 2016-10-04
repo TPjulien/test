@@ -1,6 +1,6 @@
 var mysql     = require('mysql');
 var http      = require('http');
-var http_post = require('http-post');
+var request   = require('request');
 
 module.exports = function(router, connection) {
     router.route('/profils/:site_id/:uid')
@@ -40,18 +40,23 @@ module.exports = function(router, connection) {
 
 
     // Nouvelle route du profil Email
-    router.route('/profileEmail/:uid')
+    router.route('/profilEmail/:uid')
         .get(function(req, res){
           var query_one = "SELECT * FROM ?? WHERE ?? = ? \
                                     AND ?? = (SELECT MAX (??) FROM ?? WHERE ?? = ? )";
           var table_one = ["profils.email", "profils.email.UID", req.params.uid,
                            "profils.email.DEPOSITED_DATE","profils.email.DEPOSITED_DATE","profils.email","profils.email.UID", req.params.uid];
           query_one     = mysql.format(query_one, table_one);
-          http_post('http://api-interne-test.travelplanet.fr/api/ReadDatabase/selectMySQLPost', { sql: query_one, decrypt: '', database: 'profils' }, function(response) {
-              // response.setEncodeing('utf8');
-              response.on('data', function(function) {
-                  console.log(chunk);
-              });
+          var options = {
+              url: 'http://api-interne-test.travelplanet.fr/api/ReadDatabase/selectMySQLPost',
+              form : {
+                sql      : query_one,
+                database : 'profils',
+                decrypt  : ''
+              }
+          }
+          request.post(options, function(err, resultat, body) {
+              res.json(body);
           })
         })
 
