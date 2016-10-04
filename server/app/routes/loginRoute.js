@@ -33,14 +33,14 @@ module.exports = function(router, connection) {
     var saml = new SamlStrategy(
       	{
             callbackUrl       : process.env.SAML_CALLBACK_URL,
-            entryPoint        : 'https://test.federation.renater.fr/idp/profile/SAML2/Redirect/SSO',
-            issuer            : process.env.RENATER_ISSUER,
+            entryPoint        : 'https://idp.univ-lyon3.fr/idp/profile/SAML2/Redirect/SSO',
+            issuer            : 'https://click.travelplanet.fr',
             decryptionPvk     : fs.readFileSync(process.env.SERV_KEY, 'utf8'),
             privateCert       : fs.readFileSync(process.env.SERV_KEY, 'utf-8'),
             cert              : fs.readFileSync(process.env.RENATER_CRT, 'utf-8'),
-            logoutUrl         : 'https://test.federation.renater.fr/idp/profile/SAML2/Redirect/SLO',
-	          identifierFormat  : 'urn:oasis:names:tc:SAML:2.0:nameid-format:transient',
-	          logoutCallbackUrl : 'https://test.tp-control.travelplanet.fr/#/account/login'
+            //logoutUrl         : 'https://authtest.dsi.univ-paris-diderot.fr/idp/profile/SAML2/Redirect/SSO',
+	    identifierFormat  : 'urn:oasis:names:tc:SAML:2.0:nameid-format:transient',
+	    logoutCallbackUrl : 'https://test.tp-control.travelplanet.fr/#/account/login'
       	},
       	function(profile, done, err) {
             var query = "";
@@ -101,16 +101,19 @@ module.exports = function(router, connection) {
     router.route('/toto')
         .get(function(req, res) {
           //  callback du saml
-	        //  res.redirect("https://test.tp-control.travelplanet.fr/#/SAML/" + saml_data);
-          res.redirect(process.env.SAML_CALLBACK + saml_data);
+	        res.redirect("https://test.tp-control.travelplanet.fr/#/SAML/" + saml_data);
 	   });
 
     router.route('/Shibboleth.sso/SAML2/POST')
         .post (passport.authenticate('saml', {
       	    failureRedirect: '/api/error',
-      	    successRedirect: '/api/toto'
+      	    successRedirect: '/toto'
 	       }),
 	       function (err, req, res, next) {
+		   if(err) {
+		       console.log(err);
+		       res.json(err);
+		   }
     });
 
     router.route('/error')
