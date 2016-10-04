@@ -94,10 +94,10 @@ module.exports = function(router, connection) {
                 callback(err, 404);
             else {
                 var body_parsed = JSON.parse(body);
-                if (body_parsed[0].pwd != pwd) {
-                    callback(err, 400);
+                if (body_parsed[0].PWD != pwd) {
+                    callback("not match", 400);
                 } else
-                    callback(null, rows);
+                    callback(null, body_parsed);
             }
         })
     }
@@ -206,7 +206,7 @@ module.exports = function(router, connection) {
                 checkPwUser(req.body.username, req.body.password, req.body.SITE_ID, function(err, data) {
                     // dans le cas ou on a une erreur
                     if (err)
-                        res.status(401).("Non autorisé");
+                        res.status(401).send("Non autorisé");
                     else {
                         if (data.length != 0) {
                           var query = 'SELECT * FROM ?? WHERE ?? = ? AND ?? = ?'
