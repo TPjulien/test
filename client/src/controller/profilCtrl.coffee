@@ -50,6 +50,7 @@ tableau
             get_air_loyalty_air_france
             get_profil_change
         ]).then (data) ->
+            console.log data[0].data
             $scope.profil_email   = data[0].data
             $scope.profil_phone   = data[1].data
             $scope.card_traveller = data[2].data

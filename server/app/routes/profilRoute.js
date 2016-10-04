@@ -42,21 +42,23 @@ module.exports = function(router, connection) {
     // Nouvelle route du profil Email
     router.route('/profilEmail/:uid')
         .get(function(req, res){
-          var query_one = "SELECT * FROM ?? WHERE ?? = ? \
-                                    AND ?? = (SELECT MAX (??) FROM ?? WHERE ?? = ? )";
-          var table_one = ["profils.email", "profils.email.UID", req.params.uid,
-                           "profils.email.DEPOSITED_DATE","profils.email.DEPOSITED_DATE","profils.email","profils.email.UID", req.params.uid];
-          query_one     = mysql.format(query_one, table_one);
+          // var query_one = "SELECT * FROM ?? WHERE ?? = ? \
+          //                           AND ?? = (SELECT MAX (??) FROM ?? WHERE ?? = ? )";
+          // var table_one = ["profils.email", "profils.email.UID", req.params.uid,
+          //                  "profils.email.DEPOSITED_DATE","profils.email.DEPOSITED_DATE","profils.email","profils.email.UID", req.params.uid];
+          // query_one     = mysql.format(query_one, table_one);
+
+          var query = "SELECT * FROM profils.email WHERE UID='" + req.params.uid + "' AND DEPOSITED_DATE=(SELECT MAX(DEPOSITED_DATE) FROM profils.email WHERE UID='" + req.params.uid + "')​";
           var options = {
               url: 'http://api-interne-test.travelplanet.fr/api/ReadDatabase/selectMySQLPost',
               form : {
-                sql      : query_one,
+                sql      : query,
                 database : 'profils',
                 decrypt  : ''
               }
           }
           request.post(options, function(err, resultat, body) {
-              res.json(body);
+              res.json({result: body, query: query});
           })
         })
 
