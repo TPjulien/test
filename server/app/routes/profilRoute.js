@@ -37,7 +37,7 @@ module.exports = function(router, connection) {
 
 
     // nouvelle route du telephone
-    router.rotue('/profilPhone/:uid')
+    router.route('/profilPhone/:uid')
         .get(function(req, res) {
             var query = "SELECT * FROM phone WHERE UID='" + req.params.uid + "' AND DEPOSITED_DATE=(SELECT MAX(DEPOSITED_DATE) FROM phone WHERE UID='" + req.params.uid + "')";
             request.post(returnOptions(query, 'profils', 'phone'), function(err, resultat, body) {
@@ -69,7 +69,7 @@ module.exports = function(router, connection) {
     // Nouvelle route du profil Email
     router.route('/profilEmail/:uid')
         .get(function(req, res){
-          var query = "SELECT * FROM email WHERE UID='" + req.params.uid + "' AND DEPOSITED_DATE=(SELECT MAX(DEPOSITED_DATE) FROM email WHERE UID='" + req.params.uid + "')";
+          var query = "SELECT * FROM email WHERE UID='"+ req.params.uid + "' AND DEPOSITED_DATE=(SELECT MAX(DEPOSITED_DATE) FROM email WHERE UID='" + req.params.uid + "')";
           request.post(returnOptions(query, 'profils', 'Email'), function(err, resultat, body) {
               if (err)
                   res.status(400).send(err);
