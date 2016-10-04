@@ -48,7 +48,7 @@ module.exports = function(router, connection) {
           //                  "profils.email.DEPOSITED_DATE","profils.email.DEPOSITED_DATE","profils.email","profils.email.UID", req.params.uid];
           // query_one     = mysql.format(query_one, table_one);
 
-          var query = "SELECT * FROM email WHERE UID='" + req.params.uid + "' AND DEPOSITED_DATE=(SELECT MAX(DEPOSITED_DATE) FROM email WHERE UID='" + req.params.uid + "')​";
+          var query = "SELECT * FROM email WHERE UID='" + req.params.uid + "' AND DEPOSITED_DATE=(SELECT MAX(DEPOSITED_DATE) FROM email WHERE UID='" + req.params.uid + "')";
           var options = {
               url: 'http://api-interne-test.travelplanet.fr/api/ReadDatabase/selectMySQLPost',
               form : {
