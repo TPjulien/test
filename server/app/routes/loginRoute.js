@@ -94,7 +94,6 @@ module.exports = function(router, connection) {
                 callback(err, 404);
             else {
                 var body_parsed = JSON.parse(body);
-                // une verification pour les password non matchés (maj et min)
                 if (body_parsed[0].pwd != pwd) {
                     callback(err, 400);
                 } else
@@ -187,7 +186,6 @@ module.exports = function(router, connection) {
       })
     });
 
-
     // on verifie s'il est éligible au samlCheck
     router.route('/samlCheck')
         .post (function (req, res) {
@@ -206,39 +204,42 @@ module.exports = function(router, connection) {
     router.route('/login')
         .post (function (req, res) {
                 checkPwUser(req.body.username, req.body.password, req.body.SITE_ID, function(err, data) {
-                    if (!data)
-                      console.log("Data empty !");
-                    if (data.length != 0) {
-                      var query = 'SELECT * FROM ?? WHERE ?? = ? AND ?? = ?'
-                      var table = ['profils.view_info_userConnected','SITE_ID',req.body.SITE_ID,"Login",req.body.username];
-                      query     = mysql.format(query, table);
-                      connection.query(query, function(error, info_result) {
-                          if (err) {
-                              res.status(400).send(err);
-                          } else {
-                              var preToken = [{
-                                  "site_id":              info_result[0].SITE_ID,
-                                  "UID":                  info_result[0].UID,
-                                  "DEPOSITED_DATE":       info_result[0].DEPOSITED_DATE,
-                                  "home_community":       info_result[0].HomeCommunity,
-                                  "username":             info_result[0].Login,
-                                  "company":              info_result[0].SITE_LIBELLE,
-                                  "firstname":            info_result[0].Customer_GivenName,
-                                  "lastname":             info_result[0].Customer_surName,
-                                  "user_auth":            info_result[0].Role,
-                                  "is_saml":              false
-                              }];
-                              var token = jwt.sign(preToken, 'travelSecret', {
-                                  expiresIn: 7200
-                              });
-                              res.json({
-                                token: token
-                              });
-                          }
-                      })
-                    } else {
-                        res.status(400).send("user not found");
-                    }
+                    // dans le cas ou on a une erreur
+                    if (err)
+                        res.status(401).("Non autorisé");
+                    else {
+                        if (data.length != 0) {
+                          var query = 'SELECT * FROM ?? WHERE ?? = ? AND ?? = ?'
+                          var table = ['profils.view_info_userConnected','SITE_ID',req.body.SITE_ID,"Login",req.body.username];
+                          query     = mysql.format(query, table);
+                          connection.query(query, function(error, info_result) {
+                              if (err) {
+                                  res.status(400).send(err);
+                              } else {
+                                  var preToken = [{
+                                      "site_id":              info_result[0].SITE_ID,
+                                      "UID":                  info_result[0].UID,
+                                      "DEPOSITED_DATE":       info_result[0].DEPOSITED_DATE,
+                                      "home_community":       info_result[0].HomeCommunity,
+                                      "username":             info_result[0].Login,
+                                      "company":              info_result[0].SITE_LIBELLE,
+                                      "firstname":            info_result[0].Customer_GivenName,
+                                      "lastname":             info_result[0].Customer_surName,
+                                      "user_auth":            info_result[0].Role,
+                                      "is_saml":              false
+                                  }];
+                                  var token = jwt.sign(preToken, 'travelSecret', {
+                                      expiresIn: 7200
+                                  });
+                                  res.json({
+                                    token: token
+                                  });
+                              }
+                          })
+                        } else {
+                            res.status(400).send("user not found");
+                      }
+                  }
                 });
         })
 
