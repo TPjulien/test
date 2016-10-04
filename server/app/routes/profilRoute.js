@@ -1,4 +1,6 @@
-var mysql = require('mysql');
+var mysql     = require('mysql');
+var http      = require('http');
+var http_post = require('http-post');
 
 module.exports = function(router, connection) {
     router.route('/profils/:site_id/:uid')
@@ -35,21 +37,39 @@ module.exports = function(router, connection) {
                     res.json(rows);
             })
         })
-    // route pour lister les adresses mail du profil
-    router.route('/profilEmail/:uid')
-        .get(function(req, res) {
-            var query_one = "SELECT * FROM ?? WHERE ?? = ? \
-                             AND ?? = (SELECT MAX (??) FROM ?? WHERE ?? = ? )";
-            var table_one = ["profils.email", "profils.email.UID", req.params.uid,
-                             "profils.email.DEPOSITED_DATE","profils.email.DEPOSITED_DATE","profils.email","profils.email.UID", req.params.uid];
-            query_one     = mysql.format(query_one, table_one);
-            connection.query(query_one, function(err, rows) {
-                if (err)
-                    res.status(400).send(err);
-                else
-                    res.json(rows);
-            })
+
+
+    // Nouvelle route du profil Email
+    router.route('/profileEmail/:uid')
+        .get(function(req, res){
+          var query_one = "SELECT * FROM ?? WHERE ?? = ? \
+                                    AND ?? = (SELECT MAX (??) FROM ?? WHERE ?? = ? )";
+          var table_one = ["profils.email", "profils.email.UID", req.params.uid,
+                           "profils.email.DEPOSITED_DATE","profils.email.DEPOSITED_DATE","profils.email","profils.email.UID", req.params.uid];
+          query_one     = mysql.format(query_one, table_one);
+          http_post('http://api-interne-test.travelplanet.fr/api/ReadDatabase/selectMySQLPost', { sql: query_one, decrypt: '', database: 'profils' }, function(response) {
+              // response.setEncodeing('utf8');
+              response.on('data', function(function) {
+                  console.log(chunk);
+              });
+          })
         })
+
+    // route pour lister les adresses mail du profil
+    // router.route('/profilEmail/:uid')
+    //     .get(function(req, res) {
+    //         var query_one = "SELECT * FROM ?? WHERE ?? = ? \
+    //                          AND ?? = (SELECT MAX (??) FROM ?? WHERE ?? = ? )";
+    //         var table_one = ["profils.email", "profils.email.UID", req.params.uid,
+    //                          "profils.email.DEPOSITED_DATE","profils.email.DEPOSITED_DATE","profils.email","profils.email.UID", req.params.uid];
+    //         query_one     = mysql.format(query_one, table_one);
+    //         connection.query(query_one, function(err, rows) {
+    //             if (err)
+    //                 res.status(400).send(err);
+    //             else
+    //                 res.json(rows);
+    //         })
+    //     })
     // route pour lister toutes les class voyageur pour le train
     router.route('/railClass')
         .get(function(req, res) {
