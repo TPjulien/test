@@ -6,7 +6,7 @@ module.exports = function(router, connection) {
 
     function returnOptions(query, database, decrypt_table) {
         var options = {
-          url: 'http://api-interne-test.travelplanet.fr/api/ReadDatabase/selectMySQLPost',
+          url: 'http://api-interne.travelplanet.fr/api/ReadDatabase/selectMySQLPost',
           form : {
             sql      : query,
             database : database,
@@ -34,7 +34,6 @@ module.exports = function(router, connection) {
                     res.json(rows);
             })
         })
-
 
     // nouvelle route du telephone
     router.route('/profilPhone/:uid')

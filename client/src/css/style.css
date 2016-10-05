@@ -90,10 +90,10 @@ p, h1, h2, h3, h4, h5, h6, span {
 .margin_NumTel{
   margin-top: -20px;
 }
-.backgroung_grey
+/*.backgroung_grey
 {
   background-color: #EEE;
-}
+}*/
 
 .range-picker {
     width: 320px;

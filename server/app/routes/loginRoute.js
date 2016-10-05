@@ -23,7 +23,7 @@ module.exports = function(router, connection) {
 
     function returnOptions(query, database, decrypt_table) {
         var options = {
-          url: 'http://api-interne-test.travelplanet.fr/api/ReadDatabase/selectMySQLPost',
+          url: 'http://api-interne.travelplanet.fr/api/ReadDatabase/selectMySQLPost',
           form : {
             sql      : query,
             database : database,
@@ -52,8 +52,8 @@ module.exports = function(router, connection) {
             privateCert       : fs.readFileSync(process.env.SERV_KEY, 'utf-8'),
             cert              : fs.readFileSync(process.env.RENATER_CRT, 'utf-8'),
             //logoutUrl         : 'https://authtest.dsi.univ-paris-diderot.fr/idp/profile/SAML2/Redirect/SSO',
-	    identifierFormat  : 'urn:oasis:names:tc:SAML:2.0:nameid-format:transient',
-	    logoutCallbackUrl : 'https://test.tp-control.travelplanet.fr/#/account/login'
+      	    identifierFormat  : 'urn:oasis:names:tc:SAML:2.0:nameid-format:transient',
+      	    logoutCallbackUrl : 'https://click.travelplanet.fr/#/account/login'
       	},
       	function(profile, done, err) {
             var query = "";
@@ -94,28 +94,17 @@ module.exports = function(router, connection) {
                 callback(err, 404);
             else {
                 var body_parsed = JSON.parse(body);
-                if (body_parsed[0].PWD != pwd) {
-                    callback("not match", 400);
-                } else
-                    callback(null, body_parsed);
+                if(body_parsed[0].PWD != undefined) {
+                  if (body_parsed[0].PWD != pwd)
+                      callback("not match", 400);
+                  else
+                      callback(null, body_parsed);
+                }
             }
         })
     }
 
-    // function checkPwUser(login, pwd,site_id, callback) {
-    //     var query = "SELECT * FROM ?? WHERE ?? = ? AND ?? = ?";
-    //     var table = ["profils.view_tpa_connexion", "PWD", pwd, "Login", login,"SITE_ID",site_id];
-    //     query     = mysql.format(query, table);
-    //     connection.query(query, function(err, rows) {
-    //         if (err) {
-    //             callback(err, 404);
-    //         } else {
-    //             callback(null, rows);
-    //         }
-    //     })
-    // }
-
-    router.route('/toto')
+    router.route('/redirect')
         .get(function(req, res) {
           //  callback du saml
 	        res.redirect("https://click.travelplanet.fr/#/SAML/" + saml_data);
@@ -124,7 +113,7 @@ module.exports = function(router, connection) {
     router.route('/Shibboleth.sso/SAML2/POST')
         .post (passport.authenticate('saml', {
       	    failureRedirect: '/error',
-      	    successRedirect: '/toto'
+      	    successRedirect: '/redirect'
 	       }),
 	       function (err, req, res, next) {
     		   if(err) {
@@ -134,7 +123,7 @@ module.exports = function(router, connection) {
 
     router.route('/error')
         .get(function(req, res) {
-	    res.status(400).res("une erreur est survenu");
+	    res.status(400).res("une erreur est survenue");
   	});
 
     router.route('/Shibboleth.sso/Logout')
@@ -200,7 +189,7 @@ module.exports = function(router, connection) {
             })
         })
 
-    // ancien login
+    // mise à jour du login
     router.route('/login')
         .post (function (req, res) {
                 checkPwUser(req.body.username, req.body.password, req.body.SITE_ID, function(err, data) {
@@ -263,7 +252,7 @@ module.exports = function(router, connection) {
         router.route('/shibboleth')
           .get(passport.authenticate('saml', { failureRedirect: '/'  }),
               function (req, res) {
-                res.status(200).send('ça fonctionne !');
+                res.status(200).send('Shib succeded');
         });
 
         // login normal travel planet
