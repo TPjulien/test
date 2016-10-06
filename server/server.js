@@ -13,29 +13,41 @@ var app = express();
 
 process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
 
-var connection = mysql.createConnection({
-    host:     process.env.DB_HOST,
-    user:     process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_DATABASE,
-    port:     process.env.DB_PORT,
-    debug:    true
-});
+function handleDisconnect() {}
+    var connection = mysql.createConnection({
+        host:     process.env.DB_HOST,
+        user:     process.env.DB_USER,
+        password: process.env.DB_PASSWORD,
+        database: process.env.DB_DATABASE,
+        port:     process.env.DB_PORT,
+        debug:    true
+    });
+
+    connection.connect(function(err) {
+        if (err)
+            setTimeout(handleDisconnect, 2000);
+        else
+            console.log("connection etablished !");
+    });
+
+    connection.on('error', function(err) {
+        console.log('db error', err);
+        if (err.code === 'PROTOCOL_CONNECTION_LOST')
+            handleDisconnect();
+        else
+            throw err;
+    });
+}
+
+handleDisconnect();
 
 var credentials = {
-     key:  fs.readFileSync(process.env.SERV_API_KEY),
-     cert: fs.readFileSync(process.env.SERV_API_CERT),
-     ca:   fs.readFileSync(process.env.SERV_API_KEY_CHAIN),
+     key:                fs.readFileSync(process.env.SERV_API_KEY),
+     cert:               fs.readFileSync(process.env.SERV_API_CERT),
+     ca:                 fs.readFileSync(process.env.SERV_API_KEY_CHAIN),
      requestCert:        true,
      rejectUnauthorized: false
 };
-
-connection.connect(function(err) {
-    if (err)
-        console.log(err);
-    else
-        console.log("connection etablished !");
-});
 
 // app.use(cors({credentials: true}));
 app.use(cors());
@@ -54,6 +66,7 @@ app.use(passport.session());
 // debut des routes  ----------------------------------------------------------------------------------
 // on n'a pas besoin de proteger la route d'authentification
 require('./app/routes/loginRoute')(router, connection);
+require('./app/routes/twilioRoute')(router, connection);
 
 // on verifie le token auth pour les autres routes
 router.use(function(req, res, next) {

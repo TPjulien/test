@@ -37,6 +37,7 @@ tableau = angular.module 'tableauApp', [
   'vAccordion'
   'wysiwyg.module'
   'colorpicker.module'
+  'ngMap'
 ]
 
 options = {}

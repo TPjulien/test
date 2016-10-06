@@ -1,5 +1,30 @@
-<div layout-padding="">
-    <div class="col s12">
-      <h1 style="color:black">Ceci est un test </h1>
+<div layout-padding="" class="container">
+  <select ng-hide="true" ng-model="types">
+    <option value="['address']">Address</option>
+  </select><br/>
+
+  <div class="col s12 md-whiteframe-1dp" layout="row" style="background-color:white">
+    <div class="col s3" style="padding:5px !important;">
+      <div class="col s12">
+        <h5 class="md-subhead">Point de départ</h5>
+        <input places-auto-complete
+               ng-model="address"
+               types="{{types}}"
+               on-place-changed="placeChanged()"
+        />
+      </div>
+      <div class="col s12">
+        <h5 class="md-subhead">Point d'arrivé</h5>
+        <input places-auto-complete
+               ng-model="endAddress"
+               types="{{types}}"
+               on-place-changed="placeEndChanged()"
+        />
+      </div>
     </div>
+    <ng-map class="col s9" center="current-location" zoom="13" style="height: 500px">
+      <directions ng-if="endAddress" origin="{{address}}" destination="{{destination}}"></directions>
+    </ng-map>
+  </div>
+
 </div>

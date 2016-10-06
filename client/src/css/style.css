@@ -1931,4 +1931,14 @@ i {
   width: 100%;
 }
 
+.input-phone{
+  display: block !important;
+  margin:none !important;
+  padding: none !important;
+  border: none !important;
+  border-radius: 0.2em !important;
+  background-color: white !important;
+  /*font-size: 1.5em !important;*/
+  text-align: center !important;
+  box-shadow: 0 0 1em 0.25em rgba(0,0,0,0.2) !important;
 }
