@@ -89,19 +89,18 @@ module.exports = function(router, connection) {
 
     // nouvelle version du password checker
     function checkPwUser(login, pwd, site_id, callback) {
-        var query = "SELECT * FROM view_tpa_connexion WHERE PWD='" + pwd + "' AND LOGIN='" + login +  "' AND SITE_ID='" + site_id + "'";
+        var query = "SELECT * FROM view_tpa_connexion WHERE LOGIN='" + login +  "' AND SITE_ID='" + site_id + "'";
         request.post(returnOptions(query, 'profils', 'PWD'), function(err, result, body) {
             if (err)
                 callback(err, 404);
             else {
                 var body_parsed = JSON.parse(body);
-		console.log(body_parsed);
                 if(body_parsed.length != 0) {
                   if (body_parsed[0].PWD != pwd)
                       callback("not match", 400);
                   else
                       callback(null, body_parsed);
-                } else 
+                } else
 		    callback("not match", 400);
             }
         })

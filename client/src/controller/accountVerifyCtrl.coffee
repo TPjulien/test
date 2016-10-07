@@ -43,9 +43,9 @@ tableau
             method: 'POST'
             url:    options.api.base_url + '/login'
             data: {
-                SITE_ID: SITE_ID
-                username: Login
-                password: $scope.password
+                SITE_ID  : SITE_ID
+                username : Login
+                password : $scope.password
             }
         .success (data) ->
             store.set('JWT', data.token)
