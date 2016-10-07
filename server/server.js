@@ -12,9 +12,11 @@ require('dotenv').config({path: '/home/defaultuser/.env' });
 var app = express();
 
 process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
+var connection;
+
 
 function handleDisconnect() {
-    var connection = mysql.createConnection({
+    connection = mysql.createConnection({
         host:     process.env.DB_HOST,
         user:     process.env.DB_USER,
         password: process.env.DB_PASSWORD,
