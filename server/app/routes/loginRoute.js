@@ -95,12 +95,14 @@ module.exports = function(router, connection) {
                 callback(err, 404);
             else {
                 var body_parsed = JSON.parse(body);
-                if(body_parsed[0].PWD != undefined) {
+		console.log(body_parsed);
+                if(body_parsed.length != 0) {
                   if (body_parsed[0].PWD != pwd)
                       callback("not match", 400);
                   else
                       callback(null, body_parsed);
-                }
+                } else 
+		    callback("not match", 400);
             }
         })
     }
@@ -148,7 +150,7 @@ module.exports = function(router, connection) {
     router.route('/samlLogin')
     .post(function(req, res) {
       var query = 'SELECT * FROM ?? WHERE ?? = ? AND ?? = ? ORDER BY ?? LIMIT 1';
-      var table = ['profils.view_info_userConnected', 'Customer_surName', req.body.Customer_surName, "Login", req.body.username];
+      var table = ['profils.view_info_userConnected', 'Customer_surName', req.body.Customer_surName, "Login", req.body.username, 'Role_ordre'];
       query     = mysql.format(query, table);
       connection.query(query, function(err, info_result) {
         if (err)
@@ -200,7 +202,7 @@ module.exports = function(router, connection) {
                     else {
                         if (data.length != 0) {
                           var query = 'SELECT * FROM ?? WHERE ?? = ? AND ?? = ? ORDER BY ?? LIMIT 1';
-                          var table = ['profils.view_info_userConnected', 'site_id', req.body.SITE_ID, 'Login', req.body.username, Role_ordre];
+                          var table = ['profils.view_info_userConnected', 'site_id', req.body.SITE_ID, 'Login', req.body.username, 'Role_ordre'];
 
                           // var table = ['profils.view_info_userConnected','SITE_ID',req.body.SITE_ID,"Login",req.body.username];
                           query     = mysql.format(query, table);
