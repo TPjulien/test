@@ -289,14 +289,23 @@ module.exports = function(router, connection) {
         // route pour aetm
         router.route('/aetmConnect/:uid')
           .get (function(req, res) {
-              var query = "SELECT * FROM ?? WHERE ?? = ? LIMIT 1 ";
-              var table = ['profils.view_Aetm', 'UID', req.params.uid];
-              query     = mysql.format(query, table);
-              connection.query(query, function(err, result) {
+              var query = "SELECT * FROM profils.view_Aetm WHERE UID ='" + req.params.uid + "' LIMIT 1";
+              request.post(returnOptions(query, 'profils', 'PWD'), function(err, result, body) {
                   if (err)
                       res.status(400).send(err);
-                  else
-                      res.json(result);
+                  else {
+                      var body_parsed = JSON.parse(body);
+                      res.json(body_parsed);
+                  }
               })
+              // var query = "SELECT * FROM ?? WHERE ?? = ? LIMIT 1 ";
+              // var table = ['profils.view_Aetm', 'UID', req.params.uid];
+              // query     = mysql.format(query, table);
+              // connection.query(query, function(err, result) {
+              //     if (err)
+              //         res.status(400).send(err);
+              //     else
+              //         res.json(result);
+              // })
           })
 };
