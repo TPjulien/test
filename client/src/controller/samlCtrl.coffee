@@ -4,14 +4,15 @@ tableau
     decode = jwtHelper.decodeToken(token)
 
     # site_id =
-    site_id = decode.etablissement.substring(0, 8)
+    # site_id = decode.etablissement.substring(0, 8)
+    name = decode.display_name
     # console.log decode
 
     $http
         method: 'POST'
         url:    options.api.base_url + '/samlLogin'
         data:
-            SITE_ID  : site_id
+            SITE_ID  : name
             username : decode.mail
     .success (data) ->
         store.set('JWT', data.token)

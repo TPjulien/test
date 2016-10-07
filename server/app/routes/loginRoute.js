@@ -65,8 +65,9 @@ module.exports = function(router, connection) {
       	    table.email_affiliations  = profile['urn:oid:1.3.6.1.4.1.5923.1.1.1.9'];
       	    table.mail                = profile['urn:oid:0.9.2342.19200300.100.1.3'];
       	    table.eppn                = profile['urn:oid:1.3.6.1.4.1.5923.1.1.1.6'];
-      	    table.etablissement       = profile['urn:oid:1.3.6.1.4.1.7135.1.2.1.14'];
-      	    table.given_name          = profile['urn:oid:2.5.4.42'];
+      	    // table.etablissement       = profile['urn:oid:1.3.6.1.4.1.7135.1.2.1.14'];
+            table.etablissement       = profile['mail'].substring(profile['mail'].lastIndexOf("@") + 1);
+            table.given_name          = profile['urn:oid:2.5.4.42'];
       	    table.common_name         = profile['urn:oid:2.5.4.3'];
       	    table.display_name        = profile['urn:oid:2.16.840.1.113730.3.1.241'];
       	    table.nameID              = profile.nameID;
@@ -146,8 +147,8 @@ module.exports = function(router, connection) {
 
     router.route('/samlLogin')
     .post(function(req, res) {
-      var query = 'SELECT * FROM ?? WHERE ?? = ? AND ?? = ?'
-      var table = ['profils.view_info_userConnected', 'SITE_ID', req.body.SITE_ID, "Login", req.body.username];
+      var query = 'SELECT * FROM ?? WHERE ?? = ? AND ?? = ? ORDER BY ?? LIMIT 1';
+      var table = ['profils.view_info_userConnected', 'Customer_surName', req.body.Customer_surName, "Login", req.body.username];
       query     = mysql.format(query, table);
       connection.query(query, function(err, info_result) {
         if (err)
@@ -198,8 +199,10 @@ module.exports = function(router, connection) {
                         res.status(401).send("Non autorisé");
                     else {
                         if (data.length != 0) {
-                          var query = 'SELECT * FROM ?? WHERE ?? = ? AND ?? = ?'
-                          var table = ['profils.view_info_userConnected','SITE_ID',req.body.SITE_ID,"Login",req.body.username];
+                          var query = 'SELECT * FROM ?? WHERE ?? = ? AND ?? = ? ORDER BY ?? LIMIT 1';
+                          var table = ['profils.view_info_userConnected', 'site_id', req.body.SITE_ID, 'Login', req.body.username, Role_ordre];
+
+                          // var table = ['profils.view_info_userConnected','SITE_ID',req.body.SITE_ID,"Login",req.body.username];
                           query     = mysql.format(query, table);
                           connection.query(query, function(error, info_result) {
                               if (err) {
