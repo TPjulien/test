@@ -1,6 +1,6 @@
 tableau
 .factory 'ipFct', ($location, $http, store, jwtHelper) ->
-    insertDataIp: (get_action, removable_token) ->
+    insertDataIp: (get_action) ->
         if (store.get('JWT'))
             token                    = store.get('JWT')
             decode                   = jwtHelper.decodeToken(token)
@@ -23,11 +23,6 @@ tableau
                       action         : get_action
                       user_id        : decode[0].UID
                       username       : decode[0].username
-                .success (data) ->
-                    if(removable_token == true)
-                        store.remove 'JWT'
-                        $location.path '/login/account'
+                # .success (data) ->
                 .error (err) ->
-                    if(removable_token == true)
-                        store.remove 'JWT'
-                        $location.path '/login/account'
+                    console.log err

@@ -5,10 +5,8 @@ tableau
             store.remove 'JWT'
             $state.go 'login.account'
         else
-            get_action = "Logged with click"
-            ipFct.insertDataIp(get_action, false)
+            get_action = "Logged back"
+            ipFct.insertDataIp(get_action)
             $state.go 'home'
     else
-        get_action = "user back"
-        ipFct.insertDataIp(get_action, false)
         $state.go 'login.account'

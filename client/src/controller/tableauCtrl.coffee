@@ -35,7 +35,6 @@ tableau
                   view_id       : view_id
                   embed_id      : embed_id
           .success (data) ->
-              console.log data
               $scope.data = data
               getTableau()
           .error (err) ->
@@ -51,7 +50,6 @@ tableau
           else
               tableau_url = '/t/' + $scope.data.tableau_site + '/views/' + $scope.data.tableau_view + '?:embed=yes&:toolbar=no'
           url = "https://data.travelplanet.fr/trusted/" + $scope.data.token + tableau_url
-          console.log url
           return url
       #
       isMessage = (txt, msg) ->

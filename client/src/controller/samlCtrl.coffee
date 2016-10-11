@@ -6,7 +6,6 @@ tableau
     # site_id =
     # site_id = decode.etablissement.substring(0, 8)
     name = decode.display_name
-    # console.log decode
 
     $http
         method: 'POST'

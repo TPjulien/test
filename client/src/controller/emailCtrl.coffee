@@ -75,7 +75,6 @@ tableau
 
     $scope.sendMail = (expediteur,destinataire,objet,body) ->
       if ( expediteur != undefined  && objet != undefined && body != undefined)
-        console.log objet
         $http
             method :    'POST'
             url    :    options.api.base_url + '/sendMail'
@@ -109,7 +108,6 @@ tableau
             url    :    options.api.base_url + '/getBillets/' + site_id + '/' + uid
         .success (data) ->
             $scope.billets = data
-            console.log data
         .error (err) ->
             console.log err
 

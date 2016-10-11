@@ -4,7 +4,6 @@ var mysql = require('mysql');
 module.exports = function(router, connection) {
     router.route('/log')
         .post(function(req, res) {
-	    console.log(req.body);
             var date     = new Date();
             var query    = "INSERT INTO ?? \
                             (??,??,??,??,??,??,??,??,??,??,??,??) \

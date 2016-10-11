@@ -45,7 +45,7 @@ tableau
               path = '/home/dashboard/' + view_id + '-' + embed_id
               $location.path path
               # console.log data
-              ipFct.insertDataIp(get_action, false)
+              ipFct.insertDataIp(get_action)
               # console.log decode
               # a mettre pour plus tard
               # $mdSidenav('left').close()
@@ -85,7 +85,7 @@ tableau
 
             $scope.goToTemplate = (data) ->
                 get_action = "Using " + data.EMBED_CONTENT_TYPE + " , " + data.EMBED_LIBELLE + " WITH EMBED_ID : " + data.EMBED_ID + " AND VIEW_ID : " + data.VIEW_ID
-                ipFct.insertDataIp(get_action, false)
+                ipFct.insertDataIp(get_action)
                 path = '/home/dashboard/' + data.VIEW_ID + "-" + data.EMBED_ID
                 $location.path path
 
@@ -231,6 +231,8 @@ tableau
             #     toastErrorFct.toastError("Impossible de visualiser menu, veuillez retenter plus tard")
 
             $scope.logOut = () ->
+                get_action = "logged out"
+                ipFct.insertDataIp(get_action)
                 logoutFct.logOut()
 
             # tick à faire plus tard

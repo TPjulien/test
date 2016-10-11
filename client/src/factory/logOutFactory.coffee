@@ -18,18 +18,16 @@ tableau
                       decode = jwtHelper.decodeToken(token)
                       is_saml = decode[0].is_saml
                       if (is_saml == false)
-                          get_action = "logged out"
-                          ipFct.insertDataIp(get_action, true)
                           # si ce n'est pas du saml donc on logout en local
+                          store.remove 'JWT'
+                          $location.path '/login/account'
                       # Dans le cas contraire on va au logout de leur établissement pour le deconnecter
                       else
                           $http
                               method: 'GET'
                               url:    options.api.base_url + '/Shibboleth.sso/Logout'
                           .success (data) ->
-                              get_action = "logged out from shibboleth"
-                              ipFct.insertDataIp(get_action, true)
-                              # store.remove 'JWT'
+                              store.remove 'JWT'
                               $window.location.href = data
                           .error (err) ->
                               console.log err
