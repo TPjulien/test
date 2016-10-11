@@ -13,7 +13,6 @@ tableau
             $rootScope.color         = "#EAEAEA"
             $scope.firstname         = decode[0].firstname
             $scope.can_logout        = decode[0].can_logout
-
             $scope.lastname          = decode[0].lastname
             $scope.favorite_color    = decode[0].favorite_color
             $scope.company           = decode[0].company
@@ -107,6 +106,7 @@ tableau
                     if $scope.get_multiple_view[id] != undefined
                         $scope.multiple_view = $scope.get_multiple_view[id]
                         menu += """ <div angular-popover direction="right" close-on-click="false" template-url="/modals/right.html" mode="click" close-on-mouseleave="true" style="position: relative;"> """
+                        # menu = """  """
                     else
                         menu += """ <div ng-click="goTO(menu.VIEW_ID, menu.EMBED_ID, menu)" style="position: relative;"> """
 
