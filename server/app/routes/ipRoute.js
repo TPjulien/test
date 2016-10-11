@@ -4,11 +4,9 @@ var mysql = require('mysql');
 module.exports = function(router, connection) {
     router.route('/log')
         .post(function(req, res) {
-            var getIp    = req.connection.remoteAddress;
-            var dataInfo = geoip.lookup(getIp);
             var date     = new Date();
             var query    = "INSERT INTO ?? \
-                            (?,?,?,?,?,?,?,?,?,?,?)\
+                            (?,?,?,?,?,?,?,?,?,?,?,?) \
                             VALUES (??,??,??,??,??,??,??,??,??,??,??,??)";
             var table    = ['tp_control_logs.events',
                             'ip', 'country_code', 'country_name', 'region_name', 'zip_code', 'time_zone', 'lattitude', 'longitude', 'action', 'user_id', 'username', 'event_datetime',
