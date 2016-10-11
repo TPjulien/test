@@ -12,7 +12,7 @@ tableau
             site_id                  = decode[0].site_id
             $rootScope.color         = "#EAEAEA"
             $scope.firstname         = decode[0].firstname
-            
+
             $scope.lastname          = decode[0].lastname
             $scope.favorite_color    = decode[0].favorite_color
             $scope.company           = decode[0].company
@@ -40,11 +40,40 @@ tableau
             else if(window.screen.width > 1024)
                 $scope.numDisp = true
 
-            $scope.goTO = (view_id, embed_id, ev) ->
+            $scope.goTO = (view_id, embed_id, menu) ->
+              geo = null
+              $.getJSON 'https://freegeoip.net/json/?callback', (data) ->
+                  path = '/home/dashboard/' + view_id + '-' + embed_id
+                  $location.path path
+                  console.log data
+                  # Partie recuperer l'addresse de la parsonne
+                  geo = data
+                  console.log geo
+                  date = new Date();
+                  get_action = "Using " + menu.EMBED_CONTENT_TYPE + " WITH EMBED_ID : " + menu.EMBED_ID + " AND VIEW_ID : " + menu.VIEW_ID
+                  $http
+                    method : 'POST'
+                    url    : options.api.base_url + '/log'
+                    data   :
+                        ip             : geo.ip
+                        country_code   : geo.country_code
+                        country_name   : geo.country_name
+                        region_name    : geo.region_name
+                        zip_code       : geo.zip_code
+                        time_zone      : geo.time_zone
+                        lattitude      : geo.lattitude
+                        longitude      : geo.longitude
+                        action         : get_action
+                        user_id        : decode[0].UID
+                        username       : decode[0].username
+                  .success (data) ->
+                      console.log data
+                  .error (err) ->
+                      console.log err
+
+              # console.log decode
               # a mettre pour plus tard
               # $mdSidenav('left').close()
-              path = '/home/dashboard/' + view_id + '-' + embed_id
-              $location.path path
 
             getColor = (color) ->
               css = 'background-color:' + color
@@ -101,7 +130,7 @@ tableau
                         $scope.multiple_view = $scope.get_multiple_view[id]
                         menu += """ <div angular-popover direction="right" close-on-click="false" template-url="/modals/right.html" mode="click" close-on-mouseleave="true" style="position: relative;"> """
                     else
-                        menu += """ <div ng-click="goTO(menu.VIEW_ID, menu.EMBED_ID)" style="position: relative;"> """
+                        menu += """ <div ng-click="goTO(menu.VIEW_ID, menu.EMBED_ID, menu)" style="position: relative;"> """
 
                 menu += """
                               <div tooltips tooltip-template=" """ + view_label + """ " tooltip-side="right" class="tile-small" data-period=" """ + data['view_position'] + """ " data-duration="250" data-role="tile" data-effect=" """ + data['animation'] + """ ">
