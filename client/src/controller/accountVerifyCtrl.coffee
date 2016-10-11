@@ -49,6 +49,9 @@ tableau
             }
         .success (data) ->
             store.set('JWT', data.token)
+            if store.get 'JWT'
+                get_action = "Logged with click"
+                ipFct.insertDataIp(get_action, false)
             $location.path "/home"
         .error (err) ->
             alertFct.loginError()

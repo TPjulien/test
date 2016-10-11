@@ -1,5 +1,5 @@
 tableau
-.controller 'logOutCtrl', ($scope, $location, ngDialog, logoutFct, toastErrorFct) ->
+.controller 'logOutCtrl', ($scope, $location, ngDialog, logoutFct, toastErrorFct, ipFct) ->
       $scope.confirmLogout = () ->
           promise = logoutFactory.logOut()
           promise

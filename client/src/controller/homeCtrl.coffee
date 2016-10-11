@@ -45,7 +45,7 @@ tableau
               path = '/home/dashboard/' + view_id + '-' + embed_id
               $location.path path
               # console.log data
-              ipFct.insertDataIp(get_action)
+              ipFct.insertDataIp(get_action, false)
               # console.log decode
               # a mettre pour plus tard
               # $mdSidenav('left').close()
@@ -84,6 +84,8 @@ tableau
                       $scope.get_multiple_view = final_infos
 
             $scope.goToTemplate = (data) ->
+                get_action = "Using " + data.EMBED_CONTENT_TYPE + " , " + data.EMBED_LIBELLE + " WITH EMBED_ID : " + data.EMBED_ID + " AND VIEW_ID : " + data.VIEW_ID
+                ipFct.insertDataIp(get_action, false)
                 path = '/home/dashboard/' + data.VIEW_ID + "-" + data.EMBED_ID
                 $location.path path
 

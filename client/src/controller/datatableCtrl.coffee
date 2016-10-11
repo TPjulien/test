@@ -74,7 +74,7 @@ tableau
             result = ""
             i = 0
             while i < width.length
-                result += "<p class='col s" + width[i].width + " md-whiteframe-1dp truncate getSize' style='background-color:#64B5F6; color:white'>" + width[i].column + "</p>"
+                result += "<p class='col s" + width[i].width + " md-whiteframe-1dp truncate getSize' style='background-color:#64B5F6; color:white; text-align: center'>" + width[i].column + "</p>"
                 i++
             return result
 
@@ -101,7 +101,7 @@ tableau
                 i++
 
             # if id_pdf == -1
-                result += "<p class='col s" + width[count].width + " md-whiteframe-1dp truncate getSize' style='background-color:white;'>" + name + "</p>"
+                result += "<p class='col s" + width[count].width + " md-whiteframe-1dp truncate getSize' style='background-color:white; text-align:center;'>" + name + "</p>"
             # else
                 # result += "<p class='col s" + width[count].width + " md-whiteframe-1dp truncate getSize' style='background-color:white;' ng-click='downloadPdf(" + $scope.data_table.datatable_width[id_pdf].column + ")'>" + name + "</p>"
             count++
@@ -248,23 +248,3 @@ tableau
                 document.body.removeChild(a)
                 window.URL.revokeObjectURL(url)
             ), 100
-
-    #
-    # $scope.watchPdf = (selected) ->
-    #     $http
-    #         method      : "GET"
-    #         url         : options.api.base_url + '/downloadPDF/' + selected
-    #         responseType: 'arraybuffer'
-    #     .success (result) ->
-    #         file           = new Blob([result], { type: 'application/pdf'})
-    #         fileUrl        = URL.createObjectURL(file)
-    #         $window.open(fileUrl,'C-Sharpcorner', 'width=600,height=800')
-    #
-    # $scope.getValues = (min, max) ->
-    #     if min < 1000 || max < 1000
-    #         $scope.slider.options.step = 50
-    #     else if min > 1000 && min < 3000 || max > 1000 && max < 3000
-    #         $scope.slider.options.step = 200
-    #     else
-    #         $scope.slider.options.step = 500
-    #
