@@ -236,12 +236,19 @@ tableau
                 embed_id:  $scope.detail.EMBED_ID
             responseType: 'arraybuffer'
         .success (result) ->
-            myblob  = new Blob([result], { type: 'application/pdf' })
-            blobURL = ( window.URL || window.webkitURL).createObjectURL(myblob)
-            anchor  = document.createElement("a")
-            anchor.download = selected['Numéro facture'] + '.pdf'
-            anchor.href = blobURL
-            anchor.click()
+            a          = document.createElement('a')
+            a.style    = "display: none"
+            blob       = new Blob [result], { type: 'application/json' }
+            url        = window.URL.createObjectURL(blob)
+            a.href     = url;
+            a.download = selected['Numéro facture'] + '.pdf'
+            document.body.appendChild(a)
+            a.click()
+            setTimeout (->
+                document.body.removeChild(a)
+                window.URL.revokeObjectURL(url)
+            ), 100
+
     #
     # $scope.watchPdf = (selected) ->
     #     $http

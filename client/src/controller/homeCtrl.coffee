@@ -1,5 +1,5 @@
 tableau
-.controller 'homeCtrl', ($scope, $mdSidenav, $timeout, logoutFct, jwtHelper, store, $http, $stateParams, $location, $interval, $rootScope, $sce, $mdDialog, $window, toastErrorFct, $q, $state) ->
+.controller 'homeCtrl', ($scope, $mdSidenav, $timeout, logoutFct, jwtHelper, store, $http, $stateParams, $location, $interval, $rootScope, $sce, $mdDialog, $window, toastErrorFct, $q, $state, ipFct) ->
     if(!store.get('JWT'))
         $state.go 'login'
     else
@@ -41,36 +41,11 @@ tableau
                 $scope.numDisp = true
 
             $scope.goTO = (view_id, embed_id, menu) ->
-              geo = null
-              $.getJSON 'https://freegeoip.net/json/?callback', (data) ->
-                  path = '/home/dashboard/' + view_id + '-' + embed_id
-                  $location.path path
-                  console.log data
-                  # Partie recuperer l'addresse de la parsonne
-                  geo = data
-                  console.log geo
-                  date = new Date();
-                  get_action = "Using " + menu.EMBED_CONTENT_TYPE + " WITH EMBED_ID : " + menu.EMBED_ID + " AND VIEW_ID : " + menu.VIEW_ID
-                  $http
-                    method : 'POST'
-                    url    : options.api.base_url + '/log'
-                    data   :
-                        ip             : geo.ip
-                        country_code   : geo.country_code
-                        country_name   : geo.country_name
-                        region_name    : geo.region_name
-                        zip_code       : geo.zip_code
-                        time_zone      : geo.time_zone
-                        lattitude      : geo.lattitude
-                        longitude      : geo.longitude
-                        action         : get_action
-                        user_id        : decode[0].UID
-                        username       : decode[0].username
-                  .success (data) ->
-                      console.log data
-                  .error (err) ->
-                      console.log err
-
+              get_action = "Using " + menu.EMBED_CONTENT_TYPE + " WITH EMBED_ID : " + menu.EMBED_ID + " AND VIEW_ID : " + menu.VIEW_ID
+              path = '/home/dashboard/' + view_id + '-' + embed_id
+              $location.path path
+              # console.log data
+              ipFct.insertDataIp(get_action)
               # console.log decode
               # a mettre pour plus tard
               # $mdSidenav('left').close()
