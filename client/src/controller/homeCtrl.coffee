@@ -12,7 +12,7 @@ tableau
             site_id                  = decode[0].site_id
             $rootScope.color         = "#EAEAEA"
             $scope.firstname         = decode[0].firstname
-
+            $scope.can_logout        = decode[0].can_logout
             console.log decode
 
             $scope.lastname          = decode[0].lastname
