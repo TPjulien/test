@@ -149,7 +149,7 @@ module.exports = function(router, connection) {
 
     router.route('/samlLogin')
     .post(function(req, res) {
-	var query_one = "SELECT SITE_ID, LOGIN FROM ?? WHERE ?? = ? AND ?? = ?";
+	var query_one = "SELECT SITE_ID, LOGOUT_SAML_URL, LOGIN FROM ?? WHERE ?? = ? AND ?? = ?";
 	var table_one = ['profils.saml', 'ENTRY_SAML_URL', req.body.data.nameQualifier, "EMAIL_IDENTIFIER", req.body.data.mail];
 	query_one     = mysql.format(query_one, table_one);
 	connection.query(query_one, function(err, result_one) {
@@ -177,6 +177,7 @@ module.exports = function(router, connection) {
 			    "firstname":            info_result[0].Customer_GivenName,
 			    "lastname":             info_result[0].Customer_surName,
 			    "user_auth":            info_result[0].Role,
+          "can_logout":           result_one[0].LOGOUT_SAML_URL,
 			    "is_saml":              true
 			}];
 			var token = jwt.sign(preToken, 'travelSecret', {
@@ -185,7 +186,7 @@ module.exports = function(router, connection) {
 			res.json({
 			    token: token
 			});
-			
+
 		    }
 		})
 	    }
@@ -246,6 +247,7 @@ module.exports = function(router, connection) {
                                       "firstname":            info_result[0].Customer_GivenName,
                                       "lastname":             info_result[0].Customer_surName,
                                       "user_auth":            info_result[0].Role,
+                                      "can_logout":           true,
                                       "is_saml":              false
                                   }];
                                   var token = jwt.sign(preToken, 'travelSecret', {

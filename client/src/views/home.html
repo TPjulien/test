@@ -7,7 +7,7 @@
               <span  style="    font-family: 'gotham'; left: 55%; position: relative; top: 8px;"class="center titleHome toolbar__label fs-title">CLICK & CONTROL</span>
             </div>
           </div>
-          <div flex-item="4" class="hide-on-med-and-down toolbar__right">
+          <div ng-hide="decode[0].can_logout == null" flex-item="4" class="hide-on-med-and-down toolbar__right">
               <div ng-click="logOut()" class="toolbar__right">
                 <md-icon style="margin-right:10px;"class="logo_lock" md-svg-icon="img/icons/power.svg"></md-icon>
               </div>
