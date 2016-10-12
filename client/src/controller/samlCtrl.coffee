@@ -3,7 +3,7 @@ tableau
     token  = $stateParams.tokenSaml
     decode = jwtHelper.decodeToken(token)
 
-    # site_id =
+    console.log decode
     # site_id = decode.etablissement.substring(0, 8)
     name = decode.display_name
 

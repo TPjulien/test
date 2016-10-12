@@ -23,7 +23,7 @@ module.exports = function(router, connection) {
                                WHERE ?? = ? \
                                AND ?? = ? LIMIT 1 ";
             var table_one    = [
-                                "profils.view_profil_lvl1",
+                                "profils.0_main",
                                 "SITE_ID", req.params.site_id,
                                 "uid", req.params.uid];
             query_one = mysql.format(query_one, table_one);

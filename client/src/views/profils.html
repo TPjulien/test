@@ -101,19 +101,19 @@
           </div>
         </div>
       </div> -->
-      <h1 class="h1profil md-display-2">Modifier le profil de {{profil.Customer_surName }} {{profil.Customer_GivenName}}</h1>
+      <h1 class="h1profil md-display-2">Modifier le profil de {{profil.LAST_NAME }} {{profil.FIRST_NAME}}</h1>
       <div class="row">
         <div class="col-md-3">
           <div class="backgroung_grey card">
             <div class="card-image">
               <div id="wrapper" ng-switch="user.sexe">
-                <div ng-if="profil.Customer_Gender == 'M' ">
+                <div ng-if="profil.GENDER == 'M' ">
                   <img class="col-xs-6 img_profil" src="img/Avatar-Man.jpg">
                 </div>
-                <div ng-if="profil.Customer_Gender == 'F'">
+                <div ng-if="profil.GENDER == 'F'">
                   <img class="col-xs-6 img_profil" src="img/Avatar-Woman.jpg">
                 </div>
-                <div ng-if="profil.Customer_Gender == null">
+                <div ng-if="profil.GENDER == null">
                   <img class="col-xs-6 img_profil" src="img/Avatar-dontkonw.jpg">
                 </div>
               </div>
@@ -145,11 +145,11 @@
                   <label class="right_profil labelProfil">Sexe <md-icon class="logo_lock" md-svg-icon="img/icons/padlock.svg"></md-icon></label>
                 </div>
                 <div class="col-md-8 col-xs-12 radio_generic">
-                  <input class="with-gap" name="sexe" type="radio" id="M" ng-model="profil.Customer_Gender" value="M" ng-checked="{{profil.Customer_Gender=='M'}}" />
+                  <input class="with-gap" name="sexe" type="radio" id="M" ng-model="profil.GENDER" value="M" ng-checked="{{profil.GENDER =='M'}}" />
                   <label for="M">M. </label>
-                  <input class="with-gap" name="sexe" type="radio" id="F" ng-model="profil.Customer_Gender" value="F"  ng-checked="{{profil.Customer_Gender=='F'}}"/>
+                  <input class="with-gap" name="sexe" type="radio" id="F" ng-model="profil.GENDER" value="F"  ng-checked="{{profil.GENDER=='F'}}"/>
                   <label for="F">Mme. </label>
-                  <input class="with-gap" name="sexe" type="radio" id="O" ng-model="profil.Customer_Gender" ng-checked="{{profil.Customer_Gender==null}}" />
+                  <input class="with-gap" name="sexe" type="radio" id="O" ng-model="profil.GENDER" ng-checked="{{profil.GENDER==null}}" />
                   <label for="O">Autre </label>
                 </div>
               </div>
@@ -158,20 +158,20 @@
                   <label aria-label="prenom"  class="right_profil labelProfil">Prénom <md-icon class="logo_lock" md-svg-icon="img/icons/padlock.svg"></md-icon> </label>
                 </div>
                 <div style="margin-top: -7px;" class="col-md-8 col-xs-12">
-                  <input class="input_generic" name="prenom" ng-model="profil.Customer_GivenName" ng-minlength="1" ng-maxlength="20" type="text" class="validate" required>
+                  <input class="input_generic" name="prenom" ng-model="profil.FIRST_NAME" ng-minlength="1" ng-maxlength="20" type="text" class="validate" required>
                 </div>
                 <div class="col-md-4 col-xs-12">
                   <label aria-label="nom"  class="right_profil labelProfil">Nom <md-icon class="logo_lock" md-svg-icon="img/icons/padlock.svg"></md-icon></label>
                 </div>
                 <div style="margin-top: -7px;" class="col-md-8 col-xs-12">
-                  <input class="input_generic" name="nom" ng-model="profil.Customer_surName"type="text" ng-minlength="1" ng-maxlength="30" class="validate" required>
+                  <input class="input_generic" name="nom" ng-model="profil.LAST_NAME"type="text" ng-minlength="1" ng-maxlength="30" class="validate" required>
                 </div>
                 <div class="col-md-4 col-xs-12">
                   <label  class="label_datePicker right_profil labelProfil">Date de naissance<md-icon class="logo_lock" md-svg-icon="img/icons/padlock.svg"></md-icon></label>
                 </div>
                 <div class="col-md-8 col-xs-12">
                   <md-input-container flex-gt-md="30">
-                    <input mdc-datetime-picker="" date="true" time="false" type="text" id="datetime" format="YYYY/MM/DD" min-date="date" ng-model="profil.Customer_BirthDate" class="datePicker_generic md-input">
+                    <input mdc-datetime-picker="" date="true" time="false" type="text" id="datetime" format="YYYY/MM/DD" min-date="date" ng-model="profil.BIRTH_DATE" class="datePicker_generic md-input">
                   </md-input-container>
                 </div>
               </div>
@@ -274,7 +274,7 @@
                   </div>
                   <div class="col-md-8">
                     <md-input-container class="select_generic">
-                      <md-select aria-label="AirPrefLangID"  name="AirPrefLangID" ng-model="profil.AirPrefLangID" >
+                      <md-select aria-label="AirPrefLangID"  name="AirPrefLangID" ng-model="profil.PREF_LANGUAGE" >
                         <md-option value="FR">Français</md-option>
                         <md-option value="GB">Anglais</md-option>
                       </md-select>
@@ -287,7 +287,7 @@
                   </div>
                   <div class="col-md-8">
                     <md-input-container class="select_generic">
-                      <md-select aria-label="Customer_Currency"  name="Customer_Currency" ng-model="profil.Customer_Currency" >
+                      <md-select aria-label="Customer_Currency"  name="Customer_Currency" ng-model="profil.PREFERRED_CURRENCY" >
                         <md-option value="EUR">Euro</md-option>
                         <md-option value="USD">Dollar</md-option>
                       </md-select>
@@ -299,7 +299,7 @@
                     <label style="margin-top:19px;" class="right_profil labelProfil">Personne à contacter en cas d'urgence</label>
                   </div>
                   <div class="col-md-8">
-                    <input class="input_generic" name="nom" ng-model="profil.Customer_Contact_Name" type="text" ng-minlength="1" ng-maxlength="30" class="validate" required>
+                    <input class="input_generic" name="nom" ng-model="profil.CONTACT_NAME" type="text" ng-minlength="1" ng-maxlength="30" class="validate" required>
                   </div>
                 </div>
                 <div class="row">
@@ -636,7 +636,7 @@
                 </div>
                 <div class="col-md-9">
                   <md-input-container class="select_generic">
-                    <md-select aria-label="airSeatingPref"  name="airSeatingPref" ng-model="profil.AirSeatingPref" >
+                    <md-select aria-label="airSeatingPref"  name="airSeatingPref" ng-model="profil.PREF_AIR_SEATING" >
                       <md-option  ng-repeat="OneairSeatingPref in air_seating_pref" value="{{OneairSeatingPref.AirSeatingPref}}">{{OneairSeatingPref.AirSeatingPref}}</md-option>
                     </md-select>
                   </md-input-container>
@@ -736,7 +736,7 @@
                   </div>
                   <div class="col-md-9">
                     <md-input-container class="select_generic">
-                      <md-select aria-label="rail_class"  name="rail_class" ng-model="profil.RailClass" >
+                      <md-select aria-label="rail_class"  name="rail_class" ng-model="profil.PREF_RAIL_CLASS" >
                         <md-option ng-repeat="OnerailClass in rail_class"  value="{{OnerailClass.RailClass}}">{{OnerailClass.RailClass}}</md-option>
                       </md-select>
                     </md-input-container>
@@ -748,7 +748,7 @@
                   </div>
                   <div class="col-md-9">
                     <md-input-container class="select_generic">
-                      <md-select aria-label="rail_wagon_code"  name="rail_wagon_code" ng-model="profil.RailWagonCode" >
+                      <md-select aria-label="rail_wagon_code"  name="rail_wagon_code" ng-model="profil.PREF_RAIL_SEATING" >
                         <md-option ng-repeat="OnerailWagonCode in rail_wagon_code" value="{{OnerailWagonCode.RailWagonCode}}">{{OnerailWagonCode.RailWagonCode}}</md-option>
                       </md-select>
                     </md-input-container>
@@ -760,7 +760,7 @@
                   </div>
                   <div class="col-md-9">
                     <md-input-container class="select_generic">
-                      <md-select aria-label="rail_seat_position"  name="rail_seat_position" ng-model="profil.RailSeatPosition" >
+                      <md-select aria-label="rail_seat_position"  name="rail_seat_position" ng-model="profil.PREF_RAIL_SEATING_DIR" >
                         <md-option ng-repeat="OnerailSeatPosition in rail_seat_position" value="{{OnerailSeatPosition.RailSeatPosition}}">{{OnerailSeatPosition.RailSeatPosition}}</md-option>
                       </md-select>
                     </md-input-container>
