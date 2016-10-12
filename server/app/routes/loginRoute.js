@@ -58,6 +58,7 @@ module.exports = function(router, connection) {
       	function(profile, done, err) {
             var query = "";
             var table = {};
+	    console.log(profile);
       	    table.uid                 = profile['urn:oid:0.9.2342.19200300.100.1.1'];
       	    table.affiliations        = profile['urn:oid:1.3.6.1.4.1.5923.1.1.1.1'];
       	    table.primary_affiliation = profile['urn:oid:1.3.6.1.4.1.5923.1.1.1.5'];
@@ -148,7 +149,49 @@ module.exports = function(router, connection) {
 
     router.route('/samlLogin')
     .post(function(req, res) {
-      var query = 'SELECT * FROM ?? WHERE ?? = ? AND ?? = ? ORDER BY ?? LIMIT 1';
+	var query_one = "SELECT SITE_ID, LOGIN FROM ?? WHERE ?? = ? AND ?? = ?";
+	var table_one = ['profils.saml', 'ENTRY_SAML_URL', req.body.data.nameQualifier, "EMAIL_IDENTIFIER", req.body.data.mail];
+	query_one     = mysql.format(query_one, table_one);
+	connection.query(query_one, function(err, result_one) {
+	    if(err)
+		res.status(400).send(err);
+	    else if (result_one.length == 0)
+		res.status(404).send("Not found !");
+	    else {
+		var query_two = "SELECT * FROM ?? WHERE ?? = ? AND ?? = ? ORDER BY ?? LIMIT 1";
+		var table_two = ['profils.view_info_userConnected', 'Login', result_one[0].LOGIN, 'SITE_ID', result_one[0].SITE_ID, 'Role_ordre'];
+		query_two     = mysql.format(query_two, table_two);
+		connection.query(query_two, function(err, info_result) {
+		    if (err)
+			res.status(400).send(err);
+		    else if (info_result.length == 0)
+			res.status(404).send("Not found !");
+		    else {
+			var preToken = [{
+			    "site_id":              info_result[0].SITE_ID,
+			    "UID":                  info_result[0].UID,
+			    "DEPOSITED_DATE":       info_result[0].DEPOSITED_DATE,
+			    "home_community":       info_result[0].HomeCommunity,
+			    "username":             info_result[0].Login,
+			    "company":              info_result[0].SITE_LIBELLE,
+			    "firstname":            info_result[0].Customer_GivenName,
+			    "lastname":             info_result[0].Customer_surName,
+			    "user_auth":            info_result[0].Role,
+			    "is_saml":              true
+			}];
+			var token = jwt.sign(preToken, 'travelSecret', {
+			    expiresIn: 7200
+			});
+			res.json({
+			    token: token
+			});
+			
+		    }
+		})
+	    }
+	})
+	//res.status(500).send(req.body.data);
+      /*var query = 'SELECT * FROM ?? WHERE ?? = ? AND ?? = ? ORDER BY ?? LIMIT 1';
       var table = ['profils.view_info_userConnected', 'Customer_surName', req.body.Customer_surName, "Login", req.body.username, 'Role_ordre'];
       query     = mysql.format(query, table);
       connection.query(query, function(err, info_result) {
@@ -157,26 +200,8 @@ module.exports = function(router, connection) {
         else if (info_result.length == 0)
             res.status(404).send("Not found");
         else {
-          var preToken = [{
-            "site_id":              info_result[0].SITE_ID,
-            "UID":                  info_result[0].UID,
-            "DEPOSITED_DATE":       info_result[0].DEPOSITED_DATE,
-            "home_community":       info_result[0].HomeCommunity,
-            "username":             info_result[0].Login,
-            "company":              info_result[0].SITE_LIBELLE,
-            "firstname":            info_result[0].Customer_GivenName,
-            "lastname":             info_result[0].Customer_surName,
-            "user_auth":            info_result[0].Role,
-            "is_saml":              true
-          }];
-          var token = jwt.sign(preToken, 'travelSecret', {
-            expiresIn: 7200
-          });
-          res.json({
-            token: token
-          });
         }
-      })
+      })*/
     });
 
     // on verifie s'il est éligible au samlCheck

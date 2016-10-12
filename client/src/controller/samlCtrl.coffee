@@ -15,4 +15,4 @@ tableau
         store.set('JWT', data.token)
         $location.path "/home"
     .error (err) ->
-        toastErrorFct.toastError("Impossible de se connecter, veuillez retenter plus tard")
+        console.log err
