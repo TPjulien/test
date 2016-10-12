@@ -10,7 +10,6 @@ tableau
           data   :
               UID   : getDataToken.UID
       .success (data) ->
-          # console.log data[0].PWD.replace /"/g, ""
           $scope.LOGINNAME  = data[0].LOGINNAME
           $scope.SITE       = data[0].SITE_ID
           $scope.LANGUAGE   = data[0].LANGUAGE

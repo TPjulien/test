@@ -29,8 +29,6 @@ tableau
         if $scope.address != null
             getPriceInfo(addressStart, addressEnd)
 
-
-
     NgMap
     .getMap()
     .then (map) ->

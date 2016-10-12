@@ -100,10 +100,7 @@ tableau
                   i = $scope.data_table.datatable_width.length
                 i++
 
-            # if id_pdf == -1
                 result += "<p class='col s" + width[count].width + " md-whiteframe-1dp truncate getSize' style='background-color:white; text-align:center;'>" + name + "</p>"
-            # else
-                # result += "<p class='col s" + width[count].width + " md-whiteframe-1dp truncate getSize' style='background-color:white;' ng-click='downloadPdf(" + $scope.data_table.datatable_width[id_pdf].column + ")'>" + name + "</p>"
             count++
         return result
 

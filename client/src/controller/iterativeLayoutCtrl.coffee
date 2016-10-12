@@ -8,6 +8,7 @@ tableau
     $scope.getTemplate = (value) ->
         $scope.getController = value.EMBED_CONTENT_TYPE.toLowerCase() + 'Ctrl'
         result_template      = 'templates/' + value.EMBED_CONTENT_TYPE.toLowerCase() + '.html'
+        console.log result_template
         return result_template
 
     user_role = decode[0].user_auth

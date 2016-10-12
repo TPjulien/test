@@ -153,7 +153,9 @@ module.exports = function(router, connection) {
       query     = mysql.format(query, table);
       connection.query(query, function(err, info_result) {
         if (err)
-        res.status(400).send(err);
+            res.status(400).send(err);
+        else if (info_result.length == 0)
+            res.status(404).send("Not found");
         else {
           var preToken = [{
             "site_id":              info_result[0].SITE_ID,

@@ -216,10 +216,6 @@ tableau
             url:          '/dashboard/:id',
             templateUrl:  'templates/iterativeLayout.html',
             controller:   'iterativeLayoutCtrl'
-        .state 'home.list',
-            url:          '/tableau/:site_id/:view_id/:embed_id'
-            templateUrl:  'templates/toto.html',
-            controller:   'listTableauCtrl'
         .state 'home.error',
             url:          '/error',
             templateUrl:  'templates/error.html',
