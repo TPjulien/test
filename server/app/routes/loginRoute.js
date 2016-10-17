@@ -150,7 +150,7 @@ module.exports = function(router, connection) {
     router.route('/samlLogin')
     .post(function(req, res) {
 	var query_one = "SELECT SITE_ID, LOGOUT_SAML_URL, LOGIN FROM ?? WHERE ?? = ? AND ?? = ?";
-	var table_one = ['profils.saml', 'ENTRY_SAML_URL', req.body.data.nameQualifier, "EMAIL_IDENTIFIER", req.body.data.mail];
+	var table_one = ['profils.saml', 'ENTRY_SAML_URL', req.body.data.nameQualifier, "SAML_ID", req.body.data.mail];
 	query_one     = mysql.format(query_one, table_one);
 	connection.query(query_one, function(err, result_one) {
 	    if(err)
@@ -318,7 +318,7 @@ module.exports = function(router, connection) {
         // route pour aetm
         router.route('/aetmConnect/:uid')
           .get (function(req, res) {
-              var query = "SELECT * FROM profils.view_Aetm WHERE UID ='" + req.params.uid + "' LIMIT 1";
+              var query = "SELECT DISTINCT * FROM profils.view_0_Aetm WHERE UID ='" + req.params.uid + "' LIMIT 1";
               request.post(returnOptions(query, 'profils', 'PWD'), function(err, result, body) {
                   if (err)
                       res.status(400).send(err);
