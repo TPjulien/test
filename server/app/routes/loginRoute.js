@@ -45,49 +45,53 @@ module.exports = function(router, connection) {
     });
 
     // shibboleth
-    var saml = new SamlStrategy(
-      	{
-            callbackUrl       : process.env.SAML_CALLBACK_URL,
-            entryPoint        : shib_url,
-            // entryPoint        : 'https://idp.univ-lyon3.fr/idp/profile/SAML2/Redirect/SSO',
-            // issuer            : 'https://click.travelplanet.fr',
-            decryptionPvk     : fs.readFileSync(process.env.SERV_KEY, 'utf8'),
-            privateCert       : fs.readFileSync(process.env.SERV_KEY, 'utf-8'),
-            cert              : fs.readFileSync(process.env.RENATER_CRT, 'utf-8'),
-            logoutUrl         : shib_url_logout,
-      	    identifierFormat  : 'urn:oasis:names:tc:SAML:2.0:nameid-format:transient',
-      	    logoutCallbackUrl : 'https://click.travelplanet.fr/#/account/login'
-      	},
-      	function(profile, done, err) {
-            var query = "";
-            var table = {};
-      	    table.uid                 = profile['urn:oid:0.9.2342.19200300.100.1.1'];
-      	    table.affiliations        = profile['urn:oid:1.3.6.1.4.1.5923.1.1.1.1'];
-      	    table.primary_affiliation = profile['urn:oid:1.3.6.1.4.1.5923.1.1.1.5'];
-      	    table.surname             = profile['urn:oid:2.5.4.4'];
-      	    table.email_affiliations  = profile['urn:oid:1.3.6.1.4.1.5923.1.1.1.9'];
-      	    table.mail                = profile['urn:oid:0.9.2342.19200300.100.1.3'];
-      	    table.eppn                = profile['urn:oid:1.3.6.1.4.1.5923.1.1.1.6'];
-      	    table.etablissement       = profile['urn:oid:1.3.6.1.4.1.7135.1.2.1.14'];
-            //table.etablissement       = profile['mail'].substring(profile['mail'].lastIndexOf("@") + 1);
-            table.given_name          = profile['urn:oid:2.5.4.42'];
-      	    table.common_name         = profile['urn:oid:2.5.4.3'];
-      	    table.display_name        = profile['urn:oid:2.16.840.1.113730.3.1.241'];
-      	    table.nameID              = profile.nameID;
-      	    table.nameIDFormat        = profile.nameIDFormat;
-      	    table.sessionIndex        = profile.sessionIndex;
-      	    table.nameQualifier       = profile.nameQualifier;
-      	    table.spNameQualifier     = profile.spNameQualifier;
-      	    var token = jwt.sign(table, 'travelSecret', {
-                      expiresIn: 7200
-                  });
-      	    saml_data_not_crypted = table;
-      	    saml_data             = token;
+    function saml(shib_url, shib_url_logout) {
+	var get_strategy = new SamlStrategy(
+      	    {
+		callbackUrl       : process.env.SAML_CALLBACK_URL,
+		entryPoint        : shib_url,
+		// entryPoint        : 'https://idp.univ-lyon3.fr/idp/profile/SAML2/Redirect/SSO',
+		issuer            : 'https://click.travelplanet.fr',
+		decryptionPvk     : fs.readFileSync(process.env.SERV_KEY, 'utf8'),
+		privateCert       : fs.readFileSync(process.env.SERV_KEY, 'utf-8'),
+		cert              : fs.readFileSync(process.env.RENATER_CRT, 'utf-8'),
+		logoutUrl         : shib_url_logout,
+      		identifierFormat  : 'urn:oasis:names:tc:SAML:2.0:nameid-format:transient',
+      		logoutCallbackUrl : 'https://click.travelplanet.fr/#/account/login'
+      	    },
+      	    function(profile, done, err) {
+		var query = "";
+		var table = {};
+		console.log(shib_url);
+      		table.uid                 = profile['urn:oid:0.9.2342.19200300.100.1.1'];
+      		table.affiliations        = profile['urn:oid:1.3.6.1.4.1.5923.1.1.1.1'];
+      		table.primary_affiliation = profile['urn:oid:1.3.6.1.4.1.5923.1.1.1.5'];
+      		table.surname             = profile['urn:oid:2.5.4.4'];
+      		table.email_affiliations  = profile['urn:oid:1.3.6.1.4.1.5923.1.1.1.9'];
+      		table.mail                = profile['urn:oid:0.9.2342.19200300.100.1.3'];
+      		table.eppn                = profile['urn:oid:1.3.6.1.4.1.5923.1.1.1.6'];
+      		table.etablissement       = profile['urn:oid:1.3.6.1.4.1.7135.1.2.1.14'];
+		//table.etablissement       = profile['mail'].substring(profile['mail'].lastIndexOf("@") + 1);
+		table.given_name          = profile['urn:oid:2.5.4.42'];
+      		table.common_name         = profile['urn:oid:2.5.4.3'];
+      		table.display_name        = profile['urn:oid:2.16.840.1.113730.3.1.241'];
+      		table.nameID              = profile.nameID;
+      		table.nameIDFormat        = profile.nameIDFormat;
+      		table.sessionIndex        = profile.sessionIndex;
+      		table.nameQualifier       = profile.nameQualifier;
+      		table.spNameQualifier     = profile.spNameQualifier;
+      		var token = jwt.sign(table, 'travelSecret', {
+                    expiresIn: 7200
+                });
+      		saml_data_not_crypted = table;
+      		saml_data             = token;
+		
+      		return done(null, token);
+      	    })
+	passport.use(get_strategy);
+    }
 
-      	    return done(null, token);
-      	});
-
-    passport.use(saml);
+    //passport.use(saml);
 
 
     // nouvelle version du password checker
@@ -290,7 +294,7 @@ module.exports = function(router, connection) {
         // route de shibboleth
         router.route('/shibboleth/:login')
           .get(function (req, res) {
-              var query = "SELECT DISTINCT ??, ?? FROM ?? WHERE ?? = ?";
+              var query = "SELECT DISTINCT ??, ??, ?? FROM ?? WHERE ?? = ?";
               var table = ['SITE_ID', 'ENTRY_SAML_URL', 'LOGOUT_SAML_URL', 'profils.saml', 'LOGIN', req.params.login];
               query     = mysql.format(query, table);
               connection.query(query, function(err, rows) {
@@ -304,6 +308,8 @@ module.exports = function(router, connection) {
                           shib_url_logout = rows[0].ENTRY_SAML_URL;
                       else
                           shib_url_logout = rows[0].LOGOUT_SAML_URL;
+		      console.log("terminé!");
+		      saml(shib_url, shib_url_logout);
                       res.redirect('/postShibboleth');
                   }
               })
@@ -311,7 +317,7 @@ module.exports = function(router, connection) {
           // .get(passport.authenticate('saml', { failureRedirect: '/'  }),
           //     function (req, res) {
           //       res.status(200).send('Shib succeded');
-        });
+        //});
 
         router.route('/postShibboleth')
           .get(passport.authenticate('saml', { failureRedirect: '/' }),

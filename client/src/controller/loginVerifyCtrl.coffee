@@ -23,9 +23,9 @@ tableau
                         $location.path '/login/verify/' + $scope.username + '/' + data.tpa[0].SITE_ID
                     else
                         # preprod
-                        # $window.location.href = "https://api.test.tp-control.travelplanet.fr/shibboleth"
+                        $window.location.href = "https://api.test.tp-control.travelplanet.fr/shibboleth/" + $scope.username
                         # prod
-                        $window.location.href = "https://api.tp-control.travelplanet.fr/shibboleth"
+                        # $window.location.href = "https://api.tp-control.travelplanet.fr/shibboleth"
             else if (data.length > 1)
                 $location.path '/login/comunity/' + $scope.username
             else
