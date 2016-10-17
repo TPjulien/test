@@ -85,7 +85,7 @@ module.exports = function(router, connection) {
                 });
       		saml_data_not_crypted = table;
       		saml_data             = token;
-		
+
       		return done(null, token);
       	    })
 	passport.use(get_strategy);
@@ -155,11 +155,14 @@ module.exports = function(router, connection) {
 
     router.route('/samlLogin')
     .post(function(req, res) {
-      var mail = req.body.data.mail;
-      var splitted_mail = mail.split('@');
+      var mail            = req.body.data.mail;
+      var splitted_mail   = mail.split('@');
       var user_identifier = splitted_mail[0];
-      var query_one = "SELECT SITE_ID, LOGOUT_SAML_URL, LOGIN FROM ?? WHERE ?? = ? AND ?? = ?";
-      var table_one = ['profils.saml', 'ENTRY_SAML_URL', req.body.data.nameQualifier, "SAML_ID", req.body.data.mail];
+      var nameQ           = req.body.data.nameQualifier
+      var sso_idp         = nameQ.split('/');
+      var full_sso        = "http://" + nameQ.split[2] + '/idp/profile/SAML2/Redirect/SSO';
+      var query_one       = "SELECT SITE_ID, LOGOUT_SAML_URL, LOGIN FROM ?? WHERE ?? = ? AND ?? = ?";
+      var table_one       = ['profils.saml', 'ENTRY_SAML_URL', full_sso, "SAML_ID", req.body.data.mail];
       connection.query(query_one, function(err, result_one) {
       query_one     = mysql.format(query_one, table_one);
         if(err)
