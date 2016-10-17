@@ -288,10 +288,10 @@ module.exports = function(router, connection) {
           })
 
         // route de shibboleth
-        router.route('/shibboleth/:site_id/:login')
+        router.route('/shibboleth/:login')
           .get(function (req, res) {
               var query = "SELECT DISTINCT ??, ?? FROM ?? WHERE ?? = ?";
-              var table = ['ENTRY_SAML_URL', 'LOGOUT_SAML_URL', 'profils.saml', 'site_id', req.params.site_id];
+              var table = ['SITE_ID', 'ENTRY_SAML_URL', 'LOGOUT_SAML_URL', 'profils.saml', 'LOGIN', req.params.login];
               query     = mysql.format(query, table);
               connection.query(query, function(err, rows) {
                   if (err)
