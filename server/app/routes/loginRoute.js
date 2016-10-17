@@ -306,9 +306,12 @@ module.exports = function(router, connection) {
                   else if (rows.length == 0)
                       res.status(404).send("Not saml configured");
                   else {
-                      shib_url = rows[0].ENTRY_SAML_URL;
+                      //shib_url    = rows[0].ENTRY_SAML_URL;
+		      var sso_idp = rows[0].ENTRY_SAML_URL.split('/');
+		      shib_url    = "https://" + sso_idp[2] + '/idp/profile/SAML2/Redirect/SSO';
+		      console.log(shib_url);
                       if (rows[0].LOGOUT_SAML_URL == null)
-                          shib_url_logout = rows[0].ENTRY_SAML_URL;
+                          shib_url_logout = shib_url
                       else
                           shib_url_logout = rows[0].LOGOUT_SAML_URL;
 		      console.log("terminé!");
