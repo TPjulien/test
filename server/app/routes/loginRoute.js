@@ -165,9 +165,9 @@ module.exports = function(router, connection) {
       var full_sso        = "https://" + sso_idp[2] + '/idp/profile/SAML2/Redirect/SSO';
 
       var query_one       = "SELECT SITE_ID, LOGOUT_SAML_URL, LOGIN FROM ?? WHERE ?? = ? AND ?? = ?";
-      var table_one       = ['profils.saml', 'ENTRY_SAML_URL', full_sso, "SAML_ID", req.body.data.mail];
-      connection.query(query_one, function(err, result_one) {
-        query_one     = mysql.format(query_one, table_one);
+      var table_one       = ['profils.saml', 'ENTRY_SAML_URL', req.body.data.nameQualifier, "SAML_ID", req.body.data.mail];
+      query_one     = mysql.format(query_one, table_one);
+	connection.query(query_one, function(err, result_one) {
         if(err)
         res.status(400).send(err);
         else if (result_one.length == 0)
