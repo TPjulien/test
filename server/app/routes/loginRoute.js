@@ -160,8 +160,8 @@ module.exports = function(router, connection) {
       // à modifier apres lyon 3 (probleme d'id)
       var query_one       = "SELECT SITE_ID, LOGOUT_SAML_URL, UID, LOGIN FROM ?? WHERE ?? = ? AND (?? = ? OR ?? = ?)";
       var table_one       = ['profils.saml', 'ENTRY_SAML_URL', req.body.data.nameQualifier, "LOGIN", mail, "SAML_ID", mail];
-      connection.query(query_one, function(err, result_one) {
-        query_one     = mysql.format(query_one, table_one);
+      query_one     = mysql.format(query_one, table_one);
+	connection.query(query_one, function(err, result_one) {
         if(err)
         res.status(400).send(err);
         else if (result_one.length == 0)
@@ -280,7 +280,7 @@ module.exports = function(router, connection) {
     // route de shibboleth
     router.route('/shibboleth/:login')
     .get(function (req, res) {
-      var query = "SELECT DISTINCT ??, ??, ?? FROM ?? AND ?? = ?";
+      var query = "SELECT DISTINCT ??, ??, ?? FROM ?? WHERE ?? = ?";
       var table = ['SITE_ID', 'ENTRY_SAML_URL', 'LOGOUT_SAML_URL', 'profils.saml', 'LOGIN', req.params.login];
       query     = mysql.format(query, table);
       connection.query(query, function(err, rows) {
