@@ -13,7 +13,6 @@ tableau
             $rootScope.color         = "#EAEAEA"
             $scope.firstname         = decode[0].firstname
             $scope.can_logout        = decode[0].can_logout
-            
 
             $scope.lastname          = decode[0].lastname
             $scope.favorite_color    = decode[0].favorite_color

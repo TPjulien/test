@@ -337,9 +337,9 @@ module.exports = function(router, connection) {
     })
 
     // route pour aetm
-    router.route('/aetmConnect/:uid')
+    router.route('/aetmConnect/:uid/:site_id')
     .get (function(req, res) {
-      var query = "SELECT DISTINCT * FROM profils.view_0_Aetm WHERE UID ='" + req.params.uid + "' LIMIT 1";
+      var query = "SELECT * FROM profils.view_0_Aetm WHERE UID ='" + req.params.uid + "' AND SITE_ID ='" + req.params.site_id + "' LIMIT 1";
       request.post(returnOptions(query, 'profils', 'PWD'), function(err, result, body) {
         if (err)
         res.status(400).send(err);

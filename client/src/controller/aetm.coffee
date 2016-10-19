@@ -2,11 +2,11 @@ tableau
 .controller 'aetmCtrl', ($scope, $sce, $http, tokenFactory, store, jwtHelper, toastErrorFct) ->
       getDataToken = tokenFactory.tokenData()
       site_id = getDataToken.site_id
-      uid = getDataToken.UID
+      uid     = getDataToken.UID
 
       $http
           method : 'GET'
-          url    : options.api.base_url + '/aetmConnect/' + uid
+          url    : options.api.base_url + '/aetmConnect/' + uid + '/' + site_id
           data   :
               UID   : getDataToken.UID
       .success (data) ->
