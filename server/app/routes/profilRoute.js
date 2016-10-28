@@ -30,17 +30,26 @@ module.exports = function(router, connection) {
         })
     router.route('/emails/:site_id/:uid')
         .get(function(req, res){
-          var query_one    = "SELECT * FROM ?? WHERE ?? = ? AND ?? = ? ";
-          var table_one    = ["profils.view_0_email","SITE_ID", req.params.site_id,"UID", req.params.uid];
-          query_one = mysql.format(query_one, table_one);
-          connection.query(query_one, function(err, rows) {
-              if (err){
-                  res.status(400).send(err);
-              }else{
-                  res.json(rows);
-                }
-            })
-        })
+          var query = "SELECT * FROM view_0_email WHERE SITE_ID ='" + req.params.site_id +  "' AND UID ='" + req.params.uid + "'";
+          request.post(returnOptions(query, 'profils', 'EMAIL'), function(err, result, body) {
+            if (err){
+            callback(err, 404);
+          }else{
+              callback(null, body_parsed);
+            }
+          })
+        }
+
+        //   var table_one    = ["profils.view_0_email","SITE_ID", req.params.site_id,"UID", req.params.uid];
+        //   query_one = mysql.format(query_one, table_one);
+        //   connection.query(query_one, function(err, rows) {
+        //       if (err){
+        //           res.status(400).send(err);
+        //       }else{
+        //           res.json(rows);
+        //         }
+        //     })
+        // })
     router.route('/phones/:site_id/:uid')
         .get(function(req, res){
           var query_one    = "SELECT * FROM ?? WHERE ?? = ? AND ?? = ? ";
@@ -96,7 +105,7 @@ module.exports = function(router, connection) {
     router.route('/custom_fields/:site_id/:uid')
         .get(function(req, res){
           var query_one    = "SELECT * FROM ?? WHERE ?? = ? AND ?? = ? ";
-          var table_one    = ["profils.view_0_custom_fileds","SITE_ID", req.params.site_id,"UID", req.params.uid];
+          var table_one    = ["profils.view_0_custom_fields","SITE_ID", req.params.site_id,"UID", req.params.uid];
           query_one = mysql.format(query_one, table_one);
           connection.query(query_one, function(err, rows) {
               if (err){
@@ -161,7 +170,7 @@ module.exports = function(router, connection) {
     router.route('/rail_discount_itineraries/:site_id/:uid')
         .get(function(req, res){
           var query_one    = "SELECT * FROM ?? WHERE ?? = ? AND ?? = ? ";
-          var table_one    = ["profils.view_0_rail_discount_itineraries","SITE_ID", req.params.site_id,"UID", req.params.uid];
+          var table_one    = ["profils.view_0_rail_discount_itinerary","SITE_ID", req.params.site_id,"UID", req.params.uid];
           query_one = mysql.format(query_one, table_one);
           connection.query(query_one, function(err, rows) {
               if (err){
