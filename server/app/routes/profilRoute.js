@@ -6,7 +6,7 @@ module.exports = function(router, connection) {
 
     function returnOptions(query, database, decrypt_table) {
         var options = {
-          url: 'http://api-interne.travelplanet.fr/api/ReadDatabase/selectMySQLPost',
+          url: 'http://api-interne-test.travelplanet.fr/api/ReadDatabase/selectMySQLPost',
           form : {
             sql      : query,
             database : database,
@@ -33,12 +33,13 @@ module.exports = function(router, connection) {
           var query = "SELECT * FROM view_0_email WHERE SITE_ID ='" + req.params.site_id +  "' AND UID ='" + req.params.uid + "'";
           request.post(returnOptions(query, 'profils', 'EMAIL'), function(err, result, body) {
             if (err){
-            callback(err, 404);
+              res.status(400).send(err)
           }else{
-              callback(null, body_parsed);
+              var body_parsed = JSON.parse(body);
+              res.json(body_parsed);
             }
           })
-        }
+        })
 
         //   var table_one    = ["profils.view_0_email","SITE_ID", req.params.site_id,"UID", req.params.uid];
         //   query_one = mysql.format(query_one, table_one);
