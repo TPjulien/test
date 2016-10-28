@@ -79,7 +79,7 @@ p, h1, h2, h3, h4, h5, h6, span {
   font-size: 14px;
   border-bottom: 1px solid #9e9e9e;
   width: 68%;
-  margin-left: 50px;
+  margin-left: 40px;
   padding-bottom:8px;
   color:black;
 }
@@ -2028,5 +2028,3 @@ ng-md-icon {
   opacity: 1;
   transform: scale(1);
 }
-
- 

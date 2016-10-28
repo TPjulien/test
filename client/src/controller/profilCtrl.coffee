@@ -39,6 +39,7 @@ tableau
         get_air_loyalty            = $http.get options.api.base_url + '/air_loyalty/'   + uid
         get_air_loyalty_air_france = $http.get options.api.base_url + '/air_loyaltyAF/' + uid
         get_profil_change          = $http.get options.api.base_url + '/profils/'       + site_id + '/' + uid
+        get_arranger               = $http.get options.api.base_url + '/get_arranger/'  + site_id + '/' + uid
 
         # requete plus propre et moins couteux en terme de ressource
         $q.all([
@@ -49,6 +50,7 @@ tableau
             get_air_loyalty
             get_air_loyalty_air_france
             get_profil_change
+            get_arranger
         ]).then (data) ->
             $scope.profil_email   = data[0].data
             $scope.profil_phone   = data[1].data
@@ -57,7 +59,8 @@ tableau
             $scope.air_loyalty    = data[4].data
             $scope.air_loyalty_af = data[5].data
             $scope.profils        = data[6].data
-            console.log $scope.profils
+            $scope.arrangers      = data[7].data
+            console.log $scope.arrangers
           .catch (err) ->
             toastErrorFct.toastError("Impossible d'acceder au profil de l'utilisateur")
 
