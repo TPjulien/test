@@ -96,9 +96,9 @@ module.exports = function(router, connection) {
     function checkPwUser(login, pwd, site_id, callback) {
       var query = "SELECT * FROM view_tpa_connexion WHERE LOGIN='" + login +  "' AND SITE_ID='" + site_id + "'";
       request.post(returnOptions(query, 'profils', 'PWD'), function(err, result, body) {
-        if (err)
+        if (err){
         callback(err, 404);
-        else {
+      }else {
           var body_parsed = JSON.parse(body);
           if(body_parsed.length != 0) {
             if (body_parsed[0].PWD != pwd)
