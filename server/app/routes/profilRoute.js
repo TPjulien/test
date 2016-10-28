@@ -15,66 +15,175 @@ module.exports = function(router, connection) {
         }
         return options;
     }
-    router.route('/profils/:site_id/:uid')
+    router.route('/mains/:site_id/:uid')
         .get(function(req, res) {
-            var query_one    = "SELECT \
-                               * \
-                               FROM ?? \
-                               WHERE ?? = ? \
-                               AND ?? = ? LIMIT 1 ";
-            var table_one    = [
-                                "profils.0_main",
-                                "SITE_ID", req.params.site_id,
-                                "uid", req.params.uid];
+            var query_one    = "SELECT * FROM ?? WHERE ?? = ? AND ?? = ? ";
+            var table_one    = ["profils.view_0_main","SITE_ID", req.params.site_id,"UID", req.params.uid];
             query_one = mysql.format(query_one, table_one);
             connection.query(query_one, function(err, rows) {
-                if (err)
+                if (err){
                     res.status(400).send(err);
-                else
+                }else{
                     res.json(rows);
+                  }
             })
         })
-    router.route('/get_arranger/:site_id/:uid')
-        .get(function(req, res) {
-            var query_one    = "SELECT ??,??,?? FROM ?? WHERE ?? = ? AND ?? = ?";
-            var table_one    = ["ARRANGER_ID","FIRST_NAME","LAST_NAME","profils.view_0_arranger",
-                                "SITE_ID", req.params.site_id,
-                                "uid", req.params.uid];
-            query_one = mysql.format(query_one, table_one);
-            connection.query(query_one, function(err, rows) {
-                if (err)
-                    res.status(400).send(err);
-                else
-                    res.json(rows);
-            })
-        })
-    // nouvelle route du telephone
-    router.route('/profilPhone/:uid')
-        .get(function(req, res) {
-            var query = "SELECT * FROM phone WHERE UID='" + req.params.uid + "' AND DEPOSITED_DATE=(SELECT MAX(DEPOSITED_DATE) FROM phone WHERE UID='" + req.params.uid + "')";
-            request.post(returnOptions(query, 'profils', ''), function(err, resultat, body) {
-                if (err)
-                    res.status(400).send(err);
-                else {
-                    var body_parsed = JSON.parse(body);
-                    res.json(body_parsed);
+    router.route('/emails/:site_id/:uid')
+        .get(function(req, res){
+          var query_one    = "SELECT * FROM ?? WHERE ?? = ? AND ?? = ? ";
+          var table_one    = ["profils.view_0_email","SITE_ID", req.params.site_id,"UID", req.params.uid];
+          query_one = mysql.format(query_one, table_one);
+          connection.query(query_one, function(err, rows) {
+              if (err){
+                  res.status(400).send(err);
+              }else{
+                  res.json(rows);
                 }
             })
-          })
-
-    // Nouvelle route du profil Email
-    router.route('/profilEmail/:uid')
-        .get(function(req, res){
-          var query = "SELECT * FROM email WHERE UID='"+ req.params.uid + "' AND DEPOSITED_DATE=(SELECT MAX(DEPOSITED_DATE) FROM email WHERE UID='" + req.params.uid + "')";
-          request.post(returnOptions(query, 'profils', ''), function(err, resultat, body) {
-              if (err)
-                  res.status(400).send(err);
-              else
-                  var body_parsed = JSON.parse(body);
-                  res.json(body_parsed);
-          })
         })
-
+    router.route('/phones/:site_id/:uid')
+        .get(function(req, res){
+          var query_one    = "SELECT * FROM ?? WHERE ?? = ? AND ?? = ? ";
+          var table_one    = ["profils.view_0_phone","SITE_ID", req.params.site_id,"UID", req.params.uid];
+          query_one = mysql.format(query_one, table_one);
+          connection.query(query_one, function(err, rows) {
+              if (err){
+                  res.status(400).send(err);
+              }else{
+                  res.json(rows);
+                }
+            })
+        })
+    router.route('/approvers/:site_id/:uid')
+        .get(function(req, res){
+          var query_one    = "SELECT * FROM ?? WHERE ?? = ? AND ?? = ? ";
+          var table_one    = ["profils.view_0_approver","SITE_ID", req.params.site_id,"UID", req.params.uid];
+          query_one = mysql.format(query_one, table_one);
+          connection.query(query_one, function(err, rows) {
+              if (err){
+                  res.status(400).send(err);
+              }else{
+                  res.json(rows);
+                }
+            })
+        })
+    router.route('/arrangers/:site_id/:uid')
+        .get(function(req, res){
+          var query_one    = "SELECT * FROM ?? WHERE ?? = ? AND ?? = ? ";
+          var table_one    = ["profils.view_0_arranger","SITE_ID", req.params.site_id,"UID", req.params.uid];
+          query_one = mysql.format(query_one, table_one);
+          connection.query(query_one, function(err, rows) {
+              if (err){
+                  res.status(400).send(err);
+              }else{
+                  res.json(rows);
+                }
+            })
+        })
+    router.route('/cost_centers/:site_id/:uid')
+        .get(function(req, res){
+          var query_one    = "SELECT * FROM ?? WHERE ?? = ? AND ?? = ? ";
+          var table_one    = ["profils.view_0_cost_center","SITE_ID", req.params.site_id,"UID", req.params.uid];
+          query_one = mysql.format(query_one, table_one);
+          connection.query(query_one, function(err, rows) {
+              if (err){
+                  res.status(400).send(err);
+              }else{
+                  res.json(rows);
+                }
+            })
+        })
+    router.route('/custom_fields/:site_id/:uid')
+        .get(function(req, res){
+          var query_one    = "SELECT * FROM ?? WHERE ?? = ? AND ?? = ? ";
+          var table_one    = ["profils.view_0_custom_fileds","SITE_ID", req.params.site_id,"UID", req.params.uid];
+          query_one = mysql.format(query_one, table_one);
+          connection.query(query_one, function(err, rows) {
+              if (err){
+                  res.status(400).send(err);
+              }else{
+                  res.json(rows);
+                }
+            })
+        })
+    router.route('/discount/:site_id/:uid')
+        .get(function(req, res){
+          var query_one    = "SELECT * FROM ?? WHERE ?? = ? AND ?? = ? ";
+          var table_one    = ["profils.view_0_discount","SITE_ID", req.params.site_id,"UID", req.params.uid];
+          query_one = mysql.format(query_one, table_one);
+          connection.query(query_one, function(err, rows) {
+              if (err){
+                  res.status(400).send(err);
+              }else{
+                  res.json(rows);
+                }
+            })
+        })
+    router.route('/loyalties/:site_id/:uid')
+        .get(function(req, res){
+          var query_one    = "SELECT * FROM ?? WHERE ?? = ? AND ?? = ? ";
+          var table_one    = ["profils.view_0_loyalty","SITE_ID", req.params.site_id,"UID", req.params.uid];
+          query_one = mysql.format(query_one, table_one);
+          connection.query(query_one, function(err, rows) {
+              if (err){
+                  res.status(400).send(err);
+              }else{
+                  res.json(rows);
+                }
+            })
+        })
+    router.route('/passports/:site_id/:uid')
+        .get(function(req, res){
+          var query_one    = "SELECT * FROM ?? WHERE ?? = ? AND ?? = ? ";
+          var table_one    = ["profils.view_0_passport","SITE_ID", req.params.site_id,"UID", req.params.uid];
+          query_one = mysql.format(query_one, table_one);
+          connection.query(query_one, function(err, rows) {
+              if (err){
+                  res.status(400).send(err);
+              }else{
+                  res.json(rows);
+                }
+            })
+        })
+    router.route('/rail_discount_itineraries/:site_id/:uid')
+        .get(function(req, res){
+          var query_one    = "SELECT * FROM ?? WHERE ?? = ? AND ?? = ? ";
+          var table_one    = ["profils.view_0_rail_discount_itineraries","SITE_ID", req.params.site_id,"UID", req.params.uid];
+          query_one = mysql.format(query_one, table_one);
+          connection.query(query_one, function(err, rows) {
+              if (err){
+                  res.status(400).send(err);
+              }else{
+                  res.json(rows);
+                }
+            })
+        })
+    router.route('/rail_documents/:site_id/:uid')
+        .get(function(req, res){
+          var query_one    = "SELECT * FROM ?? WHERE ?? = ? AND ?? = ? ";
+          var table_one    = ["profils.view_0_rail_document","SITE_ID", req.params.site_id,"UID", req.params.uid];
+          query_one = mysql.format(query_one, table_one);
+          connection.query(query_one, function(err, rows) {
+              if (err){
+                  res.status(400).send(err);
+              }else{
+                  res.json(rows);
+                }
+            })
+        })
+    router.route('/roles/:site_id/:uid')
+        .get(function(req, res){
+          var query_one    = "SELECT * FROM ?? WHERE ?? = ? AND ?? = ? ";
+          var table_one    = ["profils.view_0_role","SITE_ID", req.params.site_id,"UID", req.params.uid];
+          query_one = mysql.format(query_one, table_one);
+          connection.query(query_one, function(err, rows) {
+              if (err){
+                  res.status(400).send(err);
+              }else{
+                  res.json(rows);
+                }
+            })
+        })
     // route pour lister toutes les class voyageur pour le train
     router.route('/railClass')
         .get(function(req, res) {
