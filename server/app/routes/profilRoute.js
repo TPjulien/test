@@ -106,7 +106,7 @@ module.exports = function(router, connection) {
                 }
             })
         })
-    router.route('/discount/:site_id/:uid')
+    router.route('/discounts/:site_id/:uid')
         .get(function(req, res){
           var query_one    = "SELECT * FROM ?? WHERE ?? = ? AND ?? = ? ";
           var table_one    = ["profils.view_0_discount","SITE_ID", req.params.site_id,"UID", req.params.uid];
@@ -136,6 +136,19 @@ module.exports = function(router, connection) {
         .get(function(req, res){
           var query_one    = "SELECT * FROM ?? WHERE ?? = ? AND ?? = ? ";
           var table_one    = ["profils.view_0_passport","SITE_ID", req.params.site_id,"UID", req.params.uid];
+          query_one = mysql.format(query_one, table_one);
+          connection.query(query_one, function(err, rows) {
+              if (err){
+                  res.status(400).send(err);
+              }else{
+                  res.json(rows);
+                }
+            })
+        })
+    router.route('/passwords/:site_id/:uid')
+        .get(function(req, res){
+          var query_one    = "SELECT * FROM ?? WHERE ?? = ? AND ?? = ? ";
+          var table_one    = ["profils.view_0_password","SITE_ID", req.params.site_id,"UID", req.params.uid];
           query_one = mysql.format(query_one, table_one);
           connection.query(query_one, function(err, rows) {
               if (err){
