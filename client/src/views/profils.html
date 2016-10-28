@@ -106,7 +106,11 @@
         <div class="col-md-3">
           <div class="backgroung_grey card">
             <div class="card-image">
+<<<<<<< c7fc80b105afbc081c8121874d423f913c6f8119
               <div id="wrapper" ng-switch="user.sexe">
+=======
+              <div id="wrapper" ng-switch="user.GENDER">
+>>>>>>> modif client
                 <div ng-if="profil.GENDER == 'M' ">
                   <img class="col-xs-6 img_profil" src="img/Avatar-Man.jpg">
                 </div>
@@ -145,23 +149,31 @@
                   <label class="right_profil labelProfil">Sexe <md-icon class="logo_lock" md-svg-icon="img/icons/padlock.svg"></md-icon></label>
                 </div>
                 <div class="col-md-8 col-xs-12 radio_generic">
+<<<<<<< c7fc80b105afbc081c8121874d423f913c6f8119
                   <input class="with-gap" name="sexe" type="radio" id="M" ng-model="profil.GENDER" value="M" ng-checked="{{profil.GENDER =='M'}}" />
                   <label for="M">M. </label>
                   <input class="with-gap" name="sexe" type="radio" id="F" ng-model="profil.GENDER" value="F"  ng-checked="{{profil.GENDER=='F'}}"/>
                   <label for="F">Mme. </label>
                   <input class="with-gap" name="sexe" type="radio" id="O" ng-model="profil.GENDER" ng-checked="{{profil.GENDER==null}}" />
+=======
+                  <input class="with-gap" name="GENDER" type="radio" id="M" ng-model="profil.GENDER" value="M" ng-checked="{{profil.GENDER=='M'}}" />
+                  <label for="M">M. </label>
+                  <input class="with-gap" name="GENDER" type="radio" id="F" ng-model="profil.GENDER" value="F"  ng-checked="{{profil.GENDER=='F'}}"/>
+                  <label for="F">Mme. </label>
+                  <input class="with-gap" name="GENDER" type="radio" id="O" ng-model="profil.GENDER" ng-checked="{{profil.GENDER==null}}" />
+>>>>>>> modif client
                   <label for="O">Autre </label>
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-4 col-xs-12">
-                  <label aria-label="prenom"  class="right_profil labelProfil">Prénom <md-icon class="logo_lock" md-svg-icon="img/icons/padlock.svg"></md-icon> </label>
+                  <label aria-label="nom"  class="right_profil labelProfil">Nom <md-icon class="logo_lock" md-svg-icon="img/icons/padlock.svg"></md-icon></label>
                 </div>
                 <div style="margin-top: -7px;" class="col-md-8 col-xs-12">
                   <input class="input_generic" name="prenom" ng-model="profil.FIRST_NAME" ng-minlength="1" ng-maxlength="20" type="text" class="validate" required>
                 </div>
                 <div class="col-md-4 col-xs-12">
-                  <label aria-label="nom"  class="right_profil labelProfil">Nom <md-icon class="logo_lock" md-svg-icon="img/icons/padlock.svg"></md-icon></label>
+                  <label aria-label="prenom"  class="right_profil labelProfil">Prénom <md-icon class="logo_lock" md-svg-icon="img/icons/padlock.svg"></md-icon> </label>
                 </div>
                 <div style="margin-top: -7px;" class="col-md-8 col-xs-12">
                   <input class="input_generic" name="nom" ng-model="profil.LAST_NAME"type="text" ng-minlength="1" ng-maxlength="30" class="validate" required>
@@ -170,7 +182,7 @@
                   <label  class="label_datePicker right_profil labelProfil">Date de naissance<md-icon class="logo_lock" md-svg-icon="img/icons/padlock.svg"></md-icon></label>
                 </div>
                 <div class="col-md-8 col-xs-12">
-                  <md-input-container flex-gt-md="30">
+                  <md-input-container style=" width: 50%;" flex-gt-md="30">
                     <input mdc-datetime-picker="" date="true" time="false" type="text" id="datetime" format="YYYY/MM/DD" min-date="date" ng-model="profil.BIRTH_DATE" class="datePicker_generic md-input">
                   </md-input-container>
                 </div>
@@ -192,7 +204,7 @@
                   <div class="margin_NumTel">
                     <p ng-repeat="oneprofilEmail in profil_email" class="p_profil">{{oneprofilEmail.Email}} <md-icon ng-click="" class="right logo_crossDelete" md-svg-icon="img/icons/delete.svg"></md-icon></p>
                   </div>
-                  <p class="p_profil" ng-repeat="mail in listMail">{{mail.mail}}</p>
+                  <p class="p_profil" ng-repeat="mail in listMail">{{mail.mail}}<md-icon ng-click="" class="right logo_crossDelete" md-svg-icon="img/icons/delete.svg"></md-icon></p>
                 </div>
                 <div class="row">
                   <div class="col-md-11">

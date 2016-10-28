@@ -34,7 +34,20 @@ module.exports = function(router, connection) {
                     res.json(rows);
             })
         })
-
+    router.route('/get_arranger/:site_id/:uid')
+        .get(function(req, res) {
+            var query_one    = "SELECT ??,??,?? FROM ?? WHERE ?? = ? AND ?? = ?";
+            var table_one    = ["ARRANGRT_ID","FIRST_NAME","LAST_NAME","profils.view_0_arranger",
+                                "SITE_ID", req.params.site_id,
+                                "uid", req.params.uid];
+            query_one = mysql.format(query_one, table_one);
+            connection.query(query_one, function(err, rows) {
+                if (err)
+                    res.status(400).send(err);
+                else
+                    res.json(rows);
+            })
+        })
     // nouvelle route du telephone
     router.route('/profilPhone/:uid')
         .get(function(req, res) {

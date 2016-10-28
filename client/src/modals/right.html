@@ -1,16 +1,30 @@
-<div ng-model="multiple_view" layout-padding="" style="width: 325px; {{get_color}}">
+<!-- <div ng-model="multiple_view" layout-padding="" style="width: 325px; {{get_color}}">
   <div class="row">
-    <div ng-repeat="view in multiple_view" class="col s4" style="text-align:center">
+    <div ng-repeat="" class="col s4" style="text-align:center">
       <div ng-click="goToTemplate(view)" tooltips tooltip-template="{{view.EMBED_LIBELLE}}" tooltip-side="top"  class="tile-small" data-period="{{menu.view_position}}" data-duration="250" data-role="tile" data-effect="{{menu.animation}}">
         <div class="tile-content">
           <div class="live-slide tiles_size" style="background-color:{{view.EMBED_COLOR}};" layout-padding="">
               <img ng-src="{{'data:' + view.EMBED_LOGO_TYPE + ';base64,' + view.EMBED_LOGO_BASE_64}}">
           </div>
           <div class="live-slide tiles_size" style="background-color:{{view.EMBED_COLOR}};" layout-padding="">
-              <img ng-src="{{'data:' + view.EMBED_LOGO_TYPE + ';base64,' + view.EMBED_LOGO_BASE_64}}">
+
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+ -->
+ <md-content style=" {{get_color}}"class="md-padding" layout="column">
+   <div class="lock-size" layout="row" layout-align="center center">
+     <md-fab-speed-dial md-open="false" md-direction="up" ng-class="md-scale">
+       <md-fab-actions>
+         <md-button style="width:55px; height:55px" ng-repeat="view in multiple_view" aria-label="{{icon.label}}" class="md-fab md-raised md-mini" id="btn-{{$index}}">
+         <img  ng-src="{{'data:' + view.EMBED_LOGO_TYPE + ';base64,' + view.EMBED_LOGO_BASE_64}}">
+
+         </md-button>
+       </md-fab-actions>
+     </md-fab-speed-dial>
+   </div>
+ </md-content>
