@@ -62,8 +62,8 @@ module.exports = function(router, connection, mysql) {
           var query_one = "SELECT * FROM ??  \
                             WHERE ?? = ?  AND ?? = ? AND ?? = ? GROUP BY ??";
           var table_one = ["click_dash_base.click_History_Email",
-                           "SITE_ID", req.params.site_id,
-                           "UID", req.params.uid,
+                           "SITE_ID",   req.params.site_id,
+                           "UID",       req.params.uid,
                            "BILLET_ID", req.params.billet_id,
                            "BILLET_ID"];
           query_one     = mysql.format(query_one, table_one);

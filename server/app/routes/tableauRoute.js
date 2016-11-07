@@ -18,6 +18,7 @@ module.exports = function(router, connection, mysql) {
                   var user_site = "";
                   if (result_datatable[0].tableau_site != "Default") {
                       user_site = result_datatable[0].tableau_site;
+                  }
                   var username = "";
                   // condition si jamais ce n'est pas un customer
                   if (result_datatable[0].tableau_site == "Customer") {

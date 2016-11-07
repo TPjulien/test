@@ -81,7 +81,7 @@ module.exports = function(router, connection, mysql) {
             var query_one = "SELECT DISTINCT * FROM ?? WHERE ?? = ? AND ?? IN \
                             (SELECT ?? FROM ?? WHERE ?? = ? AND ?? = ?) GROUP BY ??";
             var table_one = ["click_dash_base.click_menu_view", "SITE_ID", req.body.site_id, "VIEW_ID",
-                             "VIEW_ID", "click_dash_base.embed_role_view", "SITE_ID", req.body.site_id, "ROLE_LIBELLE", req.body.user_auth, "VIEW_ID"];
+                             "VIEW_ID", "click_dash_base.click_embed_role_view", "SITE_ID", req.body.site_id, "ROLE_LIBELLE", req.body.user_auth, "VIEW_ID"];
             query_one = mysql.format(query_one, table_one);
             connection.query(query_one, function(err, result) {
                 if (err) {
