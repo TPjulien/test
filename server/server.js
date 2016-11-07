@@ -96,6 +96,8 @@ require('./app/routes/ipRoute')           (router, connection, mysql);
 require('./app/routes/profilRoute')       (router, connection, mysql);
 require('./app/routes/tableauRoute')      (router, connection, mysql);
 require('./app/routes/email')             (router, connection, mysql);
+require('./app/routes/workflow')          (router, connection, mysql);
+
 
 app.use('/api', router);
 

@@ -1,4 +1,4 @@
-workflow
+tableau
 .factory 'alertFact', (SweetAlert,$http, $location, $state) ->
      okCreateFactory: ->
        SweetAlert.swal("Bien Joué!", "Cet élément est maintenant enregistré!", "success")

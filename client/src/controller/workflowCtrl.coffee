@@ -1,5 +1,5 @@
-workflow
-.controller 'workflowCtrl', ($scope,$http, $sce,alertFact) ->
+tableau
+.controller 'workflowCtrl', ($scope, $http, $sce,alertFact) ->
     currentDate = new Date()
     day = currentDate.getDate()
     month = currentDate.getMonth() + 1
@@ -9,7 +9,7 @@ workflow
     $scope.getdistinctWokflow = (schema) ->
         $http
           method: "GET"
-          url:    options.api.base_url + "distinctWokflow"
+          url:    options.api.base_url + "/distinctWokflow"
         .success (data) ->
           $scope.Distinctwokflows = data
         .error (err) ->
@@ -19,7 +19,7 @@ workflow
     $scope.infosWokflow = () ->
         $http
           method: "POST"
-          url:    options.api.base_url + "infosWokflow"
+          url:    options.api.base_url + "/infosWokflow"
           data:
             workflow: $scope.WORKFLOW_NAME
         .success (data) ->
@@ -71,7 +71,7 @@ workflow
     $scope.getParameters = () ->
         $http
           method: "POST"
-          url:    options.api.base_url + "getParameters"
+          url:    options.api.base_url + "/getParameters"
           data:
             workflow: $scope.WORKFLOW_NAME
         .success (data) ->
