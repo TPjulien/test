@@ -1,0 +1,3 @@
+filter:
+    excluded_paths:
+        - "src/js/*"               # Everything in a root level "tests" directory
