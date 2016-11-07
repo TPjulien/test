@@ -14,6 +14,7 @@ module.exports = function(router, connection, mysql) {
         }
         return options;
     }
+
     router.route('/mains/:site_id/:uid')
         .get(function(req, res) {
             var query_one    = "SELECT * FROM ?? WHERE ?? = ? AND ?? = ? ";

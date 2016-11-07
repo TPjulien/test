@@ -8,6 +8,7 @@ module.exports = {
 	var query = "SELECT * FROM ?? WHERE ?? = ? AND ?? = ? ORDER BY ?? LIMIT 1"
 	var table = ['profils.view_info_userConnected', column, result_column, 'SITE_ID', result_site_id, 'Role_ordre'];
 	query     = mysql.format(query, table);
+  /** global: connection */
 	connection.query(query, function(err, info_result) {
             if (err) {
 		res.status(400).send(err);
@@ -27,6 +28,7 @@ module.exports = {
 		    "can_logout":           can_logout,
 		    "is_saml":              is_saml
 		}];
+    /** global: jwt */
 		var token = jwt.sign(preToken, 'travelSecret', {
 		    expiresIn: 7200
 		});

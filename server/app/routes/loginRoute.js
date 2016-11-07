@@ -1,10 +1,13 @@
 var fs           = require('fs');
 var jwt          = require('jsonwebtoken');
-var request      = require('request');
-var passport     = require('passport');
-var SamlStrategy = require('passport-saml').Strategy;
 var token        = require('../functions/token.js');
+var passport     = require('passport');
+var password     = require('../functions/password.js');
+var SamlStrategy = require('passport-saml').Strategy;
+var request      = require('request');
+var zack         = require('../functions/zack_api.js');
 require('dotenv').config({path: '/home/defaultuser/.env' });
+
 
 module.exports = function(router, connection, mysql) {
   var saml_data             = [];
@@ -12,18 +15,6 @@ module.exports = function(router, connection, mysql) {
   // serialize user
   var shib_url              = [];
   var shib_url_logout       = [];
-
-  function returnOptions(query, database, decrypt_table) {
-    var options = {
-      url: 'http://api-interne.travelplanet.fr/api/ReadDatabase/selectMySQLPost',
-      form : {
-        sql      : query,
-        database : database,
-        decrypt  : decrypt_table
-      }
-    }
-    return options;
-  }
 
   passport.serializeUser(function(user, done) {
     done(null, user);
@@ -58,7 +49,6 @@ module.exports = function(router, connection, mysql) {
         table.mail                = profile['urn:oid:0.9.2342.19200300.100.1.3'];
         table.eppn                = profile['urn:oid:1.3.6.1.4.1.5923.1.1.1.6'];
         table.etablissement       = profile['urn:oid:1.3.6.1.4.1.7135.1.2.1.14'];
-        //table.etablissement       = profile['mail'].substring(profile['mail'].lastIndexOf("@") + 1);
         table.given_name          = profile['urn:oid:2.5.4.42'];
         table.common_name         = profile['urn:oid:2.5.4.3'];
         table.display_name        = profile['urn:oid:2.16.840.1.113730.3.1.241'];
@@ -77,27 +67,6 @@ module.exports = function(router, connection, mysql) {
         return done(null, token);
       })
       passport.use(get_strategy);
-    }
-
-    // nouvelle version du password checker
-    function checkPwUser(login, pwd, site_id, callback) {
-      var query = "SELECT * FROM view_tpa_connexion WHERE LOGIN='" + login +  "' AND SITE_ID='" + site_id + "'";
-      request.post(returnOptions(query, 'profils', 'PWD'), function(err, result, body) {
-        if (err){
-        callback(err, 404);
-      }else {
-          var body_parsed = JSON.parse(body);
-          if(body_parsed.length != 0) {
-            if (body_parsed[0].PWD != pwd) {
-                callback("not match", 400);
-            } else {
-                callback(null, body_parsed);
-            }
-          } else {
-              callback("not match", 400);
-          }
-        }
-      })
     }
 
     router.route('/redirect')
@@ -300,7 +269,7 @@ module.exports = function(router, connection, mysql) {
     router.route('/aetmConnect/:uid/:site_id')
     .get (function(req, res) {
       var query = "SELECT * FROM profils.view_0_Aetm WHERE UID ='" + req.params.uid + "' AND SITE_ID ='" + req.params.site_id + "' LIMIT 1";
-      request.post(returnOptions(query, 'profils', 'PWD'), function(err, result, body) {
+      request.post(zack.returnOptions(query, 'profils', 'PWD'), function(err, result, body) {
         if (err) {
             res.status(400).send(err);
         } else {
