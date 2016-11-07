@@ -71,19 +71,21 @@ module.exports = function(router, connection, mysql) {
                     query_datatable += ' FROM ' + result_datatable[0].schema + '.' + result_datatable[0].table;
                     if (filters.length != 0) {
                         for (var name in filters) {
-                            if (name == 0) {
-                                if (filters[name]['value'].length == 2) {
-                                    query_datatable += ' WHERE `' + filters[name]['column_name'] + "` BETWEEN '" + filters[name]['value'][0] + "' AND '" + filters[name]['value'][1] + "' ";
-                                } else {
-                                    query_datatable += ' WHERE `' + filters[name]['column_name'] + "` LIKE '%" + filters[name]['value'] + "%' ";
-                                }
-                            } else {
-                                if (filters[name]['value'].length == 2) {
-                                    query_datatable += ' AND `' + filters[name]['column_name'] + "` BETWEEN '" + filters[name]['value'][0] + "' AND '" + filters[name]['value'][1] + "' ";
-                                } else {
-                                    query_datatable += ' AND `' + filters[name]['column_name'] + "` LIKE '%" + filters[name]['value'] + "%' ";
-                                }
-                            }
+                            if (filters.hasOwnProperty(name)) {
+                              if (name == 0) {
+                                  if (filters[name]['value'].length == 2) {
+                                      query_datatable += ' WHERE `' + filters[name]['column_name'] + "` BETWEEN '" + filters[name]['value'][0] + "' AND '" + filters[name]['value'][1] + "' ";
+                                  } else {
+                                      query_datatable += ' WHERE `' + filters[name]['column_name'] + "` LIKE '%" + filters[name]['value'] + "%' ";
+                                  }
+                              } else {
+                                  if (filters[name]['value'].length == 2) {
+                                      query_datatable += ' AND `' + filters[name]['column_name'] + "` BETWEEN '" + filters[name]['value'][0] + "' AND '" + filters[name]['value'][1] + "' ";
+                                  } else {
+                                      query_datatable += ' AND `' + filters[name]['column_name'] + "` LIKE '%" + filters[name]['value'] + "%' ";
+                                  }
+                              }
+                          }
                         }
                     }
                     // on fini la query avec limit

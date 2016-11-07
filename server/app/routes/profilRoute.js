@@ -203,10 +203,11 @@ module.exports = function(router, connection, mysql) {
             var table_one = ["railClass", "profils.view_profil_lvl1","railClass"];
             query_one = mysql.format(query_one, table_one);
             connection.query(query_one, function(err, rows) {
-                if (err)
+                if (err) {
                     res.status(400).send(err);
-                else
+                 } else {
                     res.json(rows);
+                 }
             })
         })
     // route pour lister tout les emplacements siège pour le train
@@ -216,10 +217,11 @@ module.exports = function(router, connection, mysql) {
             var table_one = ["RailWagonCode", "profils.view_profil_lvl1","RailWagonCode"];
             query_one = mysql.format(query_one, table_one);
             connection.query(query_one, function(err, rows) {
-                if (err)
+                if (err) {
                     res.status(400).send(err);
-                else
+                } else {
                     res.json(rows);
+                }
             })
         })
     // route pour lister toutes les preferences sens marche train
@@ -229,10 +231,11 @@ module.exports = function(router, connection, mysql) {
             var table_one = ["railSeatPosition", "profils.view_profil_lvl1","railSeatPosition"];
             query_one = mysql.format(query_one, table_one);
             connection.query(query_one, function(err, rows) {
-                if (err)
+                if (err) {
                     res.status(400).send(err);
-                else
+                } else {
                     res.json(rows);
+                }
             })
         })
     // route pour lister toutes les preferences sens marche train
@@ -242,10 +245,11 @@ module.exports = function(router, connection, mysql) {
             var table_one = ["RailDepartureStation", "profils.view_profil_lvl1","RailDepartureStation","RailDepartureStation"];
             query_one = mysql.format(query_one, table_one);
             connection.query(query_one, function(err, rows) {
-                if (err)
+                if (err)  {
                     res.status(400).send(err);
-                else
+                } else {
                     res.json(rows);
+                }
             })
         })
     // route pour lister les compagnies férrovières
@@ -255,10 +259,11 @@ module.exports = function(router, connection, mysql) {
             var table_one = ["PROVIDER", "profils.rail_cards","PROVIDER","PROVIDER"];
             query_one = mysql.format(query_one, table_one);
             connection.query(query_one, function(err, rows) {
-                if (err)
+                if (err) {
                     res.status(400).send(err);
-                else
+                } else {
                     res.json(rows);
+                }
             })
         })
     // route pour lister les carte voyageur en fonction des compagnies férrovières
@@ -273,10 +278,11 @@ module.exports = function(router, connection, mysql) {
                                 "PROVIDER", req.params.provider];
             query_one = mysql.format(query_one, table_one);
             connection.query(query_one, function(err, rows) {
-                if (err)
+                if (err) {
                     res.status(400).send(err);
-                else
+                } else {
                     res.json(rows);
+                }
             })
         })
     // route pour lister les cartes voyageur du voyageur
@@ -312,10 +318,11 @@ module.exports = function(router, connection, mysql) {
                                 "profils.rail_discount.SequenceNumber"];
             query_one = mysql.format(query_one, table_one);
             connection.query(query_one, function(err, rows) {
-                if (err)
+                if (err) {
                     res.status(400).send(err);
-                else
+                } else {
                     res.json(rows);
+                }
             })
         })
     // route pour lister toutes les countries pour le phone
@@ -325,10 +332,11 @@ module.exports = function(router, connection, mysql) {
             var table_one = ["profils.rail_loyalty.ProgramCode", "profils.rail_loyalty"];
             query_one = mysql.format(query_one, table_one);
             connection.query(query_one, function(err, rows) {
-                if (err)
+                if (err) {
                     res.status(400).send(err);
-                else
+                } else {
                     res.json(rows);
+                }
             })
         })
     // route pour lister toutes les countries pour le phone
@@ -349,10 +357,11 @@ module.exports = function(router, connection, mysql) {
                              "profils.rail_loyalty.SequenceNumber"];
             query_one = mysql.format(query_one, table_one);
             connection.query(query_one, function(err, rows) {
-                if (err)
+                if (err) {
                     res.status(400).send(err);
-                else
+                } else {
                     res.json(rows);
+                }
             })
         })
     // route pour la carte de fidelite air france d'un voyageur
@@ -374,10 +383,11 @@ module.exports = function(router, connection, mysql) {
                              "profils.air_loyalty.SequenceNumber"];
             query_one = mysql.format(query_one, table_one);
             connection.query(query_one, function(err, rows) {
-                if (err)
+                if (err) {
                     res.status(400).send(err);
-                else
+                } else {
                     res.json(rows);
+                }
             })
         })
     // route pour les cartes de fidelite aérienne d'un voyageur
@@ -399,10 +409,11 @@ module.exports = function(router, connection, mysql) {
                              "profils.air_loyalty.SequenceNumber"];
             query_one = mysql.format(query_one, table_one);
             connection.query(query_one, function(err, rows) {
-                if (err)
+                if (err) {
                     res.status(400).send(err);
-                else
+                } else {
                     res.json(rows);
+                }
             })
         })
     // route pour lister toutes les countries pour le phone
@@ -416,10 +427,11 @@ module.exports = function(router, connection, mysql) {
                              "profils.air_pref.AirSeatingPref"];
             query_one = mysql.format(query_one, table_one);
             connection.query(query_one, function(err, rows) {
-                if (err)
+                if (err) {
                     res.status(400).send(err);
-                else
+                } else {
                     res.json(rows);
+                }
             })
         })
     // route pour lister toutes les countries pour le phone
@@ -429,10 +441,11 @@ module.exports = function(router, connection, mysql) {
             var table_one = ["nicename", "country"];
             query_one = mysql.format(query_one, table_one);
             connection.query(query_one, function(err, rows) {
-                if (err)
+                if (err) {
                     res.status(400).send(err);
-                else
+                } else {
                     res.json(rows);
+                }
             })
         })
     router.route('/phoneCode/:country')
@@ -441,10 +454,11 @@ module.exports = function(router, connection, mysql) {
             var table_one = ["phonecode", "country", "nicename", req.params.country];
             query_one     = mysql.format(query_one, table_one);
             connection.query(query_one, function(err, rows) {
-                if (err)
+                if (err) {
                     res.status(400).send(err);
-                else
+                } else {
                     res.json(rows);
+                }
             })
         })
     // route pour lister toutes les communautés par Site
@@ -454,10 +468,11 @@ module.exports = function(router, connection, mysql) {
             var table_one = ["profils.view_allowed_community.Community", "profils.view_allowed_community", "profils.view_allowed_community.SITE_ID", req.params.site_id,"profils.view_allowed_community.Community"];
             query_one     = mysql.format(query_one, table_one);
             connection.query(query_one, function(err, rows) {
-                if (err)
+                if (err) {
                     res.status(400).send(err);
-                else
+                } else {
                     res.json(rows);
+                }
             })
         })
     // route pour lister tout les profils par communauté et site
@@ -477,10 +492,11 @@ module.exports = function(router, connection, mysql) {
                              "profils.view_allowed_community.Community"];
             query_one     = mysql.format(query_one, table_one);
             connection.query(query_one, function(err, rows) {
-                if (err)
+                if (err) {
                     res.status(400).send(err);
-                else
+                } else {
                     res.json(rows);
+                }
             })
         })
 }

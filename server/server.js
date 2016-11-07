@@ -82,6 +82,7 @@ router.use(function(req, res, next) {
                 req.decoded = decoded;
                 return next();
             }
+            return undefined;
         });
     } else {
         // if no token has been send, show an error

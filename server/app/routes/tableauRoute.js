@@ -12,9 +12,9 @@ module.exports = function(router, connection, mysql) {
             connection.query(query, function(err, result_datatable) {
                 if(err) {
                     res.status(400).send(err);
-                } else if (result_datatable.length == 0)
+                } else if (result_datatable.length == 0) {
                     res.status(404).send('La ressource demandé est introuvable.');
-                else {
+                } else {
                   var user_site = "";
                   if (result_datatable[0].tableau_site != "Default") {
                       user_site = result_datatable[0].tableau_site;
