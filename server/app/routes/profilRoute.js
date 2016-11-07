@@ -1,8 +1,7 @@
-var mysql     = require('mysql');
 var http      = require('http');
 var request   = require('request');
 
-module.exports = function(router, connection) {
+module.exports = function(router, connection, mysql) {
 
     function returnOptions(query, database, decrypt_table) {
         var options = {
@@ -41,16 +40,6 @@ module.exports = function(router, connection) {
           })
         })
 
-        //   var table_one    = ["profils.view_0_email","SITE_ID", req.params.site_id,"UID", req.params.uid];
-        //   query_one = mysql.format(query_one, table_one);
-        //   connection.query(query_one, function(err, rows) {
-        //       if (err){
-        //           res.status(400).send(err);
-        //       }else{
-        //           res.json(rows);
-        //         }
-        //     })
-        // })
     router.route('/phones/:site_id/:uid')
         .get(function(req, res){
           var query_one    = "SELECT * FROM ?? WHERE ?? = ? AND ?? = ? ";

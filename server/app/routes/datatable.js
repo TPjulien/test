@@ -1,8 +1,7 @@
-var mysql = require('mysql');
 var http_post = require('http-post');
 var request   = require('request');
 
-module.exports = function(router, connection) {
+module.exports = function(router, connection, mysql) {
       // on recupere le type de bullet qu'on peut avoir
       router.route('/getBulletFilter')
           .post (function(req, res) {
@@ -11,10 +10,11 @@ module.exports = function(router, connection) {
               var table_bullet = [req.body.column_name, table];
               query_bullet = mysql.format(query_bullet, table_bullet);
               connection.query(query_bullet, function(err, result_bullet) {
-                  if (err)
+                  if (err) {
                       res.status(400).send(err);
-                  else
+                  } else {
                       res.json(result_bullet);
+                  }
               })
           })
       // on recupere le filtre séparément
@@ -35,13 +35,14 @@ module.exports = function(router, connection) {
                     var table_filter_column = ["column", "tp_control.Datatable_WIP", "EMBED_ID", req.params.embed_id];
                     query_filter_column = mysql.format(query_filter_column, table_filter_column);
                     connection.query(query_filter_column, function(err, result_filter_column) {
-                        if (err)
+                        if (err) {
                             res.status(400).send(err);
-                        else
+                        } else {
                             res.json({
                                       "datatable_filters" : result_filter,
                                       "column_filter"     : result_filter_column
                             });
+                        }
                     })
                 }
             })
@@ -50,18 +51,17 @@ module.exports = function(router, connection) {
       router.route('/getDatatable')
           .post (function(req, res) {
               // d'accord on cherche les données envoyé par le client puis une requete
-              pre_data  = req.body.generic_data;
-              filters   = req.body.filters;
+              var pre_data  = req.body.generic_data;
+              var filters   = req.body.filters;
               var query = "SELECT * FROM ?? WHERE ?? = ? AND pdf_display IS NULL ORDER BY position";
               var table = ["tp_control.Datatable_WIP", "EMBED_ID", pre_data.EMBED_ID];
               query = mysql.format(query, table);
               connection.query(query, function(err, result_datatable) {
-                if (err)
+                if (err) {
                     res.status(400).send(err);
-                else {
+                } else {
                     // on fait les traitement
                     var query_datatable = 'SELECT `';
-                    var table_datatable = [];
                     query_datatable += result_datatable[0].column;
                     for (var i = 1; i < result_datatable.length; i++) {
                         query_datatable += '`, `' + result_datatable[i].column;
@@ -70,7 +70,7 @@ module.exports = function(router, connection) {
                     // deuxieme étape de la query builder
                     query_datatable += ' FROM ' + result_datatable[0].schema + '.' + result_datatable[0].table;
                     if (filters.length != 0) {
-                        for (name in filters) {
+                        for (var name in filters) {
                             if (name == 0) {
                                 if (filters[name]['value'].length == 2)
                                     query_datatable += ' WHERE `' + filters[name]['column_name'] + "` BETWEEN '" + filters[name]['value'][0] + "' AND '" + filters[name]['value'][1] + "' ";
@@ -88,9 +88,9 @@ module.exports = function(router, connection) {
                     query_datatable += ' LIMIT ' + req.body.min + ',' + req.body.max;
                     // une fois la query buildé, on l'execute
                     connection.query(query_datatable, function(err, post_data){
-                      if (err)
+                      if (err) {
                           res.status(400).send(err);
-                      else {
+                      } else {
                             // on prend la datatable et aussi la largeur ainsi que le filtre de celui ci
                             res.json({
                                       'datatable'        : post_data,
@@ -111,9 +111,9 @@ module.exports = function(router, connection) {
               var table_one = [embed_id];
               query_one     = mysql.format(query_one, table_one);
               connection.query(query_one, function(err, result) {
-                  if (err)
+                  if (err) {
                       res.status(404).send(err);
-                  else {
+                  } else {
                       var query_intermediate = "SELECT `column` FROM tp_control.Datatable_WIP WHERE `EMBED_ID` = ? AND `position`  = 1 LIMIT 1";
                       query_intermediate     = mysql.format(query_intermediate, table_one);
                       connection.query(query_intermediate, function(err, result_intermediate) {
@@ -128,8 +128,10 @@ module.exports = function(router, connection) {
                                 connection.query(query_two, function(err, data_blob) {
                                     if (err)
                                         res.status(400).send(err);
-                                    else
+                                    else {
+                                        /** global: Buffer */
                                         res.send(new Buffer(data_blob[0].pdf, 'binary'));
+                                    }
                                 })
                               }
                         })

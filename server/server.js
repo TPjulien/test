@@ -26,14 +26,12 @@ function handleDisconnect() {
     });
 
     connection.connect(function(err) {
-        if (err)
+        if (err) {
             setTimeout(handleDisconnect, 2000);
-        else
-            console.log("connection etablished !");
+        }
     });
 
     connection.on('error', function(err) {
-        console.log('db error', err);
         if (err.code === 'PROTOCOL_CONNECTION_LOST')
             handleDisconnect();
         else
@@ -67,8 +65,7 @@ app.use(passport.session());
 
 // debut des routes  ----------------------------------------------------------------------------------
 // on n'a pas besoin de proteger la route d'authentification
-require('./app/routes/loginRoute')(router, connection);
-require('./app/routes/twilioRoute')(router, connection);
+require('./app/routes/loginRoute')(router, connection, mysql);
 
 // on verifie le token auth pour les autres routes
 router.use(function(req, res, next) {
@@ -79,7 +76,7 @@ router.use(function(req, res, next) {
     if (token) {
         jwt.verify(removed_bearer, 'travelSecret', function(err, decoded) {
             if (err) {
-                return res.json({ success: false, message: 'Failed to authenticate token.' });
+                res.json({ success: false, message: 'Failed to authenticate token.' });
             } else {
                 req.decoded = decoded;
                 next();
@@ -95,13 +92,12 @@ router.use(function(req, res, next) {
 });
 
 // require des routes nécesittant un token valide
-require('./app/routes/templateRoute')     (router, connection);
-require('./app/routes/datatable')         (router, connection);
-require('./app/routes/rules')             (router, connection);
-require('./app/routes/ipRoute')           (router, connection);
-require('./app/routes/profilRoute')       (router, connection);
-require('./app/routes/tableauRoute')      (router, connection);
-require('./app/routes/email')             (router, connection);
+require('./app/routes/templateRoute')     (router, connection, mysql);
+require('./app/routes/datatable')         (router, connection, mysql);
+require('./app/routes/ipRoute')           (router, connection, mysql);
+require('./app/routes/profilRoute')       (router, connection, mysql);
+require('./app/routes/tableauRoute')      (router, connection, mysql);
+require('./app/routes/email')             (router, connection, mysql);
 
 app.use('/api', router);
 

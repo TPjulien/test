@@ -1,5 +1,4 @@
 var http         = require('http');
-var mysql        = require('mysql');
 var jwt          = require('jsonwebtoken');
 var NodeRSA      = require('node-rsa');
 var http_post    = require('http-post');
@@ -13,10 +12,7 @@ var passport     = require('passport');
 var fs           = require('fs');
 require('dotenv').config({path: '/home/defaultuser/.env' });
 
-module.exports = function(router, connection) {
-  var table_password        = "user_password";
-  var table_username        = "username";
-  var table_login           = "user_info";
+module.exports = function(router, connection, mysql) {
   var saml_data             = [];
   var saml_data_not_crypted = [];
   // serialize user
@@ -58,8 +54,7 @@ module.exports = function(router, connection) {
         identifierFormat  : 'urn:oasis:names:tc:SAML:2.0:nameid-format:transient',
         logoutCallbackUrl : 'https://click.travelplanet.fr/#/account/login'
       },
-      function(profile, done, err) {
-        var query = "";
+      function(profile, done) {
         var table = {};
         table.uid                 = profile['urn:oid:0.9.2342.19200300.100.1.1'];
         table.affiliations        = profile['urn:oid:1.3.6.1.4.1.5923.1.1.1.1'];
@@ -101,12 +96,14 @@ module.exports = function(router, connection) {
       }else {
           var body_parsed = JSON.parse(body);
           if(body_parsed.length != 0) {
-            if (body_parsed[0].PWD != pwd)
-            callback("not match", 400);
-            else
-            callback(null, body_parsed);
-          } else
-          callback("not match", 400);
+            if (body_parsed[0].PWD != pwd) {
+                callback("not match", 400);
+            } else {
+                callback(null, body_parsed);
+            }
+          } else {
+              callback("not match", 400);
+          }
         }
       })
     }
@@ -122,7 +119,7 @@ module.exports = function(router, connection) {
       failureRedirect: '/error',
       successRedirect: '/redirect'
     }),
-    function (err, req, res, next) {
+    function (err, req, res) {
       if(err) {
         res.status(400).send(err);
       }
@@ -143,9 +140,9 @@ module.exports = function(router, connection) {
       req.user.spNameQualifier = saml_data_not_crypted.spNameQualifier;
       req.user.nameQualifier   = saml_data_not_crypted.nameQualifier;
       saml.logout(req, function(err, requestUrl) {
-        if (err)
-        res.status(400).send(err);
-        else {
+        if (err) {
+          res.status(400).send(err);
+        } else {
           res.json(requestUrl);
         }
       });
@@ -208,10 +205,11 @@ module.exports = function(router, connection) {
       var table  = ['SAML_TYPE', 'profils.saml', 'SITE_ID', req.body.SITE_ID];
       query = mysql.format(query, table);
       connection.query(query, function(err, result) {
-        if (err)
-        res.status(400).send(err);
-        else
-        res.json(result);
+        if (err) {
+            res.status(400).send(err);
+        } else {
+            res.json(result);
+        }
       })
     })
 
@@ -284,11 +282,11 @@ module.exports = function(router, connection) {
       var table = ['SITE_ID', 'ENTRY_SAML_URL', 'LOGOUT_SAML_URL', 'profils.saml', 'LOGIN', req.params.login];
       query     = mysql.format(query, table);
       connection.query(query, function(err, rows) {
-        if (err)
-        res.status(400).send(err);
-        else if (rows.length == 0)
-        res.status(404).send("Not saml configured");
-        else {
+        if (err) {
+            res.status(400).send(err);
+        } else if (rows.length == 0) {
+            res.status(404).send("Not saml configured");
+        } else {
           //shib_url    = rows[0].ENTRY_SAML_URL;
           var sso_idp = rows[0].ENTRY_SAML_URL.split('/');
           shib_url    = "https://" + sso_idp[2] + '/idp/profile/SAML2/Redirect/SSO';
@@ -296,7 +294,6 @@ module.exports = function(router, connection) {
           shib_url_logout = shib_url
           else
           shib_url_logout = rows[0].LOGOUT_SAML_URL;
-          console.log("terminé!");
           saml(shib_url, shib_url_logout);
           res.redirect('/postShibboleth');
         }
@@ -325,13 +322,15 @@ module.exports = function(router, connection) {
             var table_two = ['profils.saml', 'SITE_ID', rows[0].SITE_ID, 'LOGIN', req.params.user];
             query_two     = mysql.format(query_two, table_two);
             connection.query(query_two, function(err, rows_two) {
-              if (err)
-              res.status(400).send(err);
-              else
-              res.json({'tpa': rows, 'saml': rows_two})
+              if (err) {
+                  res.status(400).send(err);
+              } else {
+                  res.json({'tpa': rows, 'saml': rows_two})
+              }
             })
-          } else
-          res.json(rows);
+          } else {
+              res.json(rows);
+          }
         }
       })
     })
@@ -341,21 +340,12 @@ module.exports = function(router, connection) {
     .get (function(req, res) {
       var query = "SELECT * FROM profils.view_0_Aetm WHERE UID ='" + req.params.uid + "' AND SITE_ID ='" + req.params.site_id + "' LIMIT 1";
       request.post(returnOptions(query, 'profils', 'PWD'), function(err, result, body) {
-        if (err)
-        res.status(400).send(err);
-        else {
+        if (err) {
+            res.status(400).send(err);
+        } else {
           var body_parsed = JSON.parse(body);
           res.json(body_parsed);
         }
       })
-      // var query = "SELECT * FROM ?? WHERE ?? = ? LIMIT 1 ";
-      // var table = ['profils.view_Aetm', 'UID', req.params.uid];
-      // query     = mysql.format(query, table);
-      // connection.query(query, function(err, result) {
-      //     if (err)
-      //         res.status(400).send(err);
-      //     else
-      //         res.json(result);
-      // })
     })
   };

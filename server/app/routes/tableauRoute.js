@@ -1,8 +1,7 @@
-var mysql     = require('mysql');
 var http_post = require('http-post');
 var request   = require('request');
 
-module.exports = function(router, connection) {
+module.exports = function(router, connection, mysql) {
     router.route('/getTableau')
         .post(function(req, res) {
             var query    = "SELECT * FROM ?? \
@@ -11,23 +10,21 @@ module.exports = function(router, connection) {
                             'EMBED_ID', req.body.embed_id];
             query = mysql.format(query, table);
             connection.query(query, function(err, result_datatable) {
-                if(err)
+                if(err) {
                     res.status(400).send(err);
-                else if (result_datatable.length == 0)
+                } else if (result_datatable.length == 0)
                     res.status(404).send('La ressource demandé est introuvable.');
                 else {
-                  var user_site = null;
-                  if (result_datatable[0].tableau_site == "Default") {
-                      user_site = '';
-                  } else
+                  var user_site = "";
+                  if (result_datatable[0].tableau_site != "Default") {
                       user_site = result_datatable[0].tableau_site;
-
-                  var username = null
+                  var username = "";
                   // condition si jamais ce n'est pas un customer
-                  if (result_datatable[0].tableau_site == "Customer")
+                  if (result_datatable[0].tableau_site == "Customer") {
                       username = req.body.get_user_name
-                  else
+                  } else {
                       username = result_datatable[0].tableau_user_id;
+                  }
                   var options = {
                       url: 'https://' + result_datatable[0].tableau_server_url + '/trusted',
                       form : {
@@ -48,8 +45,9 @@ module.exports = function(router, connection) {
                                              "token"              : body
                                        };
                         res.json(resultObject);
-                    } else
+                    } else {
                         res.status(404).send('élement introuvable !');
+                    }
                 })
            }
       })
