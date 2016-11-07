@@ -1,0 +1,121 @@
+<div class="container body">
+  <div class="row">
+    <div class="col s12">
+      <div class="row">
+        <form name="form" class="sky-form">
+  				<header>Workflow</header>
+  				<fieldset>
+            <div class="col s12">
+              <section>
+                <label  class=" labelstyle">Selectionne un Workflow</label>
+                <md-input-container class="col s6" style="margin-right: 10px;width:100%;height: 50px;border: 3px solid rgba(158, 158, 158, 0.407843);background-color: white;padding-left: 5px;">
+                  <md-select aria-label="$index" ng-change="getBanks();infosWokflow();getParameters();"style="height: 50px;" ng-model="WORKFLOW_NAME">
+                    <md-option ng-repeat="wokflow in Distinctwokflows" value="{{wokflow.WORKFLOW_NAME}}" style="color: black;font-size: 16px;">{{wokflow.WORKFLOW_NAME}}</md-option>
+                  </md-select>
+                </md-input-container>
+    					</section>
+            </div>
+  				</fieldset>
+          <fieldset>
+            <div class="col s12">
+              <div class="" ng-if="parameters">
+                <div ng-repeat="parameter in parameters" compile ng-bind-html="return_html(parameter)"></div>
+                <div compile ng-bind-html="return_html_listBox(listBoxs)"></div>
+              </div>
+            </div>
+          </fieldset>
+  			</form>
+      </div>
+    </div>
+</div>
+
+<!-- <div class="container body">
+  <div class="row">
+    <div class="col s12">
+      <div class="row">
+        <form action="" class="sky-form">
+  				<header>Workflow</header>
+  				<fieldset>
+            <div class="col s12">
+              <section>
+                <md-input-container class="col s6" style="margin-right: 10px;width:100%">
+                  <label  class=" labelstyle">Selectionne un Workflow</label>
+                  <md-select ng-change="getBanks();Wokflow()"style="height: 50px;" ng-model="WORKFLOW_NAME">
+                    <md-option ng-repeat="wokflow in Distinctwokflows" value="{{wokflow.WORKFLOW_NAME}}">{{wokflow.WORKFLOW_NAME}}</md-option>
+                  </md-select>
+                </md-input-container>
+    					</section>
+            </div>
+  				</fieldset>
+          <fieldset>
+            <div class="col s12">
+              <section>
+                <md-button style="width: 100%;" ng-click="submit()"class="md-raised md-primary">Primary</md-button>
+              </section>
+            </div>
+          </fieldset>
+          <fieldset>
+            <div class="col s12">
+              <section>
+                <md-input-container class="md-block">
+                  <input type="email"  name="mail" ng-model="email">
+                </md-input-container>
+    					</section>
+            </div>
+  				</fieldset>
+
+          <fieldset>
+            <div class="col s6">
+              <label  class=" labelstyle">AVO_BEGIN</label>
+              <datepicker date-format="yyyy-MM-dd" date-set="{{today}}">
+                <input ng-model="AVO_BEGIN"  type="text"/>
+              </datepicker>
+            </div>
+            <div class="col s6">
+              <label  class=" labelstyle">AVO_END</label>
+              <datepicker date-format="yyyy-MM-dd" date-set="{{today}}">
+                <input ng-model="AVO_END"  type="text"/>
+              </datepicker>
+            </div>
+          </fieldset>
+          <fieldset>
+            <div class="col s6">
+              <label  class=" labelstyle">FAC_BEGIN</label>
+              <datepicker date-format="yyyy-MM-dd" date-set="{{today}}">
+                <input ng-model="FAC_BEGIN"  type="text"/>
+              </datepicker>
+            </div>
+            <div class="col s6">
+              <label  class=" labelstyle">FAC_END</label>
+              <datepicker date-format="yyyy-MM-dd" date-set="{{today}}">
+                <input ng-model="FAC_END"  type="text"/>
+              </datepicker>
+            </div>
+          </fieldset>
+          <fieldset>
+            <div class="col s6">
+              <label  class=" labelstyle">ARR_COMPT</label>
+              <datepicker date-format="yyyy-MM-dd" date-set="{{today}}">
+                <input ng-model="ARR_COMPT"  type="text"/>
+              </datepicker>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <div class="col s12">
+              <section>
+                <md-input-container class="col s6" style="margin-right: 10px;width:100%">
+                  <label  class=" labelstyle">Selectionner une banque</label>
+                  <md-select style="height: 50px;" ng-model="newbank">
+                    <md-option ng-repeat="bank in banks" value="{{bank.VALUE}}">{{bank.VALUE}}</md-option>
+                  </md-select>
+                </md-input-container>
+              </section>
+            </div>
+          </fieldset>
+
+
+  			</form>
+      </div>
+    </div>
+</div> -->
