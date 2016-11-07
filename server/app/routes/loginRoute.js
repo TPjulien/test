@@ -206,7 +206,7 @@ module.exports = function(router, connection, mysql) {
     })
 
     // fonction pour le login généralisé
-    function generate_token (column, result_column, result_site_id, can_logout, is_saml) {
+    function generate_token (column, result_column, result_site_id, can_logout, is_saml, req, res) {
         var query = "SELECT * FROM ?? WHERE ?? = ? AND ?? = ? ORDER BY ?? LIMIT 1"
         var table = ['profils.view_info_userConnected', column, result_column, 'SITE_ID', result_site_id, 'Role_ordre'];
         query     = mysql.format(query, table);
@@ -242,7 +242,7 @@ module.exports = function(router, connection, mysql) {
         if (err) {
             res.status(401).send("Bad credential");
         } else if (data.length != 0) {
-            generate_token('Login', req.body.username, req.body.SITE_ID, true, false);
+            generate_token('Login', req.body.username, req.body.SITE_ID, true, false, req, res);
         } else {
           res.status(400).send("user not found");
         }
