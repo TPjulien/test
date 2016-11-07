@@ -6,7 +6,7 @@ module.exports = function(router, connection, mysql) {
         .post(function(req, res) {
             var query    = "SELECT * FROM ?? \
                               WHERE ?? = ?";
-            var table    = ['tp_control.Tableau_WIP',
+            var table    = ['click_dash_base.click_Tableau',
                             'EMBED_ID', req.body.embed_id];
             query = mysql.format(query, table);
             connection.query(query, function(err, result_datatable) {

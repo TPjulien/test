@@ -45,7 +45,7 @@ module.exports = function(router, connection, mysql) {
           var query_one = "SELECT ??,??,?? FROM ??  \
                            WHERE ?? = ? ";
           var table_one = ["email_destination","email_title","email_subject",
-                           "tp_control.embed_email_view_WIP",
+                           "click_dash_base.embed_email_view",
                            "SITE_ID", req.params.site_id];
           query_one     = mysql.format(query_one, table_one);
           connection.query(query_one, function(err, rows) {
@@ -61,7 +61,7 @@ module.exports = function(router, connection, mysql) {
       .get(function(req, res) {
           var query_one = "SELECT * FROM ??  \
                             WHERE ?? = ?  AND ?? = ? AND ?? = ? GROUP BY ??";
-          var table_one = ["tp_control.History_Email_WIP",
+          var table_one = ["click_dash_base.click_History_Email",
                            "SITE_ID", req.params.site_id,
                            "UID", req.params.uid,
                            "BILLET_ID", req.params.billet_id,
@@ -79,7 +79,7 @@ module.exports = function(router, connection, mysql) {
   router.route('/putHistoryMail')
       .post (function(req, res) {
         var query   = "SELECT MAX(??) as new_billet_id FROM ?? WHERE ?? = ? AND ?? = ?";
-        var table   = ['BILLET_ID', 'tp_control.History_Email_WIP',"SITE_ID",req.body.SITE_ID,"UID",req.body.UID ];
+        var table   = ['BILLET_ID', 'click_dash_base.click_History_Email',"SITE_ID",req.body.SITE_ID,"UID",req.body.UID ];
         query = mysql.format(query, table);
         connection.query(query, function (err, rows) {
             if (err) {
@@ -93,7 +93,7 @@ module.exports = function(router, connection, mysql) {
                       res.status(400).send(err);
                   } else {
                       var query_two = "INSERT INTO ?? (??,??,??,??,??,??,??,??,??) VALUES (?,?,?,?,?,?,?,?,?)";
-                      var table_two = ["tp_control.History_Email_WIP",
+                      var table_two = ["click_dash_base.click_History_Email",
                                        "SITE_ID","UID","BILLET_ID","EMAIL_ID","DEPOSITED_DATE","email_sender","email_destination","email_title","email_body",
                                        req.body.SITE_ID,req.body.UID,new_billet_id,1,rows_one[0].new_date,req.body.email_sender,req.body.email_destination,req.body.email_title,req.body.email_body];
                      query_two     = mysql.format(query_two, table_two);
@@ -115,7 +115,7 @@ module.exports = function(router, connection, mysql) {
     router.route('/putHistoryMail_reponse')
         .post (function(req, res) {
           var query   = "SELECT MAX(??) as new_email_id FROM ?? WHERE ?? = ? AND ?? = ? AND ?? =?";
-          var table   = ['EMAIL_ID', 'tp_control.History_Email_WIP',"SITE_ID",req.body.SITE_ID,"UID",req.body.UID,"BILLET_ID",req.body.BILLET_ID ];
+          var table   = ['EMAIL_ID', 'click_dash_base.click_History_Email',"SITE_ID",req.body.SITE_ID,"UID",req.body.UID,"BILLET_ID",req.body.BILLET_ID ];
           query = mysql.format(query, table);
           connection.query(query, function (err, rows) {
               if (err) {
@@ -129,7 +129,7 @@ module.exports = function(router, connection, mysql) {
                         res.status(400).send(err);
                     } else {
                         var query_two = "INSERT INTO ?? (??,??,??,??,??,??,??,??,??) VALUES (?,?,?,?,?,?,?,?,?)";
-                        var table_two = ["tp_control.History_Email_WIP",
+                        var table_two = ["click_dash_base.click_History_Email",
                                          "SITE_ID","UID","BILLET_ID","EMAIL_ID","DEPOSITED_DATE","email_sender","email_destination","email_title","email_body",
                                          req.body.SITE_ID,req.body.UID,req.body.BILLET_ID, new_email_id, rows_one[0].new_date,req.body.email_sender,req.body.email_destination,req.body.email_title,req.body.email_body];
                        query_two     = mysql.format(query_two, table_two);
@@ -152,7 +152,7 @@ module.exports = function(router, connection, mysql) {
         .get(function(req, res) {
             var query_one = "SELECT * FROM ??  \
                              WHERE ?? = ?  AND ?? = ? GROUP BY ??";
-            var table_one = ["tp_control.History_Email_WIP",
+            var table_one = ["click_dash_base.click_History_Email",
                              "SITE_ID",req.params.site_id,
                              "UID", req.params.uid,
                              "BILLET_ID"];
@@ -171,7 +171,7 @@ module.exports = function(router, connection, mysql) {
         .get(function(req, res) {
             var query_one = "SELECT * FROM ??  \
                              WHERE ?? = ?  AND ?? = ? AND ?? = ? ORDER BY ?? DESC";
-            var table_one = ["tp_control.History_Email_WIP",
+            var table_one = ["click_dash_base.click_History_Email",
                              "SITE_ID",req.params.site_id,
                              "UID", req.params.uid,
                              "BILLET_ID",req.params.billet_id,

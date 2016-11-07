@@ -23,7 +23,7 @@ module.exports = function(router, connection, mysql) {
             var query_filter = "SELECT ??,??,??,?? \
                                       FROM ?? \
                                       WHERE ?? = ? AND pdf_display IS NULL";
-            var table_filter = ["has_date_filter","has_search_filter","has_bullet_filter", "has_amount_filter", "tp_control.Datatable_WIP",
+            var table_filter = ["has_date_filter","has_search_filter","has_bullet_filter", "has_amount_filter", "click_dash_base.click_Datatable",
                                 "EMBED_ID", req.params.embed_id];
             query_filter = mysql.format(query_filter, table_filter);
             connection.query(query_filter, function(err, result_filter) {
@@ -32,7 +32,7 @@ module.exports = function(router, connection, mysql) {
                 } else {
                     // deuxieme requete pour recuperer les colonnes utilisées
                     var query_filter_column = "SELECT ?? FROM ?? WHERE ?? = ? AND pdf_display IS NULL";
-                    var table_filter_column = ["column", "tp_control.Datatable_WIP", "EMBED_ID", req.params.embed_id];
+                    var table_filter_column = ["column", "click_dash_base.click_Datatable", "EMBED_ID", req.params.embed_id];
                     query_filter_column = mysql.format(query_filter_column, table_filter_column);
                     connection.query(query_filter_column, function(err, result_filter_column) {
                         if (err) {
@@ -54,7 +54,7 @@ module.exports = function(router, connection, mysql) {
               var pre_data  = req.body.generic_data;
               var filters   = req.body.filters;
               var query = "SELECT * FROM ?? WHERE ?? = ? AND pdf_display IS NULL ORDER BY position";
-              var table = ["tp_control.Datatable_WIP", "EMBED_ID", pre_data.EMBED_ID];
+              var table = ["click_dash_base.click_Datatable", "EMBED_ID", pre_data.EMBED_ID];
               query = mysql.format(query, table);
               connection.query(query, function(err, result_datatable) {
                 if (err) {
@@ -109,14 +109,14 @@ module.exports = function(router, connection, mysql) {
               var user_data = req.body.user_data;
               var embed_id  = req.body.embed_id;
 
-              var query_one = "SELECT `schema`, `table`, `column` FROM tp_control.Datatable_WIP WHERE `EMBED_ID` = ? AND `pdf_display` IS NOT NULL LIMIT 1";
+              var query_one = "SELECT `schema`, `table`, `column` FROM click_dash_base.click_Datatable WHERE `EMBED_ID` = ? AND `pdf_display` IS NOT NULL LIMIT 1";
               var table_one = [embed_id];
               query_one     = mysql.format(query_one, table_one);
               connection.query(query_one, function(err, result) {
                   if (err) {
                       res.status(404).send(err);
                   } else {
-                      var query_intermediate = "SELECT `column` FROM tp_control.Datatable_WIP WHERE `EMBED_ID` = ? AND `position`  = 1 LIMIT 1";
+                      var query_intermediate = "SELECT `column` FROM click_dash_base.click_Datatable WHERE `EMBED_ID` = ? AND `position`  = 1 LIMIT 1";
                       query_intermediate     = mysql.format(query_intermediate, table_one);
                       connection.query(query_intermediate, function(err, result_intermediate) {
                           if (err) {
