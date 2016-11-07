@@ -240,8 +240,8 @@ module.exports = function(router, connection, mysql) {
     router.route('/loginCheck/:user')
     .get (function(req, res) {
       // premiere requete
-      var query = "SELECT * FROM ?? WHERE ?? = ? GROUP BY ??";
-      var table = ['profils.view_tpa_extensions_libelle', "Login", req.params.user, 'site_libelle'];
+      var query = "SELECT * FROM ?? WHERE ?? = ?";
+      var table = ['profils.view_tpa_extensions_libelle', "Login", req.params.user];
       query     = mysql.format(query, table);
       connection.query(query, function(err, rows) {
         if (err) {
