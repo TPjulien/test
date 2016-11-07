@@ -152,7 +152,6 @@ module.exports = function(router, connection, mysql) {
     .post(function(req, res) {
       var mail            = req.body.data.mail;
       var splitted_mail   = mail.split('@');
-      var user_identifier = splitted_mail[0];
 
       // à modifier apres lyon 3 (probleme d'id)
       var query_one       = "SELECT SITE_ID, LOGOUT_SAML_URL, UID, LOGIN FROM ?? WHERE ?? = ? AND (?? = ? OR ?? = ?)";
@@ -168,11 +167,11 @@ module.exports = function(router, connection, mysql) {
           var table_two = ['profils.view_info_userConnected', 'UID', result_one[0].UID, 'SITE_ID', result_one[0].SITE_ID, 'Role_ordre'];
           query_two     = mysql.format(query_two, table_two);
           connection.query(query_two, function(err, info_result) {
-            if (err)
-            res.status(400).send(err);
-            else if (info_result.length == 0)
-            res.status(404).send("Not found !");
-            else {
+            if (err) {
+                res.status(400).send(err);
+            } else if (info_result.length == 0) {
+                res.status(404).send("Not found !");
+            } else {
               var preToken = [{
                 "site_id":              info_result[0].SITE_ID,
                 "UID":                  info_result[0].UID,
@@ -218,9 +217,9 @@ module.exports = function(router, connection, mysql) {
     .post (function (req, res) {
       checkPwUser(req.body.username, req.body.password, req.body.SITE_ID, function(err, data) {
         // dans le cas ou on a une erreur
-        if (err)
-        res.status(401).send("Non autorisé");
-        else {
+        if (err) {
+            res.status(401).send("Non autorisé");
+        } else {
           if (data.length != 0) {
             var query = 'SELECT * FROM ?? WHERE ?? = ? AND ?? = ? ORDER BY ?? LIMIT 1';
             var table = ['profils.view_info_userConnected', 'site_id', req.body.SITE_ID, 'Login', req.body.username, 'Role_ordre'];
@@ -290,10 +289,11 @@ module.exports = function(router, connection, mysql) {
           //shib_url    = rows[0].ENTRY_SAML_URL;
           var sso_idp = rows[0].ENTRY_SAML_URL.split('/');
           shib_url    = "https://" + sso_idp[2] + '/idp/profile/SAML2/Redirect/SSO';
-          if (rows[0].LOGOUT_SAML_URL == null)
-          shib_url_logout = shib_url
-          else
-          shib_url_logout = rows[0].LOGOUT_SAML_URL;
+          if (rows[0].LOGOUT_SAML_URL == null) {
+              shib_url_logout = shib_url
+          } else  {
+              shib_url_logout = rows[0].LOGOUT_SAML_URL;
+          }
           saml(shib_url, shib_url_logout);
           res.redirect('/postShibboleth');
         }

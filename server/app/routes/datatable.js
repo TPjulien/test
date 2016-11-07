@@ -27,9 +27,9 @@ module.exports = function(router, connection, mysql) {
                                 "EMBED_ID", req.params.embed_id];
             query_filter = mysql.format(query_filter, table_filter);
             connection.query(query_filter, function(err, result_filter) {
-                if (err)
+                if (err) {
                     res.status(400).send(err);
-                else {
+                } else {
                     // deuxieme requete pour recuperer les colonnes utilisées
                     var query_filter_column = "SELECT ?? FROM ?? WHERE ?? = ? AND pdf_display IS NULL";
                     var table_filter_column = ["column", "tp_control.Datatable_WIP", "EMBED_ID", req.params.embed_id];
@@ -72,15 +72,17 @@ module.exports = function(router, connection, mysql) {
                     if (filters.length != 0) {
                         for (var name in filters) {
                             if (name == 0) {
-                                if (filters[name]['value'].length == 2)
+                                if (filters[name]['value'].length == 2) {
                                     query_datatable += ' WHERE `' + filters[name]['column_name'] + "` BETWEEN '" + filters[name]['value'][0] + "' AND '" + filters[name]['value'][1] + "' ";
-                                else
+                                } else {
                                     query_datatable += ' WHERE `' + filters[name]['column_name'] + "` LIKE '%" + filters[name]['value'] + "%' ";
+                                }
                             } else {
-                                if (filters[name]['value'].length == 2)
+                                if (filters[name]['value'].length == 2) {
                                     query_datatable += ' AND `' + filters[name]['column_name'] + "` BETWEEN '" + filters[name]['value'][0] + "' AND '" + filters[name]['value'][1] + "' ";
-                                else
+                                } else {
                                     query_datatable += ' AND `' + filters[name]['column_name'] + "` LIKE '%" + filters[name]['value'] + "%' ";
+                                }
                             }
                         }
                     }
@@ -117,18 +119,17 @@ module.exports = function(router, connection, mysql) {
                       var query_intermediate = "SELECT `column` FROM tp_control.Datatable_WIP WHERE `EMBED_ID` = ? AND `position`  = 1 LIMIT 1";
                       query_intermediate     = mysql.format(query_intermediate, table_one);
                       connection.query(query_intermediate, function(err, result_intermediate) {
-                          if (err)
+                          if (err) {
                               res.status(404).send(err);
-                          else
-                              {
+                          } else {
                                 var concat    = result[0].schema + '.' + result[0].table;
                                 var query_two = "SELECT ?? AS pdf FROM ?? WHERE ?? = ?";
                                 var table_two = [result[0].column, concat, result_intermediate[0].column,  user_data[result_intermediate[0].column]];
                                 query_two     = mysql.format(query_two, table_two);
                                 connection.query(query_two, function(err, data_blob) {
-                                    if (err)
+                                    if (err) {
                                         res.status(400).send(err);
-                                    else {
+                                    } else {
                                         /** global: Buffer */
                                         res.send(new Buffer(data_blob[0].pdf, 'binary'));
                                     }

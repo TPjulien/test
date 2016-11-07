@@ -22,9 +22,9 @@ module.exports = function(router, connection, mysql) {
                 // si jamais il y a une erreur ou bien que le tableau est vide, on retourne un status 400, 404
                 if (err) {
                     res.status(400).send(err);
-                } else if (result_roles.length == 0)
+                } else if (result_roles.length == 0) {
                     res.status(404).send("Not Found");
-                else {
+                } else {
                   // une fois passé l'etape 1, on verifie de quel embed il s'agit, si jamais c'est un tableau ou bien autre chose qu'un tableau
                   var request_two = "SELECT * FROM ?? WHERE ?? = ?";
                   var table_two   = ["tp_control.Embed_WIP", "EMBED_ID", result_roles[0].EMBED_ID];
@@ -122,7 +122,6 @@ module.exports = function(router, connection, mysql) {
         })
     router.route('/getViewSite/:site/:role_id')
         .get(function(req, res) {
-            var view_auth_id = "aei.embed_" + req.params.role_id;
             var query        = "select a * from ?? WHERE ?? = ? AND ?? = ?";
             var table        = ['view_menu_auth_role', 'auth_user_role', req.params.role_id, 'site_id', req.params.site];
             query     = mysql.format(query, table);

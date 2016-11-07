@@ -32,10 +32,11 @@ function handleDisconnect() {
     });
 
     connection.on('error', function(err) {
-        if (err.code === 'PROTOCOL_CONNECTION_LOST')
+        if (err.code === 'PROTOCOL_CONNECTION_LOST') {
             handleDisconnect();
-        else
+        } else {
             throw err;
+        }
     });
 }
 
@@ -76,10 +77,10 @@ router.use(function(req, res, next) {
     if (token) {
         jwt.verify(removed_bearer, 'travelSecret', function(err, decoded) {
             if (err) {
-                res.json({ success: false, message: 'Failed to authenticate token.' });
+                return res.json({ success: false, message: 'Failed to authenticate token.' });
             } else {
                 req.decoded = decoded;
-                next();
+                return next();
             }
         });
     } else {
