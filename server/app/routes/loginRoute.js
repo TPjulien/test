@@ -3,7 +3,7 @@ var jwt          = require('jsonwebtoken');
 var request      = require('request');
 var passport     = require('passport');
 var SamlStrategy = require('passport-saml').Strategy;
-require('./app/functions/token.js')
+var token        = require('../functions/token.js');
 require('dotenv').config({path: '/home/defaultuser/.env' });
 
 module.exports = function(router, connection, mysql) {
@@ -154,7 +154,7 @@ module.exports = function(router, connection, mysql) {
         } else if (result_one.length == 0) {
             res.status(404).send("Not found !");
         } else {
-          generate_token('UID', result_one[0].UID, result_one[0].SITE_ID, false, true, req, res);
+          token.generate_token('UID', result_one[0].UID, result_one[0].SITE_ID, false, true, req, res, connection);
           // var query_two = "SELECT * FROM ?? WHERE ?? = ? AND ?? = ? ORDER BY ?? LIMIT 1";
           // var table_two = ['profils.view_info_userConnected', 'UID', result_one[0].UID, 'SITE_ID', result_one[0].SITE_ID, 'Role_ordre'];
           // query_two     = mysql.format(query_two, table_two);
@@ -212,7 +212,7 @@ module.exports = function(router, connection, mysql) {
         if (err) {
             res.status(401).send("Bad credential");
         } else if (data.length != 0) {
-            generate_token('Login', req.body.username, req.body.SITE_ID, true, false, req, res);
+            token.generate_token('Login', req.body.username, req.body.SITE_ID, true, false, req, res, connection);
         } else {
           res.status(400).send("user not found");
         }
