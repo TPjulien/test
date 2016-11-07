@@ -83,7 +83,7 @@ tableau
     $scope.getBanks = () ->
         $http
           method: "POST"
-          url:    options.api.base_url + "banks/"
+          url:    options.api.base_url + "/banks"
           data:
             workflow: $scope.WORKFLOW_NAME
         .success (data) ->
