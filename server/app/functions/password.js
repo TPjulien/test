@@ -1,6 +1,6 @@
 var request = require('request');
 var mysql   = require('mysql');
-var zack    = require('zack_api.js');
+var zack    = require('./zack_api.js');
 module.exports = {
   // nouvelle version du password checker
   checkPwUser: function(login, pwd, site_id, callback) {
