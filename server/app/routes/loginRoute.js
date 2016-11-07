@@ -151,18 +151,17 @@ module.exports = function(router, connection, mysql) {
     router.route('/samlLogin')
     .post(function(req, res) {
       var mail            = req.body.data.mail;
-      var splitted_mail   = mail.split('@');
 
       // à modifier apres lyon 3 (probleme d'id)
       var query_one       = "SELECT SITE_ID, LOGOUT_SAML_URL, UID, LOGIN FROM ?? WHERE ?? = ? AND (?? = ? OR ?? = ?)";
       var table_one       = ['profils.saml', 'ENTRY_SAML_URL', req.body.data.nameQualifier, "LOGIN", mail, "SAML_ID", mail];
       query_one     = mysql.format(query_one, table_one);
 	connection.query(query_one, function(err, result_one) {
-        if(err)
-        res.status(400).send(err);
-        else if (result_one.length == 0)
-        res.status(404).send("Not found !");
-        else {
+        if(err) {
+            res.status(400).send(err);
+        } else if (result_one.length == 0) {
+            res.status(404).send("Not found !");
+        } else {
           var query_two = "SELECT * FROM ?? WHERE ?? = ? AND ?? = ? ORDER BY ?? LIMIT 1";
           var table_two = ['profils.view_info_userConnected', 'UID', result_one[0].UID, 'SITE_ID', result_one[0].SITE_ID, 'Role_ordre'];
           query_two     = mysql.format(query_two, table_two);
@@ -314,9 +313,9 @@ module.exports = function(router, connection, mysql) {
       var table = ['profils.view_tpa_extensions_libelle', "Login", req.params.user, 'site_libelle'];
       query     = mysql.format(query, table);
       connection.query(query, function(err, rows) {
-        if (err)
-        res.status(400).send(err);
-        else {
+        if (err) {
+            res.status(400).send(err);
+        } else {
           if (rows.length == 1) {
             var query_two = "SELECT * FROM ?? WHERE ?? = ? AND ?? = ?";
             var table_two = ['profils.saml', 'SITE_ID', rows[0].SITE_ID, 'LOGIN', req.params.user];
