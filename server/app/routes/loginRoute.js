@@ -176,7 +176,7 @@ module.exports = function(router, connection, mysql) {
     // mise à jour du login
     router.route('/login')
     .post (function (req, res) {
-      checkPwUser(req.body.username, req.body.password, req.body.SITE_ID, function(err, data) {
+      zack.checkPwUser(req.body.username, req.body.password, req.body.SITE_ID, function(err, data) {
         // dans le cas ou on a une erreur
         if (err) {
             res.status(401).send("Bad credential");
