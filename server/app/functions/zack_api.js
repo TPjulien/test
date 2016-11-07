@@ -1,4 +1,4 @@
-modules.exports = {
+module.exports = {
    returnOptions: function (query, database, decrypt_table) {
     var options = {
       url: 'http://api-interne.travelplanet.fr/api/ReadDatabase/selectMySQLPost',
