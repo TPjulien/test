@@ -77,19 +77,15 @@ router.use(function(req, res, next) {
     if (token) {
         jwt.verify(removed_bearer, 'travelSecret', function(err, decoded) {
             if (err) {
-                return res.json({ success: false, message: 'Failed to authenticate token.' });
+                res.json({ success: false, message: 'Failed to authenticate token.' });
             } else {
                 req.decoded = decoded;
-                return next();
+                next();
             }
-            return undefined;
         });
     } else {
         // if no token has been send, show an error
-        return res.status(403).send({
-            success: false,
-            message: "wrong realm :'("
-        });
+        res.status(403).send("Forbidden");
     }
 });
 
