@@ -65,18 +65,19 @@ module.exports = function(router, connection, mysql) {
         })
     router.route('/workflow')
         .post(function(req, res) {
-            var options = {
-                uri : 'http://api-interne-test.travelplanet.fr/api/Alteryx/GenerateXmlParametersFile',
-                method : 'POST',
-                json : req.body.workflow
-            };
-            request(options, function(err, response) {
-                if (response.statusCode == 200) {
-                    res.status(200).send("Ok");
-                } else {
-                    res.status(400).send("bad request");
-                }
-            })
+            console.log(req.body.workflow)
+	    var options = {
+		headers : { 'content-type' : 'application/json' },
+		url     : 'http://api-interne-test.travelplanet.fr/api/Alteryx/GenerateXmlParametersFile',
+		body    : req.body.workflow
+	    }
+	    request.post(options, function(err) {
+		if (err) {
+		    res.status(400).send(err);
+		} else {
+		    res.status(200).send("ok");
+		}
+	    })
         })
 
 };
