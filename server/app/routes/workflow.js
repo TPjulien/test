@@ -65,7 +65,6 @@ module.exports = function(router, connection, mysql) {
         })
     router.route('/workflow')
         .post(function(req, res) {
-            console.log(req.body.workflow)
 	    var options = {
 		headers : { 'content-type' : 'application/json' },
 		url     : 'http://api-interne-test.travelplanet.fr/api/Alteryx/GenerateXmlParametersFile',
