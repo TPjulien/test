@@ -113,16 +113,16 @@ tableau
         myDATA['workflow_name'] = $scope.WORKFLOW_NAME
         myDATA['Bank']          = newbank
         json_data = JSON.stringify(myDATA);
-        console.log json_data
-        # if error == 0
-        #   $http
-        #     method: "POST"
-        #     url:    "http://api-interne-test.travelplanet.fr/api/Alteryx/GenerateXmlParametersFile"
-        #     data:   json_data
-        #     transformResponse: [ (data) ->
-        #       # Do whatever you want!
-        #     ]
-        #   .success (data) ->
-        #       alertFact.okCreateFactory()
-        #   .error (err) ->
-        #       console.log "une error est survenue"
+
+        if error == 0
+          $http
+            method: "POST"
+            url:    "http://api-interne-test.travelplanet.fr/api/Alteryx/GenerateXmlParametersFile"
+            data:   json_data
+            transformResponse: [ (data) ->
+              # Do whatever you want!
+            ]
+          .success (data) ->
+              alertFact.okCreateFactory()
+          .error (err) ->
+              console.log "une error est survenue"
