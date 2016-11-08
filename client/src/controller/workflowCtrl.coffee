@@ -116,13 +116,20 @@ tableau
 
         if error == 0
           $http
-            method: "POST"
-            url:    "http://api-interne-test.travelplanet.fr/api/Alteryx/GenerateXmlParametersFile"
-            data:   json_data
-            transformResponse: [ (data) ->
-              # Do whatever you want!
-            ]
+              method : 'POST'
+              url    : options.api.base_url + '/workflow'
+              data   :
+                  workflow : json_data
           .success (data) ->
               alertFact.okCreateFactory()
           .error (err) ->
-              console.log "une error est survenue"
+              console.error err
+          # $http
+          #   method: "POST"
+          #   url:    "http://api-interne-test.travelplanet.fr/api/Alteryx/GenerateXmlParametersFile"
+          #   data:
+          #     worflow: json_data
+          # .success (data) ->
+          #     alertFact.okCreateFactory()
+          # .error (err) ->
+          #     console.log "une error est survenue"

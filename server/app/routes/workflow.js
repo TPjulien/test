@@ -1,3 +1,5 @@
+var request   = require('request');
+
 module.exports = function(router, connection, mysql) {
     router.route('/distinctWokflow')
         .get(function(req, res) {
@@ -58,6 +60,21 @@ module.exports = function(router, connection, mysql) {
                     res.status(400).send(err);
                 } else {
                     res.json(rows);
+                }
+            })
+        })
+    router.route('/workflow')
+        .post(function(req, res) {
+            var options = {
+                uri : 'http://api-interne-test.travelplanet.fr/api/Alteryx/GenerateXmlParametersFile',
+                method : 'POST',
+                json : req.body.workflow
+            };
+            request(options, function(err, response) {
+                if (response.statusCode == 200) {
+                    res.status(200).send("Ok");
+                } else {
+                    res.status(400).send("bad request");
                 }
             })
         })
