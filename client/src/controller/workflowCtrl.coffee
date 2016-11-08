@@ -56,7 +56,7 @@ tableau
                           <label  class="">Selectionner une banque</label>
                           <md-input-container class="col s6" style="margin-right: 10px;width:100%;height: 50px;border: 3px solid rgba(158, 158, 158, 0.407843);background-color: white;padding-left: 5px;">
                             <md-select aria-label="$index" style="height: 50px;" ng-model="newbank">
-                              <md-option ng-repeat="bank in banks" value="{{bank.VALUE}}">{{bank.VALUE}}</md-option>
+                              <md-option ng-repeat="bank in banks track by $id(bank)" value="{{bank}}">{{bank}}</md-option>
                             </md-select>
                           </md-input-container>
                         </div>
@@ -87,7 +87,11 @@ tableau
           data:
             workflow: $scope.WORKFLOW_NAME
         .success (data) ->
-            $scope.banks = data
+            data = data[0].VALUE
+            array = []
+            array = data.split(["\n"])
+            array.pop()
+            $scope.banks = array
         .error (err) ->
             console.log err
 
@@ -109,16 +113,16 @@ tableau
         myDATA['workflow_name'] = $scope.WORKFLOW_NAME
         myDATA['Bank']          = newbank
         json_data = JSON.stringify(myDATA);
-
-        if error == 0
-          $http
-            method: "POST"
-            url:    "http://api-interne-test.travelplanet.fr/api/Alteryx/GenerateXmlParametersFile"
-            data:   json_data
-            transformResponse: [ (data) ->
-              # Do whatever you want!
-            ]
-          .success (data) ->
-              alertFact.okCreateFactory()
-          .error (err) ->
-              console.log "une error est survenue"
+        console.log json_data
+        # if error == 0
+        #   $http
+        #     method: "POST"
+        #     url:    "http://api-interne-test.travelplanet.fr/api/Alteryx/GenerateXmlParametersFile"
+        #     data:   json_data
+        #     transformResponse: [ (data) ->
+        #       # Do whatever you want!
+        #     ]
+        #   .success (data) ->
+        #       alertFact.okCreateFactory()
+        #   .error (err) ->
+        #       console.log "une error est survenue"

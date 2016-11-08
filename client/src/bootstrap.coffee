@@ -38,6 +38,7 @@ tableau = angular.module 'tableauApp', [
   'wysiwyg.module'
   'colorpicker.module'
   'ngMap'
+  '720kb.datepicker'
 ]
 
 options = {}
