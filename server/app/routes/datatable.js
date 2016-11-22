@@ -47,64 +47,81 @@ module.exports = function(router, connection, mysql) {
                 }
             })
           })
-      // On Recupere les données de la datatable
+      // datatable v2
       router.route('/getDatatable')
-          .post (function(req, res) {
-              // d'accord on cherche les données envoyé par le client puis une requete
-              var pre_data  = req.body.generic_data;
-              var filters   = req.body.filters;
-              var query = "SELECT * FROM ?? WHERE ?? = ? AND pdf_display IS NULL ORDER BY position";
-              var table = ["click_dash_base.click_Datatable", "EMBED_ID", pre_data.EMBED_ID];
-              query = mysql.format(query, table);
-              connection.query(query, function(err, result_datatable) {
-                if (err) {
-                    res.status(400).send(err);
-                } else {
-                    // on fait les traitement
-                    var query_datatable = 'SELECT `';
-                    query_datatable += result_datatable[0].column;
-                    for (var i = 1; i < result_datatable.length; i++) {
-                        query_datatable += '`, `' + result_datatable[i].column;
-                    }
-                    query_datatable += '`';
-                    // deuxieme étape de la query builder
-                    query_datatable += ' FROM ' + result_datatable[0].schema + '.' + result_datatable[0].table;
-                    if (filters.length != 0) {
-                        for (var name in filters) {
-                            if (filters.hasOwnProperty(name)) {
-                              if (name == 0) {
-                                  if (filters[name]['value'].length == 2) {
-                                      query_datatable += ' WHERE `' + filters[name]['column_name'] + "` BETWEEN '" + filters[name]['value'][0] + "' AND '" + filters[name]['value'][1] + "' ";
-                                  } else {
-                                      query_datatable += ' WHERE `' + filters[name]['column_name'] + "` LIKE '%" + filters[name]['value'] + "%' ";
-                                  }
-                              } else {
-                                  if (filters[name]['value'].length == 2) {
-                                      query_datatable += ' AND `' + filters[name]['column_name'] + "` BETWEEN '" + filters[name]['value'][0] + "' AND '" + filters[name]['value'][1] + "' ";
-                                  } else {
-                                      query_datatable += ' AND `' + filters[name]['column_name'] + "` LIKE '%" + filters[name]['value'] + "%' ";
-                                  }
-                              }
-                          }
-                        }
-                    }
-                    // on fini la query avec limit
-                    query_datatable += ' LIMIT ' + req.body.min + ',' + req.body.max;
-                    // une fois la query buildé, on l'execute
-                    connection.query(query_datatable, function(err, post_data){
-                      if (err) {
-                          res.status(400).send(err);
-                      } else {
-                            // on prend la datatable et aussi la largeur ainsi que le filtre de celui ci
-                            res.json({
-                                      'datatable'        : post_data,
-                                      'datatable_width'  : result_datatable
-                                    });
-                          }
-                    })
-                 }
-              })
+          .post(function(req, res) {
+              var columns = req.body.datas.list_columns;
+              var table_name = datas.table_name;
+              var filters = req.body.filters;
+              var query = "SELECT `";
+              // query += columns[0].column_name;
+              for (var key in datas) {
+                  if (datas.hasOwnProperty(key)) {
+                      query += datas[key].column_name "`,`";
+                  }
+              }
+              query = query.slice(0, -2);
+              query += " FROM " + table_name;
+              res.send(query);
           })
+      // On Recupere les données de la datatable
+      // router.route('/getDatatable')
+      //     .post (function(req, res) {
+      //         // d'accord on cherche les données envoyé par le client puis une requete
+      //         var pre_data  = req.body.generic_data;
+      //         var filters   = req.body.filters;
+      //         var query = "SELECT * FROM ?? WHERE ?? = ? AND pdf_display IS NULL ORDER BY position";
+      //         var table = ["click_dash_base.click_Datatable", "EMBED_ID", pre_data.EMBED_ID];
+      //         query = mysql.format(query, table);
+      //         connection.query(query, function(err, result_datatable) {
+      //           if (err) {
+      //               res.status(400).send(err);
+      //           } else {
+      //               // on fait les traitement
+      //               var query_datatable = 'SELECT `';
+      //               query_datatable += result_datatable[0].column;
+      //               for (var i = 1; i < result_datatable.length; i++) {
+      //                   query_datatable += '`, `' + result_datatable[i].column;
+      //               }
+      //               query_datatable += '`';
+      //               // deuxieme étape de la query builder
+      //               query_datatable += ' FROM ' + result_datatable[0].schema + '.' + result_datatable[0].table;
+      //               if (filters.length != 0) {
+      //                   for (var name in filters) {
+      //                       if (filters.hasOwnProperty(name)) {
+      //                         if (name == 0) {
+      //                             if (filters[name]['value'].length == 2) {
+      //                                 query_datatable += ' WHERE `' + filters[name]['column_name'] + "` BETWEEN '" + filters[name]['value'][0] + "' AND '" + filters[name]['value'][1] + "' ";
+      //                             } else {
+      //                                 query_datatable += ' WHERE `' + filters[name]['column_name'] + "` LIKE '%" + filters[name]['value'] + "%' ";
+      //                             }
+      //                         } else {
+      //                             if (filters[name]['value'].length == 2) {
+      //                                 query_datatable += ' AND `' + filters[name]['column_name'] + "` BETWEEN '" + filters[name]['value'][0] + "' AND '" + filters[name]['value'][1] + "' ";
+      //                             } else {
+      //                                 query_datatable += ' AND `' + filters[name]['column_name'] + "` LIKE '%" + filters[name]['value'] + "%' ";
+      //                             }
+      //                         }
+      //                      }
+      //                   }
+      //               }
+      //               // on fini la query avec limit
+      //               query_datatable += ' LIMIT ' + req.body.min + ',' + req.body.max;
+      //               // une fois la query buildé, on l'execute
+      //               connection.query(query_datatable, function(err, post_data){
+      //                 if (err) {
+      //                     res.status(400).send(err);
+      //                 } else {
+      //                       // on prend la datatable et aussi la largeur ainsi que le filtre de celui ci
+      //                       res.json({
+      //                                 'datatable'        : post_data,
+      //                                 'datatable_width'  : result_datatable
+      //                               });
+      //                     }
+      //               })
+      //            }
+      //         })
+      //     })
 
       router.route('/downloadPdf')
           .post (function(req, res) {
