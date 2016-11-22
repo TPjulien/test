@@ -4,7 +4,7 @@ var zack    = require('./zack_api.js');
 module.exports = {
   // nouvelle version du password checker
   checkPwUser: function(login, pwd, site_id, callback) {
-    var query = "SELECT * FROM view_tpa_connexion WHERE LOGIN='" + login +  "' AND SITE_ID='" + site_id + "'";
+    var query = "SELECT * FROM view_connexion WHERE LOGIN='" + login +  "' AND SITE_ID='" + site_id + "'";
     request.post(zack.returnOptions(query, 'profils', 'PWD'), function(err, result, body) {
       if (err){
       callback(err, 404);

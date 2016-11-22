@@ -158,6 +158,11 @@ module.exports = function(router, connection, mysql) {
       })
     });
 
+    router.route('/testRoute')
+    .post(function(req, res) {
+	res.json(req.body.datalist);
+    });
+
     // on verifie s'il est éligible au samlCheck
     router.route('/samlCheck')
     .post (function (req, res) {
