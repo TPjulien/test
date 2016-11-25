@@ -1,5 +1,5 @@
 tableau
-.controller 'homeCtrl', ($scope, $mdSidenav, $timeout, logoutFct, jwtHelper, store, $http, $stateParams, $location, $interval, $rootScope, $sce, $mdDialog, $window, toastErrorFct, $q, $state, ipFct) ->
+.controller 'homeCtrl', ($scope, $mdSidenav, $timeout, logoutFct, jwtHelper, store, $http, $stateParams, $location, $interval, $rootScope, $sce, $mdDialog, $window, toastErrorFct, $q, $state, ipFct, bitmaskFactory) ->
     if(!store.get('JWT'))
         $state.go 'login'
     else
@@ -22,7 +22,83 @@ tableau
             $scope.get_multiple_view = []
             $scope.get_color         = []
 
+            $scope.userInfos = []
+            $scope.viewsMenu = []
+            $scope.agg       = []
+
+            $scope.isOpen = false
+            $scope.selectedDirection = "right"
+            $scope.selectedMode = "md-scale"
+            embeds_map =  []
+
+
             $mdDialog.hide()
+
+            # Get du site
+            getInfoUser = () ->
+                parameters =
+                    "type" : "click"
+                    "key"  : "site"
+                    "id"   : "Q1CN"
+                $http.post 'http://151.80.121.123:7890/api/select/table1', { parameters : parameters, selected : "*" }
+                .then (data) ->
+                    $scope.userInfos = eval data.data[0].js_data
+
+            getViews = () ->
+                parameters =
+                    "type" : "click"
+                    "key"  : "view"
+                    "id1"   : "Q1CN"
+                $http.post 'http://151.80.121.123:7890/api/select/table2', { parameters : parameters, selected : "*" }
+                .then (data) ->
+                    for key in data.data
+                        temp              = eval key.js_data
+                        temp[0].view_id   = key.id2
+                        $scope.viewsMenu.push temp[0]
+                    getBitmask()
+                        # for key in $scope.viewsMenu
+                        #     console.log key.map_embed
+                    # console.log "bitmask !", $scope.viewsMenu
+
+            # le bitmask a mettre du coté des embed à afficher
+            getBitmask = () ->
+                $http.post 'http://151.80.121.123:7890/api/getUserBitmask/Q1CN', { roles: ["90", "91"] }
+                .then (data) ->
+                    console.log "c'est dans data !", data.data
+                    embedBm   = []
+                    map_embed = []
+                    for key in $scope.viewsMenu
+                        if key.map_embed
+                            map_embed = key.map_embed
+                            angular.forEach key.map_embed, (result, key) ->
+                                if embedBm.length == 0
+                                    embedBm = result
+                                else
+                                    embedBm = bitmaskFactory.fuse result, embedBm
+
+                    console.log "embed", embedBm
+                    embedBm = [16, 24, 0, 64]
+                    temp = bitmaskFactory.compare(data.data.bitmask, embedBm)
+                    console.log temp
+                    result = bitmaskFactory.decode(temp)
+                    console.log result
+
+            getAgg = () ->
+                parameters =
+                    "type": "click"
+                    "key" : "agg"
+                    "id1" : "Q1CN"
+                $http.post 'http://151.80.121.123:7890/api/select/table2', { parameters : parameters, selected : "*" }
+                .then (data) ->
+                    list_view = []
+                    for key in data.data
+                        temp              = eval key.js_data
+                        temp[0].view_id   = key.id2
+                        $scope.agg.push temp[0]
+
+            getAgg()
+            getViews()
+            getInfoUser()
 
             $scope.getNumber = (id) ->
               $http
@@ -40,15 +116,9 @@ tableau
             else if(window.screen.width > 1024)
                 $scope.numDisp = true
 
-            $scope.goTO = (view_id, embed_id, menu) ->
-              get_action = "Using " + menu.EMBED_CONTENT_TYPE + " WITH EMBED_ID : " + menu.EMBED_ID + " AND VIEW_ID : " + menu.VIEW_ID
-              path = '/home/dashboard/' + view_id + '-' + embed_id
+            $scope.goTo = (content_id) ->
+              path = '/home/dashboard/' + content_id
               $location.path path
-              # console.log data
-              ipFct.insertDataIp(get_action)
-              # console.log decode
-              # a mettre pour plus tard
-              # $mdSidenav('left').close()
 
             getColor = (color) ->
               css = 'background-color:' + color
@@ -71,7 +141,6 @@ tableau
 
               if get_infos.length > 0
                   full_link = get_infos.map (view_id) ->
-                      #return options.api.base_url + '/getMultipleView/' + view_id + '/' + decode[0].site_id + '/' + decode[0].user_auth
                       return options.api.base_url + '/getMultipleView/' + view_id + '/' + decode[0].site_id
 
 
@@ -84,182 +153,35 @@ tableau
                       $scope.get_multiple_view = final_infos
 
             $scope.goToTemplate = (data) ->
-                get_action = "Using " + data.EMBED_CONTENT_TYPE + " , " + data.EMBED_LIBELLE + " WITH EMBED_ID : " + data.EMBED_ID + " AND VIEW_ID : " + data.VIEW_ID
+                get_action = "Using " + data.EMBED_CO NTENT_TYPE + " , " + data.EMBED_LIBELLE + " WITH EMBED_ID : " + data.EMBED_ID + " AND VIEW_ID : " + data.VIEW_ID
                 ipFct.insertDataIp(get_action)
                 path = '/home/dashboard/' + data.VIEW_ID + "-" + data.EMBED_ID
                 $location.path path
 
-            # $scope.returnMultipleImage(image) ->
-            #     image = 'data:' + data['EMBED_LOGO_TYPE'] + ';base64,' + data['EMBED_LOGO_BASE_64']
+            $scope.bindMenu = (data, view, list_view) ->
+                if data.list_view.length != 0
+                    menu = []
+                    # premier premiere itération
+                    menu += """<md-fab-speed-dial md-open="" md-direction="{{selectedDirection}}"
+                                       ng-class="selectedMode">
+                                <md-fab-trigger>
+                                  <md-button style="padding:0; background-color:transparent"  aria-label="menu" class="md-fab">
+                                    <img ng-src=" """ + data.groupe_logo + """ ">
+                                  </md-button>
+                                </md-fab-trigger>"""
+                    menu += """ <md-fab-actions> """
+                    for idView in list_view
+                        for dataView in view
+                            if dataView.view_id == idView and dataView.list_embed.length != 0
+                                menu += """<md-button style="padding:0" ng-click=goTo(""" + dataView.view_id.toString() + """) aria-label="test" class="md-fab md-raised md-mini">
+                                              <img ng-src=" """ + dataView.view_logo_base_64 + """ ">
+                                           </md-button>"""
+                    menu += """</md-fab-actions>
+                               </md-fab-speed-dial>"""
 
-            # Html pour le menu comme je dois verifier si oui ou non la requete fonctionne
-            $scope.bindMenu = (data, menu) ->
-                color      = $scope.get_color = getColor(data['VIEW_COLOR'])
-                # image      = data['VIEW_ICON']
-                image = 'data:' + data['VIEW_LOGO_TYPE'] + ';base64,' + data['VIEW_LOGO_BASE_64']
-
-                id         = data['VIEW_ID']
-                view_label = data['VIEW_LABEL']
-                menu       = []
-
-                if $scope.get_multiple_view.length >= 0
-                    if $scope.get_multiple_view[id] != undefined
-                        $scope.multiple_view = $scope.get_multiple_view[id]
-                        menu += """ <div angular-popover direction="right" close-on-click="false" template-url="/modals/right.html" mode="click" close-on-mouseleave="true" style="position: relative;"> """
-                        # menu = """  """
-                    else
-                        menu += """ <div ng-click="goTO(menu.VIEW_ID, menu.EMBED_ID, menu)" style="position: relative;"> """
-
-                menu += """
-                              <div tooltips tooltip-template=" """ + view_label + """ " tooltip-side="right" class="tile-small" data-period=" """ + data['view_position'] + """ " data-duration="250" data-role="tile" data-effect=" """ + data['animation'] + """ ">
-                                  <div class="tile-content">
-                                      <div class="live-slide tiles_size" style=" """ + color + """ " layout-padding="">
-                                          <img ng-src=" """ + image + """ ">
-                                      </div>
-                                      <div class="live-slide tiles_size" style=" """ + color + """ " layout-padding="">
-                                          <img ng-src=" """ + image + """ ">
-                                      </div>
-                                  </div>
-                              </div>
-                            </div>
-                        """
-                return $sce.trustAsHtml menu
-                    # angular.forEach $scope.viewMenu, (value, key) ->
-                    #     console.log get_multiple_view[test]
-                        #
-
-                        # console.log value["VIEW_ID"]
-                    # console.log get_multiple_view
-                    # test = "SITE_ID"
-                    # angular.forEach get_multiple_view, (value, key) ->
-                        # console.log value, key
-                        # angular.forEach value, (value_deep, key_deep) ->
-                        #     console.log value_deep, key_deep
-
-                            # console.log value_deep[test], key_deep
-                    # console.log get_multiple_view[0]
-
-
-                    # console.log result['SITE_ID'], result['VIEW_ID']
-                    # $http
-                    #     method : 'GET'
-                    #     url    : options.api.base_url + '/getMultipleView/' + result['SITE_ID'] + '/' + result['VIEW_ID']
-                    # .success (data) ->
-                    #     menu = """<p>Bonjour tout le monde ! </p>"""
-                    #     console.log data
-                    # .error (err) ->
-                    #     console.log err
-                    # console.log result['SITE_ID'], result['VIEW_ID']
-                # console.log $scope.viewMenu
-                # after  = "<p>Bonjour tout le monde !</p>"
-                # intro_div = """
-                #            <md-toolbar style="background-color:transparent; padding-top: 25px;">
-                #               <span flex></span>
-                #         """
-                # check_popover = """<div angular-popover direction="right" close-on-click="false" template-url="/modals/right.html" mode="click" close-on-mouseleave="true" style="position: relative;" ng-repeat="menu in viewMenu">"""
-                # final_div = """
-                #               <div tooltips tooltip-template="{{menu.VIEW_LABEL}}" tooltip-side="bottom" ng-click="goTO(menu.SITE_ID, menu.VIEW_ID, menu.VIEW_LABEL)"  class="tile-small" data-period="{{menu.view_position}}" data-duration="250" data-role="tile" data-effect="{{menu.animation}}">
-                #                   <div class="tile-content">
-                #                       <div class="live-slide tiles_size" style="{{getColor(menu.VIEW_COLOR)}};" layout-padding="">
-                #                           <img ng-src="{{getImage(menu.VIEW_ICON)}}">
-                #                       </div>
-                #                       <div class="live-slide tiles_size" style="{{getColor(menu.VIEW_COLOR)}};" layout-padding="">
-                #                           <img ng-src="{{getImage(menu.VIEW_ICON)}}">
-                #                       </div>
-                #                   </div>
-                #               </div>
-                #             </div>
-                #         </md-toolbar>
-                #             """
-                # menu = intro_div + check_popover + final_div
-                # return $sce.trustAsHtml menu
-
-
-            getRandomNumber = () ->
-              min = 2000;
-              max = 7000;
-              random = Math.floor(Math.random() * (max - min + 1)) + min;
-              return random
-
-            getRandomAnimation = () ->
-              random = Math.floor((Math.random() * 3) + 1)
-              if random == 1
-                return "slideUpDown"
-              else if random == 2
-                return "slideLeft"
-              else
-                return "slideRight"
-                #encoder url
-            getMenu = () ->
-                $http
-                    method: 'POST'
-                    url:    options.api.base_url + '/getMenu'
-                    data:
-                        site_id   : decode[0].site_id
-                        user_auth : decode[0].user_auth
-                .success (data) ->
-                    $scope.viewMenu = data
-                    for values in $scope.viewMenu
-                      values.view_position = getRandomNumber(1)
-                      values.animation     = null
-                      values.animation     = getRandomAnimation()
-                    # on apelle le multiple view pour tout reunir
-                    getMultipleView()
-                .error (err) ->
-                    toastErrorFct.toastError("Impossible d'afficher le menu, veuillez retenter plus tard")
-            getMenu()
-            $http
-                method: 'GET'
-                url:    options.api.base_url + '/getImgSite/' + site_id
-            .success (data) ->
-                $scope.ImgSites = data
-            .error (err) ->
-                toastErrorFct.toastError("L'icône du site est introuvable")
-            # $http
-            #     method: 'GET'
-            #     url:    options.api.base_url + '/getViewSite' + '/' + decode[0].site_id + '/' + decode[0].user_auth
-            # .success (result) ->
-            #     $scope.viewMenu = result
-            #     # console.log $scope.viewMenu
-            #     for values in $scope.viewMenu
-            #       values.view_position = getRandomNumber(1)
-            #       values.animation     = null
-            #       values.animation     = getRandomAnimation()
-            #     getMultipleView()
-            #       # une fois qu'on a tous les menus, on lui demande d'aller sur la premiere page par défaut
-            #       # $location.path '/home/dashboard/' + decode[0].site_id + '/' + $scope.viewMenu[0].view_id
-            # .error (err) ->
-            #     toastErrorFct.toastError("Impossible de visualiser menu, veuillez retenter plus tard")
+                    return $sce.trustAsHtml menu
 
             $scope.logOut = () ->
                 get_action = "logged out"
                 ipFct.insertDataIp(get_action)
                 logoutFct.logOut()
-
-            # tick à faire plus tard
-            # tick = () ->
-            #     $scope.clock = Date.now()
-            #
-            # tick()
-            # $interval(tick, 1000)
-
-            # le menu de droite
-            # debounce = (func, wait, context) ->
-            #   timer = undefined
-            #   debounced = () ->
-            #     context = $scope
-            #     args    = Array.prototype.slice.call arguments
-            #     $timeout.cancel timer
-            #     timer   = $timeout(( ->
-            #       timer = 0
-            #       func.apply context, args
-            #     ),wait || 10)
-            #
-            # buildDelayedToggler = (navID) ->
-            #   debounce(( ->
-            #     $mdSidenav(navID)
-            #     .toggle()
-            #     .then ->
-            #   ), 200)
-            #
-            # $scope.toggleLeft = buildDelayedToggler('left')

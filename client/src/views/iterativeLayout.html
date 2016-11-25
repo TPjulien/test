@@ -1,8 +1,18 @@
-<div id                 = "{{detail.EMBED_ID}}"
+<div class="col s12 row">
+  <div ng-repeat          = "info in data"
+       id                 = "{{info.view_id}}"
+       dynamic-controller = "getController"
+       style              = "padding-bottom: 10px; height: {{info.embed_height}}"
+       ng-include src     = "getTemplate(info)"
+       class              = "separator col {{info.embed_width}}">
+  </div>
+</div>
+
+<!-- <div id            = "{{detail.EMBED_ID}}"
      class              = "col s12 embedClass"
      dynamic-controller = "getController"
      style              = "width:107%; padding-bottom: 10px;"
      ng-repeat          = "detail in details"
      ng-include src     = "getTemplate(detail)"
      class              = "separator">
-</div>
+</div> -->

@@ -1,14 +1,14 @@
-  /* ----------------------------TP-V2-------------------------------------------------------------------- */
+
 .travel-colorB{
-  background: -moz-linear-gradient(45deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 7%, rgba(6,46,134,1) 99%, rgba(255,255,255,1) 100%); /* ff3.6+ */
-  background: -webkit-gradient(linear, left bottom, right top, color-stop(0%, rgba(255,255,255,1)), color-stop(7%, rgba(255,255,255,1)), color-stop(99%, rgba(6,46,134,1)), color-stop(100%, rgba(255,255,255,1))); /* safari4+,chrome */
-  background: -webkit-linear-gradient(45deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 7%, rgba(6,46,134,1) 99%, rgba(255,255,255,1) 100%); /* safari5.1+,chrome10+ */
-  background: -o-linear-gradient(45deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 7%, rgba(6,46,134,1) 99%, rgba(255,255,255,1) 100%); /* opera 11.10+ */
-  background: -ms-linear-gradient(45deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 7%, rgba(6,46,134,1) 99%, rgba(255,255,255,1) 100%); /* ie10+ */
-  background: linear-gradient(45deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 7%, rgba(6,46,134,1) 99%, rgba(255,255,255,1) 100%); /* w3c */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* ie6-9 */
-  /*background-color: #757575;*/
-  color: white;
+  background-color: #EEEEEE;
+  /*background: -moz-linear-gradient(45deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 7%, rgba(6,46,134,1) 99%, rgba(255,255,255,1) 100%);
+  background: -webkit-gradient(linear, left bottom, right top, color-stop(0%, rgba(255,255,255,1)), color-stop(7%, rgba(255,255,255,1)), color-stop(99%, rgba(6,46,134,1)), color-stop(100%, rgba(255,255,255,1)));
+  background: -webkit-linear-gradient(45deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 7%, rgba(6,46,134,1) 99%, rgba(255,255,255,1) 100%);
+  background: -o-linear-gradient(45deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 7%, rgba(6,46,134,1) 99%, rgba(255,255,255,1) 100%);
+  background: -ms-linear-gradient(45deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 7%, rgba(6,46,134,1) 99%, rgba(255,255,255,1) 100%);
+  background: linear-gradient(45deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 7%, rgba(6,46,134,1) 99%, rgba(255,255,255,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 );
+  color: white;*/
 }
 
 @font-face {
@@ -30,12 +30,17 @@ p, h1, h2, h3, h4, h5, h6, span {
     width: 90.333333% !important;
   }
 .travel-colorR{
-  background-color: #e40514;
+  /*box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);*/
+  /*background-color: #e40514;*/
   height:2px;
-  box-shadow: 1px 2px 10px 0px rgba(0, 0, 0, 0.2);
+  /*box-shadow: 1px 2px 10px 0px rgba(0, 0, 0, 0.2);*/
 }
 .h5login{
   margin-top:30px;
+}
+
+.md-button.md-fab {
+  border-radius: 0;
 }
 .md-content-community{
   padding: 5%;
@@ -600,7 +605,7 @@ iframe {
   height: 100%;
   margin: 0px;
   padding: 0px;
-  background-color: rgba(29, 29, 29, 0.81);
+  background-color: #333742;
 }
 
 .input-login {

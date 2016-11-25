@@ -5,7 +5,7 @@ tableau
     link: (scope, elem, attrs) ->
       $timeout (->
         $compile(elem.contents()) scope
-      ), 1000
+      ), 10
       return
 
     }

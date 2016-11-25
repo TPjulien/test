@@ -5,40 +5,26 @@ tableau = angular.module 'tableauApp', [
   'ngMaterial'
   'ngAria'
   'ngAnimate'
-  'lumx'
   'oitozero.ngSweetAlert'
-  'ngCookies'
-  'mdPickers'
-  'angular-md5'
   'ngFileUpload'
   'ui.router'
-  'ngDialog'
   'angular-jwt'
   'angular-storage'
   'auth0'
   'ui.bootstrap'
-  'ui.bootstrap.contextMenu'
-  'rzModule'
-  'daterangepicker'
   'ngMessages'
   'obDateRangePicker'
-  'ngMorph'
   'anim-in-out'
   '720kb.tooltips'
-  'btford.markdown'
-  'ngImageCache'
   'ngTable'
+  'angular-popover'
   'md.data.table'
   'ngMaterialDatePicker'
   'smDateTimeRangePicker'
-  'ui.tree'
-  'angular-popover'
-  'ngPopover'
   'vAccordion'
   'wysiwyg.module'
   'colorpicker.module'
   'ngMap'
-  '720kb.datepicker'
 ]
 
 options = {}
@@ -48,6 +34,18 @@ options.api = {}
 
 # pré-prod
 options.api.base_url = "https://api.test.tp-control.travelplanet.fr"
+
+# pour la base2
+getBase2 = ->
+    result = []
+    base   = 32
+    i      = 0
+    while i < 32
+      result.push 2**i
+      i++
+    return result
+
+getResultBase2 = getBase2()
 
 # prod
 # options.api.base_url = "https://api.tp-control.travelplanet.fr"

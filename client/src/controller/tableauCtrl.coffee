@@ -6,6 +6,11 @@ tableau
       $scope.show = true
       $scope.data = []
 
+      $scope.tableauData = []
+      $scope.init = (info) ->
+          $scope.tableauData = info
+          getTableauRequest()
+
       $scope.tableauDisplay = "none"
       $scope.loadingDisplay = "block"
 
@@ -33,15 +38,13 @@ tableau
                   site_id       : site_id
                   get_user_name : tableau_site
                   view_id       : view_id
-                  embed_id      : embed_id
+                  embed_id      : "123"
           .success (data) ->
               $scope.data = data
               getTableau()
           .error (err) ->
               console.log err
           $scope.display = "none"
-
-      getTableauRequest()
 
       $scope.trustHtml = () ->
           tableau_url = null
@@ -57,7 +60,6 @@ tableau
 
       $scope.loadingText    = "Chargement de la vue en cours ..."
       $scope.urlLoadingView = "modals/loadingView.html"
-      # refaire le site
       getTableau = () ->
           url = $scope.trustHtml()
           LOADED_INDICATOR   = 'tableau.loadIndicatorsLoaded'
@@ -68,7 +70,7 @@ tableau
           tableauOptions     =
               hideTabs: true
               width:  "100%"
-              height: "800px"
+              height: $scope.tableauData.embed_height
               onFirstInteractive: () ->
                   $scope.display = "block"
           viz = new tableau.Viz(placeholder, url, tableauOptions)
@@ -87,15 +89,3 @@ tableau
                       $scope.loadingText    = "Impossible de charger cette vue"
                       $scope.display        = "none"
           )
-      # $scope.getUnderLyingData = () ->
-      #     # faudra ajouter le nom du sheet
-      #     sheet = viz.getWorkbook().getActiveSheet().getWorksheets().get("")
-      #     options =
-      #         maxRows           : 0,
-      #         ignoreAliases     : false,
-      #         ignoreSelection   : true,
-      #         includeAllColumns : false
-      #
-      #     sheet.getUnderLyingDataAsync(options)
-      #     .then (result) ->
-      #         $scope.tableau_data = JSON.stringify result.getdata()

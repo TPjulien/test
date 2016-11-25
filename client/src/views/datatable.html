@@ -1,14 +1,13 @@
-<div ng-model = "detail"
-     class    = "separator row"
-     style    = "background-color: #EEE; box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);">
+<div ng-controller ="datatableCtrl" ng-init="init(info.list_datatable)"
+     class         = "separator row"
+     style         = "background-color: #EEE; box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);">
     <!-- Partie datatable généré automatiquement -->
     <div class="col s9" style="height: 800px; overflow-y:auto; overflow-x:none" when-scrolled="loadMore()">
-      <p ng-bind-html="getGenericNameRow(data_table.datatable_width)">
-      </p>
+      <p ng-bind-html="getGenericNameRow()"></p>
       <div class            = "col s12"
            style            = "text-align:left; margin: 0; padding: 0; margin-bottom: -14px;"
-           ng-repeat        = "data in datatable_columns"
-           ng-bind-html     = "getGenericRow(data, data_table.datatable_width)"
+           ng-repeat        = "data in datatableData"
+           ng-bind-html     = "getGenericRow(data)"
            ng-click         = "downloadPdf(data)">
        <md-tooltip md-direction="bottom">
            Cliquez pour afficher le pdf

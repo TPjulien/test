@@ -14,6 +14,8 @@ coffeelint  = require 'gulp-coffeelint'
 css_minify  = require 'gulp-minify-css'
 ngAnnotate  = require 'gulp-ng-annotate'
 html_minify = require 'gulp-minify-html'
+server      = require 'gulp-webserver'
+
 require('dotenv').config( { path: process.env.HOME + '/.env'})
 
 js_filter  = filter '**/*.js', { restore: true }
@@ -102,6 +104,14 @@ gulp.task 'copy', ['components'], ->
   gulp.src "bower_components/alasql/dist/alasql.min.js"
     .pipe gulp.dest "#{dest}/js"
 
+gulp.task 'htmlCopy', ->
+  gulp.src "#{src}/index.html"
+    .pipe gulp.dest "#{dest}"
+  gulp.src "#{src}/views/*.html"
+		.pipe gulp.dest "#{dest}/templates/"
+  gulp.src "#{src}/modals/*.html"
+    .pipe gulp.dest "#{dest}/modals/"
+
 gulp.task 'copy_json', ->
   gulp.src "Json/*"
     .pipe gulp.dest "#{dest}/Json"
@@ -115,9 +125,19 @@ gulp.task 'dest', ->
   gulp.src "#{dest}/**"
       .pipe gulp.dest "/var/www/#{dest}"
 
-# gulp.task 'shell_copy', ['common'], ->
-#   gulp.src "public"
-#     .pipe shell 'sudo sh copy_shell.sh'
+gulp.task 'webserver', ['common'],() ->
+  gulp.src("#{dest}")
+    .pipe(server({
+        livereload       : true,
+        directoryListing : false,
+        open             : true
+    }))
+
+gulp.task 'watch', ->
+    gulp.watch ['src/controller/*.coffee', 'src/directive/*.coffee', 'src/factory/*.coffee'],  ['coffee']
+    gulp.watch ['src/index.html', 'src/views/*.html', 'src/modals/*.html'],  ['htmlCopy']
+    gulp.watch ['src/css/*.css'], ['css']
 
 gulp.task 'common',  ['clean', 'copy', 'coffee', 'css', 'copy_other', 'jqueryJs', 'copy_json', 'img_copy']
-gulp.task 'default', [ 'common']
+# gulp.task 'default', [ 'common']
+gulp.task 'default', ['webserver', 'watch']
