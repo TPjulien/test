@@ -62,7 +62,7 @@ tableau
 
             # le bitmask a mettre du coté des embed à afficher
             getBitmask = () ->
-                $http.post 'http://151.80.121.123:7890/api/getUserBitmask/Q1CN', { roles: ["90", "91"] }
+                $http.post 'http://151.80.121.123:7890/api/getUserBitmask/Q1CN', { roles: ["91"] }
                 .then (data) ->
                     console.log "c'est dans data !", data.data
                     embedBm   = []
@@ -77,11 +77,11 @@ tableau
                                     embedBm = bitmaskFactory.fuse result, embedBm
 
                     console.log "embed", embedBm
-                    embedBm = [16, 24, 0, 64]
+                    embedBm = [22, 0, 0, 268435456]
                     temp = bitmaskFactory.compare(data.data.bitmask, embedBm)
-                    console.log temp
+                    console.log "voici le compare !", temp
                     result = bitmaskFactory.decode(temp)
-                    console.log result
+                    console.log "voici le decode !", result
 
             getAgg = () ->
                 parameters =

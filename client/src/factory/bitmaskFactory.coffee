@@ -26,15 +26,11 @@ tableau
          return getArray
 
     decode : (map_embed) ->
-        console.log "ça passe dans map embed"
-        #  = getResultBase2[base]
         i = 0
         list = []
         while i < map_embed.length
             if map_embed[i] != 0
                 base = 31
-                # l = getResultBase2[base]
-                # base2 = getResultBase2
                 n    = map_embed[i]
                 r    = n
                 while r != 0
