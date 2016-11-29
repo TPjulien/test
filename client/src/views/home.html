@@ -21,7 +21,9 @@
   </div>
 </div>
 
-<div show-gt-md class="hide-on-med-and-down menu blureffect fadein fadeout md-whiteframe-1dp" style=" max-width: 80px;">
+<div show-gt-md class="hide-on-med-and-down menu blureffect fadein fadeout md-whiteframe-1dp" style="max-width: 80px;
+    margin-top: -80px;
+    padding-top: 80px;">
   <md-toolbar style="background-color:transparent; padding-top: 25px;">
       <span flex></span>
       <div compile ng-repeat="menu in agg | orderBy: 'view_position' " ng-bind-html="bindMenu(menu, viewsMenu, menu.list_view)">
@@ -34,7 +36,7 @@
     margin-left: auto;">
 <!-- state home -->
   <div  class="col s11 offset-s1">
-    <div ui-view class="anim-in-out anim-slide-below-fade col s12" data-anim-speed="500">
+    <div ui-view class="anim-in-out anim-slide-below-fade col s12" style="width: 106%;" data-anim-speed="500">
     </div>
   </div>
 </div>

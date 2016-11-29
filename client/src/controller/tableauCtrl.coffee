@@ -8,6 +8,7 @@ tableau
 
       $scope.tableauData = []
       $scope.init = (info) ->
+          console.log "ça init la !"
           $scope.tableauData = info
           getTableauRequest()
 
@@ -16,19 +17,13 @@ tableau
 
       site_id        = decode[0].site_id
       uid            = decode[0].UID
-      ids            = $stateParams.id
       site_id_parse  = site_id.substr(0,4)
       tableau_site   = site_id_parse + uid
-      view_id   = undefined
-      embed_id  = undefined
-      splitted  = []
+      view_id        = undefined
+      embed_id       = undefined
+      splitted       = []
 
       $scope.data_tableau = []
-
-      if ids.indexOf('-') != -1
-          splitted = ids.split("-")
-          view_id  = splitted[0]
-          embed_id = splitted[1]
 
       getTableauRequest = () ->
           $http

@@ -13,13 +13,9 @@ tableau = angular.module 'tableauApp', [
   'auth0'
   'ui.bootstrap'
   'ngMessages'
-  'obDateRangePicker'
   'anim-in-out'
-  '720kb.tooltips'
   'ngTable'
-  'angular-popover'
   'md.data.table'
-  'ngMaterialDatePicker'
   'smDateTimeRangePicker'
   'vAccordion'
   'wysiwyg.module'
@@ -212,9 +208,10 @@ tableau
             templateUrl: 'templates/home.html',
             controller:  'homeCtrl'
         .state 'home.test',
-            url:          '/dashboard/:id',
-            templateUrl:  'templates/iterativeLayout.html',
-            controller:   'iterativeLayoutCtrl'
+            url:          '/dashboard',
+            controller:   'iterativeLayoutCtrl',
+            params: { embeds : null },
+            templateUrl:  'templates/iterativeLayout.html'
         .state 'home.error',
             url:          '/error',
             templateUrl:  'templates/error.html',

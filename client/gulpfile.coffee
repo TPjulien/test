@@ -48,10 +48,10 @@ gulp.task 'coffee', ->
 		.pipe ngAnnotate()
 		.pipe gulp.dest "#{dest}/js"
 
-gulp.task 'jqueryJs', ->
-  gulp.src "#{src}/js/*.js"
-    .pipe concat    "#{name}-dependencies.js"
-    .pipe gulp.dest "#{dest}/js"
+# gulp.task 'jqueryJs', ->
+#   gulp.src "#{src}/js/*.js"
+#     .pipe concat    "#{name}-dependencies.js"
+#     .pipe gulp.dest "#{dest}/js"
 
 gulp.task 'css', ->
   gulp.src "#{src}/css/*.css"
@@ -138,6 +138,6 @@ gulp.task 'watch', ->
     gulp.watch ['src/index.html', 'src/views/*.html', 'src/modals/*.html'],  ['htmlCopy']
     gulp.watch ['src/css/*.css'], ['css']
 
-gulp.task 'common',  ['clean', 'copy', 'coffee', 'css', 'copy_other', 'jqueryJs', 'copy_json', 'img_copy']
+gulp.task 'common',  ['clean', 'copy', 'coffee', 'css', 'copy_other', 'copy_json', 'img_copy']
 # gulp.task 'default', [ 'common']
 gulp.task 'default', ['webserver', 'watch']
