@@ -35,11 +35,27 @@ tableau
         $scope.formattedJson.list_columns = temp
         getDatatable(0, 50)
 
+    getfilters = (info) ->
+        i = 0
+        angular.forEach info, (value, key) ->
+          angular.forEach value, (el, keyel) ->
+            if value.has_date_filter && keyel == "has_date_filter"
+              $scope.datatable_filters.push { nom_filtre : value.has_date_filter}
+              $scope.column_filter.push     { nom_column : keyel}
+            else if value.has_search_filter && keyel == "has_search_filter"
+              $scope.datatable_filters.push { nom_filtre : value.has_search_filter}
+              $scope.column_filter.push     { nom_column : keyel}
+            else if value.has_bullet_filter && keyel == "has_bullet_filter"
+              $scope.datatable_filters.push { nom_filtre : value.has_bullet_filter}
+              $scope.column_filter.push     { nom_column : keyel}
+            else if value.has_amount_filter && keyel == "has_amount_filter"
+              $scope.datatable_filters.push { nom_filtre : value.has_amount_filter}
+              $scope.column_filter.push     { nom_column : keyel}
     $scope.init = (info) ->
         $scope.getInfo = info
-        console.log "ceci est l'info", info
         getColumnName(info)
         dataFormatted(info)
+        getfilters(info)
 
     $scope.getGenericNameRow = () ->
         if ($scope.columnNames)
@@ -56,7 +72,6 @@ tableau
         if angular.equals($scope.formattedJson, {}) != true
             $http.post(options.api.base_url + '/getDatatable', { datas: $scope.formattedJson, min: min, max:max})
             .then (data) ->
-                console.log $scope.getInfo
                 if (counter == 0)
                     $scope.datatableData = data.data
                 else
@@ -154,7 +169,6 @@ tableau
             getDatatable(counter, 20)
             counter += 20
 
-
     # forbiddenWord = (value) ->
     #     forbidden_word = ['', 'all']
     #     if value in forbidden_word
@@ -162,20 +176,20 @@ tableau
     #     else
     #         return true
     # # Generique champs de text
-    # $scope.filterText = (value, column_name) ->
-    #     $scope.datatable_columns = []
-    #     counter = 50;
-    #     # appell de la fonction qui permet de nettoyer l'objet
-    #     verifyArray(column_name)
-    #     # on vérifie si la value n'est pas vide, si oui on l'injecte dans le tableau, sinon on ne l'ajoute pas
-    #     if forbiddenWord(value) == true
-    #         # on injecte dans un tableau qui lui va faire la correspondance client-serveur
-    #         object_to_filter             = {}
-    #         object_to_filter.column_name = column_name
-    #         object_to_filter.value       = value
-    #         filter_array_text.push object_to_filter
-    #     # la function pour lancer la requete
-    #     getDatatable(0, 50);
+    $scope.filterText = (value, column_name) ->
+        $scope.datatable_columns = []
+        counter = 50;
+        # appell de la fonction qui permet de nettoyer l'objet
+        verifyArray(column_name)
+        # on vérifie si la value n'est pas vide, si oui on l'injecte dans le tableau, sinon on ne l'ajoute pas
+        if forbiddenWord(value) == true
+            # on injecte dans un tableau qui lui va faire la correspondance client-serveur
+            object_to_filter             = {}
+            object_to_filter.column_name = column_name
+            object_to_filter.value       = value
+            filter_array_text.push object_to_filter
+        # la function pour lancer la requete
+        getDatatable(0, 50);
     #
     # $scope.filterDate = (range_date, column_name) ->
     #     $scope.datatable_columns = []
@@ -190,65 +204,67 @@ tableau
     #     filter_array_text.push object_to_filter
     #     getDatatable(0, 50);
     #
-    # $scope.getGenericFilter = (filters, key) ->
-    #     result                 = null
-    #     get_filter_column_name = null
-    #     delete filters.$$hashKey
-    #     for name, values of filters
-    #         if filters[name] != null
-    #             if filters[name] != ""
-    #                 if filters[name] != "false"
-    #                     # permet de retrouver le nom de la colonne associé au filtre
-    #                     for column_name, value_column of $scope.column_filter[key]
-    #                         get_filter_column_name = value_column
-    #                     result = """<h5 class = "md-subhead"
-    #                                     style = "text-align: left">
-    #                                     Par """ + filters[name] + """ :
-    #                                  </h5>"""
-    #                     # faut trouver une moyen plus cool de faire cela dynamique
-    #                     if name == 'has_search_filter'
-    #                         dynamic_entry = "filterText(clientFacture, '" + get_filter_column_name + "')"
-    #                         result       += '<input for         = "' + name + '"
-    #                                            ng-change        = "' + dynamic_entry + '"
-    #                                            ng-model         = "clientFacture"
-    #                                            name             = "clientFacture"
-    #                                            ng-model-options = "{debounce: 1000}"
-    #                                            minlength        = "1"
-    #                                            maxlength        = "10">
-    #                                         </input>'
-    #                     else if name == 'has_bullet_filter'
-    #                         if bullet_filters.length != 0
-    #                             generic_bullet = []
-    #                             dynamic_entry = "filterText(value,  '" + get_filter_column_name + "')"
-    #                             result       += '<md-radio-group ng-change = "' + dynamic_entry + '" &nbsp;
-    #                                                              ng-model  = "value">'
-    #                             generic_bullet += '<md-radio-button value = "all"
-    #                                                   class = "md-primary">
-    #                                                   Tous
-    #                                               </md-radio-button>'
-    #                             angular.forEach bullet_filters, (name, key) ->
-    #                                 angular.forEach name, (value, deep_key) ->
-    #                                     angular.forEach value, (deep_value, deep_key_level_2) ->
-    #                                             if deep_value != null
-    #                                                 generic_bullet += '<md-radio-button value = "' + deep_value + '">
-    #                                                                     ' + deep_value + '
-    #                                                                    </md-radio-button>'
-    #                             result += generic_bullet + '</md-radio-group>'
-    #                     else if name == 'has_date_filter'
-    #                         dynamic_entry = "filterDate(range, '" + get_filter_column_name + "')"
-    #                         result += '<sm-range-picker-input class           = "col s12"
-    #                                                           style           = "font-size:10px;"
-    #                                                           on-range-select = "' + dynamic_entry + '"
-    #                                                           value           = "date"
-    #                                                           is-required     = "false"
-    #                                                           format          = "YYYY-MM-DD"
-    #                                                           mode            = "date"
-    #                                                           week-start-day  = "monday"
-    #                                                           divider         = "Au">
-    #                                    </sm-range-picker-input>'
-    #     # On retourne le code en donnant l'autorisation à angular de poster du html grace à $sce
-    #     return $sce.trustAsHtml result
-    #
+    $scope.getGenericFilter = (filters, key) ->
+        result                 = null
+        get_filter_column_name = null
+        angular.forEach filters, (value, key) ->
+            if value != null
+                if value != ""
+                    if value != "false"
+                        # permet de retrouver le nom de la colonne associé au filtre
+                        angular.forEach $scope.column_filter, (valueCol, keyCol) ->
+                            get_filter_column_name = valueCol.nom_column
+                            result = """<h5 class = "md-subhead"
+                                            style = "text-align: left">
+                                            Par """ + filters.nom_filtre + """ :
+                                         </h5>"""
+                        #faut trouver une moyen plus cool de faire cela dynamique
+        angular.forEach $scope.column_filter, (valueCol, keyCol) ->
+            if valueCol.nom_column == "has_search_filter"
+                dynamic_entry = "filterText(clientFacture, '" + get_filter_column_name + "')"
+                result       += '<input for         = "' + value + '"
+                                   ng-change        = "' + dynamic_entry + '"
+                                   ng-model         = "clientFacture"
+                                   name             = "clientFacture"
+                                   ng-model-options = "{debounce: 1000}"
+                                   minlength        = "1"
+                                   maxlength        = "10">
+                                </input>'
+            else if valueCol.nom_column == 'has_bullet_filter'
+                if bullet_filters.length != 0
+                    generic_bullet = []
+                    dynamic_entry = "filterText(value,  '" + get_filter_column_name + "')"
+                    result       += '<md-radio-group ng-change = "' + dynamic_entry + '" &nbsp;
+                                                     ng-model  = "value">'
+                    generic_bullet += '<md-radio-button value = "all"
+                                          class = "md-primary">
+                                          Tous
+                                      </md-radio-button>'
+                    angular.forEach bullet_filters, (name, key) ->
+                        angular.forEach name, (value, deep_key) ->
+                            angular.forEach value, (deep_value, deep_key_level_2) ->
+                                    if deep_value != null
+                                        generic_bullet += '<md-radio-button value = "' + deep_value + '">
+                                                            ' + deep_value + '
+                                                           </md-radio-button>'
+                    result += generic_bullet + '</md-radio-group>'
+            else if valueCol.nom_column == 'has_date_filter'
+                dynamic_entry = "filterDate(range, '" + get_filter_column_name + "')"
+                result += '<sm-range-picker-input class           = "col s12"
+                                                  style           = "font-size:10px;"
+                                                  on-range-select = "' + dynamic_entry + '"
+                                                  value           = "date"
+                                                  is-required     = "false"
+                                                  format          = "YYYY-MM-DD"
+                                                  mode            = "date"
+                                                  week-start-day  = "monday"
+                                                  divider         = "Au">
+                           </sm-range-picker-input>'
+        # On retourne le code en donnant l'autorisation à angular de poster du html grace à $sce
+        # console.log result
+        console.log result
+        return $sce.trustAsHtml result
+
     $scope.downloadPdf = (selected) ->
         console.log selected
         # $http
