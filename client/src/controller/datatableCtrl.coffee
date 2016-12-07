@@ -51,11 +51,12 @@ tableau
             else if value.has_amount_filter && keyel == "has_amount_filter"
               $scope.datatable_filters.push { nom_filtre : value.has_amount_filter}
               $scope.column_filter.push     { nom_column : keyel}
+
     $scope.init = (info) ->
         $scope.getInfo = info
-        getColumnName(info)
-        dataFormatted(info)
-        getfilters(info)
+        getfilters($scope.getInfo.list_datatable)
+        getColumnName($scope.getInfo.list_datatable)
+        dataFormatted($scope.getInfo.list_datatable)
 
     $scope.getGenericNameRow = () ->
         if ($scope.columnNames)
@@ -266,24 +267,29 @@ tableau
         return $sce.trustAsHtml result
 
     $scope.downloadPdf = (selected) ->
-        console.log selected
-        # $http
-        #     method      : "POST"
-        #     url         : options.api.base_url + '/downloadPDF'
-        #     data:
-        #         user_data: selected
-        #         embed_id:  $scope.detail.EMBED_ID
-        #     responseType: 'arraybuffer'
-        # .success (result) ->
-        #     a          = document.createElement('a')
-        #     a.style    = "display: none"
-        #     blob       = new Blob [result], { type: 'application/json' }
-        #     url        = window.URL.createObjectURL(blob)
-        #     a.href     = url;
-        #     a.download = selected['Numéro facture'] + '.pdf'
-        #     document.body.appendChild(a)
-        #     a.click()
-        #     setTimeout (->
-        #         document.body.removeChild(a)
-        #         window.URL.revokeObjectURL(url)
-        #     ), 100
+        if ($scope.getInfo.pdf_display == "true")
+            table     = $scope.getInfo.table
+            schema    = $scope.getInfo.schema
+            resources = []
+            temp2 = {}
+            angular.forEach selected, (value, key) ->
+                temp = value.toString()
+                if (/^\d+$/.test(temp) == true) and (temp.length == 9) == true
+                    temp2[key] = value
+            resources.push(temp2)
+            $http.post options.api.base_url + '/downloadBlob', { values : resources, table: table, schema: schema }, responseType: 'arraybuffer'
+            .then (data) ->
+                a          = document.createElement('a')
+                a.style    = "display: none"
+                blob       = new Blob [data.data], { type: 'application/json' }
+                url        = window.URL.createObjectURL(blob)
+                a.href     = url;
+                a.download = 'travelplanet.pdf'
+                document.body.appendChild(a)
+                a.click()
+                setTimeout (->
+                    document.body.removeChild(a)
+                    window.URL.revokeObjectURL(url)
+                ), 100
+            .catch (err) ->
+                console.log err

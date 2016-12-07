@@ -56,7 +56,7 @@ module.exports = function(router, connection, mysql) {
     router.route('/tokenExchange')
         .post(function(req, res) {
             user_site = "";
-            if (result_datatable[0].tableau_site != "Default") {
+            if (req.body.tableau_site != "Default") {
                 user_site = req.body.tableau_site;
             }
             var options = {

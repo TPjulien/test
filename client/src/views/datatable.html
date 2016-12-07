@@ -1,4 +1,4 @@
-<div ng-controller ="datatableCtrl" ng-init="init(info.list_datatable)"
+<div ng-controller ="datatableCtrl" ng-init="init(info)"
      class         = "separator row"
      style         = "background-color: #EEE; box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);">
     <!-- Partie datatable généré automatiquement -->
@@ -9,7 +9,7 @@
            ng-repeat        = "data in datatableData"
            ng-bind-html     = "getGenericRow(data)"
            ng-click         = "downloadPdf(data)">
-       <md-tooltip md-direction="bottom">
+       <md-tooltip md-direction="bottom" ng-if="info.pdf_display == 'true'">
            Cliquez pour afficher le pdf
        </md-tooltip>
       </div>
