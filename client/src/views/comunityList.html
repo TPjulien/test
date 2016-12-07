@@ -13,7 +13,7 @@
           <md-input-container style="width: 100%;">
             <md-select ng-change='goToPassword(chooseComunity)' ng-model="chooseComunity" name="chooseCommunity" aria-label="chooseCommunity" >
               <md-option ng-repeat="community in communities" ng-value="community">
-                {{community.SITE_LIBELLE}}
+                {{community.label}}
               </md-option>
             </md-select>
           </md-input-container>

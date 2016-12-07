@@ -38,6 +38,7 @@
     "gulp-uglify": "^1.4.2",
     "gulp-uglifycss": "^1.0.4",
     "gulp-util": "^3.0.7",
+    "gulp-webserver": "^0.9.1",
     "main-bower-files": "^2.9.0",
     "ng-popover": "^2.0.0"
   },

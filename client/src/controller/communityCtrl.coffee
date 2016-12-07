@@ -6,15 +6,24 @@ tableau
     username                    = $stateParams.username
 
     getCommunity = () ->
-        $http
-            method: 'GET'
-            url:    options.api.base_url + '/loginCheck/' + username
-            data:
-              username: username
-        .success (data) ->
-            $scope.communities = data
-        .error (err) ->
-            toastErrorFct.toastError("Impossible de connecter au serveur de communauté, veuillez retenter plus tard")
+        parameters =
+            key_name  : "login"
+            key_value : "farvardi1"
+
+        $http.post 'http://151.80.121.123:7890/api/select/user_lookup/profils', { parameters: parameters, selected: "site_id" }
+        .then (data) ->
+            temp = []
+            for key in data.data
+                temp.push key.site_id
+            # utiliser temps apres
+            $http.post 'http://151.80.121.123:1234/api/multipleSelect', { tabIn: ["R21V"], values: ["base", "sites"] }
+            .then (result) ->
+                tempResult = []
+                for value in result.data
+                    tempLoop = angular.fromJson value.js_data
+                    # à utiliser tempLoop.label
+                    tempResult.push {  login: "jean", label : tempLoop.label, site_id : "Q1CNQ1CN" }
+                $scope.communities = tempResult
 
     getCommunity()
 
@@ -24,12 +33,9 @@ tableau
             method: 'POST'
             url:    options.api.base_url + '/samlCheck'
             data:
-                SITE_ID: data.SITE_ID
+                SITE_ID: data.site_id
         .success (saml_data) ->
             if saml_data[0].SAML_TYPE == 'RENATER'
-                # preprod
-                # $window.location.href = "https://api.test.tp-control.travelplanet.fr/shibboleth"
-                # prod
                 $window.location.href = "https://api.tp-control.travelplanet.fr/shibboleth"
             else
-                $location.path '/login/verify/' + data.Login + '/' + data.SITE_ID
+                $location.path '/login/verify/' + data.login + '/' + data.site_id

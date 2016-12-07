@@ -124,12 +124,3 @@ tableau
               alertFact.okCreateFactory()
           .error (err) ->
               console.error err
-          # $http
-          #   method: "POST"
-          #   url:    "http://api-interne-test.travelplanet.fr/api/Alteryx/GenerateXmlParametersFile"
-          #   data:
-          #     worflow: json_data
-          # .success (data) ->
-          #     alertFact.okCreateFactory()
-          # .error (err) ->
-          #     console.log "une error est survenue"

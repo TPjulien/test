@@ -1,4 +1,4 @@
-<div class="col s12 row navbar-fixed travel-colorB" style="padding: 0; margin: 0; height: 80px; box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);">
+<div class="col s12 row navbar-fixed travel-colorB" style="padding: 0; margin: 0; height: 80px; box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23); position:fixed">
   <div class="col s7">
     <div class="col s12">
       <div class="img-header_tp"></div>
@@ -10,9 +10,9 @@
   <div class="col s3 hide-on-med-and-down toolbar__right">
     <div class="col s5">
     </div>
-    <div class="col s1 m1 l2" style="height: 84px;">
+    <div class="col s1 m1 l2" style="height: 84px; float: right;">
       <div ng-hide="can_logout == 'NONE'" ng-click="logOut()" style="padding-top: 25px;" class="toolbar__right">
-        <md-icon style="margin-right:10px;"class="logo_lock" md-svg-icon="img/icons/power.svg"></md-icon>
+        <md-icon style="margin-right:10px;" class="icon_logout icon_size" md-svg-icon="img/icons/power.svg"></md-icon>
       </div>
     </div>
     <div class="col s12 m12 l5">
@@ -22,11 +22,10 @@
 </div>
 
 <div show-gt-md class="hide-on-med-and-down menu blureffect fadein fadeout md-whiteframe-1dp" style="max-width: 80px;
-    margin-top: -80px;
     padding-top: 80px;">
   <md-toolbar style="background-color:transparent; padding-top: 25px;">
       <span flex></span>
-      <div compile ng-repeat="menu in agg | orderBy: 'view_position' " ng-bind-html="bindMenu(menu, viewsMenu, menu.list_view)">
+      <div compile ng-repeat="menu in viewsMenu | orderBy: 'view_position' " ng-bind-html="bindMenu(menu)">
       </div>
   </md-toolbar>
 </div>

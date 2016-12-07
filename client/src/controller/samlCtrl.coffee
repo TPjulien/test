@@ -3,9 +3,6 @@ tableau
     token  = $stateParams.tokenSaml
     decode = jwtHelper.decodeToken(token)
 
-    # site_id = decode.etablissement.substring(0, 8)
-    # name = decode.display_name
-    #
     $http
         method: 'POST'
         url:    options.api.base_url + '/samlLogin'

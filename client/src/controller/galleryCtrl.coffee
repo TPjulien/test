@@ -17,7 +17,6 @@ tableau
         $scope.getMarker = $scope.place.geometry.location.lat() + ',' + $scope.place.geometry.location.lng()
         addressStart     = $scope.place.geometry.location
         $scope.address   = $scope.place.formatted_address
-        # $scope.map.setCenter($scope.place.geometry.location)
 
     $scope.placeEndChanged = () ->
         $scope.place = this.getPlace()
@@ -38,10 +37,3 @@ tableau
     getPriceInfo = (start, end) ->
         console.log 'coord start : ' , start.lat(), start.lng()
         console.log 'coord stop : '  , end.lat(), end.lng()
-    # getPriceInfo = () ->
-    #     $http
-    #         method: 'POST'
-    #         url   : null
-    #         data  :
-    #             start :
-    #             end   :

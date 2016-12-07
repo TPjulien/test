@@ -516,6 +516,21 @@ ob-daterangepicker .picker-dropdown-container .picker-dropdown {
     height: 0px;
 }
 
+.icon_size {
+  border-radius:50%;
+  width: 33px;
+  height: 33px;
+}
+
+.icon_logout {
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+
+.icon_logout:hover {
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+
 .repeat-enter-setup, .repeat-leave-setup {
   -webkit-transition:all linear 0.3s;
   -moz-transition:all linear 0.3s;
@@ -2159,4 +2174,12 @@ md-select md-select-value span{
   font-size: 15px;
   color:black;
 
+}
+
+.md-button.md-fab.md-mini {
+    line-height: 40px;
+    width: 55px;
+    height: 55px;
+    background-color: transparent;
+    box-shadow: none;
 }

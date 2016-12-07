@@ -17,7 +17,6 @@ tableau
     $scope.formattedJson = {}
     $scope.datatableData = []
 
-
     getColumnName = (info) ->
         i = 0
         while i < info.length
@@ -38,6 +37,7 @@ tableau
 
     $scope.init = (info) ->
         $scope.getInfo = info
+        console.log "ceci est l'info", info
         getColumnName(info)
         dataFormatted(info)
 

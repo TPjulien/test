@@ -22,7 +22,7 @@ tableau
 
     getViews = () ->
         values    = ["click", "embed", "Q1CN"]
-        $http.post 'http://151.80.121.123:7890/api/multipleSelect', { values : values, tabIn: ["5", "6"] }
+        $http.post 'http://151.80.121.123:7890/api/multipleSelect', { values : values, tabIn: embedList }
         .then (data) ->
             temp = null
             for key in data.data

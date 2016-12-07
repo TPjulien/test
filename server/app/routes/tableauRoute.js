@@ -53,4 +53,24 @@ module.exports = function(router, connection, mysql) {
            }
       })
     })
+    router.route('/tokenExchange')
+        .post(function(req, res) {
+            user_site = "";
+            if (result_datatable[0].tableau_site != "Default") {
+                user_site = req.body.tableau_site;
+            }
+            var options = {
+                url : 'https://data.travelplanet.fr/trusted',
+                form : {
+                    username    : req.body.user_name,
+                    target_site : user_site
+                }
+            }
+            request.post(options, function(err, result, body) {
+                if (body != '' || body != undefined || body != null) {
+                    var resultObject = { "token" : body }
+                    res.json(resultObject);
+                }
+            })
+        })
 }
