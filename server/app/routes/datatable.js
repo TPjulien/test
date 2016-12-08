@@ -17,36 +17,6 @@ module.exports = function(router, connection, mysql) {
                   }
               })
           })
-      // on recupere le filtre séparément
-      router.route('/getFilterDatatable/:embed_id')
-          .get (function(req, res) {
-            var query_filter = "SELECT ??,??,??,?? \
-                                      FROM ?? \
-                                      WHERE ?? = ? AND pdf_display IS NULL";
-            var table_filter = ["has_date_filter","has_search_filter","has_bullet_filter", "has_amount_filter", "click_dash_base.click_Datatable",
-                                "EMBED_ID", req.params.embed_id];
-            query_filter = mysql.format(query_filter, table_filter);
-            connection.query(query_filter, function(err, result_filter) {
-                if (err) {
-                    res.status(400).send(err);
-                } else {
-                    // deuxieme requete pour recuperer les colonnes utilisées
-                    var query_filter_column = "SELECT ?? FROM ?? WHERE ?? = ? AND pdf_display IS NULL";
-                    var table_filter_column = ["column", "click_dash_base.click_Datatable", "EMBED_ID", req.params.embed_id];
-                    query_filter_column = mysql.format(query_filter_column, table_filter_column);
-                    connection.query(query_filter_column, function(err, result_filter_column) {
-                        if (err) {
-                            res.status(400).send(err);
-                        } else {
-                            res.json({
-                                      "datatable_filters" : result_filter,
-                                      "column_filter"     : result_filter_column
-                            });
-                        }
-                    })
-                }
-            })
-          })
       // datatable v2
       router.route('/getDatatable')
           .post(function(req, res) {
@@ -54,7 +24,6 @@ module.exports = function(router, connection, mysql) {
               var table_name = datas.table_name;
               var filters = req.body.filters;
               var query = "SELECT `";
-              // query += columns[0].column_name;
               for (var key in datas) {
                   if (datas.hasOwnProperty(key)) {
                       query += datas[key].column_name "`,`";

@@ -10,6 +10,8 @@ tableau
         store.set('set', $stateParams.embeds)
 
     $scope.data = []
+    token  = store.get('JWT')
+    decode = jwtHelper.decodeToken(token)
 
     filterViewList = (data) ->
         temp = []
@@ -21,7 +23,7 @@ tableau
         return temp
 
     getViews = () ->
-        values    = ["click", "embed", "Q1CN"]
+        values    = ["click", "embed", decode[0].site_id.slice(0, -4)]
         $http.post 'http://151.80.121.123:7890/api/multipleSelect', { values : values, tabIn: embedList }
         .then (data) ->
             temp = null

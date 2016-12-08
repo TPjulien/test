@@ -19,19 +19,21 @@ tableau
 
             $mdDialog.hide()
 
-            $http.post 'http://151.80.121.123:7890/api/select/table2', { parameters : { "type" : "click_role_by_user", "key": "Q1CN", "id1": decode.UID }, selected: "id2"}
+            $http.post 'http://151.80.121.123:7890/api/select/table2', { parameters : { "type" : "click_role_by_user", "key": decode[0].site_id.slice(0, -4), "id1": decode[0].UID }, selected: "id2"}
             .then (data) ->
+                rolesTemp = []
                 for key in data.data
-                    roles.push key.id2
-                    infoUser                 = $http.post 'http://151.80.121.123:7890/api/select/table1', { parameters : { "type": "click", "key" : "site", "id" : "Q1CN" }, selected: "*" }
-                    menu                     = $http.post 'http://151.80.121.123:1234/api/menu/Q1CN',     { roles: ["1", "2"] }
-                    $q.all([
-                        infoUser
-                        menu
-                    ]).then (data) ->
-                        temp             = eval data[0].data[0].js_data
-                        $scope.userInfos = temp[0]
-                        $scope.viewsMenu = data[1].data
+                  rolesTemp.push key.id2
+                roles.push key.id2
+                infoUser                 = $http.post 'http://151.80.121.123:7890/api/select/table1', { parameters : { "type": "click", "key" : "site", "id" : decode[0].site_id.slice(0, -4) }, selected: "*" }
+                menu                     = $http.post 'http://151.80.121.123:1234/api/menu/' + decode[0].site_id.slice(0, -4) , { roles: rolesTemp }
+                $q.all([
+                    infoUser
+                    menu
+                ]).then (data) ->
+                    temp             = eval data[0].data[0].js_data
+                    $scope.userInfos = temp[0]
+                    $scope.viewsMenu = data[1].data
 
             $scope.goTo = (embeds) ->
                 $state.go 'home.test', { embeds : embeds }

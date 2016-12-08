@@ -24,9 +24,8 @@
         <div layout="row">
         </div>
         <h4>Recherche :</h4>
-        <div class  = "col s12"
-             ng-repeat                         = "(key, filter) in datatable_filters">
-             <form compile class = "options col s12" ng-bind-html  = "getGenericFilter(filter, key)">
+        <div class  = "col s12">
+             <form compile class = "options col s12" ng-bind-html= "getGenericFilter()">
              <a ng-click="getGenericFilter(filter, key)">OK</a>
         </div>
 

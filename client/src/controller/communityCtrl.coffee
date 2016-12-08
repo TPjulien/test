@@ -1,5 +1,5 @@
 tableau
-.controller 'communityCtrl', ($scope, $stateParams, $http, $location, toastErrorFct, $window) ->
+.controller 'communityCtrl', ($scope, $stateParams, $http, $location, toastErrorFct, $window, $state) ->
     $scope.background_image_url = '/img/default_account_wallpaper.jpg'
     $scope.user_image_url       = '/img/travel_planet_logo.png'
     $scope.communities          = []
@@ -8,22 +8,30 @@ tableau
     getCommunity = () ->
         parameters =
             key_name  : "login"
-            key_value : "farvardi1"
+            key_value : username
 
         $http.post 'http://151.80.121.123:7890/api/select/user_lookup/profils', { parameters: parameters, selected: "site_id" }
         .then (data) ->
+            PreValue = ""
             temp = []
             for key in data.data
                 temp.push key.site_id
+                PreValue = key.site_id
             # utiliser temps apres
-            $http.post 'http://151.80.121.123:1234/api/multipleSelect', { tabIn: ["R21V"], values: ["base", "sites"] }
+            $http.post 'http://151.80.121.123:1234/api/multipleSelect', { tabIn: temp, values: ["base", "sites"] }
             .then (result) ->
+                PreValue += PreValue
                 tempResult = []
                 for value in result.data
                     tempLoop = angular.fromJson value.js_data
-                    # à utiliser tempLoop.label
-                    tempResult.push {  login: "jean", label : tempLoop.label, site_id : "Q1CNQ1CN" }
+                    if tempLoop.label.indexOf('{"label"') == -1
+                        tempResult.push {  login: username, label : tempLoop.label, site_id : PreValue }
                 $scope.communities = tempResult
+                if ($scope.communities.length == 0)
+                    toastErrorFct.toastError("L'utilisateur : " + username + " n'existe pas")
+                    $state.go 'login.account'
+                else if ($scope.communities.length == 1)
+                    $scope.goToPassword($scope.communities[0])
 
     getCommunity()
 
