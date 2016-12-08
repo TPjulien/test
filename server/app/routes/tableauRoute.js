@@ -49,10 +49,11 @@ module.exports = function(router, connection, mysql) {
                     } else {
                         res.status(404).send('élement introuvable !');
                     }
-                })
-           }
-      })
-    })
+                  })
+		}
+	    })
+	    
+	})
     router.route('/tokenExchange')
         .post(function(req, res) {
             user_site = "";
