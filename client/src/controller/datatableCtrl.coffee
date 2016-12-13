@@ -22,8 +22,7 @@ tableau
     getColumnName = (info) ->
         i = 0
         while i < info.length
-            if info[i].column != "BLOB"
-                $scope.columnNames.push { column : info[i].column, width: info[i].width }
+            $scope.columnNames.push { column : info[i].column, width: info[i].width }
             i++
 
     dataFormatted = (info) ->
@@ -43,8 +42,11 @@ tableau
           angular.forEach value, (value_deep, key_deep) ->
               if key_deep.indexOf('filter') != -1
                   if value_deep.length != 0
-                      temp[key_deep + "_" + key] = value_deep
-        $scope.filters.push temp
+                      temp = {}
+                      temp["column"] = value.column
+                      temp[key_deep] = value_deep
+                      $scope.filters.push temp
+                      temp = {}
 
     $scope.init = (info) ->
         $scope.getInfo = info
@@ -57,8 +59,7 @@ tableau
             result = ""
             i = 0
             while i < $scope.columnNames.length
-                if ($scope.columnNames[i].column != "BLOB")
-                    result += "<p class='col s" + $scope.columnNames[i].width + " md-whiteframe-1dp truncate getSize' style='background-color:#64B5F6; color:white; text-align: center'>" + $scope.columnNames[i].column + "</p>"
+                result += "<p class='col s" + $scope.columnNames[i].width + " md-whiteframe-1dp truncate getSize' style='background-color:#64B5F6; color:white; text-align: center'>" + $scope.columnNames[i].column + "</p>"
                 i++
             return result
 
@@ -67,7 +68,6 @@ tableau
         if angular.equals($scope.formattedJson, {}) != true
             $http.post(options.api.base_url + '/getDatatable', { datas: $scope.formattedJson, min : min, max : max, filters: filter_array_text })
             .then (data) ->
-                console.log data
                 if (counter == 0)
                     $scope.datatableData = data.data
                 else
@@ -75,7 +75,6 @@ tableau
                         $scope.datatableData = $scope.datatableData.concat data.data
 
     $scope.getGenericRow = (data) ->
-        # console.log data
         result = []
         delete data.$$hashKey
         i = 0
@@ -171,16 +170,16 @@ tableau
         else
             return true
     # # Generique champs de text
-    $scope.filterText = (value, column_name, nameColumn) ->
+    $scope.filterText = (value, columnName) ->
         $scope.datatable_columns = []
         counter = 0;
         # appell de la fonction qui permet de nettoyer l'objet
-        verifyArray(nameColumn)
+        verifyArray(columnName)
         # on vérifie si la value n'est pas vide, si oui on l'injecte dans le tableau, sinon on ne l'ajoute pas
         if forbiddenWord(value) == true
             # on injecte dans un tableau qui lui va faire la correspondance client-serveur
             object_to_filter             = {}
-            object_to_filter.column_name = nameColumn
+            object_to_filter.column_name = columnName
             object_to_filter.value       = [value]
             filter_array_text.push object_to_filter
         # la function pour lancer la requete
@@ -202,32 +201,36 @@ tableau
     $scope.getGenericFilter = () ->
         result                 = ""
         get_filter_column_name = null
-        angular.forEach $scope.filters[0], (value, key) ->
-            $scope.nameColumn = value
-            if key.indexOf('search') != -1
-                result += """<h5 class = "md-subhead" style = "text-align: left"> Par """ + value + """ : </h5>"""
-                dynamic_entry = "filterText(clientFacture, '" + key + "', '" + value + "')"
-                result       += '<input for         = "' + value + '"
-                                   ng-change        = "' + dynamic_entry + '"
-                                   ng-model         = "clientFacture"
-                                   name             = "clientFacture"
-                                   ng-model-options = "{debounce: 1000}"
-                                   minlength        = "1"
-                                   maxlength        = "10">
-                                </input>'
-            else if key.indexOf('date') != -1
-                result += """<h5 class = "md-subhead" style = "text-align: left"> Par """ + value + """ : </h5>"""
-                dynamic_entry = "filterDate(range, '" + key + "', '" + value + "')"
-                result += '<sm-range-picker-input class           = "col s12"
-                                                  style           = "font-size:10px;"
-                                                  on-range-select = "' + dynamic_entry + '"
-                                                  value           = "' + key + '"
-                                                  is-required     = "false"
-                                                  format          = "YYYY-MM-DD"
-                                                  mode            = "date"
-                                                  week-start-day  = "monday"
-                                                  divider         = "Au">
-                           </sm-range-picker-input>'
+
+        angular.forEach $scope.filters, (value, key) ->
+            # console.log value
+            angular.forEach value, (deep_value, deep_key) ->
+                $scope.modelText  = deep_key + "_" + + key.toString()
+                # console.log value
+                if deep_key.indexOf('search') != -1
+                    result += """<h5 class = "md-subhead" style = "text-align: left"> Par """ + deep_value + """ : </h5>"""
+                    dynamic_entry = "filterText(" + $scope.modelText + ", '" + value['column'] + "')"
+                    result       += '<input for         = "' + deep_value + '"
+                                       ng-change        = "' + dynamic_entry + '"
+                                       ng-model         = "' + $scope.modelText + '"
+                                       name             = "clientFacture"
+                                       ng-model-options = "{debounce: 1000}"
+                                       minlength        = "1"
+                                       maxlength        = "10">
+                                    </input>'
+                else if deep_key.indexOf('date') != -1
+                    result += """<h5 class = "md-subhead" style = "text-align: left"> Par """ + deep_value + """ : </h5>"""
+                    dynamic_entry = "filterDate(range, '" + value['column'] + "', '" + deep_value + "')"
+                    result += '<sm-range-picker-input class           = "col s12"
+                                                      style           = "font-size:10px;"
+                                                      on-range-select = "' + dynamic_entry + '"
+                                                      value           = "' + key + '"
+                                                      is-required     = "false"
+                                                      format          = "YYYY-MM-DD"
+                                                      mode            = "date"
+                                                      week-start-day  = "monday"
+                                                      divider         = "Au">
+                               </sm-range-picker-input>'
                         # permet de retrouver le nom de la colonne associé au filtre
         #                 angular.forEach $scope.column_filter, (valueCol, keyCol) ->
         #                     get_filter_column_name = valueCol.nom_column

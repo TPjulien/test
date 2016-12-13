@@ -12,20 +12,19 @@ tableau
 
         $http.post 'http://151.80.121.123:7890/api/select/user_lookup/profils', { parameters: parameters, selected: "site_id" }
         .then (data) ->
-            PreValue = ""
             temp = []
             for key in data.data
                 temp.push key.site_id
-                PreValue = key.site_id
             # utiliser temps apres
             $http.post 'http://151.80.121.123:1234/api/multipleSelect', { tabIn: temp, values: ["base", "sites"] }
             .then (result) ->
-                PreValue += PreValue
                 tempResult = []
                 for value in result.data
+                    id = value.id.toString() + value.id.toString()
                     tempLoop = angular.fromJson value.js_data
                     if tempLoop.label.indexOf('{"label"') == -1
-                        tempResult.push {  login: username, label : tempLoop.label, site_id : PreValue }
+                        tempResult.push {  login: username, label : tempLoop.label, site_id : id }
+                    id = null
                 $scope.communities = tempResult
                 if ($scope.communities.length == 0)
                     toastErrorFct.toastError("L'utilisateur : " + username + " n'existe pas")
