@@ -11,7 +11,7 @@ tableau
     bullet_filters           = []
     counter                  = 50
     $scope.datatable_columns = []
-    $scope.getInfo = []
+    $scope.getInfo           = []
 
     $scope.columnNames   = []
     $scope.formattedJson = {}
@@ -35,18 +35,41 @@ tableau
             i++
         $scope.formattedJson.list_columns = temp
         getDatatable(0, 50)
+    getBullet = (temp) ->
+        bulletTemp = []
+        for data in temp
+            if data.has_bullet_filter
+                bulletTemp = data
+        return bulletTemp
 
     getfilters = (info) ->
         temp = {}
+        filterTemp = []
         angular.forEach info, (value, key) ->
           angular.forEach value, (value_deep, key_deep) ->
               if key_deep.indexOf('filter') != -1
                   if value_deep.length != 0
                       temp = {}
+                      temp["schema"]  = value.schema
+                      temp["table"]  = value.table
                       temp["column"] = value.column
                       temp[key_deep] = value_deep
-                      $scope.filters.push temp
+                      filterTemp.push temp
                       temp = {}
+        bulletTemp = getBullet(filterTemp)
+        $http.post 'https://api.test.tp-control.travelplanet.fr/getBulletFilter', { schema: bulletTemp.schema, table: bulletTemp.table, column_name : bulletTemp.column }
+        .then (result) ->
+            getBulletTemp = {}
+            getArrayBullet = []
+            for data in filterTemp
+                  if data.has_bullet_filter
+                      for filter in result.data
+                          angular.forEach filter, (value, key) ->
+                              getBulletTemp['value']  = value
+                              getBulletTemp['column'] = key
+                              getArrayBullet.push getBulletTemp
+                      data.filters = getArrayBullet
+            $scope.filters = filterTemp
 
     $scope.init = (info) ->
         $scope.getInfo = info
@@ -205,7 +228,7 @@ tableau
         angular.forEach $scope.filters, (value, key) ->
             # console.log value
             angular.forEach value, (deep_value, deep_key) ->
-                $scope.modelText  = deep_key + "_" + + key.toString()
+                $scope.modelText  = deep_key + "_" + key.toString()
                 # console.log value
                 if deep_key.indexOf('search') != -1
                     result += """<h5 class = "md-subhead" style = "text-align: left"> Par """ + deep_value + """ : </h5>"""
@@ -231,6 +254,38 @@ tableau
                                                       week-start-day  = "monday"
                                                       divider         = "Au">
                                </sm-range-picker-input>'
+                # else if deep_key.indexOf('bullet') != -1
+                #     if value.filters
+                #         angular.forEach value.filters, (result, keyBullet) ->
+                #             console.log result.value
+                #             result += "<h1>Bitch</h1>"
+                            # result += "<h1>" + value.column + "</h1>"
+                            # console.log value.filters
+                            # angular.forEach result, (bulletDeep, keyDeep) ->
+                            #     result += "<h1>" + result[keyDeep] + "</h1>"
+                                # console.log
+                        # console.log value.filters
+                        # angular.forEach value.filters, (result, keyBullet) ->
+                        #     result += "<h1>Hello</h1>"
+                        #     dynamic_entry  = "filterText('',  '" + value['column'] + "')"
+                        #     result        += '<md-radio-group ng-change = "' + dynamic_entry + '" &nbsp;ng-model  = "value">'
+                        #     angular.forEach result, (resultDeep, keyDeep) ->
+                        #         generic_bullet += '<md-radio-button value = "' + deep_value + '"> ' + deep_value + '</md-radio-button>'
+                        #     result += generic_bullet + '</md-radio-group>'
+
+                    # if bullet_filters.length != 0
+                                        #     generic_bullet += '<md-radio-button value = "all"
+                    #                           class = "md-primary">
+                    #                           Tous
+                    #                       </md-radio-button>'
+                    #     angular.forEach bullet_filters, (name, key) ->
+                    #         angular.forEach name, (value, deep_key) ->
+                    #             angular.forEach value, (deep_value, deep_key_level_2) ->
+                    #                     if deep_value != null
+                    #                         generic_bullet += '<md-radio-button value = "' + deep_value + '">
+                    #                                             ' + deep_value + '
+                    #                                            </md-radio-button>'
+                    #     result += generic_bullet + '</md-radio-group>'
                         # permet de retrouver le nom de la colonne associé au filtre
         #                 angular.forEach $scope.column_filter, (valueCol, keyCol) ->
         #                     get_filter_column_name = valueCol.nom_column
@@ -258,6 +313,7 @@ tableau
         #                                                     ' + deep_value + '
         #                                                    </md-radio-button>'
         #             result += generic_bullet + '</md-radio-group>'
+        # console.log result
         return $sce.trustAsHtml result
 
     $scope.downloadPdf = (selected) ->
