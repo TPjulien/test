@@ -36,12 +36,14 @@ tableau
 
       isMessage  = (txt, msg) -> txt.substring(0, msg.length) == msg
       getTableau = () ->
+          console.log $scope.info
           url                = $scope.trustHtml()
           LOADED_INDICATOR   = 'tableau.loadIndicatorsLoaded'
           COMPLETE_INDICATOR = 'tableau.completed'
-          placeholder        = document.getElementById('divMahefa')
+          placeholder        = document.getElementById($scope.info.embed_id)
           vizLoaded          = false
           url                = url
+          console.log url
           tableauOptions     = { hideTabs : true ,width : "100%", height : $scope.tableauData.embed_height }
           onFirstInteractive: () -> $scope.display = "block"
           viz = new tableau.Viz(placeholder, url, tableauOptions)
@@ -50,6 +52,7 @@ tableau
                   vizLoaded      = true
                   $scope.display = "none"
               else if isMessage(msg.data, COMPLETE_INDICATOR)
+                  console.log "ça passe par ici !"
                   $scope.tableauDisplay = "block"
                   $scope.loadingDisplay = "none"
                   if vizLoaded
