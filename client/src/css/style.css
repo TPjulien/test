@@ -2088,6 +2088,7 @@ input, textarea, keygen, select {
     padding: 25px 30px 5px;
     border: none;
     background: rgba(255,255,255,.9);
+    text-align: initial;
 }
 .body{
     max-width: 600px;
@@ -2098,7 +2099,7 @@ input, textarea, keygen, select {
 .sky-form .label {
     border-radius: 0;
     font-size: 100%;
-    text-align: left;
+    /*text-align: left;*/
     white-space: normal;
     color: inherit;
 }

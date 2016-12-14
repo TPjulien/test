@@ -2,31 +2,48 @@
   <div class="row">
     <div class="col s12">
       <div class="row">
-        <form style="margin-top: 20px;" name="form" class="sky-form">
-  				<header>Workflow</header>
-  				<fieldset>
+        <form name="form" class="sky-form">
+          <header>Workflow</header>
+          <fieldset>
             <div class="col s12">
-              <section>
-                <label  class=" labelstyle">Selectionne un Workflow</label>
+              <section style="text-align: initial;">
+                <label  class=" labelstyle">Selectionner un Workflow</label>
                 <md-input-container class="col s6" style="margin-right: 10px;width:100%;height: 50px;border: 3px solid rgba(158, 158, 158, 0.407843);background-color: white;padding-left: 5px;">
-                  <md-select aria-label="$index" ng-change="getParameters();"style="height: 50px;" ng-model="WORKFLOW_NAME">
-                    <md-option ng-repeat="wokflow in allowedWorkflows" value="{{wokflow.NAME}}" style="color: black;font-size: 16px;">{{wokflow.NAME}}</md-option>
+                  <md-select aria-label="$index" ng-change="getParameters();getInfosWokflow();"style="height: 50px;" ng-model="WORKFLOW_NAME">
+                    <md-option ng-repeat="wokflow in Distinctwokflows" value="{{wokflow.WORKFLOW_NAME}}" style="color: black;font-size: 16px;">{{wokflow.WORKFLOW_NAME}}</md-option>
                   </md-select>
                 </md-input-container>
-    					</section>
+              </section>
             </div>
-  				</fieldset>
+          </fieldset>
+          <fieldset ng-if="queries">
+            <div class="col s12">
+              <section>
+                <label  class=" labelstyle">{{queries.NAME}}</label>
+                <md-input-container class="col s6" style="margin-right: 10px;width:100%;height: 50px;border: 3px solid rgba(158, 158, 158, 0.407843);background-color: white;padding-left: 5px;">
+                  <md-select aria-label="$index" style="height: 50px;" ng-model="selected[queries.NAME]">
+                    <md-option ng-repeat="item in queries" value="{{item.ID}}" style="color: black;font-size: 16px;">{{item.LIBELLE}}</md-option>
+                  </md-select>
+                </md-input-container>
+              </section>
+            </div>
+          </fieldset>
           <fieldset>
             <div class="col s12">
               <div class="" ng-if="parameters">
                 <div ng-repeat="parameter in parameters" compile ng-bind-html="return_html(parameter)"></div>
-                <div compile ng-bind-html="return_html_listBox(listBoxs)"></div>
+                <div ng-repeat="listBox in listBoxs"     compile ng-bind-html="return_html_listBox(listBox)"></div>
               </div>
             </div>
           </fieldset>
-  			</form>
+          <div ng-if="go" style="background-color: #eff2f7;border-top: 1px solid #d8dadf;"class="col s12">
+            <div class="row" style="margin-top: 20px;margin-bottom: 20px;">
+              <md-button style="margin-left: 3%;width: 95%;background: #70a0f7;" ng-click="submit(newbank)"class="md-raised md-primary">Envoyer</md-button>
+            </div>
+          </div>
+          <div class="clear"></div>
+        </form>
       </div>
     </div>
   </div>
 </div>
-<!-- getBanks();infosWokflow(); -->
