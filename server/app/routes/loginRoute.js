@@ -124,45 +124,9 @@ module.exports = function(router, connection, mysql) {
             res.status(404).send("Not found !");
         } else {
           token.generate_token('UID', result_one[0].UID, result_one[0].SITE_ID, false, true, req, res, connection);
-          // var query_two = "SELECT * FROM ?? WHERE ?? = ? AND ?? = ? ORDER BY ?? LIMIT 1";
-          // var table_two = ['profils.view_info_userConnected', 'UID', result_one[0].UID, 'SITE_ID', result_one[0].SITE_ID, 'Role_ordre'];
-          // query_two     = mysql.format(query_two, table_two);
-          // connection.query(query_two, function(err, info_result) {
-          //   if (err) {
-          //       res.status(400).send(err);
-          //   } else if (info_result.length == 0) {
-          //       res.status(404).send("Not found !");
-          //   } else {
-          //     // var preToken = [{
-          //     //   "site_id":              info_result[0].SITE_ID,
-          //     //   "UID":                  info_result[0].UID,
-          //     //   "DEPOSITED_DATE":       info_result[0].DEPOSITED_DATE,
-          //     //   "home_community":       info_result[0].HomeCommunity,
-          //     //   "username":             info_result[0].Login,
-          //     //   "company":              info_result[0].SITE_LIBELLE,
-          //     //   "firstname":            info_result[0].Customer_GivenName,
-          //     //   "lastname":             info_result[0].Customer_surName,
-          //     //   "user_auth":            info_result[0].Role,
-          //     //   "can_logout":           result_one[0].LOGOUT_SAML_URL,
-          //     //   "is_saml":              true
-          //     // }];
-          //     // var token = jwt.sign(preToken, 'travelSecret', {
-          //     //   expiresIn: 7200
-          //     // });
-          //     // res.json({
-          //     //   token: token
-          //     // });
-          //   }
-          // })
         }
       })
     });
-
-    router.route('/testRoute')
-    .post(function(req, res) {
-	res.json(req.body.datalist);
-    });
-
     // on verifie s'il est éligible au samlCheck
     router.route('/samlCheck')
     .post (function (req, res) {
@@ -177,7 +141,6 @@ module.exports = function(router, connection, mysql) {
         }
       })
     })
-
     // mise à jour du login
     router.route('/login')
     .post (function (req, res) {
