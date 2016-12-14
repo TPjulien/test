@@ -36,8 +36,8 @@ module.exports = function(router, connection, mysql) {
                 if (err) {
                     res.status(400).send(err);
                 } else {
-                    query = "SELECT * FROM ?? WHERE ?? = ?";
-                    table = ['alteryx.parameters','TYPE','ListBox'];
+                    query = "SELECT * FROM ?? WHERE ?? = ? AND ?? = ?";
+                    table = ['alteryx.parameters','WORKFLOW_NAME',req.body.workflow,'TYPE','ListBox'];
                     query     = mysql.format(query, table);
                     connection.query(query, function(err, rows_2) {
                         if (err) {
