@@ -13,15 +13,15 @@ tableau
     $scope.init = (info) ->
         $scope.allowedWorkflows = info.list_workflow
 
-    $scope.getdistinctWokflow = (schema) ->
-        $http
-          method: "GET"
-          url:    options.api.base_url + "/distinctWokflow"
-        .success (data) ->
-          $scope.Distinctwokflows = data
-        .error (err) ->
-          console.log err
-    $scope.getdistinctWokflow()
+    # $scope.getdistinctWokflow = (schema) ->
+    #     $http
+    #       method: "GET"
+    #       url:    options.api.base_url + "/distinctWokflow"
+    #     .success (data) ->
+    #       $scope.Distinctwokflows = data
+    #     .error (err) ->
+    #       console.log err
+    # $scope.getdistinctWokflow()
 
     $scope.getInfosWokflow = () ->
         $http

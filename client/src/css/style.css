@@ -2066,7 +2066,7 @@ ng-md-icon {
     background: rgba(248,248,248,.9);
     font-size: 25px;
     font-weight: 300;
-    color: #232323;
+    color: #6698f1;
 }
 .sky-form .input input:focus, .sky-form .select select:focus, .sky-form .textarea textarea:focus, .sky-form .radio input:focus + i, .sky-form .checkbox input:focus + i, .sky-form .toggle input:focus + i {
     border-color: #cc3d3d;
