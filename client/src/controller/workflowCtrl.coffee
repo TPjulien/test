@@ -56,10 +56,12 @@ tableau
                           $scope[listName] = array
                         else if valueL.VALUE_TYPE == 'query'
                             query = valueL.VALUE
+                            console.log query
                             $http
                               method: "GET"
                               url:    options.api.base_url + "/query/" + query
                             .success (data_query) ->
+                                console.log data_query
                                 $scope.queries      = data_query
                                 $scope.queries.NAME = valueL.NAME
                                 $scope.go           = true
@@ -142,7 +144,6 @@ tableau
         html = $sce.trustAsHtml html
 
     $scope.return_html_listBox = (parameter) ->
-      console.log parameter
       if parameter.NAME != "SiteID"
         listName = parameter.NAME
         libelle = parameter.LIBELLE

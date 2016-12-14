@@ -2059,6 +2059,7 @@ ng-md-icon {
     color: #666;
 }
 .sky-form header {
+    text-align: initial;
     display: block;
     padding: 20px 30px;
     border-bottom: 1px solid rgba(0,0,0,.1);
@@ -2165,22 +2166,46 @@ md-select.md-default-theme:not([disabled]) .md-select-value, md-select:not([disa
 .container {
     width: 70%;
 }
-/*input:not([type]):focus:not([readonly]), input[type=text]:focus:not([readonly]), input[type=password]:focus:not([readonly]), input[type=email]:focus:not([readonly]), input[type=url]:focus:not([readonly]), input[type=time]:focus:not([readonly]),
-input[type=date]:focus:not([readonly]), input[type=datetime]:focus:not([readonly]), input[type=datetime-local]:focus:not([readonly]), input[type=tel]:focus:not([readonly]), input[type=number]:focus:not([readonly]), input[type=search]:focus:not([readonly]),
- textarea.materialize-textarea:focus:not([readonly]) {
+.input_workflow:focus:not([readonly])
+ {
    border: 3px solid #4ac735 !important;
-   box-shadow: none;
-}*/
+   box-shadow: none !important;
+}
 md-select md-select-value span{
   font-size: 15px;
   color:black;
 
 }
-
-.md-button.md-fab.md-mini {
-    line-height: 40px;
-    width: 55px;
-    height: 55px;
-    background-color: transparent;
-    box-shadow: none;
+md-switch.md-checked .md-bar {
+    background-color: rgb(164, 193, 245);
+}
+md-switch.md-checked .md-thumb {
+   background-color: rgb(112, 160, 247);
+}
+.fieldset{
+  margin-bottom: 10px !important;
+  border: 3px solid rgba(158, 158, 158, 0.407843)!important;
+  background-color: white !important;
+  padding-left: 5px !important;
+}
+.clear {
+  clear:both;
+}
+md-checkbox.md-checked .md-icon {
+    background-color: rgb(112, 160, 247);
+}
+.file_workflow:not(.btn-link):not(.btn-flat) {
+    width: 20%;
+    background-color: #70a0f7;
+    color: rgba(255, 255, 255, 0.84);
+    color: rgba(255, 255, 255, 0.84);
+}
+.btn:hover:not(.btn-link):not(.btn-flat), .btn-default:hover:not(.btn-link):not(.btn-flat) {
+    background-color: rgb(157, 188, 243);
+}
+.file-field input.file-path {
+    width: 98%;
+}
+._720kb-datepicker-calendar-header:nth-child(odd) {
+    background: #70a0f7;
 }
