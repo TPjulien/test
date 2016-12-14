@@ -1,10 +1,5 @@
 tableau
 .controller 'datatableCtrl', ($scope, $http, jwtHelper, store, $window, $filter, $stateParams, $sce, toastErrorFct) ->
-<<<<<<< 63fcb8b06f3afeb719b69e9d05bcb6fba31f7e9f
-    value                    = 50
-=======
-
->>>>>>> finalisation du module de recherche, ajout du bullet filter
     $scope.datatable         = []
     $scope.datatable_filters = []
     $scope.column_filter     = []
