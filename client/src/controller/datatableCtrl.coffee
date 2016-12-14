@@ -1,6 +1,5 @@
 tableau
 .controller 'datatableCtrl', ($scope, $http, jwtHelper, store, $window, $filter, $stateParams, $sce, toastErrorFct) ->
-
     value                    = 50
     $scope.datatable         = []
     $scope.datatable_filters = []
@@ -254,66 +253,6 @@ tableau
                                                       week-start-day  = "monday"
                                                       divider         = "Au">
                                </sm-range-picker-input>'
-                # else if deep_key.indexOf('bullet') != -1
-                #     if value.filters
-                #         angular.forEach value.filters, (result, keyBullet) ->
-                #             console.log result.value
-                #             result += "<h1>Bitch</h1>"
-                            # result += "<h1>" + value.column + "</h1>"
-                            # console.log value.filters
-                            # angular.forEach result, (bulletDeep, keyDeep) ->
-                            #     result += "<h1>" + result[keyDeep] + "</h1>"
-                                # console.log
-                        # console.log value.filters
-                        # angular.forEach value.filters, (result, keyBullet) ->
-                        #     result += "<h1>Hello</h1>"
-                        #     dynamic_entry  = "filterText('',  '" + value['column'] + "')"
-                        #     result        += '<md-radio-group ng-change = "' + dynamic_entry + '" &nbsp;ng-model  = "value">'
-                        #     angular.forEach result, (resultDeep, keyDeep) ->
-                        #         generic_bullet += '<md-radio-button value = "' + deep_value + '"> ' + deep_value + '</md-radio-button>'
-                        #     result += generic_bullet + '</md-radio-group>'
-
-                    # if bullet_filters.length != 0
-                                        #     generic_bullet += '<md-radio-button value = "all"
-                    #                           class = "md-primary">
-                    #                           Tous
-                    #                       </md-radio-button>'
-                    #     angular.forEach bullet_filters, (name, key) ->
-                    #         angular.forEach name, (value, deep_key) ->
-                    #             angular.forEach value, (deep_value, deep_key_level_2) ->
-                    #                     if deep_value != null
-                    #                         generic_bullet += '<md-radio-button value = "' + deep_value + '">
-                    #                                             ' + deep_value + '
-                    #                                            </md-radio-button>'
-                    #     result += generic_bullet + '</md-radio-group>'
-                        # permet de retrouver le nom de la colonne associé au filtre
-        #                 angular.forEach $scope.column_filter, (valueCol, keyCol) ->
-        #                     get_filter_column_name = valueCol.nom_column
-        #                     result = """<h5 class = "md-subhead"
-        #                                     style = "text-align: left">
-        #                                     Par """ + filters.nom_filtre + """ :
-        #                                  </h5>"""
-        #                 #faut trouver une moyen plus cool de faire cela dynamique
-        # angular.forEach $scope.column_filter, (valueCol, keyCol) ->
-        #     else if valueCol.nom_column == 'has_bullet_filter'
-        #         if bullet_filters.length != 0
-        #             generic_bullet = []
-        #             dynamic_entry = "filterText(value,  '" + get_filter_column_name + "')"
-        #             result       += '<md-radio-group ng-change = "' + dynamic_entry + '" &nbsp;
-        #                                              ng-model  = "value">'
-        #             generic_bullet += '<md-radio-button value = "all"
-        #                                   class = "md-primary">
-        #                                   Tous
-        #                               </md-radio-button>'
-        #             angular.forEach bullet_filters, (name, key) ->
-        #                 angular.forEach name, (value, deep_key) ->
-        #                     angular.forEach value, (deep_value, deep_key_level_2) ->
-        #                             if deep_value != null
-        #                                 generic_bullet += '<md-radio-button value = "' + deep_value + '">
-        #                                                     ' + deep_value + '
-        #                                                    </md-radio-button>'
-        #             result += generic_bullet + '</md-radio-group>'
-        # console.log result
         return $sce.trustAsHtml result
 
     $scope.downloadPdf = (selected) ->
