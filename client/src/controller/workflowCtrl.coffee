@@ -6,15 +6,18 @@ tableau
     year = currentDate.getFullYear()
     $scope.today =  year  + "-" + month + "-" +  day
 
-    $scope.getdistinctWokflow = (schema) ->
-        $http
-          method: "GET"
-          url:    options.api.base_url + "/distinctWokflow"
-        .success (data) ->
-          $scope.Distinctwokflows = data
-        .error (err) ->
-          console.log err
-    $scope.getdistinctWokflow()
+    $scope.init = (info) ->
+        $scope.allowedWorkflows = info.list_workflow
+    # $scope.getdistinctWokflow = (schema) ->
+    #     $http
+    #       method: "GET"
+    #       url:    options.api.base_url + "/distinctWokflow"
+    #     .success (data) ->
+    #
+    #       console.log data
+    #     .error (err) ->
+    #       console.log err
+    # $scope.getdistinctWokflow()
 
     $scope.infosWokflow = () ->
         $http
@@ -81,12 +84,14 @@ tableau
           console.log err
 
     $scope.getBanks = () ->
+        console.log $scope.WORKFLOW_NAME
         $http
           method: "POST"
           url:    options.api.base_url + "/banks"
           data:
             workflow: $scope.WORKFLOW_NAME
         .success (data) ->
+            console.log data
             data = data[0].VALUE
             array = []
             array = data.split(["\n"])

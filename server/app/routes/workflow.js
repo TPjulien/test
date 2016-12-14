@@ -53,7 +53,7 @@ module.exports = function(router, connection, mysql) {
     router.route('/banks')
         .post(function(req, res) {
             var query = "SELECT DISTINCT(??) FROM ?? WHERE ?? = ? AND ?? = ?";
-            var table = ["VALUE", "alteryx.parameters","WORKFLOW_NAME",req.body.workflow,"TYPE","ListBox"];
+            var table = ["VALUE", "alteryx.parameters","WORKFLOW_NAME",req.body.workflow,"TYPE","DropDown"];
             query     = mysql.format(query, table);
             connection.query(query, function(err, rows) {
                 if (err) {
