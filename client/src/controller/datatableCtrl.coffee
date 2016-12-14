@@ -1,13 +1,16 @@
 tableau
 .controller 'datatableCtrl', ($scope, $http, jwtHelper, store, $window, $filter, $stateParams, $sce, toastErrorFct) ->
+<<<<<<< 63fcb8b06f3afeb719b69e9d05bcb6fba31f7e9f
     value                    = 50
+=======
+
+>>>>>>> finalisation du module de recherche, ajout du bullet filter
     $scope.datatable         = []
     $scope.datatable_filters = []
     $scope.column_filter     = []
     filter_array_text        = []
     schema                   = null
     table                    = null
-    bullet_filters           = []
     counter                  = 50
     $scope.datatable_columns = []
     $scope.getInfo           = []
@@ -16,7 +19,7 @@ tableau
     $scope.formattedJson = {}
     $scope.datatableData = []
     $scope.filters       = []
-    $scope.nameColumn   = []
+    $scope.nameColumn    = []
 
     getColumnName = (info) ->
         i = 0
@@ -34,12 +37,13 @@ tableau
             i++
         $scope.formattedJson.list_columns = temp
         getDatatable(0, 50)
-    getBullet = (temp) ->
+
+    getBullet = (temp, callback) ->
         bulletTemp = []
         for data in temp
             if data.has_bullet_filter
                 bulletTemp = data
-        return bulletTemp
+        callback bulletTemp
 
     getfilters = (info) ->
         temp = {}
@@ -55,20 +59,24 @@ tableau
                       temp[key_deep] = value_deep
                       filterTemp.push temp
                       temp = {}
-        bulletTemp = getBullet(filterTemp)
-        $http.post 'https://api.test.tp-control.travelplanet.fr/getBulletFilter', { schema: bulletTemp.schema, table: bulletTemp.table, column_name : bulletTemp.column }
-        .then (result) ->
-            getBulletTemp = {}
-            getArrayBullet = []
-            for data in filterTemp
-                  if data.has_bullet_filter
-                      for filter in result.data
-                          angular.forEach filter, (value, key) ->
-                              getBulletTemp['value']  = value
-                              getBulletTemp['column'] = key
-                              getArrayBullet.push getBulletTemp
-                      data.filters = getArrayBullet
-            $scope.filters = filterTemp
+
+        getBullet filterTemp, (bulletTemp) ->
+            $http.post 'https://api.test.tp-control.travelplanet.fr/getBulletFilter', { schema: bulletTemp.schema, table: bulletTemp.table, column_name : bulletTemp.column }
+            .then (result) ->
+                getBulletTemp  = {}
+                getArrayBullet = []
+                for data in filterTemp
+                      if data.has_bullet_filter
+                          for filter in result.data
+                              angular.forEach filter, (value, key) ->
+                                  getBulletTemp['value']  = value
+                                  getBulletTemp['column'] = key
+                                  getArrayBullet.push getBulletTemp
+                                  getBulletTemp = {}
+                          data.filters = getArrayBullet
+                $scope.filters = filterTemp
+            .catch (err) ->
+                toastErrorFct.toastError 'Impossible de trouver vos filtres de recherche'
 
     $scope.init = (info) ->
         $scope.getInfo = info
@@ -95,6 +103,8 @@ tableau
                 else
                     if (data.data.constructor == Array)
                         $scope.datatableData = $scope.datatableData.concat data.data
+            .catch (err) ->
+                toastErrorFct.toastError "Impossible d'afficher le resultat"
 
     $scope.getGenericRow = (data) ->
         result = []
@@ -102,7 +112,6 @@ tableau
         i = 0
         angular.forEach data, (value, key) ->
             width = null
-            # console.log value, key
             for info in $scope.columnNames
                 if key == info.column
                     width = info.width
@@ -127,54 +136,6 @@ tableau
                     if inside_value == column_name
                         filter_array_text.splice(count,1)
                 count++
-
-    # fonction qui permet d'avoir les données du bullet
-    # getBullet = (value) ->
-    #     table = null
-    #     name  = null
-    #     angular.forEach value, (name, key) ->
-    #         table = value[key]
-    #         if table.has_bullet_filter != ''
-    #             if table.has_bullet_filter != null
-    #               $http
-    #                   method: 'POST'
-    #                   url:    options.api.base_url + '/getBulletFilter'
-    #                   data:
-    #                     column_name: table.column
-    #                     table:       table.table
-    #                     schema:      table.schema
-    #               .success (data) ->
-    #                   bullet_filters.push data
-
-    # on recupere les données de chaque instance de $scope.detail
-    # getDatatable = (min, max) ->
-    #     array_concat = []
-    #     $http
-    #         method: 'POST'
-    #         url:    options.api.base_url + '/getDatatable'
-    #         data:
-    #             generic_data: $scope.info.list_datatable
-    #             filters:      filter_array_text
-    #             min:          min
-    #             max:          max
-    #     .success (data) ->
-    #         if counter != 50 and data.datatable.length == 0
-    #             toastErrorFct.toastError("Aucune donnée disponible")
-    #         else
-    #             if $scope.datatable_columns.length == 0
-    #                 $scope.datatable_columns = data.datatable
-    #             else
-    #                 $scope.datatable_columns = $scope.datatable_columns.concat data.datatable
-    #
-    #             $scope.data_table = data
-    #             schema = $scope.data_table.datatable_width[0].schema
-    #             table  = $scope.data_table.datatable_width[0].table
-    #             if bullet_filters.length == 0
-    #                 getBullet(data.datatable_width);
-    #     .error (err) ->
-    #         toastErrorFct.toastError("Impossible de connecter au serveur de table, veuillez retenter plus tard")
-
-    # getDatatable(0, 50)
 
     # infinite scroll
     $scope.loadMore = () ->
@@ -220,39 +181,43 @@ tableau
         filter_array_text.push object_to_filter
         getDatatable(0, 50);
 
-    $scope.getGenericFilter = () ->
-        result                 = ""
-        get_filter_column_name = null
+    $scope.getGenericFilter = (filter, key) ->
+        result    = ""
+        modelText = filter.column + '_' + key.toString()
+        dynamic_entry = "filterText(" + modelText + ", '" + filter.column + "')"
+        angular.forEach filter, (names, key) ->
+            if key.indexOf('search') != -1
+                result += """<h5 class = "md-subhead" style = "text-align: left"> Par """ + names + """ : </h5>"""
+                result += '<input for         = "search"
+                            ng-change        = "' + dynamic_entry + '"
+                            ng-model         = "' + modelText + '"
+                            name             = "clientFacture"
+                            ng-model-options = "{debounce: 1000}"
+                            minlength        = "1"
+                            maxlength        = "10">'
 
-        angular.forEach $scope.filters, (value, key) ->
-            # console.log value
-            angular.forEach value, (deep_value, deep_key) ->
-                $scope.modelText  = deep_key + "_" + key.toString()
-                # console.log value
-                if deep_key.indexOf('search') != -1
-                    result += """<h5 class = "md-subhead" style = "text-align: left"> Par """ + deep_value + """ : </h5>"""
-                    dynamic_entry = "filterText(" + $scope.modelText + ", '" + value['column'] + "')"
-                    result       += '<input for         = "' + deep_value + '"
-                                       ng-change        = "' + dynamic_entry + '"
-                                       ng-model         = "' + $scope.modelText + '"
-                                       name             = "clientFacture"
-                                       ng-model-options = "{debounce: 1000}"
-                                       minlength        = "1"
-                                       maxlength        = "10">
-                                    </input>'
-                else if deep_key.indexOf('date') != -1
-                    result += """<h5 class = "md-subhead" style = "text-align: left"> Par """ + deep_value + """ : </h5>"""
-                    dynamic_entry = "filterDate(range, '" + value['column'] + "', '" + deep_value + "')"
-                    result += '<sm-range-picker-input class           = "col s12"
-                                                      style           = "font-size:10px;"
-                                                      on-range-select = "' + dynamic_entry + '"
-                                                      value           = "' + key + '"
-                                                      is-required     = "false"
-                                                      format          = "YYYY-MM-DD"
-                                                      mode            = "date"
-                                                      week-start-day  = "monday"
-                                                      divider         = "Au">
-                               </sm-range-picker-input>'
+            else if key.indexOf('date') != -1
+                result += """<h5 class = "md-subhead" style = "text-align: left"> Par """ + names + """ : </h5>"""
+                dynamic_entry = "filterDate(range, '" + names + "', '" + filter.column + "')"
+                result += '<sm-range-picker-input class           = "col s12"
+                                                  style           = "font-size:10px;"
+                                                  on-range-select = "' + dynamic_entry + '"
+                                                  value           = "' + key + '"
+                                                  is-required     = "false"
+                                                  format          = "YYYY-MM-DD"
+                                                  mode            = "date"
+                                                  week-start-day  = "monday"
+                                                  divider         = "Au">
+                           </sm-range-picker-input>'
+            else if key.indexOf('bullet') != -1
+                $scope.value = ""
+                result += """<h5 class = "md-subhead" style = "text-align: left"> Par """ + names + """ : </h5>"""
+                dynamic_entry  = "filterText(value,  '" + filter.column + "')"
+                result  += '<md-radio-group ng-change = "' + dynamic_entry + '" &nbsp; ng-model= "value">'
+                result += '<md-radio-button value = "">Tout</md-radio-button>'
+                for nameFilter in filter.filters
+                    result += '<md-radio-button value = "' + nameFilter.value + '"> ' + nameFilter.value + ' </md-radio-button>'
+                result += '</md-radio-group>'
         return $sce.trustAsHtml result
 
     $scope.downloadPdf = (selected) ->
@@ -281,4 +246,4 @@ tableau
                     window.URL.revokeObjectURL(url)
                 ), 100
             .catch (err) ->
-                console.log err
+                toastErrorFct.toastError 'Impossible de Télécharger la facture sélectionnée'

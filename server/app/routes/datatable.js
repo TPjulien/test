@@ -17,6 +17,12 @@ module.exports = function(router, connection, mysql) {
                   }
               })
           })
+      // v2 du filter, ceci inclus le bullet si jamais il existe
+      router.route('/getFilter')
+          .post (function(req, res) {
+              var table = req.body.schema + '.' + req.body.table;
+              var query
+          })
       // datatable v2
       router.route('/getDatatable')
           .post(function(req, res) {
@@ -33,7 +39,7 @@ module.exports = function(router, connection, mysql) {
                   }
               }
               query = query.slice(0, -2);
-	      
+
               query += " FROM " + table_name;
 	      if (filters.length != 0) {
 		  query += " WHERE ";
@@ -46,7 +52,7 @@ module.exports = function(router, connection, mysql) {
 		  }
 		  query = query.slice(0, -4);
 	      }
-	      
+
 	      query += " LIMIT " + min + "," + max;
 	      connection.query(query, function(err, result) {
 		  if (err) {
@@ -151,7 +157,7 @@ module.exports = function(router, connection, mysql) {
             })
           })
     router.route('/downloadBlob')
-        .post(function(req, res) {	    
+        .post(function(req, res) {
 	    var query = "SELECT ?? AS pdf FROM ?? WHERE";
 	    table = ['BLOB', req.body.schema + '.' + req.body.table];
 	    for(var key in req.body.values[0]) {
