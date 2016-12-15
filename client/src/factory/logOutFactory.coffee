@@ -20,6 +20,7 @@ tableau
                       if (is_saml == false)
                           # si ce n'est pas du saml donc on logout en local
                           store.remove 'JWT'
+                          store.remove 'set'    
                           $location.path '/login/account'
                       # Dans le cas contraire on va au logout de leur établissement pour le deconnecter
                       else
@@ -28,6 +29,7 @@ tableau
                               url:    options.api.base_url + '/Shibboleth.sso/Logout'
                           .success (data) ->
                               store.remove 'JWT'
+                              store.remove 'set'
                               $window.location.href = data
                           .error (err) ->
                               console.log err

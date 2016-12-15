@@ -17,6 +17,12 @@ tableau
             $scope.viewsMenu         = []
             roles                    = []
 
+            password = () ->
+                $http.post 'http://151.80.121.123:1234/api/login', { user_id: "blasqueadr", site_id: "Q202" }
+                .then (data) ->
+                    console.log data
+            password()
+
             $mdDialog.hide()
 
             $http.post 'http://151.80.121.123:7890/api/select/table2', { parameters : { "type" : "click_role_by_user", "key": decode[0].site_id.slice(0, -4), "id1": decode[0].UID }, selected: "id2"}
