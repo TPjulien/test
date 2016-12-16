@@ -1,22 +1,18 @@
-<!-- Mise a jour du site -->
-<div class="row" style="max-width: none; margin-left: 0.0rem; height: 100%;  width: 100%; margin-bottom:0px;">
-  <div class="col s12 s7 l7 valign hide-on-med-and-down" style="padding: 0; height:100%">
-    <div class="" style="background: url('{{user_image_url}}') center no-repeat; background-color:white;" id ="img-logo"> </div>
-  </div>
-  <div class="col s12 s5 l5 valign-wrapper" style="height: 100%; background-color:#402f73">
-    <div class="valign center" style=" width: 100%;">
+<div class="valign row center" style=" width: 100%;">
+  <div class="col s12">
       <h3 style="color:white" class="h5login">Connexion</h3>
-      <form name="loginForm" ng-submit="stepVerify()">
-        <md-content layout-padding class="md-content-community">
-          <md-input-container>
-            <label style="color: white;font-size: 15px; padding-left: 9px;">Nom d'utilisateur</label>
-            <input style="font-size: 20px;color: white;" ng-model="username" required="true">
-          </md-input-container>
-        </md-content>
-        <div class="col s12 center cssFade" ng-hide="loginForm.$invalid">
-          <a type="submit" style="background-color:#4CAF50"  ng-click="stepVerify()" class="waves-effect waves-light btn">Etape suivante</a>
-        </div>
-      </form>
-    </div>
+  </div>
+  <div class="col s12 center">
+    <form name="loginForm" ng-submit="stepVerify()">
+      <md-content layout-padding class="md-content-community">
+        <md-input-container>
+          <label style="color: white; padding-left: 9px;">Nom d'utilisateur</label>
+          <input style="color: white;" ng-model="username" required="true">
+        </md-input-container>
+      </md-content>
+      <div class="col s12 center cssFade">
+        <a type="submit" ng-disabled="loginForm.$invalid" style="background-color:#4CAF50"  ng-click="stepVerify()" class="waves-effect waves-light btn">Continuer</a>
+      </div>
+    </form>
   </div>
 </div>

@@ -43,9 +43,12 @@
     "angular-wysiwyg": "^1.2.4",
     "angular-bootstrap-colorpicker": "^3.0.25",
     "ng-ckeditor": "ng.ckeditor#^2.0.2",
-    "ngmap": "^1.17.6"
+    "ngmap": "^1.17.6",
+    "angular-animate": "1.5.9",
+    "angular-aria": "1.5.9"
   },
   "resolutions": {
     "angular": "~1.5.9"
+
   }
 }

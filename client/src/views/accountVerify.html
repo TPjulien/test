@@ -1,26 +1,18 @@
-<div class="row" style="max-width: none; margin-left: 0.0rem; height: 100%;  width: 100%; margin-bottom:0px">
-  <div class="col s12 s7 l7 valign hide-on-med-and-down" style="
-      padding: 0;
-      height: 100%;">
-    <div class="z-depth-2" style="background: url('img/travel_planet_logo.png') center no-repeat; background-color:white; background-size: contain;" id = "img-logo"> </div>
+<div class="valign row center" style=" width: 100%;">
+  <div class="col s12">
+      <h3 style="color:white" class="h5login">Mot de passe</h3>
   </div>
-  <div class="col s12 s5 l5 valign-wrapper" style="height: 100%; background-color:#402f73">
-    <div class="valign center" style=" width: 100%;">
-      <h2 style="color:white" layout-padding>Bonjour !</h2>
-
-      <h5 style="color:white" layout-padding>Session verrouillée, veuillez entrer votre mot de passe.</h5>
-      <form name="loginForm" ng-submit="login($event)">
-        <md-content layout-padding class="md-content-community">
-          <md-input-container>
-            <label style="color: white;font-size: 15px; padding-left: 9px;">Mot de passe</label>
-            <input type="password" ng-model="password" style="color: white;" required="true">
-            <a ng-click="backToCommu()" style="cursor:pointer; color:white"><md-icon md-svg-icon="img/icons/previous.svg"></md-icon><span style="margin-left:5px">Retour à la page précédente</span></a>
-          </md-input-container>
-        </md-content>
-        <div class="col s12 center cssFade">
-          <a type="submit" style="background-color:#4CAF50" ng-hide="loginForm.$invalid"  ng-click="login($event)" class="waves-effect waves-light btn">Connexion</a>
-        </div>
-      </form>
-    </div>
+  <div class="col s12 center">
+    <form name="loginForm" ng-submit="login($event)">
+      <md-content layout-padding class="md-content-community">
+        <md-input-container>
+          <label style="color: white; padding-left: 9px;"></label>
+          <input style="color: white;" type="password" ng-model="password" required="true">
+        </md-input-container>
+      </md-content>
+      <div class="col s12 center cssFade">
+        <a type="submit" ng-disabled="loginForm.$invalid" style="background-color:#4CAF50"  ng-click="login($event)" class="waves-effect waves-light btn">Connexion</a>
+      </div>
+    </form>
   </div>
 </div>

@@ -200,8 +200,9 @@ tableau
             templateUrl: 'templates/accountVerify.html'
             controller:  'accountVerifyCtrl'
         .state 'login.comunity',
-            url:         '/comunity/:username'
+            url:         '/comunity'
             templateUrl: 'templates/comunityList.html'
+            params : { username : null },
             controller:   'communityCtrl'
         .state 'home',
             url:         '/home',

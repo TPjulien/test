@@ -11,6 +11,11 @@
   color: white;*/
 }
 
+html, body {
+  height: 99%
+  overflow:hidden;
+}
+
 @font-face {
     font-family: 'gotham'; /*a name to be used later*/
     src: url('/fonts/gotham_travelplanet.ttf'); /*URL to font*/
@@ -18,6 +23,26 @@
 
 p, h1, h2, h3, h4, h5, h6, span {
   font-family: 'gotham';
+}
+
+
+.com-select {
+  -webkit-transition: background-color 0.5s ease-out;
+  -moz-transition: background-color 0.5s ease-out;
+  -o-transition: background-color 0.5s ease-out;
+  transition: background-color 0.5s ease-out;
+}
+
+.com-select:hover {
+    background-color: white;
+    color: #424242 !important;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+.comSelected {
+    background-color : white !important;
+    color: #424242 !important;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
 
 .vAccordion--default v-pane.is-expanded > v-pane-header {
@@ -45,10 +70,14 @@ p, h1, h2, h3, h4, h5, h6, span {
 .md-content-community{
   padding: 5%;
   margin: auto;
-  width: 80%;
+  max-width: 520px;
   margin-bottom: 5%;
   border-radius: 5px;
   background-color: rgba(255, 255, 255, 0.24);
+}
+
+.row .col {
+  padding: 0 !important;
 }
 .hoverable {
   transition: box-shadow .25s;
@@ -207,6 +236,7 @@ tooltip {
     background: #0077bb;
 }
 
+
 /* ------------------------------------------------------------------------------------------------ */
 @import url(http://fonts.googleapis.com/css?family=Roboto:400,100);
 
@@ -245,7 +275,7 @@ html {
 
 .loginPage {
   /*height: 600px;*/
-  height: 50%;
+  height: 100%;
   /*background-color:#EEE;*/
   /*width: 97.333%;*/
   width: 100%;
