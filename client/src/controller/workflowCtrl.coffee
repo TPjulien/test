@@ -12,7 +12,6 @@ tableau
 
     $scope.init = (info) ->
         $scope.allowedWorkflows = info.list_workflow
-
     # $scope.getdistinctWokflow = (schema) ->
     #     $http
     #       method: "GET"
