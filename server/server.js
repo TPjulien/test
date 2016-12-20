@@ -7,7 +7,7 @@ var jwt         = require('jsonwebtoken');
 var https       = require('https');
 var http        = require('http');
 var passport    = require('passport');
-require('dotenv').config({path: '/home/defaultuser/.env' });
+require('dotenv').config({path: '/home/Preprod/.env' });
 
 var app = express();
 
