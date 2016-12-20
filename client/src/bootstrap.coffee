@@ -235,6 +235,6 @@ tableau
     ]
     $httpProvider.interceptors.push 'jwtInterceptor'
 
-    IdleProvider.idle(10)
-    IdleProvider.timeout(10)
-    KeepaliveProvider.interval(2)
+    IdleProvider.idle(600)
+    IdleProvider.timeout(300)
+    KeepaliveProvider.interval(5)
