@@ -1,5 +1,5 @@
 tableau
-.controller 'communityCtrl', ($scope, $stateParams, $http, $location, toastErrorFct, $window, $state, $mdDialog, store, ipFct) ->
+.controller 'communityCtrl', ($scope, $stateParams, $http, $location, toastErrorFct, $window, $state, $mdDialog, store, ipFct, alertFct, vcRecaptchaService) ->
     $scope.background_image_url = '/img/default_account_wallpaper.jpg'
     $scope.user_image_url       = '/img/travel_planet_logo.png'
     $scope.checkCommunity       = true
@@ -8,6 +8,7 @@ tableau
     $scope.communityChecked     = false
     $scope.idSelected           = null
     $scope.actualCommunity      = []
+    $scope.captcha              = true
 
     $scope.choosed = (data) ->
         $scope.actualCommunity = data
@@ -25,7 +26,6 @@ tableau
                 temp.push key.site_id
             $http.post 'http://151.80.121.123:1234/api/multipleSelect', { tabIn: temp, values: ["base", "sites"] }
             .then (result) ->
-                console.log result
                 tempResult = []
                 for value in result.data
                     id = value.id.toString() + value.id.toString()
@@ -42,6 +42,10 @@ tableau
                     console.log "une seule communeauté"
 
     getCommunity()
+
+    $scope.setResponse = (data) ->
+        # la réponse plus tard
+        $scope.captcha = false
 
     $scope.login = () ->
         $mdDialog.show
@@ -63,11 +67,10 @@ tableau
             if store.get 'JWT'
                 get_action = "Logged with click"
                 ipFct.insertDataIp(get_action)
-            $location.path "/home"
+            $state.go "home"
         .error (err) ->
             alertFct.loginError()
             $mdDialog.hide()
-
 
     # $scope.goToPassword = (data) ->
     #     console.log data

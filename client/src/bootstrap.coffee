@@ -21,6 +21,8 @@ tableau = angular.module 'tableauApp', [
   'wysiwyg.module'
   'colorpicker.module'
   'ngMap'
+  'ngIdle'
+  'vcRecaptcha'
 ]
 
 options = {}
@@ -47,7 +49,7 @@ getResultBase2 = getBase2()
 # options.api.base_url = "https://api.tp-control.travelplanet.fr"
 
 tableau
-.config (authProvider, $stateProvider, $urlRouterProvider, $httpProvider, jwtInterceptorProvider, $mdThemingProvider, pickerProvider) ->
+.config (authProvider, $stateProvider, $urlRouterProvider, $httpProvider, jwtInterceptorProvider, $mdThemingProvider, pickerProvider, IdleProvider, KeepaliveProvider) ->
 
     # Partie picker
     pickerProvider.setOkLabel 'Enregistrer'
@@ -232,3 +234,7 @@ tableau
         store.get('JWT')
     ]
     $httpProvider.interceptors.push 'jwtInterceptor'
+
+    IdleProvider.idle(10)
+    IdleProvider.timeout(10)
+    KeepaliveProvider.interval(2)

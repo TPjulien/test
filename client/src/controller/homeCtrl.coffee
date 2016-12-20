@@ -1,5 +1,8 @@
 tableau
-.controller 'homeCtrl', ($scope, logoutFct, jwtHelper, store, $http, $stateParams, $location, $sce, $mdDialog, toastErrorFct, $q, $state, ipFct, bitmaskFactory) ->
+# .run (Idle) ->
+#     Idle.watch()
+.controller 'homeCtrl', ($scope, logoutFct, jwtHelper, store, $http, $stateParams, $location, $sce, $mdDialog, toastErrorFct, $q, $state, ipFct, bitmaskFactory, $timeout, Idle, $window) ->
+    Idle.watch()
     if(!store.get('JWT'))
         $state.go 'login'
     else
@@ -17,29 +20,56 @@ tableau
             $scope.viewsMenu         = []
             roles                    = []
 
-            password = () ->
-                $http.post 'http://151.80.121.123:1234/api/login', { user_id: "blasqueadr", site_id: "Q202" }
-                .then (data) ->
-                    console.log data
-            password()
-
             $mdDialog.hide()
+
+            # Quand l'utilisateur n'est plus sur le site
+            $scope.$on 'IdleStart', () ->
+                $mdDialog.show
+                  controller          : null
+                  templateUrl         : 'modals/idleMessage.html'
+                  parent              : angular.element(document.body)
+                  clickOutsideToClose : false
+                  escapeToClose       : false
+                console.log "l'utilisateur est parti ailleurs"
+
+            deleteAll = (callback) ->
+                $mdDialog.hide()
+                store.remove 'JWT'
+                store.remove 'set'
+                return callback true
+
+            $scope.$on 'IdleTimeout', () ->
+                deleteAll (result) ->
+                    $state.go 'login'
+
+            # si jamais l'utilisateur est de retour !
+            $scope.$on 'IdleEnd', () ->
+                $mdDialog.hide()
+                console.log "L'utilisateur est revenu !"
 
             $http.post 'http://151.80.121.123:7890/api/select/table2', { parameters : { "type" : "click_role_by_user", "key": decode[0].site_id.slice(0, -4), "id1": decode[0].UID }, selected: "id2"}
             .then (data) ->
-                rolesTemp = []
-                for key in data.data
-                  rolesTemp.push key.id2
-                roles.push key.id2
-                infoUser                 = $http.post 'http://151.80.121.123:7890/api/select/table1', { parameters : { "type": "click", "key" : "site", "id" : decode[0].site_id.slice(0, -4) }, selected: "*" }
-                menu                     = $http.post 'http://151.80.121.123:1234/api/menu/' + decode[0].site_id.slice(0, -4) , { roles: rolesTemp }
-                $q.all([
-                    infoUser
-                    menu
-                ]).then (data) ->
-                    temp             = eval data[0].data[0].js_data
-                    $scope.userInfos = temp[0]
-                    $scope.viewsMenu = data[1].data
+                if data.data.length == 0
+                    toastErrorFct.toastError "Ce compte n'a pas encore été configuré, vous allez être déconnectée dans 5 secondes"
+                    $timeout (->
+                      $state.go "login"
+                      store.remove 'JWT'
+                      store.remove 'set'
+                    ), 5000
+                else
+                    rolesTemp = []
+                    for key in data.data
+                      rolesTemp.push key.id2
+                    roles.push key.id2
+                    infoUser                 = $http.post 'http://151.80.121.123:7890/api/select/table1', { parameters : { "type": "click", "key" : "site", "id" : decode[0].site_id.slice(0, -4) }, selected: "*" }
+                    menu                     = $http.post 'http://151.80.121.123:1234/api/menu/' + decode[0].site_id.slice(0, -4) , { roles: rolesTemp }
+                    $q.all([
+                        infoUser
+                        menu
+                    ]).then (data) ->
+                        temp             = eval data[0].data[0].js_data
+                        $scope.userInfos = temp[0]
+                        $scope.viewsMenu = data[1].data
 
             $scope.goTo = (embeds) ->
                 $state.go 'home.test', { embeds : embeds }
