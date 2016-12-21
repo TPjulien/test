@@ -4,6 +4,7 @@ tableau
     $scope.user_image_url       = '/img/travel_planet_logo.png'
     $scope.checkCommunity       = true
     $scope.labelCommunities     = []
+    loginData                   = $stateParams.data
     username                    = $stateParams.username
     $scope.communityChecked     = false
     $scope.idSelected           = null
@@ -11,40 +12,35 @@ tableau
     $scope.captcha              = true
     $scope.comText              = "Sélection de la communauté"
 
-
     $scope.choosed = (data) ->
         $scope.actualCommunity = data
         $scope.idSelected = data.label
         $scope.checkCommunity = false
 
     getCommunity = () ->
-        parameters =
-            key_name  : "login"
-            key_value : username
-        $http.post 'http://151.80.121.123:7890/api/select/user_lookup/profils', { parameters: parameters, selected: "site_id" }
-        .then (data) ->
-            temp = []
-            for key in data.data
+        temp = []
+        if loginData
+            for key in loginData
                 temp.push key.site_id
-            $http.post 'http://151.80.121.123:1234/api/multipleSelect', { tabIn: temp, values: ["base", "sites"] }
-            .then (result) ->
-                tempResult = []
-                for value in result.data
-                    id = value.id.toString() + value.id.toString()
-                    tempLoop = angular.fromJson value.js_data
-                    if tempLoop.label.indexOf('{"label"') == -1
-                        tempResult.push {  login: username, label : tempLoop.label, site_id : id }
-                        $scope.labelCommunities.push tempLoop.label
-                    id = null
-                $scope.communities = tempResult
-                if ($scope.communities.length == 0)
-                    toastErrorFct.toastError("L'utilisateur : " + username + " n'existe pas")
-                    $state.go 'login.account'
-                else if ($scope.communities.length == 1)
-                    $scope.comText         = "Vôtre communauté"
-                    $scope.actualCommunity = $scope.communities[0]
-                    $scope.idSelected      = $scope.communities[0].label
-                    $scope.checkCommunity  = false
+        $http.post 'http://151.80.121.123:1234/api/multipleSelect', { tabIn: temp, values: ["base", "sites"] }
+        .then (result) ->
+            tempResult = []
+            for value in result.data
+                id = value.id.toString() + value.id.toString()
+                tempLoop = angular.fromJson value.js_data
+                if tempLoop.label.indexOf('{"label"') == -1
+                    tempResult.push {  login: username, label : tempLoop.label, site_id : id }
+                    $scope.labelCommunities.push tempLoop.label
+                id = null
+            $scope.communities = tempResult
+            if ($scope.communities.length == 0 and loginData)
+                toastErrorFct.toastError("L'utilisateur : " + username + " n'existe pas")
+                $state.go 'login.account'
+            else if ($scope.communities.length == 1)
+                $scope.comText         = "Vôtre communauté"
+                $scope.actualCommunity = $scope.communities[0]
+                $scope.idSelected      = $scope.communities[0].label
+                $scope.checkCommunity  = false
 
     getCommunity()
 
@@ -52,30 +48,58 @@ tableau
         # la réponse plus tard
         $scope.captcha = false
 
+    token = (data, callback) ->
+        store.set('JWT', data.token)
+        if store.get 'JWT'
+            get_action = "Logged with click"
+            ipFct.insertDataIp(get_action)
+        callback true
+
     $scope.login = () ->
-        $mdDialog.show
-          controller          : 'loadingCtrl'
-          templateUrl         : 'modals/loading.html'
-          parent              : angular.element(document.body)
-          clickOutsideToClose : false
-          escapeToClose       : false
-        $http
-            method: 'POST'
-            url:    options.api.base_url + '/login'
-            data: {
-                SITE_ID  : $scope.actualCommunity.site_id
-                username : $scope.actualCommunity.login
-                password : $scope.password
-            }
-        .success (data) ->
-            store.set('JWT', data.token)
-            if store.get 'JWT'
-                get_action = "Logged with click"
-                ipFct.insertDataIp(get_action)
-            $state.go "home"
-        .error (err) ->
-            alertFct.loginError()
-            $mdDialog.hide()
+        if $scope.password.length <= 3
+            toastErrorFct.toastError("Erreur, le mot de passe est trop court")
+        else
+            $mdDialog.show
+              controller          : 'loadingCtrl'
+              templateUrl         : 'modals/loading.html'
+              parent              : angular.element(document.body)
+              clickOutsideToClose : false
+              escapeToClose       : false
+            siteId = $scope.actualCommunity.site_id
+            if siteId.length > 4
+                siteId = siteId.slice(0, 4)
+            $http.post 'http://151.80.121.123:1234/api/compare', { username : username ,password : $scope.password, site_id: siteId, user_id: loginData[0].user_id }
+            .then (data) ->
+                token data.data, (result) ->
+                    $mdDialog.hide()
+                    $state.go "home"
+            .catch (err) ->
+                toastErrorFct.toastError("Impossible d'acceder à cette communauté")
+                $mdDialog.hide()
+
+            # $mdDialog.show
+            #   controller          : 'loadingCtrl'
+            #   templateUrl         : 'modals/loading.html'
+            #   parent              : angular.element(document.body)
+            #   clickOutsideToClose : false
+            #   escapeToClose       : false
+            # $http
+            #     method: 'POST'
+            #     url:    options.api.base_url + '/login'
+            #     data: {
+            #         SITE_ID  : $scope.actualCommunity.site_id
+            #         username : username
+            #         password : $scope.password
+            #     }
+            # .success (data) ->
+            #     store.set('JWT', data.token)
+            #     if store.get 'JWT'
+            #         get_action = "Logged with click"
+            #         ipFct.insertDataIp(get_action)
+            #     $state.go "home"
+            # .error (err) ->
+            #     alertFct.loginError()
+            #     $mdDialog.hide()
 
     # $scope.goToPassword = (data) ->
     #     console.log data

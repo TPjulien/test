@@ -204,7 +204,7 @@ tableau
         .state 'login.comunity',
             url:         '/comunity'
             templateUrl: 'templates/comunityList.html'
-            params : { username : null },
+            params : { data: null, username : null },
             controller:   'communityCtrl'
         .state 'home',
             url:         '/home',

@@ -56,7 +56,7 @@ tableau
             #     $mdDialog.hide()
             #     console.log "L'utilisateur est revenu !"
 
-            $http.post 'http://151.80.121.123:7890/api/select/table2', { parameters : { "type" : "click_role_by_user", "key": decode[0].site_id.slice(0, -4), "id1": decode[0].UID }, selected: "id2"}
+            $http.post 'http://151.80.121.123:7890/api/select/table2', { parameters : { "type" : "click_role_by_user", "key": decode[0].site_id, "id1": decode[0].UID }, selected: "id2"}
             .then (data) ->
                 if data.data.length == 0
                     toastErrorFct.toastError "Ce compte n'a pas encore été configuré, vous allez être déconnectée dans 5 secondes"
@@ -70,8 +70,8 @@ tableau
                     for key in data.data
                       rolesTemp.push key.id2
                     roles.push key.id2
-                    infoUser                 = $http.post 'http://151.80.121.123:7890/api/select/table1', { parameters : { "type": "click", "key" : "site", "id" : decode[0].site_id.slice(0, -4) }, selected: "*" }
-                    menu                     = $http.post 'http://151.80.121.123:1234/api/menu/' + decode[0].site_id.slice(0, -4) , { roles: rolesTemp }
+                    infoUser                 = $http.post 'http://151.80.121.123:7890/api/select/table1', { parameters : { "type": "click", "key" : "site", "id" : decode[0].site_id }, selected: "*" }
+                    menu                     = $http.post 'http://151.80.121.123:1234/api/menu/' + decode[0].site_id , { roles: rolesTemp }
                     $q.all([
                         infoUser
                         menu
@@ -90,7 +90,6 @@ tableau
                 viewList     = aggMenu.view_list
                 tempPosition = []
                 viewTemp     = []
-                # console.log viewList.length
                 if (viewList)
                   for sorted in viewList
                       tempPosition.push sorted.view_position
