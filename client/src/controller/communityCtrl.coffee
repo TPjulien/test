@@ -9,6 +9,8 @@ tableau
     $scope.idSelected           = null
     $scope.actualCommunity      = []
     $scope.captcha              = true
+    $scope.comText              = "Sélection de la communauté"
+
 
     $scope.choosed = (data) ->
         $scope.actualCommunity = data
@@ -39,7 +41,10 @@ tableau
                     toastErrorFct.toastError("L'utilisateur : " + username + " n'existe pas")
                     $state.go 'login.account'
                 else if ($scope.communities.length == 1)
-                    console.log "une seule communeauté"
+                    $scope.comText         = "Vôtre communauté"
+                    $scope.actualCommunity = $scope.communities[0]
+                    $scope.idSelected      = $scope.communities[0].label
+                    $scope.checkCommunity  = false
 
     getCommunity()
 

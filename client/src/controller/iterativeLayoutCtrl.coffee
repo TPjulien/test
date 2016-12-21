@@ -39,5 +39,4 @@ tableau
     $scope.getController = null
     $scope.getTemplate = (value) ->
         result_template      = 'templates/' + value.embed_content_type.toLowerCase() + '.html'
-        console.log result_template
         return result_template

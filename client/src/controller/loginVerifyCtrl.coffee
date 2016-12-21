@@ -10,24 +10,28 @@ tableau
     $scope.background_image_url = '/img/default_account_wallpaper.jpg'
     $scope.user_image_url       = '/img/travel_planet_logo.png'
 
-
     $scope.stepVerify = (ev) ->
-        $http
-            method: 'GET'
-            url:    options.api.base_url + '/loginCheck/' + $scope.username
-        .success (data) ->
+        parameters =
+          key_name  : "login"
+          key_value : username
+        $http.post 'http://151.80.121.123:7890/api/select/user_lookup/profils', { parameters: parameters, selected: "site_id" }
+        .then (data) ->
             console.log data
-            if (data.tpa)
-                if (data.tpa.length == 1)
-                    # if (data.saml[0].SAML_TYPE == "0" or data.saml[0].SAML_TYPE == null)
-                    #     $location.path '/login/verify/' + $scope.username + '/' + data.tpa[0].SITE_ID
-                    if (data.saml[0].SAML_TYPE == "RENATER")
-                        $window.location.href = "https://api.tp-control.travelplanet.fr/shibboleth/" + $scope.username
-                    else
-                        $state.go 'login.comunity', { username : $scope.username }
-            else if (data.length > 0)
-                $state.go 'login.comunity', { username : $scope.username }
-            else
-                toastErrorFct.toastError("L'utilisateur : " + $scope.username + " n'existe pas")
-        .error (err) ->
-            toastErrorFct.toastError("Impossible de se connecter au serveur de login, veuillez retenter plus tard")
+        # $http
+        #     method: 'GET'
+        #     url:    options.api.base_url + '/loginCheck/' + $scope.username
+        # .success (data) ->
+        #     if (data.tpa)
+        #         if (data.tpa.length == 1)
+        #             # if (data.saml[0].SAML_TYPE == "0" or data.saml[0].SAML_TYPE == null)
+        #             #     $location.path '/login/verify/' + $scope.username + '/' + data.tpa[0].SITE_ID
+        #             if (data.saml[0].SAML_TYPE == "RENATER")
+        #                 $window.location.href = "https://api.tp-control.travelplanet.fr/shibboleth/" + $scope.username
+        #             else
+        #                 $state.go 'login.comunity', { username : $scope.username }
+        #     else if (data.length > 0)
+        #         $state.go 'login.comunity', { username : $scope.username }
+        #     else
+        #         toastErrorFct.toastError("L'utilisateur : " + $scope.username + " n'existe pas")
+        # .error (err) ->
+        #     toastErrorFct.toastError("Impossible de se connecter au serveur de login, veuillez retenter plus tard")

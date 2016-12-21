@@ -1,6 +1,4 @@
 tableau
-# .run (Idle) ->
-#     Idle.watch()
 .controller 'homeCtrl', ($scope, logoutFct, jwtHelper, store, $http, $stateParams, $location, $sce, $mdDialog, toastErrorFct, $q, $state, ipFct, bitmaskFactory, $timeout, Idle, $window) ->
     Idle.watch()
     if(!store.get('JWT'))
@@ -30,7 +28,6 @@ tableau
                   parent              : angular.element(document.body)
                   clickOutsideToClose : false
                   escapeToClose       : false
-                console.log "l'utilisateur est parti ailleurs"
 
             deleteAll = (callback) ->
                 $mdDialog.hide()
@@ -45,7 +42,6 @@ tableau
             # si jamais l'utilisateur est de retour !
             $scope.$on 'IdleEnd', () ->
                 $mdDialog.hide()
-                console.log "L'utilisateur est revenu !"
 
             $http.post 'http://151.80.121.123:7890/api/select/table2', { parameters : { "type" : "click_role_by_user", "key": decode[0].site_id.slice(0, -4), "id1": decode[0].UID }, selected: "id2"}
             .then (data) ->
@@ -75,6 +71,23 @@ tableau
                 $state.go 'home.test', { embeds : embeds }
 
             $scope.bindMenu  = (aggMenu) ->
+                viewList     = aggMenu.view_list
+                tempPosition = []
+                viewTemp     = []
+                # console.log viewList.length
+                if (viewList)
+                  for sorted in viewList
+                      tempPosition.push sorted.view_position
+
+                tempPosition.sort (a, b) ->
+                    a - b
+
+                for pos in tempPosition
+                    for sorted in viewList
+                        if pos == sorted.view_position
+                            viewTemp.push sorted
+
+                aggMenu.view_list = viewTemp
                 $scope.color = aggMenu.groupe_color
                 menu         = []
                 menu        += """<md-fab-speed-dial md-open="" md-direction="{{selectedDirection}}" ng-class="selectedMode">
