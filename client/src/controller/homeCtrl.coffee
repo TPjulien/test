@@ -23,11 +23,22 @@ tableau
             # Quand l'utilisateur n'est plus sur le site
             $scope.$on 'IdleStart', () ->
                 $mdDialog.show
-                  controller          : null
+                  controller          : IdleCtrl
                   templateUrl         : 'modals/idleMessage.html'
                   parent              : angular.element(document.body)
                   clickOutsideToClose : false
                   escapeToClose       : false
+
+            IdleCtrl = ($scope,$mdDialog) ->
+                $scope.resterconnecter = () ->
+                    console.log 'hey'
+                    $mdDialog.hide()
+
+                $scope.logOut = () ->
+                    $mdDialog.hide()
+                    get_action = "logged out"
+                    ipFct.insertDataIp(get_action)
+                    logoutFct.logOut_SC()
 
             deleteAll = (callback) ->
                 $mdDialog.hide()
@@ -40,8 +51,10 @@ tableau
                     $state.go 'login'
 
             # si jamais l'utilisateur est de retour !
-            $scope.$on 'IdleEnd', () ->
-                $mdDialog.hide()
+
+            # $scope.$on 'IdleEnd', () ->
+            #     $mdDialog.hide()
+            #     console.log "L'utilisateur est revenu !"
 
             $http.post 'http://151.80.121.123:7890/api/select/table2', { parameters : { "type" : "click_role_by_user", "key": decode[0].site_id.slice(0, -4), "id1": decode[0].UID }, selected: "id2"}
             .then (data) ->
@@ -66,6 +79,9 @@ tableau
                         temp             = eval data[0].data[0].js_data
                         $scope.userInfos = temp[0]
                         $scope.viewsMenu = data[1].data
+
+            $scope.cancel = () ->
+               $mdDialog.hide()
 
             $scope.goTo = (embeds) ->
                 $state.go 'home.test', { embeds : embeds }
