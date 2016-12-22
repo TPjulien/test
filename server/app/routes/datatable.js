@@ -4,17 +4,21 @@ var request   = require('request');
 module.exports = function(router, connection, mysql) {
   router.route('/getBulletFilter')
   .post (function(req, res) {
-    var table = req.body.schema + '.' + req.body.table
-    var query_bullet = "SELECT DISTINCT(??) FROM ??";
-    var table_bullet = [req.body.column_name, table];
-    query_bullet = mysql.format(query_bullet, table_bullet);
-    connection.query(query_bullet, function(err, result_bullet) {
-      if (err) {
-        res.status(400).send(err);
-      } else {
-        res.json(result_bullet);
-      }
-    })
+    if (req.body.schema == undefined || req.body.table == undefined || req.body.column_name) {
+	res.status(201).send("");
+    } else {
+	var table = req.body.schema + '.' + req.body.table
+	var query_bullet = "SELECT DISTINCT(??) FROM ??";
+	var table_bullet = [req.body.column_name, table];
+	query_bullet = mysql.format(query_bullet, table_bullet);
+	connection.query(query_bullet, function(err, result_bullet) {
+	    if (err) {
+		res.status(400).send(err);
+	    } else {
+		res.json(result_bullet);
+	    }
+	})
+    }
   })
   router.route('/getDatatable')
   .post(function(req, res) {
