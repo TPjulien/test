@@ -16,6 +16,7 @@ tableau
           key_value : $scope.username
         $http.post 'http://151.80.121.123:7890/api/select/user_lookup/profils', { parameters: parameters, selected: "site_id, user_id" }
         .then (data) ->
+            console.log "le verify", data
             if (data.data.length == 0)
                 toastErrorFct.toastError("L'utilisateur : " + $scope.username + " n'existe pas")
             else

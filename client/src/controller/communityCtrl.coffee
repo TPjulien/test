@@ -24,6 +24,7 @@ tableau
                 temp.push key.site_id
         $http.post 'http://151.80.121.123:1234/api/multipleSelect', { tabIn: temp, values: ["base", "sites"] }
         .then (result) ->
+            console.log "la communeauté", result
             tempResult = []
             for value in result.data
                 id = value.id.toString() + value.id.toString()
@@ -68,14 +69,20 @@ tableau
             siteId = $scope.actualCommunity.site_id
             if siteId.length > 4
                 siteId = siteId.slice(0, 4)
-            $http.post 'http://151.80.121.123:1234/api/compare', { username : username ,password : $scope.password, site_id: siteId, user_id: loginData[0].user_id }
-            .then (data) ->
-                token data.data, (result) ->
+            parameters =
+                key_name  : "login"
+                key_value : username
+                site_id   : siteId
+            $http.post 'http://151.80.121.123:7890/api/select/user_lookup/profils', { parameters: parameters, selected: "user_id" }
+            .then (getId) ->
+                $http.post 'http://151.80.121.123:1234/api/compare', { username : username ,password : $scope.password, site_id: siteId, user_id: getId.data[0].user_id }
+                .then (data) ->
+                    token data.data, (result) ->
+                        $mdDialog.hide()
+                        $state.go "home"
+                .catch (err) ->
+                    toastErrorFct.toastError("Impossible d'acceder à cette communauté")
                     $mdDialog.hide()
-                    $state.go "home"
-            .catch (err) ->
-                toastErrorFct.toastError("Impossible d'acceder à cette communauté")
-                $mdDialog.hide()
 
             # $mdDialog.show
             #   controller          : 'loadingCtrl'
