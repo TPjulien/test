@@ -173,14 +173,13 @@ module.exports = function(router, connection, mysql) {
       })
     })
 
-    // nouvelle route de shibboleth
-    router.route('/shibb/:url/:field')
-    .get(function(req, res) {
-        shib_url        = req.params.url;
+    router.route('/setup')
+    .post(function(req, res) {
+        shib_url = req.body.url;
         shib_url_logout = "";
-        field = req.params.field;
-        saml(shib_url, shib_url_logout);
-        res.redirect('/postShibboleth');
+        field  = req.body.field
+        saml(shib_url, shib_url_logout)
+        res.status(200).send("setup completed");
     })
 
     // route de shibboleth

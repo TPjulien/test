@@ -15,9 +15,12 @@ tableau
     $scope.choosed = (data) ->
         # console.log data
         if (data.shib != undefined)
-            $window.location.href = "https://api.tp-control.travelplanet.fr/shibb/" + data.shib.shibb_url + "/" + data.shib.comp_shibb
+            $http.post 'https://api.tp-control.travelplanet.fr/setup', { url: data.shib.shib_url, field: data.shib.shib_field }
+            .then (data) ->
+                $window.location.href = "https://api.tp-control.travelplanet.fr/postShibboleth"
+            # console.log data.shib
         else
-            console.log "nope! "
+            # console.log "nope! "
             $scope.actualCommunity = data
             $scope.idSelected = data.label
             $scope.checkCommunity = false
