@@ -13,9 +13,14 @@ tableau
     $scope.comText              = "Sélection de la communauté"
 
     $scope.choosed = (data) ->
-        $scope.actualCommunity = data
-        $scope.idSelected = data.label
-        $scope.checkCommunity = false
+        # console.log data
+        if (data.shib != undefined)
+            $window.location.href = "https://api.tp-control.travelplanet.fr/shibb/" + data.shib.shibb_url + "/" + data.shib.comp_shibb
+        else
+            console.log "nope! "
+            $scope.actualCommunity = data
+            $scope.idSelected = data.label
+            $scope.checkCommunity = false
 
     getCommunity = () ->
         temp = []
@@ -24,13 +29,12 @@ tableau
                 temp.push key.site_id
         $http.post 'http://151.80.121.123:1234/api/multipleSelect', { tabIn: temp, values: ["base", "sites"] }
         .then (result) ->
-            console.log "la communeauté", result
             tempResult = []
             for value in result.data
                 id = value.id.toString() + value.id.toString()
                 tempLoop = angular.fromJson value.js_data
                 if tempLoop.label.indexOf('{"label"') == -1
-                    tempResult.push {  login: username, label : tempLoop.label, site_id : id }
+                    tempResult.push {  login: username, label : tempLoop.label, shib: tempLoop.shib, site_id : id }
                     $scope.labelCommunities.push tempLoop.label
                 id = null
             $scope.communities = tempResult
@@ -78,8 +82,7 @@ tableau
                 $http.post 'http://151.80.121.123:1234/api/compare', { username : username ,password : $scope.password, site_id: siteId, user_id: getId.data[0].user_id }
                 .then (data) ->
                     token data.data, (result) ->
-                        $mdDialog.hide()
-                        $state.go "home"
+                        $mdDialog.hide($state.go "home")
                 .catch (err) ->
                     toastErrorFct.toastError("Impossible d'acceder à cette communauté")
                     $mdDialog.hide()

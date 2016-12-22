@@ -1,7 +1,7 @@
 tableau
 .controller 'aetmCtrl', ($scope, $sce, $http, tokenFactory, store, jwtHelper, toastErrorFct,$mdDialog) ->
       getDataToken = tokenFactory.tokenData()
-      site_id = getDataToken.site_id
+      site_id = getDataToken.site_id + getDataToken.site_id
       uid     = getDataToken.UID
 
       $http

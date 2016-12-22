@@ -31,7 +31,6 @@ tableau
 
             IdleCtrl = ($scope,$mdDialog) ->
                 $scope.resterconnecter = () ->
-                    console.log 'hey'
                     $mdDialog.hide()
 
                 $scope.logOut = () ->
@@ -50,20 +49,13 @@ tableau
                 deleteAll (result) ->
                     $state.go 'login'
 
-            # si jamais l'utilisateur est de retour !
-
-            # $scope.$on 'IdleEnd', () ->
-            #     $mdDialog.hide()
-            #     console.log "L'utilisateur est revenu !"
-
             $http.post 'http://151.80.121.123:7890/api/select/table2', { parameters : { "type" : "click_role_by_user", "key": decode[0].site_id, "id1": decode[0].UID }, selected: "id2"}
             .then (data) ->
                 if data.data.length == 0
                     toastErrorFct.toastError "Ce compte n'a pas encore été configuré, vous allez être déconnectée dans 5 secondes"
                     $timeout (->
-                      $state.go "login"
-                      store.remove 'JWT'
-                      store.remove 'set'
+                      deleteAll (result) ->
+                          $state.go "login"
                     ), 5000
                 else
                     rolesTemp = []

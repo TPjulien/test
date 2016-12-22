@@ -56,6 +56,10 @@ tableau
                       temp = {}
 
         getBullet filterTemp, (bulletTemp) ->
+
+            console.log filterTemp
+            if bulletTemp.schema == undefined
+                bulletTemp.schema = []
             $http.post 'https://api.test.tp-control.travelplanet.fr/getBulletFilter', { schema: bulletTemp.schema, table: bulletTemp.table, column_name : bulletTemp.column }
             .then (result) ->
                 getBulletTemp  = {}
@@ -177,8 +181,9 @@ tableau
         getDatatable(0, 50);
 
     $scope.getGenericFilter = (filter, key) ->
+        # console.log filter
         result    = ""
-        modelText = filter.column + '_' + key.toString()
+        modelText = filter.table + '_' + key.toString()
         dynamic_entry = "filterText(" + modelText + ", '" + filter.column + "')"
         angular.forEach filter, (names, key) ->
             if key.indexOf('search') != -1

@@ -13,6 +13,7 @@ module.exports = function(router, connection, mysql) {
   var saml_data             = [];
   var saml_data_not_crypted = [];
   // serialize user
+  var field                 = [];
   var shib_url              = [];
   var shib_url_logout       = [];
 
@@ -170,6 +171,16 @@ module.exports = function(router, connection, mysql) {
           res.json(rows);
         }
       })
+    })
+
+    // nouvelle route de shibboleth
+    router.route('/shibb/:url/:field')
+    .get(function(req, res) {
+        shib_url        = req.params.url;
+        shib_url_logout = "";
+        field = req.params.field;
+        saml(shib_url, shib_url_logout);
+        res.redirect('/postShibboleth');
     })
 
     // route de shibboleth
