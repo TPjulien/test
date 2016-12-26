@@ -100,11 +100,11 @@ tableau
                 menu        += """<md-fab-speed-dial md-open="" md-direction="{{selectedDirection}}" ng-class="selectedMode">
                             <md-fab-trigger>"""
                 if (aggMenu.view_embed_data)
-                    menu += """<md-button style="padding:0; background-color: {{color}};" ng-click=goTo(""" + angular.toJson(aggMenu.view_embed_data) + """)  aria-label="menu" class="md-fab"><md-tooltip style="font-size:15px" md-visible="demo.showTooltip" md-direction="top">""" + aggMenu.groupe_libelle + """</md-tooltip>"""
+                    menu += """<md-button style="height: 65px;width: 65px;padding:0; background-color: {{color}};" ng-click=goTo(""" + angular.toJson(aggMenu.view_embed_data) + """)  aria-label="menu" class="md-fab"><md-tooltip style="font-size:15px" md-visible="demo.showTooltip" md-direction="top">""" + aggMenu.groupe_libelle + """</md-tooltip>"""
                 else
-                    menu += """<md-button style="padding:0; background-color: {{color}};"  aria-label="menu" class="md-fab"><md-tooltip style="font-size:15px" md-visible="demo.showTooltip" md-direction="top">""" + aggMenu.groupe_libelle + """</md-tooltip>"""
+                    menu += """<md-button style="height: 65px;width: 65px;padding:0; background-color: {{color}};"  aria-label="menu" class="md-fab"><md-tooltip style="font-size:15px" md-visible="demo.showTooltip" md-direction="top">""" + aggMenu.groupe_libelle + """</md-tooltip>"""
 
-                menu += """<img ng-src=" """ + aggMenu.groupe_logo + """ ">
+                menu += """<img style="height:60px;" ng-src=" """ + aggMenu.groupe_logo + """ ">
                               </md-button>
                             </md-fab-trigger> <md-fab-actions> """
                 if (aggMenu.view_list)
