@@ -44,7 +44,6 @@ module.exports = function(router, connection, mysql) {
         query += "`" + filters[key].column_name + "` BETWEEN '" + filters[key].value[0] + "' AND '" + filters[key].value[1] + "' AND ";
         else
         query += "`" + filters[key].column_name + "` LIKE '%" + filters[key].value[0] + "%' AND ";
-        console.log(filters[key].value);
       }
       query = query.slice(0, -4);
     }

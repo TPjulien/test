@@ -65,28 +65,27 @@ module.exports = function(router, client) {
 		}
 	    })
     })
-     router.route('/comSelect')                                                                                                                                                                                   
-	.post(function(req, res) {                                                                                                                                                                                
-      var tabIn    = req.body.tabIn;                                                                                                                                                                              
-      var values   = req.body.values;                                                                                                                                                                             
-    var request  = "SELECT js_data, id FROM click.table1 WHERE type=? AND key=? AND id IN (";                                                                                                              
-    var table = []                                                                                                                                                                                                
-    for (var keyTab in tabIn) {                                                                                                                                                                                   
-      if (tabIn.hasOwnProperty(keyTab)) {                                                                                                                                                                         
-        table.push("'" + tabIn[keyTab] + "'", ",");                                                                                                                                                               
-      }                                                                                                                                                                                                           
-    }                                                                                                                                                                                                             
-    table.pop()                                                                                                                                                                                                   
-    table.push(")");                                                                                                                                                                                              
+     router.route('/comSelect')
+	.post(function(req, res) {
+      var tabIn    = req.body.tabIn;
+      var values   = req.body.values;
+    var request  = "SELECT js_data, id FROM click.table1 WHERE type=? AND key=? AND id IN (";
+    var table = []
+    for (var keyTab in tabIn) {
+      if (tabIn.hasOwnProperty(keyTab)) {
+        table.push("'" + tabIn[keyTab] + "'", ",");
+      }
+    }
+    table.pop()
+    table.push(")");
     table = request + " " + table.join(' ');
-    console.log(table, values);
-    client.execute(table, values, function(err, result) {                                                                                                                                                         
-      if (err) {                                                                                                                                                                                                  
-        res.status(400).send(err);                                                                                                                                                                                
-      } else {                                                                                                                                                                                                    
-        res.json(result.rows);                                                                                                                                                                                    
-      }                                                                                                                                                                                                           
-    })                                                                                                                                                                                                            
+    client.execute(table, values, function(err, result) {
+      if (err) {
+        res.status(400).send(err);
+      } else {
+        res.json(result.rows);
+      }
+    })
   })
     router.route('/sign/:table/:database?')
    .post(function(req, res) {
@@ -98,7 +97,6 @@ module.exports = function(router, client) {
      }
 
      var getRequest = builder.selectBuilder(req.params.table, req.body.selected, req.body.parameters, databaseName);
-     console.log(getRequest);
      client.execute(getRequest.query, getRequest.values, function(err, result) {
        if (err) {
          res.status(400).send(err);
@@ -118,7 +116,6 @@ module.exports = function(router, client) {
 	query = "SELECT * FROM profils.user_lookup WHERE key_name=? AND key_value=? AND site_id=?";
 	table = ["login", name, siteID];
 
-	console.log(name, siteID);
 	client.execute(query, table, function(err, rows) {
 	    if (err) {
 		res.status(400).send(err);

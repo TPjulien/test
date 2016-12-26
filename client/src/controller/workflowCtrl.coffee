@@ -60,7 +60,6 @@ tableau
                               method: "GET"
                               url:    options.api.base_url + "/query/" + query
                             .success (data_query) ->
-                                console.log data_query
                                 $scope.queries      = data_query
                                 $scope.queries.NAME = valueL.NAME
                                 $scope.go           = true
@@ -220,7 +219,6 @@ tableau
                 $scope.selected['workflow_name'] = $scope.WORKFLOW_NAME
                 if  $scope.selected.TP_MAIL.indexOf(string) != -1
                     json_data = JSON.stringify($scope.selected).replace(/\\n|\\r/g, "")
-                    console.log json_data
                     $http
                       method: "POST"
                       url:    "http://api-interne.travelplanet.fr/api/Alteryx/Workflow"
@@ -244,7 +242,6 @@ tableau
                 $scope.selected['workflow_name'] = $scope.WORKFLOW_NAME
                 if  $scope.selected.TP_MAIL.indexOf(string) != -1
                     json_data = JSON.stringify($scope.selected).replace(/\\n|\\r/g, "")
-                    console.log json_data
                     $http
                       method: "POST"
                       url:    url

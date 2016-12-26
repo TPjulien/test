@@ -1,6 +1,5 @@
 tableau
 .controller "profilsCtrl",($scope, $mdDialog, $http, NgTableParams, store, jwtHelper, $q, toastErrorFct) ->
-    console.log "ça passe la dedans"
     # data du profil
     if store.get('JWT')
       token               = store.get('JWT')
@@ -33,7 +32,6 @@ tableau
 
     # une mise à jour de profil
     $scope.profilChange = (site_id, uid) ->
-        console.log "ça passe par ici"
         get_profil_email           = $http.get options.api.base_url + '/profilEmail/'   + uid
         get_profil_phone           = $http.get options.api.base_url + '/profilPhone/'   + uid
         get_card_traveller         = $http.get options.api.base_url + '/cardTraveller/' + uid
@@ -62,7 +60,6 @@ tableau
             $scope.air_loyalty_af = data[5].data
             $scope.profils        = data[6].data
             $scope.arrangers      = data[7].data
-            console.log $scope.arrangers
           .catch (err) ->
             toastErrorFct.toastError("Impossible d'acceder au profil de l'utilisateur")
 

@@ -78,7 +78,6 @@ module.exports = function(router, connection, mysql) {
     router.route('/query/:query')
         .get(function(req, res) {
             var query = req.params.query;
-            console.log(query);
             // var table = ["alteryx.parameters","WORKFLOW_NAME",req.body.workflow,"TYPE","ListBox"];
             query     = mysql.format(query);
             connection.query(query, function(err, rows) {

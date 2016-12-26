@@ -11,7 +11,6 @@ module.exports = function(router, client) {
    }
 
    var getRequest = builder.selectBuilder(req.params.table, req.body.selected, req.body.parameters, databaseName);
-   console.log(getRequest);
    client.execute(getRequest.query, getRequest.values, function(err, result) {
      if (err) {
        res.status(400).send(err);
@@ -46,7 +45,6 @@ module.exports = function(router, client) {
   router.route('/general/:table?')
   .put(function(req, res) {
     var request = "INSERT INTO click.table1 (type, key, id, js_data) VALUES (?,?,?,?)";
-    console.log(request);
     client.execute(request, req.body.values_tab, function(err) {
       if (err) {
         res.status(400).send(err);
@@ -57,7 +55,6 @@ module.exports = function(router, client) {
   })
   .post(function(req, res) {
     var request = "INSERT INTO click." + req.params.table + " " + req.body.columns + " VALUES " + req.body.values;
-    console.log(request);
     client.execute(request, req.body.values_tab, {prepare: true}, function(err) {
       if (err) {
         res.status(400).send(err);
@@ -101,7 +98,6 @@ module.exports = function(router, client) {
     }
     table.pop();
     table = request + " " + table.join(' ');
-    console.log(table);
     client.execute(table, values, function(err) {
       if (err) {
         res.status(400).send(err);

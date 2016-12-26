@@ -29,7 +29,6 @@ tableau
                 temp.push key.site_id
         $http.post 'http://151.80.121.113:3005/api/comSelect', { tabIn: temp, values: ["base", "sites"] }
         .then (result) ->
-            console.log result
             tempResult = []
             for value in result.data
                 id = value.id.toString() + value.id.toString()
@@ -43,12 +42,15 @@ tableau
                 toastErrorFct.toastError("L'utilisateur : " + username + " n'existe pas")
                 $state.go 'login.account'
             else if ($scope.communities.length == 1)
-                $scope.comText         = "Vôtre communauté"
-                $scope.actualCommunity = $scope.communities[0]
-                $scope.idSelected      = $scope.communities[0].label
-                $scope.checkCommunity  = false
-        .catch (err) ->
-            console.log err
+                if ($scope.communities[0].shib)
+                    $http.post 'https://api.test.tp-control.travelplanet.fr/setup', { url: $scope.communities[0].shib.shib_url, field: $scope.communities[0].shib_field, siteID: $scope.communities[0].site_id }
+                    .then (result) ->
+                        $window.location.href = "https://api.test.tp-control.travelplanet.fr/postShibboleth"
+                else
+                    $scope.comText         = "Vôtre communauté"
+                    $scope.actualCommunity = $scope.communities[0]
+                    $scope.idSelected      = $scope.communities[0].label
+                    $scope.checkCommunity  = false
 
     getCommunity()
 

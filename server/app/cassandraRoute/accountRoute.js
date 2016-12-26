@@ -108,7 +108,6 @@ module.exports = function(router, client) {
 		    getgetget = [];
 
 		    for (var getAgg in temp) {
-			console.log("aggregation", getAgg);
 			if (temp[getAgg].list_view.length != 0) {
 			    for(var listView in temp[getAgg].list_view) {
 				for(var i in finalmenu) {
@@ -132,7 +131,6 @@ module.exports = function(router, client) {
 			if (temp[key].view_list){
 			    if (temp[key].view_list) {
 				for (var listID in temp[key].view_list) {
-				    console.log(view_id_temp.indexOf(temp[key].view_list[listID].view_id));
 				    if (view_id_temp.indexOf(temp[key].view_list[listID].view_id) == -1) {
 					view_id_temp.push(temp[key].view_list[listID].view_id)
 				    }
@@ -143,7 +141,6 @@ module.exports = function(router, client) {
 		    }
 		    for (var menu in finalmenu) {
 			if (view_id_temp.indexOf(finalmenu[menu].view_id) == -1) {
-			    console.log(finalmenu[menu]);
 			    temp_view_alone.push({"groupe_libelle"  : finalmenu[menu].view_label,
 						  "groupe_position" : finalmenu[menu].view_position,
 						  "groupe_color"    : finalmenu[menu].view_color,

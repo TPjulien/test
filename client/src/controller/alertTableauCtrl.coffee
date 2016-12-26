@@ -73,6 +73,5 @@ tableau
           sheet.getUnderlyingDataAsync(options).then (t) ->
               table = t
               $scope.data_get = JSON.stringify(table.getData())
-              console.log $scope.data_get
               tgt = document.getElementById('dataTarget')
               tgt.innerHTML = '<h4>Underlying Data:</h4><p>' + JSON.stringify(table.getData()) + '</p>'

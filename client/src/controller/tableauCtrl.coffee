@@ -51,8 +51,6 @@ tableau
             $scope.selected_data.push obj
             pairIndex++
           markIndex++
-          console.log $scope.selected_data
-
 
       getTableauToken = () ->
         url = options.api.base_url + '/tokenExchange'
@@ -67,7 +65,6 @@ tableau
             tableau_url = '/views/' + $scope.tableauData.tableau_view + '?:embed=yes&:toolbar=no'
         else
             tableau_url = '/t/' + $scope.tableauData.tableau_site + '/views/' + $scope.tableauData.tableau_view + '?:embed=yes&:toolbar=no'
-            console.log tableau_url
         url = "https://data.travelplanet.fr/trusted/" + $scope.tableauToken + tableau_url
         return url
 
@@ -126,4 +123,3 @@ tableau
                 sheet: value
                 data : t.getData()[0]
               $scope.data_get.push elem
-              console.log $scope.data_get
