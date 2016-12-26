@@ -142,7 +142,7 @@ module.exports = function(router, client) {
 		    for (var menu in finalmenu) {
 			if (view_id_temp.indexOf(finalmenu[menu].view_id) == -1) {
 			    temp_view_alone.push({"groupe_libelle"  : finalmenu[menu].view_label,
-						  "groupe_position" : finalmenu[menu].view_position,
+						  "groupe_position" : parseInt(finalmenu[menu].view_position),
 						  "groupe_color"    : finalmenu[menu].view_color,
 						  "groupe_logo"     : finalmenu[menu].view_logo_base_64,
 						  "view_embed_data" : finalmenu[menu].view_embed_data

@@ -79,6 +79,7 @@ tableau
                 $state.go 'home.test', { embeds : embeds }
 
             $scope.bindMenu  = (aggMenu) ->
+                console.log aggMenu
                 viewList     = aggMenu.view_list
                 tempPosition = []
                 viewTemp     = []
