@@ -20,6 +20,29 @@ module.exports = function(router, client) {
      }
    })
  })
+ router.route('/multipleSelect')
+  .post(function(req, res) {
+    var tabIn    = req.body.tabIn;
+    var values   = req.body.values;
+    var request  = "SELECT js_data FROM click.table2 WHERE type=? AND key=? AND id1=? AND id2 IN (";
+    var table = []
+    for (var keyTab in tabIn) {
+      if (tabIn.hasOwnProperty(keyTab)) {
+        table.push("'" + tabIn[keyTab] + "'", ",");
+      }
+    }
+    table.pop()
+    table.push(")");
+    table = request + " " + table.join(' ');
+    client.execute(table, values, function(err, result) {
+      if (err) {
+        res.status(400).send(err);
+      } else {
+        res.json(result.rows);
+      }
+    })
+  })
+
   router.route('/general/:table?')
   .put(function(req, res) {
     var request = "INSERT INTO click.table1 (type, key, id, js_data) VALUES (?,?,?,?)";
