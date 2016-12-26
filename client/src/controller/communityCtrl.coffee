@@ -13,17 +13,14 @@ tableau
     $scope.comText              = "Sélection de la communauté"
 
     $scope.choosed = (data) ->
-        # console.log data
         if (data.shib != undefined)
-            $http.post 'https://api.tp-control.travelplanet.fr/setup', { url: data.shib.shib_url, field: data.shib.shib_field }
-            .then (data) ->
-                $window.location.href = "https://api.tp-control.travelplanet.fr/postShibboleth"
-            # console.log data.shib
+            $http.post 'https://api.test.tp-control.travelplanet.fr/setup', { url: data.shib.shib_url, field: data.shib.shib_field, siteID: data.site_id }
+            .then (result) ->
+                $window.location.href = "https://api.test.tp-control.travelplanet.fr/postShibboleth"
         else
-            # console.log "nope! "
             $scope.actualCommunity = data
-            $scope.idSelected = data.label
-            $scope.checkCommunity = false
+            $scope.idSelected      = data.label
+            $scope.checkCommunity  = false
 
     getCommunity = () ->
         temp = []
@@ -89,41 +86,3 @@ tableau
                 .catch (err) ->
                     toastErrorFct.toastError("Impossible d'acceder à cette communauté")
                     $mdDialog.hide()
-
-            # $mdDialog.show
-            #   controller          : 'loadingCtrl'
-            #   templateUrl         : 'modals/loading.html'
-            #   parent              : angular.element(document.body)
-            #   clickOutsideToClose : false
-            #   escapeToClose       : false
-            # $http
-            #     method: 'POST'
-            #     url:    options.api.base_url + '/login'
-            #     data: {
-            #         SITE_ID  : $scope.actualCommunity.site_id
-            #         username : username
-            #         password : $scope.password
-            #     }
-            # .success (data) ->
-            #     store.set('JWT', data.token)
-            #     if store.get 'JWT'
-            #         get_action = "Logged with click"
-            #         ipFct.insertDataIp(get_action)
-            #     $state.go "home"
-            # .error (err) ->
-            #     alertFct.loginError()
-            #     $mdDialog.hide()
-
-    # $scope.goToPassword = (data) ->
-    #     console.log data
-        # avant d'aller à goToPassword, il faudra determiner si oui ou non c'est du saml
-        # $http
-        #     method: 'POST'
-        #     url:    options.api.base_url + '/samlCheck'
-        #     data:
-        #         SITE_ID: data.site_id
-        # .success (saml_data) ->
-        #     if saml_data[0].SAML_TYPE == 'RENATER'
-        #         $window.location.href = "https://api.tp-control.travelplanet.fr/shibboleth"
-        #     else
-        #         $location.path '/login/verify/' + data.login + '/' + data.site_id

@@ -7,9 +7,26 @@ var jwt         = require('jsonwebtoken');
 var https       = require('https');
 var http        = require('http');
 var passport    = require('passport');
-require('dotenv').config({path: '/home/Preprod/.env' });
+var cassandra   = require('cassandra-driver');
+
+require('dotenv').config({path: '/home/Prod/.env' });
 
 var app = express();
+
+var dbs = [ '192.168.1.118',
+            '192.168.1.120',
+            '192.168.1.121',
+            '192.168.1.228',
+            '192.168.1.229'];
+
+var authProvider = new cassandra.auth.PlainTextAuthProvider('admin', '123soleil!');
+
+var client = new cassandra.Client({ contactPoints: dbs, authProvider: authProvider });
+client.connect(function(err) {
+    if (err) {
+        throw err;
+    }
+});
 
 process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
 var connection;
@@ -54,9 +71,10 @@ var credentials = {
 app.use(cors());
 
 // options pour accepter tout !
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(bodyParser.json({ extended: true }));
-app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true, limit: '1mb' }));
+app.use(bodyParser.text({ extended: true, limit: '1mb' }));
+app.use(bodyParser.json({ extended: true, limit: '1mb' }));
+app.use(bodyParser.json({ limit: '1mb' }));
 
 var port   = process.env.PORT || 3000;
 var router = express.Router();
@@ -66,7 +84,8 @@ app.use(passport.session());
 
 // debut des routes  ----------------------------------------------------------------------------------
 // on n'a pas besoin de proteger la route d'authentification
-require('./app/routes/loginRoute')(router, connection, mysql);
+// require('./app/routes/loginRoute')(router, connection, mysql);
+require('./app/cassandraRoute/loginRoute')(router, client);
 
 // on verifie le token auth pour les autres routes
 router.use(function(req, res, next) {
@@ -90,14 +109,15 @@ router.use(function(req, res, next) {
 });
 
 // require des routes nécesittant un token valide
-require('./app/routes/templateRoute')     (router, connection, mysql);
-require('./app/routes/datatable')         (router, connection, mysql);
-require('./app/routes/ipRoute')           (router, connection, mysql);
-require('./app/routes/profilRoute')       (router, connection, mysql);
-require('./app/routes/tableauRoute')      (router, connection, mysql);
-require('./app/routes/email')             (router, connection, mysql);
-require('./app/routes/workflow')          (router, connection, mysql);
-
+require('./app/cassandraRoute/accountRoute') (router, client);
+require('./app/routes/templateRoute')        (router, connection, mysql);
+// require('./app/routes/datatable')         (router, connection, mysql);
+require('./app/routes/ipRoute')              (router, connection, mysql);
+require('./app/routes/profilRoute')          (router, connection, mysql);
+require('./app/routes/tableauRoute')         (router, connection, mysql);
+require('./app/routes/email')                (router, connection, mysql);
+require('./app/routes/workflow')             (router, connection, mysql);
+require('./app/cassandraRoute/selectRoute')  (router, client);
 
 app.use('/api', router);
 

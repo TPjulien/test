@@ -1,5 +1,5 @@
 tableau
-.factory 'logoutFct', (SweetAlert, $location, store, $rootScope, $http, $window, jwtHelper, ipFct) ->
+.factory 'logoutFct', (SweetAlert, $location, store, $rootScope, $http, $window, jwtHelper, ipFct, $state) ->
     logOut: ->
         SweetAlert.swal {
                   title: "Déconnexion"
@@ -19,41 +19,44 @@ tableau
                       is_saml = decode[0].is_saml
                       if (is_saml == false)
                           # si ce n'est pas du saml donc on logout en local
-                          store.remove 'JWT'
-                          store.remove 'set'
-                          $location.path '/login/account'
+                          store.remove   "JWT"
+                          store.remove   "set"
+                          $location.path "login"
                       # Dans le cas contraire on va au logout de leur établissement pour le deconnecter
                       else
-                          $http
-                              method: 'GET'
-                              url:    options.api.base_url + '/Shibboleth.sso/Logout'
-                          .success (data) ->
-                              store.remove 'JWT'
-                              store.remove 'set'
-                              $window.location.href = data
-                          .error (err) ->
-                              console.log err
+                          store.remove "JWT"
+                          store.remove "set"
+                          $state.go    "login"
+                          # $http
+                          #     method: 'GET'
+                          #     url:    options.api.base_url + '/Shibboleth.sso/Logout'
+                          # .success (data) ->
+                          #     store.remove 'JWT'
+                          #     store.remove 'set'
+                          #     $window.location.href = data
+                          # .error (err) ->
+                          #     console.log err
     logOut_SC: ->
         if store.get 'JWT'
-            token  = store.get('JWT')
-            decode = jwtHelper.decodeToken(token)
+            token   = store.get('JWT')
+            decode  = jwtHelper.decodeToken(token)
             is_saml = decode[0].is_saml
-            if (is_saml == false)
+            # if (is_saml == false)
                 # si ce n'est pas du saml donc on logout en local
-                store.remove 'JWT'
-                store.remove 'set'
-                $location.path '/login/account'
+            store.remove 'JWT'
+            store.remove 'set'
+            $location.path '/login/account'
             # Dans le cas contraire on va au logout de leur établissement pour le deconnecter
-            else
-                $http
-                    method: 'GET'
-                    url:    options.api.base_url + '/Shibboleth.sso/Logout'
-                .success (data) ->
-                    store.remove 'JWT'
-                    store.remove 'set'
-                    $window.location.href = data
-                .error (err) ->
-                    console.log err
+            # else
+            #     $http
+            #         method: 'GET'
+            #         url:    options.api.base_url + '/Shibboleth.sso/Logout'
+            #     .success (data) ->
+            #         store.remove 'JWT'
+            #         store.remove 'set'
+            #         $window.location.href = data
+            #     .error (err) ->
+            #         console.log err
                       # on verifie si oui ou non c'est du saml, pour eviter de demander a chaque fois a renater
                       # $window.location.href = 'https://api.test.tp-control.travelplanet.fr/Shibboleth.sso/Logout?return=https://test.tp-control.travelplanet.fr'
 
