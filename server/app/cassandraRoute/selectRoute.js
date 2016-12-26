@@ -1,17 +1,25 @@
 var builder = require('../functions/builder.js');
 
 module.exports = function(router, client) {
-  router.route('/select/:table')
-  .post(function(req, res) {
-   var getRequest = builder.selectBuilder(req.params.table, req.body.selected, req.body.parameters);
-    client.execute(getRequest.query, getRequest.values, function(err, result) {
-      if (err) {
-        res.status(400).send(err);
-      } else {
-        res.send(result.rows);
-      }
-    })
-  })
+  router.route('/select/:table/:database?')
+ .post(function(req, res) {
+ var databaseName = null;
+   if (req.params.database) {
+     databaseName = req.params.database;
+   } else {
+     databaseName = "click";
+   }
+
+   var getRequest = builder.selectBuilder(req.params.table, req.body.selected, req.body.parameters, databaseName);
+   console.log(getRequest);
+   client.execute(getRequest.query, getRequest.values, function(err, result) {
+     if (err) {
+       res.status(400).send(err);
+     } else {
+       res.send(result.rows);
+     }
+   })
+ })
   router.route('/general/:table?')
   .put(function(req, res) {
     var request = "INSERT INTO click.table1 (type, key, id, js_data) VALUES (?,?,?,?)";
