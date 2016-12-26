@@ -14,9 +14,9 @@ tableau
 
     $scope.choosed = (data) ->
         if (data.shib != undefined)
-            $http.post 'https://api.test.tp-control.travelplanet.fr/setup', { url: data.shib.shib_url, field: data.shib.shib_field, siteID: data.site_id }
+            $http.post 'http://151.80.121.113:3005/api/setup', { url: data.shib.shib_url, field: data.shib.shib_field, siteID: data.site_id }
             .then (result) ->
-                $window.location.href = "https://api.test.tp-control.travelplanet.fr/postShibboleth"
+                $window.location.href = "http://151.80.121.113:3005/api/postShibboleth"
         else
             $scope.actualCommunity = data
             $scope.idSelected      = data.label
@@ -43,9 +43,9 @@ tableau
                 $state.go 'login.account'
             else if ($scope.communities.length == 1)
                 if ($scope.communities[0].shib)
-                    $http.post 'https://api.test.tp-control.travelplanet.fr/setup', { url: $scope.communities[0].shib.shib_url, field: $scope.communities[0].shib_field, siteID: $scope.communities[0].site_id }
+                    $http.post 'http://151.80.121.113:3005/api/setup', { url: $scope.communities[0].shib.shib_url, field: $scope.communities[0].shib_field, siteID: $scope.communities[0].site_id }
                     .then (result) ->
-                        $window.location.href = "https://api.test.tp-control.travelplanet.fr/postShibboleth"
+                        $window.location.href = "http://151.80.121.113:3005/api/postShibboleth"
                 else
                     $scope.comText         = "Vôtre communauté"
                     $scope.actualCommunity = $scope.communities[0]
