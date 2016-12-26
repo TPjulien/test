@@ -100,9 +100,9 @@ tableau
                 menu        += """<md-fab-speed-dial md-open="" md-direction="{{selectedDirection}}" ng-class="selectedMode">
                             <md-fab-trigger>"""
                 if (aggMenu.view_embed_data)
-                    menu += """<md-button style="padding:0; background-color: {{color}};" ng-click=goTo(""" + angular.toJson(aggMenu.view_embed_data) + """)  aria-label="menu" class="md-fab">"""
+                    menu += """<md-button style="padding:0; background-color: {{color}};" ng-click=goTo(""" + angular.toJson(aggMenu.view_embed_data) + """)  aria-label="menu" class="md-fab"><md-tooltip style="font-size:15px" md-visible="demo.showTooltip" md-direction="top">""" + aggMenu.groupe_libelle + """</md-tooltip>"""
                 else
-                    menu += """<md-button style="padding:0; background-color: {{color}};"  aria-label="menu" class="md-fab">"""
+                    menu += """<md-button style="padding:0; background-color: {{color}};"  aria-label="menu" class="md-fab"><md-tooltip style="font-size:15px" md-visible="demo.showTooltip" md-direction="top">""" + aggMenu.groupe_libelle + """</md-tooltip>"""
 
                 menu += """<img ng-src=" """ + aggMenu.groupe_logo + """ ">
                               </md-button>
@@ -110,10 +110,12 @@ tableau
                 if (aggMenu.view_list)
                     if (aggMenu.view_list.length != 0)
                         for view in aggMenu.view_list
+                            console.log view.view_label
                             $scope.getEmbeds = view.view_embed_data
                             menu += """<md-button style="padding:0" ng-click=goTo(""" + angular.toJson($scope.getEmbeds)  + """) aria-label="test" class="md-fab md-raised md-mini">
-                                          <img ng-src=" """ + view.view_logo_base_64 + """ ">
-                                       </md-button>"""
+                                          <img ng-src=" """ + view.view_logo_base_64 + """ "><md-tooltip style="font-size:15px" md-visible="demo.showTooltip" md-direction="bottom">""" + view.view_label + """</md-tooltip>
+                                       </md-button>
+                                       """
                 menu += """</md-fab-actions></md-fab-speed-dial>"""
                 return $sce.trustAsHtml menu
 
