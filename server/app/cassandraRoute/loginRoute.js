@@ -20,7 +20,6 @@ module.exports = function(router, client) {
 		res.status(404).send("Password not found");
 	    }
 	})
-
     router.route('/compare')
 	.post(function(req, res) {
 	    query = "SELECT password FROM profils.user_profile WHERE user_id=? AND site_id=? LIMIT 1";
@@ -66,6 +65,21 @@ module.exports = function(router, client) {
 		}
 	    })
     })
+    router.route('/normalLogin/:table/:database')
+	.post(function(req, res) {
+	    console.log(req.params.table, req.params.database)
+	    
+	    var getRequest = builder.selectBuilder(req.params.table, req.body.selected, req.body.parameters, req.params.database);
+	    console.log(getRequest);
+	    client.execute(getRequest.query, getRequest.values, function(err, result) {
+		if (err) {
+		    res.status(400).send(err);
+		} else {
+		    res.send(result.rows);
+		}
+	    })
+	})
+    
     router.route('/samlLogin')
     .post(function(req, res) {
 	name   = req.body.username.match(/^([^@]*)@/)[1];
