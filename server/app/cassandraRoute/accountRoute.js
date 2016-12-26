@@ -1,206 +1,164 @@
-var builder = require('../functions/builder.js');
+var builder    = require('../functions/builder.js');
+var jwt        = require('jsonwebtoken');
+var bitmask    = require('../functions/bitmask.js');
 
 module.exports = function(router, client) {
-  router.route('/select/:table')
+  router.route('/login')
   .post(function(req, res) {
-   var getRequest = builder.selectBuilder(req.params.table, req.body.selected, req.body.parameters);
+    var getRequest = builder.selectBuilder('table1', req.body.selected, req.body.parameters);
     client.execute(getRequest.query, getRequest.values, function(err, result) {
-      if (err) {
-        res.status(400).send(err);
-      } else {
-        res.send(result.rows);
-      }
-    })
-  })
-  router.route('/general/:table?')
-  .put(function(req, res) {
-    var request = "INSERT INTO click.table1 (type, key, id, js_data) VALUES (?,?,?,?)";
-    console.log(request);
-    client.execute(request, req.body.values_tab, function(err) {
-      if (err) {
-        res.status(400).send(err);
-      } else {
-        res.status(200).send("Ok !");
-      }
-    })
-  })
-  .post(function(req, res) {
-    var request = "INSERT INTO click." + req.params.table + " " + req.body.columns + " VALUES " + req.body.values;
-    console.log(request);
-    client.execute(request, req.body.values_tab, {prepare: true}, function(err) {
-      if (err) {
-        res.status(400).send(err);
-	console.log(err);
-      } else {
-        res.status(200).send("Ok !");
-      }
-    })
-  })
-  router.route('/multipleSelect')
-  .post(function(req, res) {
-    var tabIn    = req.body.tabIn;
-    var values   = req.body.values;
-    var request  = "SELECT js_data, id FROM click.table1 WHERE type=? AND key=? AND id IN (";
-    var table = []
-    for (var keyTab in tabIn) {
-      if (tabIn.hasOwnProperty(keyTab)) {
-        table.push("'" + tabIn[keyTab] + "'", ",");
-      }
-    }
-    table.pop()
-    table.push(")");
-    table = request + " " + table.join(' ');
-    client.execute(table, values, function(err, result) {
-      if (err) {
-        res.status(400).send(err);
-      } else {
-        res.json(result.rows);
-      }
-    })
-  })
-  router.route('/delete')
-  .post(function(req, res) {
-    var values = req.body.values_tab;
-    var table =  []
-    var request = "DELETE FROM click." + req.body.table_name + " WHERE ";
-    for (var key in values) {
-      if (values.hasOwnProperty(key)) {
-        table.push(key + "=? ", "AND");
-      }
-    }
-    table.pop();
-    table = request + " " + table.join(' ');
-    console.log(table);
-    client.execute(table, values, function(err) {
-      if (err) {
-        res.status(400).send(err);
-      } else {
-        res.status(200).send("Ok !");
-      }
-    })
-  })
-  function truncate (result) {
-    if (result.length != 0) {
-      var i = 0;
-      while (result[i] == '0' && i < result.length - 1) {
-        i++
-      }
-      if (result[i] == "0"){
-        return ""
-      } else {
-        return result.substring(i)
-      }
-    }else {
-      return ""
-    }
-  }
-
-  function compareListOr(listA, listB) {
-    var range  = Math.max.apply(Math, [listA.length, listB.length]);
-    var lstOpt = [];
-    for (i = 0; i < range;  i++) {
-      if (i<Math.min.apply(Math, [listA.length, listB.length])){
-        lstOpt.push(listA[i] + listB[i]);
-      } else {
-        if (i>=listA.length){
-          lstOpt.push(listB[i]);
-        }else {
-          lstOpt.push(listA[i]);
+      if (err || result.rows.length == 0) {
+        res.status(401).send("");
+     } else {
+       var team = [];
+        var getResult = JSON.parse(result.rows[0].js_data);
+        for (var key in getResult.associated_teams) {
+          if(getResult.associated_teams.hasOwnProperty(key)) {
+            team.push(getResult.associated_teams[key].team_name);
+         }
         }
-      }
-    }
-    return lstOpt;
-  }
-    function compareListAnd(listA, listB) {
-	var range  = Math.min.apply(Math, [listA.length, listB.length]);
-    var lstOpt = [];
-    for (i = 0; i < range;  i++) {
-      lstOpt.push(listA[i] & listB[i]);
-    }
-    return lstOpt;
-  }
-
-  function bitmaskCreate(embeds) {
-    var maxEmbed = Math.max.apply(Math, embeds);
-    var myStr = "";
-    var myLst = [];
-    var bitmasks = [];
-    var base = 32;
-    for (i = 1; i < maxEmbed + 2;  i++) {
-      if ((i+1)%base == 0) {
-        if (embeds.indexOf(i) != -1) {
-          myStr = "1"+myStr;
+        if (req.body.password === getResult.password) {
+          delete getResult['password'];
+          delete getResult['associated_teams'];
+          getResult.access_team = team;
+          getResult.user        = result.rows[0].id;
+          var token = jwt.sign(getResult, 'travelSecret', {
+            expiresIn : 7200
+          });
+          res.status(200).send(token);
         } else {
-          myStr = "0"+myStr;
-        }
-        myLst.push(myStr)
-        myStr = "";
-      } else {
-        if (embeds.indexOf(i) != -1) {
-          myStr = "1"+myStr;
-        } else {
-          myStr = "0"+myStr;
+          res.status(401).send("");
         }
       }
-    }
-    myStr = truncate(myStr)
-    if (myStr != "") {
-      myLst.push(myStr)
-    }
-    for (var el in myLst){
-      if (el != ""){
-        bitmasks.push(parseInt(myLst[el], 2))
-      }
-    }
-    return bitmasks
-  }
+    })
+  })
 
-  router.route('/getUserBitmask/:site_id')
+  // pour click à le bouger apres
+  // menu v2
+  router.route('/menu/:site_id')
   .post(function(req, res) {
-    // tableau de role
-    var roles    = req.body.roles;
-    var bitmasks = [];
-    var table    = [];
-    var bitmasks = [];
-    // ajouter le role_id plus tard
-    var query    = "SELECT bitmasks, role_id FROM click.role WHERE site_id=?"
-    client.execute(query, [req.params.site_id], function(err, result) {
+    var roles       = req.body.roles;
+    var site_id     = req.params.site_id;
+    var query       = "SELECT * FROM click.table2 WHERE type=? AND key=? AND id1=?";
+    var bitmasks    = [];
+    var table       = [];
+    client.execute(query, ['click', 'view', site_id], function(err, result) {
       if (err) {
         res.status(400).send(err);
       } else {
-        for (var row in result.rows) {
-          if (roles.indexOf(result.rows[row].role_id) != -1) {
-            var getLength = bitmasks.length;
-            if (getLength == "0") {
-              bitmasks = result.rows[row].bitmasks;
-            } else {
-              bitmasks = compareListOr(bitmasks, result.rows[row].bitmasks);
+        query = "SELECT bitmasks, role_id FROM click.role WHERE site_id=?"
+        client.execute(query, [site_id], function(err, resultTwo) {
+         if (err) {
+            res.status(400).send(err);
+          } else {
+            for (var row in resultTwo.rows) {
+              if (roles.indexOf(resultTwo.rows[row].role_id) != -1) {
+                var getLength = bitmasks.length;
+                if (getLength == "0") {
+                  bitmasks = resultTwo.rows[row].bitmasks;
+                } else {
+                  bitmasks = bitmask.compareListOr(bitmasks, resultTwo.rows[row].bitmasks);
+                }
+              }
             }
+            var mapEmbed     = [];
+            var embedBm      = [];
+            var roleBitmasks = bitmasks;
+            var js_datas     = [];
+            var menuResult   = [];
+            for (var data in result.rows) {
+              temp = eval(result.rows[data].js_data);
+              js_datas.push(temp[0]);
+            }
+
+            for (var key in js_datas) {
+		if (js_datas[key].view_map) {
+		    var getLength = js_datas[key].view_map.length
+		    if (getLength != 0) {
+			embedBm                       = js_datas[key].view_map;
+			embedBm                       = bitmask.compare(roleBitmasks, embedBm);
+			js_datas[key].view_embed_data = bitmask.decode(embedBm);
+			delete js_datas[key]['list_embed'];
+			delete js_datas[key]['map_embed'];
+			menuResult.push(js_datas[key]);
+		    }
+		}
+            }
+            finalmenu = []
+            // vérification de l'embed
+            for (var menu in menuResult) {
+                if (menuResult[menu].view_embed_data.length != 0) {
+                    finalmenu.push(menuResult[menu]);
+		}
+            }
+	    //console.log(finalmenu);
+	    // On ajoute la requete pour les agg
+	    aggRequest = "SELECT js_data FROM click.table2 WHERE type='click' AND key='agg' AND id1=?";
+	    client.execute(aggRequest, [req.params.site_id], function(err, agg) {
+		if (err) {
+		    res.status(400).send(err);
+		} else {
+		    views_alone = [];
+		    temp = [];
+		    for (var aggregation in agg.rows) {
+			transition = eval(agg.rows[aggregation].js_data);
+			temp.push(transition[0]);
+			transition = [];
+		    }
+		    getgetget = [];
+
+		    for (var getAgg in temp) {
+			console.log("aggregation", getAgg);
+			if (temp[getAgg].list_view.length != 0) {
+			    for(var listView in temp[getAgg].list_view) {
+				for(var i in finalmenu) {
+				    if (temp[getAgg].list_view[listView] == finalmenu[i].view_id) {
+					var tempMenu = [];
+					delete finalmenu[i]['view_map'];
+					getgetget.push(finalmenu[i]);
+				    }
+				}
+			    }
+			    temp[getAgg].view_list = {};
+			    temp[getAgg].view_list = getgetget;
+			    getgetget = [];
+			    delete temp[getAgg]['list_view'];
+			}
+		    }
+		    //console.log(temp);
+		    temp_view_alone = []
+		    view_id_temp    = []
+		    for (var key in temp) {
+			if (temp[key].view_list){
+			    if (temp[key].view_list) {
+				for (var listID in temp[key].view_list) {
+				    console.log(view_id_temp.indexOf(temp[key].view_list[listID].view_id));
+				    if (view_id_temp.indexOf(temp[key].view_list[listID].view_id) == -1) {
+					view_id_temp.push(temp[key].view_list[listID].view_id)
+				    }
+				}
+
+			    }
+			}
+		    }
+		    for (var menu in finalmenu) {
+			if (view_id_temp.indexOf(finalmenu[menu].view_id) == -1) {
+			    console.log(finalmenu[menu]);
+			    temp_view_alone.push({"groupe_libelle"  : finalmenu[menu].view_label,
+						  "groupe_position" : finalmenu[menu].view_position,
+						  "groupe_color"    : finalmenu[menu].view_color,
+						  "groupe_logo"     : finalmenu[menu].view_logo_base_64,
+						  "view_embed_data" : finalmenu[menu].view_embed_data
+						 })
+			}
+		    }
+		    tempFinal = temp.concat(temp_view_alone);
+		    res.send(tempFinal);
+		}
+	    })
           }
-        }
-        res.json({ "bitmask": bitmasks });
+        })
       }
     })
   })
-
-  // permet d'ajouter les roles en bitmask
-  router.route('/addEmbedToRole/:site_id')
-  .post (function(req, res) {
-    var base     = 32;
-    var role_id  = req.body.role_id;
-    var embeds   = req.body.embeds;
-    var bitmasks = bitmaskCreate(embeds);
-    res.send(bitmasks);
-  })
-  router.route('/role/:site_id/:role_id')
-    .get(function(req, res) {
-	var query = "SELECT * FROM click.role WHERE site_id=? AND role_id=?";
-	client.execute(query, [req.params.site_id,req.params.role_id], function(err, result) {
-	    if (err) {
-		res.status(400).send(err);
-	    } else {
-		res.json(result.rows);
-	    }
-	})
-    })
 }
