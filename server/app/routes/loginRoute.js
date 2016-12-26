@@ -8,12 +8,12 @@ var request      = require('request');
 var zack         = require('../functions/zack_api.js');
 require('dotenv').config({path: '/home/Preprod/.env' });
 
-
 module.exports = function(router, connection, mysql) {
   var saml_data             = [];
   var saml_data_not_crypted = [];
   // serialize user
   var field                 = [];
+  var siteID                = [];
   var shib_url              = [];
   var shib_url_logout       = [];
 
@@ -32,13 +32,13 @@ module.exports = function(router, connection, mysql) {
       {
         callbackUrl       : process.env.SAML_CALLBACK_URL,
         entryPoint        : shib_url,
-        issuer            : 'https://click.travelplanet.fr',
+        issuer            : 'https://test.tp-control.travelplanet.fr/#/account/login',
         decryptionPvk     : fs.readFileSync(process.env.SERV_KEY, 'utf8'),
         privateCert       : fs.readFileSync(process.env.SERV_KEY, 'utf-8'),
         cert              : fs.readFileSync(process.env.RENATER_CRT, 'utf-8'),
         logoutUrl         : shib_url_logout,
         identifierFormat  : 'urn:oasis:names:tc:SAML:2.0:nameid-format:transient',
-        logoutCallbackUrl : 'https://click.travelplanet.fr/#/account/login'
+        logoutCallbackUrl : 'http://test.tp-control.travelplanet.fr/#/account/login'
       },
       function(profile, done) {
         var table = {};
@@ -59,6 +59,7 @@ module.exports = function(router, connection, mysql) {
         table.nameQualifier       = profile.nameQualifier;
         table.spNameQualifier     = profile.spNameQualifier;
         table.isSaml              = true;
+	table.siteID              = siteID;
         var token = jwt.sign(table, 'travelSecret', {
           expiresIn: 7200
         });
@@ -73,7 +74,7 @@ module.exports = function(router, connection, mysql) {
     router.route('/redirect')
     .get(function(req, res) {
       //  callback du saml
-      res.redirect("https://click.travelplanet.fr/#/SAML/" + saml_data);
+      res.redirect("http://localhost:8000/#/SAML/" + saml_data);
     });
 
     router.route('/Shibboleth.sso/SAML2/POST')
@@ -177,8 +178,9 @@ module.exports = function(router, connection, mysql) {
     .post(function(req, res) {
         shib_url = req.body.url;
         shib_url_logout = "";
-        field  = req.body.field
-        saml(shib_url, shib_url_logout)
+        field  = req.body.field;
+	siteID = req.body.siteID;
+        saml(shib_url, shib_url_logout);
         res.status(200).send("setup completed");
     })
 
