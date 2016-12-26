@@ -6,7 +6,7 @@ var password     = require('../functions/password.js');
 var SamlStrategy = require('passport-saml').Strategy;
 var request      = require('request');
 var zack         = require('../functions/zack_api.js');
-require('dotenv').config({path: '/home/Preprod/.env' });
+require('dotenv').config({path: '/home/Prod/.env' });
 
 module.exports = function(router, connection, mysql) {
   var saml_data             = [];
@@ -32,13 +32,13 @@ module.exports = function(router, connection, mysql) {
       {
         callbackUrl       : process.env.SAML_CALLBACK_URL,
         entryPoint        : shib_url,
-        issuer            : 'https://test.tp-control.travelplanet.fr/#/account/login',
+        issuer            : process.env.RENATER_ISSUER,
         decryptionPvk     : fs.readFileSync(process.env.SERV_KEY, 'utf8'),
         privateCert       : fs.readFileSync(process.env.SERV_KEY, 'utf-8'),
         cert              : fs.readFileSync(process.env.RENATER_CRT, 'utf-8'),
         logoutUrl         : shib_url_logout,
         identifierFormat  : 'urn:oasis:names:tc:SAML:2.0:nameid-format:transient',
-        logoutCallbackUrl : 'http://test.tp-control.travelplanet.fr/#/account/login'
+        logoutCallbackUrl : process.env.SAML_CALLBACK_URL
       },
       function(profile, done) {
         var table = {};
