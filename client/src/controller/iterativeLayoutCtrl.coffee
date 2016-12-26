@@ -24,7 +24,7 @@ tableau
 
     getViews = () ->
         values    = ["click", "embed", decode[0].site_id]
-        $http.post 'http://151.80.121.113:3005/api/multipleSelect', { values : values, tabIn: embedList }
+        $http.post 'https://api.tp-control.travelplanet.fr/multipleSelect', { values : values, tabIn: embedList }
         .then (data) ->
             temp = null
             for key in data.data

@@ -85,7 +85,8 @@ app.use(passport.session());
 // debut des routes  ----------------------------------------------------------------------------------
 // on n'a pas besoin de proteger la route d'authentification
 // require('./app/routes/loginRoute')(router, connection, mysql);
-require('./app/cassandraRoute/loginRoute')(router, client);
+require('./app/cassandraRoute/loginRoute') (router, client);
+require('./app/routes/loginRoute')         (router, client);
 
 // on verifie le token auth pour les autres routes
 router.use(function(req, res, next) {
@@ -111,7 +112,7 @@ router.use(function(req, res, next) {
 // require des routes nécesittant un token valide
 require('./app/cassandraRoute/accountRoute') (router, client);
 require('./app/routes/templateRoute')        (router, connection, mysql);
-// require('./app/routes/datatable')         (router, connection, mysql);
+require('./app/routes/datatable')         (router, connection, mysql);
 require('./app/routes/ipRoute')              (router, connection, mysql);
 require('./app/routes/profilRoute')          (router, connection, mysql);
 require('./app/routes/tableauRoute')         (router, connection, mysql);

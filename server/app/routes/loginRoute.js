@@ -74,7 +74,7 @@ module.exports = function(router, connection, mysql) {
     router.route('/redirect')
     .get(function(req, res) {
       //  callback du saml
-      res.redirect("http://localhost:8000/#/SAML/" + saml_data);
+      res.redirect("https://click.travelplanet.fr/#/SAML/" + saml_data);
     });
 
     router.route('/Shibboleth.sso/SAML2/POST')
@@ -179,7 +179,7 @@ module.exports = function(router, connection, mysql) {
         shib_url = req.body.url;
         shib_url_logout = "";
         field  = req.body.field;
-	siteID = req.body.siteID;
+	      siteID = req.body.siteID;
         saml(shib_url, shib_url_logout);
         res.status(200).send("setup completed");
     })
