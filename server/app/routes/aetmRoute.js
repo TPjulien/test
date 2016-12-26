@@ -1,3 +1,6 @@
+var request      = require('request');
+var zack         = require('../functions/zack_api.js');
+
 module.exports = function(router, connection, mysql) {
   router.route('/aetmConnect/:uid/:site_id')
   .get (function(req, res) {
