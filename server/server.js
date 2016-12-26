@@ -117,6 +117,7 @@ require('./app/routes/profilRoute')          (router, connection, mysql);
 require('./app/routes/tableauRoute')         (router, connection, mysql);
 require('./app/routes/email')                (router, connection, mysql);
 require('./app/routes/workflow')             (router, connection, mysql);
+require('./app/routes/aetmRoute')            (router, connection, mysql);
 require('./app/cassandraRoute/selectRoute')  (router, client);
 
 app.use('/api', router);
