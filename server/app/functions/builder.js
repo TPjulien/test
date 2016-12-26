@@ -1,6 +1,6 @@
 module.exports = {
-    selectBuilder: function (table, selected, object) {
-        var query = "SELECT " + selected + " FROM click." + table;
+    selectBuilder: function (table, selected, object, databaseName) {
+        var query = "SELECT " + selected + " FROM " + databaseName + "." + table;
         var tab_builder = [];
         var tab_values  = [];
         if (object != null) {

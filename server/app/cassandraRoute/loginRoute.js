@@ -65,21 +65,26 @@ module.exports = function(router, client) {
 		}
 	    })
     })
-    router.route('/normalLogin/:table/:database')
-	.post(function(req, res) {
-	    console.log(req.params.table, req.params.database)
-	    
-	    var getRequest = builder.selectBuilder(req.params.table, req.body.selected, req.body.parameters, req.params.database);
-	    console.log(getRequest);
-	    client.execute(getRequest.query, getRequest.values, function(err, result) {
-		if (err) {
-		    res.status(400).send(err);
-		} else {
-		    res.send(result.rows);
-		}
-	    })
-	})
-    
+    router.route('/sign/:table/:database?')
+   .post(function(req, res) {
+   var databaseName = null;
+     if (req.params.database) {
+       databaseName = req.params.database;
+     } else {
+       databaseName = "click";
+     }
+
+     var getRequest = builder.selectBuilder(req.params.table, req.body.selected, req.body.parameters, databaseName);
+     console.log(getRequest);
+     client.execute(getRequest.query, getRequest.values, function(err, result) {
+       if (err) {
+         res.status(400).send(err);
+       } else {
+         res.send(result.rows);
+       }
+     })
+   })
+
     router.route('/samlLogin')
     .post(function(req, res) {
 	name   = req.body.username.match(/^([^@]*)@/)[1];
