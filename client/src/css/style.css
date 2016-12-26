@@ -2301,3 +2301,8 @@ md-dialog.halfscreen-dialog {
       box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2);
       transition-delay: 0s;
     }
+    .md-button.md-fab.md-mini {
+        line-height: 40px;
+        width: 42px;
+        height: 42px;
+    }
