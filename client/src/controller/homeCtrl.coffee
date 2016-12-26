@@ -111,7 +111,7 @@ tableau
                     if (aggMenu.view_list.length != 0)
                         for view in aggMenu.view_list
                             $scope.getEmbeds = view.view_embed_data
-                            menu += """<md-button style="padding:0" ng-click=goTo(""" + angular.toJson($scope.getEmbeds)  + """) aria-label="test" class="md-fab md-raised md-mini">
+                            menu += """<md-button style="padding:0;background-color:transparent;box-shadow: none;" ng-click=goTo(""" + angular.toJson($scope.getEmbeds)  + """) aria-label="test" class="md-fab md-raised md-mini">
                                           <img ng-src=" """ + view.view_logo_base_64 + """ "><md-tooltip style="font-size:15px" md-visible="demo.showTooltip" md-direction="bottom">""" + view.view_label + """</md-tooltip>
                                        </md-button>
                                        """
