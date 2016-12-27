@@ -1278,12 +1278,6 @@ Use of this source code is governed by an MIT-style license that can be in found
   padding-left: 10px;
   border-bottom: 1px solid #9e9e9e !important;
 }
-.body{
-  display: table;
-}
-
-
-
 
 .labelProfil{
       color: #757575;
@@ -2089,6 +2083,7 @@ ng-md-icon {
     color: #666;
 }
 .sky-form header {
+    margin-top: 2%;
     text-align: initial;
     display: block;
     padding: 20px 30px;
@@ -2122,10 +2117,9 @@ input, textarea, keygen, select {
     text-align: initial;
 }
 .body{
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 40px;
-    box-sizing: content-box;
+  height: 2000px;
+  width: 100%;
+  background-color: rgba(117, 196, 255, 0.55);
 }
 .sky-form .label {
     border-radius: 0;
@@ -2306,3 +2300,28 @@ md-dialog.halfscreen-dialog {
         width: 42px;
         height: 42px;
     }
+    ._720kb-datepicker-calendar-day {
+        cursor: pointer;
+        font-size: 12.5px;
+        width: 12.29%;
+        margin: 5px 1%;
+        padding: 1.5% 0;
+        float: left;
+        -webkit-border-radius: 1px;
+        -moz-border-radius: 1px;
+        border-radius: 1px;
+    }
+    ._720kb-datepicker-calendar-body {
+    width: 98%;
+    margin: 2%;
+    text-align: center;
+}
+md-checkbox .md-container:after {
+    box-sizing: border-box;
+    content: '';
+    position: absolute;
+    top:    0px !important;
+    right:  0px !important;
+    bottom: 0px !important;
+    left:   0px !important; 
+}

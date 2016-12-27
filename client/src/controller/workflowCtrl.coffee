@@ -107,7 +107,7 @@ tableau
                         <div class="row">
                           <label class="">""" + parameter.LIBELLE + """</label>
                           <datepicker date-format="yyyy-MM-dd" date-set="  """ + $scope.today + """  " class="ng-isolate-scope">
-                            <input class="input_workflow" style="width: 95%;border: 3px solid rgba(158, 158, 158, 0.407843);background-color: white;padding-left: 5px;" ng-model=" selected.""" + info +  """ " type="text"/>
+                            <input class="input_workflow" style="width: 90%;border: 3px solid rgba(158, 158, 158, 0.407843);background-color: white;padding-left: 5px;" ng-model=" selected.""" + info +  """ " type="text"/>
                           </datepicker>
                         </div>
                       </div> """
