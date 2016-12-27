@@ -13,7 +13,6 @@ tableau
     $scope.comText              = "Sélection de la communauté"
 
     $scope.choosed = (data) ->
-        # console.log data
         if (data.shib != undefined)
             if (Object.keys(data.shib).length) != 0
                 $http.post 'https://api.tp-control.travelplanet.fr/setup', { url: data.shib.shib_url, field: data.shib.shib_field, siteID: data.site_id }

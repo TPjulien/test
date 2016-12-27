@@ -59,7 +59,6 @@ gulp.task 'css', ->
     .pipe concat    "#{name}-styles.css"
     .pipe gulp.dest "#{dest}/css"
 
-
 gulp.task 'copy_other', ->
   gulp.src "#{src}/img/cd-arrow.svg"
     .pipe gulp.dest "#{dest}/medias/img"
