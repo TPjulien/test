@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <!-- <html ng-style="{ 'background-image' : wallpaper }" lang="fr" ng-app="tableauApp"> -->
-<html style="background-image:url(/img/background_V2.png); background-size:cover" lang="fr" ng-app="tableauApp">
+<html style="background-image:url(/img/background_V2.png); background-size:cover" lang="fr" ng-app="tableauApp" ng-controller="cacheCtrl">
 <!-- avoir the cache control in browsers -->
-<meta http-equiv="CACHE-CONTROL" content="NO-CACHE">
-<!-- <meta http-equiv="CACHE-CONTROL" content="NO-STORE"> -->
+<meta http-equiv="cache-control" content="max-age=0" />
+<meta http-equiv="cache-control" content="no-cache" />
+<meta http-equiv="pragma" content="no-cache" />
 <!-- <html style="background-color:#EAEAEA" lang="fr" ng-app="tableauApp"> -->
     <head>
+       <!-- <meta http-equiv="CACHE-CONTROL" content="NO-CACHE"> -->
         <meta charset="UTF-8">
         <!-- Css du bower component -->
-        <link rel="stylesheet" type="text/css" href="css/tableau-components.css" />
+        <link rel="stylesheet" type="text/css" ng-href="{{componentsCached}}" />
           <!-- Css perso -->
-        <link rel="stylesheet" type="text/css" href="css/tableau-styles.css" />
+        <link rel="stylesheet" type="text/css" ng-href="{{styleCached}}" />
         <meta name="viewport" content="initial-scale=1" />
         <link rel="travel icon" type="image/x-icon" href="/img/icons/travelLogo.ico"/>
         <title>Travel Planet Portal</title>
