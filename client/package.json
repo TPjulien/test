@@ -18,6 +18,7 @@
   "homepage": "https://github.com/nmahefa/Client_base#readme",
   "dependencies": {
     "angular-bootstrap-colorpicker": "^3.0.25",
+    "angularjs-datepicker": "^2.1.7",
     "coffee-script": "^1.10.0",
     "components-font-awesome": "^4.6.1",
     "d3": "^3.5.12",

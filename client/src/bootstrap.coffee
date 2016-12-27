@@ -23,6 +23,7 @@ tableau = angular.module 'tableauApp', [
   'ngMap'
   'ngIdle'
   'vcRecaptcha'
+  '720kb.datepicker'
 ]
 
 options = {}
