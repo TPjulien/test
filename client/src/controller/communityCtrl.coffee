@@ -53,12 +53,12 @@ tableau
                         .then (result) ->
                             $window.location.href = "https://api.tp-control.travelplanet.fr/postShibboleth"
                     else
-                        $scope.comText         = "Vôtre communauté"
+                        $scope.comText         = "Votre communauté"
                         $scope.actualCommunity = $scope.communities[0]
                         $scope.idSelected      = $scope.communities[0].label
                         $scope.checkCommunity  = false
                 else
-                    $scope.comText         = "Vôtre communauté"
+                    $scope.comText         = "Votre communauté"
                     $scope.actualCommunity = $scope.communities[0]
                     $scope.idSelected      = $scope.communities[0].label
                     $scope.checkCommunity  = false
