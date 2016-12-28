@@ -48,9 +48,15 @@ tableau
                 $state.go 'login.account'
             else if ($scope.communities.length == 1)
                 if ($scope.communities[0].shib)
-                    $http.post 'https://api.tp-control.travelplanet.fr/setup', { url: $scope.communities[0].shib.shib_url, field: $scope.communities[0].shib_field, siteID: $scope.communities[0].site_id }
-                    .then (result) ->
-                        $window.location.href = "https://api.tp-control.travelplanet.fr/postShibboleth"
+                    if (Object.keys($scope.communities[0].shib).length) != 0
+                        $http.post 'https://api.tp-control.travelplanet.fr/setup', { url: $scope.communities[0].shib.shib_url, field: $scope.communities[0].shib_field, siteID: $scope.communities[0].site_id }
+                        .then (result) ->
+                            $window.location.href = "https://api.tp-control.travelplanet.fr/postShibboleth"
+                    else
+                        $scope.comText         = "Vôtre communauté"
+                        $scope.actualCommunity = $scope.communities[0]
+                        $scope.idSelected      = $scope.communities[0].label
+                        $scope.checkCommunity  = false
                 else
                     $scope.comText         = "Vôtre communauté"
                     $scope.actualCommunity = $scope.communities[0]
