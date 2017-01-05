@@ -13,9 +13,10 @@ tableau
     $scope.comText              = "Sélection de la communauté"
 
     $scope.choosed = (data) ->
+        console.log "ceci est le login:", data
         if (data.shib != undefined)
             if (Object.keys(data.shib).length) != 0
-                $http.post 'https://api.tp-control.travelplanet.fr/setup', { url: data.shib.shib_url, field: data.shib.shib_field, siteID: data.site_id, issuer: data.shib.entity_id }
+                $http.post 'https://api.tp-control.travelplanet.fr/setup', { login: data.login, url: data.shib.shib_url, field: data.shib.shib_field, siteID: data.site_id, issuer: data.shib.entity_id }
                 .then (result) ->
                     $window.location.href = "https://api.tp-control.travelplanet.fr/postShibboleth"
             else
@@ -48,8 +49,7 @@ tableau
                 $state.go 'login.account'
             else if ($scope.communities.length == 1)
                 if ($scope.communities[0].shib)
-                    if (Object.keys($scope.communities[0].shib).length) != 0
-                        $http.post 'https://api.tp-control.travelplanet.fr/setup', { url: $scope.communities[0].shib.shib_url, field: $scope.communities[0].shib.shib_field, siteID: $scope.communities[0].site_id, issuer: $scope.communities[0].shib.entity_id }
+                        $http.post 'https://api.tp-control.travelplanet.fr/setup', { url: $scope.communities[0].shib.shib_url, field: $scope.communities[0].shib.shib_field, siteID: $scope.communities[0].site_id, issuer: $scope.communities[0].shib.entity_id, login: $scope.communities[0].login }
                         .then (result) ->
                             $window.location.href = "https://api.tp-control.travelplanet.fr/postShibboleth"
                     else

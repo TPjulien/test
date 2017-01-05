@@ -18,6 +18,7 @@ module.exports = function(router, connection, mysql) {
   var shib_url_logout       = [];
   var shib_issuer           = [];
   var shib_user_id          = [];
+  var shib_loggin           = [];
 
   passport.serializeUser(function(user, done) {
     done(null, user);
@@ -29,7 +30,7 @@ module.exports = function(router, connection, mysql) {
   });
 
   // shibboleth
-  function saml(shib_url, shib_url_logout, shib_issuer, shib_user_id) {
+  function saml(shib_url, shib_url_logout, shib_issuer, shib_user_id, shib_login) {
     var get_strategy = new SamlStrategy(
       {
         callbackUrl       : process.env.SAML_CALLBACK_URL,
@@ -41,10 +42,9 @@ module.exports = function(router, connection, mysql) {
         logoutUrl         : shib_url_logout,
         identifierFormat  : 'urn:oasis:names:tc:SAML:2.0:nameid-format:transient',
         logoutCallbackUrl : process.env.SAML_CALLBACK_URL
-      },
+      } ,
       function(profile, done) {
         var table = {};
-	console.log("profile", profile);
         table.uid                 = profile['urn:oid:0.9.2342.19200300.100.1.1'];
         table.affiliations        = profile['urn:oid:1.3.6.1.4.1.5923.1.1.1.1'];
         table.primary_affiliation = profile['urn:oid:1.3.6.1.4.1.5923.1.1.1.5'];
@@ -63,9 +63,9 @@ module.exports = function(router, connection, mysql) {
         table.spNameQualifier     = profile.spNameQualifier;
         table.isSaml              = true;
         table.ssoId               = table[field];
-	table.siteID              = siteID;
-	table.userID              = shib_user_id;
-        console.log("resultats", table);
+        table.shib_login          = req.body.login;
+      	table.siteID              = siteID;
+      	table.userID              = shib_user_id;
 	  var token = jwt.sign(table, 'travelSecret', {
           expiresIn: 7200
         });

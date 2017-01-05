@@ -21,5 +21,4 @@ tableau
             else
                 $state.go 'login.comunity', { data : data.data, username: $scope.username }
         .catch (err) ->
-            console.log err
             toastErrorFct.toastError("Impossible de se connecter au serveur de login, veuillez retenter plus tard")
