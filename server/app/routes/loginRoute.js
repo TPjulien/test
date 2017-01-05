@@ -181,7 +181,7 @@ module.exports = function(router, connection, mysql) {
     .post(function(req, res) {
         shib_url        = req.body.url;
         shib_url_logout = "";
-        shib_issuer     = req.body.entity_id;
+        shib_issuer     = req.body.issuer;
         field           = req.body.field;
 	      siteID          = req.body.siteID;
         saml(shib_url, shib_url_logout, shib_issuer);
