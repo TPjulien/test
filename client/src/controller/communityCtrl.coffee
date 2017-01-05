@@ -52,16 +52,16 @@ tableau
                         $http.post 'https://api.tp-control.travelplanet.fr/setup', { url: $scope.communities[0].shib.shib_url, field: $scope.communities[0].shib.shib_field, siteID: $scope.communities[0].site_id, issuer: $scope.communities[0].shib.entity_id, login: $scope.communities[0].login }
                         .then (result) ->
                             $window.location.href = "https://api.tp-control.travelplanet.fr/postShibboleth"
-                    else
-                        $scope.comText         = "Votre communauté"
-                        $scope.actualCommunity = $scope.communities[0]
-                        $scope.idSelected      = $scope.communities[0].label
-                        $scope.checkCommunity  = false
                 else
                     $scope.comText         = "Votre communauté"
                     $scope.actualCommunity = $scope.communities[0]
                     $scope.idSelected      = $scope.communities[0].label
                     $scope.checkCommunity  = false
+            else
+                $scope.comText         = "Votre communauté"
+                $scope.actualCommunity = $scope.communities[0]
+                $scope.idSelected      = $scope.communities[0].label
+                $scope.checkCommunity  = false
 
     getCommunity()
 
