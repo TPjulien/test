@@ -17,6 +17,7 @@ module.exports = function(router, connection, mysql) {
   var shib_url              = [];
   var shib_url_logout       = [];
   var shib_issuer           = [];
+  var shib_user_id          = [];
 
   passport.serializeUser(function(user, done) {
     done(null, user);
@@ -28,7 +29,7 @@ module.exports = function(router, connection, mysql) {
   });
 
   // shibboleth
-  function saml(shib_url, shib_url_logout, shib_issuer) {
+  function saml(shib_url, shib_url_logout, shib_issuer, shib_user_id) {
     var get_strategy = new SamlStrategy(
       {
         callbackUrl       : process.env.SAML_CALLBACK_URL,
@@ -39,11 +40,11 @@ module.exports = function(router, connection, mysql) {
         cert              : fs.readFileSync(process.env.RENATER_CRT, 'utf-8'),
         logoutUrl         : shib_url_logout,
         identifierFormat  : 'urn:oasis:names:tc:SAML:2.0:nameid-format:transient',
-        logoutCallbackUrl : process.env.SAML_CALLBACK_URL,
-	forceAuthn: true
+        logoutCallbackUrl : process.env.SAML_CALLBACK_URL
       },
       function(profile, done) {
         var table = {};
+	console.log("profile", profile);
         table.uid                 = profile['urn:oid:0.9.2342.19200300.100.1.1'];
         table.affiliations        = profile['urn:oid:1.3.6.1.4.1.5923.1.1.1.1'];
         table.primary_affiliation = profile['urn:oid:1.3.6.1.4.1.5923.1.1.1.5'];
@@ -62,8 +63,10 @@ module.exports = function(router, connection, mysql) {
         table.spNameQualifier     = profile.spNameQualifier;
         table.isSaml              = true;
         table.ssoId               = table[field];
-	      table.siteID              = siteID;
-        var token = jwt.sign(table, 'travelSecret', {
+	table.siteID              = siteID;
+	table.userID              = shib_user_id;
+        console.log("resultats", table);
+	  var token = jwt.sign(table, 'travelSecret', {
           expiresIn: 7200
         });
         saml_data_not_crypted = table;
@@ -183,8 +186,9 @@ module.exports = function(router, connection, mysql) {
         shib_url_logout = "";
         shib_issuer     = req.body.issuer;
         field           = req.body.field;
-	      siteID          = req.body.siteID;
-        saml(shib_url, shib_url_logout, shib_issuer);
+	siteID          = req.body.siteID;
+	user_id         = req.body.user_id;
+        saml(shib_url, shib_url_logout, shib_issuer, user_id);
         res.status(200).send("setup completed");
     })
 

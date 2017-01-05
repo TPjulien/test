@@ -110,35 +110,68 @@ module.exports = function(router, client) {
   // nouvelle version du saml
   router.route('/samlLogin')
   .post(function(req, res) {
-    field  = req.body.field;
-    name   = req.body.username.match(/^([^@]*)@/)[1];
-    siteID = req.body.siteID;
+    field   = req.body.field;
+    name    = req.body.username.match(/^([^@]*)@/)[1];
+    siteID  = req.body.siteID;
+    userID  = req.body.userID;
+    console.log("ceci est l'userId", userID);
+    ssoID   = req.body.ssoID;
     if (siteID.length == 8) {
       siteID = siteID.slice(0, 4);
     }
-    if (IS_NEW == "true") {
-	query = "SELECT * FROM profils.user_profile WHERE SSO_ID = ?";
-	table = [field];
+    if (process.env.IS_NEW == "true") {
+	query = "SELECT txt_value FROM profils.user_profile WHERE site_id = ? and user_id = ? and key = ?";
+	table = [siteID, userID, 'sso_id'];
+	client.execute(query, table, function(err, rows) {
+	    console.log(rows.rows);
+	    if (err) {
+		res.status(400).send(err);
+	    } else {
+		if(rows.rows.length != 0) {
+		    if (rows.rows[0].txt_value == ssoID) {
+			var preToken = [{
+			    "site_id"    : siteID,
+			    "UID"        : userID,
+			    "can_logout" : false,
+			    "is_saml"    : true
+			}];
+			var token = jwt.sign(preToken, 'travelSecret', {
+			    expiresIn: 7200
+			});
+			res.json({ 'token' : token });
+		    } else {
+			res.status(403).send("Le nom d'utilisateur ne correspond pas au compte SSO connecté");
+		    }
+		} else {
+		    res.status(404).send("Le compte utilisateur n'existe pas");
+		}
+	    }
+	})
     } else {
+	console.log("ça passe par ici");
 	query = "SELECT * FROM profils.user_lookup WHERE key_name=? AND key_value=? AND site_id=?";
 	table = ["login", name, siteID];
+	client.execute(query, table, function(err, rows) {
+	    if (err) {
+		res.status(400).send(err);
+	    } else {
+		if(rows.rows.length != 0) {
+		    var preToken = [{
+			"site_id"    : siteID,
+			"UID"        : rows.rows[0].user_id,
+			"can_logout" : false,
+			"is_saml"    : true
+		    }];
+		    var token = jwt.sign(preToken, 'travelSecret', {
+			expiresIn: 7200
+		    });
+		    res.json({ 'token' : token });
+		} else {
+		    res.status(400).send(err);
+		}
+	    }
+	})
     }
-    client.execute(query, table, function(err, rows) {
-      if (err) {
-        res.status(400).send(err);
-      } else {
-        var preToken = [{
-          "site_id"    : rows.rows[0].site_id,
-          "UID"        : rows.rows[0].user_id,
-          "username"   : name,
-          "can_logout" : false,
-          "is_saml"    : true
-        }];
-        var token = jwt.sign(preToken, 'travelSecret', {
-          expiresIn: 7200
-        });
-        res.json({ 'token' : token });
-      }
-    })
+    
   })
 }
