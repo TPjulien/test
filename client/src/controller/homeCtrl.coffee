@@ -68,7 +68,9 @@ tableau
                         infoUser
                         menu
                     ]).then (data) ->
-                        temp             = eval data[0].data[0].js_data
+                        temp             = angular.fromJson data[0].data[0].js_data
+                        if temp.constructor != Array
+                            temp = [temp]
                         $scope.userInfos = temp[0]
                         $scope.viewsMenu = data[1].data
 
@@ -79,6 +81,9 @@ tableau
                 $state.go 'home.test', { embeds : embeds }
 
             $scope.bindMenu  = (aggMenu) ->
+                if (aggMenu.view_list)
+                  if(aggMenu.view_list.length == 0 && !aggMenu.view_embed_data)
+                      return ""
                 viewList     = aggMenu.view_list
                 tempPosition = []
                 viewTemp     = []
