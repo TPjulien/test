@@ -18,7 +18,7 @@ module.exports = function(router, connection, mysql) {
   var shib_url_logout       = [];
   var shib_issuer           = [];
   var shib_user_id          = [];
-  var shib_loggin           = [];
+  var login                 = [];
 
   passport.serializeUser(function(user, done) {
     done(null, user);
@@ -30,7 +30,7 @@ module.exports = function(router, connection, mysql) {
   });
 
   // shibboleth
-  function saml(shib_url, shib_url_logout, shib_issuer, shib_user_id, shib_login) {
+  function saml(shib_url, shib_url_logout, shib_issuer, shib_user_id, click_login) {
     var get_strategy = new SamlStrategy(
       {
         callbackUrl       : process.env.SAML_CALLBACK_URL,
@@ -63,7 +63,7 @@ module.exports = function(router, connection, mysql) {
         table.spNameQualifier     = profile.spNameQualifier;
         table.isSaml              = true;
         table.ssoId               = table[field];
-        table.shib_login          = req.body.login;
+        table.login               = click_login;
       	table.siteID              = siteID;
       	table.userID              = shib_user_id;
 	  var token = jwt.sign(table, 'travelSecret', {
@@ -188,7 +188,7 @@ module.exports = function(router, connection, mysql) {
         field           = req.body.field;
 	siteID          = req.body.siteID;
 	user_id         = req.body.user_id;
-        saml(shib_url, shib_url_logout, shib_issuer, user_id);
+        saml(shib_url, shib_url_logout, shib_issuer, user_id, req.body.login);
         res.status(200).send("setup completed");
     })
 

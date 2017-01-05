@@ -115,6 +115,7 @@ module.exports = function(router, client) {
     siteID  = req.body.siteID;
     userID  = req.body.userID;
     ssoID   = req.body.ssoID;
+    console.log("ceci est le login", req.body.login);
     if (siteID.length == 8) {
       siteID = siteID.slice(0, 4);
     }
@@ -123,6 +124,7 @@ module.exports = function(router, client) {
       table = ['login', req.body.login, siteID]
       client.execute(query, table, function(err, result) {
           if(err) {
+	      console.log(err);
               res.status(400).send(err);
           } else {
               query = "SELECT txt_value FROM profils.user_profile WHERE site_id = ? and user_id = ? and key = ?";
