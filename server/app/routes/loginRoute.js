@@ -16,6 +16,7 @@ module.exports = function(router, connection, mysql) {
   var siteID                = [];
   var shib_url              = [];
   var shib_url_logout       = [];
+  var shib_issuer           = [];
 
   passport.serializeUser(function(user, done) {
     done(null, user);
@@ -27,12 +28,12 @@ module.exports = function(router, connection, mysql) {
   });
 
   // shibboleth
-  function saml(shib_url, shib_url_logout) {
+  function saml(shib_url, shib_url_logout, shib_issuer) {
     var get_strategy = new SamlStrategy(
       {
         callbackUrl       : process.env.SAML_CALLBACK_URL,
         entryPoint        : shib_url,
-        issuer            : process.env.RENATER_ISSUER,
+        issuer            : shib_issuer,
         decryptionPvk     : fs.readFileSync(process.env.SERV_KEY, 'utf8'),
         privateCert       : fs.readFileSync(process.env.SERV_KEY, 'utf-8'),
         cert              : fs.readFileSync(process.env.RENATER_CRT, 'utf-8'),
@@ -178,11 +179,12 @@ module.exports = function(router, connection, mysql) {
 
     router.route('/setup')
     .post(function(req, res) {
-        shib_url = req.body.url;
+        shib_url        = req.body.url;
         shib_url_logout = "";
-        field  = req.body.field;
-	      siteID = req.body.siteID;
-        saml(shib_url, shib_url_logout);
+        shib_issuer     = req.body.entity_id;
+        field           = req.body.field;
+	      siteID          = req.body.siteID;
+        saml(shib_url, shib_url_logout, shib_issuer);
         res.status(200).send("setup completed");
     })
 

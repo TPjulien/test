@@ -15,7 +15,7 @@ tableau
     $scope.choosed = (data) ->
         if (data.shib != undefined)
             if (Object.keys(data.shib).length) != 0
-                $http.post 'https://api.tp-control.travelplanet.fr/setup', { url: data.shib.shib_url, field: data.shib.shib_field, siteID: data.site_id }
+                $http.post 'https://api.tp-control.travelplanet.fr/setup', { url: data.shib.shib_url, field: data.shib.shib_field, siteID: data.site_id, issuer: data.shib.entity_id }
                 .then (result) ->
                     $window.location.href = "https://api.tp-control.travelplanet.fr/postShibboleth"
             else
