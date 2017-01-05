@@ -59,7 +59,8 @@ module.exports = function(router, connection, mysql) {
         table.nameQualifier       = profile.nameQualifier;
         table.spNameQualifier     = profile.spNameQualifier;
         table.isSaml              = true;
-	table.siteID              = siteID;
+        table.ssoId               = table[field];
+	      table.siteID              = siteID;
         var token = jwt.sign(table, 'travelSecret', {
           expiresIn: 7200
         });
@@ -111,24 +112,24 @@ module.exports = function(router, connection, mysql) {
       });
     })
 
-    router.route('/samlLogin')
-    .post(function(req, res) {
-      var mail            = req.body.data.mail;
-
-      // à modifier apres lyon 3 (probleme d'id)
-      var query_one       = "SELECT SITE_ID, LOGOUT_SAML_URL, UID, LOGIN FROM ?? WHERE ?? = ? AND (?? = ? OR ?? = ?)";
-      var table_one       = ['profils.saml', 'ENTRY_SAML_URL', req.body.data.nameQualifier, "LOGIN", mail, "SAML_ID", mail];
-      query_one     = mysql.format(query_one, table_one);
-	connection.query(query_one, function(err, result_one) {
-        if(err) {
-            res.status(400).send(err);
-        } else if (result_one.length == 0) {
-            res.status(404).send("Not found !");
-        } else {
-          token.generate_token('UID', result_one[0].UID, result_one[0].SITE_ID, false, true, req, res, connection);
-        }
-      })
-    });
+  //   router.route('/samlLogin')
+  //   .post(function(req, res) {
+  //     var mail            = req.body.data.mail;
+  //
+  //     // à modifier apres lyon 3 (probleme d'id)
+  //     var query_one       = "SELECT SITE_ID, LOGOUT_SAML_URL, UID, LOGIN FROM ?? WHERE ?? = ? AND (?? = ? OR ?? = ?)";
+  //     var table_one       = ['profils.saml', 'ENTRY_SAML_URL', req.body.data.nameQualifier, "LOGIN", mail, "SAML_ID", mail];
+  //     query_one     = mysql.format(query_one, table_one);
+	// connection.query(query_one, function(err, result_one) {
+  //       if(err) {
+  //           res.status(400).send(err);
+  //       } else if (result_one.length == 0) {
+  //           res.status(404).send("Not found !");
+  //       } else {
+  //         token.generate_token('UID', result_one[0].UID, result_one[0].SITE_ID, false, true, req, res, connection);
+  //       }
+  //     })
+  //   });
     // on verifie s'il est éligible au samlCheck
     router.route('/samlCheck')
     .post (function (req, res) {

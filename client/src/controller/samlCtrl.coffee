@@ -3,7 +3,7 @@ tableau
     token  = $stateParams.tokenSaml
     decode = jwtHelper.decodeToken(token)
 
-    $http.post 'https://api.tp-control.travelplanet.fr/samlLogin', { username : decode.mail, siteID : decode.siteID }
+    $http.post 'https://api.tp-control.travelplanet.fr/samlLogin', { username : decode.mail, siteID : decode.siteID, field: decode.siteID }
     .then (data) ->
         store.set('JWT', data.data.token)
         $state.go "home"
