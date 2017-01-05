@@ -38,7 +38,8 @@ module.exports = function(router, connection, mysql) {
         cert              : fs.readFileSync(process.env.RENATER_CRT, 'utf-8'),
         logoutUrl         : shib_url_logout,
         identifierFormat  : 'urn:oasis:names:tc:SAML:2.0:nameid-format:transient',
-        logoutCallbackUrl : process.env.SAML_CALLBACK_URL
+        logoutCallbackUrl : process.env.SAML_CALLBACK_URL,
+	forceAuthn: true
       },
       function(profile, done) {
         var table = {};
@@ -66,7 +67,7 @@ module.exports = function(router, connection, mysql) {
         });
         saml_data_not_crypted = table;
         saml_data             = token;
-
+	console.log("resultat", table);
         return done(null, token);
       })
       passport.use(get_strategy);

@@ -5,6 +5,7 @@ var crypto     = require('crypto');
 var cryptoJs   = require('crypto-js');
 var uuid       = require('uuid/v4');
 var jwt        = require('jsonwebtoken');
+require('dotenv').config({path: '/home/Prod/.env' });
 
 module.exports = function(router, client) {
   router.route('/pwd')
@@ -115,9 +116,13 @@ module.exports = function(router, client) {
     if (siteID.length == 8) {
       siteID = siteID.slice(0, 4);
     }
-    query = "SELECT * FROM profils.user_lookup WHERE key_name=? AND key_value=? AND site_id=?";
-    table = ["login", name, siteID];
-
+    if (IS_NEW == "true") {
+	query = "SELECT * FROM profils.user_profile WHERE SSO_ID = ?";
+	table = [field];
+    } else {
+	query = "SELECT * FROM profils.user_lookup WHERE key_name=? AND key_value=? AND site_id=?";
+	table = ["login", name, siteID];
+    }
     client.execute(query, table, function(err, rows) {
       if (err) {
         res.status(400).send(err);

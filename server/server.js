@@ -13,11 +13,15 @@ require('dotenv').config({path: '/home/Prod/.env' });
 
 var app = express();
 
-var dbs = [ '192.168.1.118',
+var dbs = [ '192.168.1.233',
+            '192.168.1.234',
+            '192.168.1.235'];
+
+/*var dbs = [ '192.168.1.118',
             '192.168.1.120',
             '192.168.1.121',
             '192.168.1.228',
-            '192.168.1.229'];
+            '192.168.1.229'];*/
 
 var authProvider = new cassandra.auth.PlainTextAuthProvider('admin', '123soleil!');
 
