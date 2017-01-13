@@ -1,6 +1,6 @@
 <div ng-controller="workflowCtrl" ng-init="init(info)" class="body">
-  <div style="    width: 50%;margin-right: auto;margin-left: auto;height: 800px;" class="row">
-    <div class="col s12">
+  <div  style="width: 50%;margin-right: auto;margin-left: auto;height: 800px;" class="row">
+    <div id="main" class="col s12">
       <div class="row">
         <form name="form" class="sky-form">
           <header>Workflow</header>
@@ -43,6 +43,15 @@
           </div>
           <div class="clear"></div>
         </form>
+      </div>
+      <div id="loading" ng-if="displayload" class="col s12">
+        <div class="row">
+          <md-content style="height: {{height}};" md-theme="docs-dark" layout-padding>
+            <div layout="row" layout-sm="column" layout-align="space-around" style="margin-right: auto;margin-left: auto;height: auto;">
+              <md-progress-circular style="margin-top:{{height_circular}}" ng-disabled="!vm.activated" md-diameter="96"></md-progress-circular>
+            </div>
+          </md-content>
+        </div>
       </div>
     </div>
   </div>

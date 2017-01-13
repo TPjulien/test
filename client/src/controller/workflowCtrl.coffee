@@ -1,26 +1,17 @@
 tableau
 .controller 'workflowCtrl', ($scope,$http, $sce,alertFct) ->
-    currentDate     = new Date()
-    day             = currentDate.getDate()
-    month           = currentDate.getMonth() + 1
-    year            = currentDate.getFullYear()
-    $scope.go       = false
-    $scope.selected = {}
-    $scope.file     = {}
+    currentDate        = new Date()
+    day                = currentDate.getDate()
+    month              = currentDate.getMonth() + 1
+    year               = currentDate.getFullYear()
+    $scope.go          = false
+    $scope.selected    = {}
+    $scope.file        = {}
     $scope.multiple_custom = {}
-    $scope.today    =  year  + "-" + month + "-" +  day
-
+    $scope.today       =  year  + "-" + month + "-" +  day
+    $scope.displayload = false
     $scope.init = (info) ->
         $scope.allowedWorkflows = info.list_workflow
-    # $scope.getdistinctWokflow = (schema) ->
-    #     $http
-    #       method: "GET"
-    #       url:    options.api.base_url + "/distinctWokflow"
-    #     .success (data) ->
-    #       $scope.Distinctwokflows = data
-    #     .error (err) ->
-    #       console.log err
-    # $scope.getdistinctWokflow()
 
     $scope.getInfosWokflow = () ->
         $http
@@ -55,7 +46,6 @@ tableau
                           $scope[listName] = array
                         else if valueL.VALUE_TYPE == 'query'
                             query = valueL.VALUE
-                            console.log query
                             $http
                               method: "GET"
                               url:    options.api.base_url + "/query/" + query
@@ -193,8 +183,14 @@ tableau
           return true
 
     $scope.submit = () ->
-        $scope.string   = ""
-        multiple = {}
+        $scope.height          = $('#main').height()
+        $scope.height          = $scope.height - 50
+        $scope.height_circular = $scope.height/1.4
+        $scope.height_circular = $scope.height_circular + "px"
+        $scope.height          = $scope.height + "px"
+        $scope.displayload     = true
+        $scope.string          = " "
+        multiple               = {}
         angular.forEach $scope.listBoxs, (valueL, keyL) ->
             if valueL.MULTIPLE_CUSTOM == "True"
                 $scope.string             = valueL.MULTIPLE_START
@@ -230,6 +226,7 @@ tableau
                       ]
                     .success (data) ->
                         alertFct.okCreateFactory()
+                        $scope.displayload = false
                     .error (err) ->
                         console.log "une error est survenue"
                 else
@@ -247,11 +244,11 @@ tableau
                       url:    url
                       data:  json_data
                       transformResponse: [ (data) ->
-                        console.log data
                         # Do whatever you want!
                       ]
                     .success (data) ->
                         alertFct.okCreateFactory()
+                        $scope.displayload = false
                     .error (err) ->
                         console.log "une error est survenue"
                 else

@@ -29,15 +29,15 @@ module.exports = function(router, connection, mysql) {
         })
     router.route('/getParameters')
         .post(function(req, res) {
-            var query = "SELECT * FROM ?? WHERE ?? = ? AND ?? NOT LIKE ? ";
-            var table = ['alteryx.parameters','WORKFLOW_NAME',req.body.workflow,'TYPE','%ListBox%'];
+            var query = "SELECT * FROM ?? WHERE ?? = ? AND ?? NOT LIKE ? ORDER BY ?? ";
+            var table = ['alteryx.parameters','WORKFLOW_NAME',req.body.workflow,'TYPE','%ListBox%','TYPE'];
             query     = mysql.format(query, table);
             connection.query(query, function(err, rows) {
                 if (err) {
                     res.status(400).send(err);
                 } else {
-                    query = "SELECT * FROM ?? WHERE ?? = ? AND ?? = ?";
-                    table = ['alteryx.parameters','WORKFLOW_NAME',req.body.workflow,'TYPE','ListBox'];
+                    query = "SELECT * FROM ?? WHERE ?? = ? AND ?? = ? ORDER BY ??";
+                    table = ['alteryx.parameters','WORKFLOW_NAME',req.body.workflow,'TYPE','ListBox','TYPE'];
                     query     = mysql.format(query, table);
                     connection.query(query, function(err, rows_2) {
                         if (err) {
