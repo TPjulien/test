@@ -618,7 +618,6 @@ ob-daterangepicker .picker-dropdown-container .picker-dropdown {
 
 .separator {
   /*height:0px !important;*/
-  text-align:center;
   margin-bottom: 7px;
   margin-top: 10px;
   margin-right: 0px;
@@ -2323,5 +2322,20 @@ md-checkbox .md-container:after {
     top:    0px !important;
     right:  0px !important;
     bottom: 0px !important;
-    left:   0px !important; 
+    left:   0px !important;
+}
+
+#main { position: relative; }
+#loading {
+ opacity: 0.5;
+ cursor:auto;
+ margin-top: 20px;
+ width: 100%;
+ height: 100%;
+ z-index:15;
+
+ /* Positioning */
+ position: absolute;
+ left: 0;
+ top: 0;
 }

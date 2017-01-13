@@ -1,5 +1,5 @@
 tableau
-.factory 'alertFct', (SweetAlert, store) ->
+.factory 'alertExpirationFct', (SweetAlert, store) ->
       alertExpiration: ->
           SweetAlert.swal
               title: "Session Expirée"
