@@ -12,6 +12,7 @@ tableau
       user_id               = site_id_parse + uid
       $scope.loadingText    = "Chargement de la vue en cours ..."
       $scope.urlLoadingView = "modals/loadingView.html"
+      $scope.width          = false
 
       # $mdDialog.show
       #   controller          : 'alertTableauCtrl'
@@ -30,10 +31,8 @@ tableau
         return
 
       $scope.exportToPDF = ->
-          console.log $scope.viz
-          console.log $scope.viz._impl.$vizSize
-        # $scope.viz.showExportPDFDialog()
-        # return
+        $scope.viz.showExportPDFDialog()
+        return
 
       onMarksSelection = (marksEvent) ->
         marksEvent.getMarksAsync().then reportSelectedMarks
@@ -85,7 +84,7 @@ tableau
                   hideToolbar: true
                   onFirstInteractive: ->
                      $scope.listenToMarksSelection()
-                     document.getElementById('getData').disabled = false
+                    #  document.getElementById('getData').disabled = false
 
           $scope.viz = new tableau.Viz(placeholder, url, tableauOptions)
           onFirstInteractive: () -> $scope.display = "block"
@@ -96,8 +95,10 @@ tableau
                   vizLoaded      = true
                   $scope.display = "none"
               else if isMessage(msg.data, COMPLETE_INDICATOR)
+                  $scope.width = $scope.viz.getVizSize().sheetSize.maxSize.width + 'px'
                   $scope.tableauDisplay = "block"
                   $scope.loadingDisplay = "none"
+
                   if vizLoaded
                       viz.dispose()
                       $scope.display = "block"
