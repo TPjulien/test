@@ -12,6 +12,7 @@ tableau
       user_id               = site_id_parse + uid
       $scope.loadingText    = "Chargement de la vue en cours ..."
       $scope.urlLoadingView = "modals/loadingView.html"
+      $scope.width          = false
 
       # $mdDialog.show
       #   controller          : 'alertTableauCtrl'
@@ -83,18 +84,21 @@ tableau
                   hideToolbar: true
                   onFirstInteractive: ->
                      $scope.listenToMarksSelection()
-                     document.getElementById('getData').disabled = false
+                    #  document.getElementById('getData').disabled = false
 
           $scope.viz = new tableau.Viz(placeholder, url, tableauOptions)
           onFirstInteractive: () -> $scope.display = "block"
-          viz = new tableau.Viz(placeholder, url, tableauOptions)
+
+          # viz = new tableau.Viz(placeholder, url, tableauOptions)
           window.addEventListener('message', (msg) ->
               if (isMessage(msg.data, LOADED_INDICATOR))
                   vizLoaded      = true
                   $scope.display = "none"
               else if isMessage(msg.data, COMPLETE_INDICATOR)
+                  $scope.width = $scope.viz.getVizSize().sheetSize.maxSize.width + 'px'
                   $scope.tableauDisplay = "block"
                   $scope.loadingDisplay = "none"
+
                   if vizLoaded
                       viz.dispose()
                       $scope.display = "block"
@@ -112,14 +116,14 @@ tableau
         #     c = value._impl.$name
         #     $scope.choices.push c
         # angular.forEach $scope.choices, (value, key) ->
-          sheet  = $scope.viz.getWorkbook().getActiveSheet().getWorksheets().get("DATA") ->
-          options =
-              maxRows: 10
-              ignoreSelection: true
-              ignoreAliases: false
-              includeAllColumns: false
-          sheet.getUnderlyingDataAsync(options).then (t) ->
-              elem =
-                sheet: value
-                data : t.getData()[0]
-              $scope.data_get.push elem
+          # sheet  = $scope.viz.getWorkbook().getActiveSheet().getWorksheets().get("DATA") ->
+          # options =
+          #     maxRows: 10
+          #     ignoreSelection: true
+          #     ignoreAliases: false
+          #     includeAllColumns: false
+          # sheet.getUnderlyingDataAsync(options).then (t) ->
+          #     elem =
+          #       sheet: value
+          #       data : t.getData()[0]
+          #     $scope.data_get.push elem
