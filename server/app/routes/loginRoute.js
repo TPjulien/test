@@ -33,15 +33,19 @@ module.exports = function(router, connection, mysql) {
   function saml(shib_url, shib_url_logout, shib_issuer, shib_user_id, click_login) {
     var get_strategy = new SamlStrategy(
       {
-        callbackUrl       : process.env.SAML_CALLBACK_URL,
-        entryPoint        : shib_url,
-        issuer            : shib_issuer,
-        decryptionPvk     : fs.readFileSync(process.env.SERV_KEY, 'utf8'),
-        privateCert       : fs.readFileSync(process.env.SERV_KEY, 'utf-8'),
-        cert              : fs.readFileSync(process.env.RENATER_CRT, 'utf-8'),
-        logoutUrl         : shib_url_logout,
-        identifierFormat  : 'urn:oasis:names:tc:SAML:2.0:nameid-format:transient',
-        logoutCallbackUrl : process.env.SAML_CALLBACK_URL
+          callbackUrl       : process.env.SAML_CALLBACK_URL,
+          entryPoint        : shib_url,
+          issuer            : shib_issuer,
+          decryptionPvk     : fs.readFileSync(process.env.SERV_KEY, 'utf8'),
+          privateCert       : fs.readFileSync(process.env.SERV_KEY, 'utf-8'),
+          //authnContext : false,
+	  cert              : fs.readFileSync(process.env.RENATER_CRT, 'utf-8'),
+          logoutUrl         : shib_url_logout,
+	  disableRequestedAuthnContext : true,
+	  //authnRequestBinding : 'HTTP-POST',
+	  //identifierFormat  : 'urn:oasis:names:tc:SAML:2.0:nameid-format:entity',
+          identifierFormat  : 'urn:oasis:names:tc:SAML:2.0:nameid-format:transient',
+          logoutCallbackUrl : process.env.SAML_CALLBACK_URL
       } ,
       function(profile, done) {
         var table = {};
@@ -85,6 +89,8 @@ module.exports = function(router, connection, mysql) {
 
     router.route('/Shibboleth.sso/SAML2/POST')
     .post (passport.authenticate('saml', {
+      samlFallBack: 'login-request',
+      samlBinding : 'HTTP-POST',
       failureRedirect: '/error',
       successRedirect: '/redirect'
     }),
