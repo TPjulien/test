@@ -30,8 +30,10 @@ tableau
         return
 
       $scope.exportToPDF = ->
-        $scope.viz.showExportPDFDialog()
-        return
+          console.log $scope.viz
+          console.log $scope.viz._impl.$vizSize
+        # $scope.viz.showExportPDFDialog()
+        # return
 
       onMarksSelection = (marksEvent) ->
         marksEvent.getMarksAsync().then reportSelectedMarks
@@ -87,7 +89,8 @@ tableau
 
           $scope.viz = new tableau.Viz(placeholder, url, tableauOptions)
           onFirstInteractive: () -> $scope.display = "block"
-          viz = new tableau.Viz(placeholder, url, tableauOptions)
+
+          # viz = new tableau.Viz(placeholder, url, tableauOptions)
           window.addEventListener('message', (msg) ->
               if (isMessage(msg.data, LOADED_INDICATOR))
                   vizLoaded      = true
@@ -112,14 +115,14 @@ tableau
         #     c = value._impl.$name
         #     $scope.choices.push c
         # angular.forEach $scope.choices, (value, key) ->
-          sheet  = $scope.viz.getWorkbook().getActiveSheet().getWorksheets().get("DATA") ->
-          options =
-              maxRows: 10
-              ignoreSelection: true
-              ignoreAliases: false
-              includeAllColumns: false
-          sheet.getUnderlyingDataAsync(options).then (t) ->
-              elem =
-                sheet: value
-                data : t.getData()[0]
-              $scope.data_get.push elem
+          # sheet  = $scope.viz.getWorkbook().getActiveSheet().getWorksheets().get("DATA") ->
+          # options =
+          #     maxRows: 10
+          #     ignoreSelection: true
+          #     ignoreAliases: false
+          #     includeAllColumns: false
+          # sheet.getUnderlyingDataAsync(options).then (t) ->
+          #     elem =
+          #       sheet: value
+          #       data : t.getData()[0]
+          #     $scope.data_get.push elem
