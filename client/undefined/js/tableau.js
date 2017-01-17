@@ -2138,12 +2138,15 @@ tableau.controller('workflowCtrl', ["$scope", "$http", "$sce", "alertFct", funct
     angular.forEach($scope.multiple_custom, function(value, key) {
       var data;
       data = Object.keys(value);
-      return angular.forEach(data, function(valueD, key) {
-        return $scope.string += valueD + $scope.multiple_separator;
-      });
+      if (data.length > 0) {
+        angular.forEach(data, function(valueD, key) {
+          return $scope.string += valueD + $scope.multiple_separator;
+        });
+        return $scope.string = $scope.string.substring(0, $scope.string.length - 1);
+      }
     });
-    $scope.string = $scope.string.substring(0, $scope.string.length - 1);
     $scope.string += $scope.multiple_end;
+    console.log($scope.string);
     multiple[$scope.multiple_name] = $scope.string;
     if ($scope.multiple_name) {
       $scope.selected = angular.merge(multiple, $scope.selected);

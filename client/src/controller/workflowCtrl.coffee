@@ -199,10 +199,12 @@ tableau
                 $scope.multiple_name      = valueL.NAME
         angular.forEach $scope.multiple_custom, (value, key) ->
           data      = Object.keys(value)
-          angular.forEach data, (valueD, key) ->
-            $scope.string += valueD + $scope.multiple_separator
-        $scope.string =  $scope.string.substring(0, $scope.string.length - 1)
+          if data.length > 0
+            angular.forEach data, (valueD, key) ->
+              $scope.string += valueD + $scope.multiple_separator
+            $scope.string =  $scope.string.substring(0, $scope.string.length - 1)
         $scope.string += $scope.multiple_end
+        console.log $scope.string
         multiple[$scope.multiple_name] = $scope.string
         if $scope.multiple_name
             $scope.selected    = angular.merge(multiple,$scope.selected)
