@@ -215,6 +215,7 @@ tableau
                 $scope.selected['workflow_name'] = $scope.WORKFLOW_NAME
                 if  $scope.selected.TP_MAIL.indexOf(string) != -1
                     json_data = JSON.stringify($scope.selected).replace(/\\n|\\r/g, "")
+                    console.log json_data
                     $http
                       method: "POST"
                       url:    "http://api-interne.travelplanet.fr/api/Alteryx/Workflow"
@@ -240,11 +241,13 @@ tableau
                 $scope.selected['workflow_name'] = $scope.WORKFLOW_NAME
                 if  $scope.selected.TP_MAIL.indexOf(string) != -1
                     json_data = JSON.stringify($scope.selected).replace(/\\n|\\r/g, "")
+                    console.log json_data
                     $http
                       method: "POST"
                       url:    url
                       data:  json_data
                       transformResponse: [ (data) ->
+                        console.log data
                         # Do whatever you want!
                       ]
                     .success (data) ->

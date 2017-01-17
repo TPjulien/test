@@ -1,0 +1,100 @@
+<!-- <div id="admin" class="panel-header">Gestionnaire de profil<md-icon class="right" md-svg-icon="img/icons/admin.svg"></md-icon></div> -->
+<!-- <div class="panel">
+  </br>
+  <div class="row">
+    <label class="col-md-3 col-xs-12 labelProfil ">Selectionner une communauté de voyageur</label>
+    <div class="col-md-3 col-xs-12">
+      <md-input-container class="margin-left">
+        <md-select ng-change='getusersCommunity(profils.SITE_ID, chooseCommunity )' aria-label="chooseCommunity"  name="chooseCommunity" ng-model="chooseCommunity" >
+          <md-option ng-repeat="oneCommunity in community track by $index" value="{{oneCommunity.Community}}">{{oneCommunity.Community}}</md-option>
+        </md-select>
+      </md-input-container>
+    </div>
+    <div class="addUserAnim" ng-if="usersCommunity">
+      <label class="col-md-2 col-xs-12 labelProfil">Ajouter un voyageur à la communauté</label>
+      <div class="col-md-4 col-xs-12">
+        <div ng-click="showPanelUser()" class="add link-icon">
+          <span class="addProfil link-icon__text"><md-icon class="logo_lock"md-svg-icon="img/icons/bleed.svg"></md-icon>Ajouter un voyageur à la communauté</span>
+        </div>
+      </div>
+    </div>
+    </br>
+    <div class="col-md-11">
+      <div class="addUserAnim" ng-if="usersCommunity && ajouterUser == false">
+        <div class="row">
+          <label class="col-md-3 labelProfil">Effectuer une recherche</label>
+          <div class="col-md-9">
+            <input class="input_generic " name="search" ng-model="search" type="text">
+          </div>
+        </div>
+        <md-table-container class="col-md-12" style="width:100%">
+          <table md-table ng-model="selected" class="tabSearchVoyageur">
+            <thead md-head md-order="query.order" >
+              <tr md-row>
+                <th md-column>ID</th>
+                <th md-column>Role</th>
+                <th md-column>Nom</th>
+                <th md-column>Prénom</th>
+                <th md-column>Status profil</th>
+              </tr>
+            </thead>
+            <tbody md-body>
+              <tr ng-click="profilchange(user.SITE_ID,user.UID);"md-row md-select="dessert" md-select-id="name" md-auto-select ng-repeat="user in usersCommunity | filter: search | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
+                <td md-cell>{{user.UID}}</td>
+                <td md-cell>{{user.Role}}</td>
+                <td md-cell>{{user.Customer_surName}}</td>
+                <td md-cell>{{user.Customer_GivenName}}</td>
+                <td md-cell><div class="rondVert"></div></td>
+              </tr>
+            </tbody>
+          </table>
+        </md-table-container>
+        <md-table-pagination class="TabPagination" md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page" md-total="{{usersCommunity.length}}"></md-table-pagination>
+        <div class="clear"></div>
+      </div>
+      <div class="addUserAnim col-md-12" ng-if="ajouterUser == true">
+        <div class="panel">
+          <div class="panel-header panel-header_min">Ajouter un voyageur {{chooseCommunity.SITE_LIBELLE}} <md-icon ng-click="hidePanelUser()" class="right logo_lock" md-svg-icon="img/icons/delete-button.svg"></md-icon></div>
+          <div class="col-md-2 col-xs-12">
+            <label class="right_profil labelProfil">Nom</label>
+          </div>
+          <div class=" col-md-4 col-xs-12">
+            <div class=" ">
+              <input class="input_generic right_profil" name="chargeVoy" ng-model="user.nomChargeVoy" type="text" ng-minlength="1" ng-maxlength="30" class="validate" >
+            </div>
+          </div>
+          <div class="col-md-2 col-xs-12">
+            <label  class="right_profil labelProfil">Prénom</label>
+          </div>
+          <div class=" col-md-4 col-xs-12">
+            <div class=" ">
+              <input class="input_generic" name="chargeVoy" ng-model="user.prenomChargeVoy" type="text" ng-minlength="1" ng-maxlength="30" class="validate" >
+            </div>
+          </div>
+          <div class="col-md-2 col-xs-12">
+            <label  class="right_profil labelProfil">Identifiant</label>
+          </div>
+          <div class=" col-md-4 col-xs-12">
+            <div class=" ">
+              <input class="input_generic" name="chargeVoy" ng-model="user.identifiantChargeVoy" type="text" ng-minlength="1" ng-maxlength="30" class="validate" >
+            </div>
+          </div>
+          <div class="col-md-2 col-xs-12">
+            <label  class="right_profil labelProfil">Mail</label>
+          </div>
+          <div class=" col-md-4 col-xs-12">
+            <div class=" ">
+              <input class="input_generic" name="chargeVoy" ng-model="user.mailChargeVoy" type="email" ng-minlength="1" ng-maxlength="30" class="validate" >
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+              <button type="submit" class="right md-raised btn btn-success" value="Submit">Ajouter</button>
+            </div>
+          </div>
+          <div class="clear"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
