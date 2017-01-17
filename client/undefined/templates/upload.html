@@ -1,0 +1,20 @@
+<!-- Partie Upload -->
+<div class="col s12">
+  <div ngf-drop="uploadFiles($files)" ngf-select="uploadFiles($files)" ng-model="files" class="drop-box col s4"
+      ngf-drag-over-class="'dragover'" ngf-multiple="true" ngf-allow-dir="true"
+      accept="text/*"
+      ngf-pattern="'text/*'">
+      <h1 class="md-title">Telecharger Piece jointe</h1>
+      <span flex="">Veuillez deposer le fichier .txt dans cet emplacement prévu à cet effet</span>
+  </div>
+  <div ngf-drop="uploadNatixis($files)" ngf-select="uploadNatixis($files)" ng-model="files" class="drop-box col s4"
+      ngf-drag-over-class="'dragover'" ngf-multiple="true" ngf-allow-dir="true"
+      accept="application/**"
+      ngf-pattern="'application/*'">
+      <h1 class="md-title">Telecharger documents Natixis</h1>
+      <span flex="">Pour telecharger les données Natixis, veuilez deposer le fichier .txt dans cet emplacement prévu à cet effet</span>
+  </div>
+  <div class="col s4">
+    <md-button ng-click="downloadNatixisCFONG()">Telecharger</md-button>
+  </div>
+</div>

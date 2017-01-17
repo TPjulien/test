@@ -1,0 +1,18 @@
+<div class="valign row center" style=" width: 100%;">
+  <div class="col s12">
+      <h3 style="color:white" class="h5login">Mot de passe</h3>
+  </div>
+  <div class="col s12 center">
+    <form name="loginForm" ng-submit="login($event)">
+      <md-content layout-padding class="md-content-community">
+        <md-input-container>
+          <label style="color: white; padding-left: 9px;"></label>
+          <input style="color: white;" type="password" ng-model="password" required="true">
+        </md-input-container>
+      </md-content>
+      <div class="col s12 center cssFade">
+        <a type="submit" ng-disabled="loginForm.$invalid" style="background-color:#4CAF50"  ng-click="login($event)" class="waves-effect waves-light btn">Connexion</a>
+      </div>
+    </form>
+  </div>
+</div>
