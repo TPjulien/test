@@ -185,7 +185,7 @@ tableau
     $scope.submit = () ->
         $scope.height          = $('#main').height()
         $scope.height          = $scope.height - 50
-        $scope.height_circular = $scope.height/1.4
+        $scope.height_circular = $scope.height / 1.4
         $scope.height_circular = $scope.height_circular + "px"
         $scope.height          = $scope.height + "px"
         $scope.displayload     = true
@@ -225,6 +225,7 @@ tableau
                         console.log data
                       ]
                     .success (data) ->
+                        console.log data
                         alertFct.okCreateFactory()
                         $scope.displayload = false
                     .error (err) ->
@@ -247,6 +248,7 @@ tableau
                         # Do whatever you want!
                       ]
                     .success (data) ->
+                        console.log data
                         alertFct.okCreateFactory()
                         $scope.displayload = false
                     .error (err) ->
