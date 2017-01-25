@@ -31,38 +31,45 @@ module.exports = function(router, client) {
       } else if (result.rows.length == 0) {
         res.status("404").send("Not found");
       } else {
+	  console.log("la table a verifier", table);
+	  console.log("le resultat", result.rows);
         var passwdGuess = result.rows[0].password;
-        var hashGuess   = "";
+        console.log(passwdGuess);
+	var hashGuess   = "";
         var iteration   = "";
         i = 0
-        while (i < passwdGuess.length) {
-          if (i >= 0 && i < 32) {
-            hashGuess += passwdGuess[i];
-          }
-          if (i >= 76) {
-            iteration += passwdGuess[i];
-          }
-          i++;
-        }
-        intIteration = new Buffer(iteration, 'base64');
-        intIteration = intIteration.toString();
-        var decryptedCrypto = crypto.pbkdf2Sync(req.body.password, hashGuess, parseInt(intIteration), 32, 'sha256').toString('base64');
-        var finalPassword = hashGuess + decryptedCrypto.toString('base64') + iteration;
-        if (finalPassword === passwdGuess) {
-          var preToken = [{
-            "site_id"    : req.body.site_id,
-            "UID"        : req.body.user_id,
-            "username"   : req.body.username,
-            "can_logout" : true,
-            "is_saml"    : false
-          }];
-          var token = jwt.sign(preToken, 'travelSecret', {
-            expiresIn: 7200
-          });
-          res.json({ 'token' : token });
-        } else {
-          res.status(401).send("");
-        }
+	if(passwdGuess) {
+            while (i < passwdGuess.length) {
+		if (i >= 0 && i < 32) {
+		    hashGuess += passwdGuess[i];
+		}
+		if (i >= 76) {
+		    iteration += passwdGuess[i];
+		}
+		i++;
+            }
+            intIteration = new Buffer(iteration, 'base64');
+            intIteration = intIteration.toString();
+            var decryptedCrypto = crypto.pbkdf2Sync(req.body.password, hashGuess, parseInt(intIteration), 32, 'sha256').toString('base64');
+            var finalPassword = hashGuess + decryptedCrypto.toString('base64') + iteration;
+            if (finalPassword === passwdGuess) {
+		var preToken = [{
+		    "site_id"    : req.body.site_id,
+		    "UID"        : req.body.user_id,
+		    "username"   : req.body.username,
+		    "can_logout" : true,
+		    "is_saml"    : false
+		}];
+		var token = jwt.sign(preToken, 'travelSecret', {
+		    expiresIn: 7200
+		});
+		res.json({ 'token' : token });
+            } else {
+		res.status(401).send("");
+            }
+	} else { 
+	    res.status(401).send("password empty");
+	}
       }
     })
   })
@@ -114,8 +121,8 @@ module.exports = function(router, client) {
     name    = req.body.username.match(/^([^@]*)@/)[1];
     siteID  = req.body.siteID;
     userID  = req.body.userID;
-    ssoID   = req.body.ssoID;
-    console.log("ceci est le login", req.body.login);
+    //ssoID   = req.body.field;
+    console.log("ceci est le login", req.body.login, "et le field a comparer:", field);
     if (siteID.length == 8) {
       siteID = siteID.slice(0, 4);
     }
@@ -134,10 +141,10 @@ module.exports = function(router, client) {
                   res.status(400).send(err);
                 } else {
                   if(rows.rows.length != 0) {
-                    if (rows.rows[0].txt_value == ssoID) {
+                    if (rows.rows[0].txt_value == field) {
                       var preToken = [{
                         "site_id"    : siteID,
-                        "UID"        : userID,
+                        "UID"        : result.rows[0].user_id,
                         "can_logout" : false,
                         "is_saml"    : true
                       }];
