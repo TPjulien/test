@@ -14,7 +14,7 @@ tableau
         parameters =
           key_name  : "login"
           key_value : $scope.username
-        $http.post 'https://api.tp-control.travelplanet.fr/sign/user_lookup/profils', { parameters: parameters, selected: "site_id, user_id" }
+        $http.post options.api.base_url + '/sign/user_lookup/profils', { parameters: parameters, selected: "site_id, user_id" }
         .then (data) ->
             if (data.data.length == 0)
                 toastErrorFct.toastError("L'utilisateur : " + $scope.username + " n'existe pas")

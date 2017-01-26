@@ -49,7 +49,7 @@ tableau
                 deleteAll (result) ->
                     $state.go 'login'
 
-            $http.post 'https://api.tp-control.travelplanet.fr/select/table2', { parameters : { "type" : "click_role_by_user", "key": decode[0].site_id, "id1": decode[0].UID }, selected: "id2"}
+            $http.post options.api.base_url + '/select/table2', { parameters : { "type" : "click_role_by_user", "key": decode[0].site_id, "id1": decode[0].UID }, selected: "id2"}
             .then (data) ->
                 if data.data.length == 0
                     toastErrorFct.toastError "Ce compte n'a pas encore été configuré, vous allez être déconnectée dans 5 secondes"
@@ -62,8 +62,8 @@ tableau
                     for key in data.data
                       rolesTemp.push key.id2
                     roles.push key.id2
-                    infoUser                 = $http.post 'https://api.tp-control.travelplanet.fr/select/table1', { parameters : { "type": "click", "key" : "site", "id" : decode[0].site_id }, selected: "*" }
-                    menu                     = $http.post 'https://api.tp-control.travelplanet.fr/menu/' + decode[0].site_id , { roles: rolesTemp }
+                    infoUser                 = $http.post options.api.base_url + '/select/table1', { parameters : { "type": "click", "key" : "site", "id" : decode[0].site_id }, selected: "*" }
+                    menu                     = $http.post options.api.base_url + '/menu/' + decode[0].site_id , { roles: rolesTemp }
                     $q.all([
                         infoUser
                         menu

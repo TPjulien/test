@@ -6,7 +6,7 @@ tableau
 
       $http
           method : 'GET'
-          url    :  'https://api.tp-control.travelplanet.fr/aetmConnect/' + uid + '/' + site_id
+          url    :  options.api.base_url + '/aetmConnect/' + uid + '/' + site_id
           data   :
               UID   : getDataToken.UID
       .success (data) ->

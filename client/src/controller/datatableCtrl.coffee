@@ -63,7 +63,7 @@ tableau
         getBullet filterTemp, (bulletTemp) ->
             if bulletTemp.schema == undefined
                 bulletTemp.schema = []
-            $http.post 'https://api.tp-control.travelplanet.fr/getBulletFilter', { schema: bulletTemp.schema, table: bulletTemp.table, column_name : bulletTemp.column }
+            $http.post options.api.base_url + '/getBulletFilter', { schema: bulletTemp.schema, table: bulletTemp.table, column_name : bulletTemp.column }
             .then (result) ->
                 getBulletTemp  = {}
                 getArrayBullet = []
@@ -98,7 +98,7 @@ tableau
     # ajouter min, max pour tester
     getDatatable = (min, max) ->
         if angular.equals($scope.formattedJson, {}) != true
-            $http.post("https://api.tp-control.travelplanet.fr/getDatatable", {site_id: site_id, datas: $scope.formattedJson, min : min, max : max, filters: filter_array_text })
+            $http.post(options.api.base_url + "/getDatatable", {site_id: site_id, datas: $scope.formattedJson, min : min, max : max, filters: filter_array_text })
             .then (data) ->
                 if (counter == 0)
                     $scope.datatableData = data.data

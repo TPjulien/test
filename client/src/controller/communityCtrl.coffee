@@ -16,9 +16,9 @@ tableau
         console.log "ceci est le login:", data
         if (data.shib != undefined)
             if (Object.keys(data.shib).length) != 0
-                $http.post 'https://api.tp-control.travelplanet.fr/setup', { login: data.login, url: data.shib.shib_url, field: data.shib.shib_field, siteID: data.site_id, issuer: data.shib.entity_id }
+                $http.post options.api.base_url + '/setup', { login: data.login, url: data.shib.shib_url, field: data.shib.shib_field, siteID: data.site_id, issuer: data.shib.entity_id }
                 .then (result) ->
-                    $window.location.href = "https://api.tp-control.travelplanet.fr/postShibboleth"
+                    $window.location.href = options.api.base_url + "/postShibboleth"
             else
                 $scope.actualCommunity = data
                 $scope.idSelected      = data.label
@@ -33,7 +33,7 @@ tableau
         if loginData
             for key in loginData
                 temp.push key.site_id
-        $http.post 'https://api.tp-control.travelplanet.fr/comSelect', { tabIn: temp, values: ["base", "sites"] }
+        $http.post options.api.base_url + '/comSelect', { tabIn: temp, values: ["base", "sites"] }
         .then (result) ->
             tempResult = []
             for value in result.data
@@ -49,9 +49,9 @@ tableau
                 $state.go 'login.account'
             else if ($scope.communities.length == 1)
                 if ($scope.communities[0].shib)
-                        $http.post 'https://api.tp-control.travelplanet.fr/setup', { url: $scope.communities[0].shib.shib_url, field: $scope.communities[0].shib.shib_field, siteID: $scope.communities[0].site_id, issuer: $scope.communities[0].shib.entity_id, login: $scope.communities[0].login }
+                        $http.post options.api.base_url + '/setup', { url: $scope.communities[0].shib.shib_url, field: $scope.communities[0].shib.shib_field, siteID: $scope.communities[0].site_id, issuer: $scope.communities[0].shib.entity_id, login: $scope.communities[0].login }
                         .then (result) ->
-                            $window.location.href = "https://api.tp-control.travelplanet.fr/postShibboleth"
+                            $window.location.href = options.api.base_url + "/postShibboleth"
                 else
                     $scope.comText         = "Votre communauté"
                     $scope.actualCommunity = $scope.communities[0]
@@ -93,9 +93,9 @@ tableau
                 key_name  : "login"
                 key_value : username
                 site_id   : siteId
-            $http.post 'https://api.tp-control.travelplanet.fr/sign/user_lookup/profils', { parameters: parameters, selected: "user_id" }
+            $http.post options.api.base_url + '/sign/user_lookup/profils', { parameters: parameters, selected: "user_id" }
             .then (getId) ->
-                $http.post 'https://api.tp-control.travelplanet.fr/compare', { username : username ,password : $scope.password, site_id: siteId, user_id: getId.data[0].user_id }
+                $http.post options.api.base_url + '/compare', { username : username ,password : $scope.password, site_id: siteId, user_id: getId.data[0].user_id }
                 .then (data) ->
                     token data.data, (result) ->
                         $mdDialog.hide($state.go "home")

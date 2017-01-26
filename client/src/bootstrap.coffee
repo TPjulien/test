@@ -33,7 +33,7 @@ options.api = {}
 
 # pré-prod
 # options.api.base_url = "https://api.test.tp-control.travelplanet.fr"
-# options.api.base_url = "https//151.80.121.113:3005/api"
+options.api.base_url = "http://151.80.121.114:5555/api"
 
 
 # pour la base2
@@ -49,7 +49,7 @@ getBase2 = ->
 getResultBase2 = getBase2()
 
 # prod
-options.api.base_url = "https://api.tp-control.travelplanet.fr"
+# options.api.base_url = options.api.base_url + ""
 
 tableau
 .config (authProvider, $stateProvider, $urlRouterProvider, $httpProvider, jwtInterceptorProvider, $mdThemingProvider, pickerProvider, IdleProvider, KeepaliveProvider) ->
