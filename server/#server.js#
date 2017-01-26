@@ -13,11 +13,15 @@ require('dotenv').config({path: '/home/Prod/.env' });
 
 var app = express();
 
-var dbs = [ '192.168.1.118',
+var dbs = [ '192.168.1.233',
+            '192.168.1.234',
+            '192.168.1.235'];
+
+/*var dbs = [ '192.168.1.118',
             '192.168.1.120',
             '192.168.1.121',
             '192.168.1.228',
-            '192.168.1.229'];
+            '192.168.1.229'];*/
 
 var authProvider = new cassandra.auth.PlainTextAuthProvider('admin', '123soleil!');
 
@@ -85,7 +89,8 @@ app.use(passport.session());
 // debut des routes  ----------------------------------------------------------------------------------
 // on n'a pas besoin de proteger la route d'authentification
 // require('./app/routes/loginRoute')(router, connection, mysql);
-require('./app/cassandraRoute/loginRoute')(router, client);
+require('./app/cassandraRoute/loginRoute') (router, client);
+require('./app/routes/loginRoute')         (router, client);
 
 // on verifie le token auth pour les autres routes
 router.use(function(req, res, next) {
@@ -111,12 +116,13 @@ router.use(function(req, res, next) {
 // require des routes nécesittant un token valide
 require('./app/cassandraRoute/accountRoute') (router, client);
 require('./app/routes/templateRoute')        (router, connection, mysql);
-// require('./app/routes/datatable')         (router, connection, mysql);
+require('./app/routes/datatable')         (router, connection, mysql);
 require('./app/routes/ipRoute')              (router, connection, mysql);
 require('./app/routes/profilRoute')          (router, connection, mysql);
 require('./app/routes/tableauRoute')         (router, connection, mysql);
 require('./app/routes/email')                (router, connection, mysql);
 require('./app/routes/workflow')             (router, connection, mysql);
+require('./app/routes/aetmRoute')            (router, connection, mysql);
 require('./app/cassandraRoute/selectRoute')  (router, client);
 
 app.use('/api', router);
@@ -127,5 +133,5 @@ app.options('/loginProfils', cors());
 var httpServer  = http.createServer(app);
 var httpsServer = https.createServer(credentials, app);
 
-httpServer.listen(3005);
-httpsServer.listen(3256);
+httpServer.listen(3001);
+httpsServer.listen();

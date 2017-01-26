@@ -5,7 +5,7 @@ var crypto     = require('crypto');
 var cryptoJs   = require('crypto-js');
 var uuid       = require('uuid/v4');
 var jwt        = require('jsonwebtoken');
-require('dotenv').config({path: '/home/Prod/.env' });
+require('dotenv').config({path: '/home/Preprod/.env' });
 
 module.exports = function(router, client) {
   router.route('/pwd')
