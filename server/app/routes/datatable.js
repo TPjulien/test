@@ -46,8 +46,12 @@ module.exports = function(router, connection, mysql) {
         query += "`" + filters[key].column_name + "` LIKE '%" + filters[key].value[0] + "%' AND ";
       }
       query = query.slice(0, -4);
+      query += "AND SITE_ID = `" + req.body.site_id + "`";
+    } else {
+      query += " WHERE SITE_ID = `" + req.body.site_id + "`";
     }
     query += " LIMIT " + min + "," + max;
+
     connection.query(query, function(err, result) {
       if (err) {
         res.status(400).send(err);

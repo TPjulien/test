@@ -15,6 +15,11 @@ tableau
     $scope.datatableData = []
     $scope.filters       = []
     $scope.nameColumn    = []
+    token                = store.get('JWT')
+    decode               = jwtHelper.decodeToken(token)
+    site_id              = decode[0].site_id
+
+    console.log(site_id)
 
     getColumnName = (info) ->
         i = 0
@@ -93,7 +98,7 @@ tableau
     # ajouter min, max pour tester
     getDatatable = (min, max) ->
         if angular.equals($scope.formattedJson, {}) != true
-            $http.post("https://api.tp-control.travelplanet.fr/getDatatable", { datas: $scope.formattedJson, min : min, max : max, filters: filter_array_text })
+            $http.post("https://api.tp-control.travelplanet.fr/getDatatable", {site_id: site_id, datas: $scope.formattedJson, min : min, max : max, filters: filter_array_text })
             .then (data) ->
                 if (counter == 0)
                     $scope.datatableData = data.data
