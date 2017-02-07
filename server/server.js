@@ -9,7 +9,7 @@ var http        = require('http');
 var passport    = require('passport');
 var cassandra   = require('cassandra-driver');
 
-require('dotenv').config({path: '/home/Preprod/.env' });
+require('dotenv').config({path: '/home/Prod/.env' });
 
 var app = express();
 
@@ -134,4 +134,4 @@ var httpServer  = http.createServer(app);
 var httpsServer = https.createServer(credentials, app);
 
 httpServer.listen(5555);
-httpsServer.listen(5995);
+httpsServer.listen(3254);

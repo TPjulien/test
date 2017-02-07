@@ -1,4 +1,4 @@
-var getBase2, getResultBase2;
+B1;4205;0cvar getBase2, getResultBase2;
 
 getBase2 = function() {
     var base, i, result;
@@ -20,7 +20,7 @@ module.exports = {
 	var lstOpt = [];
 	for (i = 0; i < range;  i++) {
 	    if (i<Math.min.apply(Math, [listA.length, listB.length])){
-		lstOpt.push(listA[i] + listB[i]);
+		lstOpt.push(listA[i] | listB[i]);
 	    } else {
 		if (i>=listA.length){
 		    lstOpt.push(listB[i]);
