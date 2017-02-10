@@ -1,4 +1,4 @@
-B1;4205;0cvar getBase2, getResultBase2;
+var getBase2, getResultBase2;
 
 getBase2 = function() {
     var base, i, result;
