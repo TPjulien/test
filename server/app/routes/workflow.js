@@ -103,5 +103,20 @@ module.exports = function(router, connection, mysql) {
         		}
         	    })
         })
-
+    router.route('/postWorkflow')
+        .post(function(req, res) {
+            var _body   = { 'json_data': req.body.json_data }
+            var options = {
+                headers : { 'content-type': 'application/json' },
+                url     : "http://api-interne.travelplanet.fr/api/Alteryx/Workflow",
+                body    : _body
+            }
+            request.post(options, function(err) {
+                if (err) {
+                    res.status(400).send(err);
+                } else {
+                    res.status(200).send("send");
+                }
+            })
+        })
 };
