@@ -182,6 +182,7 @@ tableau
         if obj.hasOwnProperty(prop)
           return true
 
+
     $scope.submit = () ->
         $scope.height          = $('#main').height()
         $scope.height          = $scope.height - 50
@@ -210,53 +211,48 @@ tableau
             $scope.selected    = angular.merge(multiple,$scope.selected)
         string = "@travelplanet.fr"
 
-        if isNotEmpty($scope.file)
-            if $scope.infosWokflow.length >= 1
-                $scope.selected['path']          = $scope.infosWokflow[0].PATH
-                $scope.selected['type']          = $scope.infosWokflow[0].TYPE
-                $scope.selected['workflow_name'] = $scope.WORKFLOW_NAME
-                if  $scope.selected.TP_MAIL.indexOf(string) != -1
-                    json_data = JSON.stringify($scope.selected).replace(/\\n|\\r/g, "")
-                    console.log json_data
-                    $http
-                      method: "POST"
-                      url:    "http://api-interne.travelplanet.fr/api/Alteryx/Workflow"
-                      data:
-                        json_data : json_data
-                        file      : $scope.file
-                      transformResponse: [ (data) ->
-                        console.log data
-                      ]
-                    .success (data) ->
-                        console.log data
-                        alertFct.okCreateFactory()
-                        $scope.displayload = false
-                    .error (err) ->
-                        console.log "une error est survenue"
-                else
-                  alertFct.alertSend()
-        else
-            url =    "http://api-interne.travelplanet.fr/api/Alteryx/Workflow"
-            if $scope.infosWokflow.length >= 1
-                $scope.selected['path']          = $scope.infosWokflow[0].PATH
-                $scope.selected['type']          = $scope.infosWokflow[0].TYPE
-                $scope.selected['workflow_name'] = $scope.WORKFLOW_NAME
-                if  $scope.selected.TP_MAIL.indexOf(string) != -1
-                    json_data = JSON.stringify($scope.selected).replace(/\\n|\\r/g, "")
-                    console.log json_data
-                    $http
-                      method: "POST"
-                      url:    url
-                      data:  json_data
-                      transformResponse: [ (data) ->
-                        console.log data
-                        # Do whatever you want!
-                      ]
-                    .success (data) ->
-                        console.log data
-                        alertFct.okCreateFactory()
-                        $scope.displayload = false
-                    .error (err) ->
-                        console.log "une error est survenue"
-                else
-                  alertFct.alertSend()
+        # if isNotEmpty($scope.file)
+        #     if $scope.infosWokflow.length >= 1
+        #         $scope.selected['path']          = $scope.infosWokflow[0].PATH
+        #         $scope.selected['type']          = $scope.infosWokflow[0].TYPE
+        #         $scope.selected['workflow_name'] = $scope.WORKFLOW_NAME
+        #         # if  $scope.selected.TP_MAIL.indexOf(string) != -1
+        #         #     json_data = JSON.stringify($scope.selected).replace(/\\n|\\r/g, "")
+        #         #     console.log json_data
+        #         #     $http
+        #         #       method: "POST"
+        #         #       url:    "http://api-interne.travelplanet.fr/api/Alteryx/Workflow"
+        #         #       data:
+        #         #         json_data : json_data
+        #         #         file      : $scope.file
+        #         #       transformResponse: [ (data) ->
+        #         #         console.log data
+        #         #       ]
+        #         #     .success (data) ->
+        #         #         console.log data
+        #         #         alertFct.okCreateFactory()
+        #         #         $scope.displayload = false
+        #         #     .error (err) ->
+        #         #         console.log "une error est survenue"
+        #         # else
+        #         #   alertFct.alertSend()
+        # else
+        if $scope.infosWokflow.length >= 1
+            $scope.selected['path']          = $scope.infosWokflow[0].PATH
+            $scope.selected['type']          = $scope.infosWokflow[0].TYPE
+            $scope.selected['workflow_name'] = $scope.WORKFLOW_NAME
+            if  $scope.selected.TP_MAIL.indexOf(string) != -1
+                json_data = JSON.stringify($scope.selected).replace(/\\n|\\r/g, "")
+                $http
+                  method: "POST"
+                  url:    options.api.base_url + "/postWorkflow"
+                  data:
+                    json_data: json_data
+                .success (data) ->
+                    console.log data
+                    alertFct.okCreateFactory()
+                    $scope.displayload = false
+                .error (err) ->
+                    console.log "une error est survenue"
+            else
+              alertFct.alertSend()
