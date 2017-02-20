@@ -109,7 +109,7 @@ module.exports = function(router, connection, mysql) {
             var options = {
                 headers : { 'content-type': 'application/json' },
                 url     : "http://api-interne.travelplanet.fr/api/Alteryx/Workflow",
-                body    : _body
+                body    : req.body.json_data
             }
             request.post(options, function(err) {
                 if (err) {

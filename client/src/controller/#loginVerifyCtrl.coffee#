@@ -13,12 +13,11 @@ tableau
     $scope.stepVerify = (ev) ->
         parameters =
           key_name  : "login"
-          key_value : $scope.username.toLowerCase()
-        $http.post options.api.base_url + '/sign/user_lookup/profils', { parameters: parameters, selected: "site_id, user_id" }
+          key_value : $scope.username.toString()        $http.post options.api.base_url + '/sign/user_lookup/profils', { parameters: parameters, selected: "site_id, user_id" }
         .then (data) ->
             if (data.data.length == 0)
-                toastErrorFct.toastError("L'utilisateur : " + $scope.username.toLowerCase() + " n'existe pas")
+                toastErrorFct.toastError("L'utilisateur : " + $scope.username.toString() + " n'existe pas")
             else
-                $state.go 'login.comunity', { data : data.data, username: $scope.username.toLowerCase() }
+                $state.go 'login.comunity', { data : data.data, username: $scope.username.toString() }
         .catch (err) ->
             toastErrorFct.toastError("Impossible de se connecter au serveur de login, veuillez retenter plus tard")
