@@ -31,7 +31,7 @@
     "mysql-promise": "^1.4.0",
     "node-pbkdf2": "^0.1.1",
     "node-rsa": "^0.2.30",
-    "nodemailer": "~2.6.4",
+    "nodemailer": "^2.6.4",
     "passport": "^0.3.2",
     "passport-saml": "^0.15.0",
     "password-hash-and-salt": "^0.1.2",
