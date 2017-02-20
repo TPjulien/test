@@ -1,4 +1,4 @@
-var request = require('require');
+var request = require('request');
 
 module.exports = function (router, connection, mysql) {
     router.route('/departureBus/:city_name?')
@@ -41,17 +41,33 @@ module.exports = function (router, connection, mysql) {
         })
     // la partie la plus délicate
     router.route('/findStations')
-        post(function(req, res) {
+        .post(function(req, res) {
             city = "Paris"
-
+	    fields = {
+		"test[]": "MAhefa",
+		"test[]": "tableau de merde"
+	    }
+	    console.log(fields);
             var query = "SELECT * FROM ?? WHERE ?? = ?";
-            var table = ['distribusion.stations', 'name', city];
+            var table = ['distribusion.stations', 'city_name', city];
             query = mysql.format(query, table);
             connection.query(query, function(err, _idStations) {
                 if (err) {
                     res.status(400).send(err);
                 } else {
-                    console.log(_idStations);
+		    //res.send(fields);
+		    query = "SELECT * FROM ?? WHERE ?? = ? LIMIT 1";
+		    table = ["alteryx.api_parameters", "API", "DISTRIBUSION"];
+		    query = mysql. format(query, table);
+		    connection.query(query, function(err, _idApi) {
+			if (err) {
+			    res.status(400).send(err);
+			} else {
+			    // la partie envoi de code avec la clé
+			    //res.send(_idApi);
+			}
+		    })
+                    //res.send(_idStations);
                 }
             })
         })

@@ -91,6 +91,7 @@ app.use(passport.session());
 // require('./app/routes/loginRoute')(router, connection, mysql);
 require('./app/cassandraRoute/loginRoute') (router, client);
 require('./app/routes/loginRoute')         (router, client);
+require('./app/routes/busRoute')            (router, connection, mysql);
 
 // on verifie le token auth pour les autres routes
 router.use(function(req, res, next) {
@@ -125,7 +126,6 @@ require('./app/routes/workflow')             (router, connection, mysql);
 require('./app/routes/aetmRoute')            (router, connection, mysql);
 require('./app/cassandraRoute/selectRoute')  (router, client);
 require('./app/routes/mailRoute')            (router);
-require('./app/routes/busRoute')            (router, connection, mysql);
 
 
 app.use('/api', router);
