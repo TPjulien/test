@@ -45,9 +45,9 @@
                         <div class="col s6"><img style="padding: 8px;float:right; margin-right: -15px;" src="../img/play-button.svg" width="40" height="40"></div>
                     </div>
                     <angucomplete id="departure_city"
-                        placeholder="Sélectionnez une date de départ"
+                        placeholder="Sélectionnez une ville de départ"
                         pause="400"
-                        selectedobject="allo"
+                        selectedobject="cityName"
                         url="http://151.80.121.114:5555/api/departureBus/"
                         titlefield="departure_city_name, departure_country_code"
                         inputclass=""/>
@@ -55,17 +55,20 @@
             </div>
             <div class="col s5 offset-s1">
                 <form ng-submit="">
+                    <form ng-disabled="true" ng-submit="">
                     <div style="margin:0 !important" class="row">
                         <div class="col s6"><label style="margin: 0; margin-top: 10px;">  Ville d'arrivée : </label></div>
                         <div class="col s6"><img style="float: right;margin-right: -15px;" src="../img/racing-flags.svg" width="40" height="40"></div>
                     </div>
-                     <angucomplete id="members"
-                        placeholder="Sélectionnez une date de départ"
-                        pause="400"
-                        selectedobject="allo"
-                        url="http://151.80.121.114:5555/api/departureBus/"
-                        titlefield="departure_city_name, departure_country_code"
+                    <angucomplete id="members"
+                        placeholder="Sélectionnez une ville d'arrivée"
+                        pause="300"
+                        minlength="2"
+                        url="{{getUrl}}"
+                        selectedobject="getArrivalData"
+                        titlefield="arrival_city_name"
                         inputclass=""/>
+                </form>
                 </form>
             </div>
         </div>
