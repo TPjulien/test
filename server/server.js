@@ -9,7 +9,7 @@ var http        = require('http');
 var passport    = require('passport');
 var cassandra   = require('cassandra-driver');
 
-require('dotenv').config({path: '/home/Prod/.env' });
+require('dotenv').config({path: '/home/Preprod/.env' });
 
 var app = express();
 
