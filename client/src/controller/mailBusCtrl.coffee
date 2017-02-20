@@ -9,3 +9,10 @@ tableau
             console.log "nope !"
         else
             $scope.getUrl = "http://151.80.121.114:5555/api/arrivalBus/"+ $scope.cityName.title + "/"
+
+    $scope.submit = ->
+        postdata = 
+            "city_departure": $scope.cityName
+            "city_arrival"  : $scope.getArrivalData
+            "date"          : $scope.date_depature
+        console.log postdata

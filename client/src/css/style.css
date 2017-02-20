@@ -2390,3 +2390,6 @@ md-checkbox .md-container:after {
   padding-top: 3px;
   padding-bottom: 2px
 }
+.datepicker{
+  width: 99.8%
+}

@@ -37,11 +37,12 @@
                  </div>
             </div>
         </div>
-        <div style="margin:0 !important" class="row col s12">
-            <div class="col s5 offset-s1">
-                <form ng-submit="">
+
+        <form autocomplete="off" ng-submit="submit()">
+            <div style="margin:0 !important" class="row col s12">
+                <div class="col s5 offset-s1">
                     <div style="margin:0 !important" class="row">
-                        <div class="col s6"><label style="margin: 0; margin-top: 10px;">  Ville de départ : </label></div>
+                        <div class="col s6"><label class="white_bus" style="margin: 0; margin-top: 10px;">  Ville de départ : </label></div>
                         <div class="col s6"><img style="padding: 8px;float:right; margin-right: -15px;" src="../img/play-button.svg" width="40" height="40"></div>
                     </div>
                     <angucomplete id="departure_city"
@@ -51,13 +52,11 @@
                         url="http://151.80.121.114:5555/api/departureBus/"
                         titlefield="departure_city_name, departure_country_code"
                         inputclass=""/>
-                </form>
-            </div>
-            <div class="col s5 offset-s1">
-                <form ng-submit="">
-                    <form ng-submit="">
+
+                </div>
+                <div class="col s5 offset-s1">
                     <div style="margin:0 !important" class="row">
-                        <div class="col s6"><label style="margin: 0; margin-top: 10px;">  Ville d'arrivée : </label></div>
+                        <div class="col s6"><label class="white_bus" style="margin: 0; margin-top: 10px;">  Ville d'arrivée : </label></div>
                         <div class="col s6"><img style="float: right;margin-right: -15px;" src="../img/racing-flags.svg" width="40" height="40"></div>
                     </div>
                     <angucomplete id="members"
@@ -68,38 +67,23 @@
                         selectedobject="getArrivalData"
                         titlefield="arrival_city_name"
                         inputclass=""/>
-                </form>
-                </form>
+                </div>
             </div>
-        </div>
-        <div style="margin:0 !important" class="row col s12">
-            <div class="col s5 offset-s1">
-                <form ng-submit="">
+            <div style="margin:0 !important" class="row col s12">
+                <div class="col s5 offset-s1">
                     <div style="margin:0 !important" class="row">
-                        <div class="col s6"><label style="margin: 0; margin-top: 10px;">  Date de départ : </label></div>
+                        <div class="col s6"><label class="white_bus" style="margin: 0; margin-top: 10px;">  Date de départ : </label></div>
                     </div>
                     <datepicker date-format="yyyy-MM-dd" date-set="" class="ng-isolate-scope">
                         <input class="input_workflow"  style="border: 3px solid rgb(214, 214, 214); background-color: white; padding-left: 5px;" ng-model="date_depature" type="text"/>
                     </datepicker>
-                </form>
+                </div>
             </div>
-            <div class="col s5 offset-s1">
-                <form ng-submit="">
-                    <div style="margin:0 !important" class="row">
-                        <div class="col s6"><label style="margin: 0; margin-top: 10px;">  Date d'arrivée : </label></div>
-                    </div>
-                    <datepicker date-format="yyyy-MM-dd" date-set="" class="ng-isolate-scope">
-                        <input class="input_workflow" style="border: 3px solid rgb(214, 214, 214); background-color: white; padding-left: 5px;" ng-model="date_arrival" type="text"/>
-                    </datepicker>
-                    
-                </form>
+            <div style="margin:0 !important" class="row col s12">
+                <div class="col s5 offset-s1">
+                    <md-button  type="submit" style="width: 50%; margin: 0;" class="md-raised">Trouver un trajet</md-button>
+                </div>
             </div>
-        </div>
-        <div style="margin:0 !important" class="row col s12">
-            <div class="col s5 offset-s1">
-                <md-button style="width: 50%; margin: 0;" class="md-raised">Trouver un trajet</md-button>
-            </div>
-            
-        </div>
+        </form>
     </div>
 </div>
