@@ -2355,3 +2355,38 @@ md-checkbox .md-container:after {
 .md-whiteframe-z1 {
     border: none !important;
 }
+.angucomplete-holder{
+  border: 3px solid rgb(214, 214, 214);
+  background-color: white; 
+  padding-left: 5px; 
+  height: 51px; 
+  width: 102%;
+}
+.angucomplete-holder input{
+  border: none;
+}
+.angucomplete-dropdown{
+  border: 3px solid rgb(214, 214, 214);
+  background-color: white;
+  z-index: 1 !important;
+  position: absolute;
+  width: 27.9%;
+  margin-left: -8px;
+  margin-top: -20px;
+
+  overflow-y: auto;
+  min-height: 5Opx;
+  max-height: 250px;
+}
+.angucomplete-row:hover{
+  background-color: #D6D6D6;
+  padding-left: 5px;
+  padding-top: 3px;
+  padding-bottom: 2px;
+
+}
+.angucomplete-row{
+  padding-left: 5px;
+  padding-top: 3px;
+  padding-bottom: 2px
+}

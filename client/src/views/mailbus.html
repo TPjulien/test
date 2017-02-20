@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="center col s12">
-                <h3 class="white_bus">Réserver votre trajet en Autocar</h3> 
+                <h3 class="white_bus">Réserver votre trajet en Bus</h3> 
             </div>
         </div>
         <div class="row">
@@ -22,7 +22,7 @@
                     <img  style="border-radius:50%;box-shadow: 1px 2px 10px 0px rgba(0, 0, 0, 0.42);" src="../img/calendar.svg" width="80" height="80">
                 </div>
                 <div class="row">
-                    <p>Sélectionnez les dates de votre trajet<p> 
+                    <p>Sélectionnez votre date de départ puis d'arrivée<p> 
                  </div>
             </div>
             <div class="center col s1">
@@ -33,7 +33,7 @@
                     <img  style="border-radius:50%;box-shadow: 1px 2px 10px 0px rgba(0, 0, 0, 0.42);" src="../img/bus.svg" width="80" height="80">
                 </div>
                  <div class="row">
-                    <p>Réserver votre trajet en Autocar parmis les propositions<p> 
+                    <p>Réserver votre trajet en Bus parmis les propositions<p> 
                  </div>
             </div>
         </div>
@@ -42,9 +42,9 @@
                 <form ng-submit="">
                     <div style="margin:0 !important" class="row">
                         <div class="col s6"><label style="margin: 0; margin-top: 10px;">  Ville de départ : </label></div>
-                        <div class="col s6"><img style="padding: 8px;float: right;margin-right: 10px;" src="../img/play-button.svg" width="40" height="40"></div>
+                        <div class="col s6"><img style="padding: 8px;float:right; margin-right: -15px;" src="../img/play-button.svg" width="40" height="40"></div>
                     </div>
-                    <angucomplete id="members"
+                    <angucomplete id="departure_city"
                         placeholder="Sélectionnez une date de départ"
                         pause="400"
                         selectedobject="allo"
@@ -57,27 +57,15 @@
                 <form ng-submit="">
                     <div style="margin:0 !important" class="row">
                         <div class="col s6"><label style="margin: 0; margin-top: 10px;">  Ville d'arrivée : </label></div>
-                        <div class="col s6"><img style="float: right;margin-right: 10px;" src="../img/racing-flags.svg" width="40" height="40"></div>
+                        <div class="col s6"><img style="float: right;margin-right: -15px;" src="../img/racing-flags.svg" width="40" height="40"></div>
                     </div>
-                    <md-autocomplete
-                        style="border: 3px solid rgb(214, 214, 214); background-color: white; padding-left: 5px; height: 51px; width: 102%;"
-                        ng-disabled=""
-                        md-no-cache=""
-                        md-selected-item=""
-                        md-search-text-change=""
-                        md-search-text=""
-                        md-selected-item-change=""
-                        md-items=""
-                        md-item-text=""
-                        md-min-length="0"
-                        placeholder="Station d'arrivée'">
-                        <md-item-template>
-                        <span md-highlight-text="" md-highlight-flags=""></span>
-                        </md-item-template>
-                        <md-not-found>
-                        Aucune station trouvée
-                        </md-not-found>
-                    </md-autocomplete>
+                     <angucomplete id="members"
+                        placeholder="Sélectionnez une date de départ"
+                        pause="400"
+                        selectedobject="allo"
+                        url="http://151.80.121.114:5555/api/departureBus/"
+                        titlefield="departure_city_name, departure_country_code"
+                        inputclass=""/>
                 </form>
             </div>
         </div>
