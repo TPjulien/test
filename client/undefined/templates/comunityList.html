@@ -1,0 +1,35 @@
+<div class="valign row center" style=" width: 100%;">
+  <div class="col s12">
+      <h3 style="color:white" class="h5login">{{comText}}</h3>
+  </div>
+  <div class="col s12 center">
+    <form name="loginForm" ng-submit="login($event)">
+      <md-content layout-padding class="md-content-community">
+        <div layout-padding style="max-height:300px; overflow: hidden; padding-right: 17px" class="col s12">
+          <div style="overflow: auto; max-height:300px; width: 480px">
+            <p layout-padding ng-click="choosed(community)" ng-repeat="community in communities | orderBy:'label'" class="md-subhead com-select" ng-class="{comSelected: community.label === idSelected }" style="text-align:center; color: white; padding-top:10px !important; padding-bottom:5px !important;">{{community.label}}</p>
+          </div>
+        </div>
+      </md-content>
+      </div>
+      <md-input-container>
+        <label ng-hide="checkCommunity" style="color: white; padding-left: 9px;">Mot de passe</label>
+        <input ng-enter="login()" ng-disabled="checkCommunity" style="color: white;" type="password" ng-model="password" required="true">
+      </md-input-container>
+      <div class="col s12 center cssFade" style="padding:5px">
+        <!-- <div class="col s5 offset-s1 center"
+            vc-recaptcha
+            ng-model   = "captchaResponse"
+            on-success = "setResponse(response)"
+            type       = "'image'"
+            size       = "normal"
+            language   = "fr"
+            key        = "'6LcbRQ8UAAAAAEtBUFVMDsNbJCW_fP0MJyjsKY_r'"
+        ></div> -->
+        <!-- <div class="col s12"> -->
+          <a type="submit" ng-disabled="checkCommunity" style="background-color:#4CAF50" ng-click="login()" class="waves-effect waves-light btn">Connexion</a>
+        <!-- </div> -->
+      </div>
+    </form>
+  </div>
+</div>

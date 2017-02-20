@@ -24,6 +24,7 @@ tableau = angular.module 'tableauApp', [
   'ngIdle'
   'vcRecaptcha'
   '720kb.datepicker'
+  'angucomplete'
 ]
 
 options = {}
@@ -230,6 +231,10 @@ tableau
             url:          '/profil',
             templateUrl:  'templates/profil.html',
             controller:   'profilCtrl'
+        .state 'home.mailBus',
+            url:          '/profil',
+            templateUrl:  'templates/mailBus.html',
+            controller:   'mailBusCtrl'
     jwtInterceptorProvider.tokenGetter = [
       'store'
       '$http'

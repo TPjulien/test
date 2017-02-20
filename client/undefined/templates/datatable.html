@@ -1,0 +1,33 @@
+<div ng-controller ="datatableCtrl" ng-init="init(info)"
+     class         = "separator row"
+     style         = "background-color: #EEE; box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);">
+    <!-- Partie datatable généré automatiquement -->
+    <div class="col s9" style="height: 800px; overflow-y:auto; overflow-x:none" when-scrolled="loadMore()">
+      <p ng-bind-html="getGenericNameRow()"></p>
+      <div class            = "col s12"
+           style            = "text-align:left; margin: 0; padding: 0; margin-bottom: -14px;"
+           ng-repeat        = "data in datatableData"
+           ng-bind-html     = "getGenericRow(data)"
+           ng-click         = "downloadPdf(data)">
+       <md-tooltip md-direction="bottom" ng-if="info.pdf_display == 'true'">
+           Cliquez pour afficher le pdf
+       </md-tooltip>
+      </div>
+    </div>
+    <!-- partie filtre généré automatiquement -->
+    <div class                 = "col s3"
+         layout-padding style  = "background-color: white;
+                                  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+                                  height: 800px;
+                                  overflow-y: auto">
+        <div layout="row">
+        </div>
+        <h4>Recherche :</h4>
+        <div class = "col s12" style = "width: 95%;
+                                        padding-left: 15px !important;">
+              <div filter ng-repeat="(key, filter) in filters" ng-bind-html="getGenericFilter(filter, key)">
+              </div>
+        </div>
+
+     </div>
+  </div>
