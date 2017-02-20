@@ -1,6 +1,21 @@
 var request = require('request');
+var queryBus = reqruie('../functions/busQueryBuilder');
 
 module.exports = function (router, connection, mysql) {
+    // pour l'api de distribusion
+    function get_id_stations(city) {
+        var query = "SELECT * FROM ?? WHERE ?? = ?";
+        var table = ['distribusion.stations', 'city_name', city];
+        query = mysql.format(query, table);
+        connection.query(query, function (err, _idStations) {
+            if (err) {
+                return false
+            } else {
+                return _idStations
+            }
+        })
+    }
+
     router.route('/departureBus/:city_name?')
         .get(function (req, res) {
             var query = "SELECT ??, ?? FROM ?? ";
@@ -40,34 +55,36 @@ module.exports = function (router, connection, mysql) {
             })
         })
     // la partie la plus délicate
-    router.route('/findStations')
-        .post(function(req, res) {
-            city = "Paris"
-	    fields = {
-		"test[]": "MAhefa",
-		"test[]": "tableau de merde"
-	    }
-	    console.log(fields);
+    router.route('/findIdStations')
+        .post(function (req, res) {
+            cityStart = "Paris";
+            cityEnd = "Brest";
+            console.log(fields);
             var query = "SELECT * FROM ?? WHERE ?? = ?";
             var table = ['distribusion.stations', 'city_name', city];
             query = mysql.format(query, table);
-            connection.query(query, function(err, _idStations) {
+            connection.query(query, function (err, _idStations) {
                 if (err) {
                     res.status(400).send(err);
                 } else {
-		    //res.send(fields);
-		    query = "SELECT * FROM ?? WHERE ?? = ? LIMIT 1";
-		    table = ["alteryx.api_parameters", "API", "DISTRIBUSION"];
-		    query = mysql. format(query, table);
-		    connection.query(query, function(err, _idApi) {
-			if (err) {
-			    res.status(400).send(err);
-			} else {
-			    // la partie envoi de code avec la clé
-			    //res.send(_idApi);
-			}
-		    })
-                    //res.send(_idStations);
+                    var idCityStart = get_id_stations(cityStart);
+                    var idCityEnd   = get_id_stations(cityEnd);
+
+                    query = "SELECT * FROM ?? WHERE ?? = ? LIMIT 1";
+                    table = ["alteryx.api_parameters", "API", "DISTRIBUSION"];
+                    query = mysql.format(query, table);
+                    connection.query(query, function (err, _idApi) {
+                        if (err) {
+                            res.status(400).send(err);
+                        } else {
+                            if (idCityStart == false || idCityEnd == false ) {
+                                res.status(404).send("Bad Ids");
+                            } else {
+                                var urlQuery = queryBus.queryBusBuilder(idCityStart, idCityEnd, _idApi.API, _idApi.USER_ID);
+                                res.send(urlQuery);
+                            }
+                        }
+                    })
                 }
             })
         })
