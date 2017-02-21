@@ -2393,3 +2393,30 @@ md-checkbox .md-container:after {
 .datepicker{
   width: 99.8%
 }
+.white_bus .md-container .md-off{
+  border-color: white;
+}
+.white_bus .md-on{
+  background-color: white;
+}
+.table_trajet{
+    border: none;
+    background-color: rgba(255, 255, 255, 0.39);
+    border-radius: 5px;
+}
+.td_trajet{
+    border:none;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: white;
+    width: 50%;
+}
+.marg1{
+  margin-top: 15px !important;
+}
+.p_label{
+    margin-left: 10px;
+    padding-top: 15px;
+    margin-bottom: auto;
+    font-size: 20px;
+}
