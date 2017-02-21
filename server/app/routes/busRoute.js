@@ -56,7 +56,8 @@ module.exports = function (router, connection, mysql) {
     router.route('/findIdStations')
         .post(function (req, res) {
             var idCityStart = null;
-	    var idCityEnd = null;
+	    var idCityEnd   = null;
+	    var dateStart   = req.body.dateStart;
 	    get_id_stations(req.body.cityStart, function(_cityStart) {
 		idCityStart = _cityStart;
 		get_id_stations(req.body.cityEnd, function(_cityEnd) {
@@ -68,12 +69,16 @@ module.exports = function (router, connection, mysql) {
 			if (err) {
 			    res.status(400).send(err);
 			} else {
-                    if (idCityStart == false || idCityEnd == false ) {
-                        res.status(404).send("Bad Ids");
-                    } else {
-                        var urlQuery = queryBus.queryBusBuilder(idCityStart, idCityEnd, _idApi.API, _idApi.USER_ID);
-                        res.send(urlQuery);
-                    }
+			    if (idCityStart == false || idCityEnd == false ) {
+				res.status(404).send("Bad Ids");
+			    } else {
+				console.log(_idApi.API);
+				var urlQuery = queryBus.queryBusBuilder(idCityStart, idCityEnd, _idApi[0].KEY, _idApi[0].USER_ID, dateStart);
+				request(urlQuery, function(err, response, body){
+				    res.send(body);
+				});
+				//res.send(urlQuery);
+			    }
 			}
 		    })
 		})
