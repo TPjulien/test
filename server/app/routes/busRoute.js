@@ -59,7 +59,6 @@ module.exports = function (router, connection, mysql) {
         .post(function (req, res) {
             cityStart = "Paris";
             cityEnd = "Brest";
-            console.log(fields);
             var query = "SELECT * FROM ?? WHERE ?? = ?";
             var table = ['distribusion.stations', 'city_name', city];
             query = mysql.format(query, table);
