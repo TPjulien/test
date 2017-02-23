@@ -80,28 +80,27 @@ module.exports = function (router, connection, mysql) {
                 idCityStart = _cityStart;
                 get_id_stations(req.body.cityEnd, function (_cityEnd) {
                     idCityEnd = _cityEnd;
-                    query = "SELECT * FROM ?? WHERE ?? = ? LIMIT 1";
-                    table = ["alteryx.api_parameters", "API", "DISTRIBUSION"];
-                    query = mysql.format(query, table);
-                    connection.query(query, function (err, _idApi) {
-                        if (err) {
-                            res.status(400).send(err);
+                    get_api_distribusion(idCityStart, idCityEnd, function (_apiResult) {
+                        if (_apiResult == false) {
+                            res.status(404).send("unable to call api_parameters");
                         } else {
-                            if (idCityStart == false || idCityEnd == false) {
-                                res.status(404).send("Bad Ids");
-                            } else {
-                                var urlQuery = queryBus.queryBusBuilder(idCityStart, idCityEnd, _apiResult.API, _apiResult.USER_ID);
-                                res.send(urlQuery);
-                            }
+                            var urlQuery = queryBus.queryBusBuilder(idCityStart, idCityEnd, _apiResult.API, _apiResult.USER_ID);
+                            res.send(urlQuery);
                         }
-                    })
+                    });
                 })
             })
         });
     // pour la partie live price si jamais
     router.route('/livePrice')
         .post(function (req, res) {
-
+            request({ url: 'https://api.distribusion.com/v2/connections/live' }, function (err, response, body) {
+                if (err) {
+                    res.status(400).send("unable to call distribusion");
+                } else {
+                    res.send(bony);
+                }
+            });
         })
 
 }
