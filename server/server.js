@@ -28,6 +28,7 @@ var authProvider = new cassandra.auth.PlainTextAuthProvider('admin', '123soleil!
 var client = new cassandra.Client({ contactPoints: dbs, authProvider: authProvider });
 client.connect(function(err) {
     if (err) {
+	console.log("nope!");
         throw err;
     }
 });
