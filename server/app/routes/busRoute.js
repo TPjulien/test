@@ -16,7 +16,8 @@ module.exports = function (router, connection, mysql) {
         })
     }
 
-    function get_api_distribusion(_idCityStart, _idCityEnd, cb) {
+    function get_api_distribusion(cb) {
+	console.log("ça passe par l'api !")
         query = "SELECT * FROM ?? WHERE ?? = ? LIMIT 1";
         table = ["alteryx.api_parameters", "API", "DISTRIBUSION"];
         query = mysql.format(query, table);
@@ -24,12 +25,8 @@ module.exports = function (router, connection, mysql) {
             if (err) {
                 cb(false);
             } else {
-                if (_idCityStart == false || _idCityEnd == false) {
-                    cb(false);
-                } else {
                     cb(_idApi);
-                }
-            }
+           }
         })
     }
 
@@ -80,27 +77,41 @@ module.exports = function (router, connection, mysql) {
                 idCityStart = _cityStart;
                 get_id_stations(req.body.cityEnd, function (_cityEnd) {
                     idCityEnd = _cityEnd;
-                    get_api_distribusion(idCityStart, idCityEnd, function (_apiResult) {
+                    get_api_distribusion(function (_apiResult) {
                         if (_apiResult == false) {
                             res.status(404).send("unable to call api_parameters");
                         } else {
-                            var urlQuery = queryBus.queryBusBuilder(idCityStart, idCityEnd, _apiResult.API, _apiResult.USER_ID);
-                            res.send(urlQuery);
-                        }
-                    });
-                })
-            })
-        });
+			    console.log("ça passe par idStation! ", _apiResult);
+                            var urlQuery = queryBus.queryBusBuilder(idCityStart, idCityEnd, _apiResult[0].KEY, _apiResult[0].USER_ID, dateStart);
+			    console.log("la query", urlQuery);
+			    request(urlQuery, function(err, response, body) {
+				res.send(body);
+			    });   
+			    //res.send(urlQuery);
+			}
+		    });
+		})
+	    })
+	});
     // pour la partie live price si jamais
     router.route('/livePrice')
         .post(function (req, res) {
-            request({ url: 'https://api.distribusion.com/v2/connections/live' }, function (err, response, body) {
-                if (err) {
-                    res.status(400).send("unable to call distribusion");
-                } else {
-                    res.send(bony);
-                }
-            });
+	    get_api_distribution(function(_api) {
+		var proprietiesOBject = { 
+		    affiliate_partner_number:  _api[0].USER_ID, 
+		    api_key: _api[0].KEY,
+		    departure_station_id: req.body.departure, 
+		    arrival_station_id: req.body.arrival, 
+		    departure_time: req.body.departure_time, 
+		    arrival_time: req.body.arrival_time, 
+		    language: 'fr'};
+		request({ url: 'https://api.distribusion.com/v2/connections/live', qs: proprietiesObject}, function (err, response, body) {
+		    if (err) {
+			res.status(400).send("unable to call distribusion");
+		    } else {
+			res.send(bony);
+		    }
+		})
+	    });
         })
-
 }
