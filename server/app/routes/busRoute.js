@@ -16,6 +16,23 @@ module.exports = function (router, connection, mysql) {
         })
     }
 
+    function get_api_distribusion(_idCityStart, _idCityEnd, cb) {
+        query = "SELECT * FROM ?? WHERE ?? = ? LIMIT 1";
+        table = ["alteryx.api_parameters", "API", "DISTRIBUSION"];
+        query = mysql.format(query, table);
+        connection.query(query, function (err, _idApi) {
+            if (err) {
+                cb(false);
+            } else {
+                if (_idCityStart == false || _idCityEnd == false) {
+                    cb(false);
+                } else {
+                    cb(_idApi);
+                }
+            }
+        })
+    }
+
     router.route('/departureBus/:city_name?')
         .get(function (req, res) {
             var query = "SELECT ??, ?? FROM ?? ";
@@ -34,6 +51,7 @@ module.exports = function (router, connection, mysql) {
             })
         })
 
+
     router.route('/arrivalBus/:city_name/:city_arrival')
         .get(function (req, res) {
             var query = "SELECT ??, ?? FROM ?? ";
@@ -47,41 +65,43 @@ module.exports = function (router, connection, mysql) {
                 if (err) {
                     res.status(404).send(err);
                 } else {
-                    console.log("le resultat", req.body.city_name);
                     res.send(_result);
                 }
             })
         })
+
     // la partie la plus délicate
     router.route('/findIdStations')
         .post(function (req, res) {
             var idCityStart = null;
-	    var idCityEnd   = null;
-	    var dateStart   = req.body.dateStart;
-	    get_id_stations(req.body.cityStart, function(_cityStart) {
-		idCityStart = _cityStart;
-		get_id_stations(req.body.cityEnd, function(_cityEnd) {
-		    idCityEnd = _cityEnd;
-		    query = "SELECT * FROM ?? WHERE ?? = ? LIMIT 1";
-		    table = ["alteryx.api_parameters", "API", "DISTRIBUSION"];
-		    query = mysql.format(query, table);
-		    connection.query(query, function (err, _idApi) {
-			if (err) {
-			    res.status(400).send(err);
-			} else {
-			    if (idCityStart == false || idCityEnd == false ) {
-				res.status(404).send("Bad Ids");
-			    } else {
-				console.log(_idApi.API);
-				var urlQuery = queryBus.queryBusBuilder(idCityStart, idCityEnd, _idApi[0].KEY, _idApi[0].USER_ID, dateStart);
-				request(urlQuery, function(err, response, body){
-				    res.send(body);
-				});
-				//res.send(urlQuery);
-			    }
-			}
-		    })
-		})
-	    });            
+            var idCityEnd = null;
+            var dateStart = req.body.dateStart;
+            get_id_stations(req.body.cityStart, function (_cityStart) {
+                idCityStart = _cityStart;
+                get_id_stations(req.body.cityEnd, function (_cityEnd) {
+                    idCityEnd = _cityEnd;
+                    query = "SELECT * FROM ?? WHERE ?? = ? LIMIT 1";
+                    table = ["alteryx.api_parameters", "API", "DISTRIBUSION"];
+                    query = mysql.format(query, table);
+                    connection.query(query, function (err, _idApi) {
+                        if (err) {
+                            res.status(400).send(err);
+                        } else {
+                            if (idCityStart == false || idCityEnd == false) {
+                                res.status(404).send("Bad Ids");
+                            } else {
+                                var urlQuery = queryBus.queryBusBuilder(idCityStart, idCityEnd, _apiResult.API, _apiResult.USER_ID);
+                                res.send(urlQuery);
+                            }
+                        }
+                    })
+                })
+            })
+        });
+    // pour la partie live price si jamais
+    router.route('/livePrice')
+        .post(function (req, res) {
+
         })
+
 }
