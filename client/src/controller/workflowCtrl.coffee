@@ -9,6 +9,7 @@ tableau
     $scope.file        = {}
     $scope.multiple_custom = {}
     $scope.today       =  year  + "-" + month + "-" +  day
+    console.log $scope.today
     $scope.displayload = false
     $scope.init = (info) ->
         $scope.allowedWorkflows = info.list_workflow
