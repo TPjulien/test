@@ -96,20 +96,21 @@ module.exports = function (router, connection, mysql) {
     // pour la partie live price si jamais
     router.route('/livePrice')
         .post(function (req, res) {
-	    get_api_distribution(function(_api) {
-		var proprietiesOBject = { 
+	    get_api_distribusion(function(_api) {
+		var proprietiesObject = { 
 		    affiliate_partner_number:  _api[0].USER_ID, 
 		    api_key: _api[0].KEY,
 		    departure_station_id: req.body.departure, 
 		    arrival_station_id: req.body.arrival, 
 		    departure_time: req.body.departure_time, 
-		    arrival_time: req.body.arrival_time, 
+		    arrival_time: req.body.arrival_time,
+		    provider_id: req.body.provider,
 		    language: 'fr'};
-		request({ url: 'https://api.distribusion.com/v2/connections/live', qs: proprietiesObject}, function (err, response, body) {
+		request({ url: 'https://api.distribusion.com/reseller/v2/connections/live', qs: proprietiesObject}, function (err, response, body) {
 		    if (err) {
 			res.status(400).send("unable to call distribusion");
 		    } else {
-			res.send(bony);
+			res.send(body);
 		    }
 		})
 	    });
