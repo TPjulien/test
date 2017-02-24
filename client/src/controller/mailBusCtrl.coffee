@@ -21,47 +21,7 @@ tableau
         if $scope.cityName == null
             $scope.getUrl = "null"
         else
-            $scope.getUrl = "http://151.80.121.114:5555/api/arrivalBus/"+ $scope.cityName.title + "/"
-
-    livePrice = (data, cb) ->
-        if data.attributes.ask_for_live_connection_data == true
-            $http
-                method: "POST"
-                url:    "http://151.80.121.114:5555/api/livePrice"
-                data:    
-                    departure: data.relationships.departure.data.id
-                    arrival:   data.relationships.arrival.data.id
-                    departure_time : data.attributes.departure_time
-                    arrival_time : data.attributes.arrival_time
-                    provider : data.relationships.provider.data.id
-            .success (dataPrice) ->
-                cb(dataPrice.data.attributes.price_per_seat)
-            .error (err) ->
-                console.log false
-
-    queryPriceBuilder = (_array, _original, cb) ->
-        getRequest = []
-        
-        for array in _array
-            bodyRequest =
-                departure_station_id : array.relationships.departure.data.id 
-                arrival_station_id :  array.relationships.arrival.data.id
-                departure_time : array.attributes.departure_time
-                arrival_time : array.attributes.arrival_time
-                provider_id : array.relationships.provider.data.id
-
-            tempRequest = $http.post 'http://151.80.121.114:5555/api/livePrice', bodyRequest;
-            getRequest.push(tempRequest);
-        $q.all(
-            getRequest
-        ).then (data) ->
-            for d in _original.data
-                for liveData in data
-                    if (d.relationships.departure.data.id == liveData.data.departure_station_id and d.relationships.arrival.data.id == liveData.data.arrival_station_id and d.relationships.provider.data.id == liveData.data.provider_id)
-                        d.attributes.price_per_seat = liveData.data.price
-            cb(_original)
-        .catch (err) ->
-            console.log(err);
+            $scope.getUrl = "http://151.80.121.114:5555/api/arrivalBus/" + $scope.cityName.title + "/"
 
 # méthod pour récupérer l'ensemble des trajets disponible en fonction des villes et date postés
 
@@ -70,14 +30,31 @@ tableau
                 method: "POST"
                 url:    "http://151.80.121.114:5555/api/findIdStations"
                 data:    _data
-            .success (data) ->
+            .success (_busResult) ->
                 tempArray = [];
-                for d in data.data
+                for d in _busResult.data
                     if d.attributes.ask_for_live_connection_data == true
                         tempObject = d
                         tempArray.push tempObject
-                queryPriceBuilder tempArray, data, (_result) ->
-                        cb(_result)
+
+                getRequest = []
+                for array in tempArray
+                    bodyRequest =
+                        departure_station_id : array.relationships.departure.data.id 
+                        arrival_station_id   : array.relationships.arrival.data.id
+                        departure_time       : array.attributes.departure_time
+                        arrival_time         : array.attributes.arrival_time
+                        provider_id          : array.relationships.provider.data.id
+
+                    getRequest.push($http.post 'http://151.80.121.114:5555/api/livePrice', bodyRequest);
+                $q.all(
+                    getRequest
+                ).then (data) ->
+                    for d in _busResult.data
+                        for liveData in data
+                            if (d.relationships.departure.data.id == liveData.data.departure_station_id && d.relationships.arrival.data.id == liveData.data.arrival_station_id && d.relationships.provider.data.id == liveData.data.provider_id && d.attributes.arrival_time == liveData.data.arrival_time && d.attributes.departure_time == liveData.data.departure_time)
+                                d.attributes.price_per_seat = liveData.data.price
+                cb(_busResult)
             .error (err) ->
                 cb(false)
 
@@ -85,21 +62,21 @@ tableau
         $scope.message = null
         if $scope.aller_retour == "aller"
             if !$scope.cityName.title ||  !$scope.getArrivalData.title || !$scope.date_depature  
-                $scope.message = " L'ensemble des champs est requis pour effectuer votre recherche "
+                $scope.message = "L'ensemble des champs est requis pour effectuer votre recherche "
             else    
                 $scope.message = null
         else 
             if !$scope.cityName.title ||  !$scope.getArrivalData.title || !$scope.date_depature || !$scope.date_arrival  
-                $scope.message = " L'ensemble des champs est requis pour effectuer votre recherche "
+                $scope.message = "L'ensemble des champs est requis pour effectuer votre recherche "
             else 
                 $scope.message = null
         if $scope.message == null
             trajetsResult        = null
             trajetsResult_return = null
             postdata = 
-                    cityStart:      $scope.cityName.title
-                    cityEnd  :      $scope.getArrivalData.title
-                    dateStart     : $scope.date_depature
+                    cityStart : $scope.cityName.title
+                    cityEnd   : $scope.getArrivalData.title
+                    dateStart : $scope.date_depature
             if $scope.aller_retour == "aller"
                 callTraject postdata, (result) ->
                     if (result != false)
@@ -109,9 +86,9 @@ tableau
                 callTraject postdata, (result) ->
                     $scope.trajetsResult = result
                     returndata = 
-                        cityEnd:      $scope.cityName.title
-                        cityStart :   $scope.getArrivalData.title
-                        dateStart   : $scope.date_arrival
+                        cityEnd   : $scope.cityName.title
+                        cityStart : $scope.getArrivalData.title
+                        dateStart : $scope.date_arrival
                     callTraject returndata, (returnresult) ->
                         $scope.trajetsResult_return = returnresult
                         $scope.step = '2'
