@@ -2513,6 +2513,7 @@ _:-ms-fullscreen, :root ie {
     padding: 100px;
     height: 200px;
     border-radius: 5px;
+}
 
 _:-ms-fullscreen, :root .ie {
     width: 100% !important;
@@ -2558,7 +2559,6 @@ _:-ms-fullscreen, :root .ie {
   text-align: center;
   }
 
-
 @-moz-document url-prefix() {
     .modern_browser {
         height: 800px !important;
@@ -2569,12 +2569,13 @@ _:-ms-fullscreen, :root .ie {
 {
     .modern_browser {
         height: 800px !important;
-    }
-  .card .card-top-chris {
-    position: relative;
-    background-color: inherit;
-    border-bottom: 1px solid rgba(160, 160, 160, 0.2);
-    padding: 20px;
+}
+
+.card .card-top-chris {
+  position: relative;
+  background-color: inherit;
+  border-bottom: 1px solid rgba(160, 160, 160, 0.2);
+  padding: 20px;
 }
 .red{
 background-color: red;

@@ -118,7 +118,7 @@
                 </div>
             </form>
         </div>
-        <div class="animate-show" ng-show="step =='2'" class="row">
+        <div class="animate-show row" ng-show="step =='2'">
             <div class="row">
                 <div class="col s6">
                     <p class="white_bus p_label nexa" >Aller :</p>
@@ -130,9 +130,9 @@
                     </span>                 
                 </div>
             </div>
-                       <div ng-if="trajetsResult.data.length > 0"  class="col s12">
+            <div ng-if="trajetsResult.data.length > 0"  class="col s12">
                 <div class="row">
-                    <md-radio-group ng-model="select_retour">
+                    <md-radio-group ng-model="select_aller">
                         <div  ng-repeat="trajet in trajetsResult.data" class="col s12 m6 l4">
                             <!--ng-class="select_retour == trajet ? 'red' : 'blue'" -->
                             <div  style="     cursor: pointer;   margin-right: 10px;" class="card horizontal">
@@ -144,10 +144,10 @@
                                             TARIF
                                         </div>
                                         <div class="nexa_bold row col s12" style="font-size: 25px;">
-                                            45£
+                                            {{ ((trajet.attributes.price_per_seat /100 ) + 4.99 )| currency:"€" : 2 }}
                                         </div>
                                         <div class="col s12">
-                                            <md-radio-button value="{{trajet}}" style="margin-left: 40%;" class="nexa white_bus"></md-radio-button>
+                                            <md-radio-button  aria-label="$index" ng-value={{trajet}} style="margin-left: 40%;" class="nexa white_bus"></md-radio-button>
                                         </div>
                                     </div>
                                 </div>
@@ -155,15 +155,15 @@
                             <div class="card-stacked col s8">
                                 
                                 <div class="card-top-chris">
-                                        <div class="col s2">
-                                            <img src="../img/bus_black.svg" width="25" height="25">
+                                        <div  class="col s2">
+                                            <img src="../img/bus_black.svg" width="20" height="20">
                                         </div>
-                                        <div class="nexa col s5">
+                                        <!--<div class="nexa col s4">
                                             Départ
-                                        </div>
-                                        <div class="nexa col s5">
-                                            <span>
-                                                Bruxelles
+                                        </div>-->
+                                        <div class="nexa col s9">
+                                            <span ng-repeat="station in trajetsResult.included.stations">
+                                                <span class="nexa truncate" ng-if="station.id == trajet.relationships.departure.data.id">{{ station.attributes.name}} </span>
                                             </span>
                                         </div>
 
@@ -171,80 +171,44 @@
                                 <div style="padding-bottom: 0;" class="card-content">
                                     <div class="row">
                                         <div class="col s5">
-                                            <span class="nexa_bold"style="float:left;margin-left: 10px;    font-size: 20px;" >12H05</span>
+                                            <span class="nexa_bold"style="float:left;margin-left: 10px;    font-size: 20px;" > {{parseDate(trajet.attributes.departure_time) | date: 'HH:mm'}}</span>
                                         </div>
-                                        <div class="col s2">
+                                        <div  class="col s2">
                                             <img src="../img/next_new.svg" width="40" height="30">
                                         </div>
                                         <div class="col s5">
-                                            <span class="nexa_bold"style="float:right;margin-right: 10px;    font-size: 20px;">15H05</span>
+                                            <span class="nexa_bold"style="float:right;margin-right: 10px;    font-size: 20px;">{{parseDate(trajet.attributes.arrival_time) | date: 'HH:mm'}}</span>
                                         </div>
 
                                     </div>
                                     <div class="row">
-                                        <div class="col s2">
+                                        <div  style="margin-left: 10px;" class="col s2">
                                             <img src="../img/timer.svg" width="25" height="25">
                                         </div>
                                         <div class="col s9">
-                                            <span>3H00 </span>
+                                            <span> {{parseTime(trajet.attributes.duration_in_seconds) |  date: 'HH:mm' }} </span>
                                             <span class="nexa" style="color: grey; font-size: 12px">(temps de trajet)</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="card-action">
                                     <div class="col s2">
-                                        <img src="../img/briefcase.svg" width="25" height="25">
+                                        <img src="../img/briefcase.svg" width="20" height="20">
                                     </div>
-                                    <div class="nexa col s5">
+                                    <!--<div class="nexa col s4">
                                         Arrivée
-                                    </div>
-                                    <div class="nexa col s5">
-                                        <span>
-                                            Paris
-                                        </span>
+                                    </div>-->
+                                    <div class="nexa col s9">
+                                        <span ng-repeat="station in trajetsResult.included.stations">
+                                                <span class="nexa truncate" ng-if="station.id == trajet.relationships.arrival.data.id">{{ station.attributes.name}} </span>
+                                            </span>
                                     </div>
                                 </div>
                             </div>
                             </div>
                         </div>
                     </md-radio-group>
-
                 </div>
-                <!--<table class="highlight responsive-table centered table_trajet">
-                    <thead>
-                    <tr style="height:50px">
-                        <th class="col s4 marg1" data-field="stationStart">Départ: Station - Heure </th>
-                        <th class="col s4 marg1" data-field="stationArrival">Arrivée: Station - Heure </th>
-                        <th class="col s1 marg1" data-field="tempsTrajet">Temps de trajet</th>
-                        <th class="col s1 marg1 helvi" data-field="tempsTrajet">Tarif</th>
-                        <th class="col s2 marg1" data-field="tempsTrajet">Réserver</th>
-                    </tr>
-                    </thead>
-
-                    <tbody>
-                    <tr ng-repeat="trajet in trajetsResult_return.data">
-                        <td style="height:50px"class="col s4 td_trajet marg1">
-                            <span ng-repeat="station in trajetsResult_return.included.stations">
-                                <span class="helvi truncate" ng-if="station.id == trajet.relationships.departure.data.id">{{ station.attributes.name}} - {{parseDate(trajet.attributes.departure_time) | date: 'HH:mm'}} </span>
-                            </span>
-                        </td>
-                        <td style="height:50px"class="col s4 td_trajet marg1">
-                            <span ng-repeat="station in trajetsResult_return.included.stations">
-                                <span class="helvi truncate" ng-if="station.id == trajet.relationships.arrival.data.id">{{ station.attributes.name}} - {{parseDate(trajet.attributes.arrival_time) | date: 'HH:mm'}} </span>
-                            </span>
-                        </td>
-                        <td style="height:50px"class="col s1 td_trajet marg1 helvi">{{parseTime(trajet.attributes.duration_in_seconds) |  date: 'HH:mm' }}</td>
-                        <td style="height:50px"class="col s1 td_trajet marg1 ">
-                            <span ng-if="trajet.attributes.price_per_seat" class="helvi">{{ ((trajet.attributes.price_per_seat /100 ) + 4.99 )| currency:"€" : 2 }}</span>
-                            <span ng-if="!trajet.attributes.price_per_seat" class="helvi">indisponible</span>
-                        </td>
-                        <td style="height:50px"class="col s2 td_trajet marg1 helvi">
-                            <md-button ng-if="trajet.attributes.available === true" ng-click="select_trajet_retour(trajet,trajetsResult_return.included )" style="width: 85%; margin: 0;" class="md-raised">Choisir</md-button>
-                            <md-button ng-if="trajet.attributes.available === false" ng-disabled="true" ng-click="select_trajet_retour(trajet,trajetsResult_return.included )" style="width: 85%; margin: 0;" class="md-raised">Indisponible</md-button>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>-->
             </div>
             <div ng-if="trajetsResult.data.length == 0" class="div_nodispo col s12">
                  <div class="row">
@@ -252,12 +216,12 @@
                 </div>
                 <div class="row">
                     <span style="font-size: 18px;" class="nexa">
-                        Désolé, il n'y a pas de trajet disponible ce jours. 
+                        Désolé, il n'y a pas de trajet disponible ce jour. 
                     </span>
                 </div>
             </div>
         </div>
-        <div class="animate-show" ng-show="step =='2'" class="row">
+        <div class="animate-show row" ng-show="step =='2'">
             <div ng-if="aller_retour == 'aller_retour' " class="row">
                 <div class="col s6">
                     <p class="white_bus p_label nexa" >Retour :</p>
@@ -281,13 +245,13 @@
                                 box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);background-color: #534a9a;"class="col s4">
                                     <div>
                                         <div style="padding-top: 5px" class=" nexa row col s12">
-                                            PRIX
+                                            TARIF
                                         </div>
                                         <div class="nexa_bold row col s12" style="font-size: 25px;">
-                                            45£
+                                            {{ ((trajet.attributes.price_per_seat /100 ) + 4.99 )| currency:"€" : 2 }}
                                         </div>
                                         <div class="col s12">
-                                            <md-radio-button value="{{trajet}}" style="margin-left: 40%;" class="nexa white_bus"></md-radio-button>
+                                            <md-radio-button aria-label="$index" ng-value={{trajet}} style="margin-left: 40%;" class="nexa white_bus"></md-radio-button>
                                         </div>
                                     </div>
                                 </div>
@@ -298,12 +262,12 @@
                                         <div class="col s2">
                                             <img src="../img/bus_black.svg" width="25" height="25">
                                         </div>
-                                        <div class="nexa col s5">
+                                        <!--<div class="nexa col s4">
                                             Départ
-                                        </div>
-                                        <div class="nexa col s5">
-                                            <span>
-                                                Bruxelles
+                                        </div>-->
+                                        <div class="nexa col s9">
+                                            <span ng-repeat="station in trajetsResult_return.included.stations">
+                                                <span class="nexa truncate" ng-if="station.id == trajet.relationships.departure.data.id">{{ station.attributes.name}} </span>
                                             </span>
                                         </div>
 
@@ -311,80 +275,45 @@
                                 <div style="padding-bottom: 0;" class="card-content">
                                     <div class="row">
                                         <div class="col s5">
-                                            <span>12H05</span>
+                                            <span class="nexa_bold"style="float:left;margin-left: 10px;    font-size: 20px;" > {{parseDate(trajet.attributes.departure_time) | date: 'HH:mm'}}</span>
                                         </div>
                                         <div class="col s2">
-                                            <img src="../img/timeline.svg" width="25" height="25">
+                                            <img src="../img/next_new.svg" width="40" height="30">
                                         </div>
                                         <div class="col s5">
-                                            <span class="nexa"style="float:right">15H05</span>
+                                            <span class="nexa_bold"style="float:right;margin-right: 10px;    font-size: 20px;">{{parseDate(trajet.attributes.arrival_time) | date: 'HH:mm'}}</span>
                                         </div>
 
                                     </div>
                                     <div class="row">
-                                        <div class="col s2">
+                                        <div style="margin-left: 10px;"class="col s2">
                                             <img src="../img/timer.svg" width="25" height="25">
                                         </div>
                                         <div class="col s9">
-                                            <span>3H00 </span>
+                                            <span> {{parseTime(trajet.attributes.duration_in_seconds) |  date: 'HH:mm' }} </span>
                                             <span class="nexa" style="color: grey; font-size: 12px">(temps de trajet)</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="card-action">
-                                    <div class="col s2">
-                                        <img src="../img/briefcase.svg" width="25" height="25">
+                                    <div style="margin-right: 5px" class="col s2">
+                                        <img src="../img/briefcase.svg" width="20" height="20">
                                     </div>
-                                    <div class="nexa col s5">
+                                    <!--<div class="nexa col s4">
                                         Arrivée
-                                    </div>
-                                    <div class="nexa col s5">
-                                        <span>
-                                            Paris
-                                        </span>
+                                    </div>-->
+                                    <div class="nexa col s9">
+                                        <span ng-repeat="station in trajetsResult_return.included.stations">
+                                                <span class="nexa truncate" ng-if="station.id == trajet.relationships.arrival.data.id">{{ station.attributes.name}} </span>
+                                            </span>
                                     </div>
                                 </div>
                             </div>
                             </div>
                         </div>
                     </md-radio-group>
-
+                    {{select_retour.type}}
                 </div>
-                <!--<table class="highlight responsive-table centered table_trajet">
-                    <thead>
-                    <tr style="height:50px">
-                        <th class="col s4 marg1" data-field="stationStart">Départ: Station - Heure </th>
-                        <th class="col s4 marg1" data-field="stationArrival">Arrivée: Station - Heure </th>
-                        <th class="col s1 marg1" data-field="tempsTrajet">Temps de trajet</th>
-                        <th class="col s1 marg1 helvi" data-field="tempsTrajet">Tarif</th>
-                        <th class="col s2 marg1" data-field="tempsTrajet">Réserver</th>
-                    </tr>
-                    </thead>
-
-                    <tbody>
-                    <tr ng-repeat="trajet in trajetsResult_return.data">
-                        <td style="height:50px"class="col s4 td_trajet marg1">
-                            <span ng-repeat="station in trajetsResult_return.included.stations">
-                                <span class="helvi truncate" ng-if="station.id == trajet.relationships.departure.data.id">{{ station.attributes.name}} - {{parseDate(trajet.attributes.departure_time) | date: 'HH:mm'}} </span>
-                            </span>
-                        </td>
-                        <td style="height:50px"class="col s4 td_trajet marg1">
-                            <span ng-repeat="station in trajetsResult_return.included.stations">
-                                <span class="helvi truncate" ng-if="station.id == trajet.relationships.arrival.data.id">{{ station.attributes.name}} - {{parseDate(trajet.attributes.arrival_time) | date: 'HH:mm'}} </span>
-                            </span>
-                        </td>
-                        <td style="height:50px"class="col s1 td_trajet marg1 helvi">{{parseTime(trajet.attributes.duration_in_seconds) |  date: 'HH:mm' }}</td>
-                        <td style="height:50px"class="col s1 td_trajet marg1 ">
-                            <span ng-if="trajet.attributes.price_per_seat" class="helvi">{{ ((trajet.attributes.price_per_seat /100 ) + 4.99 )| currency:"€" : 2 }}</span>
-                            <span ng-if="!trajet.attributes.price_per_seat" class="helvi">indisponible</span>
-                        </td>
-                        <td style="height:50px"class="col s2 td_trajet marg1 helvi">
-                            <md-button ng-if="trajet.attributes.available === true" ng-click="select_trajet_retour(trajet,trajetsResult_return.included )" style="width: 85%; margin: 0;" class="md-raised">Choisir</md-button>
-                            <md-button ng-if="trajet.attributes.available === false" ng-disabled="true" ng-click="select_trajet_retour(trajet,trajetsResult_return.included )" style="width: 85%; margin: 0;" class="md-raised">Indisponible</md-button>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>-->
             </div>
             <div ng-if="trajetsResult_return.data.length == 0" class="div_nodispo col s12">
                 <div class="row">
@@ -392,47 +321,48 @@
                 </div>
                 <div class="row">
                     <span style="font-size: 18px;" class="nexa">
-                        Désolé, il n'y a pas de trajet disponible ce jours.
+                        Désolé, il n'y a pas de trajet disponible ce jour.
                     </span>
                 </div>
             </div>
         </div>
     </div>
-    <div ng-show="step =='2' && (ObjtAller || ObjtRetour)"  class="animate-show footer_reservation">
+
+    <div ng-show=" step == '2' && select_retour.type == 'connections' "  class="animate-show footer_reservation">
         <div class="container">
             <div class="row">
-                <div ng-show="ObjtAller" class="col s5">
+                <div ng-show="select_retour.attributes.customer_currency == 'EUR' " class="col s5">
                     <div class="row" style="margin-top:15px;margin-bottom: 0"><span>ALLER</span></div>
                     <div class="row" style="font-size: 13px;">
                         <div class="row">
                             <div class="col s12">
                                 <div class="col s2" style="background-color: #fff; box-shadow: 0 1px 3px rgba(0,0,0,.1);text-align: center ">
                                     <div style="padding: 5px" >
-                                        <span style="font-size: 17px;" class="col s12">{{parseDate(ObjtAller.attributes.attributes.departure_time) | date:'EEEE'}} </span>
-                                        <span style="font-size: 14px;" class="col s12">{{parseDate(ObjtAller.attributes.attributes.departure_time) | date:'dd'}} </span>
-                                        <span style="font-size: 17px; margin-bottom: 5px;" class="col s12">{{parseDate(ObjtAller.attributes.attributes.departure_time) | date:'MMMM'}} </span>
+                                        <span style="font-size: 17px;" class="col s12">{{parseDate(select_aller.attributes.departure_time) | date:'EEEE'}} </span>
+                                        <span style="font-size: 14px;" class="col s12">{{parseDate(select_aller.attributes.departure_time) | date:'dd'}} </span>
+                                        <span style="font-size: 17px; margin-bottom: 5px;" class="col s12">{{parseDate(select_aller.attributes.departure_time) | date:'MMMM'}} </span>
                                     </div>
                                 </div>
                                 <div class="col s6">
                                     <div class="col s12">
                                         <div style="margin-top: 10px;">
                                             <div class="col s6">
-                                                <span class="truncate" style="font-size: 14px;padding-left:5px" >{{ ObjtAller.includes.stations[0].attributes.name}} </span>
+                                                <span class="truncate" style="font-size: 14px;padding-left:5px" >{{ select_aller.includes.stations[0].attributes.name}} </span>
                                             </div>
                                             <div class="col s1">    
                                                 <span style="font-size: 14px;" ><img src="../img/next_gris.svg" width="15" height="15">  </span>
                                             </div>
                                             <div class="col s5"> 
-                                                <span class="truncate" style="font-size: 14px;" > {{ ObjtAller.includes.stations[1].attributes.name}} </span>
+                                                <span class="truncate" style="font-size: 14px;" > {{ select_aller.includes.stations[1].attributes.name}} </span>
                                             </div>
                                             <div class="col s6">
-                                                <span class="truncate" style="font-size: 14px;padding-left:5px" >{{parseDate(ObjtAller.attributes.attributes.departure_time) | date:'HH:mm'}} </span>
+                                                <span class="truncate" style="font-size: 14px;padding-left:5px" >{{parseDate(select_aller.attributes.attributes.departure_time) | date:'HH:mm'}} </span>
                                             </div>
                                             <div class="col s1">
                                                 <span style="font-size: 14px;" ><img src="../img/next_gris.svg" width="15" height="15">  </span>
                                             </div>
                                             <div class="col s5"> 
-                                                <span class="truncate" style="font-size: 14px;" > {{parseDate(ObjtAller.attributes.attributes.arrival_time) | date:'HH:mm'}} </span>
+                                                <span class="truncate" style="font-size: 14px;" > {{parseDate(select_aller.attributes.attributes.arrival_time) | date:'HH:mm'}} </span>
                                             </div>
                                         </div>
                                     </div>
@@ -440,7 +370,7 @@
                                 <div class="col s3">
                                     <div style="padding: 5px" >
                                         <span style="font-size: 15px;" class="truncate col s12">Temps de trajet </span>
-                                        <span style="font-size: 17px; margin-bottom: 5px;" class="col s9">{{parseTime(ObjtAller.attributes.attributes.duration_in_seconds) |  date: 'HH:mm' }} </span>
+                                        <span style="font-size: 17px; margin-bottom: 5px;" class="col s9">{{parseTime(select_aller.attributes.attributes.duration_in_seconds) |  date: 'HH:mm' }} </span>
                                         <span class="col s3"><img style="margin-left: -15px" src="../img/timer.svg" width="25" height="25"></span>
                                     </div>
                                 </div>
@@ -448,7 +378,7 @@
                         </div>
                     </div>
                 </div>
-                <div ng-show="ObjtRetour" class="col s5">
+                <!--<div ng-show="select_retour" class="col s5">
                     <div class="row" style="margin-top:15px;margin-bottom: 0"><span>RETOUR</span></div>
                     <div class="row" style="font-size: 13px;">
                         <div class="row">
@@ -494,9 +424,9 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div ng-if="aller_retour === 'aller_retour'" class="col s2">
-                    <div ng-show="ObjtAller && ObjtRetour">
+                </div>-->
+                <!--<div ng-if="aller_retour === 'aller_retour'" class="col s2">
+                    <div ng-show="select_aller && select_retour">
                         <div style="margin-top: 15px" class="row">
                             <div class="col s8">
                                 <span style="padding-left: 40px">
@@ -505,7 +435,7 @@
                             </div>
                             <div class="col s4">
                                 <span style="font-family: Nexa_bold; padding-left: 40px; font-size: 30px;">
-                                     {{ ((ObjtAller.attributes.attributes.price_per_seat /100 ) + 4.99 ) + ((ObjtRetour.attributes.attributes.price_per_seat /100 ) + 4.99 ) | currency:"€" : 2 }}
+                                     {{ ((select_aller.attributes.attributes.price_per_seat /100 ) + 4.99 ) + ((ObjtRetour.attributes.attributes.price_per_seat /100 ) + 4.99 ) | currency:"€" : 2 }}
                                 </span>
                             </div>
                         </div>
@@ -513,9 +443,9 @@
                             <md-button  ng-click="confirm()" class="button_confirm">Réserver</md-button>
                         </div>
                     </div>
-                </div>
-                <div ng-if="aller_retour === 'aller'" class="col s2">
-                    <div ng-show="ObjtAller">
+                </div>-->
+                <!--<div ng-if="aller_retour === 'aller'" class="col s2">
+                    <div ng-show="select_aller">
                         <div style="margin-top: 15px" class="row">
                             <div class="col s8">
                                 <span style="padding-left: 40px">
@@ -524,7 +454,7 @@
                             </div>
                             <div class="col s4">
                                 <span style="font-family: Nexa_bold; padding-left: 40px; font-size: 30px;">
-                                    {{ ((ObjtAller.attributes.attributes.price_per_seat /100 ) + 4.99 ) | currency:"€" : 2 }}
+                                    {{ ((select_aller.attributes.attributes.price_per_seat /100 ) + 4.99 ) | currency:"€" : 2 }}
                                 </span>
                             </div>
                         </div>
@@ -532,7 +462,7 @@
                             <md-button  ng-click="confirm()" class="button_confirm">Réserver</md-button>
                         </div>
                     </div>
-                </div>
+                </div>-->
         </div>
     </div>
 </div>

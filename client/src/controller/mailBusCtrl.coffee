@@ -15,6 +15,7 @@ tableau
     $scope.aller_retour = "aller_retour";
     $scope.message = null
     $scope.select_retour = null
+    $scope.select_aller = null
     
     $scope.$watch 'cityName', ->
         if $scope.cityName == null
@@ -45,6 +46,7 @@ tableau
                 url:    "http://151.80.121.114:5555/api/findIdStations"
                 data:    _data
             .success (data) ->
+                console.log data
                 # for d in data.data
                     # if d.attributes.ask_for_live_connection_data == true
                     #     $http
