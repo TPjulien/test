@@ -1,5 +1,5 @@
 tableau
-.controller 'mailBusCtrl', ($scope,$http, $sce,SweetAlert,store, jwtHelper) ->
+.controller 'mailBusCtrl', ($scope,$http, $sce,SweetAlert,store, jwtHelper, $q) ->
     if store.get('JWT')
       token               = store.get('JWT')
       decode              = jwtHelper.decodeToken(token)
@@ -39,6 +39,30 @@ tableau
             .error (err) ->
                 console.log false
 
+    queryPriceBuilder = (_array, _original, cb) ->
+        getRequest = []
+        
+        for array in _array
+            bodyRequest =
+                departure_station_id : array.relationships.departure.data.id 
+                arrival_station_id :  array.relationships.arrival.data.id
+                departure_time : array.attributes.departure_time
+                arrival_time : array.attributes.arrival_time
+                provider_id : array.relationships.provider.data.id
+
+            tempRequest = $http.post 'http://151.80.121.114:5555/api/livePrice', bodyRequest;
+            getRequest.push(tempRequest);
+        $q.all(
+            getRequest
+        ).then (data) ->
+            for d in _original.data
+                for liveData in data
+                    if (d.relationships.departure.data.id == liveData.data.departure_station_id and d.relationships.arrival.data.id == liveData.data.arrival_station_id and d.relationships.provider.data.id == liveData.data.provider_id)
+                        d.attributes.price_per_seat = liveData.data.price
+            cb(_original)
+        .catch (err) ->
+            console.log(err);
+
 # méthod pour récupérer l'ensemble des trajets disponible en fonction des villes et date postés
 
     callTraject = (_data, cb) ->
@@ -47,23 +71,13 @@ tableau
                 url:    "http://151.80.121.114:5555/api/findIdStations"
                 data:    _data
             .success (data) ->
-                # for d in data.data
-                    # if d.attributes.ask_for_live_connection_data == true
-                    #     $http
-                    #         method: "POST"
-                    #         url:    "http://151.80.121.114:5555/api/livePrice"
-                    #         data:    
-                    #             departure: d.relationships.departure.data.id
-                    #             arrival:   d.relationships.arrival.data.id
-                    #             departure_time : d.attributes.departure_time
-                    #             arrival_time : d.attributes.arrival_time
-                    #             provider : d.relationships.provider.data.id
-                    #     .success (dataPrice) ->
-                    #         d.attributes.price_per_seat = dataPrice.data.attributes.price_per_seat
-                cb(data)
-                        # .error (err) ->
-                        #     console.log err
-                        # # cb(data)
+                tempArray = [];
+                for d in data.data
+                    if d.attributes.ask_for_live_connection_data == true
+                        tempObject = d
+                        tempArray.push tempObject
+                queryPriceBuilder tempArray, data, (_result) ->
+                        cb(_result)
             .error (err) ->
                 cb(false)
 
