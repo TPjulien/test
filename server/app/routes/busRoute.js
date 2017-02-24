@@ -83,10 +83,16 @@ module.exports = function (router, connection, mysql) {
                         } else {
 			    console.log("ça passe par idStation! ", _apiResult);
                             var urlQuery = queryBus.queryBusBuilder(idCityStart, idCityEnd, _apiResult[0].KEY, _apiResult[0].USER_ID, dateStart);
-			    console.log("la query", urlQuery);
 			    request(urlQuery, function(err, response, body) {
+				var bodyTemp = JSON.parse(body);
+				for (var i in bodyTemp['data']) {
+				    if (bodyTemp['data'][i].attributes.ask_for_live_connection_data == true) {
+					console.log("need call api");
+				    }
+				    //console.log("le prix du bousin :", bodyTemp['data'][i].attributes.ask_for_live_connection_data);
+				}
 				res.send(body);
-			    });   
+			    });
 			    //res.send(urlQuery);
 			}
 		    });
