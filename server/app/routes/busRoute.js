@@ -106,7 +106,7 @@ module.exports = function (router, connection, mysql) {
 		    arrival_time: req.body.arrival_time,
 		    provider_id: req.body.provider,
 		    language: 'fr'};
-		request({ url: 'https://api.distribusion.com/reseller/v2/connections/live', qs: proprietiesObject}, function (err, response, body) {
+		request({ url: 'https://api-demo.distribusion.com:443/reseller/v2/connections/live', qs: proprietiesObject}, function (err, response, body) {
 		    if (err) {
 			res.status(400).send("unable to call distribusion");
 		    } else {
