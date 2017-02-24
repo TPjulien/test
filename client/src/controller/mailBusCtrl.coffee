@@ -40,13 +40,13 @@ tableau
                 console.log false
 
 # méthod pour récupérer l'ensemble des trajets disponible en fonction des villes et date postés
+
     callTraject = (_data, cb) ->
             $http
                 method: "POST"
                 url:    "http://151.80.121.114:5555/api/findIdStations"
                 data:    _data
             .success (data) ->
-                console.log data
                 # for d in data.data
                     # if d.attributes.ask_for_live_connection_data == true
                     #     $http
@@ -109,17 +109,20 @@ tableau
     $scope.parseTime = (data) ->
         return new Date(1970, 0, 1).setSeconds(data);
 
-    $scope.select_trajet_aller = (trajet,include) ->
+    $scope.select_trajet_aller = (trajet,included) ->  
         $scope.ObjtAller =
             attributes: trajet
-            includes: include
+            includes: included
             uid : decode[0].UID
             site_id: decode[0].site_id
+    
+    $scope.SelectRadio = (rowIndex) ->
+        $scope.clicked = rowIndex
 
-    $scope.select_trajet_retour  = (trajet,include) ->
+    $scope.select_trajet_retour  = (trajet,included) ->
         $scope.ObjtRetour =
             attributes: trajet
-            includes: include
+            includes: included
             uid : decode[0].UID
             site_id: decode[0].site_id
 

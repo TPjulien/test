@@ -118,7 +118,7 @@
                 </div>
             </form>
         </div>
-        <div class="animate-show row" ng-show="step =='2'">
+        <div class="animate-show" ng-show="step =='2'" class="row">
             <div class="row">
                 <div class="col s6">
                     <p class="white_bus p_label nexa" >Aller :</p>
@@ -132,7 +132,7 @@
             </div>
             <div ng-if="trajetsResult.data.length > 0"  class="col s12">
                 <div class="row">
-                    <md-radio-group ng-model="select_aller">
+                    <md-radio-group ng-model="select_aller"  ng-change="select_trajet_aller(select_aller,trajetsResult.included)">
                         <div  ng-repeat="trajet in trajetsResult.data" class="col s12 m6 l4">
                             <!--ng-class="select_retour == trajet ? 'red' : 'blue'" -->
                             <div  style="     cursor: pointer;   margin-right: 10px;" class="card horizontal">
@@ -221,7 +221,7 @@
                 </div>
             </div>
         </div>
-        <div class="animate-show row" ng-show="step =='2'">
+        <div class="animate-show" ng-show="step =='2'" class="row">
             <div ng-if="aller_retour == 'aller_retour' " class="row">
                 <div class="col s6">
                     <p class="white_bus p_label nexa" >Retour :</p>
@@ -236,8 +236,9 @@
 
             <div ng-if="trajetsResult_return.data.length > 0"  class="col s12">
                 <div class="row">
-                    <md-radio-group ng-model="select_retour">
+                    <md-radio-group ng-model="select_retour" ng-change="select_trajet_retour(select_retour,trajetsResult_return.included)">
                         <div  ng-repeat="trajet in trajetsResult_return.data" class="col s12 m6 l4">
+                            
                             <!--ng-class="select_retour == trajet ? 'red' : 'blue'" -->
                             <div  style="     cursor: pointer;   margin-right: 10px;" class="card horizontal">
                             <div class="card-image col s4">
@@ -312,7 +313,6 @@
                             </div>
                         </div>
                     </md-radio-group>
-                    {{select_retour.type}}
                 </div>
             </div>
             <div ng-if="trajetsResult_return.data.length == 0" class="div_nodispo col s12">
@@ -327,42 +327,41 @@
             </div>
         </div>
     </div>
-
-    <div ng-show=" step == '2' && select_retour.type == 'connections' "  class="animate-show footer_reservation">
+    <div ng-show="step =='2' && (ObjtRetour || ObjtAller)"  class="animate-show footer_reservation">
         <div class="container">
             <div class="row">
-                <div ng-show="select_retour.attributes.customer_currency == 'EUR' " class="col s5">
+                <div ng-show="ObjtAller" class="col s5">
                     <div class="row" style="margin-top:15px;margin-bottom: 0"><span>ALLER</span></div>
                     <div class="row" style="font-size: 13px;">
                         <div class="row">
                             <div class="col s12">
                                 <div class="col s2" style="background-color: #fff; box-shadow: 0 1px 3px rgba(0,0,0,.1);text-align: center ">
                                     <div style="padding: 5px" >
-                                        <span style="font-size: 17px;" class="col s12">{{parseDate(select_aller.attributes.departure_time) | date:'EEEE'}} </span>
-                                        <span style="font-size: 14px;" class="col s12">{{parseDate(select_aller.attributes.departure_time) | date:'dd'}} </span>
-                                        <span style="font-size: 17px; margin-bottom: 5px;" class="col s12">{{parseDate(select_aller.attributes.departure_time) | date:'MMMM'}} </span>
+                                        <span style="font-size: 17px;" class="col s12">{{parseDate(ObjtAller.attributes.attributes.departure_time) | date:'EEEE'}} </span>
+                                        <span style="font-size: 14px;" class="col s12">{{parseDate(ObjtAller.attributes.attributes.departure_time) | date:'dd'}} </span>
+                                        <span style="font-size: 17px; margin-bottom: 5px;" class="col s12">{{parseDate(ObjtAller.attributes.attributes.departure_time) | date:'MMMM'}} </span>
                                     </div>
                                 </div>
                                 <div class="col s6">
                                     <div class="col s12">
                                         <div style="margin-top: 10px;">
                                             <div class="col s6">
-                                                <span class="truncate" style="font-size: 14px;padding-left:5px" >{{ select_aller.includes.stations[0].attributes.name}} </span>
+                                                <span class="truncate" style="font-size: 14px;padding-left:5px" >{{ ObjtAller.includes.stations[0].attributes.name}} </span>
                                             </div>
                                             <div class="col s1">    
                                                 <span style="font-size: 14px;" ><img src="../img/next_gris.svg" width="15" height="15">  </span>
                                             </div>
                                             <div class="col s5"> 
-                                                <span class="truncate" style="font-size: 14px;" > {{ select_aller.includes.stations[1].attributes.name}} </span>
+                                                <span class="truncate" style="font-size: 14px;" > {{ ObjtAller.includes.stations[1].attributes.name}} </span>
                                             </div>
                                             <div class="col s6">
-                                                <span class="truncate" style="font-size: 14px;padding-left:5px" >{{parseDate(select_aller.attributes.attributes.departure_time) | date:'HH:mm'}} </span>
+                                                <span class="truncate" style="font-size: 14px;padding-left:5px" >{{parseDate(ObjtAller.attributes.attributes.departure_time) | date:'HH:mm'}} </span>
                                             </div>
                                             <div class="col s1">
                                                 <span style="font-size: 14px;" ><img src="../img/next_gris.svg" width="15" height="15">  </span>
                                             </div>
                                             <div class="col s5"> 
-                                                <span class="truncate" style="font-size: 14px;" > {{parseDate(select_aller.attributes.attributes.arrival_time) | date:'HH:mm'}} </span>
+                                                <span class="truncate" style="font-size: 14px;" > {{parseDate(ObjtAller.attributes.attributes.arrival_time) | date:'HH:mm'}} </span>
                                             </div>
                                         </div>
                                     </div>
@@ -370,7 +369,7 @@
                                 <div class="col s3">
                                     <div style="padding: 5px" >
                                         <span style="font-size: 15px;" class="truncate col s12">Temps de trajet </span>
-                                        <span style="font-size: 17px; margin-bottom: 5px;" class="col s9">{{parseTime(select_aller.attributes.attributes.duration_in_seconds) |  date: 'HH:mm' }} </span>
+                                        <span style="font-size: 17px; margin-bottom: 5px;" class="col s9">{{parseTime(ObjtAller.attributes.attributes.duration_in_seconds) |  date: 'HH:mm' }} </span>
                                         <span class="col s3"><img style="margin-left: -15px" src="../img/timer.svg" width="25" height="25"></span>
                                     </div>
                                 </div>
@@ -378,7 +377,7 @@
                         </div>
                     </div>
                 </div>
-                <!--<div ng-show="select_retour" class="col s5">
+                <div ng-show="ObjtRetour" class="col s5">
                     <div class="row" style="margin-top:15px;margin-bottom: 0"><span>RETOUR</span></div>
                     <div class="row" style="font-size: 13px;">
                         <div class="row">
@@ -424,9 +423,9 @@
                             </div>
                         </div>
                     </div>
-                </div>-->
-                <!--<div ng-if="aller_retour === 'aller_retour'" class="col s2">
-                    <div ng-show="select_aller && select_retour">
+                </div>
+                <div ng-if="aller_retour === 'aller_retour'" class="col s2">
+                    <div ng-show="ObjtAller && ObjtRetour">
                         <div style="margin-top: 15px" class="row">
                             <div class="col s8">
                                 <span style="padding-left: 40px">
@@ -435,7 +434,7 @@
                             </div>
                             <div class="col s4">
                                 <span style="font-family: Nexa_bold; padding-left: 40px; font-size: 30px;">
-                                     {{ ((select_aller.attributes.attributes.price_per_seat /100 ) + 4.99 ) + ((ObjtRetour.attributes.attributes.price_per_seat /100 ) + 4.99 ) | currency:"€" : 2 }}
+                                     {{ ((ObjtAller.attributes.attributes.price_per_seat /100 ) + 4.99 ) + ((ObjtRetour.attributes.attributes.price_per_seat /100 ) + 4.99 ) | currency:"€" : 2 }}
                                 </span>
                             </div>
                         </div>
@@ -443,9 +442,9 @@
                             <md-button  ng-click="confirm()" class="button_confirm">Réserver</md-button>
                         </div>
                     </div>
-                </div>-->
-                <!--<div ng-if="aller_retour === 'aller'" class="col s2">
-                    <div ng-show="select_aller">
+                </div>
+                <div ng-if="aller_retour === 'aller'" class="col s2">
+                    <div ng-show="ObjtAller">
                         <div style="margin-top: 15px" class="row">
                             <div class="col s8">
                                 <span style="padding-left: 40px">
@@ -454,7 +453,7 @@
                             </div>
                             <div class="col s4">
                                 <span style="font-family: Nexa_bold; padding-left: 40px; font-size: 30px;">
-                                    {{ ((select_aller.attributes.attributes.price_per_seat /100 ) + 4.99 ) | currency:"€" : 2 }}
+                                    {{ ((ObjtAller.attributes.attributes.price_per_seat /100 ) + 4.99 ) | currency:"€" : 2 }}
                                 </span>
                             </div>
                         </div>
@@ -462,7 +461,7 @@
                             <md-button  ng-click="confirm()" class="button_confirm">Réserver</md-button>
                         </div>
                     </div>
-                </div>-->
+                </div>
         </div>
     </div>
 </div>
