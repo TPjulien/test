@@ -130,42 +130,121 @@
                     </span>                 
                 </div>
             </div>
-            <div ng-if="trajetsResult.data.length > 0" class="col s12">
-                <table class="highlight responsive-table centered table_trajet">
+                       <div ng-if="trajetsResult.data.length > 0"  class="col s12">
+                <div class="row">
+                    <md-radio-group ng-model="select_retour">
+                        <div  ng-repeat="trajet in trajetsResult.data" class="col s12 m6 l4">
+                            <!--ng-class="select_retour == trajet ? 'red' : 'blue'" -->
+                            <div  style="     cursor: pointer;   margin-right: 10px;" class="card horizontal">
+                            <div class="card-image col s4">
+                                <div style=" padding-top: 50% !important; height: 100%;    width: 100%;   text-align: center;color:white;
+                                box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);background-color: #da3b3b;"class="col s4">
+                                    <div>
+                                        <div style="padding-top: 5px" class=" nexa row col s12">
+                                            TARIF
+                                        </div>
+                                        <div class="nexa_bold row col s12" style="font-size: 25px;">
+                                            45£
+                                        </div>
+                                        <div class="col s12">
+                                            <md-radio-button value="{{trajet}}" style="margin-left: 40%;" class="nexa white_bus"></md-radio-button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-stacked col s8">
+                                
+                                <div class="card-top-chris">
+                                        <div class="col s2">
+                                            <img src="../img/bus_black.svg" width="25" height="25">
+                                        </div>
+                                        <div class="nexa col s5">
+                                            Départ
+                                        </div>
+                                        <div class="nexa col s5">
+                                            <span>
+                                                Bruxelles
+                                            </span>
+                                        </div>
+
+                                </div>
+                                <div style="padding-bottom: 0;" class="card-content">
+                                    <div class="row">
+                                        <div class="col s5">
+                                            <span class="nexa_bold"style="float:left;margin-left: 10px;    font-size: 20px;" >12H05</span>
+                                        </div>
+                                        <div class="col s2">
+                                            <img src="../img/next_new.svg" width="40" height="30">
+                                        </div>
+                                        <div class="col s5">
+                                            <span class="nexa_bold"style="float:right;margin-right: 10px;    font-size: 20px;">15H05</span>
+                                        </div>
+
+                                    </div>
+                                    <div class="row">
+                                        <div class="col s2">
+                                            <img src="../img/timer.svg" width="25" height="25">
+                                        </div>
+                                        <div class="col s9">
+                                            <span>3H00 </span>
+                                            <span class="nexa" style="color: grey; font-size: 12px">(temps de trajet)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-action">
+                                    <div class="col s2">
+                                        <img src="../img/briefcase.svg" width="25" height="25">
+                                    </div>
+                                    <div class="nexa col s5">
+                                        Arrivée
+                                    </div>
+                                    <div class="nexa col s5">
+                                        <span>
+                                            Paris
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </md-radio-group>
+
+                </div>
+                <!--<table class="highlight responsive-table centered table_trajet">
                     <thead>
-                    <tr class="row" style="height:50px">
-                        <th class="col s4 marg1 helvi" data-field="stationStart">Station départ - Heure départ </th>
-                        <th class="col s4 marg1 helvi" data-field="stationArrival">Station arrivée - Heure arrivée</th>
-                        <th class="col s1 marg1 helvi" data-field="tempsTrajet">Temps de trajet</th>
+                    <tr style="height:50px">
+                        <th class="col s4 marg1" data-field="stationStart">Départ: Station - Heure </th>
+                        <th class="col s4 marg1" data-field="stationArrival">Arrivée: Station - Heure </th>
+                        <th class="col s1 marg1" data-field="tempsTrajet">Temps de trajet</th>
                         <th class="col s1 marg1 helvi" data-field="tempsTrajet">Tarif</th>
-                        <th class="col s2 marg1 helvi" data-field="tempsTrajet">Réserver</th>
+                        <th class="col s2 marg1" data-field="tempsTrajet">Réserver</th>
                     </tr>
                     </thead>
 
                     <tbody>
-                        <tr ng-repeat="trajet in trajetsResult.data">
-                            <td style="height:50px"class="col s4 td_trajet marg1">
-                                <span ng-repeat="station in trajetsResult.included.stations">
-                                    <span class="helvi truncate" ng-if="station.id == trajet.relationships.departure.data.id">{{ station.attributes.name}} - {{parseDate(trajet.attributes.departure_time) | date: 'dd-MM-yyyy HH:mm'}} </span>
-                                </span>
-                            </td>
-                            <td style="height:50px"class="col s4 td_trajet marg1">
-                                <span ng-repeat="station in trajetsResult.included.stations">
-                                    <span class="helvi truncate" ng-if="station.id == trajet.relationships.arrival.data.id">{{ station.attributes.name}} - {{parseDate(trajet.attributes.arrival_time) | date: 'dd-MM-yyyy HH:mm'}} </span>
-                                </span>
-                            </td>
-                            <td style="height:50px"class="col s1 td_trajet marg1 helvi">{{parseTime(trajet.attributes.duration_in_seconds) |  date: 'HH:mm' }}</td>
-                            <td style="height:50px"class="col s1 td_trajet marg1 ">
-                                <span ng-if="trajet.attributes.price_per_seat" class="helvi">{{ ((trajet.attributes.price_per_seat /100 ) + 4.99 )| currency:"€" : 2 }}</span>
-                                <span ng-if="!trajet.attributes.price_per_seat" class="helvi">indisponible</span>
-                            </td>
-                            <td style="height:50px"class="col s2 td_trajet marg1 helvi">
-                                <md-button ng-if="trajet.attributes.available === true"  ng-click="select_trajet_aller(trajet,trajetsResult.included )" style="width: 85%; margin: 0;" class="md-raised">Choisir</md-button>
-                                <md-button ng-if="trajet.attributes.available === false" ng-disabled="true"  ng-click="select_trajet_retour(trajet,trajetsResult.included )" style="width: 85%; margin: 0;" class="md-raised">Indisponible</md-button>
-                            </td> 
-                        </tr>
+                    <tr ng-repeat="trajet in trajetsResult_return.data">
+                        <td style="height:50px"class="col s4 td_trajet marg1">
+                            <span ng-repeat="station in trajetsResult_return.included.stations">
+                                <span class="helvi truncate" ng-if="station.id == trajet.relationships.departure.data.id">{{ station.attributes.name}} - {{parseDate(trajet.attributes.departure_time) | date: 'HH:mm'}} </span>
+                            </span>
+                        </td>
+                        <td style="height:50px"class="col s4 td_trajet marg1">
+                            <span ng-repeat="station in trajetsResult_return.included.stations">
+                                <span class="helvi truncate" ng-if="station.id == trajet.relationships.arrival.data.id">{{ station.attributes.name}} - {{parseDate(trajet.attributes.arrival_time) | date: 'HH:mm'}} </span>
+                            </span>
+                        </td>
+                        <td style="height:50px"class="col s1 td_trajet marg1 helvi">{{parseTime(trajet.attributes.duration_in_seconds) |  date: 'HH:mm' }}</td>
+                        <td style="height:50px"class="col s1 td_trajet marg1 ">
+                            <span ng-if="trajet.attributes.price_per_seat" class="helvi">{{ ((trajet.attributes.price_per_seat /100 ) + 4.99 )| currency:"€" : 2 }}</span>
+                            <span ng-if="!trajet.attributes.price_per_seat" class="helvi">indisponible</span>
+                        </td>
+                        <td style="height:50px"class="col s2 td_trajet marg1 helvi">
+                            <md-button ng-if="trajet.attributes.available === true" ng-click="select_trajet_retour(trajet,trajetsResult_return.included )" style="width: 85%; margin: 0;" class="md-raised">Choisir</md-button>
+                            <md-button ng-if="trajet.attributes.available === false" ng-disabled="true" ng-click="select_trajet_retour(trajet,trajetsResult_return.included )" style="width: 85%; margin: 0;" class="md-raised">Indisponible</md-button>
+                        </td>
+                    </tr>
                     </tbody>
-                </table>
+                </table>-->
             </div>
             <div ng-if="trajetsResult.data.length == 0" class="div_nodispo col s12">
                  <div class="row">
@@ -190,12 +269,92 @@
                     </span>                 
                 </div>
             </div>
+
             <div ng-if="trajetsResult_return.data.length > 0"  class="col s12">
-                <table class="highlight responsive-table centered table_trajet">
+                <div class="row">
+                    <md-radio-group ng-model="select_retour">
+                        <div  ng-repeat="trajet in trajetsResult_return.data" class="col s12 m6 l4">
+                            <!--ng-class="select_retour == trajet ? 'red' : 'blue'" -->
+                            <div  style="     cursor: pointer;   margin-right: 10px;" class="card horizontal">
+                            <div class="card-image col s4">
+                                <div style=" padding-top: 50% !important; height: 100%;    width: 100%;   text-align: center;color:white;
+                                box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);background-color: #534a9a;"class="col s4">
+                                    <div>
+                                        <div style="padding-top: 5px" class=" nexa row col s12">
+                                            PRIX
+                                        </div>
+                                        <div class="nexa_bold row col s12" style="font-size: 25px;">
+                                            45£
+                                        </div>
+                                        <div class="col s12">
+                                            <md-radio-button value="{{trajet}}" style="margin-left: 40%;" class="nexa white_bus"></md-radio-button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-stacked col s8">
+                                
+                                <div class="card-top-chris">
+                                        <div class="col s2">
+                                            <img src="../img/bus_black.svg" width="25" height="25">
+                                        </div>
+                                        <div class="nexa col s5">
+                                            Départ
+                                        </div>
+                                        <div class="nexa col s5">
+                                            <span>
+                                                Bruxelles
+                                            </span>
+                                        </div>
+
+                                </div>
+                                <div style="padding-bottom: 0;" class="card-content">
+                                    <div class="row">
+                                        <div class="col s5">
+                                            <span>12H05</span>
+                                        </div>
+                                        <div class="col s2">
+                                            <img src="../img/timeline.svg" width="25" height="25">
+                                        </div>
+                                        <div class="col s5">
+                                            <span class="nexa"style="float:right">15H05</span>
+                                        </div>
+
+                                    </div>
+                                    <div class="row">
+                                        <div class="col s2">
+                                            <img src="../img/timer.svg" width="25" height="25">
+                                        </div>
+                                        <div class="col s9">
+                                            <span>3H00 </span>
+                                            <span class="nexa" style="color: grey; font-size: 12px">(temps de trajet)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-action">
+                                    <div class="col s2">
+                                        <img src="../img/briefcase.svg" width="25" height="25">
+                                    </div>
+                                    <div class="nexa col s5">
+                                        Arrivée
+                                    </div>
+                                    <div class="nexa col s5">
+                                        <span>
+                                            Paris
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </md-radio-group>
+
+                </div>
+                <!--<table class="highlight responsive-table centered table_trajet">
                     <thead>
                     <tr style="height:50px">
-                        <th class="col s4 marg1" data-field="stationStart">Station départ - Heure départ </th>
-                        <th class="col s4 marg1" data-field="stationArrival">Station arrivée - Heure arrivée</th>
+                        <th class="col s4 marg1" data-field="stationStart">Départ: Station - Heure </th>
+                        <th class="col s4 marg1" data-field="stationArrival">Arrivée: Station - Heure </th>
                         <th class="col s1 marg1" data-field="tempsTrajet">Temps de trajet</th>
                         <th class="col s1 marg1 helvi" data-field="tempsTrajet">Tarif</th>
                         <th class="col s2 marg1" data-field="tempsTrajet">Réserver</th>
@@ -206,12 +365,12 @@
                     <tr ng-repeat="trajet in trajetsResult_return.data">
                         <td style="height:50px"class="col s4 td_trajet marg1">
                             <span ng-repeat="station in trajetsResult_return.included.stations">
-                                <span class="helvi truncate" ng-if="station.id == trajet.relationships.departure.data.id">{{ station.attributes.name}} - {{parseDate(trajet.attributes.departure_time) | date: 'dd-MM-yyyy HH:mm'}} </span>
+                                <span class="helvi truncate" ng-if="station.id == trajet.relationships.departure.data.id">{{ station.attributes.name}} - {{parseDate(trajet.attributes.departure_time) | date: 'HH:mm'}} </span>
                             </span>
                         </td>
                         <td style="height:50px"class="col s4 td_trajet marg1">
                             <span ng-repeat="station in trajetsResult_return.included.stations">
-                                <span class="helvi truncate" ng-if="station.id == trajet.relationships.arrival.data.id">{{ station.attributes.name}} - {{parseDate(trajet.attributes.arrival_time) | date: 'dd-MM-yyyy HH:mm'}} </span>
+                                <span class="helvi truncate" ng-if="station.id == trajet.relationships.arrival.data.id">{{ station.attributes.name}} - {{parseDate(trajet.attributes.arrival_time) | date: 'HH:mm'}} </span>
                             </span>
                         </td>
                         <td style="height:50px"class="col s1 td_trajet marg1 helvi">{{parseTime(trajet.attributes.duration_in_seconds) |  date: 'HH:mm' }}</td>
@@ -225,7 +384,7 @@
                         </td>
                     </tr>
                     </tbody>
-                </table>
+                </table>-->
             </div>
             <div ng-if="trajetsResult_return.data.length == 0" class="div_nodispo col s12">
                 <div class="row">
@@ -345,7 +504,7 @@
                                 </span>
                             </div>
                             <div class="col s4">
-                                <span style="padding-left: 40px; font-size: 30px;">
+                                <span style="font-family: Nexa_bold; padding-left: 40px; font-size: 30px;">
                                      {{ ((ObjtAller.attributes.attributes.price_per_seat /100 ) + 4.99 ) + ((ObjtRetour.attributes.attributes.price_per_seat /100 ) + 4.99 ) | currency:"€" : 2 }}
                                 </span>
                             </div>
@@ -364,7 +523,7 @@
                                 </span>
                             </div>
                             <div class="col s4">
-                                <span style="padding-left: 40px; font-size: 30px;">
+                                <span style="font-family: Nexa_bold; padding-left: 40px; font-size: 30px;">
                                     {{ ((ObjtAller.attributes.attributes.price_per_seat /100 ) + 4.99 ) | currency:"€" : 2 }}
                                 </span>
                             </div>

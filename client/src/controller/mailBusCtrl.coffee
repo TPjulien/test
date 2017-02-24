@@ -14,6 +14,7 @@ tableau
     $scope.ObjtAller = null;
     $scope.aller_retour = "aller_retour";
     $scope.message = null
+    $scope.select_retour = null
     
     $scope.$watch 'cityName', ->
         if $scope.cityName == null
@@ -44,14 +45,23 @@ tableau
                 url:    "http://151.80.121.114:5555/api/findIdStations"
                 data:    _data
             .success (data) ->
-                for d in data.data
-                    livePrice d, (_result) ->
-                        if (_result = false)
-                            d.attributes.price_per_seat = "Prix indisponible"
-                        else
-                            d.attributes.price_per_seat = _result;
-                console.log(data);
+                # for d in data.data
+                    # if d.attributes.ask_for_live_connection_data == true
+                    #     $http
+                    #         method: "POST"
+                    #         url:    "http://151.80.121.114:5555/api/livePrice"
+                    #         data:    
+                    #             departure: d.relationships.departure.data.id
+                    #             arrival:   d.relationships.arrival.data.id
+                    #             departure_time : d.attributes.departure_time
+                    #             arrival_time : d.attributes.arrival_time
+                    #             provider : d.relationships.provider.data.id
+                    #     .success (dataPrice) ->
+                    #         d.attributes.price_per_seat = dataPrice.data.attributes.price_per_seat
                 cb(data)
+                        # .error (err) ->
+                        #     console.log err
+                        # # cb(data)
             .error (err) ->
                 cb(false)
 

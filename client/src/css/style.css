@@ -2502,7 +2502,7 @@ _:-ms-fullscreen, :root ie {
   font-family: 'Nexa_light', Nexa_light, Arial, sans-serif!important;
 }
 .nexa_bold{
-  font-family: 'Nexa_bold', Nexa_light, Arial, sans-serif!important;
+  font-family: 'Nexa_bold', Nexa_bold, Arial, sans-serif!important;
 }
 .helvi{
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;}
@@ -2570,4 +2570,15 @@ _:-ms-fullscreen, :root .ie {
     .modern_browser {
         height: 800px !important;
     }
+  .card .card-top-chris {
+    position: relative;
+    background-color: inherit;
+    border-bottom: 1px solid rgba(160, 160, 160, 0.2);
+    padding: 20px;
+}
+.red{
+background-color: red;
+}
+.blue{
+background-color: blue;
 }
