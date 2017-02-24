@@ -1,28 +1,6 @@
-var request = require('request');
+var syncRequest = require('sync-request');
 var queryBus = require('../functions/busQueryBuilder');
-
-// pour avoir les prix en live
-function get_live_price(_departure_station_id, _arrival_station_id, _departure_time, _arrival_time, _provider_id) {
-    get_api_distribusion(function (_api) {
-        var proprietiesObject = {
-            affiliate_partner_number: _api[0].USER_ID,
-            api_key: _api[0].KEY,
-            departure_station_id: _departure_station_id,
-            arrival_station_id: _arrival_station_id,
-            departure_time: _departure_time,
-            arrival_time: _arrival_timee,
-            provider_id: _provider_id,
-            language: 'fr'
-        };
-        request({ url: 'https://api-demo.distribusion.com:443/reseller/v2/connections/live', qs: proprietiesObject }, function (err, response, body) {
-            if (err) {
-                cb(false);
-            } else {
-                cb(body);
-            }
-        })
-    });
-}
+var request = require('request');
 
 module.exports = function (router, connection, mysql) {
     // pour l'api de distribusion
@@ -38,9 +16,8 @@ module.exports = function (router, connection, mysql) {
             }
         })
     }
-
+    
     function get_api_distribusion(cb) {
-        console.log("ça passe par l'api !")
         query = "SELECT * FROM ?? WHERE ?? = ? LIMIT 1";
         table = ["alteryx.api_parameters", "API", "DISTRIBUSION"];
         query = mysql.format(query, table);
@@ -70,7 +47,7 @@ module.exports = function (router, connection, mysql) {
                 }
             })
         })
-
+    
 
     router.route('/arrivalBus/:city_name/:city_arrival')
         .get(function (req, res) {
@@ -105,23 +82,43 @@ module.exports = function (router, connection, mysql) {
                             res.status(404).send("unable to call api_parameters");
                         } else {
                             var urlQuery = queryBus.queryBusBuilder(idCityStart, idCityEnd, _apiResult[0].KEY, _apiResult[0].USER_ID, dateStart);
-                            request(urlQuery, function (err, response, body) {
-                                var bodyTemp = JSON.parse(body);
-                                for (var i in bodyTemp['data']) {
-                                    if (bodyTemp['data'][i].attributes.ask_for_live_connection_data == true) {
-                                        var getPrice = get_live_price( bodyTemp['data'][i].relationships.departure.data.id, 
-                                                                       bodyTemp['data'][i].relationships.arrival.data.id, 
-                                                                       bodyTemp['data'][i].attributes.departure_time,
-                                                                       bodyTemp['data'][i].attributes.arrival_time,
-                                                                       bodyTemp['data'][i].relationships.provider.data.id );
-                                        console.log(getPrice);
-                                    }
-                                }
-                                res.send(body);
+                            request(urlQuery, function (err, response, body) {		
+				res.send(body);
                             });
                         }
                     });
                 })
             })
         });
+    router.route('/livePrice')
+    .post(function(req, res) {
+	get_api_distribusion(function (_api) {
+	    var proprietiesObject = {
+		affiliate_partner_number: _api[0].USER_ID,
+		api_key: _api[0].KEY,
+		departure_station_id: req.body.departure_station_id,
+		arrival_station_id: req.body.arrival_station_id,
+		departure_time: req.body.departure_time,
+		arrival_time: req.body.arrival_time,
+		provider_id: req.body.provider_id,
+		language: 'fr'
+	    };
+	    request({ url: 'https://api-demo.distribusion.com:443/reseller/v2/connections/live', qs: proprietiesObject }, function(err, response, body) {
+		if (err) {
+		    console.log(err);
+		    res.status(400).send("unable to call distribusion");
+		} else {
+		    prices = JSON.parse(body);
+		    res.send({
+			"arrival_time": req.body.arrival_time,
+			"departure_time": req.body.departure_time,
+			"price" : prices.data.attributes.price_per_seat, 
+			"departure_station_id": req.body.departure_station_id,
+			"arrival_station_id": req.body.arrival_station_id,
+			"provider_id": req.body.provider_id 
+		    });
+		}
+	    });
+	})
+    })
 }
