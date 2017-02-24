@@ -21,6 +21,22 @@ tableau
         else
             $scope.getUrl = "http://151.80.121.114:5555/api/arrivalBus/"+ $scope.cityName.title + "/"
 
+    livePrice = (data, cb) ->
+        if data.attributes.ask_for_live_connection_data == true
+            $http
+                method: "POST"
+                url:    "http://151.80.121.114:5555/api/livePrice"
+                data:    
+                    departure: data.relationships.departure.data.id
+                    arrival:   data.relationships.arrival.data.id
+                    departure_time : data.attributes.departure_time
+                    arrival_time : data.attributes.arrival_time
+                    provider : data.relationships.provider.data.id
+            .success (dataPrice) ->
+                cb(dataPrice.data.attributes.price_per_seat)
+            .error (err) ->
+                console.log false
+
 # méthod pour récupérer l'ensemble des trajets disponible en fonction des villes et date postés
     callTraject = (_data, cb) ->
             $http
@@ -29,22 +45,12 @@ tableau
                 data:    _data
             .success (data) ->
                 for d in data.data
-                    console.log d
-                    if d.attributes.ask_for_live_connection_data == true
-                        $http
-                            method: "POST"
-                            url:    "http://151.80.121.114:5555/api/livePrice"
-                            data:    
-                                departure: d.relationships.departure.data.id
-                                arrival:   d.relationships.arrival.data.id
-                                departure_time : d.attributes.departure_time
-                                arrival_time : d.attributes.arrival_time
-                                provider : d.relationships.provider.data.id
-                        .success (dataPrice) ->
-                            d.attributes.price_per_seat = dataPrice.attributes.price_per_seat
-                        .error (err) ->
-                            console.log err
-
+                    livePrice d, (_result) ->
+                        if (_result = false)
+                            d.attributes.price_per_seat = "Prix indisponible"
+                        else
+                            d.attributes.price_per_seat = _result;
+                console.log(data);
                 cb(data)
             .error (err) ->
                 cb(false)

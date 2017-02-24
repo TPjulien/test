@@ -50,7 +50,8 @@
     "angular-recaptcha": "^3.2.1",
     "angularjs-datepicker": "~2.1.12",
     "angucomplete": "*",
-    "angular-i18n": "^1.6.2"
+    "angular-i18n": "^1.6.2",
+    "angular-modular-modernizr": "^0.4.1"
   },
   "resolutions": {
     "angular": "~1.5.9"

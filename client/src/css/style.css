@@ -2514,7 +2514,24 @@ _:-ms-fullscreen, :root ie {
     height: 200px;
     border-radius: 5px;
 
-  }
+_:-ms-fullscreen, :root .ie {
+    width: 100% !important;
+    margin-left: auto !important;
+    left: auto !important;
+    right: auto !important;
+    height: 1000px !important;
+}
+
+@media screen\0 {
+    .ie {
+        width: 100% !important;
+        margin-left: auto !important;
+        left: auto !important;
+        right: auto !important;
+        height: 1000px !important;
+    }
+}
+
 .error_bus{
     height: 50px;
     background-color: rgba(255, 255, 255, 0.39);
@@ -2541,3 +2558,16 @@ _:-ms-fullscreen, :root ie {
   text-align: center;
   }
 
+
+@-moz-document url-prefix() {
+    .modern_browser {
+        height: 800px !important;
+    }
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0)
+{
+    .modern_browser {
+        height: 800px !important;
+    }
+}

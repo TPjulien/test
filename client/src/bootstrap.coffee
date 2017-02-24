@@ -25,6 +25,7 @@ tableau = angular.module 'tableauApp', [
   'vcRecaptcha'
   '720kb.datepicker'
   'angucomplete'
+  'angular.modularModernizr'
 ]
 
 options = {}
