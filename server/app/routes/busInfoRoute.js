@@ -5,7 +5,7 @@ module.exports = function (router, connection, mysql) {
 
     function returnOptions(query, database, decrypt_table) {
         var options = {
-            url: 'http://api-interne-test.travelplanet.fr/api/ReadDatabase/selectMySQLPost',
+            url: 'http://api-interne.travelplanet.fr/api/ReadDatabase/selectMySQLPost',
             form: {
                 sql: query,
                 database: database,
@@ -32,7 +32,16 @@ module.exports = function (router, connection, mysql) {
                             res.status(400).send(err)
                         } else {
                             var user_mail = JSON.parse(body);
-                            res.json(user_mail);
+			    console.log("le mail", user_mail);
+			    var _resultObject = {
+				"site_id" : site_id,
+				"uid"     : uid,
+				"email"   : user_mail[0].EMAIL,
+				"first_name": _result[0].FIRST_NAME,
+				"last_name": _result[0].LAST_NAME
+			    };
+			    console.log("le resultat", _result);
+                            res.json(_resultObject);
                         }
                     })
                 }

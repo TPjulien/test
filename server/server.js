@@ -44,7 +44,7 @@ function handleDisconnect() {
         password: process.env.DB_PASSWORD,
         database: process.env.DB_DATABASE,
         port:     process.env.DB_PORT,
-        debug:    false
+        debug:    true
     });
 
     connection.connect(function(err) {
@@ -127,7 +127,7 @@ require('./app/routes/workflow')             (router, connection, mysql);
 require('./app/routes/aetmRoute')            (router, connection, mysql);
 require('./app/cassandraRoute/selectRoute')  (router, client);
 require('./app/routes/mailRoute')            (router);
-
+require('./app/routes/busInfoRoute') (router, connection, mysql);
 
 app.use('/api', router);
 
