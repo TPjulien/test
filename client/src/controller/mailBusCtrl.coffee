@@ -1,29 +1,74 @@
 tableau
 .controller 'mailBusCtrl', ($scope,$http, $sce,SweetAlert,store, jwtHelper, $q) ->
     if store.get('JWT')
-      token               = store.get('JWT')
-      decode              = jwtHelper.decodeToken(token)
-    $scope.step = '1';
-    currentDate        = new Date()
-    day                = currentDate.getDate()
-    month              = currentDate.getMonth() + 1
-    year               = currentDate.getFullYear()
-    $scope.today       =  year  + "-" + month + "-" +  day
-    $scope.cityName = "";
-    $scope.getArrivalData = "";
-    $scope.ObjtAller = null;
-    $scope.aller_retour = "aller_retour";
-    $scope.message = null
-    $scope.select_retour = null
-    $scope.select_aller = null
-    
+      token                = store.get('JWT')
+      decode               = jwtHelper.decodeToken(token)
+    $scope.step            = '1';
+    currentDate            = new Date()
+    day                    = currentDate.getDate()
+    month                  = currentDate.getMonth() + 1
+    year                   = currentDate.getFullYear()
+    $scope.today           =  year  + "-" + month + "-" +  day
+    $scope.cityName        = "";
+    $scope.comLastName = ""
+    $scope.getArrivalData  = "";
+    $scope.ObjtAller       = null;
+    $scope.aller_retour    = "aller_retour";
+    $scope.message         = null
+    $scope.select_retour   = null
+    $scope.select_aller    = null
+    $scope.forwho          = "me"
+    $scope.me_email        = "mahefa.kerraro@gmail.com"
+    $scope.checkLastName   = "http://151.80.121.114:5555/api/checkLastName/" + decode[0].site_id + decode[0].site_id + "/"
+
     $scope.$watch 'cityName', ->
         if $scope.cityName == null
             $scope.getUrl = "null"
         else
             $scope.getUrl = "http://151.80.121.114:5555/api/arrivalBus/" + $scope.cityName.title + "/"
 
-# méthod pour récupérer l'ensemble des trajets disponible en fonction des villes et date postés
+    $scope.$watch 'comLastName', ->
+        console.log $scope.comLastName
+        if $scope.comLastName == null
+            $scope.checkFirstName = "null"
+        else
+            $scope.checkFirstName = "http://151.80.121.114:5555/api/checkFirstName/" + decode[0].site_id + decode[0].site_id + "/" + $scope.comLastName + "/"
+
+    getRole = () ->
+        $scope.justTraveler = false
+        $http
+            method: "POST"
+            url:    "http://151.80.121.114:5555/api/aetmRoles"
+            data:    
+                uid : decode[0].UID
+                site_id: decode[0].site_id + decode[0].site_id
+        .success (dataRoles) ->
+                for data in dataRoles
+                    if (dataRoles.length == 1) && (data.ROLE == 'Traveler')
+                        $scope.justTraveler = true
+    getRole()
+    
+    getInfoMe = () ->
+        $http
+            method: "POST"
+            url:    "http://151.80.121.114:5555/api/userMailInfo"
+            data:    
+                uid : decode[0].UID
+                site_id: decode[0].site_id + decode[0].site_id
+        .success (data) ->
+            $scope.InfosReceiver = data
+    getInfoMe()
+
+    # getInfoCommunity = () ->
+    #     $http
+    #         method: "GET"
+    #         url:    "http://151.80.121.114:5555/api/checkProfil/site_id/first_name/last_name"
+    #         data:    
+    #             uid : decode[0].UID
+    #             site_id: decode[0].site_id + decode[0].site_id
+    #     .success (data) ->
+    #         $scope.InfosReceiver = data
+    # getInfoCommunity()
 
     callTraject = (_data, cb) ->
             $http
@@ -138,12 +183,15 @@ tableau
                 $http
                     method: "POST"
                     url:    "http://151.80.121.114:5555/api/mail"
-                    data:    
-                        attributes: trajet
-                        includes: include
-                        uid : decode[0].UID
-                        site_id: decode[0].site_id
+                    data: 
+                        depart :    $scope.ObjtAller
+                        retour :    $scope.ObjtRetour
                 .success (data) ->
                     swal 'Confirmé!', 'Vous allez recevoir prochainement un e-mail pour confirmer votre réservation.', 'success'
+                    $scope.cityName = null
+                    $scope.getArrivalData = null
+                    $scope.date_arrival = null
+                    $scope.date_departure = null
+                    $scope.step = '1'
                 .error (err) ->
                     swal 'erreur!', "Votre réservation n'a pas pu aboutir", 'error' 

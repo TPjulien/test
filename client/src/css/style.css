@@ -2358,7 +2358,7 @@ md-checkbox .md-container:after {
   text-align: center;
 }
 .white_bus{
-  color:white;
+  color:white !important;
 }
 .md-whiteframe-z1 {
     border: none !important;
@@ -2577,9 +2577,28 @@ _:-ms-fullscreen, :root .ie {
   border-bottom: 1px solid rgba(160, 160, 160, 0.2);
   padding: 20px;
 }
-.red{
-background-color: red;
+.zoomPlus{
+  -moz-transition:all linear 400ms;
+  -o-transition:all linear 400ms;
+  transition:all linear 400ms;
+  -webkit-transition:all linear 400ms;
+  transition:all linear 400ms;
+  transform: scale(1.05);
 }
-.blue{
-background-color: blue;
+.zoomMoins{
+  -moz-transition:all linear 400ms;
+  -o-transition:all linear 400ms;
+  transition:all linear 400ms;
+  -webkit-transition:all linear 400ms;
+  transition:all linear 400ms;
+  transform: scale(0.95);
+}
+.complete_community .angucomplete-holder{
+  width: 100% !important;  
+}
+.complete_communityEmail .angucomplete-holder{
+  width: 89.5% !important;  
+}
+.input_workflow:focus:disabled{
+    color: rgba(0, 0, 0, 0.62) !important;
 }
