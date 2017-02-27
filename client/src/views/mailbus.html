@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="center col s12">
-                <h3 class="white_bus nexa">Réserver votre trajet en Bus</h3>
+                <h3 class="white_bus nexa">Réserver votre trajet de Bus</h3>
             </div>
         </div>
         <div ng-show="step == '1'" class="animate-show" class="row">
@@ -35,7 +35,7 @@
                     <img style="border-radius:50%;box-shadow: 1px 2px 10px 0px rgba(0, 0, 0, 0.42);" src="../img/bus.svg" width="80" height="80">
                 </div>
                 <div class="row">
-                    <p style="font-size: larger;" class="nexa">Réserver votre trajet en Bus parmi les propositions
+                    <p style="font-size: larger;" class="nexa">Réserver votre trajet de Bus parmi les propositions
                         <p>
                 </div>
             </div>
@@ -193,9 +193,9 @@
             </div>
             <div ng-show="trajetsResult.data.length > 0" class="col s12">
                 <div class="row">
-                    <md-radio-group ng-model="select_aller" ng-change="select_trajet_aller(select_aller,trajetsResult.included)">
+                    <md-radio-group ng-model="select_aller" ng-change="select_trajet_aller(select_aller,trajetsResult.included,trajetsResult)">
                         <div ng-repeat="trajet in trajetsResult.data" class="col s12 m6 l4">
-                            <div ng-class="select_aller.attributes.departure_time == trajet.attributes.departure_time ? 'zoomPlus' : 'zoomMoins' " style="  cursor: pointer;   margin-right: 5px;" class="card horizontal">
+                            <div ng-class="select_aller.id == trajet.id  ? 'zoomPlus' : 'zoomMoins' " style="  cursor: pointer;   margin-right: 5px;" class="card horizontal">
                                 <div class="card-image col s4">
                                     <div style=" padding-top: 50% !important; height: 100%;    width: 100%;   text-align: center;color:white;
                                 box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);background-color: #da3b3b;"
@@ -290,7 +290,7 @@
             <div class="row">
                 <md-radio-group ng-model="select_retour" ng-change="select_trajet_retour(select_retour,trajetsResult_return.included)">
                     <div ng-repeat="trajet in trajetsResult_return.data" class="col s12 m6 l4">
-                        <div ng-class="select_retour.attributes.departure_time == trajet.attributes.departure_time ? 'zoomPlus' : 'zoomMoins' " style="  cursor: pointer;   margin-right: 5px;" style="     cursor: pointer;   margin-right: 20px;" class="card horizontal">
+                        <div ng-class="select_retour.id == trajet.id ? 'zoomPlus' : 'zoomMoins' " style="  cursor: pointer;   margin-right: 5px;" style="     cursor: pointer;   margin-right: 20px;" class="card horizontal">
                             <div class="card-image col s4">
                                 <div style=" padding-top: 50% !important; height: 100%;    width: 100%;   text-align: center;color:white;
                                 box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);background-color: #534a9a;"
@@ -389,13 +389,13 @@
                                 <div class="col s12">
                                     <div style="margin-top: 10px;">
                                         <div class="col s6">
-                                            <span class="truncate" style="font-size: 14px;padding-left:5px">{{ ObjtAller.includes.stations[0].attributes.name}} </span>
+                                            <span ng-repeat="station in ObjtAller.includes.stations" ng-if="ObjtAller.attributes.relationships.departure.data.id == station.id" class="truncate" style="font-size: 14px;padding-left:5px">{{ station.attributes.name}} </span>
                                         </div>
                                         <div class="col s1">
                                             <span style="font-size: 14px;"><img src="../img/next_gris.svg" width="15" height="15">  </span>
                                         </div>
                                         <div class="col s5">
-                                            <span class="truncate" style="font-size: 14px;"> {{ ObjtAller.includes.stations[1].attributes.name}} </span>
+                                            <span ng-repeat="station in ObjtAller.includes.stations" ng-if="ObjtAller.attributes.relationships.arrival.data.id == station.id"  class="truncate" style="font-size: 14px;"> {{ station.attributes.name}} </span>
                                         </div>
                                         <div class="col s6">
                                             <span class="truncate" style="font-size: 14px;padding-left:5px">{{parseDate(ObjtAller.attributes.attributes.departure_time) | date:'HH:mm'}} </span>
@@ -436,13 +436,13 @@
                                 <div class="col s12">
                                     <div style="margin-top: 10px;">
                                         <div class="col s6">
-                                            <span class="truncate" style="font-size: 14px;padding-left:5px">{{ ObjtRetour.includes.stations[0].attributes.name}} </span>
+                                            <span ng-repeat="station in ObjtRetour.includes.stations" ng-if="ObjtRetour.attributes.relationships.departure.data.id == station.id" class="truncate" style="font-size: 14px;padding-left:5px">{{ station.attributes.name }} </span>
                                         </div>
                                         <div class="col s1">
                                             <span style="font-size: 14px;"><img src="../img/next_gris.svg" width="15" height="15">  </span>
                                         </div>
                                         <div class="col s5">
-                                            <span class="truncate" style="font-size: 14px;"> {{ ObjtRetour.includes.stations[1].attributes.name}} </span>
+                                            <span ng-repeat="station in ObjtRetour.includes.stations" ng-if="ObjtRetour.attributes.relationships.arrival.data.id == station.id" class="truncate" style="font-size: 14px;"> {{ station.attributes.name }} </span>
                                         </div>
                                         <div class="col s6">
                                             <span class="truncate" style="font-size: 14px;padding-left:5px">{{parseDate(ObjtRetour.attributes.attributes.departure_time) | date:'HH:mm'}} </span>

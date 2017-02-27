@@ -13,6 +13,7 @@ tableau
     $scope.last            = ""
     $scope.getArrivalData  = "";
     $scope.ObjtAller       = null;
+    $scope.ObjtRetour      = null;
     $scope.aller_retour    = "aller_retour";
     $scope.message         = null
     $scope.select_retour   = null
@@ -138,6 +139,7 @@ tableau
         return new Date(1970, 0, 1).setSeconds(data);
 
     $scope.select_trajet_aller = (trajet,included) ->  
+        console.log trajet
         $scope.ObjtAller =
             attributes: trajet
             includes: included
@@ -153,11 +155,13 @@ tableau
             includes: included
             uid : decode[0].UID
             site_id: decode[0].site_id
+        console.log $scope.ObjtRetour 
 
     $scope.return   = () ->
-        $scope.step = '1'
         $scope.ObjtRetour = null
         $scope.ObjtAller  = null
+        $scope.step       = '1'
+
 
     $scope.select_forwho = (forwho) ->
         $scope.forwho = forwho
@@ -190,21 +194,20 @@ tableau
             closeOnCancel: true
             html : true
             }, (isConfirm) ->
-                console.log 'ok'
-            if isConfirm
-                $http
-                    method: "POST"
-                    url:    "http://151.80.121.114:5555/api/mail"
-                    data: 
-                        infoForWho : infoForWho
-                        depart :     $scope.ObjtAller
-                        retour :     $scope.ObjtRetour
-                .success (data) ->
-                    swal 'Confirmé!', 'Vous allez recevoir prochainement un e-mail pour confirmer votre réservation.', 'success'
-                    $scope.cityName = null
-                    $scope.getArrivalData = null
-                    $scope.date_arrival = null
-                    $scope.date_departure = null
-                    $scope.step = '1'
-                .error (err) ->
-                    swal 'erreur!', "Votre réservation n'a pas pu aboutir", 'error' 
+                if isConfirm
+                    $http
+                        method: "POST"
+                        url:    "http://151.80.121.114:5555/api/mail"
+                        data: 
+                            infoForWho : infoForWho
+                            depart :     $scope.ObjtAller
+                            retour :     $scope.ObjtRetour
+                    .success (data) ->
+                        swal 'Confirmé!', 'Vous allez recevoir prochainement un e-mail pour confirmer votre réservation.', 'success'
+                        $scope.cityName = null
+                        $scope.getArrivalData = null
+                        $scope.date_arrival = null
+                        $scope.date_departure = null
+                        $scope.step = '1'
+                    .error (err) ->
+                        swal 'erreur!', "Votre réservation n'a pas pu aboutir", 'error' 
