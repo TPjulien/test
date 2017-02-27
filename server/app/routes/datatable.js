@@ -76,7 +76,11 @@ module.exports = function(router, connection, mysql) {
       if (err) {
         res.status(400).send(err);
       } else {
-        res.send(new Buffer(result[0].pdf, 'binary'));
+	  if (result == null) {
+	      res.status(404).send("Unable to find blob");
+	  } else {
+              res.send(new Buffer(result[0].pdf, 'binary'));
+	  }
       }
     })
   })
