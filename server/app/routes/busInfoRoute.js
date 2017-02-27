@@ -69,7 +69,6 @@ module.exports = function (router, connection, mysql) {
                     res.status(400).send(_err);
                 } else {
                     var user_mail = JSON.parse(_body);
-		    console.log(user_mail);
                     res.json(user_mail);
                 }
             })
@@ -83,7 +82,6 @@ module.exports = function (router, connection, mysql) {
                     res.status(400).send(_err);
                 } else {
                     var user_mail = JSON.parse(_body);
-                    console.log(query);
                     res.json(user_mail);
                 }
             })
