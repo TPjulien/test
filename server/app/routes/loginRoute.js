@@ -6,7 +6,7 @@ var password     = require('../functions/password.js');
 var SamlStrategy = require('passport-saml').Strategy;
 var request      = require('request');
 var zack         = require('../functions/zack_api.js');
-require('dotenv').config({path: '/home/Preprod/.env' });
+require('dotenv').config({path: '/home/Prod/.env' });
 
 module.exports = function(router, connection, mysql) {
   var saml_data             = [];
