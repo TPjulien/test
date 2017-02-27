@@ -33,11 +33,11 @@ module.exports = function (router, connection, mysql) {
                         } else {
                             var user_mail = JSON.parse(body);
                             var _resultObject = {
-                                "site_id"    : site_id,
-                                "uid"        : uid,
-                                "email"      : user_mail[0].EMAIL,
-                                "first_name" : _result[0].FIRST_NAME,
-                                "last_name"  : _result[0].LAST_NAME
+                                "site_id": site_id,
+                                "uid": uid,
+                                "email": user_mail[0].EMAIL,
+                                "first_name": _result[0].FIRST_NAME,
+                                "last_name": _result[0].LAST_NAME
                             };
                             res.json(_resultObject);
                         }
@@ -52,7 +52,7 @@ module.exports = function (router, connection, mysql) {
             var query = " SELECT ROLE FROM ?? WHERE ?? = ? AND ?? = ? GROUP BY ??";
             var table = ["profils.view_0_role", "SITE_ID", site_id, "UID", uid, "ROLE"];
             query = mysql.format(query, table);
-            connection.query(query, function(_err, _roles) {
+            connection.query(query, function (_err, _roles) {
                 if (_err) {
                     res.status(400).send(_err);
                 } else {
@@ -60,25 +60,29 @@ module.exports = function (router, connection, mysql) {
                 }
             })
         })
-    router.route('/checkProfil/:site_id/:last_name?/:first_name?')
+    router.route('/checkLastName/:site_id/:last_name')
         .get(function (req, res) {
-            var query = "SELECT * FROM profils.view_0_bus_profil WHERE ";
-            if (req.params.last_name) {
-                query += " LAST_NAME LIKE '%" + req.params.last_name + "%' ";
-            }
-	    if (req.params.first_name && req.params.last_name) {
-                query += " AND ";
-            }
-	    if (req.params.first_name) {
-                query += " FIRST_NAME LIKE '%" + req.params.first_name + "%' ";
-            }
+            var query = "SELECT * FROM profils.view_0_bus_profil WHERE LAST_NAME='" + req.params.last_name + "'";
             query += " AND SITE_ID = '" + req.params.site_id + "'";
-            request.post(returnOptions(query, 'profils', 'EMAIL'), function(_err, _result, _body) {
+            request.post(returnOptions(query, 'profils', 'EMAIL'), function (_err, _result, _body) {
                 if (_err) {
                     res.status(400).send(_err);
                 } else {
                     var user_mail = JSON.parse(_body);
-		    console.log(user_mail);
+                    res.json(user_mail);
+                }
+            })
+        })
+    router.route('/checkFirstName/:site_id/:last_name/:first_name')
+        .get(function (req, res) {
+            var query = "SELECT * FROM profils.view_0_bus_profil WHERE FIRST_NAME='" + req.params.first_name + "' AND LAST_NAME='" + req.params.last_name + "'";
+            query += " AND SITE_ID = '" + req.params.site_id + "'";
+            request.post(returnOptions(query, 'profils', 'EMAIL'), function (_err, _result, _body) {
+                if (_err) {
+                    res.status(400).send(_err);
+                } else {
+                    var user_mail = JSON.parse(_body);
+                    console.log(user_mail);
                     res.json(user_mail);
                 }
             })
