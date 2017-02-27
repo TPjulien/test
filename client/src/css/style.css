@@ -2363,22 +2363,22 @@ md-checkbox .md-container:after {
 .md-whiteframe-z1 {
     border: none !important;
 }
-.angucomplete-holder{
+.complete_ville .angucomplete-holder{
   border: 3px solid rgb(214, 214, 214);
   background-color: white; 
   padding-left: 5px; 
   height: 51px; 
   width: 102%;
 }
-.angucomplete-holder input{
+.complete_ville .angucomplete-holder input{
   border: none;
 }
-.angucomplete-dropdown{
+.complete_ville .angucomplete-dropdown{
   border: 3px solid rgb(214, 214, 214);
   background-color: white;
   z-index: 1 !important;
   position: absolute;
-  width: 28.8%;
+  width: 27.9%;
   margin-left: -8px;
   margin-top: -20px;
 
@@ -2386,18 +2386,20 @@ md-checkbox .md-container:after {
   min-height: 5Opx;
   max-height: 250px;
 }
-.angucomplete-row:hover{
+.complete_ville .angucomplete-row:hover{
   background-color: #D6D6D6;
   padding-left: 5px;
   padding-top: 3px;
   padding-bottom: 2px;
 
 }
-.angucomplete-row{
+.complete_ville .angucomplete-row{
   padding-left: 5px;
   padding-top: 3px;
   padding-bottom: 2px
 }
+
+
 .datepicker{
   width: 99.8%
 }
@@ -2593,12 +2595,51 @@ _:-ms-fullscreen, :root .ie {
   transition:all linear 400ms;
   transform: scale(0.95);
 }
-.complete_community .angucomplete-holder{
+/*.complete_community .angucomplete-holder{
   width: 100% !important;  
-}
+}*/
 .complete_communityEmail .angucomplete-holder{
   width: 89.5% !important;  
 }
 .input_workflow:focus:disabled{
     color: rgba(0, 0, 0, 0.62) !important;
+}
+.complete_community .angucomplete-holder{
+  border: 3px solid rgb(214, 214, 214);
+  background-color: white; 
+  padding-left: 5px; 
+  height: 51px; 
+  width: 100%;
+}
+.complete_community .angucomplete-holder input{
+  border: none;
+}
+.complete_community .angucomplete-dropdown{
+  border: 3px solid rgb(214, 214, 214);
+  background-color: white;
+  z-index: 1 !important;
+  position: absolute;
+  width: 10.95%;
+  margin-left: -8px;
+  margin-top: -20px;
+
+  overflow-y: auto;
+  min-height: 5Opx;
+  max-height: 250px;
+}
+.complete_community .angucomplete-row:hover{
+  background-color: #D6D6D6;
+  padding-left: 5px;
+  padding-top: 3px;
+  padding-bottom: 2px;
+
+}
+.complete_community .angucomplete-row{
+  padding-left: 5px;
+  padding-top: 3px;
+  padding-bottom: 2px
+}
+.progress .indeterminate {
+    background-color: #b33f3f;
+}
 }
