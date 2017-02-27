@@ -13,25 +13,36 @@ module.exports = function(router) {
       }
     }
       var transporter = nodemailer.createTransport(smtpConfig);
-      var attributes = req.body.attributes.attributes;
-      var included   = req.body.includes;
+      var depart = req.body.depart;
+      var retour = req.body.retour;      
+
+      console.log(depart);
+      console.log(retour);
+
+      var mail = "<p>Bonjour, Vous venez d'effectuer une reservation sur click.travelplanet.fr et nous vous en remercions.</p>\n Nous ferons le maximum pour vous donner satisfaction.</p>\n <p>Voici un recapitulatif de votre commande : </p>\n"
       
-      console.log(included.stations[0].attributes.name);
-      console.log(included.stations[1].attributes.name);
+      if (retour) {
+	  var priceRetour = retour.attributes.attributes.price_per_seat / 100 + 4.99;
+	  mail += `<p><b>type de trajet :</b> Aller - Retour</p>\n
+	      <p><b>Prix : </b> ` + priceRetour + ` Euros</p>\n
+	      <p><b>Destination : </b> ` + retour.attributes.stations  + `--` + retour.attributes.stations + `</p>
+	      <p><b>Heure :</b>` + retour.attributes.attributes.departure_time + `--` + retour.attributes.attributes.arrival_time + `</p>`;
+      } else {
+	  mail += "<p><b>type de trajet : </b> Aller seulement</p>"
+      }
+
+      var endMail = "A Bientot sur notre site,\n L'Equipe Travel Planet."
       
+
+      
+
       // le mail a envoyer chez le client
       var mailClient = {
 	  from    : '"No-reply" <noreply@travelplanet.fr>"',
 	  to      : 'mahefa@travelplanet.fr',
 	  subject : 'Travel Planet - Confirmation de reservation Bus',
 	  text    : 'Travel Planet',
-	  html    : `<h1>Bonjour, les crédentials</h1>
-	      <p>Le prix : ` + attributes.price_per_seat + `</p>` +
-	      `<p>ville de Départ : ` + included.stations[0].attributes.name + `</p>` + 
-	      "<p>ville de D'arrivée : " + included.stations[1].attributes.name + `</p>` + 
-	      `<p>date et heure du départ : ` + attributes.departure_time + `</p>` +
-	      "<p>date et heure d'arivée : " + attributes.arrival_time + `</p>` +
-	      `<p>durée du trajet : ` + attributes.duration_in_seconds + `</p>`
+	  html    : mail
       };
 
 
