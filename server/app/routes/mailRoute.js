@@ -38,7 +38,7 @@ module.exports = function(router) {
 
       // depart.includes
       var _departStations = getStationsName(depart.attributes.relationships, depart.includes.stations);
-         
+      console.log("le result", _departStations);
       var mail = `
           <div style="height:50px; width:100%; background-color: #2E5284;color: #2E5284;"></div>
            <div style="text-align: center">
@@ -53,13 +53,13 @@ module.exports = function(router) {
             `      
           if (retour) {
             var _retourStations = getStationsName(retour.attributes.relationships, retour.includes.stations);
-            var price = (retour.attributes.attributes.price_per_seat / 100) + (aller.attributes.attributes.price_per_seat / 100);
+            var price = (retour.attributes.attributes.price_per_seat / 100) + (depart.attributes.attributes.price_per_seat / 100);
             mail += `<p><b>type de trajet :</b> Aller - Retour</p>
                      <p><b>Aller -> </b>
-                     <p><b>Destination : </b>  De ` + _departStations.depart  + `vers ` + _departStations.arrive + `</p>
+                     <p><b>Destination : </b>  De ` + _departStations[0].depart  + ` vers ` + _departStations[1].arrive + `</p>
                      <p><b>Heure :</b>` + depart.attributes.attributes.departure_time + `</p>
                      <p><b>Retour -> </b>
-                      <p><b>Destination : </b>  De ` + _retourStations.depart  + `vers ` + _retourStations.arrive + `</p>
+                      <p><b>Destination : </b>  De ` + _retourStations[0].depart  + ` vers ` + _retourStations[1].arrive + `</p>
                      <p><b>Heure :</b>` + retour.attributes.attributes.departure_time + `</p>;
                      <p><b>Prix : </b> ` + price + ` €</p>`
               } else {
