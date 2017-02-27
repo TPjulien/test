@@ -61,7 +61,7 @@ module.exports = function(router) {
                      <p><b>Retour -> </b>
                       <p><b>Destination : </b>  De ` + _retourStations[0].depart  + ` vers ` + _retourStations[1].arrive + `</p>
                      <p><b>Heure :</b>` + retour.attributes.attributes.departure_time + `</p>;
-                     <p><b>Prix : </b> ` + price + ` €</p>`
+                     <p><b>Prix : </b> ` + Math.round(price).toFixed(2) + ` €</p>`
               } else {
             mail += `<p><b>type de trajet : </b> Aller seulement</p>
                      <p><b>Destination : </b>  De ` + _departStations.depart  + `vers ` + _departStations.arrive + `</p>
