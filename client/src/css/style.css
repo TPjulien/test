@@ -1,4 +1,4 @@
-B1;4205;0c@font-face {
+@font-face {
     font-family: Nexa_light;
     src: url("../fonts/Nexa_Light.otf");
 }
@@ -2347,7 +2347,6 @@ md-checkbox .md-container:after {
  left: 0;
  top: 0;
 }
-<<<<<<< HEAD
 .body_bus{
   height: 104%;
   width: 102%;
@@ -2519,10 +2518,6 @@ _:-ms-fullscreen, :root ie {
 }
 
 _:-ms-fullscreen, :root .ie {
-=======
-
-_:-ms-fullscreen, :root ie {
->>>>>>> correction internet explorer
     width: 100% !important;
     margin-left: auto !important;
     left: auto !important;
@@ -2538,7 +2533,6 @@ _:-ms-fullscreen, :root ie {
         right: auto !important;
         height: 1000px !important;
     }
-<<<<<<< HEAD
 }
 
 .error_bus{
@@ -2647,4 +2641,5 @@ _:-ms-fullscreen, :root ie {
 }
 .progress .indeterminate {
     background-color: #b33f3f;
+}
 }
