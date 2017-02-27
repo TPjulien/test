@@ -2,13 +2,14 @@ var syncRequest = require('sync-request');
 var queryBus = require('../functions/busQueryBuilder');
 var request = require('request');
 var currentWeekNumber = require('current-week-number');
+var shortid           = require('shortid');
 module.exports = function (router, connection, mysql) {
     
     // markup
-    var d = new Date();
-    var month = d.getMonth();
+    var d       = new Date();
+    var month   = d.getMonth();
     var weekDay = d.getDay();
-    var hour = d.getHours();
+    var hour    = d.getHours();
     // pour l'api de distribusion
     function get_id_stations(city, cb) {
         var query = "SELECT * FROM ?? WHERE ?? = ?";
@@ -111,6 +112,9 @@ module.exports = function (router, connection, mysql) {
 						    }
 						}
 					    }
+					    for (var data in datas.data) {
+						datas.data[data].id = shortid.generate();
+					    } 
 					    res.send(datas);
 					}
 				    })
@@ -156,7 +160,9 @@ module.exports = function (router, connection, mysql) {
 					prices.data.attributes.price_per_seat = prices.data.attributes.price_per_seat + numberTemp;
 				    }
 				}
+				
 				res.send({
+				    "id" : shortid.generate(),
 				    "arrival_time": req.body.arrival_time,
 				    "departure_time": req.body.departure_time,
 				    "price": prices.data.attributes.price_per_seat,
