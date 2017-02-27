@@ -29,52 +29,69 @@ module.exports = function(router) {
       }
     }
       var transporter = nodemailer.createTransport(smtpConfig);
-      var depart = req.body.depart;
-      var retour = req.body.retour;
+      var depart     = req.body.depart;
+      var retour     = req.body.retour;
+      var infoForWho = req.body.infoForWho;
 
       //console.log("aller départ : ", depart.attributes.relationships.departure.data.id, "aller retour : ", depart.attributes.relationships.arrival.data.id);
       //console.log("retour départ : ", retour.attributes.relationships.departure.data.id, "retour retour : ", retour.attributes.relationships.arrival.data.id);
 
       // depart.includes
       var _departStations = getStationsName(depart.attributes.relationships, depart.includes.stations);
-      var _retourStations = getStationsName(retour.attributes.relationships, retour.includes.stations);
-      
-      console.log("depart", _departStations);
-      console.log("retour", _retourStations);
-      
-      var mail = "<p>Bonjour, Vous venez d'effectuer une reservation sur click.travelplanet.fr et nous vous en remercions.</p>\n Nous ferons le maximum pour vous donner satisfaction.</p>\n <p>Voici un recapitulatif de votre commande : </p>\n"
-      
-      if (retour) {
-	  var priceRetour = retour.attributes.attributes.price_per_seat / 100 + 4.99;
-	  mail += `<p><b>type de trajet :</b> Aller - Retour</p>\n
-	      <p><b>Prix : </b> ` + priceRetour + ` Euros</p>\n
-	      <p><b>Destination : </b> ` + retour.attributes.stations  + `--` + retour.attributes.stations + `</p>
-	      <p><b>Heure :</b>` + retour.attributes.attributes.departure_time + `--` + retour.attributes.attributes.arrival_time + `</p>`;
-      } else {
-	  mail += "<p><b>type de trajet : </b> Aller seulement</p>"
-      }
+         
+      var mail = `
+          <div style="height:50px; width:100%; background-color: #2E5284;color: #2E5284;"></div>
+           <div style="text-align: center">
+            <br>
+            <img src="http://jobs.travelplanet.pro/wp-content/uploads/2017/02/Travel-Planet.png" width="200" height="100"><br>
+          <div>
+          <div style="text-align: justify"><br>
+            Bonjour ` + infoForWho.receiveFirstName + `
+            <br><br>
+            <p>Vous venez d'effectuer une reservation sur click.travelplanet.fr et nous vous en remercions.Nous ferons le maximum pour vous donner satisfaction.</p> <p>Voici un recapitulatif de votre commande : </p>
+            
+            `      
+          if (retour) {
+            var _retourStations = getStationsName(retour.attributes.relationships, retour.includes.stations);
+            var price = (retour.attributes.attributes.price_per_seat / 100) + (aller.attributes.attributes.price_per_seat / 100);
+            mail += `<p><b>type de trajet :</b> Aller - Retour</p>
+                     <p><b>Aller -> </b>
+                     <p><b>Destination : </b>  De ` + _departStations.depart  + `vers ` + _departStations.arrive + `</p>
+                     <p><b>Heure :</b>` + depart.attributes.attributes.departure_time + `</p>
+                     <p><b>Retour -> </b>
+                      <p><b>Destination : </b>  De ` + _retourStations.depart  + `vers ` + _retourStations.arrive + `</p>
+                     <p><b>Heure :</b>` + retour.attributes.attributes.departure_time + `</p>;
+                     <p><b>Prix : </b> ` + price + ` €</p>`
+              } else {
+            mail += `<p><b>type de trajet : </b> Aller seulement</p>
+                     <p><b>Destination : </b>  De ` + _departStations.depart  + `vers ` + _departStations.arrive + `</p>
+                     <p><b>Heure :</b>` + depart.attributes.attributes.departure_time + `</p>`
+              }
 
-      var endMail = "A Bientot sur notre site,\n L'Equipe Travel Planet."
+      var endMail = `<br><br><br><br>
+                    Tristan Dessain-Gelinet,<br>
+                    Directeur Général, - Travel Planet<br>
+                    <br>
+                    <div>
+                    <div style="height:50px; width:100%; background-color: #2E5284;">&nbsp;</div>`
       
-
-      
-
+      mail += endMail 
       // le mail a envoyer chez le client
       var mailClient = {
-	  from    : '"No-reply" <noreply@travelplanet.fr>"',
-	  to      : 'mahefa@travelplanet.fr',
-	  subject : 'Travel Planet - Confirmation de reservation Bus',
-	  text    : 'Travel Planet',
-	  html    : mail
-      };
+        from    : '"No-reply" <noreply@travelplanet.fr>"',
+        to      : 'mahefa@travelplanet.fr',
+        subject : 'Travel Planet - Confirmation de reservation Bus',
+        text    : 'Travel Planet',
+        html    : mail
+          };
 
     // le mail à envoyer chez Travel
     var mailTravel = {
       from    : '"No-reply" <noreply@travelplanet.fr>',
-      to      : 'mahefa@travelplanet.fr',
-      subject : "Prise de contact",
-      text    : 'Demande de contact client 👥',
-      html    : "Doppin'low"
+      to      :  infoForWho.receiveEmail,
+      subject : "Prise de commande",
+      text    : 'Prise de commande',
+      html    :  mail
     };
 
     transporter.sendMail(mailClient, function(error) {

@@ -19,7 +19,6 @@ tableau
     $scope.select_retour   = null
     $scope.select_aller    = null
     $scope.forwho          = "me"
-    $scope.me_email        = "mahefa.kerraro@gmail.com"
     $scope.checkLastName   = "http://151.80.121.114:5555/api/checkLastName/" + decode[0].site_id + decode[0].site_id + "/"
     $scope.loading         = false
 
