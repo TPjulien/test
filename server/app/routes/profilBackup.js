@@ -28,13 +28,14 @@ module.exports = function(router, connection, mysql) {
                   }
             })
         })
-    router.route('/emails/:site_id/:uid')
+    // à changer
+    router.route('/userInfo/:site_id/:uid')
         .get(function(req, res){
           var query = "SELECT * FROM view_0_email WHERE SITE_ID ='" + req.params.site_id +  "' AND UID ='" + req.params.uid + "'";
           request.post(returnOptions(query, 'profils', 'EMAIL'), function(err, result, body) {
             if (err){
               res.status(400).send(err)
-          }else{
+          } else {
               var body_parsed = JSON.parse(body);
               res.json(body_parsed);
             }
