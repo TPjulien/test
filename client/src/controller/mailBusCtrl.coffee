@@ -19,25 +19,25 @@ tableau
     $scope.select_retour   = null
     $scope.select_aller    = null
     $scope.forwho          = "me"
-    $scope.checkLastName   = "http://151.80.121.114:5555/api/checkLastName/" + decode[0].site_id + decode[0].site_id + "/"
+    $scope.checkLastName   = "https://api.tp-control.travelplanet.fr/checkLastName/" + decode[0].site_id + decode[0].site_id + "/"
     $scope.loading         = false
 
     $scope.$watch 'cityName', ->
         if $scope.cityName == null
             $scope.getUrl = "null"
         else
-            $scope.getUrl = "http://151.80.121.114:5555/api/arrivalBus/" + $scope.cityName.title + "/"
+            $scope.getUrl = "https://api.tp-control.travelplanet.fr/arrivalBus/" + $scope.cityName.title + "/"
 
     $scope.checkFirstName = (last) ->
          if last != undefined 
             $scope.comLast = last
-            return "http://151.80.121.114:5555/api/checkFirstName/" + decode[0].site_id + decode[0].site_id + "/" + last.title + "/"           
+            return "https://api.tp-control.travelplanet.fr/checkFirstName/" + decode[0].site_id + decode[0].site_id + "/" + last.title + "/"           
 
     getRole = () ->
         $scope.justTraveler = false
         $http
             method: "POST"
-            url:    "http://151.80.121.114:5555/api/aetmRoles"
+            url:    "https://api.tp-control.travelplanet.fr/aetmRoles"
             data:    
                 uid : decode[0].UID
                 site_id: decode[0].site_id + decode[0].site_id
@@ -50,7 +50,7 @@ tableau
     getInfoMe = () ->
         $http
             method: "POST"
-            url:    "http://151.80.121.114:5555/api/userMailInfo"
+            url:    "https://api.tp-control.travelplanet.fr/userMailInfo"
             data:    
                 uid : decode[0].UID
                 site_id: decode[0].site_id + decode[0].site_id
@@ -61,7 +61,7 @@ tableau
     callTraject = (_data, cb) ->
             $http
                 method: "POST"
-                url:    "http://151.80.121.114:5555/api/findIdStations"
+                url:    "https://api.tp-control.travelplanet.fr/findIdStations"
                 data:    _data
             .success (_busResult) ->
                 tempArray = [];
@@ -79,7 +79,7 @@ tableau
                         arrival_time         : array.attributes.arrival_time
                         provider_id          : array.relationships.provider.data.id
                         site_id              : decode[0].site_id
-                    getRequest.push($http.post 'http://151.80.121.114:5555/api/livePrice', bodyRequest);
+                    getRequest.push($http.post 'https://api.tp-control.travelplanet.fr/livePrice', bodyRequest);
                 $q.all(
                     getRequest
                 ).then (data) ->
@@ -87,6 +87,7 @@ tableau
                         for liveData in data
                             if (d.relationships.departure.data.id == liveData.data.departure_station_id && d.relationships.arrival.data.id == liveData.data.arrival_station_id && d.relationships.provider.data.id == liveData.data.provider_id && d.attributes.arrival_time == liveData.data.arrival_time && d.attributes.departure_time == liveData.data.departure_time)
                                 d.attributes.price_per_seat = liveData.data.price
+                                console.log liveData.data.price
                 cb(_busResult)
             .error (err) ->
                 cb(false)
@@ -138,12 +139,12 @@ tableau
         return new Date(1970, 0, 1).setSeconds(data);
 
     $scope.select_trajet_aller = (trajet,included) ->  
-        console.log trajet
         $scope.ObjtAller =
             attributes: trajet
             includes: included
             uid : decode[0].UID
             site_id: decode[0].site_id
+        console.log "objtAller", $scope.ObjtAller 
     
     $scope.SelectRadio = (rowIndex) ->
         $scope.clicked = rowIndex
@@ -154,7 +155,7 @@ tableau
             includes: included
             uid : decode[0].UID
             site_id: decode[0].site_id
-        console.log $scope.ObjtRetour 
+        console.log "ObjetRetour", $scope.ObjtRetour 
 
     $scope.return   = () ->
         $scope.ObjtRetour = null
@@ -196,17 +197,13 @@ tableau
                 if isConfirm
                     $http
                         method: "POST"
-                        url:    "http://151.80.121.114:5555/api/mail"
+                        url:    "https://api.tp-control.travelplanet.fr/mail"
                         data: 
                             infoForWho : infoForWho
                             depart :     $scope.ObjtAller
                             retour :     $scope.ObjtRetour
                     .success (data) ->
                         swal 'Confirmé!', 'Vous allez recevoir prochainement un e-mail pour confirmer votre réservation.', 'success'
-                        $scope.cityName = null
-                        $scope.getArrivalData = null
-                        $scope.date_arrival = null
-                        $scope.date_departure = null
-                        $scope.step = '1'
+                        # $route.reload()
                     .error (err) ->
                         swal 'erreur!', "Votre réservation n'a pas pu aboutir", 'error' 
