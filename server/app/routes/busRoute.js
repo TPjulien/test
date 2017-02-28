@@ -26,7 +26,6 @@ module.exports = function (router, connection, mysql) {
         })
     }
 
-
     function get_id_stations_2(city) {
         return new Promise(function (res, rej) {
             var query = "SELECT * FROM ?? WHERE ?? = ?";
@@ -40,6 +39,22 @@ module.exports = function (router, connection, mysql) {
                 }
             })
         })
+    }
+
+    function get_api_distribusion_2() {
+        return new Promise(function (_resolve, _reject){
+            query = "SELECT * FROM ?? WHERE ?? = ? LIMIT 1";
+            table = ["alteryx.api_parameters", "API", "DISTRIBUSION"];
+            query = mysql.format(query, table);
+            connection.query(query, function (err, _idApi) {
+                if (err) {
+                    _reject(err);
+                } else {
+                    _resolve(_idApi);
+                }
+            })
+        })
+        
     }
 
     function get_api_distribusion(cb) {
@@ -95,18 +110,27 @@ module.exports = function (router, connection, mysql) {
     //la partie la plus délicate de juju
     router.route('/findIdStationsJuju')
         .post(function (req, res) {
-            var idCityRetour = null;
-            var dateStart = req.body.dateStart;
+            var idDate        = req.body.dateStart;
             var idStationsPromises = [];
+            // depart et arrivée
             var idCityDepart = get_id_stations_2(req.body.cityStart).then(function (_result) { return Q(_result) });
+            var idCityArrive = get_id_stations_2(req.body.cityEnd).then(function (_result) { return Q(_result) });
+            // API KEY
+            var api = get_api_distribusion_2().then(function(_result){ return Q(_result) });
+            idStationsPromises.push(idCityDepart, idCityArrive, api);
 
-            if (req.body.cityEnd) {
-                var idCityRetour = get_id_stations_2(req.body.cityEnd).then(function (_result) { return Q(_result) });
-                idStationsPromises.push(idCityDepart);
-            }
-
+            // premier call 
             Q.all(idStationsPromises).then(function (_result) {
-                console.log(_result);
+                // la query
+                // 0 = ville de depart, 1 = ville d'arrivée, 2 = api
+                var urlQuery = queryBus.queryBusBuilder(, _result[0], _result[1], _result[2].KEY, _result[2].USER_ID, idDate);
+                request(urlQuery, function(err, response, body) {
+                    if (err) {
+                        res.status(400).send(err);
+                    } else {
+                        res.send(body);
+                    }
+                })
             });
         })
 
