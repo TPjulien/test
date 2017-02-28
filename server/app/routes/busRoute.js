@@ -1,17 +1,17 @@
-var queryBus 			= require('../functions/busQueryBuilder');
-var request 			= require('request');
-var currentWeekNumber   = require('current-week-number');
-var shortid          	= require('shortid');
-var Promise 			= require('promise');
-var Q 					= require('q');
+var queryBus = require('../functions/busQueryBuilder');
+var request = require('request');
+var currentWeekNumber = require('current-week-number');
+var shortid = require('shortid');
+var Promise = require('promise');
+var Q = require('q');
 
 module.exports = function (router, connection, mysql) {
-    
+
     // markup
-    var d       = new Date();
-    var month   = d.getMonth();
+    var d = new Date();
+    var month = d.getMonth();
     var weekDay = d.getDay();
-    var hour    = d.getHours();
+    var hour = d.getHours();
     // pour l'api de distribusion
     function get_id_stations(city, cb) {
         var query = "SELECT * FROM ?? WHERE ?? = ?";
@@ -25,21 +25,21 @@ module.exports = function (router, connection, mysql) {
             }
         })
     }
-	
-	
-	function get_id_stations_juju(city) {
-		return new Promise(function (res, rej){
-			var query = "SELECT * FROM ?? WHERE ?? = ?";
-			var table = ['distribusion.stations', 'city_name', city];
-			query = mysql.format(query, table);
-			connection.query(query, function (err, _idStations) {
-				if (err) {
-					rej(err);
-				} else {
-					res(_idStations);
-				}
-			})
-		})
+
+
+    function get_id_stations_2(city) {
+        return new Promise(function (res, rej) {
+            var query = "SELECT * FROM ?? WHERE ?? = ?";
+            var table = ['distribusion.stations', 'city_name', city];
+            query = mysql.format(query, table);
+            connection.query(query, function (err, _idStations) {
+                if (err) {
+                    rej(err);
+                } else {
+                    res(_idStations);
+                }
+            })
+        })
     }
 
     function get_api_distribusion(cb) {
@@ -91,25 +91,25 @@ module.exports = function (router, connection, mysql) {
                 }
             })
         })
-		
-	//la partie la plus délicate de juju
-	router.route('/findIdStationsJuju')
-		.post(function (req, res){
-			var manyPromises = [];
-			var dateStart = req.body.dateStart;
-			var mySinglePromise = get_id_stations_juju(req.body.cityStart)
-			.then(function (data){return Q(data)});
-			var mySinglePromise2 = get_id_stations_juju(req.body.cityEnd)
-			.then(function (data){return Q(data)});
-			manyPromises.push(mySinglePromise);
-			manyPromises.push(mySinglePromise2);
-			console.log("hello", manyPromises);
-			console.log("###########################################");
-			Q.all(manyPromises).then(function (data){
-				console.log(data);
-			});
-		})
-		
+
+    //la partie la plus délicate de juju
+    router.route('/findIdStationsJuju')
+        .post(function (req, res) {
+            var idCityRetour = null;
+            var dateStart = req.body.dateStart;
+            var idStationsPromises = [];
+            var idCityDepart = get_id_stations_2(req.body.cityStart).then(function (_result) { return Q(_result) });
+
+            if (req.body.cityEnd) {
+                var idCityRetour = get_id_stations_2(req.body.cityEnd).then(function (_result) { return Q(_result) });
+                idStationsPromises.push(idCityDepart);
+            }
+
+            Q.all(idStationsPromises).then(function (_result) {
+                console.log(_result);
+            });
+        })
+
 
     // la partie la plus délicate
     router.route('/findIdStations')
@@ -127,35 +127,35 @@ module.exports = function (router, connection, mysql) {
                         } else {
                             var urlQuery = queryBus.queryBusBuilder(idCityStart, idCityEnd, _apiResult[0].KEY, _apiResult[0].USER_ID, dateStart);
                             request(urlQuery, function (err, response, body) {
-				if (err) {
-				    res.status(400).send(err);
-				} else {
-				    var query = "SELECT ??,?? FROM ?? WHERE ?? = ? AND ?? = ? AND ?? = ? AND ?? = ? AND ?? = ? LIMIT 1";
-				    var table = ["type", "value", "distribusion.markup", "SITE_ID", req.body.site_id, "WEEK_NUM", currentWeekNumber(), "MONTH_NUM", month, "WEEK_DAY", weekDay, "HOUR", hour];
-				    query = mysql.format(query, table);
-				    connection.query(query, function(err, _queryResult) {
-					if (err) {
-					    res.status(400).send(err);
-					} else {
-					    var datas = JSON.parse(body);
-					    if (_queryResult.length != 0)  {
-						for (var data in datas.data) {
-						    if (_queryResult[0].type == "markup") {
-							var numberTemp = _queryResult[0].value * 100;
-							datas.data[data].attributes.price_per_seat = datas.data[data].attributes.price_per_seat + numberTemp ;
-						    } else if (_queryResult[0].type == "taux") {
-							var numberTemp = datas.data[data].attributes.price_per_seat * (_queryResult[0].value / 100);
-							datas.data[data].attributes.price_per_seat = datas.data[data].attributes.price_per_seat + numberTemp;
-						    }
-						}
-					    }
-					    for (var data in datas.data) {
-						datas.data[data].id = shortid.generate();
-					    } 
-					    res.send(datas);
-					}
-				    })
-				}
+                                if (err) {
+                                    res.status(400).send(err);
+                                } else {
+                                    var query = "SELECT ??,?? FROM ?? WHERE ?? = ? AND ?? = ? AND ?? = ? AND ?? = ? AND ?? = ? LIMIT 1";
+                                    var table = ["type", "value", "distribusion.markup", "SITE_ID", req.body.site_id, "WEEK_NUM", currentWeekNumber(), "MONTH_NUM", month, "WEEK_DAY", weekDay, "HOUR", hour];
+                                    query = mysql.format(query, table);
+                                    connection.query(query, function (err, _queryResult) {
+                                        if (err) {
+                                            res.status(400).send(err);
+                                        } else {
+                                            var datas = JSON.parse(body);
+                                            if (_queryResult.length != 0) {
+                                                for (var data in datas.data) {
+                                                    if (_queryResult[0].type == "markup") {
+                                                        var numberTemp = _queryResult[0].value * 100;
+                                                        datas.data[data].attributes.price_per_seat = datas.data[data].attributes.price_per_seat + numberTemp;
+                                                    } else if (_queryResult[0].type == "taux") {
+                                                        var numberTemp = datas.data[data].attributes.price_per_seat * (_queryResult[0].value / 100);
+                                                        datas.data[data].attributes.price_per_seat = datas.data[data].attributes.price_per_seat + numberTemp;
+                                                    }
+                                                }
+                                            }
+                                            for (var data in datas.data) {
+                                                datas.data[data].id = shortid.generate();
+                                            }
+                                            res.send(datas);
+                                        }
+                                    })
+                                }
                             });
                         }
                     });
@@ -180,33 +180,33 @@ module.exports = function (router, connection, mysql) {
                         console.log(err);
                         res.status(400).send("unable to call distribusion");
                     } else {
-			var query = "SELECT ??,?? FROM ?? WHERE ?? = ? AND ?? = ? AND ?? = ? AND ?? = ? AND ?? = ? LIMIT 1";
+                        var query = "SELECT ??,?? FROM ?? WHERE ?? = ? AND ?? = ? AND ?? = ? AND ?? = ? AND ?? = ? LIMIT 1";
                         var table = ["type", "value", "distribusion.markup", "SITE_ID", req.body.site_id, "WEEK_NUM", currentWeekNumber(), "MONTH_NUM", month, "WEEK_DAY", weekDay, "HOUR", hour];
                         query = mysql.format(query, table);
-                        connection.query(query, function(err, _queryResult) {
+                        connection.query(query, function (err, _queryResult) {
                             if (err) {
                                 res.status(400).send(err);
                             } else {
                                 var prices = JSON.parse(body);
-				if (_queryResult.length) {
-				    if (_queryResult[0].type == "markup") {
-					var numberTemp = _queryResult[0].value * 100;
-					prices.data.attributes.price_per_seat = prices.data.attributes.price_per_seat + numberTemp;
+                                if (_queryResult.length) {
+                                    if (_queryResult[0].type == "markup") {
+                                        var numberTemp = _queryResult[0].value * 100;
+                                        prices.data.attributes.price_per_seat = prices.data.attributes.price_per_seat + numberTemp;
                                     } else if (_queryResult[0].type == "taux") {
-					var numberTemp = prices.data.attributes.price_per_seat * (_queryResult[0].value / 100);
-					prices.data.attributes.price_per_seat = prices.data.attributes.price_per_seat + numberTemp;
-				    }
-				}
-				
-				res.send({
-				    "id" : shortid.generate(),
-				    "arrival_time": req.body.arrival_time,
-				    "departure_time": req.body.departure_time,
-				    "price": prices.data.attributes.price_per_seat,
-				    "departure_station_id": req.body.departure_station_id,
-				    "arrival_station_id": req.body.arrival_station_id,
-				    "provider_id": req.body.provider_id
-				});
+                                        var numberTemp = prices.data.attributes.price_per_seat * (_queryResult[0].value / 100);
+                                        prices.data.attributes.price_per_seat = prices.data.attributes.price_per_seat + numberTemp;
+                                    }
+                                }
+
+                                res.send({
+                                    "id": shortid.generate(),
+                                    "arrival_time": req.body.arrival_time,
+                                    "departure_time": req.body.departure_time,
+                                    "price": prices.data.attributes.price_per_seat,
+                                    "departure_station_id": req.body.departure_station_id,
+                                    "arrival_station_id": req.body.arrival_station_id,
+                                    "provider_id": req.body.provider_id
+                                });
                             }
                         })
                     }
