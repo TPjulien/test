@@ -1,8 +1,10 @@
-var syncRequest = require('sync-request');
-var queryBus = require('../functions/busQueryBuilder');
-var request = require('request');
-var currentWeekNumber = require('current-week-number');
-var shortid           = require('shortid');
+var queryBus 			= require('../functions/busQueryBuilder');
+var request 			= require('request');
+var currentWeekNumber   = require('current-week-number');
+var shortid          	= require('shortid');
+var Promise 			= require('promise');
+var Q 					= require('q');
+
 module.exports = function (router, connection, mysql) {
     
     // markup
@@ -22,6 +24,22 @@ module.exports = function (router, connection, mysql) {
                 cb(_idStations);
             }
         })
+    }
+	
+	
+	function get_id_stations_juju(city) {
+		return new Promise(function (res, rej){
+			var query = "SELECT * FROM ?? WHERE ?? = ?";
+			var table = ['distribusion.stations', 'city_name', city];
+			query = mysql.format(query, table);
+			connection.query(query, function (err, _idStations) {
+				if (err) {
+					rej(err);
+				} else {
+					res(_idStations);
+				}
+			})
+		})
     }
 
     function get_api_distribusion(cb) {
@@ -73,6 +91,25 @@ module.exports = function (router, connection, mysql) {
                 }
             })
         })
+		
+	//la partie la plus délicate de juju
+	router.route('/findIdStationsJuju')
+		.post(function (req, res){
+			var manyPromises = [];
+			var dateStart = req.body.dateStart;
+			var mySinglePromise = get_id_stations_juju(req.body.cityStart)
+			.then(function (data){return Q(data)});
+			var mySinglePromise2 = get_id_stations_juju(req.body.cityEnd)
+			.then(function (data){return Q(data)});
+			manyPromises.push(mySinglePromise);
+			manyPromises.push(mySinglePromise2);
+			console.log("hello", manyPromises);
+			console.log("###########################################");
+			Q.all(manyPromises).then(function (data){
+				console.log(data);
+			});
+		})
+		
 
     // la partie la plus délicate
     router.route('/findIdStations')
