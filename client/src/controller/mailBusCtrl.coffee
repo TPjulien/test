@@ -61,32 +61,9 @@ tableau
     callTraject = (_data, cb) ->
             $http
                 method: "POST"
-                url:    "https://api.tp-control.travelplanet.fr/findIdStations"
+                url:    "http://151.80.121.114:5555/api/findStations"
                 data:    _data
             .success (_busResult) ->
-                tempArray = [];
-                for d in _busResult.data
-                    if d.attributes.ask_for_live_connection_data == true
-                        tempObject = d
-                        tempArray.push tempObject
-
-                getRequest = []
-                for array in tempArray
-                    bodyRequest =
-                        departure_station_id : array.relationships.departure.data.id 
-                        arrival_station_id   : array.relationships.arrival.data.id
-                        departure_time       : array.attributes.departure_time
-                        arrival_time         : array.attributes.arrival_time
-                        provider_id          : array.relationships.provider.data.id
-                        site_id              : decode[0].site_id
-                    getRequest.push($http.post 'https://api.tp-control.travelplanet.fr/livePrice', bodyRequest);
-                $q.all(
-                    getRequest
-                ).then (data) ->
-                    for d in _busResult.data
-                        for liveData in data
-                            if (d.relationships.departure.data.id == liveData.data.departure_station_id && d.relationships.arrival.data.id == liveData.data.arrival_station_id && d.relationships.provider.data.id == liveData.data.provider_id && d.attributes.arrival_time == liveData.data.arrival_time && d.attributes.departure_time == liveData.data.departure_time)
-                                d.attributes.price_per_seat = liveData.data.price
                 cb(_busResult)
             .error (err) ->
                 cb(false)
@@ -112,7 +89,6 @@ tableau
                     cityEnd   : $scope.cityEnd.title
                     dateStart : $scope.date_depature
                     site_id              : decode[0].site_id
-            console.log postdata
             if $scope.radioTypeAR == "aller"
                 callTraject postdata, (result) ->
                     if (result != false)
@@ -128,6 +104,7 @@ tableau
                         dateStart : $scope.date_arrival
                         site_id   : decode[0].site_id
                     callTraject returndata, (returnresult) ->
+                        console.log returnresult
                         $scope.trajetsResult_return = returnresult
                         $scope.loading = false
                         $scope.step = '2'
@@ -137,23 +114,6 @@ tableau
          return data
     $scope.parseTime = (data) ->
         return new Date(1970, 0, 1).setSeconds(data);
-
-    $scope.select_trajet_aller = (trajet,included) ->  
-        $scope.ObjtAller =
-            attributes: trajet
-            includes: included
-            uid : decode[0].UID
-            site_id: decode[0].site_id
-    
-    $scope.SelectRadio = (rowIndex) ->
-        $scope.clicked = rowIndex
-
-    $scope.select_trajet_retour  = (trajet,included) ->
-        $scope.ObjtRetour =
-            attributes: trajet
-            includes: included
-            uid : decode[0].UID
-            site_id: decode[0].site_id
 
     $scope.return   = () ->
         $scope.ObjtRetour = null

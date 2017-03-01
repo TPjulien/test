@@ -188,7 +188,6 @@ tableau
         if obj.hasOwnProperty(prop)
           return true
 
-
     $scope.submit = () ->
         $scope.height          = $('#main').height()
         $scope.height          = $scope.height - 50
@@ -247,7 +246,9 @@ tableau
             $scope.selected['type']          = $scope.infosWokflow[0].TYPE
             $scope.selected['workflow_name'] = $scope.WORKFLOW_NAME
             if  $scope.selected.TP_MAIL.indexOf(string) != -1
+                console.log "postWorkflow"
                 json_data = JSON.stringify($scope.selected).replace(/\\n|\\r/g, "")
+                console.log json_data
                 $http
                   method: "POST"
                   url:    options.api.base_url + "/postWorkflow"
