@@ -126,7 +126,7 @@ require('./app/routes/email')                (router, connection, mysql);
 require('./app/routes/workflow')             (router, connection, mysql);
 require('./app/routes/aetmRoute')            (router, connection, mysql);
 require('./app/cassandraRoute/selectRoute')  (router, client);
-require('./app/routes/mailRoute')            (router);
+require('./app/routes/mailRoute')            (router, client);
 require('./app/routes/busInfoRoute') (router, connection, mysql);
 
 app.use('/api', router);
