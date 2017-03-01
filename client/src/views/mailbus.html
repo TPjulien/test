@@ -29,7 +29,7 @@
                         <div class="col s2">
                             <label class="font20 nexa white_bus">Vous reservez pour :</label>
                         </div>
-                        <md-radio-group ng-model="forwho" ng-change="select_forwho(forwho)">
+                        <md-radio-group ng-model="forwho">
                             <div class="col s2 offset-s1">
                                 <md-radio-button value="me" ng-model="forwho" class="nexa white_bus">Vous</md-radio-button>
                             </div>
@@ -60,30 +60,30 @@
                             ng-model="InfosReceiver.email" type="text" ng-disabled="true" />
                     </div>
                     <div ng-show="forwho == 'community'" style="margin-bottom: 3.24%;" class="row col s12">
-                        <label  class="font20 col s1 nexa white_bus">Nom:</label>
-                        <div class="col s2">
-                            <angucomplete class="complete_community" id="communityLastname" placeholder="place holder" pause="400" minlength="1" url="{{checkLastName}}"
-                                selectedobject="comLastName" titlefield="LAST_NAME" inputclass="" />
+                        <label  class="font20 col s1 nexa white_bus">Nom</label>
+                        <div class="col s4">
+                            <angucomplete class="complete_community" id="communityLastname" style="color:black;"placeholder="Recherche par nom ou prénom" pause="400" minlength="1" url="{{checkUser}}"
+                                selectedobject="comName" titlefield="NAME" inputclass="" />
                         </div>
-                        <label  class="font20 col s1 offset-s1 nexa white_bus">Prénom:</label>
+                        <!--<label  class="font20 col s1 offset-s1 nexa white_bus">Prénom:</label>
                         <div class="col s2">
                             <angucomplete ng-disabled="comLastName" class="complete_community" id="comFirstName" placeholder="" pause="400" minlength="1"
                                 url="{{checkFirstName(comLastName)}}" selectedobject="comFirstName" titlefield="FIRST_NAME" inputclass=""
-                            />
-                        </div>
+                            />-->
+                        <!--</div>-->
                         <label class="font20 col s1 offset-s1 nexa white_bus">E-mail:</label>
-                        <div class="col s3">
-                            <input class="input_workflow inputGreyBorder" style="width: 84%;" ng-model="comFirstName.originalObject.EMAIL" type="text" />
+                        <div class="col s5">
+                            <input class="input_workflow inputGreyBorder" style="width: 78.5%;" ng-model="comName.originalObject.EMAIL" type="text" ng-disabled="true"/>
                         </div>
                     </div>
                     <div ng-show="forwho == 'guest'" style="margin-bottom: 3.24%;" class="row col s12">
                         <label  class="font20 col s1 nexa white_bus">Nom:</label>
                         <input class="input_workflow col s2 inputGreyBorder " style="height:51px;"
-                            ng-model="guest_lastname" type="text" />
+                            ng-model="guest_firstname" type="text" />
 
                         <label  class="font20 col s1 offset-s1 nexa white_bus">Prénom:</label>
                         <input class="input_workflow col s2 inputGreyBorder" style="height:51px;"
-                            ng-model="guest_firstname" type="text" />
+                            ng-model="guest_lastname" type="text" />
 
                         <label  class="font20 col s1 offset-s1 nexa white_bus">E-mail:</label>
                         <input class="input_workflow inputGreyBorder" style="width: 21%;"
@@ -120,7 +120,7 @@
                             <div class="col s6">
                                 <img style="padding: 8px;float:right; margin-right: -15px;" src="../img/play-button.svg" width="40" height="40"></div>
                         </div>
-                        <angucomplete class="complete_ville" id="departure_city" placeholder="Sélectionnez une ville de départ" pause="400" selectedobject="cityStart"
+                        <angucomplete class="complete_ville" id="departure_city"  pause="400" selectedobject="cityStart"
                             url="http://151.80.121.114:5555/api/departureBus/" titlefield="departure_city_name, departure_country_code"
                             inputclass="" field-required="true" />
                     </div>
@@ -129,7 +129,7 @@
                             <div class="col s6"><label class="white_bus nexa villeLabel">  Ville d'arrivée : </label></div>
                             <div class="col s6"><img style="float: right;margin-right: -15px;" src="../img/racing-flags.svg" width="40" height="40"></div>
                         </div>
-                        <angucomplete class="complete_ville" id="members" placeholder="Sélectionnez une ville d'arrivée" pause="300" minlength="2"
+                        <angucomplete class="complete_ville" id="members" pause="300" minlength="2"
                             url="{{getUrl}}" selectedobject="cityEnd" titlefield="arrival_city_name" inputclass="" />
                     </div>
                 </div>
@@ -177,7 +177,7 @@
                 <div class="row">
                     <md-radio-group ng-model="ObjtAller">
                         <div ng-repeat="trajet in trajetsResult" class="col s12 m6 l4">
-                            <div ng-class="select_aller.id == trajet.id  ? 'zoomPlus' : 'zoomMoins' " style="  cursor: pointer;   margin-right: 5px;" class="card horizontal">
+                            <div ng-class="ObjtAller.id == trajet.id  ? 'zoomPlus' : 'zoomMoins' " style="  cursor: pointer;   margin-right: 5px;" class="card horizontal">
                                 
                                 <div class="card-image col s4">
                                     <div class="DivPrice backAller col s4">
@@ -243,7 +243,7 @@
                     </md-radio-group>
                 </div>
             </div>
-            <div ng-show="trajetsResult.data.length == 0" class="div_nodispo col s12">
+            <div ng-show="trajetsResult.length == 0" class="div_nodispo col s12">
                 <div class="row">
                     <img style="margin-top: 20px" src="../img/fat-boy-sorry.svg" width="100" height="100">
                 </div>
@@ -269,7 +269,7 @@
                 <div class="row">
                     <md-radio-group ng-model="ObjtRetour">
                         <div ng-repeat="trajet in trajetsResult_return" class="col s12 m6 l4">
-                            <div ng-class="select_retour.id == trajet.id  ? 'zoomPlus' : 'zoomMoins' " style=" cursor: pointer; margin-right: 5px;" class="card horizontal">
+                            <div ng-class="ObjtRetour.id == trajet.id  ? 'zoomPlus' : 'zoomMoins' " style=" cursor: pointer; margin-right: 5px;" class="card horizontal">
                                 
                                 <div class="card-image col s4">
                                     <div class="DivPrice backRetour col s4">
@@ -337,7 +337,7 @@
                     </md-radio-group>
                 </div>
             </div>
-            <div ng-show="trajetsResult_return.data.length == 0" class="div_nodispo col s12">
+            <div ng-show="trajetsResult_return.length == 0" class="div_nodispo col s12">
                 <div class="row">
                     <img style="margin-top: 20px" src="../img/fat-boy-sorry.svg" width="100" height="100">
                 </div>

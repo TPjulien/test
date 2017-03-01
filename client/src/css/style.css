@@ -2624,7 +2624,7 @@ _:-ms-fullscreen, :root .ie {
   background-color: white;
   z-index: 1 !important;
   position: absolute;
-  width: 10.95%;
+  width: 21.90%;
   margin-left: -8px;
   margin-top: -20px;
 
@@ -2689,5 +2689,19 @@ _:-ms-fullscreen, :root .ie {
 }
 .font14{
   font-size: 14px;
+}
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color:    #dbdbdb;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color:    #dbdbdb;
+   opacity:  1;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color:    #dbdbdb;
+   opacity:  1;
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+   color:    #dbdbdb;
 }
 }

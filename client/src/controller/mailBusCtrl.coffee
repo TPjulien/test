@@ -3,6 +3,7 @@ tableau
     if store.get('JWT')
       token                = store.get('JWT')
       decode               = jwtHelper.decodeToken(token)
+    console.log decode
     $scope.step            = '1';
     currentDate            = new Date()
     day                    = currentDate.getDate()
@@ -19,25 +20,26 @@ tableau
     $scope.message         = null
     $scope.last            = ""
     $scope.forwho          = "me"
-    $scope.checkLastName   = "https://api.tp-control.travelplanet.fr/checkLastName/" + decode[0].site_id + decode[0].site_id + "/"
+    $scope.checkUser       = options.api.base_url + "/checkUser/" + decode[0].site_id + decode[0].site_id + "/"
     $scope.loading         = false
 
     $scope.$watch 'cityStart', ->
         if $scope.cityStart == null
             $scope.getUrl = "null"
         else
-            $scope.getUrl = "https://api.tp-control.travelplanet.fr/arrivalBus/" + $scope.cityStart.title + "/"
+            $scope.getUrl = options.api.base_url + "/arrivalBus/" + $scope.cityStart.title + "/"
 
     $scope.checkFirstName = (last) ->
-         if last != undefined 
-            $scope.comLast = last
-            return "https://api.tp-control.travelplanet.fr/checkFirstName/" + decode[0].site_id + decode[0].site_id + "/" + last.title + "/"           
+         if last != undefined
+            if last.title
+                $scope.comLast = last
+                return options.api.base_url + "/checkFirstName/" + decode[0].site_id + decode[0].site_id + "/" + last.title + "/"           
 
     getRole = () ->
         $scope.justTraveler = false
         $http
             method: "POST"
-            url:    "https://api.tp-control.travelplanet.fr/aetmRoles"
+            url:    options.api.base_url + "/aetmRoles"
             data:    
                 uid : decode[0].UID
                 site_id: decode[0].site_id + decode[0].site_id
@@ -50,12 +52,13 @@ tableau
     getInfoMe = () ->
         $http
             method: "POST"
-            url:    "https://api.tp-control.travelplanet.fr/userMailInfo"
+            url:    options.api.base_url + "/userMailInfo"
             data:    
                 uid : decode[0].UID
                 site_id: decode[0].site_id + decode[0].site_id
         .success (data) ->
             $scope.InfosReceiver = data
+            console.log data
     getInfoMe()
 
     callTraject = (_data, cb) ->
@@ -116,33 +119,35 @@ tableau
         return new Date(1970, 0, 1).setSeconds(data);
 
     $scope.return   = () ->
-        $scope.ObjtRetour = null
-        $scope.ObjtAller  = null
+        $scope.ObjtRetour            = null
+        $scope.ObjtAller             = null
+        $scope.trajetsResult         = null
+        $scope.trajetsResult_return  = null
         $scope.step       = '1'
 
-
-    $scope.select_forwho = (forwho) ->
-        $scope.forwho = forwho
-
     $scope.confirm  = (option) ->
+        
         if $scope.forwho == 'me'
             infoForWho = 
-                receiveLastName  : $scope.InfosReceiver.last_name
-                receiveFirstName : $scope.InfosReceiver.first_name
-                receiveEmail     : $scope.InfosReceiver.email
+                fullName  : $scope.InfosReceiver.first_name + ' ' + $scope.InfosReceiver.last_name
+                email     : $scope.InfosReceiver.email
+                uid       : decode[0].UID
+            console.log infoForWho
         else if $scope.forwho == 'community'
             infoForWho = 
-                receiveLastName  : $scope.comLast.title
-                receiveFirstName : option.title
-                receiveEmail     : option.originalObject.EMAIL
+                fullName  : $scope.comName.title
+                email     : $scope.comName.originalObject.EMAIL
+                uid       : $scope.comName.originalObject.UID
+            console.log infoForWho
         else if $scope.forwho == 'guest'
             infoForWho =
-                receiveLastName  : $scope.guest_lastname 
-                receiveFirstName : $scope.guest_firstname
-                receiveEmail     : $scope.guest_email
+                fullName  : $scope.guest_lastname + ' ' + $scope.guest_firstname
+                email     : $scope.guest_email
+                uid       : decode[0].UID  
+            console.log infoForWho
         swal {
             title: "Confirmer ce voyage ?"
-            text:  "Vous êtes sur le point de réserver ce voyage pour ce voyageur : </br></br> Nom : " + infoForWho.receiveLastName + "</br> Prénom : " + infoForWho.receiveFirstName + "</br> Email : " + infoForWho.receiveEmail 
+            text:  "Vous êtes sur le point de réserver ce voyage pour ce voyageur : </br></br> Nom : " + infoForWho.fullName + "</br> Email : " + infoForWho.email 
             type:  "warning"
             showCancelButton: true
             confirmButtonColor: '#27d17f'
@@ -155,7 +160,7 @@ tableau
                 if isConfirm
                     $http
                         method: "POST"
-                        url:    "https://api.tp-control.travelplanet.fr/mail"
+                        url:    options.api.base_url + "/mail"
                         data: 
                             infoForWho : infoForWho
                             depart :     $scope.ObjtAller
