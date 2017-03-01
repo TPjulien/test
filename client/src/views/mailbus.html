@@ -34,7 +34,7 @@
                                 <md-radio-button value="me" ng-model="forwho" class="nexa white_bus">Vous</md-radio-button>
                             </div>
                             <div class="col s2 offset-s1">
-                                <md-radio-button value="community" ng-model="forwho" class="nexa white_bus">votre communauté</md-radio-button>
+                                <md-radio-button value="community" ng-model="forwho" class="nexa white_bus">un autre voyageur</md-radio-button>
                             </div>
                             <div class="col s2 offset-s1">
                                 <md-radio-button value="guest" ng-model="forwho" class="nexa white_bus">un invité</md-radio-button>
@@ -178,67 +178,68 @@
                     <md-radio-group ng-model="ObjtAller">
                         <div ng-repeat="trajet in trajetsResult" class="col s12 m6 l4">
                             <div ng-class="ObjtAller.id == trajet.id  ? 'zoomPlus' : 'zoomMoins' " style="  cursor: pointer;   margin-right: 5px;" class="card horizontal">
-                                
-                                <div class="card-image col s4">
-                                    <div class="DivPrice backAller col s4">
-                                        <div>
-                                            <div style="padding-top: 50% !important" class=" nexa row col s12">
-                                                TARIF
-                                            </div>
-                                            <div class="nexa_bold row col s12" style="font-size: 25px;">
-                                                {{ trajet.price| currency:"€" }}
-                                            </div>
-                                            <div class="col s12">
-                                                <md-radio-button aria-label="$index" ng-value={{trajet}} style="margin-left: 40%;" class="nexa white_bus"></md-radio-button>
-                                            </div>
-                                             <div>
-                                                <span style="font-size:12px" class="nexa_bold"> avec : {{ trajet.carrier_name }} </span>
+                                <!--<div ng-class="ObjtAller.id == trajet.id  ? 'grisPlus' : 'grisMoins' ">-->
+                                    <div class="card-image col s4">
+                                        <div class="DivPrice backAller col s4">
+                                            <div>
+                                                <div style="padding-top: 50% !important" class=" nexa row col s12">
+                                                    TARIF
+                                                </div>
+                                                <div class="nexa_bold row col s12" style="font-size: 25px;">
+                                                    {{ trajet.price| currency:"€" }}
+                                                </div>
+                                                <div class="col s12">
+                                                    <md-radio-button aria-label="$index" ng-value={{trajet}} style="margin-left: 40%;" class="nexa white_bus"></md-radio-button>
+                                                </div>
+                                                <div>
+                                                    <span style="font-size:12px" class="nexa_bold"> avec : {{ trajet.carrier_name }} </span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="card-stacked col s8">
-                                    <div class="card-top-chris">
-                                        <div class="col s2">
-                                            <img src="../img/bus_black.svg" width="20" height="20">
-                                        </div>
-                                        <div class="nexa col s9">
-                                            <span class="nexa truncate">{{ trajet.departure_city }} </span>
-                                        </div>
-                                    </div>
-                                    <div style="padding-bottom: 0;" class="card-content">
-                                        <div class="row">
-                                            <div class="col s5">
-                                                <span class="font20 nexa_bold" style="float:left;margin-left: 10px;"> {{ trajet.departure_time }}</span>
-                                            </div>
+                                    <div class="card-stacked col s8">
+                                        <div class="card-top-chris">
                                             <div class="col s2">
-                                                <img src="../img/next_new.svg" width="40" height="30">
+                                                <img src="../img/bus_black.svg" width="20" height="20">
                                             </div>
-                                            <div class="col s5">
-                                                <span class="font20 nexa_bold" style="float:right;margin-right: 10px;">{{ trajet.arrival_time }}</span>
+                                            <div class="nexa col s9">
+                                                <span class="nexa truncate">{{ trajet.departure_city }} </span>
                                             </div>
+                                        </div>
+                                        <div style="padding-bottom: 0;" class="card-content">
+                                            <div class="row">
+                                                <div class="col s5">
+                                                    <span class="font20 nexa_bold" style="float:left;margin-left: 10px;"> {{ trajet.departure_time }}</span>
+                                                </div>
+                                                <div class="col s2">
+                                                    <img src="../img/next_new.svg" width="40" height="30">
+                                                </div>
+                                                <div class="col s5">
+                                                    <span class="font20 nexa_bold" style="float:right;margin-right: 10px;">{{ trajet.arrival_time }}</span>
+                                                </div>
 
-                                        </div>
-                                        <div class="row">
-                                            <div style="margin-left: 10px;" class="col s2">
-                                                <img src="../img/timer.svg" width="25" height="25">
                                             </div>
-                                            <div class="col s9">
-                                                <span> {{ trajet.duration }} </span>
-                                                <span class="nexa" style="color: grey; font-size: 12px">(temps de trajet)</span>
+                                            <div class="row">
+                                                <div style="margin-left: 10px;" class="col s2">
+                                                    <img src="../img/timer.svg" width="25" height="25">
+                                                </div>
+                                                <div class="col s9">
+                                                    <span> {{ trajet.duration }} </span>
+                                                    <span class="nexa" style="color: grey; font-size: 12px">(temps de trajet)</span>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="card-action">
-                                        <div class="col s2">
-                                            <img src="../img/briefcase.svg" width="20" height="20">
-                                        </div>
-                                        <div class="nexa col s9">
-                                            <span class="nexa truncate"> {{ trajet.arrival_city }} </span>
+                                        <div class="card-action">
+                                            <div class="col s2">
+                                                <img src="../img/briefcase.svg" width="20" height="20">
+                                            </div>
+                                            <div class="nexa col s9">
+                                                <span class="nexa truncate"> {{ trajet.arrival_city }} </span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            <!--</div>-->
                         </div>
                     </md-radio-group>
                 </div>

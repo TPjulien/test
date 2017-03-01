@@ -2585,6 +2585,7 @@ _:-ms-fullscreen, :root .ie {
   padding: 20px;
 }
 .zoomPlus{
+  box-shadow: 0px 0px 25px #fff;
   -moz-transition:all linear 400ms;
   -o-transition:all linear 400ms;
   transition:all linear 400ms;
@@ -2593,6 +2594,7 @@ _:-ms-fullscreen, :root .ie {
   transform: scale(1.05);
 }
 .zoomMoins{
+  
   -moz-transition:all linear 400ms;
   -o-transition:all linear 400ms;
   transition:all linear 400ms;

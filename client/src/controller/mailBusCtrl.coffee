@@ -1,5 +1,5 @@
 tableau
-.controller 'mailBusCtrl', ($scope,$http, $sce,SweetAlert,store, jwtHelper, $q) ->
+.controller 'mailBusCtrl', ($scope,$http, $sce,SweetAlert,store, jwtHelper, $q, $state) ->
     if store.get('JWT')
       token                = store.get('JWT')
       decode               = jwtHelper.decodeToken(token)
@@ -132,18 +132,21 @@ tableau
                 fullName  : $scope.InfosReceiver.first_name + ' ' + $scope.InfosReceiver.last_name
                 email     : $scope.InfosReceiver.email
                 uid       : decode[0].UID
+                site_id   : decode[0].site_id
             console.log infoForWho
         else if $scope.forwho == 'community'
             infoForWho = 
                 fullName  : $scope.comName.title
                 email     : $scope.comName.originalObject.EMAIL
                 uid       : $scope.comName.originalObject.UID
+                site_id   : decode[0].site_id
             console.log infoForWho
         else if $scope.forwho == 'guest'
             infoForWho =
                 fullName  : $scope.guest_lastname + ' ' + $scope.guest_firstname
                 email     : $scope.guest_email
-                uid       : decode[0].UID  
+                uid       : decode[0].UID
+                site_id   : decode[0].site_id  
             console.log infoForWho
         swal {
             title: "Confirmer ce voyage ?"
@@ -167,6 +170,6 @@ tableau
                             retour :     $scope.ObjtRetour
                     .success (data) ->
                         swal 'Confirmé!', 'Vous allez recevoir prochainement un e-mail pour confirmer votre réservation.', 'success'
-                        # $route.reload()
+                        $state.reload();
                     .error (err) ->
                         swal 'erreur!', "Votre réservation n'a pas pu aboutir", 'error' 
