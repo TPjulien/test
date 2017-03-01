@@ -164,12 +164,14 @@ module.exports = function (router, connection, mysql) {
 		    // on check le result si c'est un markup ou bien un taux
 		    if (_markup.length) {
                         if (_markup[0].type == "markup") {
-                            var numberTemp = _markup[0].value * 100;
-                            pricesWithMarkup = bodyParsed.data.attributes.price_per_seat = bodyParsed.data.attributes.price_per_seat + numberTemp;
-                                } else {
-                                    var numberTemp = bodyParsed.data.attributes.price_per_seat * (_markup[0].value / 100);
-                                    pricesWithMarkup = bodyParsed.data.attributes.price_per_seat = bodyParsed.data.attributes.price_per_seat + numberTemp;
-                                }
+                            if (bodyParsed.data) {
+				var numberTemp = _markup[0].value * 100;
+				pricesWithMarkup = bodyParsed.data.attributes.price_per_seat = bodyParsed.data.attributes.price_per_seat + numberTemp;
+                            } else {
+                                var numberTemp = bodyParsed.data.attributes.price_per_seat * (_markup[0].value / 100);
+                                pricesWithMarkup = bodyParsed.data.attributes.price_per_seat = bodyParsed.data.attributes.price_per_seat + numberTemp;
+                            }
+			}
                     }
 		    _object = { "id" :  shortid.generate(),
 				"departure_city" : _departureCity,
