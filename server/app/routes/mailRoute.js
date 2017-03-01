@@ -1,5 +1,5 @@
 var nodemailer = require('nodemailer');
-
+var format     = require('format');
 module.exports = function(router) {
     function getStationsName (_object, _fullToCompare) {
 	var tab = [];
@@ -29,13 +29,10 @@ module.exports = function(router) {
       }
     }
       var transporter = nodemailer.createTransport(smtpConfig);
-      var depart     = req.body.depart;
+      var aller      = req.body.depart;
       var retour     = req.body.retour;
       var infoForWho = req.body.infoForWho;
-
-      //console.log("aller départ : ", depart.attributes.relationships.departure.data.id, "aller retour : ", depart.attributes.relationships.arrival.data.id);
-      //console.log("retour départ : ", retour.attributes.relationships.departure.data.id, "retour retour : ", retour.attributes.relationships.arrival.data.id);
-
+      var date_aller = format(new Date(aller.departure_time), 'UTC:dd-mm-yyyy');
       // depart.includes
       var _departStations = getStationsName(depart.attributes.relationships, depart.includes.stations);
       console.log("le result", _departStations);
@@ -52,20 +49,20 @@ module.exports = function(router) {
             
             `      
           if (retour) {
-            var _retourStations = getStationsName(retour.attributes.relationships, retour.includes.stations);
-            var price = (retour.attributes.attributes.price_per_seat / 100) + (depart.attributes.attributes.price_per_seat / 100);
+            var date_retour = format(new Date(retour.departure_time), 'UTC:dd-mm-yyyy');
+            var price = retour.price + depart.price;
             mail += `<p><b>type de trajet :</b> Aller - Retour</p>
                      <p><b>Aller -> </b>
-                     <p><b>Destination : </b>  De ` + _departStations[0].depart  + ` vers ` + _departStations[1].arrive + `</p>
-                     <p><b>Heure :</b>` + depart.attributes.attributes.departure_time + `</p>
+                     <p><b>Destination : </b>  De ` + aller.departure_city  + ` vers ` + aller.arrival_city + `</p>
+                     <p><b>Heure départ:</b>` + aller.departure_time  + ` le ` + date_aller + `</p>
                      <p><b>Retour -> </b>
-                      <p><b>Destination : </b>  De ` + _retourStations[0].depart  + ` vers ` + _retourStations[1].arrive + `</p>
-                     <p><b>Heure :</b>` + retour.attributes.attributes.departure_time + `</p>;
+                     <p><b>Destination : </b>  De ` + retour.departure_city  + ` vers ` + retour.arrival_city + `</p>
+                     <p><b>Heure départ:</b>` + retour.departure_time  + ` le ` + date_retour + `</p>
                      <p><b>Prix : </b> ` + Math.round(price).toFixed(2) + ` €</p>`
               } else {
             mail += `<p><b>type de trajet : </b> Aller seulement</p>
-                     <p><b>Destination : </b>  De ` + _departStations.depart  + `vers ` + _departStations.arrive + `</p>
-                     <p><b>Heure :</b>` + depart.attributes.attributes.departure_time + `</p>`
+                     <p><b>Destination : </b>  De ` + aller.departure_city  + ` vers ` + aller.arrival_city + `</p>
+                     <p><b>Heure départ:</b>` + aller.departure_time  + ` le ` + date_aller + `</p>`
               }
 
       var endMail = `<br><br><br><br>
