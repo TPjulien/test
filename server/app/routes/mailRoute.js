@@ -102,24 +102,25 @@ module.exports = function (router, client) {
       // le mail a envoyer chez le client
 
       var mailClient = {
-        from: '"No-reply" <noreply@travelplanet.fr>"',
-        to: infoForWho.email,
-        subject: 'Travel Planet - Confirmation de reservation Bus',
-        text: 'Travel Planet',
-        html: mail
+        from: '"No-reply" <noreply@travelplanet.fr>"', 
+	  to: infoForWho.email,
+	  subject: 'Travel Planet - Confirmation de reservation Bus',
+          text: 'Travel Planet',
+          html: mail
       };
-
-      request = "SELECT js_data FROM click.table1 WHERE type=? AND KEY=? AND ID=?";
-      table = ["base", "general", req.body.site_id];
+	
+      request = "SELECT js_data FROM click.table1 WHERE type=? AND key=? AND id=?";
+      table = ["base", "general", infoForWho.site_id];
       client.execute(request, table, function (err, _result) {
         if (err) {
-          res.status(400).send(err);
+            res.status(400).send(err);
         } else {
-          console.log(_result);
+	  //console.log(_result.rows[0].js_data);
+          var _js_data = JSON.parse(_result.rows[0].js_data);
           // le mail à envoyer chez Travel
           var mailTravel = {
             from: '"No-reply" <noreply@travelplanet.fr>',
-            to: 'mahefa@travelplanet.fr',
+            to: _js_data.gen_email_client,
             subject: "Prise de commande",
             text: 'Prise de commande',
             html: staffMail
@@ -133,6 +134,7 @@ module.exports = function (router, client) {
                 if (err) {
                   res.status(400).send({ "success": false, "message": err });
                 } else {
+		    //res.status(400).send("non");
                   res.status(200).send({ "result": "Sent" });
                 }
               })
