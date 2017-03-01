@@ -35,6 +35,7 @@ tableau
           data:
             workflow: $scope.WORKFLOW_NAME
         .success (data) ->
+            console.log data
             angular.forEach data.list, (value, key) ->
                 if value.TYPE == "DropDown" || value.TYPE == "ListBox"
                     $scope.listBoxs.push value
@@ -42,9 +43,12 @@ tableau
                         if valueL.VALUE_TYPE != 'query'
                           listName = valueL.NAME
                           value = valueL.VALUE;
+                          console.log value 
                           array = value.split("\n")
-                          array.pop()
+                          console.log array
+                          # array.pop()
                           $scope[listName] = array
+                          
                         else if valueL.VALUE_TYPE == 'query'
                             query = valueL.VALUE
                             $http
@@ -69,7 +73,7 @@ tableau
                           listName = valueL.NAME
                           value = valueL.VALUE;
                           array = value.split("\n")
-                          array.pop()
+                          # array.pop()
                           $scope[listName] = array
                         else if valueL.VALUE_TYPE == 'query'
                             query = valueL.VALUE
@@ -137,6 +141,7 @@ tableau
         listName = parameter.NAME
         libelle = parameter.LIBELLE
         value = parameter.VALUE;
+        # value = value.replace /^\n+|\n+$/g,""
         array = value.split("\n")
         array.pop()
         $scope[listName] = array
@@ -206,7 +211,6 @@ tableau
               $scope.string += valueD + $scope.multiple_separator
             $scope.string =  $scope.string.substring(0, $scope.string.length - 1)
         $scope.string += $scope.multiple_end
-        console.log $scope.string
         multiple[$scope.multiple_name] = $scope.string
         if $scope.multiple_name
             $scope.selected    = angular.merge(multiple,$scope.selected)

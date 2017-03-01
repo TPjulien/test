@@ -9,24 +9,24 @@ tableau
     month                  = currentDate.getMonth() + 1
     year                   = currentDate.getFullYear()
     $scope.today           =  year  + "-" + month + "-" +  day
-    $scope.cityName        = "";
-    $scope.last            = ""
-    $scope.getArrivalData  = "";
+    $scope.cityStart       = "";
+    $scope.cityEnd         = "";
     $scope.ObjtAller       = null;
     $scope.ObjtRetour      = null;
-    $scope.aller_retour    = "aller_retour";
-    $scope.message         = null
     $scope.select_retour   = null
     $scope.select_aller    = null
+    $scope.radioTypeAR    = "aller_retour";
+    $scope.message         = null
+    $scope.last            = ""
     $scope.forwho          = "me"
     $scope.checkLastName   = "https://api.tp-control.travelplanet.fr/checkLastName/" + decode[0].site_id + decode[0].site_id + "/"
     $scope.loading         = false
 
-    $scope.$watch 'cityName', ->
-        if $scope.cityName == null
+    $scope.$watch 'cityStart', ->
+        if $scope.cityStart == null
             $scope.getUrl = "null"
         else
-            $scope.getUrl = "https://api.tp-control.travelplanet.fr/arrivalBus/" + $scope.cityName.title + "/"
+            $scope.getUrl = "https://api.tp-control.travelplanet.fr/arrivalBus/" + $scope.cityStart.title + "/"
 
     $scope.checkFirstName = (last) ->
          if last != undefined 
@@ -87,33 +87,33 @@ tableau
                         for liveData in data
                             if (d.relationships.departure.data.id == liveData.data.departure_station_id && d.relationships.arrival.data.id == liveData.data.arrival_station_id && d.relationships.provider.data.id == liveData.data.provider_id && d.attributes.arrival_time == liveData.data.arrival_time && d.attributes.departure_time == liveData.data.departure_time)
                                 d.attributes.price_per_seat = liveData.data.price
-                                console.log liveData.data.price
                 cb(_busResult)
             .error (err) ->
                 cb(false)
 
     $scope.submit = ->
-        $scope.loading = true
         $scope.message = null
-        if $scope.aller_retour == "aller"
-            if !$scope.cityName.title ||  !$scope.getArrivalData.title || !$scope.date_depature  
+        if $scope.radioTypeAR == "aller"
+            if !$scope.cityStart.title ||  !$scope.cityEnd.title || !$scope.date_depature  
                 $scope.message = "L'ensemble des champs est requis pour effectuer votre recherche "
             else    
                 $scope.message = null
         else 
-            if !$scope.cityName.title ||  !$scope.getArrivalData.title || !$scope.date_depature || !$scope.date_arrival  
+            if !$scope.cityStart.title ||  !$scope.cityEnd.title || !$scope.date_depature || !$scope.date_arrival  
                 $scope.message = "L'ensemble des champs est requis pour effectuer votre recherche "
             else 
                 $scope.message = null
         if $scope.message == null
+            $scope.loading = true
             trajetsResult        = null
             trajetsResult_return = null
             postdata = 
-                    cityStart : $scope.cityName.title
-                    cityEnd   : $scope.getArrivalData.title
+                    cityStart : $scope.cityStart.title
+                    cityEnd   : $scope.cityEnd.title
                     dateStart : $scope.date_depature
                     site_id              : decode[0].site_id
-            if $scope.aller_retour == "aller"
+            console.log postdata
+            if $scope.radioTypeAR == "aller"
                 callTraject postdata, (result) ->
                     if (result != false)
                         $scope.trajetsResult = result
@@ -123,8 +123,8 @@ tableau
                 callTraject postdata, (result) ->
                     $scope.trajetsResult = result
                     returndata = 
-                        cityEnd   : $scope.cityName.title
-                        cityStart : $scope.getArrivalData.title
+                        cityEnd   : $scope.cityStart.title
+                        cityStart : $scope.cityEnd.title
                         dateStart : $scope.date_arrival
                         site_id   : decode[0].site_id
                     callTraject returndata, (returnresult) ->
@@ -144,7 +144,6 @@ tableau
             includes: included
             uid : decode[0].UID
             site_id: decode[0].site_id
-        console.log "objtAller", $scope.ObjtAller 
     
     $scope.SelectRadio = (rowIndex) ->
         $scope.clicked = rowIndex
@@ -155,7 +154,6 @@ tableau
             includes: included
             uid : decode[0].UID
             site_id: decode[0].site_id
-        console.log "ObjetRetour", $scope.ObjtRetour 
 
     $scope.return   = () ->
         $scope.ObjtRetour = null

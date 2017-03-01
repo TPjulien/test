@@ -2347,8 +2347,23 @@ md-checkbox .md-container:after {
  left: 0;
  top: 0;
 }
+@-moz-document url-prefix() {
+    .modern_browser {
+        height: 800px !important;
+    }
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0)
+{
+    .modern_browser {
+        height: 800px !important;
+}
+/******************* *************** ****************************/
+/******************* Apppli Mail Bus ****************************/
+/******************* *************** ****************************/
+
 .body_bus{
-  height: 104%;
+  height: auto;
   width: 102%;
   background-color: #D46A6A;
   margin-left: -10px;
@@ -2561,17 +2576,7 @@ _:-ms-fullscreen, :root .ie {
   text-align: center;
   }
 
-@-moz-document url-prefix() {
-    .modern_browser {
-        height: 800px !important;
-    }
-}
 
-@media screen and (-webkit-min-device-pixel-ratio:0)
-{
-    .modern_browser {
-        height: 800px !important;
-}
 
 .card .card-top-chris {
   position: relative;
@@ -2641,5 +2646,48 @@ _:-ms-fullscreen, :root .ie {
 }
 .progress .indeterminate {
     background-color: #b33f3f;
+}
+.inputGreyBorder{
+  border: 3px solid rgb(214, 214, 214) !important;    
+  background-color: white !important; 
+  padding-left: 10px !important;
+}
+.hrWhite{
+  margin-top:0; 
+  border-top: 2px solid #eee;
+}
+.imgFlat{
+  border-radius:50%;
+  box-shadow: 1px 2px 10px 0px rgba(0, 0, 0, 0.42);
+}
+.marg0{
+  margin:0 !important
+}
+.font20{
+  font-size: 20px;
+}
+.villeLabel{
+  font-size: 17px; 
+  margin: 0; 
+  margin-top: 10px;
+}
+.DivPrice{
+  height: 100%;    
+  width: 100% !important;   
+  text-align: center;
+  color:white; 
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+}
+.backAller{
+  background-color: #da3b3b;
+}
+.backRetour{
+  background-color: #534a9a;;
+}
+.font17{
+  font-size: 17px;
+}
+.font14{
+  font-size: 14px;
 }
 }
