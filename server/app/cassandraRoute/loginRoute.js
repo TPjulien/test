@@ -141,7 +141,7 @@ module.exports = function(router, client) {
                   res.status(400).send(err);
                 } else {
                   if(rows.rows.length != 0) {
-                    if (rows.rows[0].txt_value == field) {
+                    if (rows.rows[0].txt_value.toLowerCase() == field.toLowerCase()) {
                       var preToken = [{
                         "site_id"    : siteID,
                         "UID"        : result.rows[0].user_id,
