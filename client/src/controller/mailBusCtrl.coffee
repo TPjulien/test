@@ -20,7 +20,7 @@ tableau
     $scope.message         = null
     $scope.last            = ""
     $scope.forwho          = "me"
-    $scope.checkUser       = options.api.base_url + "/checkUser/" + decode[0].site_id + decode[0].site_id + "/"
+    $scope.checkUser       = "https://api.tp-control.travelplanet.fr/checkUser/" + decode[0].site_id + decode[0].site_id + "/"
     $scope.loading         = false
 
     $scope.$watch 'cityStart', ->
@@ -64,7 +64,7 @@ tableau
     callTraject = (_data, cb) ->
             $http
                 method: "POST"
-                url:    "http://151.80.121.114:5555/api/findStations"
+                url:    options.api.base_url + "/findStations"
                 data:    _data
             .success (_busResult) ->
                 cb(_busResult)
