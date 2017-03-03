@@ -2,6 +2,7 @@ tableau
   .controller 'tableauCtrl', ($scope, $http, $sce, $stateParams, jwtHelper, store,$mdDialog) ->
       token                 = store.get('JWT')
       decode                = jwtHelper.decodeToken(token)
+      console.log(decode)
       $scope.tableauToken   = []
       $scope.tableauData    = []
       $scope.tableauDisplay = "none"
@@ -13,14 +14,6 @@ tableau
       $scope.loadingText    = "Chargement de la vue en cours ..."
       $scope.urlLoadingView = "modals/loadingView.html"
       $scope.width          = false
-
-      # $mdDialog.show
-      #   controller          : 'alertTableauCtrl'
-      #   templateUrl         : 'modals/alertTableau.html'
-      #   parent              : angular.element(document.body)
-      #   clickOutsideToClose : false
-      #   escapeToClose       : false
-
 
       $scope.init = (info) ->
           $scope.tableauData = info
@@ -55,7 +48,7 @@ tableau
 
       getTableauToken = () ->
         url = options.api.base_url + '/tokenExchange'
-        $http.post url, { tableau_site : $scope.tableauData.tableau_site , user_name : user_id }
+        $http.post url, { tableau_site : $scope.tableauData.tableau_site , user_name : user_id, site_id: site_id, uid: uid }
         .then (data) ->
             $scope.tableauToken = data.data.token
             getTableau()
@@ -109,7 +102,7 @@ tableau
           )
       $scope.data_get = []
       $scope.choices  = []
-      $scope.getUnderlyingData = () ->
+      # $scope.getUnderlyingData = () ->
         # $scope.data_get = []
         # choice = $scope.viz.getWorkbook().getActiveSheet().getWorksheets()
         # angular.forEach choice, (value, key) ->
