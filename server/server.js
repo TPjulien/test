@@ -9,7 +9,7 @@ var http        = require('http');
 var passport    = require('passport');
 var cassandra   = require('cassandra-driver');
 
-require('dotenv').config({path: '/home/Prod/.env' });
+require('dotenv').config({path: '/home/Preprod/.env' });
 
 var app = express();
 
@@ -121,7 +121,7 @@ require('./app/routes/templateRoute')        (router, connection, mysql);
 require('./app/routes/datatable')         (router, connection, mysql);
 require('./app/routes/ipRoute')              (router, connection, mysql);
 require('./app/routes/profilRoute')          (router, connection, mysql);
-require('./app/routes/tableauRoute')         (router, connection, mysql);
+require('./app/routes/tableauRoute')         (router, connection, mysql, client);
 require('./app/routes/email')                (router, connection, mysql);
 require('./app/routes/workflow')             (router, connection, mysql);
 require('./app/routes/aetmRoute')            (router, connection, mysql);
