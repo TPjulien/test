@@ -229,9 +229,10 @@ tableau
             resources = []
             temp2 = {}
             angular.forEach selected, (value, key) ->
-                temp = value.toString()
-                if (/^\d+$/.test(temp) == true) and (temp.length == 9) == true
-                    temp2[key] = value
+                if (value)
+                    temp = value.toString();
+                    if (/^\d+$/.test(temp) == true) and (temp.length == 9) == true
+                        temp2[key] = value
             resources.push(temp2)
             $http.post options.api.base_url + '/downloadBlob', { values : resources, table: table, schema: schema }, responseType: 'arraybuffer'
             .then (data) ->
