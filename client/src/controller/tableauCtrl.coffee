@@ -2,7 +2,6 @@ tableau
   .controller 'tableauCtrl', ($scope, $http, $sce, $stateParams, jwtHelper, store,$mdDialog) ->
       token                 = store.get('JWT')
       decode                = jwtHelper.decodeToken(token)
-      console.log(decode)
       $scope.tableauToken   = []
       $scope.tableauData    = []
       $scope.tableauDisplay = "none"

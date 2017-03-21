@@ -3,6 +3,13 @@ tableau
     getId = $stateParams.id
     embedList = []
 
+    $scope.get_css_class = "";
+
+    if bowser.msie
+        $scope.get_css_class = "col s12 row ie";
+    else
+        $scope.get_css_class = "col s12 row";
+
     if $stateParams.embeds == null
         embedList = store.get('set')
     else

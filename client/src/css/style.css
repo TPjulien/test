@@ -2347,10 +2347,9 @@ md-checkbox .md-container:after {
  left: 0;
  top: 0;
 }
-@-moz-document url-prefix() {
-    .modern_browser {
+
+.modern_browser {
         height: 800px !important;
-    }
 }
 
 @media screen and (-webkit-min-device-pixel-ratio:0)
@@ -2573,14 +2572,12 @@ _:-ms-fullscreen, :root .ie {
     height: 1000px !important;
 }
 
-@media screen\0 {
-    .ie {
-        width: 100% !important;
-        margin-left: auto !important;
-        left: auto !important;
-        right: auto !important;
-        height: 1000px !important;
-    }
+.ie {
+    width: 100% !important;
+    margin-left: auto !important;
+    left: auto !important;
+    right: auto !important;
+    height: 1000px !important;
 }
 
 .error_bus{

@@ -19,7 +19,12 @@ tableau
     decode               = jwtHelper.decodeToken(token)
     site_id              = decode[0].site_id
 
-    console.log(site_id)
+    $scope.get_css_class = "";
+
+    if bowser.msie
+        $scope.get_css_class = "col s9 modern_browser";
+    else
+        $scope.get_css_class = "col s9";
 
     getColumnName = (info) ->
         i = 0

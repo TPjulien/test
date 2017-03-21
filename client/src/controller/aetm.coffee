@@ -19,5 +19,4 @@ tableau
             document.getElementById('formSubmit').click()
           ), 0
       .error (err) ->
-          console.log err
           toastErrorFct.toastError("Impossible de se connecter au serveur d'aetm, veuillez retenter plus tard")

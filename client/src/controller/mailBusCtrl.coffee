@@ -3,7 +3,6 @@ tableau
     if store.get('JWT')
       token                = store.get('JWT')
       decode               = jwtHelper.decodeToken(token)
-    console.log decode
     $scope.step            = '1';
     currentDate            = new Date()
     day                    = currentDate.getDate()
@@ -58,7 +57,6 @@ tableau
                 site_id: decode[0].site_id + decode[0].site_id
         .success (data) ->
             $scope.InfosReceiver = data
-            console.log data
     getInfoMe()
 
     callTraject = (_data, cb) ->
@@ -107,7 +105,6 @@ tableau
                         dateStart : $scope.date_arrival
                         site_id   : decode[0].site_id
                     callTraject returndata, (returnresult) ->
-                        console.log returnresult
                         $scope.trajetsResult_return = returnresult
                         $scope.loading = false
                         $scope.step = '2'
@@ -133,21 +130,18 @@ tableau
                 email     : $scope.InfosReceiver.email
                 uid       : decode[0].UID
                 site_id   : decode[0].site_id
-            console.log infoForWho
         else if $scope.forwho == 'community'
             infoForWho = 
                 fullName  : $scope.comName.title
                 email     : $scope.comName.originalObject.EMAIL
                 uid       : $scope.comName.originalObject.UID
                 site_id   : decode[0].site_id
-            console.log infoForWho
         else if $scope.forwho == 'guest'
             infoForWho =
                 fullName  : $scope.guest_lastname + ' ' + $scope.guest_firstname
                 email     : $scope.guest_email
                 uid       : decode[0].UID
-                site_id   : decode[0].site_id  
-            console.log infoForWho
+                site_id   : decode[0].site_id
         swal {
             title: "Confirmer ce voyage ?"
             text:  "Vous êtes sur le point de réserver ce voyage pour ce voyageur : </br></br> Nom : " + infoForWho.fullName + "</br> Email : " + infoForWho.email 

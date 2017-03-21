@@ -13,7 +13,6 @@ tableau
     $scope.comText              = "Sélection de la communauté"
 
     $scope.choosed = (data) ->
-        console.log "ceci est le login:", data
         if (data.shib != undefined)
             if (Object.keys(data.shib).length) != 0
                 $http.post options.api.base_url + '/setup', { login: data.login, url: data.shib.shib_url, field: data.shib.shib_field, siteID: data.site_id, issuer: data.shib.entity_id }
