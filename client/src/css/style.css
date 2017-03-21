@@ -8,7 +8,6 @@
 }
 
 .getIe {
-  width: 100%;
   height: 800px !important;
 }
 
@@ -2354,6 +2353,7 @@ md-checkbox .md-container:after {
 }
 
 .modern_browser {
+        width : 6% !important;
         height: 800px !important;
 }
 
