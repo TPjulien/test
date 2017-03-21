@@ -2353,8 +2353,8 @@ md-checkbox .md-container:after {
 }
 
 .modern_browser {
-        /*width : 6% !important;
-        height: 800px !important;*/
+        /*width : 6% !important;*/
+        height: 6% !important;
 }
 
 @media screen and (-webkit-min-device-pixel-ratio:0)
