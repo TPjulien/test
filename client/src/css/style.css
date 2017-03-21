@@ -7,6 +7,10 @@
     src: url("../fonts/Nexa_Bold.otf");
 }
 
+.getIe {
+  height: 800px !important;
+}
+
 .travel-colorB{
   background-color: #EEEEEE;
   /*background: -moz-linear-gradient(45deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 7%, rgba(6,46,134,1) 99%, rgba(255,255,255,1) 100%);
