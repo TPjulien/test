@@ -2419,7 +2419,7 @@ md-checkbox .md-container:after {
   width: 99.8%
 }
 
-_:-ms-fullscreen, :root ie { 
+_:-ms-fullscreen, :root .ie { 
     width: 100% !important;
     margin-left: auto !important;
     left: auto !important;
@@ -2427,6 +2427,15 @@ _:-ms-fullscreen, :root ie {
     height: 1000px !important;
 }
 
+/*internet explorer 10*/
+_:-ms-lang(x), .ie { 
+  width: 100% !important;
+    margin-left: auto !important;
+    left: auto !important;
+    right: auto !important;
+    height: 1000px !important;
+}
+/*internet 8, 9 10*/
 @media screen\0 {
     .ie {
 	width: 100% !important;
@@ -2435,7 +2444,19 @@ _:-ms-fullscreen, :root ie {
 	right: auto !important;
 	height: 1000px !important;
     }
-}.white_bus .md-container .md-off{
+}
+
+@media screen and (min-width:0\0) and (min-resolution: +72dpi) {
+      .ie {
+	width: 100% !important;
+	margin-left: auto !important;
+	left: auto !important;
+	right: auto !important;
+	height: 1000px !important;
+    }
+}
+
+.white_bus .md-container .md-off{
   border-color: white;
 }
 .white_bus .md-on{
