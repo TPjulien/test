@@ -138,7 +138,7 @@ module.exports = function (router, connection, mysql) {
             language:                 'fr'
         };	
 	return new Promise(function(_resolve, _reject) {
-	    request({ url: 'https://api-demo.distribusion.com:443/reseller/v2/connections/live', qs: proprietiesObject }, function (err, response, body) {
+	    request({ url: 'https://api.distribusion.com:443/reseller/v2/connections/live', qs: proprietiesObject }, function (err, response, body) {
 		if (err) {
 		    _reject(err);
 		} else {

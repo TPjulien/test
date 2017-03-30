@@ -139,6 +139,7 @@ module.exports = function (router, connection, mysql, client) {
 					    } else {
 						sorted_roles = sorted_roles.join('');
 					    }
+					    console.log(req.body.site_id + language + sorted_roles + req.body.uid);
 					    var options = {
 						url: 'https://data.travelplanet.fr/trusted',
 						form: {
