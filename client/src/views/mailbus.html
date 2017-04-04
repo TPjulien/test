@@ -140,13 +140,13 @@
                         </div>
                         <datepicker date-format="yyyy-MM-dd" date-min-limit="{{today}}" class="datetest ng-isolate-scope">
                             <input class="input_workflow inputGreyBorder" ng-model="date_depature" type="text" />
-                        </datepicker>
+                        </datepicker> 
                     </div>
                     <div ng-show="radioTypeAR === 'aller_retour'" class="col s5 offset-s1">
                         <div class="marg0 row">
                             <div class="col s6"><label class="white_bus nexa villeLabel">  Date de retour : </label></div>
                         </div>
-                        <datepicker date-format="yyyy-MM-dd" date-set="" date-min-limit="{{date_depature}}" class="datetest ng-isolate-scope">
+                        <datepicker date-format="yyyy-MM-dd" date-set="" date-min-limit="{{today}}" class="datetest ng-isolate-scope">
                             <input class="input_workflow inputGreyBorder" ng-model="date_arrival" type="text" />
                         </datepicker>
                     </div>
@@ -173,7 +173,7 @@
                     </span>
                 </div>
             </div>
-            <div ng-show="trajetsResult.length > 0" class="col s12">
+            <div style="max-height: 500px; overflow-y: auto; overflow-x: hidden;padding: 2% !important;border: 3px solid #b55757;" ng-show="trajetsResult.length > 0" class="col s12">
                 <div class="row">
                     <md-radio-group ng-model="ObjtAller">
                         <div ng-repeat="trajet in trajetsResult" class="col s12 m6 l4">
@@ -244,7 +244,7 @@
                     </md-radio-group>
                 </div>
             </div>
-            <div ng-show="trajetsResult.length == 0" class="div_nodispo col s12">
+            <div  ng-show="trajetsResult.length == 0" class="div_nodispo col s12">
                 <div class="row">
                     <img style="margin-top: 20px" src="../img/fat-boy-sorry.svg" width="100" height="100">
                 </div>
@@ -260,13 +260,13 @@
                 </div>
                 <div class="col s6">
                     <span ng-click="return()" style="padding-top: 15px;cursor: pointer " class="right"> 
-                                <img src="../img/back.svg" width="25" height="25">
-                                <span class="white_bus nexa">revenir à l'étape précédente</span>
+                        <img src="../img/back.svg" width="25" height="25">
+                        <span class="white_bus nexa">revenir à l'étape précédente</span>
                     </span>
                 </div>
             </div>
 
-            <div ng-show="trajetsResult_return.length > 0" class="col s12">
+            <div style="max-height: 500px; overflow-y: auto; overflow-x: hidden;padding: 2% !important; border: 3px solid #b55757;" ng-show="trajetsResult_return.length > 0" class="col s12">
                 <div class="row">
                     <md-radio-group ng-model="ObjtRetour">
                         <div ng-repeat="trajet in trajetsResult_return" class="col s12 m6 l4">
@@ -275,12 +275,8 @@
                                 <div class="card-image col s4">
                                     <div class="DivPrice backRetour col s4">
                                         <div>
-                                            <div style="padding-top: 50% !important" class=" nexa row col s12">
-                                                TARIF
-                                            </div>
-                                            <div class="nexa_bold row col s12" style="font-size: 25px;">
-                                                {{ trajet.price| currency:"€" }}
-                                            </div>
+                                            <div style="padding-top: 50% !important" class=" nexa row col s12"> TARIF </div>
+                                            <div class="nexa_bold row col s12" style="font-size: 25px;">  {{ trajet.price| currency:"€" }} </div>
                                             <div class="col s12">
                                                 <md-radio-button aria-label="$index" ng-value={{trajet}} style="margin-left: 40%;" class="nexa white_bus"></md-radio-button>
                                             </div>
@@ -326,7 +322,6 @@
                                     <div class="card-action">
                                         <div class="col s2">
                                             <img src="../img/briefcase.svg" width="20" height="20">
-
                                         </div>
                                         <div class="nexa col s9">
                                             <span class="nexa truncate"> {{ trajet.arrival_city }} </span>
