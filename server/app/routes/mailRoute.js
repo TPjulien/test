@@ -119,11 +119,12 @@ module.exports = function (router, client) {
           var _js_data = JSON.parse(_result.rows[0].js_data);
           // le mail à envoyer chez Travel
           var mailTravel = {
-            from: '"No-reply" <noreply@travelplanet.fr>',
-            to: _js_data.gen_email_client,
-            subject: "Prise de commande",
-            text: 'Prise de commande',
-            html: staffMail
+              from: '"No-reply" <noreply@travelplanet.fr>',
+              to: _js_data.gen_email_client,
+              cc: 'supportteam@travelplanet.fr',
+	      subject: "Prise de commande",
+              text: 'Prise de commande',
+              html: staffMail
           };
 
           transporter.sendMail(mailClient, function (error) {
