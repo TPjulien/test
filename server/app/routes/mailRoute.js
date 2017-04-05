@@ -121,7 +121,7 @@ module.exports = function (router, client) {
           var mailTravel = {
               from: '"No-reply" <noreply@travelplanet.fr>',
               to: _js_data.gen_email_client,
-              cc: 'supportteam@travelplanet.fr',
+              cc: 'supporteam@travelplanet.fr',
 	      subject: "Prise de commande",
               text: 'Prise de commande',
               html: staffMail
