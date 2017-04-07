@@ -167,3 +167,18 @@ tableau
                         $state.reload();
                     .error (err) ->
                         swal 'erreur!', "Votre réservation n'a pas pu aboutir", 'error' 
+
+
+                    $scope.$watch 'myDate', (value) ->
+    
+    
+    
+    $scope.$watch 'date_depature', (value) ->
+        d = new Date(value);
+        $scope.minDate = d.setDate(d.getDate())
+        $scope.minDate = new Date($scope.minDate)
+        minday         = $scope.minDate.getDate()
+        minmonth       = $scope.minDate.getMonth() + 1
+        minyear        = $scope.minDate.getFullYear()
+        $scope.minDate =  minyear  + "-" + minmonth + "-" +  minday
+        console.log "minDate",$scope.minDate
